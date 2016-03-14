@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:fitsSystemWindows="true"
-    tools:context="com.jianfanjia.cn.fragment.MyFragment">
+    tools:context="com.jianfanjia.cn.designer.fragment.MyFragment">
 
     <com.jianfanjia.cn.view.PullZoomScrollView
         android:id="@+id/setting_scrollview"

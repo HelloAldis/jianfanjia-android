@@ -15,7 +15,7 @@ import java.util.Stack;
  */
 public class AppManager {
 
-    private static Stack<Activity> activityStack = new Stack<Activity>();
+    private static Stack<Activity> activityStack = new Stack<>();
     private static AppManager instance;
 
     private AppManager() {
@@ -40,7 +40,7 @@ public class AppManager {
      */
     public void addActivity(Activity activity) {
         if (activityStack == null) {
-            activityStack = new Stack<Activity>();
+            activityStack = new Stack<>();
         }
         activityStack.add(activity);
         LogTool.d(this.getClass().getName(), currentActivity().getClass().getName());
@@ -73,7 +73,6 @@ public class AppManager {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
-            activity = null;
         }
     }
 
@@ -99,7 +98,6 @@ public class AppManager {
             Activity activity = iterator.next();
             LogTool.d(this.getClass().getName(), "activityStack.name() =" + activity.getClass().getName());
             activity.finish();
-            activity = null;
         }
         activityStack.clear();
     }

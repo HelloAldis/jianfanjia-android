@@ -206,7 +206,7 @@ public class MyNewFragment extends BaseFragment {
                 onClickCleanCache();
                 break;
             case R.id.call_layout:
-                UiHelper.callPhoneIntent(getContext(), "15927163098");
+                UiHelper.callPhoneIntent(getContext(), getString(R.string.app_phone));
                 break;
             case R.id.comment_layout:
                 startActivity(CommentListActivity_.class);

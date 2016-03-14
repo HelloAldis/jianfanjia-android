@@ -72,7 +72,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/btn_grey_white_bg"
             android:padding="@dimen/space_8"
-            android:text="@string/response"
+            android:text="@string/reply"
             android:textColor="@color/grey_color" />
 
     </RelativeLayout>
