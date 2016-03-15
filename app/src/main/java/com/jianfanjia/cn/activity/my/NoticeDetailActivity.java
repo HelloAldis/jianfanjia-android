@@ -12,9 +12,13 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.CheckActivity;
+import com.jianfanjia.cn.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NoticeDetailInfo;
+import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -38,18 +42,23 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private TextView sectionText = null;
     private TextView dateText = null;
     private WebView contentView = null;
-    private LinearLayout delayBtnLayout = null;
-    private LinearLayout checkBtnLayout = null;
-    private LinearLayout otherBtnLayout = null;
+    private LinearLayout doubleBtnLayout = null;
+    private LinearLayout singleBtnLayout = null;
     private Button btnAgree = null;
     private Button btnReject = null;
+    private Button btnCheck = null;
+    private Button btnPlan = null;
+    private Button btnContract = null;
     private Button btnConfirm = null;
-    private Button btnOther = null;
-    private String messageid = null;
 
+    private String messageid = null;
     private String processid = null;
     private String sectionName = null;
+    private String requirementid = null;
     private ProcessInfo processInfo = null;
+    private PlandetailInfo planInfo = null;
+    private RequirementInfo requirement = null;
+    private String requirementStatus = null;
 
     @Override
     public void initView() {
@@ -66,13 +75,14 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
         contentView.getSettings().setJavaScriptEnabled(true);
         contentView.setBackgroundColor(0); // 设置背景色
         contentView.setWebChromeClient(new WebChromeClient());
-        delayBtnLayout = (LinearLayout) findViewById(R.id.delayBtnLayout);
-        checkBtnLayout = (LinearLayout) findViewById(R.id.checkBtnLayout);
-        otherBtnLayout = (LinearLayout) findViewById(R.id.otherBtnLayout);
+        doubleBtnLayout = (LinearLayout) findViewById(R.id.doubleBtnLayout);
+        singleBtnLayout = (LinearLayout) findViewById(R.id.singleBtnLayout);
         btnAgree = (Button) findViewById(R.id.btnAgree);
         btnReject = (Button) findViewById(R.id.btnReject);
+        btnCheck = (Button) findViewById(R.id.btnCheck);
+        btnPlan = (Button) findViewById(R.id.btnPlan);
+        btnContract = (Button) findViewById(R.id.btnContract);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
-        btnOther = (Button) findViewById(R.id.btnOther);
         getNoticeDetailInfo(messageid);
     }
 
@@ -90,7 +100,9 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
         btnAgree.setOnClickListener(this);
         btnReject.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
-        btnOther.setOnClickListener(this);
+        btnCheck.setOnClickListener(this);
+        btnPlan.setOnClickListener(this);
+        btnContract.setOnClickListener(this);
     }
 
 
@@ -106,7 +118,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
             case R.id.btnReject:
                 refuseReschedule(processid);
                 break;
-            case R.id.btnConfirm:
+            case R.id.btnCheck:
                 Bundle checkBundle = new Bundle();
                 checkBundle.putString(Constant.SECTION, sectionName);
                 checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
@@ -114,7 +126,19 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 checkIntent.putExtras(checkBundle);
                 startActivity(checkIntent);
                 break;
-            case R.id.btnOther:
+            case R.id.btnPlan:
+                Bundle planBundle = new Bundle();
+                planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
+                planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
+                startActivity(PreviewDesignerPlanActivity.class, planBundle);
+                break;
+            case R.id.btnContract:
+                Bundle contractBundle = new Bundle();
+                contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                contractBundle.putString(Global.REQUIREMENT_STATUS, requirementStatus);
+                startActivity(ContractActivity.class, contractBundle);
+                break;
+            case R.id.btnConfirm:
                 appManager.finishActivity(this);
                 break;
             default:
@@ -139,12 +163,11 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                     typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType:" + msgType);
-                    if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
+                    if (msgType.equals(Constant.TYPE_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
-                        delayBtnLayout.setVisibility(View.VISIBLE);
-                        checkBtnLayout.setVisibility(View.GONE);
-                        otherBtnLayout.setVisibility(View.GONE);
+                        doubleBtnLayout.setVisibility(View.VISIBLE);
+                        singleBtnLayout.setVisibility(View.GONE);
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
@@ -162,38 +185,58 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                             btnReject.setEnabled(true);
                         }
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
-                        delayBtnLayout.setVisibility(View.GONE);
-                        checkBtnLayout.setVisibility(View.GONE);
-                        otherBtnLayout.setVisibility(View.VISIBLE);
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.caigou_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_PAY_MSG)) {
-                        delayBtnLayout.setVisibility(View.GONE);
-                        checkBtnLayout.setVisibility(View.GONE);
-                        otherBtnLayout.setVisibility(View.VISIBLE);
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.pay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnCheck.setVisibility(View.VISIBLE);
                         sectionName = noticeDetailInfo.getSection();
                         processInfo = noticeDetailInfo.getProcess();
                         LogTool.d(TAG, "sectionName=" + sectionName + "  processInfo=" + processInfo);
-                        delayBtnLayout.setVisibility(View.GONE);
-                        checkBtnLayout.setVisibility(View.VISIBLE);
-                        otherBtnLayout.setVisibility(View.GONE);
                         typeText.setText(getResources().getString(R.string.check_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
                         typeText.setText(getResources().getString(R.string.sys_str));
+                    } else if (msgType.equals(Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG)) {
+                        planInfo = noticeDetailInfo.getPlan();
+                        requirement = noticeDetailInfo.getRequirement();
+                        LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
+                        typeText.setText(getResources().getString(R.string.req_str));
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnPlan.setVisibility(View.VISIBLE);
+                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        sectionText.setVisibility(View.GONE);
+                    } else if (msgType.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
+                        requirementid = noticeDetailInfo.getRequirementid();
+                        requirementStatus = noticeDetailInfo.getRequirement().getStatus();
+                        LogTool.d(TAG, "requirementid=" + requirementid + "  requirementStatus=" + requirementStatus);
+                        typeText.setText(getResources().getString(R.string.req_str));
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnContract.setVisibility(View.VISIBLE);
+                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        sectionText.setVisibility(View.GONE);
                     } else {
-                        delayBtnLayout.setVisibility(View.GONE);
-                        checkBtnLayout.setVisibility(View.GONE);
-                        otherBtnLayout.setVisibility(View.VISIBLE);
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.req_str));
                         cellText.setText(noticeDetailInfo.getRequirement().getCell());
                         sectionText.setVisibility(View.GONE);
