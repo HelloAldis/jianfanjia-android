@@ -163,7 +163,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                     typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType:" + msgType);
-                    if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
+                    if (msgType.equals(Constant.TYPE_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
                         doubleBtnLayout.setVisibility(View.VISIBLE);
