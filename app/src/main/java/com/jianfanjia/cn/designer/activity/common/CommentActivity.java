@@ -181,7 +181,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            showWaitDialog(R.string.submiting);
+            showWaitDialog(R.string.loading);
         }
 
         @Override
