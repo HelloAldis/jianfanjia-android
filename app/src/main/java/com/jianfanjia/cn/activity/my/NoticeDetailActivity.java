@@ -163,7 +163,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                     typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType:" + msgType);
-                    if (msgType.equals(Constant.TYPE_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
+                    if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
                         doubleBtnLayout.setVisibility(View.VISIBLE);
@@ -184,6 +184,14 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                             btnAgree.setEnabled(true);
                             btnReject.setEnabled(true);
                         }
+                    } else if (msgType.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG) || msgType.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
+                        typeText.setText(getResources().getString(R.string.delay_str));
+                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        sectionText.setVisibility(View.VISIBLE);
+                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
