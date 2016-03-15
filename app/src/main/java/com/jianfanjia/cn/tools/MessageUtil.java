@@ -91,8 +91,7 @@ public class MessageUtil {
         LogTool.d(TAG, "type =" + type);
         Intent mainIntent = new Intent(context, MainActivity.class);
         Intent targetIntent = null;
-        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
-                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity_.class);
         } else {

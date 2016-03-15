@@ -239,8 +239,8 @@ public class Constant {
     //通知搜索类型
     public static final String[] ALL = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG, Constant.TYPE_SYSTEM_MSG, Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
     public static final String[] SYSTEM = {Constant.TYPE_SYSTEM_MSG};
-    public static final String[] REQUIRE = {Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
-    public static final String[] SITE = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG};
+    public static final String[] REQUIRE = {Constant.TYPE_DESIGNER_RESPONSE_MSG, Constant.TYPE_DESIGNER_REJECT_MSG, Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG, Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG};
+    public static final String[] SITE = {Constant.TYPE_DELAY_MSG, Constant.TYPE_CAIGOU_MSG, Constant.TYPE_PAY_MSG, Constant.TYPE_CONFIRM_CHECK_MSG, Constant.TYPE_DESIGNER_REJECT_DELAY_MSG, Constant.TYPE_DESIGNER_AGREE_DELAY_MSG};
 
     public static final String[] searchMsgCountType1 = {
             TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG,
