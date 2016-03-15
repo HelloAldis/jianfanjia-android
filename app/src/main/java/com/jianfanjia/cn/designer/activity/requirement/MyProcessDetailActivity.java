@@ -32,7 +32,6 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
-import com.jianfanjia.cn.designer.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.FileUtil;
@@ -66,7 +65,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack, ReceiveMsgListener {
+public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
     @ViewById(R.id.process_viewpager)
@@ -344,7 +343,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             case Constant.COMMENT_ITEM:
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, processId);
-                bundle.putString(Global.TO, processInfo.getFinal_designerid());
+                bundle.putString(Global.TO, processInfo.getUserid());
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
@@ -615,14 +614,6 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 hideWaitDialog();
             }
         }, this);
-    }
-
-    @Override
-    public void onReceive(NotifyMessage message) {
-        LogTool.d(TAG, "onReceive message");
-        if (null != message) {
-            showNotifyDialog(message);
-        }
     }
 
     private void showNotifyDialog(final NotifyMessage message) {

@@ -253,7 +253,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         getActivity().startActivity(gotoPriviewRequirement);
                         break;
                     case PHONE_TYPE:
-                        UiHelper.IntentToPhone(_context, requirementInfo.getUser().getPhone());
+                        UiHelper.callPhoneIntent(_context, requirementInfo.getUser().getPhone());
                         break;
                     case RREVIEW_COMMENT_TYPE:
                         Intent viewCommentIntent = new Intent(_context, PingJiaInfoActivity.class);
@@ -446,11 +446,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         _context = context.getApplicationContext();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        LogTool.d(TAG, "onActivityCreated");
-    }
 
     @Override
     public void onDestroy() {

@@ -314,7 +314,7 @@
     <string name="str_collect_success">收藏成功</string>
     <string name="title_activity_customer_service">CustomerServiceActivity</string>
     <string name="measure_house_tip">请在24小时内响应业主并设置量房时间，否则自动视为放弃</string>
-    <string name="response">响应</string>
+    <string name="reply">响应</string>
     <string name="phone_tip">为了更进一步与业主交流和确认量房时间，请及时与业主联系</string>
     <string name="setting_measure_date">设置量房时间</string>
     <string name="refuse_title">拒绝原因：</string>
@@ -346,6 +346,28 @@
     <string name="process_tip_text">点击查看工地模板></string>
     <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
     <string name="not_comment">业主还没有对您进行评论！</string>
+    <string name="empty_view_no_notice_data">您还没有通知</string>
+    <string name="no_more_data">没有更多了</string>
 
     <string name="all_finish">已竣工</string>
+    <string name="my_comment">我的留言</string>
+    <string name="my_notice">我的通知</string>
+    <string name="my_notice_detail">通知详情</string>
+    <string name="all_notice">全部</string>
+    <string name="system_notice">系统</string>
+    <string name="req_notice">需求</string>
+    <string name="site_notice">工地</string>
+    <string name="call_phone">咨询热线：400-8515-167</string>
+    <string name="my">我的</string>
+    <string name="app_phone">4008515167</string>
+
+
+    <string name="delay_str">改期</string>
+    <string name="pay_str">付款</string>
+    <string name="caigou_str">采购</string>
+    <string name="check_str">验收</string>
+    <string name="sys_str">系统</string>
+    <string name="req_str">需求</string>
+    <string name="agree_str">已同意</string>
+    <string name="reject_str">已拒绝</string>
 </resources>

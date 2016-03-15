@@ -31,9 +31,9 @@ import android.widget.NumberPicker;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
 import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
 import com.jianfanjia.cn.designer.activity.requirement.CheckActivity;
@@ -45,6 +45,8 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.service.UpdateService;
+import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -54,9 +56,41 @@ import java.util.List;
 public class UiHelper {
 
     /**
+     * 生成一个默认的分割线
+     *
+     * @param context
+     * @return
+     */
+    public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
+        return new HorizontalDividerDecoration(MyApplication.dip2px(context, 10));
+    }
+
+    /**
+     * 计算缓存大小
+     *
+     * @return
+     */
+    public static String caculateCacheSize() {
+        long fileSize = 0;
+        String cacheSize = "0KB";
+        File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
+        fileSize += FileUtil.getDirSize(filesDir);
+
+        // 2.2版本才有将应用缓存转移到sd卡的功能
+        if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+            File externalCacheDir = MyApplication.getInstance().getExternalCacheDir();
+            fileSize += FileUtil.getDirSize(externalCacheDir);
+        }
+        if (fileSize > 0) {
+            cacheSize = FileUtil.formatFileSize(fileSize);
+        }
+        return cacheSize;
+    }
+
+    /**
      * 跳转到登录界面
      */
-    public static void forbiddenToLogin(){
+    public static void forbiddenToLogin() {
         Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getInstance().startActivity(intent);
@@ -67,6 +101,7 @@ public class UiHelper {
 
     /**
      * 显示toast
+     *
      * @param text
      */
     public static void showShortToast(String text) {
@@ -74,7 +109,7 @@ public class UiHelper {
     }
 
 
-    public static Paint paintFactory(){
+    public static Paint paintFactory() {
         Paint paint = new Paint();
         paint.setStrokeWidth(MyApplication.dip2px(MyApplication.getInstance(), 10));
         paint.setColor(MyApplication.getInstance().getResources().getColor(R.color.transparent));
@@ -145,7 +180,7 @@ public class UiHelper {
         }
     }
 
-    public static void IntentToPhone(Context context, String phone) {
+    public static void callPhoneIntent(Context context, String phone) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phone));
@@ -348,14 +383,6 @@ public class UiHelper {
                         }
                     }
                 });
-    }
-
-    public static void intentTo(Context context, Class<?> clazz, Bundle bundle) {
-        Intent intent = new Intent(context, clazz);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        context.startActivity(intent);
     }
 
     /**
