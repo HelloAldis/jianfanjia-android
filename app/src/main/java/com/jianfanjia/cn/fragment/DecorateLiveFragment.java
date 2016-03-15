@@ -14,14 +14,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.WebViewActivity_;
 import com.jianfanjia.cn.adapter.DecorateLiveAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.DecorateLiveList;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.GetDecorateLiveRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -128,7 +132,16 @@ public class DecorateLiveFragment extends BaseAnnotationFragment {
                 searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
             }
         });
-        decorateLiveAdapter = new DecorateLiveAdapter(_context, recyclerView.getRefreshableView());
+        decorateLiveAdapter = new DecorateLiveAdapter(_context, recyclerView.getRefreshableView(), new OnItemClickListener() {
+            @Override
+            public void OnItemClick(int position) {
+                //跳到装修直播详情页面
+                String pid = decorateLiveAdapter.getData().get(position).get_id();
+                Bundle bundle = new Bundle();
+                bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().DECORATE_LIVE_URL + pid);
+                startActivity(WebViewActivity_.class,bundle);
+            }
+        });
         decorateLiveAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
@@ -24,15 +25,15 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:预览设计师方案
@@ -41,6 +42,13 @@ import java.util.List;
  * Date:15-10-11 14:30
  */
 public class PreviewDesignerPlanActivity extends SwipeBackActivity implements OnClickListener {
+
+    public static final String PLAN_INTENT_FLAG = "plan_intent_flag";//标识从哪个屏传过来的
+
+    public static final int NOTICE_INTENT = 0;//通知进入的；
+    public static final int PLAN_LIST_INTENT = 1;//方案列表进入的
+    public static final int COMMENT_INTENT = 2;//评论进入的
+
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private LinearLayout houseTypeLayout = null;
@@ -67,16 +75,12 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     private String requirementid = null;
     private RequirementInfo requirementInfo = null;
     private String itemPosition;
+    private int flagIntent = -1;
+//    private PlanInfo planInfo;
 
     @Override
     public void initView() {
-        Intent intent = this.getIntent();
-        Bundle planBundle = intent.getExtras();
-        planid = planBundle.getString(Global.PLAN_ID);
-        itemPosition = planBundle.getString(Global.POSITION);
-        requirementInfo = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
-        requirementid = requirementInfo.get_id();
-        LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
+        initIntent();
         initMainHeadView();
         houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
         houseAreaLayout = (LinearLayout) findViewById(R.id.houseAreaLayout);
@@ -103,7 +107,73 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         } else {
             btn_choose.setEnabled(true);
         }
-        getPlanInfo(planid);
+        initData();
+    }
+
+    private void initIntent() {
+        Intent intent = this.getIntent();
+        Bundle planBundle = intent.getExtras();
+        planDetailInfo = (PlandetailInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
+        planid = planDetailInfo.get_id();
+        itemPosition = planDetailInfo.getName();
+        requirementInfo = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementid = requirementInfo.get_id();
+        flagIntent = planBundle.getInt(PLAN_INTENT_FLAG);
+        LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
+    }
+
+    private void initData() {
+        if (null != planDetailInfo) {
+            totalDateLayout.setVisibility(View.VISIBLE);
+            priceLayout.setVisibility(View.VISIBLE);
+            designTextLayout.setVisibility(View.VISIBLE);
+            mainHeadView.setRigthTitleEnable(true);
+            designerid = planDetailInfo.getDesignerid();
+            LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
+            if (!TextUtils.isEmpty(requirementInfo.getCell())) {
+                cellName.setVisibility(View.VISIBLE);
+                cellName.setText(requirementInfo.getCell());
+            }
+            if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
+                houseTypeLayout.setVisibility(View.VISIBLE);
+                houseType.setText(BusinessManager.convertHouseTypeToShow(requirementInfo.getHouse_type()));
+            }
+            if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
+                houseAreaLayout.setVisibility(View.VISIBLE);
+                houseArea.setText(requirementInfo.getHouse_area() + getString(R.string.str_sq_unit));
+            }
+            if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
+                decorateTypeLayout.setVisibility(View.VISIBLE);
+                decorateType.setText(BusinessManager.getWorkType(requirementInfo.getWork_type()));
+            }
+            totalDate.setText(planDetailInfo.getDuration() + "天");
+            price.setText(planDetailInfo.getTotal_price() + "元");
+            designText.setText(planDetailInfo.getDescription());
+            initChooseButton();
+            initViewPager(viewPager, indicatorGroup_lib, planDetailInfo.getImages());
+        }
+    }
+
+    private void initChooseButton() {
+        String planStatus = planDetailInfo.getStatus();
+        switch (planStatus) {
+            case Global.PLAN_STATUS3:
+                btn_choose.setEnabled(true);
+                btn_choose.setText(getString(R.string.str_choose_plan));
+                break;
+            case Global.PLAN_STATUS4:
+                btn_choose.setEnabled(false);
+                btn_choose.setText(getString(R.string.str_not_choose_plan));
+                break;
+            case Global.PLAN_STATUS5:
+                btn_choose.setEnabled(false);
+                btn_choose.setText(getString(R.string.str_has_choosed_plan));
+                break;
+            default:
+                btn_choose.setEnabled(false);
+                btn_choose.setText(getString(R.string.str_not_choose_plan));
+                break;
+        }
     }
 
     private void initMainHeadView() {
@@ -142,7 +212,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
                 showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
                 showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                         (ArrayList<String>) imgList);
-                startActivity(ShowPicActivity.class,showPicBundle);
+                startActivity(ShowPicActivity.class, showPicBundle);
             }
         });
         viewPager.setAdapter(adapter);
@@ -222,67 +292,11 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         startActivity(DetailPriceActivity.class, priceBundle);
     }
 
-    //获取某个方案信息
-    private void getPlanInfo(String planid) {
-        JianFanJiaClient.getPlanInfo(PreviewDesignerPlanActivity.this, planid, getPlanInfoListener, this);
-    }
-
     //选的方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
         JianFanJiaClient.chooseDesignerPlan(PreviewDesignerPlanActivity.this, requirementid, designerid, planid, chooseDesignerPlanListener, this);
     }
-
-    private ApiUiUpdateListener getPlanInfoListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            showWaitDialog(R.string.loading);
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
-            hideWaitDialog();
-            planDetailInfo = JsonParser.jsonToBean(data.toString(), PlandetailInfo.class);
-            LogTool.d(TAG, "planDetailInfo:" + planDetailInfo);
-            if (null != planDetailInfo) {
-                totalDateLayout.setVisibility(View.VISIBLE);
-                priceLayout.setVisibility(View.VISIBLE);
-                designTextLayout.setVisibility(View.VISIBLE);
-                mainHeadView.setRigthTitleEnable(true);
-                RequirementInfo requirementInfo = planDetailInfo.getRequirement();
-                designerid = planDetailInfo.getDesignerid();
-                LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
-                if (!TextUtils.isEmpty(requirementInfo.getCell())) {
-                    cellName.setVisibility(View.VISIBLE);
-                    cellName.setText(requirementInfo.getCell());
-                }
-                if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
-                    houseTypeLayout.setVisibility(View.VISIBLE);
-                    houseType.setText(BusinessManager.convertHouseTypeToShow(requirementInfo.getHouse_type()));
-                }
-                if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
-                    houseAreaLayout.setVisibility(View.VISIBLE);
-                    houseArea.setText(requirementInfo.getHouse_area() + getString(R.string.str_sq_unit));
-                }
-                if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
-                    decorateTypeLayout.setVisibility(View.VISIBLE);
-                    decorateType.setText(BusinessManager.getWorkType(requirementInfo.getWork_type()));
-                }
-                totalDate.setText(planDetailInfo.getDuration() + "天");
-                price.setText(planDetailInfo.getTotal_price() + "元");
-                designText.setText(planDetailInfo.getDescription());
-                initViewPager(viewPager, indicatorGroup_lib, planDetailInfo.getImages());
-            }
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
-        }
-    };
-
 
     private ApiUiUpdateListener chooseDesignerPlanListener = new ApiUiUpdateListener() {
         @Override
@@ -294,18 +308,33 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            btn_choose.setEnabled(false);
-            //发送数据刷新广播
-            UiHelper.intentTo(PreviewDesignerPlanActivity.this, MyDesignerActivity_.class, null);
-            appManager.finishActivity(PreviewDesignerPlanActivity.this);
+//            btn_choose.setEnabled(false);
+//            startActivity(MyDesignerActivity_.class);
+//            appManager.finishActivity(PreviewDesignerPlanActivity.this);
+            afterChooseSuccess();
         }
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             hideWaitDialog();
         }
     };
+
+    private void afterChooseSuccess(){
+        btn_choose.setEnabled(false);
+        btn_choose.setText(getString(R.string.str_has_choosed_plan));
+        switch (flagIntent){
+            case PLAN_LIST_INTENT:
+                startActivity(MyDesignerActivity_.class);
+                appManager.finishActivity(PreviewDesignerPlanActivity.this);
+                break;
+            case COMMENT_INTENT:
+            case NOTICE_INTENT:
+                EventBus.getDefault().post(new ChoosedPlanEvent());
+                break;
+        }
+    }
 
     @Override
     public int getLayoutId() {

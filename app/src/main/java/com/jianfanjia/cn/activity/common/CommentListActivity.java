@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
@@ -36,6 +37,8 @@ import org.androidannotations.annotations.ViewById;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Description: com.jianfanjia.cn.activity.common
  * Author: zhanghao
@@ -60,6 +63,14 @@ public class CommentListActivity extends SwipeBackActivity {
     private boolean mHasLoadOnce;
 
     private MyCommentInfoAdapter myCommentInfoAdapter;
+
+    private NoticeInfo currentnNoticeInfo;//当前点击的留言位置
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @AfterViews
     protected void initAnnotationView() {
@@ -93,6 +104,7 @@ public class CommentListActivity extends SwipeBackActivity {
             public void showDetail(NoticeInfo noticeInfo, int viewType) {
                 switch (viewType) {
                     case MyCommentInfoAdapter.PLAN_TYPE:
+                        currentnNoticeInfo = noticeInfo;
                         startPlanInfoActivity(noticeInfo.getPlan(), noticeInfo.getRequirement());
                         break;
                     case MyCommentInfoAdapter.NODE_TYPE:
@@ -123,9 +135,9 @@ public class CommentListActivity extends SwipeBackActivity {
 
     private void startPlanInfoActivity(PlandetailInfo plandetailInfo, RequirementInfo requirementInfo) {
         Bundle planBundle = new Bundle();
-        planBundle.putString(Global.PLAN_ID, plandetailInfo.get_id());
+        planBundle.putSerializable(Global.PLAN_DETAIL, plandetailInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-        planBundle.putString(Global.POSITION, plandetailInfo.getName());
+        planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG, PreviewDesignerPlanActivity.COMMENT_INTENT);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
@@ -225,5 +237,17 @@ public class CommentListActivity extends SwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
         }
+    }
+
+    public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent){
+        LogTool.d(this.getClass().getName(),"onEventMainThread");
+        currentnNoticeInfo.getPlan().setStatus(Global.PLAN_STATUS5);
+        myCommentInfoAdapter.updateItem(currentnNoticeInfo);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

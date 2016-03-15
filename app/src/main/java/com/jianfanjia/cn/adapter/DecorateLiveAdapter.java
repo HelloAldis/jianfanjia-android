@@ -14,6 +14,7 @@ import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.DecorateLiveInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.StringUtils;
 
 /**
@@ -24,12 +25,15 @@ import com.jianfanjia.cn.tools.StringUtils;
  */
 public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
 
-    public DecorateLiveAdapter(Context context, RecyclerView recyclerView) {
+    private OnItemClickListener onItemClickListener;
+
+    public DecorateLiveAdapter(Context context, RecyclerView recyclerView,OnItemClickListener onItemClickListener) {
         super(context, recyclerView);
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DecorateLiveInfo decorateLiveInfo = mDatas.get(position);
 
         DecorateLiveViewHolder viewHolder = (DecorateLiveViewHolder) holder;
@@ -57,6 +61,14 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
                 + BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()) + "，"
                 + BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()) + "风格");
 
+        viewHolder.bgImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onItemClickListener != null){
+                    onItemClickListener.OnItemClick(position);
+                }
+            }
+        });
 
     }
 

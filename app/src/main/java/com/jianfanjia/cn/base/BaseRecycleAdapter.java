@@ -80,8 +80,8 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     public void setState(int state) {
         this.state = state;
-        if(isHasFooterView()){
-            if(mDatas.size() > 0){
+        if (isHasFooterView()) {
+            if (mDatas.size() > 0) {
                 //设置状态只需通知改变footerview的显示
                 notifyItemChanged(getItemCount() - 1);
             }
@@ -157,6 +157,15 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
         }
     }
 
+    public void updateItem(T obj) {
+        if (mDatas != null) {
+            int pos = mDatas.indexOf(obj);
+            if (pos > -1) {
+                notifyItemChanged(pos);
+            }
+        }
+    }
+
     public void removeItem(int pos) {
         mDatas.remove(pos);
         notifyItemRemoved(pos);
@@ -217,7 +226,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
      * @param parent viewGroup
      * @return viewHolder
      */
-    public abstract RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType);
+    public abstract RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType);
 
     /**
      * 绑定viewHolder
@@ -234,7 +243,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
                     R.layout.loading_view, parent, false);
             return new LoadingViewHolder(view);
         } else {
-            return onCreateNormalViewHolder(parent,viewType);
+            return onCreateNormalViewHolder(parent, viewType);
         }
     }
 

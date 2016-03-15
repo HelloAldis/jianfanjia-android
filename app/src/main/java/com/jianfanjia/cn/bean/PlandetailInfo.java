@@ -28,12 +28,21 @@ public class PlandetailInfo implements Serializable {
     private String description;
     private int total_price;
     private int duration;
+    private int comment_count;
     private String status;
     private List<String> images;
     private List<PriceDetail> price_detail;
     private Designer designer;
     private User user;
     private RequirementInfo requirement;
+
+    public int getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
+    }
 
     public String get_id() {
         return _id;

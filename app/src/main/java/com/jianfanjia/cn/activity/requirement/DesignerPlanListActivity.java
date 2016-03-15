@@ -13,7 +13,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
-import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -40,12 +40,11 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView designer_plan_listview = null;
-    private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
+    private List<PlandetailInfo> designerPlanList = new ArrayList<>();
     private String requirementid = null;
     private RequirementInfo requirementInfo = null;
     private String designerid = null;
     private String designerName = null;
-    private int itemPosition = -1;
 
     @Override
     public void initView() {
@@ -115,7 +114,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
         hideWaitDialog();
-        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<PlanInfo>>() {
+        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<PlandetailInfo>>() {
         }.getType());
         LogTool.d(TAG, "designerPlanList:" + designerPlanList);
         if (null != designerPlanList && designerPlanList.size() > 0) {
@@ -135,8 +134,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     @Override
     public void onCallBack(int position, int pos) {
         LogTool.d(TAG, "position:" + position + "  pos:" + pos);
-        itemPosition = position + 1;
-        PlanInfo planInfo = designerPlanList.get(position);
+        PlandetailInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         LogTool.d(TAG, "planid:" + planid);
@@ -146,8 +144,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     @Override
     public void onItemCallBack(int position, int itemType) {
         LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
-        itemPosition = position + 1;
-        PlanInfo planInfo = designerPlanList.get(position);
+        PlandetailInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         String designerid = planInfo.getDesignerid();
@@ -168,11 +165,11 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         }
     }
 
-    private void startToActivity(PlanInfo planInfo) {
+    private void startToActivity(PlandetailInfo planInfo) {
         Bundle planBundle = new Bundle();
-        planBundle.putString(Global.PLAN_ID, planInfo.get_id());
+        planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-        planBundle.putString(Global.POSITION, planInfo.getName());
+//        planBundle.putString(Global.POSITION, planInfo.getName());
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 

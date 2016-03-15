@@ -44,6 +44,7 @@ import java.util.List;
 public class MyNewFragment extends BaseFragment {
     private static final String TAG = MyNewFragment.class.getName();
     public static final int REQUESTCODE_USERINFO = 0;
+
     private RelativeLayout notifyLayout = null;
     private RelativeLayout my_collect_layout = null;
     private RelativeLayout setting_layout = null;

@@ -14,6 +14,7 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -62,6 +63,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
     protected RelativeLayout error_Layout;
 
     private String requirementid;
+    private RequirementInfo requirementInfo;
 
     MyDesignerAdapter myDesignerAdapter;
     List<OrderDesignerInfo> orderDesignerInfos = new ArrayList<>();
@@ -76,7 +78,10 @@ public class MyDesignerActivity extends SwipeBackActivity {
         mainHeadView.setRightTitleVisable(View.GONE);
 
         Intent intent = getIntent();
-        requirementid = intent.getStringExtra(Global.REQUIREMENT_ID);
+        requirementInfo = (RequirementInfo)intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        if(requirementInfo != null){
+            requirementid = requirementInfo.get_id();
+        }
         initPullRefresh();
         initdata();
     }
@@ -128,7 +133,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
                     case VIEW_PLAN:
                         Bundle planBundle = new Bundle();
                         planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        planBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
+                        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
                         planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         startActivity(DesignerPlanListActivity.class, planBundle);
                         break;

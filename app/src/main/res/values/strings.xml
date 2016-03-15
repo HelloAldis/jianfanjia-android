@@ -354,7 +354,7 @@
     <string name="hint_choose_plan_str">您确定要选定此方案吗？</string>
     <string name="hint_contract_text">确认合同</string>
     <string name="hint_contract_str">您确定要确认合同吗？</string>
-    <string name="my_comment">我的评论</string>
+    <string name="my_comment">我的留言</string>
     <string name="call_phone">咨询热线：400-8515-167</string>
     <string name="title_activity_notice">NoticeActivity</string>
 

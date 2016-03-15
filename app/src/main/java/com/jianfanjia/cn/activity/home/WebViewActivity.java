@@ -100,8 +100,8 @@ public class WebViewActivity extends SwipeBackActivity {
     }
 
     @Click({R.id.head_back_layout, R.id.toolbar_share_layout})
-    protected void click(View view){
-        switch (view.getId()){
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 this.goBackOrQuit();
                 break;
@@ -162,6 +162,7 @@ public class WebViewActivity extends SwipeBackActivity {
     private String getUrlFromIntent() {
         Intent intent = this.getIntent();
         String url = intent.getStringExtra(Global.WEB_VIEW_URL);
+        LogTool.d(TAG, url);
         return url;
     }
 
@@ -183,7 +184,7 @@ public class WebViewActivity extends SwipeBackActivity {
 
     private String getImageUrl() {
         if (StringUtils.isEmpty(this.imageUrl)) {
-            return  "http://www.jianfanjia.com/static/img/design/head.jpg";
+            return "http://www.jianfanjia.com/static/img/design/head.jpg";
         } else {
             return this.imageUrl;
         }

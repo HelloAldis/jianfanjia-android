@@ -51,7 +51,11 @@ public class Url_New {
     public String IMG_HTTPROOT = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/api/v2/app/image/";
 
+    //合同详情
     public String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
+
+    //装修直播详情
+    public String DECORATE_LIVE_URL = "/view/share/process.html?pid=";
 
     public static String ID = "id";
 
@@ -177,8 +181,7 @@ public class Url_New {
     public String SHARE_APP_LOGO = "http://" + SEVER_IP + ":"
             + SEVER_PORT + "/zt/mobile/logo.png";
     // 根据工地id获取某个工地
-    public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"
-            + ID;
+    public String GET_PROCESSINFO_BYID = HTTPROOT + "process/" + ID;
     // 业主确认对比验收完成
     public String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
