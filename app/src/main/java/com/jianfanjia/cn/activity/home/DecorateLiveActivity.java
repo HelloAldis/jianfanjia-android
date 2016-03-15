@@ -3,10 +3,13 @@ package com.jianfanjia.cn.activity.home;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
+import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -31,6 +34,9 @@ public class DecorateLiveActivity extends SwipeBackActivity {
     @ViewById(R.id.viewpager)
     protected ViewPager viewPager = null;
 
+    @ViewById(R.id.btn_create_process)
+    protected TextView createProcess;
+
     @AfterViews
     protected void initAnnotationView(){
 
@@ -44,11 +50,14 @@ public class DecorateLiveActivity extends SwipeBackActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Click({R.id.head_back_layout})
+    @Click({R.id.head_back_layout,R.id.btn_create_process})
     protected void click(View view){
         switch (view.getId()){
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                break;
+            case R.id.btn_create_process:
+                startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
                 break;
         }
     }

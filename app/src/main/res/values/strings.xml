@@ -380,4 +380,5 @@
     <string name="reply">回复</string>
     <string name="agree_str">已同意</string>
     <string name="reject_str">已拒绝</string>
+    <string name="create_my_process">创建我的工地</string>
 </resources>

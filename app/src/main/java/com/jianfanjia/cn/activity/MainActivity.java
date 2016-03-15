@@ -278,6 +278,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != RESULT_OK){
+            return;
+        }
         LogTool.d(TAG, "onActivityResult requestCode =" + requestCode);
         if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
