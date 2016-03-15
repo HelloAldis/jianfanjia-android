@@ -243,7 +243,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
-                startActivityForResultByHost(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                startActivity(PublishRequirementActivity_.class);
                 break;
             case R.id.ltm_home_layout1:
                 Bundle bundle = new Bundle();

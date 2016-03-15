@@ -98,7 +98,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     protected void setListVisiable() {
@@ -171,7 +170,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
 
     @Click({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
-        startActivityForResult(PublishRequirementActivity_.class, REQUESTCODE_PUBLISH_REQUIREMENT);
+        startActivity(PublishRequirementActivity_.class);
     }
 
     @Click(R.id.error_include)
@@ -201,6 +200,14 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         context.registerReceiver(updateBroadcastReceiver, filter);
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            //每次显示都刷新一下数据
+            initData();
+        }
+    }
 
     private void initPullRefresh() {
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -261,7 +268,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
             return;
         }
         switch (requestCode) {
-            case REQUESTCODE_PUBLISH_REQUIREMENT:
             case REQUESTCODE_EDIT_REQUIREMENT:
                 initData();
                 break;

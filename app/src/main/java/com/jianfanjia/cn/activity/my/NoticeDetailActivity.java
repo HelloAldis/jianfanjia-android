@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.CheckActivity;
@@ -27,6 +28,8 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:通知详情
@@ -59,6 +62,12 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private PlandetailInfo planInfo = null;
     private RequirementInfo requirement = null;
     private String requirementStatus = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView() {
@@ -130,6 +139,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 Bundle planBundle = new Bundle();
                 planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
                 planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
+                planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG,PreviewDesignerPlanActivity.NOTICE_INTENT);
                 startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
             case R.id.btnContract:
@@ -144,6 +154,11 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
             default:
                 break;
         }
+    }
+
+    public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent){
+        LogTool.d(this.getClass().getName(), "onEventMainThread");
+        planInfo.setStatus(Global.PLAN_STATUS5);
     }
 
     //获取详情
@@ -303,5 +318,11 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     @Override
     public int getLayoutId() {
         return R.layout.activity_notice_detail;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

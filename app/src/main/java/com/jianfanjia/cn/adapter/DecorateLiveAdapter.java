@@ -56,10 +56,23 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
 
         viewHolder.updateDate.setText(context.getString(R.string.live_date) + StringUtils.covertLongToString(decorateLiveInfo.getCreate_at()));
 
-        viewHolder.descriptionText.setText(decorateLiveInfo.getHouse_area() + "㎡，"
-//                + BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()) + "，"
-                + BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()) + "，"
-                + BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()) + "风格");
+        StringBuffer sb = new StringBuffer();
+        if(!TextUtils.isEmpty(decorateLiveInfo.getHouse_area())){
+            sb.append(decorateLiveInfo.getHouse_area() + "㎡ ");
+        }
+        if(!TextUtils.isEmpty(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()))){
+            sb.append(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()) + " ");
+        }
+        if(!TextUtils.isEmpty(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()))){
+            sb.append(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()) + " ");
+        }
+        if(!TextUtils.isEmpty(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()))){
+            sb.append(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()) + " ");
+        }
+        if(!TextUtils.isEmpty(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()))){
+            sb.append(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()));
+        }
+        viewHolder.descriptionText.setText(sb.toString());
 
         viewHolder.bgImage.setOnClickListener(new View.OnClickListener() {
             @Override

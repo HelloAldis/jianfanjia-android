@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
+        switchTab(Constant.MANAGE);
     }
 
     @Override
@@ -276,7 +277,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Global.DEC_STYLE_POSITION = 0;
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_OK){
             return;
@@ -290,7 +291,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
+    }*/
 
     @Override
     public int getLayoutId() {

@@ -9,7 +9,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
-import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -57,10 +56,8 @@ public class DecorateLiveActivity extends SwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_create_process:
-                startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+                startActivity(PublishRequirementActivity_.class);
                 break;
         }
     }
-
-
 }

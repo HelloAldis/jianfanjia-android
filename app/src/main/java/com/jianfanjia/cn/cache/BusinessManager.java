@@ -42,6 +42,7 @@ public class BusinessManager {
     }
 
     public static String getWorkType(String workType) {
+        if(workType == null) return null;
         String str = null;
         if (workType.equals("0")) {
             str = "半包";
@@ -103,7 +104,7 @@ public class BusinessManager {
      * @return
      */
     public static String convertDectypeToShow(String decType) {
-        if (decType == null) return null;
+        if (TextUtils.isEmpty(decType)) return null;
         int decPosition = Integer.parseInt(decType);
         String[] dectypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_dectype);
         if (decPosition < 0 || decPosition > dectypes.length) return null;
