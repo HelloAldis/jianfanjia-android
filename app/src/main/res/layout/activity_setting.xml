@@ -26,30 +26,6 @@
             <View style="@style/divier_line" />
 
             <RelativeLayout
-                android:id="@+id/mespush_layout"
-                style="@style/my_list_item_layout_style">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/message_push"
-                    android:textColor="@color/light_black_color" />
-
-                <ToggleButton
-                    android:id="@+id/mespush_toggle"
-                    android:layout_width="40dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/btn_setting_msg_selector"
-                    android:textOff=""
-                    android:textOn="" />
-            </RelativeLayout>
-
-            <View style="@style/divier_line" />
-
-            <RelativeLayout
                 android:id="@+id/share_layout"
                 style="@style/my_list_item_layout_style">
 
@@ -57,72 +33,6 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/share"
-                    android:textColor="@color/light_black_color" />
-
-                <ImageView
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
-
-            <View style="@style/divier_line" />
-
-            <RelativeLayout
-                android:id="@+id/current_version_layout"
-                style="@style/my_list_item_layout_style"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/current_version"
-                    android:textColor="@color/light_black_color" />
-
-                <TextView
-                    android:id="@+id/current_version"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/current_version_example"
-                    android:textColor="@color/main_color_grey" />
-            </RelativeLayout>
-
-            <!--<View style="@style/divier_line" />-->
-
-            <RelativeLayout
-                android:id="@+id/clear_cache_layout"
-                style="@style/my_list_item_layout_style">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/clear_cache"
-                    android:textColor="@color/light_black_color" />
-
-                <TextView
-                    android:id="@+id/cache_size"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="0M"
-                    android:textColor="@color/main_color_grey" />
-            </RelativeLayout>
-
-            <View style="@style/divier_line" />
-
-            <View
-                style="@style/divier_line"
-                android:layout_marginTop="10dp" />
-
-            <RelativeLayout
-                android:id="@+id/feedback_layout"
-                style="@style/my_list_item_layout_style">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/feedback"
                     android:textColor="@color/light_black_color" />
 
                 <ImageView
