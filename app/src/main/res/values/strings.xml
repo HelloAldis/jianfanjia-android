@@ -250,7 +250,6 @@
     <string name="share_title">分享</string>
     <!-- activity_share -->
 
-    <string name="comment_success">评论成功</string>
     <string name="open_camera">拍照</string>
     <string name="open_album">从相册中选择</string>
 
@@ -345,7 +344,7 @@
     <string name="process_tip">由于您的工地还没有开工，请即时查看需求动态，如您想查看装修流程，我们已精心为您准备了工地模板</string>
     <string name="process_tip_text">点击查看工地模板></string>
     <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
-    <string name="not_comment">业主还没有对您进行评论！</string>
+    <string name="not_comment">业主还没有对您进行评价！</string>
     <string name="empty_view_no_notice_data">您还没有通知</string>
     <string name="no_more_data">没有更多了</string>
 
@@ -371,4 +370,5 @@
     <string name="agree_str">已同意</string>
     <string name="reject_str">已拒绝</string>
     <string name="search_no_commnet">目前还没有留言</string>
+    <string name="plan_list">方案列表</string>
 </resources>

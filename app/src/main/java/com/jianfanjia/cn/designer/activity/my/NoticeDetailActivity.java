@@ -13,7 +13,6 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.NoticeDetailInfo;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -48,8 +47,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
     private String messageid = null;
     private String processid = null;
-    private String sectionName = null;
-    private ProcessInfo processInfo = null;
 
     @Override
     public void initView() {
