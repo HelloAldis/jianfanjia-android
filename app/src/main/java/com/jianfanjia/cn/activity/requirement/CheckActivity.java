@@ -246,6 +246,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
             @Override
             public void loadSuccess(Object data) {
+                btn_confirm.setEnabled(false);
                 checkSuccess();
             }
 
