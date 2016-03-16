@@ -159,7 +159,7 @@ public class SectionItemAdapter extends BaseAdapter {
             switch (type) {
                 case CHECK_VIEW:
                     convertView = layoutInflater.inflate(
-                            R.layout.site_listview_head, null);
+                            R.layout.list_item_process_head, null);
                     viewHolderf = new ViewHolder2();
                     viewHolderf.finishStatusIcon = (ImageView) convertView
                             .findViewById(R.id.site_listview_item_status);
@@ -183,7 +183,7 @@ public class SectionItemAdapter extends BaseAdapter {
                     break;
                 case SECTION_ITME_VIEW:
                     convertView = layoutInflater.inflate(
-                            R.layout.site_listview_item, null);
+                            R.layout.list_item_process_item, null);
                     viewHolder = new ViewHolder();
                     viewHolder.smallcloseLayout = (RelativeLayout) convertView
                             .findViewById(R.id.site_listview_item_content_small);

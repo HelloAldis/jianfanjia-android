@@ -7,7 +7,7 @@
         android:id="@+id/site_empty_layout_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/peocess_layout_bg" />
+        android:background="@mipmap/process_layout_bg" />
 
     <LinearLayout
         android:layout_width="match_parent"

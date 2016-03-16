@@ -186,13 +186,6 @@
         <item>三代同堂</item>
     </string-array>
 
-    <string-array name="arr_collect_person_pic">
-        <item>@mipmap/img_danshen</item>
-        <item>@mipmap/img_twopeople</item>
-        <item>@mipmap/img_threepeople</item>
-        <item>@mipmap/img_threegenerations</item>
-    </string-array>
-
     <!-- 包工类型 -->
     <string-array name="arr_worktype">
         <item>半包</item>
