@@ -66,6 +66,10 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
     private String sectionName = null;//工序名称
     private SectionInfo sectionInfo = null;
 
+    private int uploadCount = 0;//要上传图片个数
+    private int currentUploadCount = 0;//当前已上传图片个数
+
+
     @Override
     public void initView() {
         mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
@@ -103,7 +107,8 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             checkGridList.clear();
             checkGridList = getCheckedImageById(sectionInfo.getName());
             imageids = sectionInfo.getYs().getImages();
-            int imagecount = imageids.size();
+            currentUploadCount = imageids.size();
+            LogTool.d(TAG, "currentUploadCount =====" + currentUploadCount);
             for (int i = 0; imageids != null && i < imageids.size(); i++) {
                 String key = imageids.get(i).getKey();
                 LogTool.d(TAG, "key=" + key);
@@ -113,14 +118,14 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                     this);
             gridView.setAdapter(adapter);
-            setConfimStatus(imagecount);
+            setConfimStatus();
             initShowList();
         }
     }
 
-    private void setConfimStatus(int count) {
+    private void setConfimStatus() {
         if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
-            if (count < BusinessManager
+            if (currentUploadCount < BusinessManager
                     .getCheckPicCountBySection(sectionInfo.getName())) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setEnabled(false);
