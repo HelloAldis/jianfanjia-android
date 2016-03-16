@@ -52,7 +52,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
     private String item = null;
     private String topictype = null;
 
-    private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
+    private List<CommentInfo> commentList = new ArrayList<>();
 
     private boolean isUpdate = false;//返回是否更新
 
