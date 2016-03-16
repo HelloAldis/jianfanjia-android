@@ -68,7 +68,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView
-                .setMianTitle(getResources().getString(R.string.planText));
+                .setMianTitle(getResources().getString(R.string.plan_list));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
