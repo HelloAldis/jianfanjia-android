@@ -298,18 +298,6 @@
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.NewUserCollectLoveStyleActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserCollectPersonActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserCollectDecStageActivity_"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewUserGuideActivity_"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.requirement.PreviewBusinessRequirementActivity_"
             android:screenOrientation="portrait" />
 

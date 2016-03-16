@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">简繁家专业版</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <string name="designer">设计师</string>
@@ -9,7 +8,6 @@
     <string name="updated">更新于:</string>
     <string name="jianfanjia_net">http://www.jianfanjia.com</string>
     <string name="loading"></string>
-    <string name="no_data">暂无数据</string>
 
     <string name="share_app_des">我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。</string>
     <string name="share_app_title">简繁家，让装修变简单</string>
@@ -17,77 +15,37 @@
     <string name="share_image_des">我在简繁家发现一张%1$s风格的%2$s美图，感觉还不错，分享给大家！</string>
 
     <!-- Error View -->
-    <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
-    <string name="error_view_no_data">暂无美图</string>
-    <string name="error_view_loading">加载中…</string>
-    <string name="error_view_load_error_click_to_refresh">内容加载失败\r\n点击重新加载</string>
-    <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
-    <string name="tip_network_error">没有可用的网络</string>
-    <string name="error_view_no_designer_data">您还没有收藏任何设计师</string>
-    <string name="error_view_no_product_data">您还没有收藏任何作品</string>
-    <string name="error_view_no_img_data">您还没有收藏任何美图</string>
     <string name="error_view_no_caigou_data">您还没有采购提醒</string>
     <string name="error_view_no_pay_data">您还没有付款提醒</string>
     <string name="error_view_no_delay_data">您还没有改期提醒</string>
-    <!-- main activity -->
-    <string name="main_tab_name_darly">日记</string>
-    <string name="main_tab_name_site">工地</string>
-    <string name="main_tab_name_my">我的</string>
-    <string name="main_title_example">简繁家</string>
-    <string name="main_right_example">配置工地</string>
-    <!-- main activity -->
-
 
     <!-- login_activity -->
     <string name="login">登录</string>
-    <string name="enter">欢迎使用</string>
     <string name="loging">正在登录中</string>
-    <string name="loding">正在加载中</string>
     <string name="no">取     消</string>
     <string name="ok">确     定</string>
-    <string name="agree">同     意</string>
     <string name="refuse">拒     绝</string>
-    <string name="hint_username">请输入手机号码</string>
-    <string name="hint_password">请输入密码</string>
     <string name="forget_pwd">忘记密码？</string>
     <string name="register">注册</string>
     <string name="new_user">新用户</string>
-    <string name="loginByUser">用户登录</string>
     <string name="tip_please_input_username">请输入账号</string>
     <string name="tip_please_input_password">请输入密码</string>
-    <string name="progress_login">正在登录…</string>
-    <string name="login_success">登录成功</string>
-    <string name="login_failure">用户名或密码错误</string>
-    <string name="tip_login_error_for_network">对不起,无法登录</string>
-    <string name="tip_error_internet">网络异常</string>
-    <string name="tip_internet_not">当前没有网络</string>
     <string name="hint_update_password">请输入重置密码</string>
-    <string name="load_failture">解析异常</string>
-    <string name="submit_success">提交成功</string>
-    <string name="submit_failture">提交失败</string>
     <!-- login_activity -->
-
 
     <!-- register_activity -->
     <string name="next">下一步</string>
-    <string name="last">上一步</string>
-    <string name="get_verification">获取验证码</string>
     <string name="hint_verification">请输入验证码</string>
-    <string name="hint_inputpsw_two">请再次输入密码</string>
-    <string name="hint_reset_psw">请输入重置密码</string>
     <string name="confirm">确认</string>
     <string name="finish">完成</string>
     <string name="commit">提交</string>
     <string name="submit_comment">发表评价</string>
-    <string name="choose_role">选择角色</string>
     <string name="input_phone">请输入手机号</string>
     <string name="verifica_phone">验证手机</string>
     <string name="verification_code_sended">验证码已发送到:</string>
-    <string name="register_failure">注册失败</string>
     <string name="register_success">注册成功</string>
     <string name="update_psw_success">修改密码成功</string>
     <!-- register_activity -->
-
 
     <!-- site_fragment -->
     <string name="site_example_node_name">面板数量核算</string>
@@ -100,43 +58,12 @@
     <string name="site_example_node_finish">已完工</string>
     <string name="site_example_node_not_start">未开工</string>
     <string name="site_example_node_confirm_finish">确认完工</string>
-    <string name="site_example_node_upload_picture">上传照片</string>
-    <string name="site_example_node_assess">评价</string>
     <string name="more">更多</string>
     <string name="retract">收起</string>
 
     <!-- my_site information -->
-    <string name="my_current_site">当前工地</string>
-    <string name="my_site_city">所在城市</string>
-    <string name="my_site_city_example">湖北武汉洪山区</string>
-    <string name="my_site_villagename">小区名称</string>
     <string name="my_site_villagename_example">中建康城二期</string>
-    <string name="my_site_housestyle">户型</string>
-    <string name="my_site_housestyle_example">三室一厅</string>
-    <string name="my_site_housesize">装修面积大小（㎡）</string>
-    <string name="my_site_housesize_example">110㎡</string>
-    <string name="my_site_lovestyle">风格喜好</string>
-    <string name="my_site_lovestyle_example">现代简约</string>
-    <string name="my_site_decoratestyle">装修类型</string>
-    <string name="my_site_decoratestyle_example">半包</string>
-    <string name="my_site_decoratebudget">装修预算（万元）</string>
-    <string name="my_site_decoratebudget_example">20w</string>
-    <string name="my_site_startdate">开工日期</string>
-    <string name="my_site_startdate_example">2015-8-17</string>
-    <string name="my_site_totaldate">总工期（天）</string>
-    <string name="my_site_totaldate_example">60天</string>
     <string name="current_process">当前工地</string>
-
-    <!-- my_designer_information -->
-    <string name="my_designer_name">Jeff Zhang</string>
-    <string name="my_designer_product">作品</string>
-    <string name="my_designer_product_sum">9999</string>
-    <string name="my_designer_appointment">预约</string>
-    <string name="my_designer_appointment_sum">20</string>
-    <string name="work_city">服务城市:</string>
-    <string name="designer_budget">设计费:</string>
-    <string name="good_at_style">擅长风格:</string>
-    <string name="call_designer">联系设计师</string>
 
     <!-- my_fragment -->
     <string name="fisrt_page">首页</string>
@@ -155,7 +82,6 @@
     <string name="appointText">预约</string>
     <string name="marchDesignerText">匹配的设计师</string>
     <string name="intentionDesignerText">意向设计师</string>
-    <string name="moreText">更多</string>
     <string name="replaceText">替换</string>
     <string name="commentText">留言</string>
     <string name="planText">我的方案</string>
@@ -164,12 +90,9 @@
     <string name="pingjiaText">评价设计师</string>
     <string name="pingjiaDetailText">评价详情</string>
     <string name="detailPrice">详细报价</string>
-    <string name="okText">确定</string>
     <string name="contractText">施工合同</string>
     <string name="comfirmText">确认</string>
     <string name="my_site">我的工地</string>
-    <string name="my_example_name">Jeff</string>
-    <string name="my_example_account">账号：12244444</string>
     <string name="message_push">消息推送</string>
     <string name="share">分享给小伙伴</string>
     <string name="current_version">当前版本</string>
@@ -192,13 +115,6 @@
     <string name="confirm_done">确认验收</string>
     <string name="confirm_not_finish">工序未完工，您还不能提醒业主验收</string>
     <string name="confirm_finish">已确认验收</string>
-    <string name="caigouText">采购提醒</string>
-    <string name="fukuanText">付款提醒</string>
-    <string name="yanqiText">改期提醒</string>
-    <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">系统提示：您即将进入下一轮建材购买阶段，您需要购买的是</string>
-    <string name="list_item_fukuan_example">系统提示：您即将进入下一轮付款环节，请您及时与设计师联系</string>
-    <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
     <string name="upload_pic">现场照片</string>

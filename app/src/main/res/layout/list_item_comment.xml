@@ -46,7 +46,6 @@
             style="@style/listview_item_text_style_middle"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_userhead"
-            android:text="@string/my_example_name"
             android:textColor="@color/light_black_color" />
 
         <com.jianfanjia.cn.designer.view.layout.CircleImageView

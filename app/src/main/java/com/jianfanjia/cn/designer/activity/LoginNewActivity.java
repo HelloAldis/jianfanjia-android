@@ -345,7 +345,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                         hideWaitDialog();
                         if (data != null) {
                             if (dataManager.getWeixinFisrtLogin()) {
-                                startActivity(NewUserCollectDecStageActivity_.class);
+//                                startActivity(NewUserCollectDecStageActivity_.class);
                             } else {
                                 startActivity(MainActivity.class);
                             }
