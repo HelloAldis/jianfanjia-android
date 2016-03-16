@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
-import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
+import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
@@ -56,6 +56,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 
 /**
  * @author fengliang
@@ -180,7 +181,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     @Click(R.id.head_notification_layout)
     protected void gotoNotifyActivity() {
-        startActivity(NotifyActivity.class);
+        startActivity(NoticeActivity.class);
     }
 
     // 初始化数据

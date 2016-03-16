@@ -24,7 +24,6 @@ import com.jianfanjia.cn.designer.http.OkHttpClientManager;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.NetStateListener;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
-import com.jianfanjia.cn.designer.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
@@ -48,7 +47,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-    protected ListenerManeger listenerManeger = null;
     protected NetStateReceiver netStateReceiver = null;
     protected AddPhotoPopWindow popupWindow = null;
     private boolean _isVisible;
@@ -82,7 +80,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();
         fragmentManager = this.getSupportFragmentManager();
-        listenerManeger = ListenerManeger.getListenerManeger();
         netStateReceiver = new NetStateReceiver(this);
         imageShow = ImageShow.getImageShow();
         _isVisible = true;

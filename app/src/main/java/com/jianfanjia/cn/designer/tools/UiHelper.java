@@ -4,18 +4,13 @@ import android.animation.Animator;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -28,17 +23,12 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
-import com.jianfanjia.cn.designer.activity.MainActivity;
-import com.jianfanjia.cn.designer.activity.my.NotifyActivity;
-import com.jianfanjia.cn.designer.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -240,81 +230,6 @@ public class UiHelper {
             rotaAnimator.addListener(listener);
         }
         rotaAnimator.start();
-    }
-
-    public static void sendNotifycation(Context context, NotifyMessage message) {
-        int notifyId = -1;
-        NotificationManager nManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                context);
-        RemoteViews mRemoteViews = new RemoteViews(context.getPackageName(), R.layout.view_custom_notify);
-        mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_notify);
-        builder.setSmallIcon(R.mipmap.icon_notify);
-        String type = message.getType();
-        LogTool.d("sendNotifycation", "type =" + type);
-        PendingIntent pendingIntent = null;
-        if (type.equals(Constant.YANQI_NOTIFY)) {
-            LogTool.d("sendNotifycation", context.getResources()
-                    .getString(R.string.yanqiText));
-            notifyId = Constant.YANQI_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CAIGOU_NOTIFY)) {
-            notifyId = Constant.CAIGOU_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, context.getResources().getString(R.string.list_item_caigou_example) + message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
-            notifyId = Constant.YANSHOU_NOTIFY_ID;
-            builder.setTicker(context.getResources().getText(R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent checkIntent = new Intent(context, CheckActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.PROCESS_NAME, message.getSection());
-            bundle.putString(Constant.PROCESS_STATUS, message.getStatus());
-            bundle.putString(Global.PROCESS_ID, message.getProcessid());
-            checkIntent.putExtras(bundle);
-            Intent[] intents = {mainIntent, checkIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        builder.setContent(mRemoteViews);
-        builder.setWhen(System.currentTimeMillis());
-        builder.setAutoCancel(true);
-        builder.setContentIntent(pendingIntent);
-        Notification notification = builder.build();
-        notification.vibrate = new long[]{0, 300, 500, 700};
-        notification.sound = Uri.parse("android.resource://"
-                + context.getPackageName() + "/" + R.raw.message);
-        nManager.notify(notifyId, notification);
     }
 
     /**
