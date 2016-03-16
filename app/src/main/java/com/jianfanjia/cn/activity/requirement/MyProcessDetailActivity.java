@@ -359,6 +359,8 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 Bundle checkBundle = new Bundle();
                 checkBundle.putString(Constant.SECTION, sectionInfo.getName());
                 checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
+                checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity.PROCESS_LIST_INTENT);
                 startActivityForResult(CheckActivity.class, checkBundle, Constant.REQUESTCODE_CHECK);
                 break;
             default:

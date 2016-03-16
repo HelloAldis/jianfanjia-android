@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
@@ -21,6 +22,8 @@ import com.jianfanjia.cn.bean.NoticeDetailInfo;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
+import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -62,6 +65,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private ProcessInfo processInfo = null;
     private PlandetailInfo planInfo = null;
     private RequirementInfo requirement = null;
+    private SectionInfo sectionInfo = null;
     private String requirementStatus = null;
 
     @Override
@@ -132,6 +136,8 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 Bundle checkBundle = new Bundle();
                 checkBundle.putString(Constant.SECTION, sectionName);
                 checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
+                checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity.NOTICE_INTENT);
                 Intent checkIntent = new Intent(NoticeDetailActivity.this, CheckActivity.class);
                 checkIntent.putExtras(checkBundle);
                 startActivity(checkIntent);
@@ -166,6 +172,11 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     public void onEventMainThread(ChoosedContractEvent choosedContractEvent) {
         LogTool.d(TAG, "onEventMainThread");
         requirement.setStatus(Global.REQUIREMENT_STATUS5);
+    }
+
+    public void onEventMainThread(CheckEvent checkEvent) {
+        LogTool.d(TAG, "onEventMainThread");
+        sectionInfo.setStatus(Constant.FINISHED);
     }
 
     //获取详情
@@ -237,6 +248,8 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionName = noticeDetailInfo.getSection();
                         processInfo = noticeDetailInfo.getProcess();
                         LogTool.d(TAG, "sectionName=" + sectionName + "  processInfo=" + processInfo);
+                        sectionInfo = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+                        LogTool.d(TAG, "sectionInfo=" + sectionInfo);
                         typeText.setText(getResources().getString(R.string.check_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);

@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
@@ -36,6 +37,8 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * @author fengliang
  * @ClassName: CheckActivity
@@ -44,6 +47,10 @@ import java.util.List;
  */
 public class CheckActivity extends SwipeBackActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
+    public static final String CHECK_INTENT_FLAG = "check_intent_flag";
+    public static final int NOTICE_INTENT = 0;//通知进入的
+    public static final int PROCESS_LIST_INTENT = 1;//工地
+    private int flagIntent = -1;
     private RelativeLayout checkLayout = null;
     private MainHeadView mainHeadView = null;
     private RecyclerView gridView = null;
@@ -88,8 +95,9 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             sectionName = bundle.getString(Constant.SECTION);
             processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
-            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId);
-            sectionInfo = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+            flagIntent = bundle.getInt(CheckActivity.CHECK_INTENT_FLAG);
+            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId + " flagIntent:" + flagIntent);
+            sectionInfo = (SectionInfo) bundle.getSerializable(Constant.SECTION_INFO);
             LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
             mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
             checkGridList.clear();
@@ -233,8 +241,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
             @Override
             public void loadSuccess(Object data) {
-                setResult(RESULT_OK);
-                appManager.finishActivity(CheckActivity.this);
+                checkSuccess();
             }
 
             @Override
@@ -242,6 +249,20 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
             }
         }, this);
+    }
+
+    private void checkSuccess() {
+        switch (flagIntent) {
+            case NOTICE_INTENT:
+                EventBus.getDefault().post(new CheckEvent());
+                break;
+            case PROCESS_LIST_INTENT:
+                setResult(RESULT_OK);
+                appManager.finishActivity(CheckActivity.this);
+                break;
+            default:
+                break;
+        }
     }
 
     /**

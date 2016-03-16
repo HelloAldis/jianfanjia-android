@@ -198,6 +198,7 @@ public class Constant {
     public static final String PROCESS_STATUS = "process_status";
     public static final String PROCESS_INFO = "process";
     public static final String SECTION = "section";
+    public static final String SECTION_INFO = "sectioninfo";
 
     public static final String LAST_LOGIN_TIME = "last_login_time";// 上次登录时间
     public static final long DELAY_TIME = 24 * 60 * 60 * 1000L;// 延期过期时间为开工日期之后的24小时
