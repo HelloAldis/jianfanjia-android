@@ -13,7 +13,7 @@ import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.bean.NoticeInfo;
 import com.jianfanjia.cn.designer.bean.NoticeListInfo;
-import com.jianfanjia.cn.designer.bean.PlandetailInfo;
+import com.jianfanjia.cn.designer.bean.PlanInfo;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -121,11 +121,10 @@ public class CommentListActivity extends BaseAnnotationActivity {
         getMyCommentInfo(Constant.FROM_START, pullDownListener);
     }
 
-    private void startPlanInfoActivity(PlandetailInfo plandetailInfo, RequirementInfo requirementInfo) {
+    private void startPlanInfoActivity(PlanInfo plandetailInfo, RequirementInfo requirementInfo) {
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(Global.PLAN_DETAIL, plandetailInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-        planBundle.putString(Global.POSITION, plandetailInfo.getName());
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
@@ -139,6 +138,7 @@ public class CommentListActivity extends BaseAnnotationActivity {
         Map<String, Object> param = new HashMap<>();
         param.put(Constant.FROM, from);
         param.put(Constant.LIMIT, Constant.HOME_PAGE_LIMIT);
+        
         JianFanJiaClient.searchUserComment(new SearchUserCommentRequest(this, param), apiUiUpdateListener, this);
     }
 

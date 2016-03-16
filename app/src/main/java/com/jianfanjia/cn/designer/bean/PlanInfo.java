@@ -16,6 +16,7 @@ public class PlanInfo implements Serializable {
     private String designerid;
     private String userid;
     private String requirementid;
+    private String name;
     private int __v;
     private long house_check_time;
     private int project_price_before_discount;
@@ -38,6 +39,14 @@ public class PlanInfo implements Serializable {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getLast_status_update_time() {

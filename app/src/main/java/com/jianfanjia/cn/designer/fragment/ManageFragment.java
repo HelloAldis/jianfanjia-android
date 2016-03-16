@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.designer.fragment;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,8 +30,8 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
@@ -99,11 +97,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         manage_pullfefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        manage_pullfefresh.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        manage_pullfefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
         getProcessList();
     }
 
@@ -184,15 +178,15 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                     Intent viewContractIntent = new Intent(getActivity(), SettingContractActivity_.class);
                                     Bundle contractBundle = new Bundle();
                                     contractBundle.putSerializable(Global.REQUIREMENT_INFO, process.getRequirement());
-                                    contractBundle.putSerializable(Global.PLAN, process.getPlan());
+                                    contractBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
                                     viewContractIntent.putExtras(contractBundle);
                                     startActivity(viewContractIntent);
                                     break;
                                 case ITEM_PLAN:
                                     Intent viewPlanIntent = new Intent(getActivity(), PreviewDesignerPlanActivity.class);
                                     Bundle planBundle = new Bundle();
-                                    planBundle.putSerializable(Global.PLAN, process.getPlan());
-                                    planBundle.putSerializable(Global.REQUIRE, process.getRequirement());
+                                    planBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
+                                    planBundle.putSerializable(Global.REQUIREMENT_INFO, process.getRequirement());
                                     viewPlanIntent.putExtras(planBundle);
                                     startActivity(viewPlanIntent);
                                     break;

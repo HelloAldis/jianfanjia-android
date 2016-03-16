@@ -97,7 +97,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         all_notice_listview.setHasFixedSize(true);
         all_notice_listview.setItemAnimator(new DefaultItemAnimator());
-        all_notice_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
+        all_notice_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
     }
 
     @Override

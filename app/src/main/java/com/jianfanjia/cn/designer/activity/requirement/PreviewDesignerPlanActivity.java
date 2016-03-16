@@ -61,9 +61,9 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     public void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        plan = (PlanInfo) planBundle.getSerializable(Global.PLAN);
-        requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIRE);
-        itemPosition = planBundle.getString(Global.POSITION);
+        plan = (PlanInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
+        requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
+        itemPosition = plan.getName()  == null ? "null" : plan.getName();
         LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement + " itemPosition=" + itemPosition);
         initMainHeadView();
         houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);

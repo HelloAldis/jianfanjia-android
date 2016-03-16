@@ -1,11 +1,9 @@
 package com.jianfanjia.cn.designer.fragment;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -15,7 +13,7 @@ import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.LogTool;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 
@@ -62,11 +60,7 @@ public class CaiGouNotifyFragment extends BaseFragment implements PullToRefreshB
         caigouListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         caigouListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         caigouListView.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        caigouListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        caigouListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
     }
 
     @Override
