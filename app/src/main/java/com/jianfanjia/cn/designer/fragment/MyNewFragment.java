@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.designer.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentListActivity_;
-import com.jianfanjia.cn.designer.activity.my.BindingAccountActivity_;
 import com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.designer.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
@@ -38,7 +36,6 @@ public class MyNewFragment extends BaseFragment {
     private static final String TAG = MyNewFragment.class.getName();
     public static final int REQUESTCODE_USERINFO = 0;
     private RelativeLayout notifyLayout = null;
-    private RelativeLayout my_collect_layout = null;
     private RelativeLayout setting_layout = null;
     private RelativeLayout kefu_layout = null;
     private RelativeLayout my_info_layout = null;
@@ -46,7 +43,6 @@ public class MyNewFragment extends BaseFragment {
     private RelativeLayout clearCacheLayout = null;
     private RelativeLayout callPhoneLayout = null;
     private RelativeLayout commentLayout = null;
-    private RelativeLayout bindingAccountLayout = null;
     private TextView cacheSizeView = null;
     private ScrollView scrollView = null;
     private ImageView head_img = null;
@@ -64,7 +60,6 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         notifyLayout = (RelativeLayout) view.findViewById(R.id.notify_layout);
-        my_collect_layout = (RelativeLayout) view.findViewById(R.id.collect_layout);
         setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
         my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
         kefu_layout = (RelativeLayout) view.findViewById(R.id.kefu_layout);
@@ -73,7 +68,6 @@ public class MyNewFragment extends BaseFragment {
         cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
         callPhoneLayout = (RelativeLayout) view.findViewById(R.id.call_layout);
         commentLayout = (RelativeLayout) view.findViewById(R.id.comment_layout);
-        bindingAccountLayout = (RelativeLayout) view.findViewById(R.id.binding_account_layout);
         head_img = (ImageView) view.findViewById(R.id.head_img);
         user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
         my_account = (TextView) view.findViewById(R.id.frag_my_account);
@@ -107,7 +101,6 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void setListener() {
         notifyLayout.setOnClickListener(this);
-        my_collect_layout.setOnClickListener(this);
         setting_layout.setOnClickListener(this);
 //        my_info_layout.setOnClickListener(this);
         kefu_layout.setOnClickListener(this);
@@ -115,8 +108,6 @@ public class MyNewFragment extends BaseFragment {
         clearCacheLayout.setOnClickListener(this);
         callPhoneLayout.setOnClickListener(this);
         commentLayout.setOnClickListener(this);
-        bindingAccountLayout.setOnClickListener(this);
-
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
@@ -179,9 +170,6 @@ public class MyNewFragment extends BaseFragment {
             case R.id.notify_layout:
                 startActivity(NoticeActivity.class);
                 break;
-            case R.id.collect_layout:
-//                startActivity(CollectActivity.class);
-                break;
             case R.id.frag_my_info_layout:
 //                startActivityForResult(UserInfoActivity_.class, REQUESTCODE_USERINFO);
                 break;
@@ -202,9 +190,6 @@ public class MyNewFragment extends BaseFragment {
                 break;
             case R.id.comment_layout:
                 startActivity(CommentListActivity_.class);
-                break;
-            case R.id.binding_account_layout:
-                startActivity(BindingAccountActivity_.class);
                 break;
             default:
                 break;
@@ -239,16 +224,4 @@ public class MyNewFragment extends BaseFragment {
         return R.layout.fragment_my_new;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != getActivity().RESULT_OK) {
-            return;
-        }
-        switch (requestCode) {
-            case REQUESTCODE_USERINFO:
-                initMyInfo();
-                break;
-        }
-    }
 }
