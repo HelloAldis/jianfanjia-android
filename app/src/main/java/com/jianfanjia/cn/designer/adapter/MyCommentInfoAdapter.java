@@ -19,6 +19,7 @@ import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.bean.NoticeInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
@@ -135,7 +136,14 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, null);
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                if (onItemCallback != null) {
+                    onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
+                }
+            }
+        });
         holder.item_plan_listview.setAdapter(adapter);
 
         holder.contentLayout.setOnClickListener(new View.OnClickListener() {

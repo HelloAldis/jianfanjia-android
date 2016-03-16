@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.designer.fragment;
 
 import android.content.DialogInterface;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -21,7 +19,7 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.DelayInfoListener;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
@@ -59,11 +57,7 @@ public class YanQiNotifyFragment extends BaseFragment implements ApiUiUpdateList
         yanqiListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         yanqiListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         yanqiListView.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        yanqiListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        yanqiListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
     }
 
     @Override

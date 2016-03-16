@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.designer.activity.requirement;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -24,8 +22,8 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 
@@ -62,11 +60,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        designer_plan_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
         getDesignerPlansList(requirementid, dataManager.getUserId());
     }
 
@@ -132,7 +126,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
         hideWaitDialog();
         designer_plan_listview.onRefreshComplete();
     }
@@ -177,9 +171,8 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
 
     private void startToActivity(PlanInfo planInfo, RequirementInfo requirement) {
         Bundle planBundle = new Bundle();
-        planBundle.putSerializable(Global.PLAN, planInfo);
-        planBundle.putSerializable(Global.REQUIRE, requirement);
-        planBundle.putInt(Global.POSITION, itemPosition);
+        planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
+        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 

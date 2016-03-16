@@ -77,7 +77,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_5"
                     android:layout_toRightOf="@id/icon_plan"
-                    android:text="@string/reply"
+                    android:text="@string/response"
                     android:textColor="@color/orange_color"
                     android:textSize="@dimen/text_size_14" />
             </RelativeLayout>

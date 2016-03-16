@@ -85,7 +85,7 @@ public class SettingContractActivity extends BaseAnnotationActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             requirementInfo = (RequirementInfo) bundle.getSerializable(Global.REQUIREMENT_INFO);
-            planInfo = (PlanInfo) bundle.getSerializable(Global.PLAN);
+            planInfo = (PlanInfo) bundle.getSerializable(Global.PLAN_DETAIL);
             if (requirementInfo != null) {
                 requirementid = requirementInfo.get_id();
                 totalDuration = planInfo.getDuration();

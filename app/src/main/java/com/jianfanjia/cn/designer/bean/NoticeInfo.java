@@ -27,7 +27,7 @@ public class NoticeInfo implements Serializable {
     private String status;
     private RequirementInfo requirement;
     private OwnerInfo user;
-    private PlandetailInfo plan;
+    private PlanInfo plan;
     private ProcessInfo process;
 
     public String getTitle() {
@@ -174,11 +174,11 @@ public class NoticeInfo implements Serializable {
         this.user = user;
     }
 
-    public PlandetailInfo getPlan() {
+    public PlanInfo getPlan() {
         return plan;
     }
 
-    public void setPlan(PlandetailInfo plan) {
+    public void setPlan(PlanInfo plan) {
         this.plan = plan;
     }
 

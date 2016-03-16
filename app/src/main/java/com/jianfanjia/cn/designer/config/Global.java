@@ -29,8 +29,6 @@ public class Global {
     public static final String PRODUCT_ID = "product_id";
     public static final String EVALUATION = "evaluation";
     public static final String PLAN_ID = "plan_id";
-    public static final String PLAN = "plan";
-    public static final String REQUIRE = "requirement";
     public static final String PLAN_DETAIL = "plan_datail";
     public static final String IMAGE_ID = "image_id";
     public static final String DESIGNER_NAME = "designer_name";

@@ -268,7 +268,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         Intent settingStartAt = new Intent(_context, SettingContractActivity_.class);
                         Bundle settingStartAtBundle = new Bundle();
                         settingStartAtBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-                        settingStartAtBundle.putSerializable(Global.PLAN, requirementInfo.getPlan());
+                        settingStartAtBundle.putSerializable(Global.PLAN_DETAIL, requirementInfo.getPlan());
                         settingStartAt.putExtras(settingStartAtBundle);
                         startActivity(settingStartAt);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
@@ -283,8 +283,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                 }
             }
         });
-        showLastHorizontalDividerItemDecoration = new HorizontalDividerItemDecoration.Builder(_context).paint(UiHelper.paintFactory()).showLastDivider().build();
-        pullrefresh.addItemDecoration(showLastHorizontalDividerItemDecoration);
+//        showLastHorizontalDividerItemDecoration = new HorizontalDividerItemDecoration.Builder(_context).paint(UiHelper.paintFactory()).showLastDivider().build();
+        pullrefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
