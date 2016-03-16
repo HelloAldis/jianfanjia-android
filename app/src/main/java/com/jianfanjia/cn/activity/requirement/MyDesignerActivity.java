@@ -78,8 +78,8 @@ public class MyDesignerActivity extends SwipeBackActivity {
         mainHeadView.setRightTitleVisable(View.GONE);
 
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo)intent.getSerializableExtra(Global.REQUIREMENT_INFO);
-        if(requirementInfo != null){
+        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
         }
         initPullRefresh();
@@ -128,6 +128,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
                         contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
+                        contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity.DESIGNER_LIST_INTENT);
                         startActivityForResult(ContractActivity.class, contractBundle, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_PLAN:

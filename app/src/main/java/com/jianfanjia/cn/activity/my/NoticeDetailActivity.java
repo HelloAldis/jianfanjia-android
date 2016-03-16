@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -139,13 +140,14 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 Bundle planBundle = new Bundle();
                 planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
                 planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
-                planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG,PreviewDesignerPlanActivity.NOTICE_INTENT);
+                planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG, PreviewDesignerPlanActivity.NOTICE_INTENT);
                 startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
             case R.id.btnContract:
                 Bundle contractBundle = new Bundle();
                 contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
                 contractBundle.putString(Global.REQUIREMENT_STATUS, requirementStatus);
+                contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity.NOTICE_INTENT);
                 startActivity(ContractActivity.class, contractBundle);
                 break;
             case R.id.btnConfirm:
@@ -156,9 +158,14 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
         }
     }
 
-    public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent){
-        LogTool.d(this.getClass().getName(), "onEventMainThread");
+    public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent) {
+        LogTool.d(TAG, "onEventMainThread");
         planInfo.setStatus(Global.PLAN_STATUS5);
+    }
+
+    public void onEventMainThread(ChoosedContractEvent choosedContractEvent) {
+        LogTool.d(TAG, "onEventMainThread");
+        requirement.setStatus(Global.REQUIREMENT_STATUS5);
     }
 
     //获取详情

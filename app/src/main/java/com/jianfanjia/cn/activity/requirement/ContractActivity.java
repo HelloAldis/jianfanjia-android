@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.ContractInfo;
@@ -24,6 +25,8 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Description:合同查看
  * Author：fengliang
@@ -32,6 +35,10 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  */
 public class ContractActivity extends SwipeBackActivity implements OnClickListener, View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
+    public static final String CONSTRACT_INTENT_FLAG = "contract_intent_flag";
+    public static final int NOTICE_INTENT = 0;//通知进入的
+    public static final int DESIGNER_LIST_INTENT = 1;//我的设计师列表
+    private int flagIntent = -1;
     private MainHeadView mainHeadView = null;
     private Button checkBtn = null;
     private WebView webView = null;
@@ -45,7 +52,8 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  requirementid:" + requirementid);
+        flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
+        LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  requirementid:" + requirementid + "  flagIntent:" + flagIntent);
         initMainHeadView();
         checkBtn = (Button) findViewById(R.id.btn_choose);
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
@@ -173,7 +181,6 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         JianFanJiaClient.post_Owner_Process(ContractActivity.this, requirementid, final_planid, postUserProcessListener, this);
     }
 
-
     private ApiUiUpdateListener postUserProcessListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
@@ -184,8 +191,7 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             checkBtn.setEnabled(false);
-            setResult(RESULT_OK);
-            appManager.finishActivity(ContractActivity.this);
+            postProcessSuccess();
         }
 
         @Override
@@ -194,6 +200,20 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
             checkBtn.setEnabled(true);
         }
     };
+
+    private void postProcessSuccess() {
+        switch (flagIntent) {
+            case NOTICE_INTENT:
+                EventBus.getDefault().post(new ChoosedContractEvent());
+                break;
+            case DESIGNER_LIST_INTENT:
+                setResult(RESULT_OK);
+                appManager.finishActivity(ContractActivity.this);
+                break;
+            default:
+                break;
+        }
+    }
 
 
     @Override
