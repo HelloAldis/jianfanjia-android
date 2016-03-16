@@ -356,10 +356,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 break;
             case Constant.CHECK_ITEM:
                 Bundle checkBundle = new Bundle();
-                checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
-                checkBundle
-                        .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-                checkBundle.putString(Global.PROCESS_ID, processId);
+                checkBundle.putString(Constant.SECTION, sectionInfo.getName());
+                checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
                 Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
                 checkIntent.putExtras(checkBundle);
                 startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);

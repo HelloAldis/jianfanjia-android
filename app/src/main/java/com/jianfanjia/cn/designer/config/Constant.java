@@ -107,6 +107,8 @@ public class Constant {
     public static final String USER_IS_LOGIN = "user_is_login";// 用户是否登录
     public static final String OPEN_ID = "open_id";//微信openid
     public static final String UNION_ID = "union_id";//微信union_id
+    public static final String PROCESS_INFO = "process";
+    public static final String SECTION = "section";
 
     public static final String OWNER_INFO = "owner_info";// 当前业主信息
     public static final String DEFAULT_PROCESS = "default_process";// 当前工地
