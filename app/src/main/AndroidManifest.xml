@@ -235,10 +235,6 @@
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.NotifyActivity"
-            android:label="@string/title_activity_notify"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.jianfanjia.cn.designer.activity.common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
