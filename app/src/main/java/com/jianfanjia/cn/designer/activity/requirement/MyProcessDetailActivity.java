@@ -22,7 +22,6 @@ import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
-import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.SectionInfo;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
@@ -614,97 +613,4 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }, this);
     }
 
-    private void showNotifyDialog(final NotifyMessage message) {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(this);
-        String msgType = message.getType();
-        String msgStatus = message.getStatus();
-        if (msgType.equals(Constant.YANQI_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.yanqiText));
-            dialog.setMessage(message.getContent());
-            if (msgStatus.equals(Constant.YANQI_BE_DOING)) {
-                dialog.setPositiveButton(R.string.agree,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                agreeReschedule(message.getProcessid());
-                            }
-                        });
-                dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        refuseReschedule(message.getProcessid());
-                    }
-                });
-            } else {
-                dialog.setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                loadCurrentProcess(MyProcessDetailActivity.this);
-            }
-        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.caigouText));
-            dialog.setMessage(getResources().getString(R.string.list_item_caigou_example) + message.getContent());
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-        }
-        dialog.show();
-    }
-
-    //同意改期
-    private void agreeReschedule(String processid) {
-        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-            }
-        }, this);
-    }
-
-    // 拒绝改期
-    private void refuseReschedule(String processid) {
-        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-            }
-        }, this);
-    }
 }

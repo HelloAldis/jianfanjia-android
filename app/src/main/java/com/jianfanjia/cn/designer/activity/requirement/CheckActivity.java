@@ -55,6 +55,10 @@ import java.util.List;
 public class CheckActivity extends BaseActivity implements OnClickListener,
         UploadListener, ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = CheckActivity.class.getName();
+    public static final String CHECK_INTENT_FLAG = "check_intent_flag";
+    public static final int NOTICE_INTENT = 0;//通知进入的
+    public static final int PROCESS_LIST_INTENT = 1;//工地
+    private int flagIntent = -1;
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
     private MainHeadView mainHeadView = null;
