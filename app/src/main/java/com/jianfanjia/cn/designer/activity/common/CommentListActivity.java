@@ -68,7 +68,7 @@ public class CommentListActivity extends BaseAnnotationActivity {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
 
         ((TextView) emptyView.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_commnet));
-        ((ImageView) emptyView.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
+        ((ImageView) emptyView.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_no_comment);
 
         refreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         refreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
