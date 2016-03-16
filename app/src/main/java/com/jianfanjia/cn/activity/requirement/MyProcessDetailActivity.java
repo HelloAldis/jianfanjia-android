@@ -19,7 +19,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.activity.common.PhotoPickerActivity;
-import com.jianfanjia.cn.activity.my.NotifyActivity;
+import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -187,7 +187,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
 
     @Click(R.id.head_notification_layout)
     protected void gotoNotifyActivity() {
-        startActivity(NotifyActivity.class);
+        startActivity(NoticeActivity.class);
     }
 
     // 初始化数据
