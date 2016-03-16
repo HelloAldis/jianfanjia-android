@@ -201,7 +201,7 @@
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
-    <string name="upload_pic">上传照片</string>
+    <string name="upload_pic">现场照片</string>
     <string name="show_pic">示范照片</string>
     <string name="edit">编辑</string>
     <string name="confirm_check">确认验收</string>
@@ -345,7 +345,7 @@
     <string name="process_tip_text">点击查看工地模板></string>
     <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
     <string name="not_comment">业主还没有对您进行评价！</string>
-    <string name="empty_view_no_notice_data">您还没有通知</string>
+    <string name="empty_view_no_notice_data">目前您还没有通知</string>
     <string name="no_more_data">没有更多了</string>
 
     <string name="all_finish">已竣工</string>
