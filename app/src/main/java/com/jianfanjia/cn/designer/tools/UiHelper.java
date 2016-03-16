@@ -33,6 +33,7 @@ import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
+import com.jianfanjia.cn.designer.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
@@ -41,9 +42,28 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UiHelper {
+
+    /**
+     * 拿到未读消息个数
+     *
+     * @param context
+     * @param apiUiUpdateListener
+     * @param selectLists
+     */
+    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag, String[]... selectLists) {
+        Map<String, Object> param = new HashMap<>();
+        List<String[]> contain = new ArrayList<>();
+        for (String[] temp : selectLists) {
+            contain.add(temp);
+        }
+        param.put("query_array", contain);
+        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(context, param), apiUiUpdateListener, tag);
+    }
 
     /**
      * 生成一个默认的分割线

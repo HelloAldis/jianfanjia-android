@@ -133,9 +133,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             checkGridList = getCheckedImageById(sectionInfo.getName());
             imageids = sectionInfo.getYs().getImages();
             LogTool.d(TAG, "imageids=" + imageids);
-            uploadCount = checkGridList.size() / 2;
             currentUploadCount = imageids.size();
-            LogTool.d(TAG, " uploadCount========" + uploadCount + " currentUploadCount=======" + currentUploadCount);
+            LogTool.d(TAG, "currentUploadCount=======" + currentUploadCount);
             for (int i = 0; imageids != null && i < imageids.size(); i++) {
                 String key = imageids.get(i).getKey();
                 LogTool.d(TAG, "key=" + key);
@@ -168,7 +167,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
-            if (currentUploadCount < uploadCount) {
+            if (currentUploadCount < BusinessManager
+                    .getCheckPicCountBySection(sectionInfo.getName())) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
                         R.string.confirm_upload));
@@ -308,7 +308,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                         hideWaitDialog();
                         updateList(Constant.HOME_ADD_PIC);
                         currentUploadCount--;
-                        LogTool.d(TAG, "  currentUploadCount===================================================" + currentUploadCount);
+                        LogTool.d(TAG, "currentUploadCount--" + currentUploadCount);
                         changeEditStatus();
                     }
 
@@ -428,7 +428,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void updateList(String imgid) {
         GridItem gridItem = checkGridList.get(key * 2 + 1);
         gridItem.setImgId(imgid);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
     }
 
     private void onClickCheckConfirm() {

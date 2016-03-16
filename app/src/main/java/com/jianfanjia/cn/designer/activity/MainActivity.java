@@ -3,10 +3,13 @@ package com.jianfanjia.cn.designer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.AppManager;
+import com.jianfanjia.cn.designer.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -14,7 +17,14 @@ import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment_;
+import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.UiHelper;
+
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:主界面
@@ -22,13 +32,15 @@ import com.jianfanjia.cn.designer.tools.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MainActivity extends BaseActivity implements
-        OnCheckedChangeListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
-    private RadioGroup mTabRg = null;
+    private ImageView badgeView = null;
+    private LinearLayout ownerLayout = null;
+    private LinearLayout siteLayout = null;
+    private LinearLayout myLayout = null;
     private MyOwnerFragment ownerFragment = null;
     private ManageFragment manageFragment = null;
-    private MyNewFragment moreFragment = null;
+    private MyNewFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
 
@@ -41,34 +53,60 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initView() {
-        mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
+        badgeView = (ImageView) findViewById(R.id.badgeView);
+        badgeView.setVisibility(View.GONE);
+        ownerLayout = (LinearLayout) findViewById(R.id.owner_layout);
+        siteLayout = (LinearLayout) findViewById(R.id.site_layout);
+        myLayout = (LinearLayout) findViewById(R.id.my_layout);
         setTabSelection(Constant.OWNER);
     }
 
     @Override
     public void setListener() {
-        mTabRg.setOnCheckedChangeListener(this);
+        ownerLayout.setOnClickListener(this);
+        siteLayout.setOnClickListener(this);
+        myLayout.setOnClickListener(this);
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.tab_rb_1:
-                setTabSelection(Constant.OWNER);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.owner_layout:
+                switchTab(Constant.OWNER);
                 break;
-            case R.id.tab_rb_2:
-                setTabSelection(Constant.MANAGE);
+            case R.id.site_layout:
+                switchTab(Constant.MANAGE);
                 break;
-            case R.id.tab_rb_3:
-                setTabSelection(Constant.MORE);
-                break;
-            default:
+            case R.id.my_layout:
+                switchTab(Constant.MORE);
                 break;
         }
+    }
+
+    public void switchTab(int index) {
+        switch (index) {
+            case Constant.OWNER:
+                ownerLayout.setSelected(true);
+                siteLayout.setSelected(false);
+                myLayout.setSelected(false);
+                break;
+            case Constant.MANAGE:
+                ownerLayout.setSelected(false);
+                siteLayout.setSelected(true);
+                myLayout.setSelected(false);
+                break;
+            case Constant.MORE:
+                ownerLayout.setSelected(false);
+                siteLayout.setSelected(false);
+                myLayout.setSelected(true);
+                break;
+        }
+        setTabSelection(index);
     }
 
     private void setTabSelection(int index) {
@@ -93,11 +131,11 @@ public class MainActivity extends BaseActivity implements
                 }
                 break;
             case Constant.MORE:
-                if (moreFragment != null) {
-                    transaction.show(moreFragment);
+                if (myFragment != null) {
+                    transaction.show(myFragment);
                 } else {
-                    moreFragment = new MyNewFragment();
-                    transaction.add(R.id.tablayout, moreFragment);
+                    myFragment = new MyNewFragment();
+                    transaction.add(R.id.tablayout, myFragment);
                 }
                 break;
             default:
@@ -114,8 +152,8 @@ public class MainActivity extends BaseActivity implements
         if (manageFragment != null) {
             ft.hide(manageFragment);
         }
-        if (moreFragment != null) {
-            ft.hide(moreFragment);
+        if (myFragment != null) {
+            ft.hide(myFragment);
         }
     }
 
@@ -129,6 +167,54 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    public void onEventMainThread(MessageCountEvent messageCountEvent) {
+        //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+    }
+
+    private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
+            }.getType());
+            if (countList != null) {
+                if (countList.get(0) > 0 || countList.get(1) > 0) {
+//                    badgeView.setText(countList.get(0) + countList.get(1) + "");
+//                    badgeView.show();
+                    badgeView.setVisibility(View.VISIBLE);
+                } else {
+                    badgeView.setVisibility(View.GONE);
+//                    badgeView.hide();
+                }
+                if (myFragment != null) {
+                    if (countList.get(0) > 0) {
+                        myFragment.noticeCountView.setVisibility(View.VISIBLE);
+                        myFragment.noticeCountView.setText(countList.get(0) + "");
+                    } else {
+                        myFragment.noticeCountView.setVisibility(View.GONE);
+                    }
+                    if (countList.get(1) > 0) {
+                        myFragment.commentCountView.setVisibility(View.VISIBLE);
+                        myFragment.commentCountView.setText(countList.get(1) + "");
+                    } else {
+                        myFragment.commentCountView.setVisibility(View.GONE);
+                        myFragment.commentCountView.setText("");
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -137,7 +223,9 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
+
 
     @Override
     public int getLayoutId() {
