@@ -428,7 +428,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void updateList(String imgid) {
         GridItem gridItem = checkGridList.get(key * 2 + 1);
         gridItem.setImgId(imgid);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
     }
 
     private void onClickCheckConfirm() {

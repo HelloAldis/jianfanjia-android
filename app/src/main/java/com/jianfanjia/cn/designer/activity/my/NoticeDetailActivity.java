@@ -10,10 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.NoticeDetailInfo;
+import com.jianfanjia.cn.designer.bean.PlanInfo;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
+import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -50,6 +53,8 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private String processid = null;
     private String sectionName = null;
     private ProcessInfo processInfo = null;
+    private PlanInfo planInfo = null;
+    private RequirementInfo requirement = null;
 
     @Override
     public void initView() {
@@ -111,6 +116,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.btnCheck:
                 break;
             case R.id.btnPlan:
+                Bundle planBundle = new Bundle();
+                planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
+                planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
+                startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
             case R.id.btnContract:
                 break;
@@ -176,6 +185,16 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
+                    } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant.TYPE_PLAN_NOT_CHOOSED_MSG)) {
+                        planInfo = noticeDetailInfo.getPlan();
+                        requirement = noticeDetailInfo.getRequirement();
+                        LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
+                        typeText.setText(getResources().getString(R.string.req_str));
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnPlan.setVisibility(View.VISIBLE);
+                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
                         typeText.setText(getResources().getString(R.string.sys_str));
                     } else {
@@ -183,7 +202,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.req_str));
-//                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
                         sectionText.setVisibility(View.GONE);
                     }
                     dateText.setText(DateFormatTool.getRelativeTime(noticeDetailInfo.getCreate_at()));
