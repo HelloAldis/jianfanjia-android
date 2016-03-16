@@ -274,11 +274,6 @@
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".my.NotifyActivity"
-            android:label="@string/title_activity_notify"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back" />
-        <activity
             android:name=".common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait"
