@@ -131,49 +131,6 @@
                 <View style="@style/vertical_divier_line" />
 
                 <RelativeLayout
-                    android:id="@+id/collect_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <FrameLayout
-                        android:id="@+id/imageLayout1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true">
-
-                        <com.jianfanjia.cn.designer.view.layout.CircleImageView
-                            android:id="@+id/ltm_req_designer_head1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:layout_marginRight="@dimen/space_4"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_collect_big" />
-
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/ltm_req_designer_name1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/imageLayout1"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="4dp"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="我的收藏"
-                        android:textColor="@color/light_black_color"
-                        android:textSize="@dimen/middle_size" />
-
-                </RelativeLayout>
-
-                <View style="@style/vertical_divier_line" />
-
-                <RelativeLayout
                     android:id="@+id/comment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -221,41 +178,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/binding_account_layout"
-                style="@style/my_list_item_layout_style">
-
-                <ImageView
-                    android:id="@+id/binding_account_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_account" />
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_toRightOf="@+id/binding_account_icon"
-                    android:text="@string/account_binding"
-                    android:textColor="@color/light_black_color" />
-
-                <TextView
-                    android:id="@+id/phoneText"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/phone_goto"
-                    android:textColor="@color/light_black_color" />
-
-                <ImageView
-                    android:id="@+id/phone_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
 
 
             <RelativeLayout
