@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
@@ -75,6 +77,9 @@ public class CommentListActivity extends SwipeBackActivity {
     @AfterViews
     protected void initAnnotationView() {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
+
+        ((TextView) emptyView.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_commnet));
+        ((ImageView) emptyView.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
 
         refreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         refreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
@@ -230,11 +235,14 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
     }
 
-    @Click({R.id.head_back_layout})
+    @Click({R.id.head_back_layout,R.id.img_error})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                break;
+            case R.id.img_error:
+                getMyCommentInfo(Constant.FROM_START, pullDownListener);
                 break;
         }
     }

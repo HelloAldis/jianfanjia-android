@@ -12,23 +12,28 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/pullrefresh_recycleview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="#344a5d"
-        android:visibility="gone"/>
+        android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/error_include"
-        layout="@layout/view_error_layout"
-        android:visibility="gone" />
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pullrefresh_recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d" />
 
-    <include
-        android:id="@+id/empty_include"
-        layout="@layout/view_empty_layout"
-        android:visibility="gone" />
+        <include
+            android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/empty_include"
+            layout="@layout/view_empty_layout"
+            android:visibility="gone" />
+
+    </FrameLayout>
 
 </LinearLayout>
