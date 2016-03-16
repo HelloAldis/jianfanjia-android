@@ -23,9 +23,10 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.designer.bean.GridItem;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
+import com.jianfanjia.cn.designer.bean.SectionInfo;
 import com.jianfanjia.cn.designer.bean.SectionItemInfo;
+import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
@@ -37,7 +38,7 @@ import com.jianfanjia.cn.designer.tools.ImageUtils;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.cn.designer.view.baseview.SpacesItemDecoration;
+import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
@@ -54,6 +55,10 @@ import java.util.List;
 public class CheckActivity extends BaseActivity implements OnClickListener,
         UploadListener, ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = CheckActivity.class.getName();
+    public static final String CHECK_INTENT_FLAG = "check_intent_flag";
+    public static final int NOTICE_INTENT = 0;//通知进入的
+    public static final int PROCESS_LIST_INTENT = 1;//工地
+    private int flagIntent = -1;
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
     private MainHeadView mainHeadView = null;
@@ -67,34 +72,23 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private List<String> showProcessPic = new ArrayList<>();//工地验收照片
     private List<Imageid> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
-    private String sectionInfoName = null;// 工序名称
-    private String sectionInfoStatus = null;// 工序状态
-    private int key;
+    private ProcessInfo processInfo = null;
+    private String sectionName = null;//工序名称
+    private SectionInfo sectionInfo = null;
+    private int key = -1;
     private File mTmpFile = null;
-    private ProcessInfo processInfo;
     private List<SectionItemInfo> sectionItemInfos;
     private int currentState;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
-            processInfoId = bundle.getString(Global.PROCESS_ID);
-            LogTool.d(TAG, "processInfoId:" + processInfoId + " sectionInfoName:" + sectionInfoName + " processInfoStatus:" + sectionInfoStatus);
-            if (processInfoId != null) {
-                loadCurrentProcess(processInfoId);
-            }
-        }
-    }
+    private int uploadCount = 0;//要上传图片个数
+    private int currentUploadCount = 0;//当前已上传图片个数
+
 
     @Override
     public void initView() {
         initMainHeadView();
         checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
+        btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         gridView = (RecyclerView) findViewById(R.id.mygridview);
         gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -106,12 +100,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         gridView.setLayoutManager(gridLayoutManager);
         gridView.setHasFixedSize(true);
         gridView.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        ItemSpaceDecoration decoration = new ItemSpaceDecoration(MyApplication.dip2px(getApplicationContext(), 5));
         gridView.addItemDecoration(decoration);
-        btn_confirm = (TextView) findViewById(R.id.btn_confirm);
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         currentState = FINISH_STATUS;
+        initData();
     }
 
     private void initMainHeadView() {
@@ -124,27 +118,36 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         mainHeadView.setRigthTitleEnable(false);
     }
 
-    private void loadCurrentProcess(String processid) {
-        JianFanJiaClient.get_ProcessInfo_By_Id(this, processid,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        initData();
-                    }
-
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        hideWaitDialog();
-                        makeTextShort(errorMsg);
-                    }
-                }, this);
+    private void initData() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (null != bundle) {
+            sectionName = bundle.getString(Constant.SECTION);
+            processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
+            processInfoId = processInfo.get_id();
+            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId);
+            sectionInfo = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+            LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
+            mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
+            checkGridList.clear();
+            checkGridList = getCheckedImageById(sectionInfo.getName());
+            imageids = sectionInfo.getYs().getImages();
+            LogTool.d(TAG, "imageids=" + imageids);
+            uploadCount = checkGridList.size() / 2;
+            currentUploadCount = imageids.size();
+            LogTool.d(TAG, " uploadCount========" + uploadCount + " currentUploadCount=======" + currentUploadCount);
+            for (int i = 0; imageids != null && i < imageids.size(); i++) {
+                String key = imageids.get(i).getKey();
+                LogTool.d(TAG, "key=" + key);
+                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                        imageids.get(i).getImageid());
+            }
+            adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
+                    this, this);
+            gridView.setAdapter(adapter);
+            setConfimStatus();
+            initShowList();
+        }
     }
 
     //初始化放大显示的list
@@ -161,44 +164,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    private void initData() {
-        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
-                this, this);
-        gridView.setAdapter(adapter);
-        processInfo = dataManager.getDefaultProcessInfo();
-        if (processInfo != null) {
-            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
-            refreshList();
-        }
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfoName) + "阶段验收");
-    }
-
-    private void refreshList() {
-        LogTool.d(TAG, "processInfo != null");
-        checkGridList.clear();
-        checkGridList = getCheckedImageById(sectionInfoName);
-        processInfo = dataManager.getDefaultProcessInfo();
-        imageids = processInfo.getImageidsByName(sectionInfoName);
-        LogTool.d(TAG, "imageids=" + imageids);
-        for (int i = 0; imageids != null && i < imageids.size(); i++) {
-            String key = imageids.get(i).getKey();
-            LogTool.d(TAG, "key=" + key);
-            checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                    imageids.get(i).getImageid());
-        }
-        adapter.setList(checkGridList);
-        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
-        setConfimStatus();
-        initShowList();
-    }
-
     private void setConfimStatus() {
-        int count = imageids.size();
-        LogTool.d(TAG, "count=" + count + " sectionInfoStatus=" + sectionInfoStatus);
-        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
+        if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
-            if (count < checkGridList.size() / 2) {
+            if (currentUploadCount < uploadCount) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
                         R.string.confirm_upload));
@@ -215,7 +185,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     btn_confirm.setEnabled(false);
                 }
             } else {
-                boolean isFinish = isSectionInfoFishish(sectionItemInfos);
+                boolean isFinish = isSectionInfoFishish(sectionInfo.getItems());
                 LogTool.d(TAG, "isFinish=" + isFinish);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
@@ -276,7 +246,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     public void changeEditStatus() {
-        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
+        if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
                 mainHeadView.setRightTitle(getString(R.string.finish));
                 currentState = EDIT_STATUS;
@@ -327,7 +297,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         key = position;
         LogTool.d(TAG, "key:" + key);
         JianFanJiaClient.deleteYanshouImgByDesigner(this,
-                processInfoId, sectionInfoName, key + "", new ApiUiUpdateListener() {
+                processInfoId, sectionName, key + "", new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
                         showWaitDialog();
@@ -336,8 +306,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     @Override
                     public void loadSuccess(Object data) {
                         hideWaitDialog();
-                        refreshList();
-//                        changeEditStatus();
+                        updateList(Constant.HOME_ADD_PIC);
+                        currentUploadCount--;
+                        LogTool.d(TAG, "  currentUploadCount===================================================" + currentUploadCount);
+                        changeEditStatus();
                     }
 
                     @Override
@@ -417,20 +389,23 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
                 @Override
                 public void loadSuccess(Object data) {
-                    JianFanJiaClient.submitYanShouImage(CheckActivity.this, processInfoId, sectionInfoName,
+                    JianFanJiaClient.submitYanShouImage(CheckActivity.this, processInfoId, sectionName,
                             key + "", dataManager.getCurrentUploadImageId(), new ApiUiUpdateListener() {
 
                                 @Override
                                 public void preLoad() {
                                     // TODO Auto-generated
                                     // method stub
-
                                 }
 
                                 @Override
                                 public void loadSuccess(Object data) {
+                                    LogTool.d(TAG, "submitYanShouImage  data:" + data.toString());
                                     hideWaitDialog();
-                                    refreshList();
+                                    updateList(dataManager.getCurrentUploadImageId());
+                                    currentUploadCount++;
+                                    LogTool.d(TAG, "currentUploadCount:" + currentUploadCount);
+                                    setConfimStatus();
                                 }
 
                                 @Override
@@ -450,6 +425,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    private void updateList(String imgid) {
+        GridItem gridItem = checkGridList.get(key * 2 + 1);
+        gridItem.setImgId(imgid);
+        adapter.notifyDataSetChanged();
+    }
+
     private void onClickCheckConfirm() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);
@@ -462,7 +443,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         confirmCanCheckByDesigner(processInfoId,
-                                sectionInfoName);
+                                sectionName);
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
@@ -551,4 +532,5 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public int getLayoutId() {
         return R.layout.activity_check_pic;
     }
+
 }

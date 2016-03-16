@@ -96,7 +96,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
         btnContract.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -110,24 +109,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 refuseReschedule(processid);
                 break;
             case R.id.btnCheck:
-//                Bundle checkBundle = new Bundle();
-//                checkBundle.putString(Constant.SECTION, sectionName);
-//                checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-//                Intent checkIntent = new Intent(NoticeDetailActivity.this, CheckActivity.class);
-//                checkIntent.putExtras(checkBundle);
-//                startActivity(checkIntent);
                 break;
             case R.id.btnPlan:
-//                Bundle planBundle = new Bundle();
-//                planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
-//                planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
-//                startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
             case R.id.btnContract:
-//                Bundle contractBundle = new Bundle();
-//                contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
-//                contractBundle.putString(Global.REQUIREMENT_STATUS, requirementStatus);
-//                startActivity(ContractActivity.class, contractBundle);
                 break;
             case R.id.btnConfirm:
                 appManager.finishActivity(this);
