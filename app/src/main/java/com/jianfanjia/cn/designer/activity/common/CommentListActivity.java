@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
@@ -64,6 +66,9 @@ public class CommentListActivity extends BaseAnnotationActivity {
     @AfterViews
     protected void initAnnotationView() {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
+
+        ((TextView) emptyView.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_commnet));
+        ((ImageView) emptyView.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_no_comment);
 
         refreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         refreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
@@ -138,7 +143,7 @@ public class CommentListActivity extends BaseAnnotationActivity {
         Map<String, Object> param = new HashMap<>();
         param.put(Constant.FROM, from);
         param.put(Constant.LIMIT, Constant.HOME_PAGE_LIMIT);
-        
+
         JianFanJiaClient.searchUserComment(new SearchUserCommentRequest(this, param), apiUiUpdateListener, this);
     }
 
@@ -218,11 +223,14 @@ public class CommentListActivity extends BaseAnnotationActivity {
         myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
     }
 
-    @Click({R.id.head_back_layout})
+    @Click({R.id.head_back_layout,R.id.img_error})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                break;
+            case R.id.img_error:
+                getMyCommentInfo(Constant.FROM_START, pullDownListener);
                 break;
         }
     }
