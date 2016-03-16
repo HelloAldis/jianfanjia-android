@@ -8,9 +8,6 @@ import android.os.Bundle;
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
-import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.designer.interf.manager.ListenerManeger;
-import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.MessageUtil;
 
@@ -22,14 +19,10 @@ import com.jianfanjia.cn.designer.tools.MessageUtil;
  */
 public class PushMsgReceiver extends BroadcastReceiver {
     private static final String TAG = PushMsgReceiver.class.getName();
-    private ListenerManeger listenerManeger = null;
-    private NotifyMessageDao notifyMessageDao = null;
     private DataManagerNew dataManager = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        listenerManeger = ListenerManeger.getListenerManeger();
-        notifyMessageDao = DaoManager.getNotifyMessageDao(context);
         dataManager = DataManagerNew.getInstance();
         //-------------------------------------------------
         Bundle bundle = intent.getExtras();

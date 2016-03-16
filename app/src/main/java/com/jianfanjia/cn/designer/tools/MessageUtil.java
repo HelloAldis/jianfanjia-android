@@ -77,7 +77,7 @@ public class MessageUtil {
         }
     }
 
-    public static void sendNotifycation(Context context, NotifyMessage message) {
+    private static void sendNotifycation(Context context, NotifyMessage message) {
         int notifyId = (int) System.currentTimeMillis();
         LogTool.d(TAG, "notifyId =" + notifyId);
         NotificationManager nManager = (NotificationManager) context
