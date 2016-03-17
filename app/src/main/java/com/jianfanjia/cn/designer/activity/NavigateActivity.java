@@ -6,18 +6,17 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.tools.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author fengliang
@@ -29,8 +28,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         OnPageChangeListener {
     private ViewPager viewPager = null;
     private LinearLayout btnLayout = null;
-    private Button btnRegister = null;
-    private Button btnLogin = null;
     private List<View> list = new ArrayList<View>();
     private ViewPageAdapter adapter = null;
     private int lastSelectorItem = 0;
@@ -52,8 +49,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     public void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
-        btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
         // 导航测试资源
         for (int i = 0; i < imgId.length; i++) {
             imageLayout = (RelativeLayout)inflater.inflate(R.layout.viewpager_item_navigate,null,false);
@@ -73,27 +68,10 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     @Override
     public void setListener() {
         viewPager.setOnPageChangeListener(this);
-//        btnRegister.setOnClickListener(this);
-//        btnLogin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-    /*    dataManager.setFisrt(false);
-        switch (v.getId()) {
-            case R.id.btnRegister:
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(Global.ISREGIISTER, true);
-                startActivity(LoginNewActivity_.class, bundle);
-                appManager.finishActivity(this);
-                break;
-            case R.id.btnLogin:
-                startActivity(LoginNewActivity_.class);
-                appManager.finishActivity(this);
-                break;
-            default:
-                break;
-        }*/
     }
 
     int currentState;
