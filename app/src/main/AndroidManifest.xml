@@ -394,7 +394,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NewUserGuideActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />1
         <activity
             android:name=".requirement.PublishRequirementActivity_"
             android:screenOrientation="portrait"
@@ -459,30 +459,38 @@
         <activity
             android:name=".home.WebViewActivity_"
             android:label="@string/title_activity_decorate_strategy"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".home.DesignerListActivity"
             android:label="@string/title_activity_designer_list"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".home.DesignerCaseListActivity"
             android:label="@string/title_activity_designer_case_list"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".common.CommentListActivity_"
             android:label="@string/title_activity_designer_case_list"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".my.NoticeActivity"
             android:label="@string/title_activity_notice"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".home.DecorateLiveActivity_"
             android:label="@string/title_activity_notice"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".my.NoticeDetailActivity"
             android:label="@string/title_activity_notice_detail"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"></activity>
     </application>
 
