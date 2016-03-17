@@ -13,11 +13,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
-import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -27,10 +31,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Description:评论留言
@@ -138,7 +138,8 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
-        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item, getCommentListener, this);
+        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item,
+                getCommentListener, this);
     }
 
     private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
@@ -170,7 +171,8 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
 
     //添加评论
     private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
-        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to, addCommentListener, this);
+        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to,
+                addCommentListener, this);
     }
 
     private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {

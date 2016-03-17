@@ -91,7 +91,8 @@ public class CommentListActivity extends SwipeBackActivity {
         refreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
         refreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 
-        myCommentInfoAdapter = new MyCommentInfoAdapter(this, refreshRecycleView.getRefreshableView(), new MyCommentInfoAdapter.OnItemCallback() {
+        myCommentInfoAdapter = new MyCommentInfoAdapter(this, refreshRecycleView.getRefreshableView(), new
+                MyCommentInfoAdapter.OnItemCallback() {
             @Override
             public void onResponse(NoticeInfo noticeInfo, int viewType) {
 
@@ -168,7 +169,7 @@ public class CommentListActivity extends SwipeBackActivity {
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            if(!mHasLoadOnce){
+            if (!mHasLoadOnce) {
                 showWaitDialog();
             }
         }
@@ -184,7 +185,8 @@ public class CommentListActivity extends SwipeBackActivity {
                     myCommentInfoAdapter.clear();
                     myCommentInfoAdapter.addData(noticeListInfo.getList());
                     LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter.getData().size());
+                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                            myCommentInfoAdapter.getData().size());
                     if (total > myCommentInfoAdapter.getData().size()) {
                         myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
                     } else {
@@ -221,7 +223,8 @@ public class CommentListActivity extends SwipeBackActivity {
             if (total > 0) {
                 myCommentInfoAdapter.addData(noticeListInfo.getList());
                 LogTool.d(this.getClass().getName(), "total size =" + total);
-                LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter.getData().size());
+                LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter
+                        .getData().size());
                 if (total > myCommentInfoAdapter.getData().size()) {
                     myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
                 } else {
@@ -241,7 +244,7 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
     }
 
-    @Click({R.id.head_back_layout,R.id.img_error})
+    @Click({R.id.head_back_layout, R.id.img_error})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -253,8 +256,8 @@ public class CommentListActivity extends SwipeBackActivity {
         }
     }
 
-    public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent){
-        LogTool.d(this.getClass().getName(),"onEventMainThread");
+    public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent) {
+        LogTool.d(this.getClass().getName(), "onEventMainThread");
         currentnNoticeInfo.getPlan().setStatus(Global.PLAN_STATUS5);
         myCommentInfoAdapter.updateItem(currentnNoticeInfo);
     }

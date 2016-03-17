@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
@@ -28,10 +31,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -40,7 +39,8 @@ import de.greenrobot.event.EventBus;
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDecorationImgFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class CollectDecorationImgFragment extends CommonFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectDecorationImgFragment.class.getName();
     private PullToRefreshRecycleView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -81,10 +81,12 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         decoration_img_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_img_listview);
         decoration_img_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager
+                .VERTICAL));
         decoration_img_listview.setHasFixedSize(true);
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext().getApplicationContext(), 5));
+        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
+                .getApplicationContext(), 5));
         decoration_img_listview.addItemDecoration(decoration);
     }
 
@@ -151,7 +153,8 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                 beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
                 if (null != beautyImgList && beautyImgList.size() > 0) {
                     if (null == decorationImgAdapter) {
-                        decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
+                        decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
+                                OnItemClickListener() {
                             @Override
                             public void OnItemClick(int position) {
                                 LogTool.d(TAG, "position:" + position);
@@ -162,10 +165,11 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                                 Bundle decorationBundle = new Bundle();
                                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
                                 decorationBundle.putInt(Global.POSITION, position);
-                                decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
+                                decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>)
+                                        beautyImgList);
                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.COLLECT_BEAUTY_FRAGMENT);
-                                startActivity(PreviewDecorationActivity.class,decorationBundle);
+                                startActivity(PreviewDecorationActivity.class, decorationBundle);
                             }
                         });
                         decoration_img_listview.setAdapter(decorationImgAdapter);

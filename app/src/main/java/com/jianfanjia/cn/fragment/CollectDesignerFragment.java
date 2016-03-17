@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
@@ -27,10 +30,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 
@@ -40,7 +39,8 @@ import de.greenrobot.event.EventBus;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDesignerFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class CollectDesignerFragment extends CommonFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -79,12 +79,14 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id.my_favorite_designer_listview);
+        my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id
+                .my_favorite_designer_listview);
         my_favorite_designer_listview.setMode(PullToRefreshBase.Mode.BOTH);
         my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         my_favorite_designer_listview.setHasFixedSize(true);
         my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
-        my_favorite_designer_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
+        my_favorite_designer_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+                .getApplicationContext()));
     }
 
     public void setListener() {
@@ -146,7 +148,8 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                 designers.clear();
                 designers.addAll(myFavoriteDesigner.getDesigners());
                 if (null != designers && designers.size() > 0) {
-                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
+                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new
+                            RecyclerViewOnItemClickListener() {
                         @Override
                         public void OnItemClick(View view, int position) {
                             LogTool.d(TAG, "position=" + position);
@@ -156,7 +159,7 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                             LogTool.d(TAG, "designerId:" + designerId);
                             Bundle designerBundle = new Bundle();
                             designerBundle.putString(Global.DESIGNER_ID, designerId);
-                            startActivity(DesignerInfoActivity.class,designerBundle);
+                            startActivity(DesignerInfoActivity.class, designerBundle);
                         }
 
                         @Override
