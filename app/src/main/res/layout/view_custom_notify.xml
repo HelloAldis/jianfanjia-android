@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
 
     <RelativeLayout
         android:id="@+id/icon_layout"
@@ -25,7 +26,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_8"
         android:layout_marginRight="@dimen/space_8"
-        android:layout_toRightOf="@+id/icon_layout"
+        android:layout_toRightOf="@id/icon_layout"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -37,14 +38,14 @@
                 android:id="@+id/list_item_title"
                 style="@style/listview_item_text_style_middle"
                 android:text="title"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/font_white" />
 
             <TextView
                 android:id="@+id/list_item_date"
                 style="@style/listview_item_text_style_small"
                 android:layout_alignParentRight="true"
                 android:text="2015-11-30"
-                android:textColor="@color/light_black_color" />
+                android:textColor="@color/font_white" />
         </RelativeLayout>
 
         <TextView
@@ -55,7 +56,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="content"
-            android:textColor="@color/light_black_color"
+            android:textColor="@color/font_white"
             android:textSize="@dimen/text_size_14" />
 
     </LinearLayout>
