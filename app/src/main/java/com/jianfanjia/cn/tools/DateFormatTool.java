@@ -56,7 +56,6 @@ public class DateFormatTool {
     public static String getHumReadDateString(long time) {
         long now = System.currentTimeMillis();
         long diff = now - time;
-
         if (diff < 5 * 60) {
             return "刚刚";
         } else if (diff >= 5 * ONE_MIN && diff < ONE_HOUR) {
