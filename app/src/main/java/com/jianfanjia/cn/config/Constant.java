@@ -25,7 +25,8 @@ public class Constant {
     public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
     public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
     public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
-    public static final String BEAUTY_IMAG_PATH = SDCardHelper.getSDCardPublicDir(Environment.DIRECTORY_PICTURES);// 保存美图,这个是对外公开的，所以保持在公共目录
+    public static final String BEAUTY_IMAG_PATH = SDCardHelper.getSDCardPublicDir(Environment.DIRECTORY_PICTURES);//
+    // 保存美图,这个是对外公开的，所以保持在公共目录
 
     public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
     public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件
@@ -48,7 +49,8 @@ public class Constant {
     public static final String QUERY = "query";
     public static final int FROM_START = 0;
 
-    public static final String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox.jsp?companyID=611886&configID=139921&jid=3699665419";
+    public static final String HOTLINE_URL = "http://chat16.live800.com/live800/chatClient/chatbox" +
+            ".jsp?companyID=611886&configID=139921&jid=3699665419";
 
     public static class Config {
         public static final boolean DEVELOPER_MODE = false;
@@ -149,6 +151,7 @@ public class Constant {
     public static final String TYPE_DESIGNER_CONFIG_CONTRACT_MSG = "10";//设计师配置了合同
     public static final String TYPE_DESIGNER_REJECT_DELAY_MSG = "11";//设计师拒绝改期
     public static final String TYPE_DESIGNER_AGREE_DELAY_MSG = "12";//设计师同意改期
+    public static final String TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG = "13";//设计师提醒业主量房
 
     // 业主消息提醒状态
     public static final String UNREAD = "0";// 未读
@@ -238,17 +241,23 @@ public class Constant {
     public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
 
     //通知搜索类型
-    public static final String[] ALL = {TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG, TYPE_CONFIRM_CHECK_MSG, TYPE_SYSTEM_MSG, TYPE_DESIGNER_RESPONSE_MSG, TYPE_DESIGNER_REJECT_MSG, TYPE_DESIGNER_UPLOAD_PLAN_MSG, TYPE_DESIGNER_CONFIG_CONTRACT_MSG, TYPE_DESIGNER_REJECT_DELAY_MSG, TYPE_DESIGNER_AGREE_DELAY_MSG};
+    public static final String[] ALL = {TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG, TYPE_CONFIRM_CHECK_MSG,
+            TYPE_SYSTEM_MSG, TYPE_DESIGNER_RESPONSE_MSG, TYPE_DESIGNER_REJECT_MSG, TYPE_DESIGNER_UPLOAD_PLAN_MSG,
+            TYPE_DESIGNER_CONFIG_CONTRACT_MSG, TYPE_DESIGNER_REJECT_DELAY_MSG, TYPE_DESIGNER_AGREE_DELAY_MSG,
+            TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG};
     public static final String[] SYSTEM = {TYPE_SYSTEM_MSG};
-    public static final String[] REQUIRE = {TYPE_DESIGNER_RESPONSE_MSG, TYPE_DESIGNER_REJECT_MSG, TYPE_DESIGNER_UPLOAD_PLAN_MSG, TYPE_DESIGNER_CONFIG_CONTRACT_MSG};
-    public static final String[] SITE = {TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG, TYPE_CONFIRM_CHECK_MSG, TYPE_DESIGNER_REJECT_DELAY_MSG, TYPE_DESIGNER_AGREE_DELAY_MSG};
+    public static final String[] REQUIRE = {TYPE_DESIGNER_RESPONSE_MSG, TYPE_DESIGNER_REJECT_MSG,
+            TYPE_DESIGNER_UPLOAD_PLAN_MSG, TYPE_DESIGNER_CONFIG_CONTRACT_MSG,
+            TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG};
+    public static final String[] SITE = {TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG, TYPE_CONFIRM_CHECK_MSG,
+            TYPE_DESIGNER_REJECT_DELAY_MSG, TYPE_DESIGNER_AGREE_DELAY_MSG};
 
     public static final String[] searchMsgCountType1 = {
             TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG,
             TYPE_CONFIRM_CHECK_MSG, TYPE_SYSTEM_MSG, TYPE_DESIGNER_RESPONSE_MSG,
             TYPE_DESIGNER_REJECT_MSG, TYPE_DESIGNER_UPLOAD_PLAN_MSG,
             TYPE_DESIGNER_CONFIG_CONTRACT_MSG, TYPE_DESIGNER_REJECT_DELAY_MSG,
-            TYPE_DESIGNER_AGREE_DELAY_MSG
+            TYPE_DESIGNER_AGREE_DELAY_MSG, TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG
     };
     public static final String[] searchMsgCountType2 = {
             TYPE_PLAN_COMMENT_MSG, TYPE_SECTION_COMMENT_MSG
