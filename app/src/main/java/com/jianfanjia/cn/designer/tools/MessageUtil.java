@@ -71,10 +71,10 @@ public class MessageUtil {
         PendingIntent pendingIntent = null;
         if (AppManager.getAppManager().getActivity(MainActivity.class) == null) {
             Intent[] intents = {mainIntent, targetIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
+            pendingIntent = PendingIntent.getActivities(context, notifyId, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
-            pendingIntent = PendingIntent.getActivity(context, 0, targetIntent,
+            pendingIntent = PendingIntent.getActivity(context, notifyId, targetIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }
         builder.setTicker(context.getResources().getText(R.string.app_name));
@@ -84,7 +84,6 @@ public class MessageUtil {
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(true);
-        builder.setOngoing(true);
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setContentIntent(pendingIntent);
         Notification notification = builder.build();
