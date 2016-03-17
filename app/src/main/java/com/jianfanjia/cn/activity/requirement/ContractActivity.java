@@ -15,6 +15,7 @@ import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.ContractInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -24,6 +25,7 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -42,25 +44,20 @@ public class ContractActivity extends SwipeBackActivity implements
     private MainHeadView mainHeadView = null;
     private Button checkBtn = null;
     private WebView webView = null;
-    private String requirementStatus = null;
-    private String requirementid = null;
+    private RequirementInfo requirement = null;
     private String final_planid = null;
 
     @Override
     public void initView() {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
-        requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
-        requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        flagIntent = contractBundle.getInt(ContractActivity
-                .CONSTRACT_INTENT_FLAG);
-        LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  " +
-                "requirementid:" + requirementid + "  flagIntent:" +
-                flagIntent);
+        requirement = (RequirementInfo) contractBundle.getSerializable(Global.REQUIREMENT_INFO);
+        flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
+        LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
         initMainHeadView();
         checkBtn = (Button) findViewById(R.id.btn_choose);
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) ||
-                requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
+        if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS5) ||
+                requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
             checkBtn.setEnabled(false);
             checkBtn.setText(getString(R.string.already_open_process));
         } else {
@@ -88,7 +85,7 @@ public class ContractActivity extends SwipeBackActivity implements
                 return true;
             }
         });
-        getContractInfo(requirementid);
+        getContractInfo(requirement.get_id());
     }
 
     private void initMainHeadView() {
@@ -147,7 +144,7 @@ public class ContractActivity extends SwipeBackActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        postUserProcess(requirementid, final_planid);
+                        postUserProcess(requirement.get_id(), final_planid);
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
