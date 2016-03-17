@@ -46,7 +46,8 @@ public class MessageUtil {
                 Activity activity = AppManager.getAppManager().currentActivity();
                 String processId = null;
                 String messageProcessId = null;
-                //此处的显示策略是：只有当MyProcessDetailActivity在当前屏幕，并且窗口聚焦，并且推送的Message的processid与MyProcessDetailActivity的processid相同的
+                //此处的显示策略是：只有当MyProcessDetailActivity在当前屏幕，并且窗口聚焦，并且推送的Message的processid与MyProcessDetailActivity
+                的processid相同的
                 // 情况下才会显示对话框，其他任何形式的通知都弹出通知栏
                 if (activity != null &&
                         activity instanceof MyProcessDetailActivity
@@ -92,7 +93,8 @@ public class MessageUtil {
         Intent mainIntent = new Intent(context, MainActivity.class);
         Intent targetIntent = null;
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
+        if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant
+                .TYPE_PLAN_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity_.class);
         } else {
             targetIntent = new Intent(context, NoticeDetailActivity.class);
@@ -103,10 +105,10 @@ public class MessageUtil {
         PendingIntent pendingIntent = null;
         if (AppManager.getAppManager().getActivity(MainActivity.class) == null) {
             Intent[] intents = {mainIntent, targetIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
+            pendingIntent = PendingIntent.getActivities(context, notifyId, intents,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         } else {
-            pendingIntent = PendingIntent.getActivity(context, 0, targetIntent,
+            pendingIntent = PendingIntent.getActivity(context, notifyId, targetIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }
         builder.setTicker(context.getResources().getText(R.string.app_name));
