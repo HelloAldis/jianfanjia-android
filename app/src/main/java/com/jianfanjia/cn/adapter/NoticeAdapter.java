@@ -38,6 +38,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     private static final int ITEM_TYPE10 = 10;
     private static final int ITEM_TYPE11 = 11;
     private static final int ITEM_TYPE12 = 12;
+    private static final int ITEM_TYPE13 = 13;
     private RecyclerItemCallBack callback;
     private int viewType = -1;
 
@@ -77,6 +78,8 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             viewType = ITEM_TYPE11;
         } else if (msgType.equals(Constant.TYPE_DESIGNER_AGREE_DELAY_MSG)) {
             viewType = ITEM_TYPE12;
+        } else if (msgType.equals(Constant.TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG)) {
+            viewType = ITEM_TYPE13;
         }
         return viewType;
     }
@@ -148,6 +151,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE8:
             case ITEM_TYPE9:
             case ITEM_TYPE10:
+            case ITEM_TYPE13:
                 ReqViewHolder reqViewHolder = (ReqViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
                     reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
@@ -155,7 +159,8 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
                     reqViewHolder.itemCellView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
                     reqViewHolder.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
                 } else {
-                    reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                    reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color
+                            .light_black_color));
                     reqViewHolder.itemContentView.setTextColor(context.getResources().getColor(R.color.grey_color));
                     reqViewHolder.itemCellView.setTextColor(context.getResources().getColor(R.color.grey_color));
                     reqViewHolder.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.grey_color));
@@ -196,6 +201,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE8:
             case ITEM_TYPE9:
             case ITEM_TYPE10:
+            case ITEM_TYPE13:
                 return layoutInflater.inflate(R.layout.list_notice_item_req, null);
         }
         return null;
@@ -219,6 +225,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE8:
             case ITEM_TYPE9:
             case ITEM_TYPE10:
+            case ITEM_TYPE13:
                 return new ReqViewHolder(view);
         }
         return null;
