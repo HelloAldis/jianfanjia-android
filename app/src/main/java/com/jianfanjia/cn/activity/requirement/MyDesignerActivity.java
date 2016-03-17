@@ -128,9 +128,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
-                        contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement()
-                                .getStatus());
+                        contractBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
                         contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
                                 .DESIGNER_LIST_INTENT);
                         startActivityForResult(ContractActivity.class, contractBundle, REQUESTCODE_FRESH_LIST);

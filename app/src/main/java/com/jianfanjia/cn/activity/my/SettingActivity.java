@@ -30,7 +30,7 @@ import com.umeng.socialize.sso.UMSsoHandler;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class SettingActivity extends SwipeBackActivity implements OnClickListener{
+public class SettingActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = SettingActivity.class.getName();
     private RelativeLayout aboutFragment = null;
     private RelativeLayout logoutLayout = null;
@@ -59,7 +59,7 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
         mainHeadView = (MainHeadView) findViewById(R.id.my_setting_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView
-                .setMianTitle(getResources().getString(R.string.my_setting));
+                .setMianTitle(getResources().getString(R.string.more));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
@@ -122,7 +122,8 @@ public class SettingActivity extends SwipeBackActivity implements OnClickListene
                         MyApplication.getInstance().clearCookie();
 //                        MyApplication.getInstance().clearAppCache();
                         appManager.finishAllActivity();
-                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this, SHARE_MEDIA.WEIXIN);
+                        AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this, SHARE_MEDIA
+                                .WEIXIN);
                         startActivity(LoginNewActivity_.class);
                         finish();
                     }

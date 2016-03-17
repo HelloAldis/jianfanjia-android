@@ -68,7 +68,6 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private PlandetailInfo planInfo = null;
     private RequirementInfo requirement = null;
     private SectionInfo sectionInfo = null;
-    private String requirementStatus = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,8 +154,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 break;
             case R.id.btnContract:
                 Bundle contractBundle = new Bundle();
-                contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                contractBundle.putString(Global.REQUIREMENT_STATUS, requirementStatus);
+                contractBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
                 contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity.NOTICE_INTENT);
                 startActivity(ContractActivity.class, contractBundle);
                 break;
@@ -172,21 +170,21 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     }
 
     public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent) {
-        LogTool.d(TAG, "onEventMainThread");
+        LogTool.d(TAG, "ChoosedPlanEvent onEventMainThread");
         planInfo.setStatus(Global.PLAN_STATUS5);
     }
 
     public void onEventMainThread(ChoosedContractEvent choosedContractEvent) {
-        LogTool.d(TAG, "onEventMainThread");
+        LogTool.d(TAG, "ChoosedContractEvent onEventMainThread");
         requirement.setStatus(Global.REQUIREMENT_STATUS5);
     }
 
     public void onEventMainThread(CheckEvent checkEvent) {
-        LogTool.d(TAG, "onEventMainThread");
+        LogTool.d(TAG, "CheckEvent onEventMainThread");
         sectionInfo.setStatus(Constant.FINISHED);
     }
 
-    //获取详情
+    //获取通知详情
     private void getNoticeDetailInfo(String messageid) {
         JianFanJiaClient.getUserMsgDetail(NoticeDetailActivity.this, messageid, new ApiUiUpdateListener() {
             @Override
@@ -202,7 +200,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 if (null != noticeDetailInfo) {
                     typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
-                    LogTool.d(TAG, "msgType:" + msgType);
+                    LogTool.d(TAG, "msgType==================" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
@@ -281,15 +279,12 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
                         requirement = noticeDetailInfo.getRequirement();
-                        requirementid = noticeDetailInfo.getRequirementid();
-                        requirementStatus = requirement.getStatus();
-                        LogTool.d(TAG, "requirement=" + requirement + " requirementid=" + requirementid +
-                                " requirementStatus=" + requirementStatus);
+                        LogTool.d(TAG, "requirement=" + requirement);
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnContract.setVisibility(View.VISIBLE);
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(requirement.getCell());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG)) {
                         planInfo = noticeDetailInfo.getPlan();
@@ -409,6 +404,5 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     public int getLayoutId() {
         return R.layout.activity_notice_detail;
     }
-
 
 }
