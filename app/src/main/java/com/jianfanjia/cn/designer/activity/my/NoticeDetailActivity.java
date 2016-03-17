@@ -195,7 +195,16 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         btnPlan.setVisibility(View.VISIBLE);
                         cellText.setText(noticeDetailInfo.getRequirement().getCell());
                         sectionText.setVisibility(View.GONE);
-                    } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
+                    } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)
+                            || msgType.equals(Constant.TYPE_AUTH_TYPE_AGRAEE)
+                            || msgType.equals(Constant.TYPE_AUTH_TYPE_DISGREE)
+                            || msgType.equals(Constant.TYPE_UID_TYPE_AGRAEE)
+                            || msgType.equals(Constant.TYPE_UID_TYPE_DISGRAEE)
+                            || msgType.equals(Constant.TYPE_PROCESS_AGRAEE)
+                            || msgType.equals(Constant.TYPE_PROCESS_DISGRAEE)
+                            || msgType.equals(Constant.TYPE_PRODUCT_AGRAEE)
+                            || msgType.equals(Constant.TYPE_PRODUCT_DISGRAEE)
+                            || msgType.equals(Constant.TYPE_PRODUCT_OFFLINE)) {
                         typeText.setText(getResources().getString(R.string.sys_str));
                     } else {
                         doubleBtnLayout.setVisibility(View.GONE);
