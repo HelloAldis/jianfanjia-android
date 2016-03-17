@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
@@ -19,10 +21,9 @@ import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
-
-import java.util.List;
+import com.jianfanjia.cn.tools.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -103,7 +104,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         }
 
         //评论时间
-        holder.dateText.setText(DateFormatTool.longToString(noticeInfo.getCreate_at()));
+        holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
         holder.contentText.setText(noticeInfo.getContent());
 
@@ -135,7 +136,14 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, null);
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                if (onItemCallback != null) {
+                    onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
+                }
+            }
+        });
         holder.item_plan_listview.setAdapter(adapter);
 
         holder.contentLayout.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +169,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         //设计师的名字
         holder.nameView.setText(noticeInfo.getDesigner().getUsername());
         //评论时间
-        holder.dateText.setText(DateFormatTool.longToString(noticeInfo.getCreate_at()));
+        holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
         holder.contentText.setText(noticeInfo.getContent());
 
