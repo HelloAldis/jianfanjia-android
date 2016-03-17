@@ -184,7 +184,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
         sectionInfo.setStatus(Constant.FINISHED);
     }
 
-    //获取详情
+    //获取通知详情
     private void getNoticeDetailInfo(String messageid) {
         JianFanJiaClient.getUserMsgDetail(NoticeDetailActivity.this, messageid, new ApiUiUpdateListener() {
             @Override
@@ -200,7 +200,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 if (null != noticeDetailInfo) {
                     typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
-                    LogTool.d(TAG, "msgType:" + msgType);
+                    LogTool.d(TAG, "msgType==================" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
