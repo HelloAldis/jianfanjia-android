@@ -8,14 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -33,6 +25,14 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description:我的设计师
@@ -111,6 +111,8 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         Bundle viewBundle = new Bundle();
                         viewBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
                         viewBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
+                        viewBundle.putFloat(Global.RESPOND_SPEED, orderDesignerInfo.getRespond_speed());
+                        viewBundle.putFloat(Global.SERVICE_ATTITUDE, orderDesignerInfo.getService_attitude());
                         viewBundle.putSerializable(Global.EVALUATION, orderDesignerInfo.getEvaluation());
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
@@ -172,24 +174,24 @@ public class MyDesignerActivity extends SwipeBackActivity {
     protected void confirmMeasureHouse(String designerid) {
         JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new
                 ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-                showWaitDialog();
-            }
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
 
-            @Override
-            public void loadSuccess(Object data) {
-                initdata();
-                //刷新Xuqiufragment
-                UiHelper.sendUpdateBroast(MyDesignerActivity.this);
-            }
+                    @Override
+                    public void loadSuccess(Object data) {
+                        initdata();
+                        //刷新Xuqiufragment
+                        UiHelper.sendUpdateBroast(MyDesignerActivity.this);
+                    }
 
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-                hideWaitDialog();
-            }
-        }, MyDesignerActivity.this);
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        makeTextShort(error_msg);
+                        hideWaitDialog();
+                    }
+                }, MyDesignerActivity.this);
     }
 
     @Click(R.id.head_back_layout)
