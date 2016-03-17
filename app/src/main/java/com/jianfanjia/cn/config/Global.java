@@ -27,6 +27,8 @@ public class Global {
     public static final String DESIGNER_ID = "designer_id";
     public static final String PRODUCT_ID = "product_id";
     public static final String EVALUATION = "evaluation";
+    public static final String RESPOND_SPEED = "respond_speed";
+    public static final String SERVICE_ATTITUDE = "service_attitude";
     public static final String PLAN_ID = "plan_id";
     public static final String PLAN_DETAIL = "plan_datail";
     public static final String IMAGE_ID = "image_id";
@@ -87,7 +89,8 @@ public class Global {
     public static final String DEC_PROGRESS1 = "1";//正在做准备
     public static final String DEC_PROGRESS2 = "2";//已经开始装修
 
-    public static final String PHONE_MATCH = "^(13[0-9]{9}|15[012356789][0-9]{8}|18[0123456789][0-9]{8}|147[0-9]{8}|170[0-9]{8}|177[0-9]{8})$";
+    public static final String PHONE_MATCH = "^" +
+            "(13[0-9]{9}|15[012356789][0-9]{8}|18[0123456789][0-9]{8}|147[0-9]{8}|170[0-9]{8}|177[0-9]{8})$";
     public static final String PASSWORD_MATCH = "^[\\@A-Za-z0-9\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,30}$";
 //    public static final String PASSWORD_MATCH = "^[a-zA-Z_]\\w{5,29}$";
 
