@@ -10,6 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentListActivity_;
 import com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity;
@@ -19,6 +22,8 @@ import com.jianfanjia.cn.designer.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.TDevice;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -84,7 +89,7 @@ public class MyNewFragment extends BaseFragment {
         //动态计算imageview的宽高
         head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 / TDevice.getScreenWidth()))));
 
-//        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
     protected void initMyInfo() {
@@ -114,7 +119,6 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
@@ -130,7 +134,7 @@ public class MyNewFragment extends BaseFragment {
     }
 
     private void getUnReadMessageCount(String[]... selectLists) {
-       /* UiHelper.getUnReadMessageCount(getContext(), new ApiUiUpdateListener() {
+        UiHelper.getUnReadMessageCount(getContext(), new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
@@ -161,7 +165,7 @@ public class MyNewFragment extends BaseFragment {
             public void loadFailture(String error_msg) {
 
             }
-        }, this, selectLists);*/
+        }, this, selectLists);
     }
 
     @Override

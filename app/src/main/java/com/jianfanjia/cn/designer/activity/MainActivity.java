@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.Event.MessageCountEvent;
@@ -21,9 +23,6 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
-
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -169,7 +168,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onEventMainThread(MessageCountEvent messageCountEvent) {
         //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
-        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant
+                .searchMsgCountType2);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1,
+                Constant.searchMsgCountType2);
     }
 
     private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
@@ -184,12 +191,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }.getType());
             if (countList != null) {
                 if (countList.get(0) > 0 || countList.get(1) > 0) {
-//                    badgeView.setText(countList.get(0) + countList.get(1) + "");
-//                    badgeView.show();
                     badgeView.setVisibility(View.VISIBLE);
                 } else {
                     badgeView.setVisibility(View.GONE);
-//                    badgeView.hide();
                 }
                 if (myFragment != null) {
                     if (countList.get(0) > 0) {

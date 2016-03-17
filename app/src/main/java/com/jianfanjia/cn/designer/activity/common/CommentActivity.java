@@ -14,6 +14,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.CommentAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
@@ -28,10 +32,6 @@ import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Description:评论留言
@@ -53,7 +53,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
     private String item = null;
     private String topictype = null;
 
-    private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
+    private List<CommentInfo> commentList = new ArrayList<>();
 
     private boolean isUpdate = false;//返回是否更新
 

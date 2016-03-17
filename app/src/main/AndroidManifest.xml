@@ -176,7 +176,7 @@
         <!-- 个推SDK配置结束 -->
 
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
@@ -191,19 +191,19 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.HelpActivity"
+            android:name=".activity.my.HelpActivity"
             android:label="@string/title_activity_help"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.SettingActivity"
+            android:name=".activity.my.SettingActivity"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.AboutActivity"
+            android:name=".activity.my.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.ShareActivity"
+            android:name=".activity.my.ShareActivity"
             android:label="@string/title_activity_share"
             android:screenOrientation="portrait" />
         <activity
@@ -211,17 +211,17 @@
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.common.CommentActivity"
+            android:name=".activity.common.CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.EditOwnerInfoActivity"
+            android:name=".activity.my.EditOwnerInfoActivity"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.FeedBackActivity"
+            android:name=".activity.my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
@@ -231,15 +231,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.NavigateActivity"
+            android:name=".activity.NavigateActivity"
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.common.ShowPicActivity"
+            android:name=".activity.common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.ShowProcessPicActivity"
+            android:name=".activity.requirement.ShowProcessPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait" />
         <activity
@@ -247,7 +247,7 @@
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.WelcomeActivity"
+            android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -261,34 +261,34 @@
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.jianfanjia.cn.designer.service.UpdateService" />
+        <service android:name=".service.UpdateService" />
 
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.PingjiaActivity"
+            android:name=".activity.requirement.PingjiaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.ContractActivity"
+            android:name=".activity.requirement.ContractActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.my.MyProcessActivity"
+            android:name=".activity.my.MyProcessActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.requirement.MyProcessDetailActivity_"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.DesignerPlanListActivity"
+            android:name=".activity.requirement.DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity"
+            android:name=".activity.requirement.PreviewDesignerPlanActivity"
             android:label="@string/title_activity_preview_designer_plan"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity"
+            android:name=".activity.requirement.PingJiaInfoActivity"
             android:label="@string/title_activity_ping_jia_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jianfanjia.cn.designer.activity.requirement.DetailPriceActivity"
+            android:name=".activity.requirement.DetailPriceActivity"
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait" />
         <activity
@@ -332,6 +332,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 分享内容编辑页 -->
+
         <activity
             android:name="com.umeng.socialize.view.ShareActivity"
             android:configChanges="orientation|keyboard"
