@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/font_white">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/icon_layout"
@@ -24,10 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/icon_layout"
-        android:orientation="vertical"
         android:layout_marginLeft="@dimen/space_8"
-        android:layout_marginRight="@dimen/space_8">
+        android:layout_marginRight="@dimen/space_8"
+        android:layout_toRightOf="@+id/icon_layout"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
