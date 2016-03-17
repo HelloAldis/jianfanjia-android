@@ -8,10 +8,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.Map;
+
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
@@ -20,14 +26,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -61,8 +59,6 @@ public class BindingAccountActivity extends SwipeBackActivity {
     ImageView bindingaccount_weixin_goto;
 
     private String phone;
-
-    private OwnerInfo ownerInfo;
 
     private AuthUtil authUtil;
 
@@ -135,10 +131,12 @@ public class BindingAccountActivity extends SwipeBackActivity {
 
         }
 
+
         @Override
         public void onComplete(int i, Map<String, Object> data) {
             if (i == 200 && data != null) {
-                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this,data.get("openid").toString(),data.get("unionid").toString(), new ApiUiUpdateListener() {
+                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, data.get("openid").toString(), data.get
+                        ("unionid").toString(), new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
                     }
@@ -157,7 +155,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
                         makeTextShort(error_msg);
                     }
                 }, BindingAccountActivity.this);
-            }else{
+            } else {
                 hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));
             }
@@ -167,6 +165,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LogTool.d(this.getClass().getName(), "onActivityResult");
         UMSsoHandler ssoHandler = authUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);

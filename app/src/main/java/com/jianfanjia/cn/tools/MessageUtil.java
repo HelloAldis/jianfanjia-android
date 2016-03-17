@@ -20,7 +20,6 @@ import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -40,38 +39,7 @@ public class MessageUtil {
             Log.i(TAG, "message:" + message);
             sendNotifycation(context, message);
             EventBus.getDefault().post(new MessageCountEvent());
-           /* if (TDevice.isAppAlive(context, context.getPackageName())) {
-                LogTool.d(TAG, "the app process is alive");
 
-                Activity activity = AppManager.getAppManager().currentActivity();
-                String processId = null;
-                String messageProcessId = null;
-                //此处的显示策略是：只有当MyProcessDetailActivity在当前屏幕，并且窗口聚焦，并且推送的Message的processid与MyProcessDetailActivity的processid相同的
-                // 情况下才会显示对话框，其他任何形式的通知都弹出通知栏
-                if (activity != null &&
-                        activity instanceof MyProcessDetailActivity
-                        && !TextUtils.isEmpty(processId = ((MyProcessDetailActivity) activity).getProcessId())
-                        && !TextUtils.isEmpty(messageProcessId = message.getProcessid())
-                        && messageProcessId.equals(processId)
-                        && activity.hasWindowFocus()) {
-                    LogTool.d(TAG, "MyProcessDetailActivity is resume");
-                    ((MyProcessDetailActivity) activity).onReceive(message);
-                } else {
-                    LogTool.d(TAG, "MyProcessDetailActivity is not in stakes");
-                    UiHelper.sendNotifycation(context, message);
-                }
-            } else {
-                LogTool.d(TAG, "the app process is dead");
-                Intent launchIntent = context.getPackageManager()
-                        .getLaunchIntentForPackage(context.getPackageName());
-                launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-//                Bundle args = new Bundle();
-//                args.putString("Type", message.getType());
-//                launchIntent.putExtra(Constant.EXTRA_BUNDLE, args);
-                context.startActivity(launchIntent);
-            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,7 +60,8 @@ public class MessageUtil {
         Intent mainIntent = new Intent(context, MainActivity.class);
         Intent targetIntent = null;
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
+        if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant
+                .TYPE_PLAN_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity_.class);
         } else {
             targetIntent = new Intent(context, NoticeDetailActivity.class);

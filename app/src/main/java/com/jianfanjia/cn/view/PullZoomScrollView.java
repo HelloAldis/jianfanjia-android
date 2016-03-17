@@ -157,7 +157,7 @@ public class PullZoomScrollView extends ScrollView {
 
                     LogTool.d(this.getClass().getName(), "offset =" + offset);
 
-                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams)headerView.getLayoutParams();
+                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) headerView.getLayoutParams();
                     layoutParams.height = initHeight + offset;
                     headerView.setLayoutParams(layoutParams);
                     //随着手指的移动而移动布局

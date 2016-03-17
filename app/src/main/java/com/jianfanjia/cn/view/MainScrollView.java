@@ -80,8 +80,10 @@ public class MainScrollView extends ScrollView {
         originalRect.set(contentView.getLeft(), contentView.getTop(), contentView
                 .getRight(), contentView.getBottom());
 
-        LogTool.d(this.getClass().getName(), "contentView.getLeft() =" + contentView.getLeft() + " ,contentView.getTop() =" + contentView.getTop()
-                        + ",contentView.getRight() =" + contentView.getRight() + " ,contentView.getBottom() =" + contentView.getBottom()
+        LogTool.d(this.getClass().getName(), "contentView.getLeft() =" + contentView.getLeft() + " ,contentView" +
+                        ".getTop() =" + contentView.getTop()
+                        + ",contentView.getRight() =" + contentView.getRight() + " ,contentView.getBottom() =" +
+                        contentView.getBottom()
         );
     }
 
@@ -89,7 +91,7 @@ public class MainScrollView extends ScrollView {
         void scrollPullUp();
     }
 
-    public interface ShowGuideListener{
+    public interface ShowGuideListener {
         void showGuideView();
     }
 
@@ -97,7 +99,7 @@ public class MainScrollView extends ScrollView {
         this.scrollPullUpListener = scrollPullUpListener;
     }
 
-    public void setShowGuideListener(ShowGuideListener showGuideListener){
+    public void setShowGuideListener(ShowGuideListener showGuideListener) {
         this.showGuideListener = showGuideListener;
     }
 
@@ -108,7 +110,7 @@ public class MainScrollView extends ScrollView {
     public boolean onTouchEvent(MotionEvent ev) {
         LogTool.d(this.getClass().getName(), "onTouchEvent");
 
-        if(contentView.getBottom() - contentView.getTop() < TDevice.getScreenHeight()){
+        if (contentView.getBottom() - contentView.getTop() < TDevice.getScreenHeight()) {
             //图片加载失败，禁止滑动事件
             return false;
         }
@@ -119,7 +121,7 @@ public class MainScrollView extends ScrollView {
         switch (action) {
             case MotionEvent.ACTION_MOVE:
                 if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
-                    if (scrollPullUpListener != null  && !isIntent) {
+                    if (scrollPullUpListener != null && !isIntent) {
                         LogTool.d(this.getClass().getName(), "intentTo");
                         isIntent = true;
                         scrollPullUpListener.scrollPullUp();
@@ -128,7 +130,8 @@ public class MainScrollView extends ScrollView {
                 break;
             case MotionEvent.ACTION_UP:
                 LogTool.d(this.getClass().getName(), "ACTION_Up");
-                LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX - lastX));
+                LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX
+                        - lastX));
                 if (nowY - lastY < 0 && contentFlag == ANCHOR_TOP) {
                     LogTool.d(this.getClass().getName(), "scrollUP");
                     smoothScrollTo((int) totaloffset, onSmoothScrollFinishedListener);
@@ -150,6 +153,7 @@ public class MainScrollView extends ScrollView {
 
         return super.onTouchEvent(ev);
     }
+
     /**
      * 在触摸事件中, 处理上拉和下拉的逻辑
      */
@@ -178,7 +182,7 @@ public class MainScrollView extends ScrollView {
             if (contentFlag == ANCHOR_BOTTOPM) {
                 contentFlag = ANCHOR_TOP;
             } else {
-                if(showGuideListener != null){
+                if (showGuideListener != null) {
                     showGuideListener.showGuideView();
                 }
                 contentFlag = ANCHOR_BOTTOPM;

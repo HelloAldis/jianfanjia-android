@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -19,8 +21,6 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -85,6 +85,8 @@ public class AuthUtil {
                 activity.hideWaitDialog();
                 Toast.makeText(activity, activity.getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
             }
+
+
         });
     }
 
