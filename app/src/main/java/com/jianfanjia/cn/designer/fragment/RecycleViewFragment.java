@@ -319,7 +319,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         },this);
     }
 
-
     private void refuseRequirement(String requirementid, String msg) {
         JianFanJiaClient.refuseRequirement(getActivity(), new ApiUiUpdateListener() {
             @Override

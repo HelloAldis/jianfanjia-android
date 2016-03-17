@@ -288,5 +288,5 @@
     <string name="search_no_commnet">目前还没有留言</string>
     <string name="plan_list">方案列表</string>
     <string name="notify_owner_confirm_mesaure_house">提醒业主确认量房</string>
-    <string name="notify_not_more_once_everyday">一天只能提醒一次业主，请明天再试！</string>
+    <string name="notify_not_more_once_everyday">您今天已经提醒过了！</string>
 </resources>
