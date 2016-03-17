@@ -86,116 +86,31 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
         final NoticeInfo info = list.get(position);
         switch (viewType) {
             case ITEM_TYPE0:
-                SiteViewHolder holder0 = (SiteViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder0.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder0.itemCell.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder0.itemDate.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder0.itemSection.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder0.itemContent.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder0.itemTitle.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder0.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder0.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder0.itemSection.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder0.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder0.itemTitle.setText(info.getTitle());
-                holder0.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder0.itemCell.setText(info.getProcess().getCell());
-                holder0.itemContent.setText(info.getContent());
-                holder0.itemSection.setText(MyApplication.getInstance()
-                        .getStringById(info.getSection()) + "阶段");
-                holder0.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
             case ITEM_TYPE1:
-                SiteViewHolder holder1 = (SiteViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder1.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder1.itemCell.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder1.itemDate.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder1.itemSection.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder1.itemContent.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder1.itemTitle.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder1.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder1.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder1.itemSection.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder1.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder1.itemTitle.setText(info.getTitle());
-                holder1.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder1.itemContent.setText(info.getContent());
-                holder1.itemCell.setText(info.getProcess().getCell());
-                holder1.itemSection.setText(MyApplication.getInstance()
-                        .getStringById(info.getSection()) + "阶段");
-                holder1.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
             case ITEM_TYPE2:
-                SiteViewHolder holder2 = (SiteViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder2.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder2.itemCell.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder2.itemDate.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder2.itemSection.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder2.itemContent.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder2.itemTitle.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder2.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder2.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder2.itemSection.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder2.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder2.itemTitle.setText(info.getTitle());
-                holder2.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder2.itemCell.setText(info.getProcess().getCell());
-                holder2.itemContent.setText(info.getContent());
-                holder2.itemSection.setText(MyApplication.getInstance()
-                        .getStringById(info.getSection()) + "阶段");
-                holder2.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
             case ITEM_TYPE3:
-                SiteViewHolder holder3 = (SiteViewHolder) viewHolder;
+            case ITEM_TYPE11:
+            case ITEM_TYPE12:
+                SiteViewHolder siteViewHolder = (SiteViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
-                    holder3.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder3.itemCell.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder3.itemDate.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder3.itemSection.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder3.itemContent.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                    siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    siteViewHolder.itemCell.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    siteViewHolder.itemDate.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    siteViewHolder.itemSection.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    siteViewHolder.itemContent.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
                 } else {
-                    holder3.itemTitle.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder3.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder3.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder3.itemSection.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder3.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                    siteViewHolder.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    siteViewHolder.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    siteViewHolder.itemSection.setTextColor(context.getResources().getColor(R.color.going_blue_color));
+                    siteViewHolder.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
                 }
-                holder3.itemTitle.setText(info.getTitle());
-                holder3.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder3.itemCell.setText(info.getProcess().getCell());
-                holder3.itemContent.setText(info.getContent());
-                holder3.itemSection.setText(MyApplication.getInstance().getStringById(info.getSection()) + "阶段");
-                holder3.itemView.setOnClickListener(new View.OnClickListener() {
+                siteViewHolder.itemTitle.setText(info.getTitle());
+                siteViewHolder.itemDate.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
+                siteViewHolder.itemCell.setText(info.getProcess().getCell());
+                siteViewHolder.itemContent.setText(info.getContent());
+                siteViewHolder.itemSection.setText(MyApplication.getInstance().getStringById(info.getSection()) + "阶段");
+                siteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (null != callback) {
@@ -205,11 +120,11 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
                 });
                 break;
             case ITEM_TYPE4:
-                SysViewHolder holder4 = (SysViewHolder) viewHolder;
-                holder4.itemTitle.setText(info.getTitle());
-                holder4.itemContent.setText(info.getContent());
-                holder4.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder4.itemView.setOnClickListener(new View.OnClickListener() {
+                SysViewHolder sysHolder = (SysViewHolder) viewHolder;
+                sysHolder.itemTitle.setText(info.getTitle());
+                sysHolder.itemContent.setText(info.getContent());
+                sysHolder.itemDate.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
+                sysHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (null != callback) {
@@ -219,165 +134,28 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
                 });
                 break;
             case ITEM_TYPE5:
-                break;
             case ITEM_TYPE6:
-                break;
             case ITEM_TYPE7:
-                ReqViewHolder holder7 = (ReqViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder7.itemTitleView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder7.itemContentView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder7.itemCellView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder7.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder7.itemTitleView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder7.itemContentView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder7.itemCellView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder7.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder7.itemTitleView.setText(info.getTitle());
-                holder7.itemContentView.setText(info.getContent());
-                holder7.itemCellView.setText(info.getRequirement().getCell());
-                holder7.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder7.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
             case ITEM_TYPE8:
-                ReqViewHolder holder8 = (ReqViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder8.itemTitleView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder8.itemContentView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder8.itemCellView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder8.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder8.itemTitleView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder8.itemContentView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder8.itemCellView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder8.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder8.itemTitleView.setText(info.getTitle());
-                holder8.itemContentView.setText(info.getContent());
-                holder8.itemCellView.setText(info.getRequirement().getCell());
-                holder8.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder8.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
             case ITEM_TYPE9:
-                ReqViewHolder holder9 = (ReqViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder9.itemTitleView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder9.itemContentView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder9.itemCellView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder9.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder9.itemTitleView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder9.itemContentView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder9.itemCellView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder9.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder9.itemTitleView.setText(info.getTitle());
-                holder9.itemContentView.setText(info.getContent());
-                holder9.itemCellView.setText(info.getRequirement().getCell());
-                holder9.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder9.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
             case ITEM_TYPE10:
-                ReqViewHolder holder10 = (ReqViewHolder) viewHolder;
+                ReqViewHolder reqViewHolder = (ReqViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
-                    holder10.itemTitleView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder10.itemContentView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder10.itemCellView.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder10.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                    reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    reqViewHolder.itemContentView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    reqViewHolder.itemCellView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    reqViewHolder.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
                 } else {
-                    holder10.itemTitleView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder10.itemContentView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder10.itemCellView.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder10.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                    reqViewHolder.itemContentView.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    reqViewHolder.itemCellView.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    reqViewHolder.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.grey_color));
                 }
-                holder10.itemTitleView.setText(info.getTitle());
-                holder10.itemContentView.setText(info.getContent());
-                holder10.itemCellView.setText(info.getRequirement().getCell());
-                holder10.itemPubTimeView.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder10.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
-            case ITEM_TYPE11:
-                SiteViewHolder holder11 = (SiteViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder11.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder11.itemCell.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder11.itemDate.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder11.itemSection.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder11.itemContent.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder11.itemTitle.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder11.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder11.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder11.itemSection.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder11.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder11.itemTitle.setText(info.getTitle());
-                holder11.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder11.itemCell.setText(info.getProcess().getCell());
-                holder11.itemContent.setText(info.getContent());
-                holder11.itemSection.setText(MyApplication.getInstance()
-                        .getStringById(info.getSection()) + "阶段");
-                holder11.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != callback) {
-                            callback.onClick(position, info);
-                        }
-                    }
-                });
-                break;
-            case ITEM_TYPE12:
-                SiteViewHolder holder12 = (SiteViewHolder) viewHolder;
-                if (info.getStatus().equals(Constant.READ)) {
-                    holder12.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder12.itemCell.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder12.itemDate.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder12.itemSection.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    holder12.itemContent.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                } else {
-                    holder12.itemTitle.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder12.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder12.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder12.itemSection.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    holder12.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
-                }
-                holder12.itemTitle.setText(info.getTitle());
-                holder12.itemDate.setText(DateFormatTool.getRelativeTime(info.getCreate_at()));
-                holder12.itemCell.setText(info.getProcess().getCell());
-                holder12.itemContent.setText(info.getContent());
-                holder12.itemSection.setText(MyApplication.getInstance()
-                        .getStringById(info.getSection()) + "阶段");
-                holder12.itemView.setOnClickListener(new View.OnClickListener() {
+                reqViewHolder.itemTitleView.setText(info.getTitle());
+                reqViewHolder.itemContentView.setText(info.getContent());
+                reqViewHolder.itemCellView.setText(info.getRequirement().getCell());
+                reqViewHolder.itemPubTimeView.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
+                reqViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (null != callback) {
@@ -395,31 +173,21 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     public View createView(ViewGroup viewGroup, int viewType) {
         switch (viewType) {
             case ITEM_TYPE0:
-                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE1:
-                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE2:
-                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE3:
+            case ITEM_TYPE11:
+            case ITEM_TYPE12:
                 return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE4:
                 return layoutInflater.inflate(R.layout.list_notice_item_sys, null);
             case ITEM_TYPE5:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
             case ITEM_TYPE6:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
             case ITEM_TYPE7:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
             case ITEM_TYPE8:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
             case ITEM_TYPE9:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
             case ITEM_TYPE10:
                 return layoutInflater.inflate(R.layout.list_notice_item_req, null);
-            case ITEM_TYPE11:
-                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
-            case ITEM_TYPE12:
-                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
         }
         return null;
     }
@@ -428,31 +196,21 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     public RecyclerViewHolderBase createViewHolder(View view) {
         switch (viewType) {
             case ITEM_TYPE0:
-                return new SiteViewHolder(view);
             case ITEM_TYPE1:
-                return new SiteViewHolder(view);
             case ITEM_TYPE2:
-                return new SiteViewHolder(view);
             case ITEM_TYPE3:
+            case ITEM_TYPE11:
+            case ITEM_TYPE12:
                 return new SiteViewHolder(view);
             case ITEM_TYPE4:
                 return new SysViewHolder(view);
             case ITEM_TYPE5:
-                return new ReqViewHolder(view);
             case ITEM_TYPE6:
-                return new ReqViewHolder(view);
             case ITEM_TYPE7:
-                return new ReqViewHolder(view);
             case ITEM_TYPE8:
-                return new ReqViewHolder(view);
             case ITEM_TYPE9:
-                return new ReqViewHolder(view);
             case ITEM_TYPE10:
                 return new ReqViewHolder(view);
-            case ITEM_TYPE11:
-                return new SiteViewHolder(view);
-            case ITEM_TYPE12:
-                return new SiteViewHolder(view);
         }
         return null;
     }

@@ -284,7 +284,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         cellText.setText(noticeDetailInfo.getRequirement().getCell());
                         sectionText.setVisibility(View.GONE);
                     }
-                    dateText.setText(DateFormatTool.getRelativeTime(noticeDetailInfo.getCreate_at()));
+                    dateText.setText(DateFormatTool.getHumReadDateString(noticeDetailInfo.getCreate_at()));
                     contentView.loadDataWithBaseURL(null, noticeDetailInfo.getHtml(), "text/html", "utf-8", null);
                 }
             }
