@@ -30,19 +30,22 @@ import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
+import com.jianfanjia.cn.designer.http.OkHttpClientManager;
+import com.jianfanjia.cn.designer.http.request.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -64,6 +67,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     public static final int PREVIEW_PLAN_TYPE = 0x09;
     public static final int PREVIEW_CONTRACT_TYPE = 0x10;
     public static final int SETTING_STARTAT_TYPE = 0x11;
+    public static final int NOTIFY_MEASURE_HOUSE_TYPE = 0x12;
 
     private final int FIRST_FRAGMENT = 0;
     private final int SECOND_FRAGMENT = 1;
@@ -86,8 +90,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
     private View view = null;
 
-    private HorizontalDividerItemDecoration showLastHorizontalDividerItemDecoration;
-    private HorizontalDividerItemDecoration notShowHorizontalDividerItemDecoration;
     /**
      * 标志位，标志已经初始化完成
      */
@@ -280,13 +282,43 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                         viewPlanIntent.putExtras(planBundle);
                         startActivity(viewPlanIntent);
                         break;
+                    case NOTIFY_MEASURE_HOUSE_TYPE:
+                        notifyOwnerConfirmHouse(requirementInfo);
+                        break;
                 }
             }
         });
-//        showLastHorizontalDividerItemDecoration = new HorizontalDividerItemDecoration.Builder(_context).paint(UiHelper.paintFactory()).showLastDivider().build();
         pullrefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
+
+    private void notifyOwnerConfirmHouse(RequirementInfo requirementInfo) {
+        Map<String,Object> param = new HashMap<>();
+        param.put(Global.PLAN_ID,requirementInfo.getPlan().get_id());
+        param.put(Global.USER_ID,requirementInfo.getUserid());
+        JianFanJiaClient.notifyOwnerConfirmHouse(new NotifyOwnerMeasureHouseRequest(getContext(), param), new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                //一天只能提醒一次
+                if(!error_msg.equals(OkHttpClientManager.NOT_NET_ERROR) || error_msg.equals(OkHttpClientManager.SERVER_ERROR)){
+                    makeTextShort(getString(R.string.notify_not_more_once_everyday));
+                }else {
+                    makeTextShort(error_msg);
+                }
+            }
+        },this);
+    }
+
 
     private void refuseRequirement(String requirementid, String msg) {
         JianFanJiaClient.refuseRequirement(getActivity(), new ApiUiUpdateListener() {
@@ -295,7 +327,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
             }
 
-            @Override
+
             public void loadSuccess(Object data) {
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();

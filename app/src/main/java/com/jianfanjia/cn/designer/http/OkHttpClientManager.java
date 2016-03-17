@@ -86,14 +86,6 @@ public class OkHttpClientManager {
         //cookie enabled
         mDelivery = new Handler(Looper.getMainLooper());
 
-        /*just for test !!!*/
-        /*mOkHttpClient.setHostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });*/
-
     }
 
     public static OkHttpClientManager getInstance() {
@@ -179,7 +171,7 @@ public class OkHttpClientManager {
                     return;
                 }
                 try {
-                    final String string = response.body().string();
+                    String string = response.body().string();
                     JSONObject responseString = new JSONObject(string);
                     if (responseString.has(Constant.DATA)
                             && responseString.get(Constant.DATA) != null) {

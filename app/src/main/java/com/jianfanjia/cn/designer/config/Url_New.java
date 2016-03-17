@@ -184,4 +184,6 @@ public class Url_New {
     public String GET_USER_MSG_DETAIL = HTTPROOT + "designer_message_detail";
     //设计师获取评论消息列表
     public String SEARCH_USER_COMMENT = HTTPROOT + "search_designer_comment";
+    //设计师提醒业主确认量房
+    public String NOTIFY_OWNER_MEASURE_HOUSE = HTTPROOT + "designer_remind_user_house_check";
 }

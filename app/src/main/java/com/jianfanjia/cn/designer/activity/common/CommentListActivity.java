@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.activity.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,6 +64,13 @@ public class CommentListActivity extends BaseAnnotationActivity {
 
     private MyCommentInfoAdapter myCommentInfoAdapter;
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        getMyCommentInfo(Constant.FROM_START, pullDownListener);
+    }
+
     @AfterViews
     protected void initAnnotationView() {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
@@ -81,7 +89,7 @@ public class CommentListActivity extends BaseAnnotationActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, noticeInfo.getTopicid());
                 bundle.putString(Global.TOPICTYPE, viewType + "");
-                bundle.putString(Global.TO, noticeInfo.getDesignerid());
+                bundle.putString(Global.TO, noticeInfo.getUserid());
                 switch (viewType) {
                     case MyCommentInfoAdapter.PLAN_TYPE:
                         break;

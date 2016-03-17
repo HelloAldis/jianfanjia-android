@@ -19,6 +19,8 @@ import com.jianfanjia.cn.designer.view.baseview.BaseAnnotationView;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Calendar;
+
 /**
  * Description: com.jianfanjia.cn.view.baseview
  * Author: zhanghao
@@ -55,6 +57,12 @@ public class MyPlanViewType2 extends BaseAnnotationView {
     @ViewById(R.id.phoneLayout)
     protected RelativeLayout phoneLayout;
 
+    @ViewById(R.id.measureLayout)
+    protected RelativeLayout measureLayout;
+
+    @ViewById(R.id.notifyLayout)
+    protected RelativeLayout notifyLayout;
+
     @ViewById(R.id.measure_time_content)
     protected TextView measureTimeView;
 
@@ -71,8 +79,15 @@ public class MyPlanViewType2 extends BaseAnnotationView {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
         long measureTime = requirementInfo.getPlan().getHouse_check_time();
-        if(measureTime != 0l){
-            measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
+        if(Calendar.getInstance().getTimeInMillis() > measureTime){
+            measureLayout.setVisibility(View.GONE);
+            notifyLayout.setVisibility(View.VISIBLE);
+        }else{
+            measureLayout.setVisibility(View.VISIBLE);
+            notifyLayout.setVisibility(View.GONE);
+            if(measureTime != 0l){
+                measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
+            }
         }
         String imageId = requirementInfo.getUser().getImageid();
         if (!TextUtils.isEmpty(imageId)) {
@@ -115,6 +130,12 @@ public class MyPlanViewType2 extends BaseAnnotationView {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, RecycleViewFragment.PHONE_TYPE);
+            }
+        });
+        notifyLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, RecycleViewFragment.NOTIFY_MEASURE_HOUSE_TYPE);
             }
         });
     }

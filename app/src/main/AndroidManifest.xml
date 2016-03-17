@@ -315,6 +315,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.common.CommentListActivity_"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity

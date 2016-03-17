@@ -37,6 +37,7 @@ import com.jianfanjia.cn.designer.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.designer.http.request.LoginRequest;
 import com.jianfanjia.cn.designer.http.request.LogoutRequest;
 import com.jianfanjia.cn.designer.http.request.NotifyOwnerCheckRequest;
+import com.jianfanjia.cn.designer.http.request.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.cn.designer.http.request.OwnerFinishCheckRequest;
 import com.jianfanjia.cn.designer.http.request.PostCollectOwnerInfoRequest;
 import com.jianfanjia.cn.designer.http.request.PostProcessRequest;
@@ -950,6 +951,7 @@ public class JianFanJiaClient {
 
     /**
      * 业主搜索我的评论
+     *
      * @param searchUserCommentRequest
      * @param listener
      * @param tag
@@ -957,6 +959,17 @@ public class JianFanJiaClient {
     public static void searchUserComment(SearchUserCommentRequest searchUserCommentRequest, ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchUserCommentRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserCommentRequest, searchUserCommentRequest.getParam(), listener, tag);
+    }
+
+    /**
+     * 提醒业主确认量房
+     * @param notifyOwnerMeasureHouseRequest
+     * @param listener
+     * @param tag
+     */
+    public static void notifyOwnerConfirmHouse(NotifyOwnerMeasureHouseRequest notifyOwnerMeasureHouseRequest, ApiUiUpdateListener listener, Object tag) {
+        LogTool.d(TAG, "jsonParams:" + notifyOwnerMeasureHouseRequest.getParam());
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(notifyOwnerMeasureHouseRequest, notifyOwnerMeasureHouseRequest.getParam(), listener, tag);
     }
 
     /**

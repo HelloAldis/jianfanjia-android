@@ -24,11 +24,12 @@ public class Global {
     public static final String PROCESS_INFO = "process_info";
     public static final String PROCESS_ID = "process_id";
 
+    public static final String USER_ID = "userid";
     public static final String PROCESS = "process";
     public static final String DESIGNER_ID = "designer_id";
     public static final String PRODUCT_ID = "product_id";
     public static final String EVALUATION = "evaluation";
-    public static final String PLAN_ID = "plan_id";
+    public static final String PLAN_ID = "planid";
     public static final String PLAN_DETAIL = "plan_datail";
     public static final String IMAGE_ID = "image_id";
     public static final String DESIGNER_NAME = "designer_name";
