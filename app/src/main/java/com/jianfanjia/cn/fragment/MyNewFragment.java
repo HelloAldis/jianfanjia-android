@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
@@ -32,8 +34,6 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.layout.BadgeView;
-
-import java.util.List;
 
 /**
  * Description:我的
@@ -132,7 +132,6 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
@@ -23,9 +25,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -102,12 +101,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }.getType());
             if (countList != null) {
                 if (countList.get(0) > 0 || countList.get(1) > 0) {
-//                    badgeView.setText(countList.get(0) + countList.get(1) + "");
-//                    badgeView.show();
                     badgeView.setVisibility(View.VISIBLE);
                 } else {
                     badgeView.setVisibility(View.GONE);
-//                    badgeView.hide();
                 }
                 if (myFragment != null) {
                     if (countList.get(0) > 0) {

@@ -13,20 +13,31 @@ import android.view.View;
 public class HorizontalDividerDecoration extends RecyclerView.ItemDecoration {
 
     private int space;
+    private int firstAndLastSpace;
 
     public HorizontalDividerDecoration(int space) {
-        this.space = space;
+        this(space,space);
     }
+
+    public HorizontalDividerDecoration(int dividerSpace,int firstAndLastSpace){
+        this.firstAndLastSpace = firstAndLastSpace;
+        this.space = dividerSpace;
+    }
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         outRect.left = 0;
         outRect.right = 0;
-        outRect.bottom = space;
         if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = space;
+            outRect.top = firstAndLastSpace;
         }else{
             outRect.top = 0;
+        }
+        if(parent.getChildAdapterPosition(view) == state.getItemCount() -1){
+            outRect.bottom = firstAndLastSpace;
+        }else{
+            outRect.bottom = space;
         }
     }
 }

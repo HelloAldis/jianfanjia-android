@@ -20,6 +20,7 @@ import java.util.List;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.User;
@@ -29,8 +30,8 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 
 /**
  * Description:评论留言
@@ -63,7 +64,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         commentListView.setLayoutManager(new LinearLayoutManager(this));
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
-        commentListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this,1),MyApplication.dip2px(this,10)));
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
         btnSend.setEnabled(false);
