@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_sys_tip_title"
+            android:layout_marginRight="@dimen/space_5"
             android:layout_marginTop="@dimen/space_5"
             android:text="感谢您使用我们产品，简繁家带您开启全新的app之旅。"
             android:textColor="@color/main_color_grey"

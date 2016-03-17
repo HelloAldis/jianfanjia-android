@@ -153,10 +153,10 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private void initShowList() {
         showProcessPic.clear();
         showSamplePic.clear();
-        for (int i = 0; i < checkGridList.size(); i = i + 2) {
+        for (int i = 0; i < checkGridList.size(); i += 2) {
             showSamplePic.add(checkGridList.get(i).getImgId());
         }
-        for (int i = 1; i < checkGridList.size(); i = i + 2) {
+        for (int i = 1; i < checkGridList.size(); i += 2) {
             if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
                 showProcessPic.add(checkGridList.get(i).getImgId());
             }
