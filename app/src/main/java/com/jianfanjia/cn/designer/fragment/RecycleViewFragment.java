@@ -15,6 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
@@ -42,11 +46,6 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
 
 /**
