@@ -24,7 +24,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -33,7 +32,8 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ContractActivity extends SwipeBackActivity implements OnClickListener, View.OnKeyListener {
+public class ContractActivity extends SwipeBackActivity implements
+        OnClickListener, View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     public static final String CONSTRACT_INTENT_FLAG = "contract_intent_flag";
     public static final int NOTICE_INTENT = 0;//通知进入的
@@ -52,11 +52,15 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
-        flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
-        LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  requirementid:" + requirementid + "  flagIntent:" + flagIntent);
+        flagIntent = contractBundle.getInt(ContractActivity
+                .CONSTRACT_INTENT_FLAG);
+        LogTool.d(TAG, "requirementStatus:" + requirementStatus + "  " +
+                "requirementid:" + requirementid + "  flagIntent:" +
+                flagIntent);
         initMainHeadView();
         checkBtn = (Button) findViewById(R.id.btn_choose);
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) ||
+                requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {
             checkBtn.setEnabled(false);
             checkBtn.setText(getString(R.string.already_open_process));
         } else {
@@ -73,7 +77,8 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         //扩大比例的缩放
         webView.getSettings().setUseWideViewPort(true);
         //自适应屏幕
-        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm
+                .SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.loadUrl(Url_New.getInstance().CONTRACT_URL);
         webView.setWebViewClient(new WebViewClient() {
@@ -87,10 +92,12 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_contract_head_layout);
+        mainHeadView = (MainHeadView) findViewById(R.id
+                .my_contract_head_layout);
         mainHeadView.setBackListener(this);
         mainHeadView.setRightTextListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.contractText));
+        mainHeadView.setMianTitle(getResources().getString(R.string
+                .contractText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
@@ -149,10 +156,12 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
 
     //查看合同
     private void getContractInfo(String requirementid) {
-        JianFanJiaClient.getContractInfo(ContractActivity.this, requirementid, getContractListener, this);
+        JianFanJiaClient.getContractInfo(ContractActivity.this,
+                requirementid, getContractListener, this);
     }
 
-    private ApiUiUpdateListener getContractListener = new ApiUiUpdateListener() {
+    private ApiUiUpdateListener getContractListener = new ApiUiUpdateListener
+            () {
         @Override
         public void preLoad() {
 
@@ -161,7 +170,8 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            ContractInfo contractInfo = JsonParser.jsonToBean(data.toString(), ContractInfo.class);
+            ContractInfo contractInfo = JsonParser.jsonToBean(data.toString()
+                    , ContractInfo.class);
             LogTool.d(TAG, "contractInfo:" + contractInfo);
             if (null != contractInfo) {
                 final_planid = contractInfo.getFinal_planid();
@@ -177,29 +187,32 @@ public class ContractActivity extends SwipeBackActivity implements OnClickListen
 
     //确认开启工地  确认合同
     private void postUserProcess(String requirementid, String final_planid) {
-        LogTool.d(TAG, "requirementid=" + requirementid + "  final_planid=" + final_planid);
-        JianFanJiaClient.post_Owner_Process(ContractActivity.this, requirementid, final_planid, postUserProcessListener, this);
+        LogTool.d(TAG, "requirementid=" + requirementid + "  final_planid=" +
+                final_planid);
+        JianFanJiaClient.post_Owner_Process(ContractActivity.this,
+                requirementid, final_planid, postUserProcessListener, this);
     }
 
-    private ApiUiUpdateListener postUserProcessListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
+    private ApiUiUpdateListener postUserProcessListener = new
+            ApiUiUpdateListener() {
+                @Override
+                public void preLoad() {
 
-        }
+                }
 
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            checkBtn.setEnabled(false);
-            postProcessSuccess();
-        }
+                @Override
+                public void loadSuccess(Object data) {
+                    LogTool.d(TAG, "data:" + data.toString());
+                    checkBtn.setEnabled(false);
+                    postProcessSuccess();
+                }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            checkBtn.setEnabled(true);
-        }
-    };
+                @Override
+                public void loadFailture(String error_msg) {
+                    makeTextLong(error_msg);
+                    checkBtn.setEnabled(true);
+                }
+            };
 
     private void postProcessSuccess() {
         switch (flagIntent) {

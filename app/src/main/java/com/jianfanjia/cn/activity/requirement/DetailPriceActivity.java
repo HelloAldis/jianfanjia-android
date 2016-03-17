@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
@@ -18,8 +20,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.List;
 
 /**
  * Description:方案详细报价
@@ -48,7 +48,8 @@ public class DetailPriceActivity extends SwipeBackActivity implements OnClickLis
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
+                .showLastDivider().build());
         if (null != detailInfo) {
             PriceDetail detail = new PriceDetail();
             detail.setItem(getResources().getString(R.string.project_text));

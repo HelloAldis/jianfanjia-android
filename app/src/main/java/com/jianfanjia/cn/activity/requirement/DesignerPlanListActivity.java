@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -27,16 +30,14 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Description:设计师方案列表
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends SwipeBackActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerPlanListActivity extends SwipeBackActivity implements OnClickListener,
+        ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView designer_plan_listview = null;
@@ -62,8 +63,10 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         designer_plan_listview.setHasFixedSize(true);
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
         designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+
         getDesignerPlansList(requirementid, designerid);
     }
+
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);

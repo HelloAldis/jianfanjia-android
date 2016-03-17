@@ -67,7 +67,8 @@ public class PingjiaActivity extends SwipeBackActivity implements
         designerid = commentBundle.getString(Global.DESIGNER_ID);
         speed = commentBundle.getFloat(Global.SPEED);
         attitude = commentBundle.getFloat(Global.ATTITUDE);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid + " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
+        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid +
+                " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
         bar.setRating((int) (speed + attitude) / 2);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
@@ -126,8 +127,10 @@ public class PingjiaActivity extends SwipeBackActivity implements
     };
 
     //评价设计师
-    private void evaluateDesignerByUser(String requirementid, String designerid, int service_attitude, int respond_speed, String comment, String is_anonymous) {
-        JianFanJiaClient.evaluateDesignerByUser(PingjiaActivity.this, requirementid, designerid, service_attitude, respond_speed, comment, is_anonymous, this, this);
+    private void evaluateDesignerByUser(String requirementid, String designerid, int service_attitude, int
+            respond_speed, String comment, String is_anonymous) {
+        JianFanJiaClient.evaluateDesignerByUser(PingjiaActivity.this, requirementid, designerid, service_attitude,
+                respond_speed, comment, is_anonymous, this, this);
     }
 
     @Override

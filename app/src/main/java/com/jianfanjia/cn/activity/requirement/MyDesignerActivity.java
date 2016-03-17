@@ -8,6 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -25,14 +33,6 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description:我的设计师
@@ -127,8 +127,10 @@ public class MyDesignerActivity extends SwipeBackActivity {
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
                         contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
-                        contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity.DESIGNER_LIST_INTENT);
+                        contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement()
+                                .getStatus());
+                        contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
+                                .DESIGNER_LIST_INTENT);
                         startActivityForResult(ContractActivity.class, contractBundle, REQUESTCODE_FRESH_LIST);
                         break;
                     case VIEW_PLAN:
@@ -168,7 +170,8 @@ public class MyDesignerActivity extends SwipeBackActivity {
 
 
     protected void confirmMeasureHouse(String designerid) {
-        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new ApiUiUpdateListener() {
+        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new
+                ApiUiUpdateListener() {
             @Override
             public void preLoad() {
                 showWaitDialog();
