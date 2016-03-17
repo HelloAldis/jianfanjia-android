@@ -121,6 +121,15 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
                 break;
             case ITEM_TYPE4:
                 SysViewHolder sysHolder = (SysViewHolder) viewHolder;
+                if (info.getStatus().equals(Constant.READ)) {
+                    sysHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    sysHolder.itemDate.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    sysHolder.itemContent.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                } else {
+                    sysHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                    sysHolder.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
+                    sysHolder.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
+                }
                 sysHolder.itemTitle.setText(info.getTitle());
                 sysHolder.itemContent.setText(info.getContent());
                 sysHolder.itemDate.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
