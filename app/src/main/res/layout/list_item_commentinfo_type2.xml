@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/site_listview_item_content_small"
             android:layout_alignParentTop="@+id/site_listview_item_content_small"
-            android:layout_marginLeft="@dimen/space_24" />
+            android:layout_marginLeft="@dimen/space_24"
+            android:layout_width="@dimen/space_1"/>
 
         <ImageView
             android:id="@+id/item_status"

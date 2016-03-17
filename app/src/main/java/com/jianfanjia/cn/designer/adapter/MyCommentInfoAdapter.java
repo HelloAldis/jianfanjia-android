@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.application.MyApplication;
@@ -20,10 +22,8 @@ import com.jianfanjia.cn.designer.bean.NoticeInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.LogTool;
-
-import java.util.List;
+import com.jianfanjia.cn.designer.tools.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -104,7 +104,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         }
 
         //评论时间
-        holder.dateText.setText(DateFormatTool.longToString(noticeInfo.getCreate_at()));
+        holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
         holder.contentText.setText(noticeInfo.getContent());
 
@@ -169,7 +169,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         //设计师的名字
         holder.nameView.setText(noticeInfo.getUser().getUsername());
         //评论时间
-        holder.dateText.setText(DateFormatTool.longToString(noticeInfo.getCreate_at()));
+        holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
         holder.contentText.setText(noticeInfo.getContent());
 
