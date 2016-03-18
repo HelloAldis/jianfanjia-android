@@ -53,7 +53,7 @@ public class MessageUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context);
         RemoteViews mRemoteViews = new RemoteViews(context.getPackageName(), R.layout.view_custom_notify);
-        mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_notify);
+        mRemoteViews.setImageViewResource(R.id.list_item_img, R.drawable.ic_launcher);
         builder.setSmallIcon(R.mipmap.icon_notify_small);
         String type = message.getType();
         LogTool.d(TAG, "type =" + type);
