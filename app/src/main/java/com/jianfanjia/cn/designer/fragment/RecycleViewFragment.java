@@ -303,7 +303,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
 
             @Override
             public void loadSuccess(Object data) {
-
+                makeTextShort(getString(R.string.notify_success));
             }
 
             @Override

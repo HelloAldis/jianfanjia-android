@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/transparent">
+                android:background="@color/black_light_transparent">
 
     <RelativeLayout
         android:id="@+id/icon_layout"
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_notify" />
+            />
     </RelativeLayout>
 
     <LinearLayout
@@ -38,14 +38,14 @@
                 android:id="@+id/list_item_title"
                 style="@style/listview_item_text_style_middle"
                 android:text="title"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_white"/>
 
             <TextView
                 android:id="@+id/list_item_date"
                 style="@style/listview_item_text_style_small"
                 android:layout_alignParentRight="true"
                 android:text="2015-11-30"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_white"/>
         </RelativeLayout>
 
         <TextView
@@ -57,7 +57,7 @@
             android:maxLines="2"
             android:text="content"
             android:textColor="@color/font_white"
-            android:textSize="@dimen/text_size_14" />
+            android:textSize="@dimen/text_size_14"/>
 
     </LinearLayout>
 
