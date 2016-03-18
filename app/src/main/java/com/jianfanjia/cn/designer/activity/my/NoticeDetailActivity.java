@@ -145,10 +145,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 hideWaitDialog();
                 NoticeDetailInfo noticeDetailInfo = JsonParser.jsonToBean(data.toString(), NoticeDetailInfo.class);
                 if (null != noticeDetailInfo) {
-                    typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType:" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
                         doubleBtnLayout.setVisibility(View.VISIBLE);
@@ -172,6 +172,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         }
                     } else if (msgType.equals(Constant.TYPE_REJECT_DELAY_MSG) || msgType.equals(Constant
                             .TYPE_AGREE_DELAY_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
@@ -181,6 +182,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
@@ -191,6 +193,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant
                             .TYPE_PLAN_NOT_CHOOSED_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         planInfo = noticeDetailInfo.getPlan();
                         requirement = noticeDetailInfo.getRequirement();
                         LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
@@ -210,8 +213,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                             || msgType.equals(Constant.TYPE_PRODUCT_AGRAEE)
                             || msgType.equals(Constant.TYPE_PRODUCT_DISGRAEE)
                             || msgType.equals(Constant.TYPE_PRODUCT_OFFLINE)) {
+                        typeText.setBackgroundResource(R.drawable.sys_detail_text_bg_border);
                         typeText.setText(getResources().getString(R.string.sys_str));
                     } else {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
