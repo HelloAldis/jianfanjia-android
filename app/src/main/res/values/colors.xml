@@ -42,6 +42,7 @@
     <color name="designer_info_text_color">#aab1b6</color>
     <color name="black_translucencen">#dd000000</color>
     <color name="black_middle_transparent">#aa000000</color>
+    <color name="black_light_transparent">#33000000</color>
     <color name="light_black_translucencen">#ff000000</color>
     <color name="color_red">#FF4445</color>
     <color name="colorAccent">#FF4081</color>
