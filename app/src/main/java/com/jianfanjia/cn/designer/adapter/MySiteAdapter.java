@@ -36,7 +36,8 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
     private List<SiteProcessItem> siteProcessList;
     private int processIndex = -1;
 
-    public MySiteAdapter(Context context, List<Process> list, List<SiteProcessItem> siteProcessList, ClickCallBack callBack) {
+    public MySiteAdapter(Context context, List<Process> list, List<SiteProcessItem> siteProcessList, ClickCallBack
+            callBack) {
         super(context, list);
         this.siteProcessList = siteProcessList;
         this.callBack = callBack;
@@ -52,15 +53,16 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
             holder.itemHeadView.setImageResource(R.mipmap.icon_default_head);
         }
         holder.itemCellView.setText(process.getCell());
-        String itemNode = MyApplication.getInstance()
-                .getStringById(process.getGoing_on());
-        LogTool.d(TAG, "itemNode=" + itemNode);
-        if (!TextUtils.isEmpty(itemNode)) {
-            holder.itemNodeView.setText(itemNode + "阶段");
-            processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
-        } else {
+        LogTool.d(TAG, "process.getGoing_on()=" + process.getGoing_on());
+        String itemNode = null;
+        if (process.getGoing_on().equals("done")) {
             holder.itemNodeView.setText(context.getResources().getText(R.string.all_finish));
             processIndex = 7;
+        } else {
+            itemNode = MyApplication.getInstance()
+                    .getStringById(process.getGoing_on());
+            holder.itemNodeView.setText(itemNode + "阶段");
+            processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
         }
         holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
         holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
@@ -68,14 +70,15 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_process_listview.setLayoutManager(linearLayoutManager);
-        ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, siteProcessList, processIndex, new OnItemClickListener() {
-            @Override
-            public void OnItemClick(int pos) {
-                if (null != callBack) {
-                    callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
-                }
-            }
-        });
+        ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, siteProcessList, processIndex,
+                new OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int pos) {
+                        if (null != callBack) {
+                            callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
+                        }
+                    }
+                });
         holder.item_process_listview.setAdapter(adapter);
         holder.ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
             @Override

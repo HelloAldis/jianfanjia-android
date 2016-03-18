@@ -11,9 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
@@ -38,6 +35,10 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -58,7 +59,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     private List<Process> processList = new ArrayList<Process>();
     private List<SiteProcessItem> siteProcessList = new ArrayList<SiteProcessItem>();
     protected PullToRefreshScrollView emptyPullRefresh;
-
+    private MySiteAdapter adapter = null;
     protected RelativeLayout emptyLayout;
 
     protected RelativeLayout errorLayout;
@@ -97,7 +98,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
         manage_pullfefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
-
     }
 
     private void initMainHeadView(View view) {
@@ -156,49 +156,62 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 }.getType());
                 LogTool.d(TAG, "processList:" + processList);
                 if (null != processList && processList.size() > 0) {
-                    MySiteAdapter adapter = new MySiteAdapter(getActivity(), processList, siteProcessList, new ClickCallBack() {
-                        @Override
-                        public void click(int position, int itemType) {
-                            Process process = processList.get(position);
-                            processId = process.get_id();
-                            LogTool.d(TAG, "processId:" + processId + "  itemPosition:" + itemPosition);
-                            switch (itemType) {
-                                case ITEM_PRIVIEW:
-                                    Intent gotoPriviewRequirement = null;
-                                    if (process.getRequirement().getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
-                                        gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
-                                    } else {
-                                        gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                    adapter = new MySiteAdapter(getActivity(), processList, siteProcessList, new
+                            ClickCallBack() {
+                                @Override
+                                public void click(int position, int itemType) {
+                                    Process process = processList.get(position);
+                                    processId = process.get_id();
+                                    LogTool.d(TAG, "processId:" + processId + "  itemPosition:" + itemPosition);
+                                    switch (itemType) {
+                                        case ITEM_PRIVIEW:
+                                            Intent gotoPriviewRequirement = null;
+                                            if (process.getRequirement().getDec_type().equals(Global
+                                                    .DEC_TYPE_BUSINESS)) {
+                                                gotoPriviewRequirement = new Intent(getActivity(),
+                                                        PreviewBusinessRequirementActivity_.class);
+                                            } else {
+                                                gotoPriviewRequirement = new Intent(getActivity(),
+                                                        PreviewRequirementActivity_.class);
+                                            }
+                                            gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process
+                                                    .getRequirement());
+                                            startActivity(gotoPriviewRequirement);
+                                            break;
+                                        case ITEM_CONTRACT:
+                                            Intent viewContractIntent = new Intent(getActivity(),
+                                                    SettingContractActivity_
+                                                            .class);
+                                            Bundle contractBundle = new Bundle();
+                                            contractBundle.putSerializable(Global.REQUIREMENT_INFO, process
+                                                    .getRequirement());
+                                            contractBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
+                                            viewContractIntent.putExtras(contractBundle);
+                                            startActivity(viewContractIntent);
+                                            break;
+                                        case ITEM_PLAN:
+                                            Intent viewPlanIntent = new Intent(getActivity(),
+                                                    PreviewDesignerPlanActivity
+                                                            .class);
+                                            Bundle planBundle = new Bundle();
+                                            planBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
+                                            planBundle.putSerializable(Global.REQUIREMENT_INFO, process
+                                                    .getRequirement());
+                                            viewPlanIntent.putExtras(planBundle);
+                                            startActivity(viewPlanIntent);
+                                            break;
+                                        case ITEM_GOTOO_SITE:
+                                            Intent gotoMyProcess = new Intent(getActivity(),
+                                                    MyProcessDetailActivity_
+                                                            .class);
+                                            gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
+                                            startActivity(gotoMyProcess);
+                                            break;
+                                        default:
+                                            break;
                                     }
-                                    gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process.getRequirement());
-                                    startActivity(gotoPriviewRequirement);
-                                    break;
-                                case ITEM_CONTRACT:
-                                    Intent viewContractIntent = new Intent(getActivity(), SettingContractActivity_.class);
-                                    Bundle contractBundle = new Bundle();
-                                    contractBundle.putSerializable(Global.REQUIREMENT_INFO, process.getRequirement());
-                                    contractBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
-                                    viewContractIntent.putExtras(contractBundle);
-                                    startActivity(viewContractIntent);
-                                    break;
-                                case ITEM_PLAN:
-                                    Intent viewPlanIntent = new Intent(getActivity(), PreviewDesignerPlanActivity.class);
-                                    Bundle planBundle = new Bundle();
-                                    planBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
-                                    planBundle.putSerializable(Global.REQUIREMENT_INFO, process.getRequirement());
-                                    viewPlanIntent.putExtras(planBundle);
-                                    startActivity(viewPlanIntent);
-                                    break;
-                                case ITEM_GOTOO_SITE:
-                                    Intent gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
-                                    gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
-                                    startActivity(gotoMyProcess);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    });
+                                }
+                            });
                     manage_pullfefresh.setAdapter(adapter);
                     manage_pullfefresh.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -207,7 +220,8 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                     manage_pullfefresh.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                     emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(//动态设置内容高度，防止滚动
-                            new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight() - mainHeadView.getHeight()));
+                            new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight() -
+                                    mainHeadView.getHeight()));
                     errorLayout.setVisibility(View.GONE);
                 }
                 manage_pullfefresh.onRefreshComplete();
@@ -219,9 +233,15 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 makeTextShort(error_msg);
                 manage_pullfefresh.onRefreshComplete();
                 emptyPullRefresh.onRefreshComplete();
-                manage_pullfefresh.setVisibility(View.GONE);
-                emptyLayout.setVisibility(View.GONE);
-                errorLayout.setVisibility(View.VISIBLE);
+                if (null != adapter) {
+                    manage_pullfefresh.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                } else {
+                    manage_pullfefresh.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
+                }
             }
         }, this);
     }
@@ -256,7 +276,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             getProcessList();
         }
     }
