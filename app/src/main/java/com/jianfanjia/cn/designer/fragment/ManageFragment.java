@@ -11,6 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
@@ -35,10 +38,6 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -98,7 +97,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
         manage_pullfefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
-        getProcessList();
+
     }
 
     private void initMainHeadView(View view) {
@@ -251,6 +250,15 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void onResume() {
         super.onResume();
+        getProcessList();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            getProcessList();
+        }
     }
 
     @Override
