@@ -214,10 +214,10 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_AGREE)) {
                             btnAgree.setText(getResources().getString(R.string.agree_str));
                             btnAgree.setEnabled(false);
-                            btnReject.setEnabled(false);
+                            btnReject.setVisibility(View.GONE);
                         } else if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_REFUSE)) {
                             btnReject.setText(getResources().getString(R.string.reject_str));
-                            btnAgree.setEnabled(false);
+                            btnAgree.setVisibility(View.GONE);
                             btnReject.setEnabled(false);
                         } else {
                             btnAgree.setEnabled(true);
@@ -339,7 +339,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 LogTool.d(TAG, "data:" + data.toString());
                 btnAgree.setText(getResources().getString(R.string.agree_str));
                 btnAgree.setEnabled(false);
-                btnReject.setEnabled(false);
+                btnReject.setVisibility(View.GONE);
             }
 
             @Override
@@ -361,7 +361,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
                 btnReject.setText(getResources().getString(R.string.reject_str));
-                btnAgree.setEnabled(false);
+                btnAgree.setVisibility(View.GONE);
                 btnReject.setEnabled(false);
             }
 
