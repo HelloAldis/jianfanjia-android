@@ -15,8 +15,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
+import com.jianfanjia.cn.designer.activity.common.PhotoPickerActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
@@ -37,6 +49,7 @@ import com.jianfanjia.cn.designer.tools.FileUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtil;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.PhotoPickerIntent;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -45,17 +58,6 @@ import com.jianfanjia.cn.designer.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshListView;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 
 /**
@@ -403,7 +405,16 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
-                showPopWindow(getWindow().getDecorView());
+//                showPopWindow(getWindow().getDecorView());
+                PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
+                if (imageUrlList != null) {
+                    intent1.setPhotoCount(9 - imageUrlList.size());
+                } else {
+                    intent1.setPhotoCount(9);
+                }
+                intent1.setShowGif(false);
+                intent1.setShowCamera(true);
+                startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
                 break;
             default:
                 break;
@@ -506,7 +517,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     // 提交改期
     private void postReschedule(String processId, String userId,
                                 String designerId, String section, String newDate) {
-        LogTool.d(TAG, "processId:" + processId + " userId:" + userId + " designerId:" + designerId + " section:" + section + " newDate:" + newDate);
+        LogTool.d(TAG, "processId:" + processId + " userId:" + userId + " designerId:" + designerId + " section:" +
+                section + " newDate:" + newDate);
         JianFanJiaClient.postReschedule(this, processId, userId,
                 designerId, section, newDate, new ApiUiUpdateListener() {
                     @Override
@@ -533,6 +545,18 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
             return;
         }
         switch (requestCode) {
+            case Constant.REQUESTCODE_PICKER_PIC:
+                if (data != null) {
+                    List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                    for (String path : photos) {
+                        Bitmap imageBitmap = ImageUtil.getImage(path);
+                        LogTool.d(TAG, "imageBitmap: path :" + path);
+                        if (null != imageBitmap) {
+                            upload_image(imageBitmap);
+                        }
+                    }
+                }
+                break;
             case Constant.REQUESTCODE_CAMERA:// 拍照
                 mTmpFile = new File(dataManager.getPicPath());
                 if (mTmpFile != null) {
@@ -581,8 +605,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         processInfo.get_id(),
                         sectionInfo.getName(),
                         itemName,
-                        dataManager
-                                .getCurrentUploadImageId(), new ApiUiUpdateListener() {
+                        data.toString(), new ApiUiUpdateListener() {
                             @Override
                             public void preLoad() {
 

@@ -3,8 +3,6 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.tools.LogTool;
 
 public class AddPicToSectionItemRequest extends BaseRequest {
 	
@@ -41,13 +39,13 @@ public class AddPicToSectionItemRequest extends BaseRequest {
 	@Override
 	public void onSuccess(Object data) {
 		if (data != null) {
-			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
-			if(processInfo != null){
-				LogTool.d(this.getClass().getName(), "processInfo != null");
-				processInfo.addImageToItem(section, item, imageId);
-				dataManager.setCurrentProcessInfo(processInfo);
-				dataManager.saveProcessInfo(processInfo);
-			}
+//			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
+//			if(processInfo != null){
+//				LogTool.d(this.getClass().getName(), "processInfo != null");
+//				processInfo.addImageToItem(section, item, imageId);
+//				dataManager.setCurrentProcessInfo(processInfo);
+//				dataManager.saveProcessInfo(processInfo);
+//			}
 		}
 	}
 	

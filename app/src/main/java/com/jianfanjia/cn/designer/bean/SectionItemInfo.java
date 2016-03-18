@@ -1,9 +1,9 @@
 package com.jianfanjia.cn.designer.bean;
 
-import com.jianfanjia.cn.designer.tools.LogTool;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import com.jianfanjia.cn.designer.tools.LogTool;
 
 /**
  * @author zhanghao
@@ -85,8 +85,8 @@ public class SectionItemInfo implements Serializable {
     }
 
     public void addImageToItem(String imageId) {
-        LogTool.d("addImage", imageId);
         if (images != null) {
+            LogTool.d("addImage", imageId);
             images.add(imageId);
         }
     }

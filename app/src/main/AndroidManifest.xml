@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.jianfanjia.cn.designer">
+<manifest package="com.jianfanjia.cn.designer"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 屏幕适配 -->
     <supports-screens
@@ -9,50 +9,50 @@
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
-        android:xlargeScreens="true" />
+        android:xlargeScreens="true"/>
 
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="23"
-        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest" />
+        tools:overrideLibrary="com.umeng.socialize.evernote,com.umeng.socialize.pinterest"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
     <!-- 个推的权限设置 -->
-    <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.designer" />
+    <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.designer"/>
 
     <permission
         android:name="getui.permission.GetuiService.com.jianfanjia.designer"
         android:protectionLevel="normal"></permission>
 
     <!-- QQ、QQ空间所需权限 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
 
-    <permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <permission android:name="android.permission.WRITE_APN_SETTINGS"/>
 
     <application
         android:name="com.jianfanjia.cn.designer.application.MyApplication"
@@ -64,38 +64,38 @@
         <!-- 友盟配置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="55e40deee0f55acc66001861" />
+            android:value="55e40deee0f55acc66001861"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
+            android:value="${UMENG_CHANNEL_VALUE}"/>
         <meta-data
             android:name="SERVER_PORT"
-            android:value="${SERVER_PORT}" />
+            android:value="${SERVER_PORT}"/>
         <meta-data
             android:name="SERVER_IP"
-            android:value="${SERVER_IP}" />
+            android:value="${SERVER_IP}"/>
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="${GETUI_PUSH_APPID}" />
+            android:value="${GETUI_PUSH_APPID}"/>
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="${GETUI_PUSH_APPKEY}" />
+            android:value="${GETUI_PUSH_APPKEY}"/>
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="${GETUI_PUSH_APPSECRET}" />
+            android:value="${GETUI_PUSH_APPSECRET}"/>
         <meta-data
             android:name="PUSH_GROUPID"
-            android:value="" />
+            android:value=""/>
 
         <!-- 配置第三方Receiver -->
         <receiver
             android:name="com.jianfanjia.cn.designer.receiver.PushMsgReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
+                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}"/>
             </intent-filter>
         </receiver>
 
@@ -104,25 +104,25 @@
             android:name="com.igexin.sdk.PushService"
             android:exported="true"
             android:label="NotificationCenter"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
 
         <receiver android:name="com.igexin.sdk.PushReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="com.igexin.sdk.action.refreshls" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="com.igexin.sdk.action.refreshls"/>
                 <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.igexin.sdk.PushManagerReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.pushmanager" />
+                <action android:name="com.igexin.sdk.action.pushmanager"/>
             </intent-filter>
         </receiver>
 
@@ -132,22 +132,22 @@
             android:exported="false"
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <service
             android:name="com.igexin.download.DownloadService"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
 
         <receiver android:name="com.igexin.download.DownloadReceiver">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
 
         <provider
             android:name="com.igexin.download.DownloadProvider"
             android:authorities="downloads.com.jianfanjia.designer.activity"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
         <!-- android:authorities="downloads.第三方包名" -->
         <activity
             android:name="com.igexin.getuiext.activity.GetuiExtActivity"
@@ -156,7 +156,7 @@
             android:exported="false"
             android:process=":pushservice"
             android:taskAffinity="android.task.myServicetask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <receiver
             android:name="com.igexin.getuiext.service.PayloadReceiver"
@@ -164,173 +164,179 @@
             <intent-filter>
 
                 <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
-                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
+                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4"/>
                 <!-- android:name="com.igexin.sdk.action.第三方的appId" -->
-                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}" />
+                <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}"/>
             </intent-filter>
         </receiver>
 
         <service
             android:name="com.igexin.getuiext.service.GetuiExtService"
-            android:process=":pushservice" />
+            android:process=":pushservice"/>
         <!-- 个推SDK配置结束 -->
 
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.LoginNewActivity_"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".activity.RegisterNewActivity_"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.my.HelpActivity"
             android:label="@string/title_activity_help"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.SettingActivity"
             android:label="@string/title_activity_setting"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.AboutActivity"
             android:label="@string/title_activity_about"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.ShareActivity"
             android:label="@string/title_activity_share"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.CheckActivity"
             android:label="@string/title_activity_check"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.common.CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".activity.my.EditOwnerInfoActivity"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.ForgetPswActivity_"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.NavigateActivity"
             android:label="@string/title_activity_navigate"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.ShowProcessPicActivity"
             android:label="@string/title_activity_show_pic"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.UserInfoActivity_"
             android:label="@string/title_activity_user_info"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.requirement.PreviewRequirementActivity_"
             android:label="PreviewRequirementActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
-        <service android:name=".service.UpdateService" />
+        <service android:name=".service.UpdateService"/>
 
         <activity
             android:name=".activity.requirement.PingjiaActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.ContractActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.MyProcessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.MyProcessDetailActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.PreviewDesignerPlanActivity"
             android:label="@string/title_activity_preview_designer_plan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.PingJiaInfoActivity"
             android:label="@string/title_activity_ping_jia_info"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.DetailPriceActivity"
             android:label="@string/title_activity_detail_price"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.EditCityActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.PreviewBusinessRequirementActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.my.BindingPhoneActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.BindingAccountActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SettingMeasureDateActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SettingContractActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.common.CommentListActivity_"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.my.NoticeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.my.NoticeDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.common.PhotoPickerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.common.PhotoPagerActivity"
+            android:screenOrientation="portrait"/>
         <!-- 第三方分享以及登录 -->
         <activity
             android:name="com.jianfanjia.cn.designer.activity.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <!-- 分享内容编辑页 -->
 
         <activity
@@ -347,23 +353,23 @@
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:scheme="tencent1104973048" />
+                <data android:scheme="tencent1104973048"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <!-- 第三方分享以及登录 -->
         <activity
             android:name="com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity"
             android:label="@string/title_activity_customer_service"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
