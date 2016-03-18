@@ -101,7 +101,7 @@
                             android:layout_marginLeft="@dimen/space_4"
                             android:layout_marginRight="@dimen/space_4"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_notify_big" />
+                            android:src="@mipmap/icon_notice" />
 
                         <com.jianfanjia.cn.designer.view.layout.BadgeView
                             android:id="@+id/notify_count_text"
@@ -179,11 +179,10 @@
 
             </LinearLayout>
 
-
             <RelativeLayout
                 android:id="@+id/clear_cache_layout"
                 style="@style/my_list_item_layout_style"
-                android:layout_marginTop="@dimen/space_10">
+                >
 
                 <ImageView
                     android:id="@+id/clear_cache_icon"

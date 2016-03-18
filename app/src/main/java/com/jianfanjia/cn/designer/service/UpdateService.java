@@ -8,14 +8,14 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import java.io.File;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.DownLoadManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
-
-import java.io.File;
 
 /**
  * Description:版本更新服务
@@ -67,7 +67,7 @@ public class UpdateService extends Service implements ApiUiUpdateListener {
     public void preLoad() {
         builder = new NotificationCompat.Builder(
                 getApplicationContext());
-        builder.setSmallIcon(R.mipmap.icon_notify);
+        builder.setSmallIcon(R.mipmap.icon_notify_small);
         builder.setTicker("正在下载新版本");
         builder.setContentTitle("简繁家");
         builder.setContentText("正在下载,请稍后...");

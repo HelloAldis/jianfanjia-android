@@ -91,7 +91,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_notice_data));
-        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_notice);
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_no_notice);
         all_notice_listview = (PullToRefreshRecycleView) view.findViewById(R.id.all_notice_listview);
         all_notice_listview.setMode(PullToRefreshBase.Mode.BOTH);
         all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));

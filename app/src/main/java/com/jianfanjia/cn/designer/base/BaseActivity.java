@@ -4,15 +4,11 @@ import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.designer.AppManager;
@@ -59,10 +55,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onCreate()");
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
-        }
         if (getLayoutId() != 0) {
             setContentView(getLayoutId());
         }
@@ -258,15 +250,4 @@ public abstract class BaseActivity extends AppCompatActivity implements
         }
     }
 
-    // 注册网络监听广播
-    protected void registerNetReceiver() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(netStateReceiver, intentFilter);
-    }
-
-    // 取消网络监听广播
-    protected void unregisterNetReceiver() {
-        unregisterReceiver(netStateReceiver);
-    }
 }

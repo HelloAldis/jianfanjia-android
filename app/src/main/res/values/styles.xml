@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <!--<item name="android:textCursorDrawable">@drawable/color_cursor</item>-->
         <item name="android:textColorHint">@color/light_white_color</item>
+
     </style>
 
     <style name="tab_rb_style">

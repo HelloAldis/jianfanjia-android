@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/transparent">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent">
 
     <RelativeLayout
         android:id="@+id/icon_layout"
-        android:layout_width="@dimen/space_72"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/space_12"
-        android:paddingLeft="@dimen/space_8"
         android:paddingTop="@dimen/space_12">
 
         <ImageView
             android:id="@+id/list_item_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/icon_notify" />
     </RelativeLayout>
 
@@ -25,19 +24,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_marginRight="@dimen/space_8"
         android:layout_toRightOf="@id/icon_layout"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dip"
             android:layout_marginTop="2dip">
 
             <TextView
                 android:id="@+id/list_item_title"
                 style="@style/listview_item_text_style_middle"
-                android:text="清江山水"
+                android:text="title"
                 android:textColor="@color/font_white" />
 
             <TextView
@@ -52,10 +52,10 @@
             android:id="@+id/list_item_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dip"
             android:layout_marginTop="2dip"
+            android:ellipsize="end"
             android:maxLines="2"
-            android:text="泥木阶段"
+            android:text="content"
             android:textColor="@color/font_white"
             android:textSize="@dimen/text_size_14" />
 
