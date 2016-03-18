@@ -198,10 +198,10 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                 hideWaitDialog();
                 NoticeDetailInfo noticeDetailInfo = JsonParser.jsonToBean(data.toString(), NoticeDetailInfo.class);
                 if (null != noticeDetailInfo) {
-                    typeText.setBackgroundResource(R.drawable.detail_text_bg_border);
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType==================" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         processid = noticeDetailInfo.getProcessid();
                         LogTool.d(TAG, "processid=" + processid);
                         doubleBtnLayout.setVisibility(View.VISIBLE);
@@ -225,6 +225,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         }
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_REJECT_DELAY_MSG) || msgType.equals(Constant
                             .TYPE_DESIGNER_AGREE_DELAY_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
@@ -234,6 +235,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
@@ -243,6 +245,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_PAY_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
@@ -252,6 +255,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnCheck.setVisibility(View.VISIBLE);
@@ -266,8 +270,10 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.sys_detail_text_bg_border);
                         typeText.setText(getResources().getString(R.string.sys_str));
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         planInfo = noticeDetailInfo.getPlan();
                         requirement = noticeDetailInfo.getRequirement();
                         LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
@@ -278,6 +284,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         cellText.setText(noticeDetailInfo.getRequirement().getCell());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         requirement = noticeDetailInfo.getRequirement();
                         LogTool.d(TAG, "requirement=" + requirement);
                         typeText.setText(getResources().getString(R.string.req_str));
@@ -287,6 +294,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         cellText.setText(requirement.getCell());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         planInfo = noticeDetailInfo.getPlan();
                         requirementid = noticeDetailInfo.getRequirementid();
                         designerid = noticeDetailInfo.getDesignerid();
@@ -306,6 +314,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                             btnCheckHouse.setEnabled(false);
                         }
                     } else {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
