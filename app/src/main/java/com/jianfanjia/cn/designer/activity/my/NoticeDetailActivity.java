@@ -156,27 +156,30 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
+                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                                + "阶段");
                         if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_AGREE)) {
                             btnAgree.setText(getResources().getString(R.string.agree_str));
                             btnAgree.setEnabled(false);
-                            btnReject.setEnabled(false);
+                            btnReject.setVisibility(View.GONE);
                         } else if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_REFUSE)) {
                             btnReject.setText(getResources().getString(R.string.reject_str));
-                            btnAgree.setEnabled(false);
+                            btnAgree.setVisibility(View.GONE);
                             btnReject.setEnabled(false);
                         } else {
                             btnAgree.setEnabled(true);
                             btnReject.setEnabled(true);
                         }
-                    } else if (msgType.equals(Constant.TYPE_REJECT_DELAY_MSG) || msgType.equals(Constant.TYPE_AGREE_DELAY_MSG)) {
+                    } else if (msgType.equals(Constant.TYPE_REJECT_DELAY_MSG) || msgType.equals(Constant
+                            .TYPE_AGREE_DELAY_MSG)) {
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
+                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                                + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
@@ -184,8 +187,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         typeText.setText(getResources().getString(R.string.caigou_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection()) + "阶段");
-                    } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant.TYPE_PLAN_NOT_CHOOSED_MSG)) {
+                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                                + "阶段");
+                    } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant
+                            .TYPE_PLAN_NOT_CHOOSED_MSG)) {
                         planInfo = noticeDetailInfo.getPlan();
                         requirement = noticeDetailInfo.getRequirement();
                         LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
@@ -240,7 +245,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 LogTool.d(TAG, "data:" + data.toString());
                 btnAgree.setText(getResources().getString(R.string.agree_str));
                 btnAgree.setEnabled(false);
-                btnReject.setEnabled(false);
+                btnReject.setVisibility(View.GONE);
             }
 
             @Override
@@ -262,7 +267,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
                 btnReject.setText(getResources().getString(R.string.reject_str));
-                btnAgree.setEnabled(false);
+                btnAgree.setVisibility(View.GONE);
                 btnReject.setEnabled(false);
             }
 
