@@ -301,9 +301,6 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-//            btn_choose.setEnabled(false);
-//            startActivity(MyDesignerActivity_.class);
-//            appManager.finishActivity(PreviewDesignerPlanActivity.this);
             afterChooseSuccess();
         }
 

@@ -8,13 +8,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Map;
-
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -26,6 +19,14 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.Map;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -36,6 +37,7 @@ import de.greenrobot.event.EventBus;
  */
 @EActivity(R.layout.activity_binding_account)
 public class BindingAccountActivity extends SwipeBackActivity {
+    private static final String TAG = BindingAccountActivity.class.getName();
 
     @ViewById(R.id.bindingaccount_head_layout)
     MainHeadView mainHeadView;
@@ -120,7 +122,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
 
     public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
         if (TextUtils.isEmpty(phone = bindingPhoneEvent.getPhone())) return;
-        LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
+        LogTool.d(TAG, "event:" + bindingPhoneEvent.getPhone());
         bindingaccount_phoneText.setText(phone);
         bindingaccount_phone_goto.setVisibility(View.GONE);
     }
@@ -134,11 +136,13 @@ public class BindingAccountActivity extends SwipeBackActivity {
 
         @Override
         public void onComplete(int i, Map<String, Object> data) {
+            LogTool.d(TAG, "i:" + i + " data:" + data);
             if (i == 200 && data != null) {
                 JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, data.get("openid").toString(), data.get
                         ("unionid").toString(), new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
+                        showWaitDialog();
                     }
 
                     @Override
