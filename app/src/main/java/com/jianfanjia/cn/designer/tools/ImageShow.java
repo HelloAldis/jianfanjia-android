@@ -41,7 +41,8 @@ public class ImageShow {
      * @param imageView
      */
     public void displayImage(String imageid, ImageView imageView) {
-        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
+        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, DisplayImageOptionsWrap
+                .getDisplayImageOptionsIsMemoryCache(true));
     }
 
     /**
@@ -53,12 +54,14 @@ public class ImageShow {
      */
     public void displayThumbnailImage(String imageid, ImageView imageView, int width) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false));
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
+                (true));
     }
 
     public void displayThumbnailImage(String imageid, ImageView imageView, int width, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false), listener);
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
+                (true), listener);
     }
 
     /**
@@ -87,15 +90,17 @@ public class ImageShow {
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth() / 2);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2);
     }
 
-    public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth(), listener);
+    public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView,
+                                                ImageLoadingListener listener) {
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth(), listener);
     }
 
-    public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView, ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, (int)TDevice.getScreenWidth() / 2, listener);
+    public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView,
+                                                    ImageLoadingListener listener) {
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2, listener);
     }
 
     /**
@@ -108,14 +113,14 @@ public class ImageShow {
     public void displayImageHeadWidthThumnailImage(Context context, String imageid, ImageView imageView) {
         int width = MyApplication.dip2px(context, Global.PIC_WIDTH_SHOW_WIDTH);
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
+        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
+                (true));
     }
 
-    public void loadImage(String imageid,ImageLoadingListener listener){
+    public void loadImage(String imageid, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, TDevice.getScreenWidth() + "") + imageid;
-        imageLoader.loadImage(imageUrl,DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(false),listener);
+        imageLoader.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
     }
-
 
 
 }
