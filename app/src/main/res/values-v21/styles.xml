@@ -5,4 +5,5 @@
         <item name="android:textColorHint">@color/light_white_color</item>
         <item name="android:statusBarColor">@color/black_color</item>
     </style>
+
 </resources>
