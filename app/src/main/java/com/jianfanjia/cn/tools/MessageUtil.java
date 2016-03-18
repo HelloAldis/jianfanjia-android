@@ -20,6 +20,7 @@ import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -79,7 +80,7 @@ public class MessageUtil {
         }
         builder.setTicker(context.getResources().getText(R.string.app_name));
         mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
-        mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
+        mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.getHumReadDateString(message.getTime()));
         mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
