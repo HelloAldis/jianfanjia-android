@@ -35,9 +35,9 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlandetailInfo>
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlandetailInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<PlandetailInfo> list) {
         PlandetailInfo info = list.get(position);
-        DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
+        final DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
         holder.numText.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
@@ -56,20 +56,21 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlandetailInfo>
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                if (null != itemClickListener) {
-                    itemClickListener.onCallBack(position, pos);
-                }
-            }
-        });
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new
+                ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        if (null != itemClickListener) {
+                            itemClickListener.onCallBack(holder.getLayoutPosition(), pos);
+                        }
+                    }
+                });
         holder.item_plan_listview.setAdapter(adapter);
         holder.commentText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != itemClickListener) {
-                    itemClickListener.onItemCallBack(position, Constant.PLAN_COMMENT_ITEM);
+                    itemClickListener.onItemCallBack(holder.getLayoutPosition(), Constant.PLAN_COMMENT_ITEM);
                 }
             }
         });
@@ -77,7 +78,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlandetailInfo>
             @Override
             public void onClick(View v) {
                 if (null != itemClickListener) {
-                    itemClickListener.onItemCallBack(position, Constant.PLAN_PREVIEW_ITEM);
+                    itemClickListener.onItemCallBack(holder.getLayoutPosition(), Constant.PLAN_PREVIEW_ITEM);
                 }
             }
         });

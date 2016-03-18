@@ -8,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -29,6 +26,9 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description:设计师方案列表
@@ -55,7 +55,8 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         requirementid = requirementInfo.get_id();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
-        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" + designerName);
+        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" +
+                designerName);
         initMainHeadView();
         designer_plan_listview = (PullToRefreshRecycleView) findViewById(R.id.designer_plan_listview);
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -63,10 +64,8 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         designer_plan_listview.setHasFixedSize(true);
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
         designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
-
         getDesignerPlansList(requirementid, designerid);
     }
-
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
@@ -136,7 +135,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
 
     @Override
     public void onCallBack(int position, int pos) {
-        LogTool.d(TAG, "position:" + position + "  pos:" + pos);
+        LogTool.d(TAG, "position=" + position + "  pos=" + pos);
         PlandetailInfo planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
