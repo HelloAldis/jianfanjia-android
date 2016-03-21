@@ -16,12 +16,12 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity_;
+import com.jianfanjia.cn.activity.my.AboutActivity;
 import com.jianfanjia.cn.activity.my.BindingAccountActivity_;
 import com.jianfanjia.cn.activity.my.CollectActivity;
 import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.activity.my.NoticeActivity;
-import com.jianfanjia.cn.activity.my.SettingActivity;
 import com.jianfanjia.cn.activity.my.UserInfoActivity_;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -197,7 +197,7 @@ public class MyNewFragment extends BaseFragment {
                 startActivity(CustomerServiceActivity.class);
                 break;
             case R.id.setting_layout:
-                startActivity(SettingActivity.class);
+                startActivity(AboutActivity.class);
                 break;
             case R.id.feedback_layout:
                 startActivity(FeedBackActivity.class);

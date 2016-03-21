@@ -18,25 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.bean.OwnerUpdateInfo;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.tools.FileUtil;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.AddPhotoDialog;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.yalantis.ucrop.UCrop;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -45,6 +26,30 @@ import org.androidannotations.annotations.ViewById;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import com.jianfanjia.cn.activity.LoginNewActivity_;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.OwnerInfo;
+import com.jianfanjia.cn.bean.OwnerUpdateInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.PopWindowCallBack;
+import com.jianfanjia.cn.tools.AuthUtil;
+import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.cn.tools.GeTuiManager;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.AddPhotoDialog;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.yalantis.ucrop.UCrop;
 
 /**
  * @author fengliang
@@ -78,8 +83,11 @@ public class UserInfoActivity extends SwipeBackActivity implements
     protected MainHeadView mainHeadView;
     @ViewById(R.id.error_include)
     protected RelativeLayout error_Layout;
+    @ViewById(R.id.logout_layout)
+    protected RelativeLayout logoutLayout;
     private OwnerInfo ownerInfo = null;
     private String sex = null;
+
 
     private boolean isUpdate = false;//是否更新，只有，更新了用户名或者头像才更新
     protected AddPhotoDialog popupWindow = null;
@@ -130,7 +138,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
     }
 
     @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout,
-            R.id.name_layout, R.id.sex_layout, R.id.home_layout, R.id.phone_layout})
+            R.id.name_layout, R.id.sex_layout, R.id.home_layout, R.id.phone_layout, R.id.logout_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
@@ -148,21 +156,21 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 address.putString(Constant.EDIT_CITY, ownerInfo.getCity());
                 address.putString(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_USER_ADRESS);
-                startActivityForResult(EditCityActivity_.class,address, Constant.REQUESTCODE_EDIT_ADDRESS);
+                startActivityForResult(EditCityActivity_.class, address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
             case R.id.name_layout:
                 Bundle name = new Bundle();
                 name.putInt(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
                 name.putString(Constant.EDIT_CONTENT, ownerInfo.getUsername());
-                startActivityForResult(EditOwnerInfoActivity.class,name,Constant.REQUESTCODE_EDIT_USERNAME);
+                startActivityForResult(EditOwnerInfoActivity.class, name, Constant.REQUESTCODE_EDIT_USERNAME);
                 break;
             case R.id.home_layout:
                 Bundle home = new Bundle();
                 home.putInt(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
                 home.putString(Constant.EDIT_CONTENT, ownerInfo.getAddress());
-                startActivityForResult(EditOwnerInfoActivity.class,home, Constant.REQUESTCODE_EDIT_HOME);
+                startActivityForResult(EditOwnerInfoActivity.class, home, Constant.REQUESTCODE_EDIT_HOME);
                 break;
             case R.id.sex_layout:
                 showSexChooseDialog();
@@ -170,9 +178,38 @@ public class UserInfoActivity extends SwipeBackActivity implements
             case R.id.phone_layout:
                 startActivity(BindingAccountActivity_.class);
                 break;
+            case R.id.logout_layout:
+                onClickExit();
+                break;
             default:
                 break;
         }
+    }
+
+    private void onClickExit() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(this);
+        dialog.setTitle("退出登录");
+        dialog.setMessage("确定退出登录吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        GeTuiManager.cancelBind(getApplicationContext(), dataManager.getUserId());
+                        dataManager.cleanData();
+                        MyApplication.getInstance().clearCookie();
+//                        MyApplication.getInstance().clearAppCache();
+                        appManager.finishAllActivity();
+                        AuthUtil.getInstance(UserInfoActivity.this).deleteOauth(UserInfoActivity.this, SHARE_MEDIA
+                                .WEIXIN);
+                        startActivity(LoginNewActivity_.class);
+                        finish();
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
     }
 
     protected void showPopWindow() {

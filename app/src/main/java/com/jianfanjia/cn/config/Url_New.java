@@ -50,6 +50,8 @@ public class Url_New {
 
     //合同详情
     public String CONTRACT_URL = SEVER_IP + "/tpl/user/agreement.html";
+    //官方微博
+    public static final String WEIBO_URL = "http://weibo.com/u/5691975473?topnav=1&wvr=6&topsug=1&is_all=1";
 
     //分享的链接
     public String SHARE_IMAGE = SEVER_IP  + "/zt/mobile/sharemito.html?title=";
