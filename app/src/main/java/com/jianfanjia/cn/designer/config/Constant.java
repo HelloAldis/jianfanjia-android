@@ -91,6 +91,7 @@ public class Constant {
     public static final int COMMENT_ITEM = 4;
     public static final int DELAY_ITEM = 5;
     public static final int CHECK_ITEM = 6;
+    public static final int OPERATE_ITEM = 7;
 
     //设计师方案列表item点击项
     public static final int PLAN_COMMENT_ITEM = 1;//留言

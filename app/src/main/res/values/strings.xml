@@ -24,6 +24,7 @@
     <string name="loging">正在登录中</string>
     <string name="no">取     消</string>
     <string name="ok">确     定</string>
+    <string name="agree">同     意</string>
     <string name="refuse">拒     绝</string>
     <string name="forget_pwd">忘记密码？</string>
     <string name="register">注册</string>
@@ -60,6 +61,7 @@
     <string name="site_example_node_confirm_finish">确认完工</string>
     <string name="more">更多</string>
     <string name="retract">收起</string>
+    <string name="site_example_node_delay_text">您有未处理的改期</string>
 
     <!-- my_site information -->
     <string name="my_site_villagename_example">中建康城二期</string>
