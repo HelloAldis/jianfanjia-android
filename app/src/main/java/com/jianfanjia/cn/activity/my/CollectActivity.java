@@ -5,6 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -13,9 +16,6 @@ import com.jianfanjia.cn.fragment.CollectDecorationImgFragment;
 import com.jianfanjia.cn.fragment.CollectDesignerFragment;
 import com.jianfanjia.cn.fragment.CollectProductFragment;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description:我的收藏
@@ -50,7 +50,7 @@ public class CollectActivity extends SwipeBackActivity implements OnClickListene
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<>();
         SelectItem designerItem = new SelectItem(CollectDesignerFragment.newInstance(), getResources().getString(R.string.designerText));
-        SelectItem productItem = new SelectItem(CollectProductFragment.newInstance(), getResources().getString(R.string.productText));
+        SelectItem productItem = new SelectItem(CollectProductFragment.newInstance(), getResources().getString(R.string.str_case));
         SelectItem imgItem = new SelectItem(CollectDecorationImgFragment.newInstance(), getResources().getString(R.string.imgText));
         listViews.add(designerItem);
         listViews.add(productItem);

@@ -25,7 +25,7 @@
     <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
     <string name="tip_network_error">没有可用的网络</string>
     <string name="emtpy_view_no_designer_data">您还没有收藏任何设计师</string>
-    <string name="empty_view_no_product_data">您还没有收藏任何作品</string>
+    <string name="empty_view_no_product_data">您还没有收藏任何案例</string>
     <string name="empty_view_no_product_list_data">没有任何匹配的案例</string>
     <string name="empty_view_no_img_data">您还没有收藏任何美图</string>
     <string name="empty_view_no_caigou_data">您还没有采购提醒</string>
@@ -309,7 +309,6 @@
 
     <string name="resourceText">资料</string>
     <string name="designerText">设计师</string>
-    <string name="productText">作品</string>
     <string name="imgText">美图</string>
     <string name="man">男</string>
     <string name="women">女</string>

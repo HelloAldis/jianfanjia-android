@@ -13,6 +13,9 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -29,10 +32,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -108,7 +107,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         SelectItem resItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
                 getResources().getString(R.string.resourceText));
         SelectItem productItem = new SelectItem(DesignerProductFragment.newInstance(designerid),
-                getResources().getString(R.string.productText));
+                getResources().getString(R.string.str_case));
         listViews.add(resItem);
         listViews.add(productItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
