@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author fengliang
@@ -30,7 +30,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     private LinearLayout btnLayout = null;
     private Button btnRegister = null;
     private Button btnLogin = null;
-    private List<View> list = new ArrayList<View>();
+    private List<View> list = new ArrayList<>();
     private ViewPageAdapter adapter = null;
     private int lastSelectorItem = 0;
     private int currentItem = 0; // 当前图片的索引号

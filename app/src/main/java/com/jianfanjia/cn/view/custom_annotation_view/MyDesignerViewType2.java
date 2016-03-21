@@ -7,8 +7,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.Calendar;
+
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -17,11 +22,6 @@ import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
-
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Calendar;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -75,7 +75,7 @@ public class MyDesignerViewType2 extends BaseAnnotationView {
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, headView);
         } else {
-            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headView);
+            headView.setImageResource(R.mipmap.icon_default_head);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);

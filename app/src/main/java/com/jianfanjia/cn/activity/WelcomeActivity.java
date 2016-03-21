@@ -179,12 +179,14 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void loadSuccess(Object data) {
+        super.loadSuccess(data);
         startActivity(MainActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
     }
 
     @Override
     public void loadFailture(String error_msg) {
+        super.loadFailture(error_msg);
         startActivity(LoginNewActivity_.class);
         appManager.finishActivity(WelcomeActivity.this);
     }

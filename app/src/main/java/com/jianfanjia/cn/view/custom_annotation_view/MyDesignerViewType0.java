@@ -7,16 +7,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
-
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -65,13 +65,8 @@ public class MyDesignerViewType0 extends BaseAnnotationView {
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context,imageid,headView);
         } else {
-            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headView);
+            headView.setImageResource(R.mipmap.icon_default_head);
         }
-        /*if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.GET_THUMBNAIL_IMAGE + imageid, headView, options);
-        } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
-        }*/
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             authView.setVisibility(View.VISIBLE);
         } else {

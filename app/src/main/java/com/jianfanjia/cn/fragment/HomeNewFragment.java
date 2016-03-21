@@ -14,6 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DecorateLiveActivity_;
@@ -40,14 +48,6 @@ import com.jianfanjia.cn.view.MainScrollView;
 import com.jianfanjia.cn.view.auto_view_pager.AutoScrollViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -162,14 +162,14 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             LogTool.d(TAG, "productid:" + productid);
             Bundle productBundle = new Bundle();
             productBundle.putString(Global.PRODUCT_ID, productid);
-            startActivity(DesignerCaseInfoActivity.class,productBundle);
+            startActivity(DesignerCaseInfoActivity.class, productBundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
         }
     }
 
     public void showGuide(float x, float y, float radius) {
         // 动态初始化图层
-        img = new GestureGuideView(getActivity().getApplicationContext());
+        img = new GestureGuideView(getActivity());
         img.setCicrePosition(x, y, radius);
         img.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -201,7 +201,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
     public void removeGuide() {
         if (windowManager != null) {
-            windowManager.removeView(img);
+            windowManager.removeViewImmediate(img);
         }
     }
 
@@ -217,7 +217,8 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<Product>>() {
                 }.getType());
                 if (mPagerAdapter == null) {
-                    mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout.getWidth(), coordinatorLayout.getHeight());
+                    mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout
+                            .getWidth(), coordinatorLayout.getHeight());
                     contentViewPager.setAdapter(mPagerAdapter);
                 } else {
                     mPagerAdapter.setProductList(productNews);
@@ -239,7 +240,8 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }, this);
     }
 
-    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id.home_search, R.id.list_item_more_layout, R.id.content_intent_to})
+    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id
+            .home_search, R.id.list_item_more_layout, R.id.content_intent_to})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
@@ -270,22 +272,26 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }
     }
 
-    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib, final ViewPagerClickListener viewPagerClickListener) {
+    private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib, final
+    ViewPagerClickListener viewPagerClickListener) {
         indicatorGroup_lib.removeAllViews();
         List<View> bannerList = new ArrayList<>();
         for (int i = 0; i < BANNER_ICON.length; i++) {
             LinearLayout linearLayout = new LinearLayout(getActivity().getApplicationContext());
-            linearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            linearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                    .LayoutParams.WRAP_CONTENT));
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
             imageView.setImageResource(BANNER_ICON[i]);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (520 / (1242 / TDevice.getScreenWidth()))));
+            imageView.setLayoutParams(new LinearLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (520 /
+                    (1242 / TDevice.getScreenWidth()))));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             linearLayout.addView(imageView);
             bannerList.add(linearLayout);
         }
         final View[] indicators = new View[bannerList.size()];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                new ViewGroup.LayoutParams(MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(), 8)));
+                new ViewGroup.LayoutParams(MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(),
+                        8)));
         params.setMargins(0, 0, MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(), 8));
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new View(getActivity().getApplicationContext());

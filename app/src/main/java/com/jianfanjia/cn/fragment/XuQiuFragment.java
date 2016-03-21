@@ -1,10 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -91,8 +86,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @ViewById(R.id.error_include)
     RelativeLayout error_Layout;
 
-    // Header View
-    private UpdateBroadcastReceiver updateBroadcastReceiver;
     private RequirementInfo requirementInfo;
 
     @Override
@@ -192,15 +185,6 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        updateBroadcastReceiver = new UpdateBroadcastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Global.ACTION_UPDATE);    //只有持有相同的action的接受者才能接收此广播
-        context.registerReceiver(updateBroadcastReceiver, filter);
-    }
-
-    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if(!hidden){
@@ -266,33 +250,5 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         }, this);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(TAG, "onActivityResult = " + requestCode + " resultCode=" + resultCode);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        switch (requestCode) {
-            case REQUESTCODE_EDIT_REQUIREMENT:
-                initData();
-                break;
-            default:
-                break;
-        }
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        getActivity().unregisterReceiver(updateBroadcastReceiver);
-    }
-
-    //刷新数据的广播
-    class UpdateBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            initData();
-        }
-    }
 }

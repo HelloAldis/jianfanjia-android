@@ -11,6 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
@@ -31,11 +36,6 @@ import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Description:全部作品案例
@@ -107,7 +107,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.designer_case_head);
         mainHeadView.setBackListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.all_designer_product));
+        mainHeadView.setMianTitle(getResources().getString(R.string.all_good_product));
         mainHeadView.setBackgroundTransparent();
     }
 

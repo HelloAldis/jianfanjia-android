@@ -10,6 +10,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -26,15 +31,8 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -243,7 +241,6 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            UiHelper.sendUpdateBroast(AppointDesignerActivity.this);
             appManager.finishActivity(AppointDesignerActivity.this);
         }
 

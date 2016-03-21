@@ -14,7 +14,7 @@ import com.jianfanjia.cn.application.MyApplication;
 public class Url_New {
     private static Url_New instance;
     public String SEVER_IP = "";
-    public String SEVER_PORT = "";
+//    public String SEVER_PORT = "";
     public String MOBILE_SERVER_URL = "";
 
     public static Url_New getInstance() {
@@ -37,22 +37,24 @@ public class Url_New {
             ApplicationInfo appInfo = MyApplication.getInstance().getPackageManager()
                     .getApplicationInfo(MyApplication.getInstance().getPackageName(),
                             PackageManager.GET_META_DATA);
-            SEVER_IP = appInfo.metaData.getString("SERVER_IP");
-            SEVER_PORT = String.valueOf(appInfo.metaData.getInt("SERVER_PORT"));
+            SEVER_IP = appInfo.metaData.getString("SERVER_URL");
+//            SEVER_PORT = String.valueOf(appInfo.metaData.getString("SERVER_PORT"));
             MOBILE_SERVER_URL = appInfo.metaData.getString("MOBILE_SERVER_URL");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public String HTTPROOT = "http://" + SEVER_IP + ":"
-            + SEVER_PORT + "/api/v2/app/";
+    public String HTTPROOT = SEVER_IP + "/api/v2/app/";
 
-    public String IMG_HTTPROOT = "http://" + SEVER_IP + ":"
-            + SEVER_PORT + "/api/v2/app/image/";
 
     //合同详情
-    public String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
+    public String CONTRACT_URL = SEVER_IP + "/tpl/user/agreement.html";
+
+    //分享的链接
+    public String SHARE_IMAGE = SEVER_IP  + "/zt/mobile/sharemito.html?title=";
+    //分享的APP的logo图片链接
+    public String SHARE_APP_LOGO = SEVER_IP + "/zt/mobile/logo.png";
 
     //装修直播详情
     public String DECORATE_LIVE_URL = "/view/share/process.html?pid=";
@@ -174,20 +176,12 @@ public class Url_New {
 
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/";
-    //分享的链接
-    public String SHARE_IMAGE = "http://" + SEVER_IP + ":"
-            + SEVER_PORT + "/zt/mobile/sharemito.html?title=";
-    //分享的APP的logo图片链接
-    public String SHARE_APP_LOGO = "http://" + SEVER_IP + ":"
-            + SEVER_PORT + "/zt/mobile/logo.png";
+
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/" + ID;
     // 业主确认对比验收完成
     public String CONFIRM_CHECK_DONE_BY_OWNER = HTTPROOT
             + "process/done_section";
-    //获取装修美图首页
-    public String GET_DECORATION_IMG = HTTPROOT
-            + "beautiful_image_homepage";
     //搜索装修美图
     public String SEARCH_DECORATION_IMG = HTTPROOT
             + "search_beautiful_image";
