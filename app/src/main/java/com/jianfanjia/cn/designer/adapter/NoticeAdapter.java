@@ -46,6 +46,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     private static final int ITEM_TYPE18 = 18;
     private static final int ITEM_TYPE19 = 19;
     private static final int ITEM_TYPE20 = 20;
+    private static final int ITEM_TYPE21 = 21;
 
     private RecyclerItemCallBack callback;
     private int viewType = -1;
@@ -102,6 +103,8 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             viewType = ITEM_TYPE19;
         } else if (msgType.equals(Constant.TYPE_AGREE_DELAY_MSG)) {
             viewType = ITEM_TYPE20;
+        } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
+            viewType = ITEM_TYPE21;
         }
         return viewType;
     }
@@ -114,6 +117,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE1:
             case ITEM_TYPE19:
             case ITEM_TYPE20:
+            case ITEM_TYPE21:
                 SiteViewHolder siteViewHolder = (SiteViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
                     siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
@@ -219,6 +223,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE1:
             case ITEM_TYPE19:
             case ITEM_TYPE20:
+            case ITEM_TYPE21:
                 return layoutInflater.inflate(R.layout.list_notice_item_site, null);
             case ITEM_TYPE2:
             case ITEM_TYPE5:
@@ -250,6 +255,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
             case ITEM_TYPE1:
             case ITEM_TYPE19:
             case ITEM_TYPE20:
+            case ITEM_TYPE21:
                 return new SiteViewHolder(view);
             case ITEM_TYPE2:
             case ITEM_TYPE5:

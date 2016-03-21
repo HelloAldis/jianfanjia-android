@@ -191,6 +191,16 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
+                    } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
+                        typeText.setText(getResources().getString(R.string.check_str));
+                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        sectionText.setVisibility(View.VISIBLE);
+                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                                + "阶段");
                     } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant
                             .TYPE_PLAN_NOT_CHOOSED_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
