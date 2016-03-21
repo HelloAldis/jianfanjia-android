@@ -53,7 +53,8 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             if (var4 != null && var4.metaData != null) {
                 String var5 = var4.metaData.getString("PUSH_APPID");
                 String var6 = var4.metaData.getString("PUSH_APPSECRET");
-                String var7 = var4.metaData.get("PUSH_APPKEY") != null ? var4.metaData.get("PUSH_APPKEY").toString() : null;
+                String var7 = var4.metaData.get("PUSH_APPKEY") != null ? var4.metaData.get("PUSH_APPKEY").toString()
+                        : null;
                 if (var5 != null) {
                     var5 = var5.trim();
                 }
@@ -85,23 +86,23 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                                             UpdateVersion.class);
                             LogTool.d(TAG, "updateVersion:" + updateVersion);
                             if (updateVersion != null) {
-//                                if (Integer.parseInt(updateVersion
-//                                        .getVersion_code()) > MyApplication
-//                                        .getInstance().getVersionCode()) {
-//                                    showNewVersionDialog(
-//                                            String.format(getString(R.string.new_version_message),
-//                                                    updateVersion.getVersion_name()),
-//                                            updateVersion);
-//                                } else {
-                                handler.postDelayed(runnable, 2000);
-//                                }
+                                if (Integer.parseInt(updateVersion
+                                        .getVersion_code()) > MyApplication
+                                        .getInstance().getVersionCode()) {
+                                    showNewVersionDialog(
+                                            String.format(getString(R.string.new_version_message),
+                                                    updateVersion.getVersion_name()),
+                                            updateVersion);
+                                } else {
+                                    handler.postDelayed(runnable, 1500);
+                                }
                             }
                         }
                     }
 
                     @Override
                     public void loadFailture(String error_msg) {
-                        handler.postDelayed(runnable, 2000);
+                        handler.postDelayed(runnable, 1500);
                     }
                 }
         );
@@ -124,7 +125,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                         dialog.dismiss();
                         UiHelper.startUpdateService(WelcomeActivity.this, updateVersion.getDownload_url());
                         if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
-                            handler.postDelayed(runnable, 1500);
+                            handler.postDelayed(runnable, 1000);
                         }
                     }
 
@@ -135,7 +136,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 if (updateVersion.getUpdatetype().equals(Global.REC_UPDATE)) {
-                    handler.postDelayed(runnable, 1500);
+                    handler.postDelayed(runnable, 1000);
                 } else {
                     appManager.finishActivity(WelcomeActivity.this);
                 }
@@ -171,6 +172,11 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     }
 
     @Override
+    public void preLoad() {
+
+    }
+
+    @Override
     public void loadSuccess(Object data) {
         startActivity(MainActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
@@ -203,8 +209,10 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                     } else {
                         LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();
-                        JianFanJiaClient.refreshSession(WelcomeActivity.this, dataManager.getUserId(), WelcomeActivity.this, WelcomeActivity.this);
-//                        JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager.getPassword(), WelcomeActivity.this, WelcomeActivity.this);
+                        JianFanJiaClient.refreshSession(WelcomeActivity.this, dataManager.getUserId(),
+                                WelcomeActivity.this, WelcomeActivity.this);
+//                        JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager
+// .getPassword(), WelcomeActivity.this, WelcomeActivity.this);
                     }
                 }
             } else {
