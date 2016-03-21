@@ -11,11 +11,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.bean.RescheduleInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SectionItemAdapter extends BaseAdapter {
+    private static final String TAG = SectionItemAdapter.class.getName();
     private static final int IMG_COUNT = 9;
     private static final int CHECK_VIEW = 0;
     private static final int SECTION_ITME_VIEW = 1;
@@ -166,6 +169,12 @@ public class SectionItemAdapter extends BaseAdapter {
                             .findViewById(R.id.site_listview_item_content_small);
                     viewHolderf.bigOpenLayout = (RelativeLayout) convertView
                             .findViewById(R.id.site_listview_item_content_expand);
+                    viewHolderf.site_list_head_checkbutton_layout = (LinearLayout) convertView
+                            .findViewById(R.id.site_list_head_checkbutton_layout);
+                    viewHolderf.site_list_head_delay_layout = (LinearLayout) convertView
+                            .findViewById(R.id.site_list_head_delay_layout);
+                    viewHolderf.site_list_head_delay_text = (TextView) convertView
+                            .findViewById(R.id.site_list_head_delay_text);
                     viewHolderf.closeNodeName = (TextView) convertView
                             .findViewById(R.id.site_list_item_content_small_node_name);
                     viewHolderf.openNodeName = (TextView) convertView
@@ -336,8 +345,6 @@ public class SectionItemAdapter extends BaseAdapter {
             case CHECK_VIEW:
                 viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
                 viewHolderf.openNodeName.setText(sectionItemInfo.getName());
-                viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
-                viewHolderf.openNodeName.setText(sectionItemInfo.getName());
                 if (section_status.equals(Constant.FINISHED)) {
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg2);
@@ -361,18 +368,22 @@ public class SectionItemAdapter extends BaseAdapter {
                     viewHolderf.bigOpenLayout.setVisibility(View.GONE);
                     viewHolderf.smallcloseLayout.setVisibility(View.VISIBLE);
                 }
+                LogTool.d(TAG, "section_status===========================" + section_status);
                 switch (section_status) {
                     case Constant.FINISHED:
                         viewHolderf.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_finish);
                         viewHolderf.openDelay.setEnabled(false);
                         viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
-                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_no));
+                        viewHolderf.openDelay.setText(context.getResources().getText(R.string
+                                .site_example_node_delay_no));
                         break;
                     case Constant.YANQI_AGREE:
                     case Constant.YANQI_REFUSE:
                     case Constant.NO_START:
                     case Constant.DOING:
+                        viewHolderf.site_list_head_delay_layout.setVisibility(View.GONE);
+                        viewHolderf.site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
                         viewHolderf.openDelay.setEnabled(true);
                         viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.orange_color));
                         viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay));
@@ -387,10 +398,28 @@ public class SectionItemAdapter extends BaseAdapter {
                         });
                         break;
                     case Constant.YANQI_BE_DOING:
-                        LogTool.d(this.getClass().getName(), "this section is yanqi_doing");
-                        viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
-                        viewHolderf.openDelay.setText(context.getResources().getText(R.string.site_example_node_delay_doing));
-                        viewHolderf.openDelay.setEnabled(false);
+                        LogTool.d(TAG, "this section is yanqi_doing");
+                        RescheduleInfo rescheduleInfo = sectionInfo.getReschedule();
+                        if (null != rescheduleInfo) {
+                            String role = rescheduleInfo.getRequest_role();
+                            if (role.equals(Constant.IDENTITY_OWNER)) {
+                                viewHolderf.site_list_head_delay_layout.setVisibility(View.GONE);
+                                viewHolderf.site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+                                viewHolderf.openDelay.setTextColor(context.getResources().getColor(R.color.grey_color));
+                                viewHolderf.openDelay.setText(context.getResources().getText(R.string
+                                        .site_example_node_delay_doing));
+                                viewHolderf.openDelay.setEnabled(false);
+                            } else {
+                                viewHolderf.site_list_head_delay_layout.setVisibility(View.VISIBLE);
+                                viewHolderf.site_list_head_checkbutton_layout.setVisibility(View.GONE);
+                                viewHolderf.site_list_head_delay_text.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        callBack.click(position, Constant.OPERATE_ITEM);
+                                    }
+                                });
+                            }
+                        }
                         break;
                     default:
                         break;
@@ -452,6 +481,9 @@ public class SectionItemAdapter extends BaseAdapter {
     private static class ViewHolder2 {
         RelativeLayout smallcloseLayout;
         RelativeLayout bigOpenLayout;
+        LinearLayout site_list_head_checkbutton_layout;
+        LinearLayout site_list_head_delay_layout;
+        TextView site_list_head_delay_text;
         TextView closeNodeName;
         TextView openNodeName;
         TextView openDelay;

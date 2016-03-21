@@ -106,6 +106,7 @@
     <string name="site_example_node_assess">评价</string>
     <string name="more">更多</string>
     <string name="retract">收起</string>
+    <string name="site_example_node_delay_text">您有未处理的改期</string>
 
     <!-- my_site information -->
     <string name="my_current_site">当前工地</string>

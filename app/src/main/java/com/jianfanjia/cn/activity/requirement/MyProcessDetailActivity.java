@@ -15,17 +15,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
@@ -55,9 +44,22 @@ import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author fengliang
@@ -363,6 +365,9 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity.PROCESS_LIST_INTENT);
                 startActivityForResult(CheckActivity.class, checkBundle, Constant.REQUESTCODE_CHECK);
                 break;
+            case Constant.OPERATE_ITEM:
+                showDelayDialog();
+                break;
             default:
                 break;
         }
@@ -474,6 +479,32 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         dateWheelDialog.show();
     }
 
+    private void showDelayDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("改期提醒");
+        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(sectionInfo.getReschedule().getNew_date()));
+        dialog.setPositiveButton(R.string.agree,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        agreeReschedule(processInfo.get_id());
+                    }
+                });
+        dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                refuseReschedule(processInfo.get_id());
+            }
+        });
+        dialog.show();
+        dialog.show();
+    }
+
     // 提交改期
     private void postReschedule(String processId, String userId,
                                 String designerId, String section, String newDate) {
@@ -497,6 +528,48 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                         makeTextShort(error_msg);
                     }
                 }, this);
+    }
+
+    //同意改期
+    private void agreeReschedule(String processid) {
+        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
+    }
+
+    // 拒绝改期
+    private void refuseReschedule(String processid) {
+        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
     }
 
     @Override
@@ -596,6 +669,11 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 hideWaitDialog();
             }
         }, this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

@@ -27,6 +27,8 @@ public class SectionInfo implements Serializable {
 
     private CheckInfo ys;
 
+    private RescheduleInfo reschedule;
+
     public String get_id() {
         return _id;
     }
@@ -81,6 +83,14 @@ public class SectionInfo implements Serializable {
 
     public void setYs(CheckInfo ys) {
         this.ys = ys;
+    }
+
+    public RescheduleInfo getReschedule() {
+        return reschedule;
+    }
+
+    public void setReschedule(RescheduleInfo reschedule) {
+        this.reschedule = reschedule;
     }
 
     public SectionItemInfo getSectionItemInfoByName(String itemName) {
