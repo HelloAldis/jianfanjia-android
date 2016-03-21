@@ -69,7 +69,7 @@ android {
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5", GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4",
-                                    SERVER_URL      : RELEASE_SERVER_URL]
+                                    SERVER_URL      : TEST_SERVER_URL]
         }
     }
     sourceSets {
@@ -113,9 +113,9 @@ android {
 //                    fileName = fileName.replace("-release", "")
 //                    output.outputFile = new File(outputFile.parent, fileName)
 //                }
-//                if(variant.buildType.name.equals('andtest')){
-//                    output.outputFile = new File(testApkPath, fileName)
-//                }
+                if(variant.buildType.name.equals('andtest')){
+                    output.outputFile = new File(testApkPath, fileName)
+                }
                 if (variant.buildType.name.equals('debug')) {
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
