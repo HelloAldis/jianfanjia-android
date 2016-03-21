@@ -206,7 +206,7 @@ public class ContractActivity extends SwipeBackActivity implements
 
                 @Override
                 public void loadFailture(String error_msg) {
-                    makeTextLong(error_msg);
+                    makeTextShort(error_msg);
                     checkBtn.setEnabled(true);
                 }
             };
@@ -217,7 +217,7 @@ public class ContractActivity extends SwipeBackActivity implements
                 EventBus.getDefault().post(new ChoosedContractEvent());
                 break;
             case DESIGNER_LIST_INTENT:
-                setResult(RESULT_OK);
+//                setResult(RESULT_OK);
                 appManager.finishActivity(ContractActivity.this);
                 break;
             default:

@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity.requirement;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,14 +82,12 @@ public class MyDesignerActivity extends SwipeBackActivity {
             requirementid = requirementInfo.get_id();
         }
         initPullRefresh();
-        initdata();
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
+    protected void onResume() {
+        super.onResume();
         initdata();
-        UiHelper.sendUpdateBroast(this);
     }
 
     private void initPullRefresh() {
@@ -124,14 +121,14 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         commentBundle.putFloat(Global.SPEED, orderDesignerInfo.getRespond_speed());
                         commentBundle.putFloat(Global.ATTITUDE, orderDesignerInfo.getService_attitude());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivityForResult(PingjiaActivity.class, commentBundle, REQUESTCODE_FRESH_LIST);
+                        startActivity(PingjiaActivity.class, commentBundle);
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
                         contractBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
                         contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
                                 .DESIGNER_LIST_INTENT);
-                        startActivityForResult(ContractActivity.class, contractBundle, REQUESTCODE_FRESH_LIST);
+                        startActivity(ContractActivity.class, contractBundle);
                         break;
                     case VIEW_PLAN:
                         Bundle planBundle = new Bundle();
@@ -144,7 +141,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        startActivityForResult(ReplaceDesignerActivity.class, changeBundle, REQUESTCODE_FRESH_LIST);
+                        startActivity(ReplaceDesignerActivity.class, changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         confirmMeasureHouse(orderDesignerInfo.get_id());
@@ -180,8 +177,6 @@ public class MyDesignerActivity extends SwipeBackActivity {
                     @Override
                     public void loadSuccess(Object data) {
                         initdata();
-                        //刷新Xuqiufragment
-                        UiHelper.sendUpdateBroast(MyDesignerActivity.this);
                     }
 
                     @Override
@@ -238,21 +233,5 @@ public class MyDesignerActivity extends SwipeBackActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        switch (requestCode) {
-            case REQUESTCODE_FRESH_LIST:
-                initdata();
-                //刷新Xuqiufragment
-                UiHelper.sendUpdateBroast(MyDesignerActivity.this);
-                break;
-            default:
-                break;
-        }
-    }
 
 }

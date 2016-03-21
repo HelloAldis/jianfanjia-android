@@ -142,13 +142,13 @@ public class PingjiaActivity extends SwipeBackActivity implements
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         LogTool.d(TAG, "data:" + data);
-        setResult(RESULT_OK);
+//        setResult(RESULT_OK);
         appManager.finishActivity(this);
     }
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
     }
 
     @Override

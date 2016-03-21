@@ -9,6 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -25,12 +30,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -72,7 +71,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
+                .showLastDivider().build());
         Intent intent = this.getIntent();
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         designerid = intent.getStringExtra(Global.DESIGNER_ID);
@@ -93,7 +93,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
         mainHeadView.setRigthTitleEnable(false);
     }
 
-    private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
+    private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo>
+            favorite_designerList) {
         mylist.clear();
         splitList.clear();
         Map<String, Object> mp = new HashMap<>();
@@ -140,7 +141,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
-        JianFanJiaClient.getOrderDesignerListByUser(ReplaceDesignerActivity.this, requestmentid, getOrderDesignerListener, this);
+        JianFanJiaClient.getOrderDesignerListByUser(ReplaceDesignerActivity.this, requestmentid,
+                getOrderDesignerListener, this);
     }
 
     private ApiUiUpdateListener getOrderDesignerListener = new ApiUiUpdateListener() {
@@ -153,13 +155,15 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            DesignerCanOrderListInfo designerCanOrderListInfo = JsonParser.jsonToBean(data.toString(), DesignerCanOrderListInfo.class);
+            DesignerCanOrderListInfo designerCanOrderListInfo = JsonParser.jsonToBean(data.toString(),
+                    DesignerCanOrderListInfo.class);
             LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
             if (null != designerCanOrderListInfo) {
                 rec_designer = designerCanOrderListInfo.getRec_designer();
                 favorite_designer = designerCanOrderListInfo.getFavorite_designer();
                 setReplaceDesignerList(rec_designer, favorite_designer);
-                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity.this, mylist, splitList, totalCount, new CheckListener() {
+                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity
+                        .this, mylist, splitList, totalCount, new CheckListener() {
                     @Override
                     public void getItemData(int position, String designerid) {
                         LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
@@ -196,7 +200,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
 
     //替换设计师
     private void replaceDesignerByUser(String requirementid, String old_designerid, String new_designerid) {
-        JianFanJiaClient.changeOrderedDesignerByUser(ReplaceDesignerActivity.this, requirementid, old_designerid, new_designerid, replaceDesignerListener, this);
+        JianFanJiaClient.changeOrderedDesignerByUser(ReplaceDesignerActivity.this, requirementid, old_designerid,
+                new_designerid, replaceDesignerListener, this);
     }
 
     private ApiUiUpdateListener replaceDesignerListener = new ApiUiUpdateListener() {
@@ -209,7 +214,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             hideWaitDialog();
-            setResult(RESULT_OK);
+//            setResult(RESULT_OK);
             appManager.finishActivity(ReplaceDesignerActivity.this);
         }
 
