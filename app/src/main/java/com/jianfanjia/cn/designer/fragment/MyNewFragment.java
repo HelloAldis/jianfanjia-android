@@ -39,7 +39,6 @@ import com.jianfanjia.cn.designer.view.layout.BadgeView;
  */
 public class MyNewFragment extends BaseFragment {
     private static final String TAG = MyNewFragment.class.getName();
-    public static final int REQUESTCODE_USERINFO = 0;
     private RelativeLayout notifyLayout = null;
     private RelativeLayout setting_layout = null;
     private RelativeLayout kefu_layout = null;
@@ -87,7 +86,8 @@ public class MyNewFragment extends BaseFragment {
 
         cacheSizeView.setText(UiHelper.caculateCacheSize());
         //动态计算imageview的宽高
-        head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 / TDevice.getScreenWidth()))));
+        head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 /
+                TDevice.getScreenWidth()))));
 
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
@@ -120,7 +120,8 @@ public class MyNewFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         initMyInfo();
-        my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) : dataManager.getUserName());
+        my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
+                dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
     }
 

@@ -101,9 +101,10 @@
     <string name="current_version_example">1.0</string>
     <string name="clear_cache">清空缓存</string>
     <string name="cache_size">110M</string>
-    <string name="feedback">用户反馈</string>
+    <string name="feedback">意见反馈</string>
     <string name="logout">退出登录</string>
-    <string name="kefuText">联系客服</string>
+    <string name="kefuText">客服中心</string>
+    <string name="online_kefu">在线客服</string>
     <string name="list_item_comment_pubtime_example">30分钟前</string>
     <string name="add_comment">添加评论</string>
     <string name="add_feedback">请添加您想说的内容</string>

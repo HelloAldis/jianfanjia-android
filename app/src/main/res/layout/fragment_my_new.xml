@@ -262,7 +262,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/kefu_icon"
-                    android:text="联系客服"
+                    android:text="@string/online_kefu"
                     android:textColor="@color/light_black_color" />
 
                 <ImageView
