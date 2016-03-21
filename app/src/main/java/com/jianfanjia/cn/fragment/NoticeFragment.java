@@ -11,11 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
@@ -33,6 +28,12 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -106,7 +107,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
             return;
         }
         getNoticeList(typeArray, pullDownListener);
-
     }
 
     @Override
