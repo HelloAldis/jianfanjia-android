@@ -180,7 +180,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     }
 
     private void lazyLoad() {
-        if (!isPrepared || !isVisiable || mHasLoadedOnce) {
+        if (!isPrepared || !isVisiable) {
             return;
         }
         initData();
@@ -191,10 +191,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         super.onStart();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     protected void initRecycleView() {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
@@ -246,7 +242,8 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                     case PRIVIEW_REQUIREMENT_TYPE:
                         Intent gotoPriviewRequirement = null;
                         if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
-                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_.class);
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_
+                                    .class);
                         } else {
                             gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
                         }
@@ -288,14 +285,16 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
             }
         });
         pullrefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
+        pullrefresh.setAdapter(myHandledRequirementAdapter);
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
     private void notifyOwnerConfirmHouse(RequirementInfo requirementInfo) {
-        Map<String,Object> param = new HashMap<>();
-        param.put(Global.PLAN_ID,requirementInfo.getPlan().get_id());
-        param.put(Global.USER_ID,requirementInfo.getUserid());
-        JianFanJiaClient.notifyOwnerConfirmHouse(new NotifyOwnerMeasureHouseRequest(getContext(), param), new ApiUiUpdateListener() {
+        Map<String, Object> param = new HashMap<>();
+        param.put(Global.PLAN_ID, requirementInfo.getPlan().get_id());
+        param.put(Global.USER_ID, requirementInfo.getUserid());
+        JianFanJiaClient.notifyOwnerConfirmHouse(new NotifyOwnerMeasureHouseRequest(getContext(), param), new
+                ApiUiUpdateListener() {
             @Override
             public void preLoad() {
 
@@ -309,13 +308,14 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
             @Override
             public void loadFailture(String error_msg) {
                 //一天只能提醒一次
-                if(!error_msg.equals(OkHttpClientManager.NOT_NET_ERROR) || error_msg.equals(OkHttpClientManager.SERVER_ERROR)){
+                if (!error_msg.equals(OkHttpClientManager.NOT_NET_ERROR) || error_msg.equals(OkHttpClientManager
+                        .SERVER_ERROR)) {
                     makeTextShort(getString(R.string.notify_not_more_once_everyday));
-                }else {
+                } else {
                     makeTextShort(error_msg);
                 }
             }
-        },this);
+        }, this);
     }
 
     private void refuseRequirement(String requirementid, String msg) {
@@ -466,7 +466,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                     new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight()));
         } else {
             emptyLayout.setVisibility(View.GONE);
-            pullrefresh.setAdapter(myHandledRequirementAdapter);
+
         }
     }
 
