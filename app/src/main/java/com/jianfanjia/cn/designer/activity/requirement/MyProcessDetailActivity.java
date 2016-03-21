@@ -15,17 +15,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.activity.common.PhotoPickerActivity;
@@ -58,6 +47,17 @@ import com.jianfanjia.cn.designer.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshListView;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -364,6 +364,9 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 checkIntent.putExtras(checkBundle);
                 startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
                 break;
+            case Constant.OPERATE_ITEM:
+                showDelayDialog();
+                break;
             default:
                 break;
         }
@@ -489,6 +492,75 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         dateWheelDialog.setNegativeButton(R.string.no, null);
         dateWheelDialog.show();
     }
+
+    private void showDelayDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("改期提醒");
+        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(sectionInfo.getReschedule().getNew_date()));
+        dialog.setPositiveButton(R.string.agree,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        agreeReschedule(processInfo.get_id());
+                    }
+                });
+        dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                refuseReschedule(processInfo.get_id());
+            }
+        });
+        dialog.show();
+        dialog.show();
+    }
+
+    //同意改期
+    private void agreeReschedule(String processid) {
+        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
+    }
+
+    // 拒绝改期
+    private void refuseReschedule(String processid) {
+        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
+    }
+
 
     // 确认完工装修流程小节点
     private void confirmProcessItemDone(String siteId, String section,
