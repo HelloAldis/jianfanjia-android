@@ -25,72 +25,136 @@
             style="@style/divier_line"
             android:background="@color/horzontal_line_color" />
 
-        <RadioGroup
-            android:id="@+id/tab_rg_menu"
+        <LinearLayout
+            android:id="@+id/main_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/tab_rb_1"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:checked="true"
-                android:drawableTop="@drawable/rb_btn_bg1"
-                android:paddingBottom="5dp"
-                android:paddingTop="6dp"
-                android:text="首页"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_10" />
+                android:layout_weight="1">
 
-            <RadioButton
-                android:id="@+id/tab_rb_2"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawableTop="@drawable/rb_btn_bg2"
-                android:paddingBottom="5dp"
-                android:paddingTop="6dp"
-                android:text="装修美图"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_10" />
+                <LinearLayout
+                    android:id="@+id/home_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/tab_rb_3"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawableTop="@drawable/rb_btn_bg3"
-                android:paddingBottom="5dp"
-                android:paddingTop="6dp"
-                android:text="装修需求"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_11" />
+                    <ImageView
+                        android:id="@+id/home_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/tab_selector_home" />
 
-            <RadioButton
-                android:id="@+id/tab_rb_4"
-                style="@style/tab_rb_style"
-                android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/home_text"
+                        style="@style/tab_rb_style"
+                        android:text="首页" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawableTop="@drawable/rb_btn_bg4"
-                android:paddingBottom="5dp"
-                android:paddingTop="6dp"
-                android:text="我的"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_10" />
-        </RadioGroup>
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/img_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/beauty_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/tab_selector_img" />
+
+                    <TextView
+                        android:id="@+id/img_text"
+                        style="@style/tab_rb_style"
+                        android:text="装修美图" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/req_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/req_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/tab_selector_req" />
+
+                    <TextView
+                        android:id="@+id/req_text"
+                        style="@style/tab_rb_style"
+                        android:text="装修需求" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/my_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:id="@+id/my_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/tab_selector_my" />
+
+                        <ImageView
+                            android:id="@+id/badgeView"
+                            android:layout_width="@dimen/space_6"
+                            android:layout_height="@dimen/space_6"
+                            android:layout_gravity="top|right"
+                            android:layout_marginTop="@dimen/space_2"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:background="@drawable/shape_indicator_badge"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/my_text"
+                        style="@style/tab_rb_style"
+                        android:text="我的" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

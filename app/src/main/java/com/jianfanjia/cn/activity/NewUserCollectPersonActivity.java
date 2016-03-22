@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -62,6 +64,14 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
             R.mipmap.img_danshen, R.mipmap.img_twopeople, R.mipmap.img_threepeople,
             R.mipmap.img_threegenerations
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     @AfterViews
     protected void initAnnotationView() {

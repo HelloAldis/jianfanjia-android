@@ -32,7 +32,7 @@ public class DownloadClient {
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 
 
-    private static void okDownload(final Request request, final DownloadRequest downloadRequest, final ApiCallback apiCallback) {
+    private static void okDownload(final Request request, final DownloadRequest downloadRequest, final ApiCallback apiCallback, final UIProgressListener uiProgressListener) {
         preLoad(downloadRequest, apiCallback);
 
         if (!NetTool.isNetworkAvailable(MyApplication.getInstance())) {
@@ -63,6 +63,7 @@ public class DownloadClient {
                 if (response.isSuccessful()) {
                     byte[] buf = new byte[1024];
                     int len = 0;
+                    long total = 0L;
                     File destFile = FileUtil.createFile(downloadRequest.getDestDirName(), downloadRequest.getDestFileName());
                     InputStream is = null;
                     FileOutputStream fos = null;
@@ -72,9 +73,12 @@ public class DownloadClient {
                         fos = new FileOutputStream(destFile, false);
 
                         while ((len = is.read(buf)) != -1) {
+                            uiProgressListener.onProgress(total, response.body().contentLength(), false);
+                            total += len;
                             fos.write(buf, 0, len);
                         }
                         fos.flush();
+                        uiProgressListener.onProgress(total, response.body().contentLength(), true);
 
                         //如果下载文件成功，传递的数据为文件的绝对路径
                         LogTool.d(TAG, destFile.getAbsolutePath());
@@ -158,7 +162,7 @@ public class DownloadClient {
     }
 
     public static synchronized void download(DownloadRequest downloadRequest, ApiCallback apiCallback, UIProgressListener uiProgressListener) {
-        Request request = new Request.Builder().url(downloadRequest.getUrl()).tag(uiProgressListener).build();
-        okDownload(request, downloadRequest, apiCallback);
+        Request request = new Request.Builder().url(downloadRequest.getUrl()).build();
+        okDownload(request, downloadRequest, apiCallback, uiProgressListener);
     }
 }

@@ -19,11 +19,10 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.activity.common.PhotoPickerActivity;
-import com.jianfanjia.cn.activity.my.NotifyActivity;
+import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
@@ -34,7 +33,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
-import com.jianfanjia.cn.interf.ReceiveMsgListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
@@ -70,7 +68,7 @@ import java.util.List;
  * @date 2015-8-26 上午11:14:00
  */
 @EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, ReceiveMsgListener, PopWindowCallBack {
+public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -191,7 +189,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
 
     @Click(R.id.head_notification_layout)
     protected void gotoNotifyActivity() {
-        startActivity(NotifyActivity.class);
+        startActivity(NoticeActivity.class);
     }
 
     // 初始化数据
@@ -339,8 +337,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 sectionItemAdapter.setCurrentOpenItem(position);
             }
         });
-
-
     }
 
     @Override
@@ -356,22 +352,21 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                Intent intent = new Intent(this, CommentActivity.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, Constant.REQUESTCODE_GOTO_COMMENT);
+                startActivityForResult(CommentActivity.class, bundle, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
                 delayDialog();
                 break;
             case Constant.CHECK_ITEM:
                 Bundle checkBundle = new Bundle();
-                checkBundle.putString(Constant.PROCESS_NAME, sectionInfo.getName());
-                checkBundle
-                        .putString(Constant.PROCESS_STATUS, sectionInfo.getStatus());
-                checkBundle.putString(Global.PROCESS_ID, processId);
-                Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
-                checkIntent.putExtras(checkBundle);
-                startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
+                checkBundle.putString(Constant.SECTION, sectionInfo.getName());
+                checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
+                checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity.PROCESS_LIST_INTENT);
+                startActivityForResult(CheckActivity.class, checkBundle, Constant.REQUESTCODE_CHECK);
+                break;
+            case Constant.OPERATE_ITEM:
+                showDelayDialog();
                 break;
             default:
                 break;
@@ -409,16 +404,14 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 bundle.putString(Global.PROCESS_ID, processId);
                 bundle.putString(Global.SECTION, sectionInfo.getName());
                 bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
-                Intent intent = new Intent(this, ShowProcessPicActivity.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
+                startActivityForResult(ShowProcessPicActivity.class, bundle, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:
 //                showPopWindow();
                 PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
-                if(imageUrlList != null){
+                if (imageUrlList != null) {
                     intent1.setPhotoCount(9 - imageUrlList.size());
-                }else{
+                } else {
                     intent1.setPhotoCount(9);
                 }
                 intent1.setShowGif(false);
@@ -486,6 +479,32 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         dateWheelDialog.show();
     }
 
+    private void showDelayDialog() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("改期提醒");
+        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(sectionInfo.getReschedule().getNew_date()));
+        dialog.setPositiveButton(R.string.agree,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        agreeReschedule(processInfo.get_id());
+                    }
+                });
+        dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                refuseReschedule(processInfo.get_id());
+            }
+        });
+        dialog.show();
+        dialog.show();
+    }
+
     // 提交改期
     private void postReschedule(String processId, String userId,
                                 String designerId, String section, String newDate) {
@@ -511,6 +530,48 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 }, this);
     }
 
+    //同意改期
+    private void agreeReschedule(String processid) {
+        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
+    }
+
+    // 拒绝改期
+    private void refuseReschedule(String processid) {
+        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                LogTool.d(TAG, "data:" + data.toString());
+                loadCurrentProcess(MyProcessDetailActivity.this);
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, this);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -521,7 +582,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             case Constant.REQUESTCODE_PICKER_PIC:
                 if (data != null) {
                     List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-                    for(String path : photos){
+                    for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
                         LogTool.d(TAG, "imageBitmap: path :" + path);
                         if (null != imageBitmap) {
@@ -611,134 +672,8 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     }
 
     @Override
-    public void onReceive(NotifyMessage message) {
-        LogTool.d(TAG, "onReceive message");
-        if (null != message) {
-            showNotifyDialog(message);
-        }
+    public void onDestroy() {
+        super.onDestroy();
     }
 
-    private void showNotifyDialog(final NotifyMessage message) {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
-        String msgType = message.getType();
-        String msgStatus = message.getStatus();
-        if (msgType.equals(Constant.YANQI_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.yanqiText));
-            dialog.setMessage(message.getContent());
-            if (msgStatus.equals(Constant.YANQI_BE_DOING)) {
-                dialog.setPositiveButton(R.string.agree,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                agreeReschedule(message.getProcessid());
-                            }
-                        });
-                dialog.setNegativeButton(R.string.refuse, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        refuseReschedule(message.getProcessid());
-                    }
-                });
-            } else {
-                dialog.setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                loadCurrentProcess(MyProcessDetailActivity.this);
-                            }
-                        });
-            }
-        } else if (msgType.equals(Constant.FUKUAN_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.fukuanText));
-            dialog.setMessage(message.getContent());
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-        } else if (msgType.equals(Constant.CAIGOU_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.caigouText));
-            dialog.setMessage(getResources().getString(R.string.list_item_caigou_example) + message.getContent());
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            loadCurrentProcess(MyProcessDetailActivity.this);
-                        }
-                    });
-        } else if (msgType.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
-            dialog.setTitle(getResources().getString(R.string.yanshouText));
-            dialog.setMessage(message.getContent());
-            dialog.setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.PROCESS_NAME, message.getSection());
-                            checkBundle
-                                    .putString(Constant.PROCESS_STATUS, message.getStatus());
-                            checkBundle.putString(Global.PROCESS_ID, message.getProcessid());
-                            Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
-                            checkIntent.putExtras(checkBundle);
-                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
-                        }
-                    });
-        }
-        dialog.show();
-    }
-
-    //同意改期
-    private void agreeReschedule(String processid) {
-        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-            }
-        }, this);
-    }
-
-    // 拒绝改期
-    private void refuseReschedule(String processid) {
-        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-
-            }
-
-            @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-            }
-
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-            }
-        }, this);
-    }
 }

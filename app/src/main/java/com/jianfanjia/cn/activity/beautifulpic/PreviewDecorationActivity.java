@@ -9,6 +9,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -33,12 +38,6 @@ import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -47,7 +46,8 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends SwipeBackActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
+public class PreviewDecorationActivity extends SwipeBackActivity implements View.OnClickListener, ViewPager
+        .OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
     private ShareUtil shareUtil = null;
     private Toolbar toolbar = null;
@@ -118,13 +118,15 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         houseStyle = decorationBundle.getString(Global.HOUSE_STYLE);
         decStyle = decorationBundle.getString(Global.DEC_STYLE);
         LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
-        LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" + totalCount + "  beautiful_images.size()=" + beautiful_images.size());
+        LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" +
+                totalCount + "  beautiful_images.size()=" + beautiful_images.size());
         FROM = beautiful_images.size();
         LogTool.d(TAG, "FROM:" + FROM);
     }
 
     private void initViewPager(List<BeautyImgInfo> beautyImagesList) {
-        showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautyImagesList, new ViewPagerClickListener() {
+        showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautyImagesList, new
+                ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
                 appManager.finishActivity(PreviewDecorationActivity.this);
@@ -202,19 +204,23 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         param.put("search_word", search);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param), getDecorationImgInfoListener, this);
+        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param),
+                getDecorationImgInfoListener, this);
     }
 
     private void getCollectedDecorationImgInfo(int from, int limit) {
-        JianFanJiaClient.getBeautyImgListByUser(PreviewDecorationActivity.this, from, limit, getDecorationImgInfoListener, this);
+        JianFanJiaClient.getBeautyImgListByUser(PreviewDecorationActivity.this, from, limit,
+                getDecorationImgInfoListener, this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
-        JianFanJiaClient.addBeautyImgByUser(PreviewDecorationActivity.this, decorationId, AddDecorationImgInfoListener, this);
+        JianFanJiaClient.addBeautyImgByUser(PreviewDecorationActivity.this, decorationId,
+                AddDecorationImgInfoListener, this);
     }
 
     private void deleteDecorationImg(String decorationId) {
-        JianFanJiaClient.deleteBeautyImgByUser(PreviewDecorationActivity.this, decorationId, deleteDecorationImgListener, this);
+        JianFanJiaClient.deleteBeautyImgByUser(PreviewDecorationActivity.this, decorationId,
+                deleteDecorationImgListener, this);
     }
 
     private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
@@ -339,7 +345,8 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     }
 
     private void showPopwindow() {
-        shareUtil.shareImage(this, picTitle, currentStyle, currentTag, currentImgId, new SocializeListeners.SnsPostListener() {
+        shareUtil.shareImage(this, picTitle, currentStyle, currentTag, currentImgId, new SocializeListeners
+                .SnsPostListener() {
             @Override
             public void onStart() {
 

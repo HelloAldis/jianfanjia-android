@@ -20,8 +20,6 @@
             android:id="@+id/act_my_designer_pull_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dip"
-            android:layout_marginTop="10dip"
             ptr:ptrAnimationStyle="flip"
             ptr:ptrHeaderTextColor="#344a5d" />
 

@@ -110,7 +110,6 @@
             android:id="@+id/recycleview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/space_10"
             android:scrollbars="none"
             ptr:ptrAnimationStyle="flip"
             ptr:ptrHeaderTextColor="#344a5d" />

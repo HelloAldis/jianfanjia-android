@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
@@ -38,6 +37,7 @@ import de.greenrobot.event.EventBus;
  */
 @EActivity(R.layout.activity_binding_account)
 public class BindingAccountActivity extends SwipeBackActivity {
+    private static final String TAG = BindingAccountActivity.class.getName();
 
     @ViewById(R.id.bindingaccount_head_layout)
     MainHeadView mainHeadView;
@@ -61,8 +61,6 @@ public class BindingAccountActivity extends SwipeBackActivity {
     ImageView bindingaccount_weixin_goto;
 
     private String phone;
-
-    private OwnerInfo ownerInfo;
 
     private AuthUtil authUtil;
 
@@ -124,7 +122,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
 
     public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
         if (TextUtils.isEmpty(phone = bindingPhoneEvent.getPhone())) return;
-        LogTool.d(this.getClass().getName(), "event:" + bindingPhoneEvent.getPhone());
+        LogTool.d(TAG, "event:" + bindingPhoneEvent.getPhone());
         bindingaccount_phoneText.setText(phone);
         bindingaccount_phone_goto.setVisibility(View.GONE);
     }
@@ -135,12 +133,16 @@ public class BindingAccountActivity extends SwipeBackActivity {
 
         }
 
+
         @Override
         public void onComplete(int i, Map<String, Object> data) {
+            LogTool.d(TAG, "i:" + i + " data:" + data);
             if (i == 200 && data != null) {
-                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this,data.get("openid").toString(),data.get("unionid").toString(), new ApiUiUpdateListener() {
+                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, data.get("openid").toString(), data.get
+                        ("unionid").toString(), new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
+                        showWaitDialog();
                     }
 
                     @Override
@@ -157,7 +159,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
                         makeTextShort(error_msg);
                     }
                 }, BindingAccountActivity.this);
-            }else{
+            } else {
                 hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));
             }
@@ -167,6 +169,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        LogTool.d(this.getClass().getName(), "onActivityResult");
         UMSsoHandler ssoHandler = authUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);

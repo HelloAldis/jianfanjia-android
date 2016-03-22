@@ -35,7 +35,7 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_designer_common,null);
         return new SearchDesignerViewHolder(view);
     }

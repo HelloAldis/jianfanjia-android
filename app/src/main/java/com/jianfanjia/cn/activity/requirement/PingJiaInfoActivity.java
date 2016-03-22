@@ -33,9 +33,10 @@ public class PingJiaInfoActivity extends SwipeBackActivity implements
     private RatingBar speedBar = null;
     private RatingBar attudeBar = null;
     private TextView commentText = null;
-
     private String imageid = null;
     private String designer_name = null;
+    private float respond_speed;
+    private float service_attitude;
     private Evaluation evaluation = null;
 
     @Override
@@ -51,18 +52,22 @@ public class PingJiaInfoActivity extends SwipeBackActivity implements
         Bundle viewBundle = intent.getExtras();
         imageid = viewBundle.getString(Global.IMAGE_ID);
         designer_name = viewBundle.getString(Global.DESIGNER_NAME);
+        respond_speed = viewBundle.getFloat(Global.RESPOND_SPEED);
+        service_attitude = viewBundle.getFloat(Global.SERVICE_ATTITUDE);
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation);
+        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " respond_speed:" + respond_speed +
+                " service_attitude:" + service_attitude + " evaluation:"
+                + evaluation);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
         }
         designerName.setText(designer_name);
+        bar.setRating((respond_speed + service_attitude) / 2);
         if (null != evaluation) {
             float speed = evaluation.getRespond_speed();
             float attitude = evaluation.getService_attitude();
-            bar.setRating((int) (speed + attitude) / 2);
             speedBar.setRating((int) speed);
             attudeBar.setRating((int) attitude);
             if (!TextUtils.isEmpty(evaluation.getComment())) {

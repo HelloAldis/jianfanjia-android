@@ -25,7 +25,6 @@
             android:layout_marginRight="@dimen/space_8"
             android:layout_toLeftOf="@+id/btn_send"
             android:background="@drawable/edit_comment_bg"
-            android:hint="@string/add_comment"
             android:minHeight="40dp"
             android:padding="@dimen/space_8"
             android:textColorHint="@color/horzontal_line_color" />
@@ -52,8 +51,6 @@
             android:id="@+id/comment_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
             android:scrollbars="none" />
     </FrameLayout>
 

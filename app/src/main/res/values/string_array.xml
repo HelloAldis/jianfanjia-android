@@ -13,6 +13,16 @@
         <item>安装</item>
         <item>竣工</item>
     </string-array>
+    <string-array name="live_site_procedure">
+        <item>量房</item>
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+    </string-array>
     <string-array name="site_check_name">
         <item>开工阶段验收</item>
         <item>拆改阶段验收</item>

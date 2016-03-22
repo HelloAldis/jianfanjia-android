@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -26,13 +27,9 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 
@@ -42,7 +39,8 @@ import de.greenrobot.event.EventBus;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDesignerFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class CollectDesignerFragment extends CommonFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -81,16 +79,14 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id.my_favorite_designer_listview);
+        my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id
+                .my_favorite_designer_listview);
         my_favorite_designer_listview.setMode(PullToRefreshBase.Mode.BOTH);
         my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         my_favorite_designer_listview.setHasFixedSize(true);
         my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(1);
-        paint.setColor(getResources().getColor(R.color.light_white_color));
-        paint.setAntiAlias(true);
-        my_favorite_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        my_favorite_designer_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+                .getApplicationContext()));
     }
 
     public void setListener() {
@@ -152,7 +148,8 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                 designers.clear();
                 designers.addAll(myFavoriteDesigner.getDesigners());
                 if (null != designers && designers.size() > 0) {
-                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new RecyclerViewOnItemClickListener() {
+                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new
+                            RecyclerViewOnItemClickListener() {
                         @Override
                         public void OnItemClick(View view, int position) {
                             LogTool.d(TAG, "position=" + position);
@@ -160,11 +157,9 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                             LogTool.d(TAG, "currentPos========" + currentPos);
                             String designerId = designers.get(currentPos).get_id();
                             LogTool.d(TAG, "designerId:" + designerId);
-                            Intent designerIntent = new Intent(getActivity(), DesignerInfoActivity.class);
                             Bundle designerBundle = new Bundle();
                             designerBundle.putString(Global.DESIGNER_ID, designerId);
-                            designerIntent.putExtras(designerBundle);
-                            startActivity(designerIntent);
+                            startActivity(DesignerInfoActivity.class, designerBundle);
                         }
 
                         @Override

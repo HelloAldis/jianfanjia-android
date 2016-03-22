@@ -25,19 +25,19 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class GestureGuideView extends View {
 
     private Paint paint;
-    private float cx,cy,radius;
+    private float cx, cy, radius;
     private OnClickListener onClickListener;
 
     private GestureDetector gestureDetector;
 
-    private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener(){
+    private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             float lastY = e1.getY();
             float currentY = e2.getY();
-            if(distanceY > distanceX  && lastY - currentY > 200){
-                if(onClickListener != null){
+            if (distanceY > distanceX && lastY - currentY > 200) {
+                if (onClickListener != null) {
                     onClickListener.onClick(GestureGuideView.this);
                     return false;
                 }
@@ -47,8 +47,8 @@ public class GestureGuideView extends View {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(velocityY < -200 && Math.abs(velocityY) > Math.abs(velocityX)){
-                if(onClickListener != null){
+            if (velocityY < -200 && Math.abs(velocityY) > Math.abs(velocityX)) {
+                if (onClickListener != null) {
                     onClickListener.onClick(GestureGuideView.this);
                     return false;
                 }
@@ -60,8 +60,8 @@ public class GestureGuideView extends View {
         public boolean onSingleTapUp(MotionEvent e) {
             float x = e.getRawX();
             float y = e.getRawY();
-            if(x >= cx - radius && x <= cx + radius && y >= cy - radius && y <= cy + radius ){
-                if(onClickListener != null){
+            if (x >= cx - radius && x <= cx + radius && y >= cy - radius && y <= cy + radius) {
+                if (onClickListener != null) {
                     onClickListener.onClick(GestureGuideView.this);
                 }
             }
@@ -70,13 +70,13 @@ public class GestureGuideView extends View {
 
     };
 
-    public void setOnClickListener(OnClickListener clickListener){
+    public void setOnClickListener(OnClickListener clickListener) {
         this.onClickListener = clickListener;
     }
 
     public GestureGuideView(Context context) {
-        this(context,null);
-        gestureDetector = new GestureDetector(context,simpleOnGestureListener);
+        this(context, null);
+        gestureDetector = new GestureDetector(context, simpleOnGestureListener);
     }
 
     public GestureGuideView(Context context, AttributeSet attrs) {
@@ -84,12 +84,12 @@ public class GestureGuideView extends View {
         paint = new Paint();
     }
 
-    private Bitmap loadBitmap(){
+    private Bitmap loadBitmap() {
         Bitmap bitmap = ImageLoader.getInstance().loadImageSync("drawable://" + R.mipmap.home_guide_gesture);
         return bitmap;
     }
 
-    public void setCicrePosition(float x,float y,float radius){
+    public void setCicrePosition(float x, float y, float radius) {
         this.cx = x + radius;
         this.cy = y + radius;
         this.radius = radius;

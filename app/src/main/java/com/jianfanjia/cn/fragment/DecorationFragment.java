@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +15,7 @@ import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
@@ -102,7 +102,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setHasFixedSize(true);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext().getApplicationContext(), 5));
         decoration_listview.addItemDecoration(decoration);
         getDecorationImgInfo(FROM, pullDownListener);
     }
@@ -226,7 +226,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                                 LogTool.d(TAG, "currentPos-----" + currentPos);
                                 BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                                 Bundle decorationBundle = new Bundle();
                                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
                                 decorationBundle.putInt(Global.POSITION, position);
@@ -236,8 +235,7 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                                 decorationBundle.putString(Global.DEC_STYLE, decStyle);
                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
-                                decorationIntent.putExtras(decorationBundle);
-                                startActivity(decorationIntent);
+                                startActivity(PreviewDecorationActivity.class,decorationBundle);
                             }
                         });
                         decoration_listview.setAdapter(decorationAdapter);

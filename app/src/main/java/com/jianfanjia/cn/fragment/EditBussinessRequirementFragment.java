@@ -3,17 +3,18 @@ package com.jianfanjia.cn.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.my.EditCityActivity_;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity_;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity_;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -76,8 +77,6 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
     @StringArrayRes(R.array.arr_busi_housetype)
     protected String[] arr_busihousetype;
 
-    private Intent gotoItem;
-    private Intent gotoItemLove;
     private RequirementInfo requirementInfo;
 
     @AfterTextChange({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
@@ -149,33 +148,37 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.act_edit_req_city:
-                Intent address = new Intent(getActivity(),
-                        EditCityActivity_.class);
-                address.putExtra(Constant.EDIT_PROVICE, requirementInfo.getProvince());
-                address.putExtra(Constant.EDIT_CITY, requirementInfo.getCity());
-                address.putExtra(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
-                address.putExtra(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
-                startActivityForResult(address, Constant.REQUIRECODE_CITY);
+                Bundle address = new Bundle();
+                address.putString(Constant.EDIT_PROVICE, requirementInfo.getProvince());
+                address.putString(Constant.EDIT_CITY, requirementInfo.getCity());
+                address.putString(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
+                address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
+                startActivityForResult(EditCityActivity_.class, address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
-                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_LOVEDESISTYLE);
+                Bundle loveDesignerBundle = new Bundle();
+                loveDesignerBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
+                startActivityForResult(EditRequirementItemActivity_.class, loveDesignerBundle, Constant.REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
-                gotoItemLove.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(gotoItemLove, Constant.REQUIRECODE_LOVESTYLE);
+                Bundle loveStyleBundle = new Bundle();
+                loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
+                startActivityForResult(EditRequirementLovestyleActivity_.class, loveStyleBundle, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
-                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                Bundle decorateTypeBundle = new Bundle();
+                decorateTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                startActivityForResult(EditRequirementItemActivity_.class, decorateTypeBundle, Constant.REQUIRECODE_BUSI_DECORATETYPE);
                 break;
             case R.id.act_edit_req_work_type:
-                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_WORKTYPE);
+                Bundle workTypeBundle = new Bundle();
+                workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
+                startActivityForResult(EditRequirementItemActivity_.class,workTypeBundle, Constant.REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
-                gotoItem.putExtra(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(gotoItem, Constant.REQUIRECODE_DESISEX);
+                Bundle loveDesiSexBundle = new Bundle();
+                loveDesiSexBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
+                startActivityForResult(EditRequirementItemActivity_.class,loveDesiSexBundle, Constant.REQUIRECODE_DESISEX);
                 break;
             default:
                 break;
@@ -184,9 +187,6 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
 
     @AfterViews
     protected void setMainHeadView() {
-
-        gotoItem = new Intent(getActivity(), EditRequirementItemActivity_.class);
-        gotoItemLove = new Intent(getActivity(), EditRequirementLovestyleActivity_.class);
 
         initData();
     }

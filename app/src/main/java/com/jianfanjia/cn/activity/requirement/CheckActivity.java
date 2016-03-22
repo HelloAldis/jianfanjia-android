@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
@@ -20,21 +21,23 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.SectionItemInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
+import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * @author fengliang
@@ -44,76 +47,28 @@ import java.util.List;
  */
 public class CheckActivity extends SwipeBackActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
+    public static final String CHECK_INTENT_FLAG = "check_intent_flag";
+    public static final int NOTICE_INTENT = 0;//通知进入的
+    public static final int PROCESS_LIST_INTENT = 1;//工地
+    private int flagIntent = -1;
     private RelativeLayout checkLayout = null;
     private MainHeadView mainHeadView = null;
     private RecyclerView gridView = null;
     private GridLayoutManager gridLayoutManager = null;
     private TextView btn_confirm = null;
     private CheckGridViewAdapter adapter = null;
-    private List<GridItem> checkGridList = new ArrayList<GridItem>();
-    private List<String> showSamplePic = new ArrayList<String>();
-    private List<String> showProcessPic = new ArrayList<String>();
+    private List<GridItem> checkGridList = new ArrayList<>();
+    private List<String> showSamplePic = new ArrayList<>();
+    private List<String> showProcessPic = new ArrayList<>();
     private List<Imageid> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
-    private String sectionInfoName = null;// 工序名称
-    private String sectionInfoStatus = null;// 工序状态
-    private ProcessInfo processInfo;
-    private List<SectionItemInfo> sectionItemInfos;
+    private ProcessInfo processInfo = null;
+    private String sectionName = null;//工序名称
+    private SectionInfo sectionInfo = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            sectionInfoName = bundle.getString(Constant.PROCESS_NAME);
-            sectionInfoStatus = bundle.getString(Constant.PROCESS_STATUS, Constant.DOING);
-            processInfoId = bundle.getString(Global.PROCESS_ID);
-            LogTool.d(TAG, "processInfoId:" + processInfoId + " sectionInfoName:" + sectionInfoName + " processInfoStatus:" + sectionInfoStatus);
-            if (processInfoId != null) {
-                loadCurrentProcess();
-            }
-        }
-    }
+    private int uploadCount = 0;//要上传图片个数
+    private int currentUploadCount = 0;//当前已上传图片个数
 
-    private void loadCurrentProcess() {
-        JianFanJiaClient.get_ProcessInfo_By_Id(this, processInfoId,
-                new ApiUiUpdateListener() {
-
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-//                        initProcessInfo();
-                        initData();
-                    }
-
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        hideWaitDialog();
-                        makeTextShort(errorMsg);
-//                        initProcessInfo();
-                    }
-                }, this);
-    }
-
-    //初始化放大显示的list
-    private void initShowList() {
-        showProcessPic.clear();
-        showSamplePic.clear();
-        for (int i = 0; i < checkGridList.size(); i = i + 2) {
-            showSamplePic.add(checkGridList.get(i).getImgId());
-        }
-        for (int i = 1; i < checkGridList.size(); i = i + 2) {
-            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
-                showProcessPic.add(checkGridList.get(i).getImgId());
-            }
-        }
-    }
 
     @Override
     public void initView() {
@@ -132,63 +87,52 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
         gridView.setLayoutManager(gridLayoutManager);
         gridView.setHasFixedSize(true);
         gridView.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        ItemSpaceDecoration decoration = new ItemSpaceDecoration(MyApplication.dip2px(getApplicationContext(), 5));
         gridView.addItemDecoration(decoration);
+        initData();
     }
 
     private void initData() {
-        switch (sectionInfoStatus) {
-            case Constant.NO_START:
-                break;
-            case Constant.DOING:
-                break;
-            case Constant.FINISHED:
-                btn_confirm.setEnabled(false);
-                break;
-            default:
-                break;
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (null != bundle) {
+            sectionName = bundle.getString(Constant.SECTION);
+            processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
+            processInfoId = processInfo.get_id();
+            flagIntent = bundle.getInt(CheckActivity.CHECK_INTENT_FLAG);
+            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId + " flagIntent:" + flagIntent);
+            sectionInfo = (SectionInfo) bundle.getSerializable(Constant.SECTION_INFO);
+            LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
+            mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
+            checkGridList.clear();
+            checkGridList = getCheckedImageById(sectionInfo.getName());
+            imageids = sectionInfo.getYs().getImages();
+            currentUploadCount = imageids.size();
+            LogTool.d(TAG, "currentUploadCount =====" + currentUploadCount);
+            for (int i = 0; imageids != null && i < imageids.size(); i++) {
+                String key = imageids.get(i).getKey();
+                LogTool.d(TAG, "key=" + key);
+                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                        imageids.get(i).getImageid());
+            }
+            adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
+                    this);
+            gridView.setAdapter(adapter);
+            setConfimStatus();
+            initShowList();
         }
-        checkGridList = getCheckedImageById(sectionInfoName);
-        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
-                this);
-        gridView.setAdapter(adapter);
-        processInfo = dataManager.getDefaultProcessInfo();
-        if (processInfo != null) {
-            sectionItemInfos = processInfo.getSectionInfoByName(sectionInfoName).getItems();
-            refreshList();
-        }
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfoName) + "阶段验收");
     }
 
-    private void refreshList() {
-        LogTool.d(TAG, "processInfo != null");
-        checkGridList.clear();
-        checkGridList = getCheckedImageById(sectionInfoName);
-        processInfo = dataManager.getDefaultProcessInfo();
-        imageids = processInfo.getImageidsByName(sectionInfoName);
-        int imagecount = imageids.size();
-        for (int i = 0; imageids != null && i < imageids.size(); i++) {
-            String key = imageids.get(i).getKey();
-            LogTool.d(TAG, "key=" + key);
-            checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                    imageids.get(i).getImageid());
-        }
-        adapter.setList(checkGridList);
-        adapter.notifyItemRangeChanged(0, adapter.getItemCount());
-        setConfimStatus(imagecount);
-        initShowList();
-    }
-
-    private void setConfimStatus(int count) {
-        if (!sectionInfoStatus.equals(Constant.FINISHED)) {
-            if (count < BusinessManager
-                    .getCheckPicCountBySection(sectionInfoName)) {
+    private void setConfimStatus() {
+        if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
+            if (currentUploadCount < BusinessManager
+                    .getCheckPicCountBySection(sectionInfo.getName())) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setEnabled(false);
                 btn_confirm.setText(this.getResources().getString(
                         R.string.confirm_done));
             } else {
-                boolean isFinish = isSectionInfoFishish(sectionItemInfos);
+                boolean isFinish = isSectionInfoFishish(sectionInfo.getItems());
                 if (isFinish) {
                     //图片上传完了，可以进行验收
                     btn_confirm.setEnabled(true);
@@ -271,11 +215,25 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        confirmCheckDoneByOwner(processInfoId, sectionInfoName);
+                        confirmCheckDoneByOwner(processInfoId, sectionName);
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);
         dialog.show();
+    }
+
+    //初始化放大显示的list
+    private void initShowList() {
+        showProcessPic.clear();
+        showSamplePic.clear();
+        for (int i = 0; i < checkGridList.size(); i = i + 2) {
+            showSamplePic.add(checkGridList.get(i).getImgId());
+        }
+        for (int i = 1; i < checkGridList.size(); i = i + 2) {
+            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
+                showProcessPic.add(checkGridList.get(i).getImgId());
+            }
+        }
     }
 
     // 业主确认对比验收完成
@@ -288,8 +246,8 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
             @Override
             public void loadSuccess(Object data) {
-                setResult(RESULT_OK);
-                appManager.finishActivity(CheckActivity.this);
+                btn_confirm.setEnabled(false);
+                checkSuccess();
             }
 
             @Override
@@ -297,6 +255,20 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
             }
         }, this);
+    }
+
+    private void checkSuccess() {
+        switch (flagIntent) {
+            case NOTICE_INTENT:
+                EventBus.getDefault().post(new CheckEvent());
+                break;
+            case PROCESS_LIST_INTENT:
+                setResult(RESULT_OK);
+                appManager.finishActivity(CheckActivity.this);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -307,7 +279,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
      */
     private List<GridItem> getCheckedImageById(String sectionName) {
         try {
-            List<GridItem> gridList = new ArrayList<GridItem>();
+            List<GridItem> gridList = new ArrayList<>();
             int arrId = getResources().getIdentifier(sectionName, "array",
                     MyApplication.getInstance().getPackageName());
             TypedArray ta = getResources().obtainTypedArray(arrId);

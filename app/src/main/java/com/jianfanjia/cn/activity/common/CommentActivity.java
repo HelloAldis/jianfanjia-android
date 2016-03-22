@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity.common;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +13,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
-import com.jianfanjia.cn.bean.Comment;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
+import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -27,11 +31,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 
 /**
  * Description:评论留言
@@ -53,7 +53,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
     private String item = null;
     private String topictype = null;
 
-    private List<CommentInfo> commentList = new ArrayList<CommentInfo>();
+    private List<CommentInfo> commentList = new ArrayList<>();
 
     private boolean isUpdate = false;//返回是否更新
 
@@ -64,11 +64,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         commentListView.setLayoutManager(new LinearLayoutManager(this));
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(1);
-        paint.setColor(getResources().getColor(R.color.light_white_color));
-        paint.setAntiAlias(true);
-        commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this,1),MyApplication.dip2px(this,10)));
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
         btnSend.setEnabled(false);
@@ -143,7 +139,8 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
-        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item, getCommentListener, this);
+        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item,
+                getCommentListener, this);
     }
 
     private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
@@ -156,26 +153,27 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            Comment comment = JsonParser.jsonToBean(data.toString(), Comment.class);
-            LogTool.d(TAG, "comment:" + comment);
-            if (null != comment) {
-                commentList = comment.getComments();
-                LogTool.d(TAG, "commentList=" + commentList);
-                commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
+            CommentList commentList = JsonParser.jsonToBean(data.toString(), CommentList.class);
+            LogTool.d(TAG, "commentList:" + commentList);
+            if (null != commentList) {
+                CommentActivity.this.commentList = commentList.getComments();
+                LogTool.d(TAG, "commentList=" + CommentActivity.this.commentList);
+                commentAdapter = new CommentAdapter(CommentActivity.this, CommentActivity.this.commentList);
                 commentListView.setAdapter(commentAdapter);
             }
         }
 
         @Override
         public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+            makeTextShort(error_msg);
             hideWaitDialog();
         }
     };
 
     //添加评论
     private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
-        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to, addCommentListener, this);
+        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to,
+                addCommentListener, this);
     }
 
     private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {

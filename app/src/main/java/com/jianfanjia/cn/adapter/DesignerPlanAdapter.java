@@ -3,6 +3,7 @@ package com.jianfanjia.cn.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.bean.PlanInfo;
+import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
@@ -25,19 +26,19 @@ import java.util.List;
  * Date: 2015-10-22
  * Time: 17:54
  */
-public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
+public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlandetailInfo> {
     private ItemClickListener itemClickListener;
 
-    public DesignerPlanAdapter(Context context, List<PlanInfo> list, ItemClickListener itemClickListener) {
+    public DesignerPlanAdapter(Context context, List<PlandetailInfo> list, ItemClickListener itemClickListener) {
         super(context, list);
         this.itemClickListener = itemClickListener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanInfo> list) {
-        PlanInfo info = list.get(position);
-        DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
-        holder.numText.setText("方案" + (position + 1));
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<PlandetailInfo> list) {
+        PlandetailInfo info = list.get(position);
+        final DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
+        holder.numText.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
@@ -55,20 +56,21 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                if (null != itemClickListener) {
-                    itemClickListener.onCallBack(position, pos);
-                }
-            }
-        });
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new
+                ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        if (null != itemClickListener) {
+                            itemClickListener.onCallBack(holder.getLayoutPosition(), pos);
+                        }
+                    }
+                });
         holder.item_plan_listview.setAdapter(adapter);
         holder.commentText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != itemClickListener) {
-                    itemClickListener.onItemCallBack(position, Constant.PLAN_COMMENT_ITEM);
+                    itemClickListener.onItemCallBack(holder.getLayoutPosition(), Constant.PLAN_COMMENT_ITEM);
                 }
             }
         });
@@ -76,7 +78,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
             @Override
             public void onClick(View v) {
                 if (null != itemClickListener) {
-                    itemClickListener.onItemCallBack(position, Constant.PLAN_PREVIEW_ITEM);
+                    itemClickListener.onItemCallBack(holder.getLayoutPosition(), Constant.PLAN_PREVIEW_ITEM);
                 }
             }
         });

@@ -13,6 +13,9 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -22,17 +25,13 @@ import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
-import com.jianfanjia.cn.fragment.DesignerWorksFragment;
+import com.jianfanjia.cn.fragment.DesignerProductFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -107,8 +106,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     private void setupViewPager(ViewPager viewPager) {
         SelectItem resItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
                 getResources().getString(R.string.resourceText));
-        SelectItem productItem = new SelectItem(DesignerWorksFragment.newInstance(designerid),
-                getResources().getString(R.string.productText));
+        SelectItem productItem = new SelectItem(DesignerProductFragment.newInstance(designerid),
+                getResources().getString(R.string.str_case));
         listViews.add(resItem);
         listViews.add(productItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);

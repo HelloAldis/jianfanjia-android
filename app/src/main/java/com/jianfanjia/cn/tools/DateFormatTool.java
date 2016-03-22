@@ -12,11 +12,17 @@ import java.util.Calendar;
  * Date:15-10-11 12:51
  */
 public class DateFormatTool {
+    private static final long ONE_S = 1000;
+    private static final long ONE_MIN = ONE_S * 60;
+    private static final long ONE_HOUR = ONE_MIN * 60;
+    private static final long ONE_DAY = ONE_HOUR * 24;
+    private static final long ONE_YEAR = ONE_DAY * 365;
+
     /**
-     * @decription 转化时间为字符串
      * @param times
      * @param pattern
      * @return
+     * @decription 转化时间为字符串
      */
     public static String covertLongToString(long times, String pattern) {
         DateFormat dateFormat = new SimpleDateFormat(pattern);
@@ -45,5 +51,29 @@ public class DateFormatTool {
     public static String longToString(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(time);
+    }
+
+    public static String getHumReadDateString(long time) {
+        long now = System.currentTimeMillis();
+        long diff = now - time;
+        if (diff < 5 * ONE_MIN) {
+            return "刚刚";
+        } else if (diff >= 5 * ONE_MIN && diff < ONE_HOUR) {
+            return String.format("%d分钟前", diff / ONE_MIN);
+        } else if (diff >= ONE_HOUR && diff < ONE_DAY) {
+            return String.format("%d小时前", diff / ONE_HOUR);
+        } else if (diff >= ONE_DAY && diff < 2 * ONE_DAY) {
+            String str = DateFormatTool.covertLongToString(time, "HH:mm");
+            return String.format("昨天%s", str);
+        } else if (diff >= 2 * ONE_DAY && diff < 3 * ONE_DAY) {
+            String str = DateFormatTool.covertLongToString(time, "HH:mm");
+            return String.format("前天%s", str);
+        } else if (diff >= 3 * ONE_DAY && diff < ONE_YEAR) {
+            return DateFormatTool.covertLongToString(time, "MM-dd");
+        } else if (diff >= ONE_YEAR) {
+            return DateFormatTool.longToString(time);
+        } else {
+            return DateFormatTool.longToString(time);
+        }
     }
 }

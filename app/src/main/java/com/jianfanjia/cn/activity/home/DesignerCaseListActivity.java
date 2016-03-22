@@ -1,18 +1,20 @@
 package com.jianfanjia.cn.activity.home;
 
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -32,17 +34,11 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
- * Description:全部案例
+ * Description:全部作品案例
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
@@ -103,19 +99,15 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 getDesignerProductList(FROM, pullUpListener);
             }
         });
+        pullToRefreshRecyclerView.setHasFixedSize(true);
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        pullToRefreshRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseListActivity.this).paint(paint).showLastDivider().build());
         getDesignerProductList(FROM, pullDownListener);
     }
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.designer_case_head);
         mainHeadView.setBackListener(this);
-        mainHeadView.setMianTitle(getResources().getString(R.string.all_designer_case));
+        mainHeadView.setMianTitle(getResources().getString(R.string.all_good_product));
         mainHeadView.setBackgroundTransparent();
     }
 
@@ -246,11 +238,9 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                                 Product product = productList.get(position);
                                 String productid = product.get_id();
                                 LogTool.d(TAG, "productid:" + productid);
-                                Intent productIntent = new Intent(DesignerCaseListActivity.this, DesignerCaseInfoActivity.class);
                                 Bundle productBundle = new Bundle();
                                 productBundle.putString(Global.PRODUCT_ID, productid);
-                                productIntent.putExtras(productBundle);
-                                startActivity(productIntent);
+                                startActivity(DesignerCaseInfoActivity.class,productBundle);
                             }
 
                             @Override
@@ -258,11 +248,9 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                                 Product product = productList.get(position);
                                 String designertid = product.getDesignerid();
                                 LogTool.d(TAG, "designertid=" + designertid);
-                                Intent designerIntent = new Intent(DesignerCaseListActivity.this, DesignerInfoActivity.class);
                                 Bundle designerBundle = new Bundle();
                                 designerBundle.putString(Global.DESIGNER_ID, designertid);
-                                designerIntent.putExtras(designerBundle);
-                                startActivity(designerIntent);
+                                startActivity(DesignerInfoActivity.class,designerBundle);
                             }
                         });
                         pullToRefreshRecyclerView.setAdapter(productAdapter);

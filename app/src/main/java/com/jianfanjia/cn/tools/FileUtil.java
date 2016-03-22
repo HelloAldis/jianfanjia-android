@@ -1,5 +1,11 @@
 package com.jianfanjia.cn.tools;
 
+import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
+
+import com.jianfanjia.cn.config.Constant;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
@@ -14,13 +20,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import com.jianfanjia.cn.config.Constant;
-
-import android.content.Context;
-import android.os.Environment;
-import android.os.StatFs;
-import android.util.Log;
-
 /**
  * 鏂囦欢鎿嶄綔宸ュ叿锟?
  *
@@ -30,7 +29,7 @@ import android.util.Log;
  */
 public class FileUtil {
     /**
-     *  以私有方式写入内部存储中
+     * 以私有方式写入内部存储中
      *
      * @param context
      * @param msg
@@ -38,15 +37,22 @@ public class FileUtil {
     public static void write(Context context, String fileName, String content) {
         if (content == null)
             content = "";
-
+        FileOutputStream fos = null;
         try {
-            FileOutputStream fos = context.openFileOutput(fileName,
+            fos = context.openFileOutput(fileName,
                     Context.MODE_PRIVATE);
             fos.write(content.getBytes());
-
-            fos.close();
+            fos.flush();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,23 +74,20 @@ public class FileUtil {
     }
 
     /**
-     *
      * 读取输入流中的内容
+     *
      * @param inStream
      * @return
      */
     public static String readInStream(InputStream inStream) {
         try {
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            StringBuffer sBuff = new StringBuffer();
             byte[] buffer = new byte[512];
-            int length = -1;
-            while ((length = inStream.read(buffer)) != -1) {
-                outStream.write(buffer, 0, length);
+            while (inStream.read(buffer) != -1) {
+                sBuff.append(buffer);
             }
-
-            outStream.close();
             inStream.close();
-            return outStream.toString();
+            return sBuff.toString();
         } catch (IOException e) {
             Log.i("FileTest", e.getMessage());
         }
@@ -93,6 +96,7 @@ public class FileUtil {
 
     /**
      * 创建一个文件
+     *
      * @param folderPath
      * @param fileName
      * @return
@@ -165,7 +169,7 @@ public class FileUtil {
     }
 
     /**
-     *拿到不带后缀的文件名
+     * 拿到不带后缀的文件名
      *
      * @param filePath
      * @return
@@ -295,6 +299,7 @@ public class FileUtil {
 
     /**
      * 将输入流转换为字节数组
+     *
      * @param in
      * @return
      * @throws IOException
@@ -509,8 +514,6 @@ public class FileUtil {
     }
 
     /**
-     *
-     *
      * @param
      * @return 缁濆璺緞
      */
@@ -531,8 +534,6 @@ public class FileUtil {
     }
 
     /**
-     *
-     *
      * @param root
      * @return
      */
@@ -641,7 +642,7 @@ public class FileUtil {
         }
     }
 
-    public static String createTmpFilePath(){
+    public static String createTmpFilePath() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.CHINA).format(new Date());
         String fileName = "jyz_image_" + timeStamp + "" + ".jpg";

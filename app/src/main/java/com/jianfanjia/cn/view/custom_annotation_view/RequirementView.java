@@ -7,6 +7,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -17,11 +22,6 @@ import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.view.custom_annotation_view
@@ -82,7 +82,7 @@ public class RequirementView extends BaseAnnotationView {
         if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayImageHeadWidthThumnailImage(context, dataManagerNew.getUserImagePath(), ltm_req_owner_head);
         } else {
-            imageShow.displayLocalImage(dataManagerNew.getUserImagePath(), ltm_req_owner_head);
+            ltm_req_owner_head.setImageResource(R.mipmap.icon_default_head);
         }
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global.REQUIREMENT_STATUS8)) {

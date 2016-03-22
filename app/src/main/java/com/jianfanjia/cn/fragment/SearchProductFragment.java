@@ -1,12 +1,9 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -28,7 +25,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,11 +61,9 @@ public class SearchProductFragment extends BaseFragment {
                 Product product = productAdapter.getData().get(position);
                 String productid = product.get_id();
                 LogTool.d(TAG, "productid:" + productid);
-                Intent productIntent = new Intent(getActivity().getApplicationContext(), DesignerCaseInfoActivity.class);
                 Bundle productBundle = new Bundle();
                 productBundle.putString(Global.PRODUCT_ID, productid);
-                productIntent.putExtras(productBundle);
-                startActivity(productIntent);
+                startActivity(DesignerCaseInfoActivity.class,productBundle);
             }
 
             @Override
@@ -77,11 +71,9 @@ public class SearchProductFragment extends BaseFragment {
                 Product product = productAdapter.getData().get(position);
                 String designertid = product.getDesignerid();
                 LogTool.d(TAG, "designertid=" + designertid);
-                Intent designerIntent = new Intent(getActivity().getApplicationContext(), DesignerInfoActivity.class);
                 Bundle designerBundle = new Bundle();
                 designerBundle.putString(Global.DESIGNER_ID, designertid);
-                designerIntent.putExtras(designerBundle);
-                startActivity(designerIntent);
+                startActivity(DesignerInfoActivity.class,designerBundle);
             }
         });
         productAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
@@ -93,11 +85,6 @@ public class SearchProductFragment extends BaseFragment {
         productAdapter.setErrorView(errorLayout);
         productAdapter.setEmptyView(emptyLayout);
         recyclerView.setAdapter(productAdapter);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
         searchProduct(productAdapter.getData().size(), search, listener);
     }
 
@@ -163,6 +150,6 @@ public class SearchProductFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_search_designer;
+        return R.layout.fragment_search_common;
     }
 }

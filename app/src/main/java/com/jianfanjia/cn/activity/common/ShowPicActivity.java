@@ -6,14 +6,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowPicActivity extends SwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener {

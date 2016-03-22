@@ -43,24 +43,26 @@ public class AuthUtil {
 
     private AuthUtil(Activity activity) {
         Log.LOG = true;//友盟的log开关
-        UMWXHandler wxHandler = new UMWXHandler(activity.getApplicationContext(),"wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+        UMWXHandler wxHandler = new UMWXHandler(activity.getApplicationContext(), "wx391daabfce27e728",
+                "f7c8e3e1b5910dd93be2744dacb3a1cc");
         wxHandler.addToSocialSDK();
 //        mController.getConfig().setSsoHandler(wxHandler);
     }
 
-    public UMSocialService getUmSocialService(){
+    public UMSocialService getUmSocialService() {
         return mController;
     }
 
-    public void doOauthVerify(final BaseActivity activity, final SHARE_MEDIA platform, final SocializeListeners.UMDataListener umDataListener) {
-        if(!isWeixinAvilible(activity)){
+    public void doOauthVerify(final BaseActivity activity, final SHARE_MEDIA platform, final SocializeListeners
+            .UMDataListener umDataListener) {
+        if (!isWeixinAvilible(activity)) {
             Toast.makeText(activity, "你还没有安装微信", Toast.LENGTH_SHORT).show();
             return;
         }
         mController.doOauthVerify(activity, platform, new SocializeListeners.UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-                activity.showWaitDialog();
+
             }
 
             @Override
@@ -69,27 +71,26 @@ public class AuthUtil {
                 if (!TextUtils.isEmpty(uid)) {
                     getPlatformInfo(activity, platform, umDataListener);
                 } else {
-                    activity.hideWaitDialog();
                     Toast.makeText(activity, activity.getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA share_media) {
-                activity.hideWaitDialog();
                 Toast.makeText(activity, activity.getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
-                activity.hideWaitDialog();
                 Toast.makeText(activity, activity.getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 
     /**
      * 判断微信是否安装
+     *
      * @param context
      * @return
      */
@@ -109,6 +110,7 @@ public class AuthUtil {
 
     /**
      * 判断微信是否安装
+     *
      * @param context
      * @return
      */
@@ -127,7 +129,7 @@ public class AuthUtil {
     }
 
 
-    public void deleteOauth(final Activity activity,final SHARE_MEDIA platform){
+    public void deleteOauth(final Activity activity, final SHARE_MEDIA platform) {
         mController.deleteOauth(activity, platform, new SocializeListeners.SocializeClientListener() {
             @Override
             public void onStart() {
@@ -140,13 +142,14 @@ public class AuthUtil {
                 if (status != StatusCode.ST_CODE_SUCCESSED) {
                     showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
                 }
-                LogTool.d(this.getClass().getName(),showText);
+                LogTool.d(this.getClass().getName(), showText);
 //                Toast.makeText(activity, showText, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void getPlatformInfo(Activity activity, SHARE_MEDIA platform, SocializeListeners.UMDataListener umDataListener) {
+    public void getPlatformInfo(Activity activity, SHARE_MEDIA platform, SocializeListeners.UMDataListener
+            umDataListener) {
         mController.getPlatformInfo(activity, platform, umDataListener);
     }
 

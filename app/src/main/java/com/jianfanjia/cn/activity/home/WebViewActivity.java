@@ -12,6 +12,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.tools.JavaScriptObject;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -39,8 +40,7 @@ public class WebViewActivity extends SwipeBackActivity {
 
     private static final String TAG = WebViewActivity.class.getName();
     private ShareUtil shareUtil = null;
-    private String description = null;
-    private String imageUrl = null;
+    private JavaScriptObject javaScriptObject = null;
 
     @ViewById(R.id.webView)
     protected ProgressWebView progressWebView = null;
@@ -63,7 +63,9 @@ public class WebViewActivity extends SwipeBackActivity {
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
         progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + this.getUrlFromIntent());
-        progressWebView.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
+        this.javaScriptObject = new JavaScriptObject();
+        this.javaScriptObject.injectIntoWebView(this.progressWebView);
+
         progressWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -73,15 +75,8 @@ public class WebViewActivity extends SwipeBackActivity {
 
             public void onPageFinished(WebView view, String url) {
                 LogTool.d("WebView", "onPageFinished ");
-                WebViewActivity.this.description = null;
-                WebViewActivity.this.imageUrl = null;
-                view.loadUrl("javascript:var meta = document.getElementsByTagName('meta');\n" +
-                        "for (i in meta) {\n" +
-                        "  if (typeof meta[i].name!=\"undefined\" && meta[i].name.toLowerCase()==\"description\") {\n" +
-                        "    window.local_obj.description(meta[i].content);\n" +
-                        "  }\n" +
-                        "}");
-                view.loadUrl("javascript:window.local_obj.imageUrl(document.getElementsByTagName('img')[0].src);");
+                WebViewActivity.this.javaScriptObject.runGetDescriptionCode(view);
+                WebViewActivity.this.javaScriptObject.runGetImageCode(view);
                 super.onPageFinished(view, url);
 
                 mainHeadView.setMianTitle(WebViewActivity.this.getWebTitle());
@@ -100,8 +95,8 @@ public class WebViewActivity extends SwipeBackActivity {
     }
 
     @Click({R.id.head_back_layout, R.id.toolbar_share_layout})
-    protected void click(View view){
-        switch (view.getId()){
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 this.goBackOrQuit();
                 break;
@@ -132,7 +127,7 @@ public class WebViewActivity extends SwipeBackActivity {
     }
 
     private void showPopwindow() {
-        shareUtil.shareUrl(this, this.getImageUrl(), this.getWebTitle(), this.getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
+        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject.getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
 
@@ -145,47 +140,18 @@ public class WebViewActivity extends SwipeBackActivity {
         });
     }
 
-    final class InJavaScriptLocalObj {
-        @JavascriptInterface
-        public void description(String description) {
-            LogTool.d(TAG, description);
-            WebViewActivity.this.description = description;
-        }
-
-        @JavascriptInterface
-        public void imageUrl(String imageUrl) {
-            LogTool.d(TAG, imageUrl);
-            WebViewActivity.this.imageUrl = imageUrl;
-        }
-    }
-
     private String getUrlFromIntent() {
         Intent intent = this.getIntent();
         String url = intent.getStringExtra(Global.WEB_VIEW_URL);
+        LogTool.d(TAG, url);
         return url;
     }
 
     private String getWebTitle() {
         if (StringUtils.isEmpty(this.progressWebView.getTitle())) {
-            return getResources().getString(R.string.home_tag1);
+            return "";
         } else {
             return this.progressWebView.getTitle();
-        }
-    }
-
-    private String getDescription() {
-        if (StringUtils.isEmpty(this.description)) {
-            return "我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。";
-        } else {
-            return this.description;
-        }
-    }
-
-    private String getImageUrl() {
-        if (StringUtils.isEmpty(this.imageUrl)) {
-            return  "http://www.jianfanjia.com/static/img/design/head.jpg";
-        } else {
-            return this.imageUrl;
         }
     }
 }

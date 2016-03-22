@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/icon_home2" />
+                    android:src="@mipmap/icon_decorate_live" />
 
             </FrameLayout>
 
@@ -187,7 +187,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dip"
-            android:text="@string/home_good_case"
+            android:text="@string/home_good_recommend"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/middle_size" />
 
@@ -205,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/all_good_case"
+                android:text="@string/all_good_product"
                 android:textColor="@color/grey_color"
                 android:textSize="@dimen/middle_size" />
 

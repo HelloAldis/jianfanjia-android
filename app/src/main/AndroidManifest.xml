@@ -20,8 +20,7 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -75,11 +74,8 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
         <meta-data
-            android:name="SERVER_PORT"
-            android:value="${SERVER_PORT}" />
-        <meta-data
-            android:name="SERVER_IP"
-            android:value="${SERVER_IP}" />
+            android:name="SERVER_URL"
+            android:value="${SERVER_URL}" />
         <meta-data
             android:name="MOBILE_SERVER_URL"
             android:value="${MOBILE_SERVER_URL}" />
@@ -137,20 +133,17 @@
 
         <activity
             android:name=".common.PhotoPickerActivity"
-            android:theme="@style/Theme.Swipe.Back"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".common.PhotoPagerActivity"
-            android:theme="@style/Theme.Swipe.Back"
             android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".home.SearchActivity_"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".home.SearchActivity_"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
-            android:windowSoftInputMode="stateVisible"
-            android:screenOrientation="portrait"/>
-
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name="com.igexin.sdk.PushActivity"
             android:excludeFromRecents="true"
@@ -203,14 +196,12 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".LoginNewActivity_"
             android:label="@string/title_activity_login"
@@ -279,11 +270,6 @@
             android:name=".NavigateActivity"
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".my.NotifyActivity"
-            android:label="@string/title_activity_notify"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
@@ -405,7 +391,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NewUserGuideActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />1
         <activity
             android:name=".requirement.PublishRequirementActivity_"
             android:screenOrientation="portrait"
@@ -466,19 +452,43 @@
             android:name=".my.CustomerServiceActivity"
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".home.WebViewActivity_"
             android:label="@string/title_activity_decorate_strategy"
-            android:theme="@style/Theme.Swipe.Back"  />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".home.DesignerListActivity"
             android:label="@string/title_activity_designer_list"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".home.DesignerCaseListActivity"
             android:label="@string/title_activity_designer_case_list"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".common.CommentListActivity_"
+            android:label="@string/title_activity_designer_case_list"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".my.NoticeActivity"
+            android:label="@string/title_activity_notice"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".home.DecorateLiveActivity_"
+            android:label="@string/title_activity_notice"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".my.NoticeDetailActivity"
+            android:label="@string/title_activity_notice_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"></activity>
     </application>
 
 </manifest>

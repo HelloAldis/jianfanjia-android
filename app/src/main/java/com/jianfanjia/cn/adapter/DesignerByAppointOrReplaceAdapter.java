@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -17,6 +16,7 @@ import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
+import com.jianfanjia.cn.tools.IntentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +69,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent designerIntent = new Intent(context, DesignerListActivity.class);
-                        context.startActivity(designerIntent);
+                        IntentUtil.startActivity(context,DesignerListActivity.class);
                     }
                 });
                 break;

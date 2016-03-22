@@ -1,12 +1,12 @@
 package com.jianfanjia.cn.activity.requirement;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -43,6 +43,7 @@ import java.util.List;
  */
 @EActivity(R.layout.activity_edit_requirement)
 public class PublishRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
+
     private static final String TAG = PublishRequirementActivity.class.getName();
     @ViewById(R.id.act_edit_req_head_layout)
     protected MainHeadView mainHeadView = null;
@@ -186,7 +187,8 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        setResult(Activity.RESULT_OK);
+//        setResult(Activity.RESULT_OK);
+        startActivity(MainActivity.class);
         appManager.finishActivity(this);
     }
 

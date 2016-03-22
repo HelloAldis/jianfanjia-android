@@ -1,13 +1,11 @@
 package com.jianfanjia.cn.activity.home;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,9 +27,9 @@ import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
@@ -95,12 +93,9 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         designerListView = (PullToRefreshRecycleView) findViewById(R.id.recycleview);
         designerListView.setMode(PullToRefreshBase.Mode.BOTH);
         designerListView.setLayoutManager(new LinearLayoutManager(DesignerListActivity.this));
+        designerListView.setHasFixedSize(true);
         designerListView.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        designerListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerListActivity.this).paint(paint).showLastDivider().build());
+        designerListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
         searchDesigners(FROM, pullDownListener);
     }
 

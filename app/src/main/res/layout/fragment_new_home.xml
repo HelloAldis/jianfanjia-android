@@ -41,7 +41,8 @@
         <com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew
             android:id="@+id/pullrefresh_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
     </RelativeLayout>
 
 </LinearLayout>

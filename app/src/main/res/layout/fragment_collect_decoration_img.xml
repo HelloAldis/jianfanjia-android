@@ -7,7 +7,8 @@
         android:id="@+id/decoration_img_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dip"
+        android:layout_marginLeft="@dimen/space_7"
+        android:layout_marginRight="@dimen/space_7"
         android:scrollbars="none"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#344a5d" />

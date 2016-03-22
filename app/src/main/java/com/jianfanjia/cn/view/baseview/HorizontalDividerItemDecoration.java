@@ -36,7 +36,7 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             bounds.top = child.getBottom() + params.topMargin + transitionY;
             bounds.bottom = bounds.top + dividerSize;
         } else {
-            bounds.top = child.getBottom() + params.topMargin + dividerSize / 2 + transitionY;
+            bounds.top = child.getTop() + params.topMargin + dividerSize / 2 + transitionY;
             bounds.bottom = bounds.top;
         }
 
@@ -45,7 +45,7 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
 
     @Override
     protected void setItemOffsets(Rect outRect, int position, RecyclerView parent) {
-        outRect.set(0, 0, 0, getDividerSize(position, parent));
+        outRect.set(0, getDividerSize(position, parent), 0, 0);
     }
 
     private int getDividerSize(int position, RecyclerView parent) {

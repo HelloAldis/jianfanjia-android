@@ -29,7 +29,11 @@ public class ImageShow {
 
     public static ImageShow getImageShow() {
         if (imageShow == null) {
-            imageShow = new ImageShow();
+            synchronized (ImageShow.class) {
+                if (imageShow == null) {
+                    imageShow = new ImageShow();
+                }
+            }
         }
         return imageShow;
     }

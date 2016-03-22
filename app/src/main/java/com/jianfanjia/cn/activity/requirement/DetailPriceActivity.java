@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.activity.requirement;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,17 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.PlandetailInfo;
 import com.jianfanjia.cn.bean.PriceDetail;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.List;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 
 /**
  * Description:方案详细报价
@@ -44,11 +44,7 @@ public class DetailPriceActivity extends SwipeBackActivity implements OnClickLis
         detail_price_listview = (RecyclerView) findViewById(R.id.detail_price_listview);
         detail_price_listview.setLayoutManager(new LinearLayoutManager(DetailPriceActivity.this));
         detail_price_listview.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(1);
-        paint.setColor(getResources().getColor(R.color.light_white_color));
-        paint.setAntiAlias(true);
-        detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        detail_price_listview.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1)));
         if (null != detailInfo) {
             PriceDetail detail = new PriceDetail();
             detail.setItem(getResources().getString(R.string.project_text));
@@ -66,8 +62,7 @@ public class DetailPriceActivity extends SwipeBackActivity implements OnClickLis
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.my_price_head_layout);
         mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.str_view_price));
+        mainHeadView.setMianTitle(getResources().getString(R.string.str_view_price));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);

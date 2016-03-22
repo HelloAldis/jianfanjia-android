@@ -4,9 +4,6 @@ import android.animation.Animator;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -14,7 +11,6 @@ import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -24,32 +20,90 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.LoginNewActivity_;
-import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.NotifyActivity;
-import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;
-
-import java.io.File;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
+    private static final String TAG = UiHelper.class.getName();
+
+    /**
+     * 拿到未读消息个数
+     *
+     * @param context
+     * @param apiUiUpdateListener
+     * @param selectLists
+     */
+    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag, String[]... selectLists) {
+        Map<String, Object> param = new HashMap<>();
+        List<String[]> contain = new ArrayList<>();
+        for (String[] temp : selectLists) {
+            contain.add(temp);
+        }
+        param.put("query_array", contain);
+        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(context, param), apiUiUpdateListener, tag);
+    }
+
+    public static void callPhoneIntent(Context context, String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setData(Uri.parse("tel:" + phone));
+        context.startActivity(intent);
+    }
+
+    /**
+     * 计算缓存大小
+     *
+     * @return
+     */
+    public static String caculateCacheSize() {
+        long fileSize = 0;
+        String cacheSize = "0KB";
+        File filesDir = ImageLoader.getInstance().getDiskCache().getDirectory();
+        fileSize += FileUtil.getDirSize(filesDir);
+
+        // 2.2版本才有将应用缓存转移到sd卡的功能
+        if (MyApplication.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+            File externalCacheDir = MyApplication.getInstance().getExternalCacheDir();
+            fileSize += FileUtil.getDirSize(externalCacheDir);
+        }
+        if (fileSize > 0) {
+            cacheSize = FileUtil.formatFileSize(fileSize);
+        }
+        return cacheSize;
+    }
+
+    /**
+     * 生成一个默认的分割线
+     *
+     * @param context
+     * @return
+     */
+    public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
+        return new HorizontalDividerDecoration(MyApplication.dip2px(context, 10));
+    }
 
     /**
      * 跳转到登录界面
      */
-    public static void forbiddenToLogin(){
+    public static void forbiddenToLogin() {
         Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getInstance().startActivity(intent);
@@ -59,6 +113,7 @@ public class UiHelper {
 
     /**
      * 显示toast
+     *
      * @param text
      */
     public static void showShortToast(String text) {
@@ -119,96 +174,6 @@ public class UiHelper {
         rotaAnimator.start();
     }
 
-    public static void sendNotifycation(Context context, NotifyMessage message) {
-        int notifyId = -1;
-        NotificationManager nManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                context);
-        RemoteViews mRemoteViews = new RemoteViews(context.getPackageName(), R.layout.view_custom_notify);
-        mRemoteViews.setImageViewResource(R.id.list_item_img, R.mipmap.icon_notify);
-        builder.setSmallIcon(R.mipmap.icon_notify_small);
-        String type = message.getType();
-        LogTool.d("sendNotifycation", "type =" + type);
-        PendingIntent pendingIntent = null;
-        if (type.equals(Constant.YANQI_NOTIFY)) {
-            LogTool.d("sendNotifycation", context.getResources()
-                    .getString(R.string.yanqiText));
-            notifyId = Constant.YANQI_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.yanqiText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.FUKUAN_NOTIFY)) {
-            notifyId = Constant.FUKUAN_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.fukuanText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.fukuanText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CAIGOU_NOTIFY)) {
-            notifyId = Constant.CAIGOU_NOTIFY_ID;
-            builder.setTicker(context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources()
-                    .getText(R.string.caigouText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, context.getResources().getString(R.string.list_item_caigou_example) + message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent notifyIntent = new Intent(context, NotifyActivity.class);
-            notifyIntent.putExtra("Type", type);
-            Intent[] intents = {mainIntent, notifyIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        } else if (type.equals(Constant.CONFIRM_CHECK_NOTIFY)) {
-            notifyId = Constant.YANSHOU_NOTIFY_ID;
-            builder.setTicker(context.getResources().getText(R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.yanshouText));
-            mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.toLocalTimeString(message.getTime()));
-            mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
-            Intent mainIntent = new Intent(context, MainActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent checkIntent = new Intent(context, CheckActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.PROCESS_NAME, message.getSection());
-            bundle.putString(Constant.PROCESS_STATUS, message.getStatus());
-            bundle.putString(Global.PROCESS_ID, message.getProcessid());
-            checkIntent.putExtras(bundle);
-            Intent[] intents = {mainIntent, checkIntent};
-            pendingIntent = PendingIntent.getActivities(context, 0, intents,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        builder.setContent(mRemoteViews);
-        builder.setWhen(System.currentTimeMillis());
-        builder.setAutoCancel(true);
-        builder.setContentIntent(pendingIntent);
-        Notification notification = builder.build();
-        notification.vibrate = new long[]{0, 300, 500, 700};
-        notification.sound = Uri.parse("android.resource://"
-                + context.getPackageName() + "/" + R.raw.message);
-        nManager.notify(notifyId, notification);
-    }
 
     /**
      * 检查新版本
@@ -233,17 +198,6 @@ public class UiHelper {
         Intent intent = new Intent(context, UpdateService.class);
         intent.putExtra(Constant.DOWNLOAD_URL, download_url);
         context.startService(intent);
-    }
-
-    /**
-     * 发送需求页面更新广播
-     *
-     * @param context
-     */
-    public static void sendUpdateBroast(Context context) {
-        Intent intent = new Intent();
-        intent.setAction(Global.ACTION_UPDATE);
-        context.sendBroadcast(intent);
     }
 
     /**

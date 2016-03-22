@@ -3,15 +3,12 @@ package com.jianfanjia.cn.base;
 import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.jianfanjia.cn.AppManager;
@@ -22,10 +19,10 @@ import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NetStateListener;
-import com.jianfanjia.cn.interf.manager.ListenerManeger;
 import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -39,13 +36,12 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, NetStateListener,ApiUiUpdateListener {
+        DialogControl, NetStateListener, ApiUiUpdateListener {
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-    protected ListenerManeger listenerManeger = null;
     protected NetStateReceiver netStateReceiver = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog;
@@ -57,10 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onCreate()");
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//透明导航栏
-        }
         if (getLayoutId() != 0) {
             setContentView(getLayoutId());
         }
@@ -78,7 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();
         fragmentManager = this.getSupportFragmentManager();
-        listenerManeger = ListenerManeger.getListenerManeger();
         netStateReceiver = new NetStateReceiver(this);
         imageShow = ImageShow.getImageShow();
         _isVisible = true;
@@ -160,27 +151,19 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     // 含有Bundle通过Class跳转界面
     protected void startActivity(Class<?> cls, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setClass(this, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
+        startActivity(cls, bundle, -1);
     }
 
-    // 通过Action跳转界面
-    protected void startActivity(String action) {
-        startActivity(action, null);
+    protected void startActivity(Class<?> cls, Bundle bundle, int flag) {
+        IntentUtil.startActivityHasFlag(this, cls, bundle, flag);
     }
 
-    // 含有Bundle通过Action跳转界面
-    protected void startActivity(String action, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setAction(action);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
+    protected void startActivityForResult(Class<?> cls, int requestCode) {
+        IntentUtil.startActivityForResult(this, cls, null, requestCode);
+    }
+
+    protected void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
+        IntentUtil.startActivityForResult(this, cls, bundle, requestCode);
     }
 
     @Override

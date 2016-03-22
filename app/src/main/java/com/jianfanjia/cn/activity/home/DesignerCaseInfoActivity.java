@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.activity.home;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -29,7 +27,6 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +41,8 @@ import de.greenrobot.event.EventBus;
  */
 public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
+    private static final int SCROLL_Y = 100;
+    private int mScrollY = 0;
     private RelativeLayout head_back_layout = null;
     private RelativeLayout toolbar_collect_layout = null;
     private TextView tv_title = null;
@@ -53,7 +52,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     private LinearLayoutManager mLayoutManager = null;
     private ImageView head_img = null;
     private TextView nameText = null;
-    private List<String> imgs = new ArrayList<String>();
+    private List<String> imgs = new ArrayList<>();
 
     private String productid = null;
     private String designertid = null;
@@ -70,11 +69,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         designer_case_listview.setLayoutManager(mLayoutManager);
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
         designer_case_listview.setHasFixedSize(true);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        designer_case_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(DesignerCaseInfoActivity.this).paint(paint).showLastDivider().build());
+        designer_case_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
         head_img = (ImageView) findViewById(R.id.head_img);
         head_img = (ImageView) findViewById(R.id.head_img);
         nameText = (TextView) findViewById(R.id.name_text);
@@ -93,6 +88,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
+        mScrollY = 0;
         initData(intent);
     }
 
@@ -102,12 +98,11 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         toolbar_collect_layout.setOnClickListener(this);
         activity_case_info_top_layout.setOnClickListener(this);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int mScrollY;
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mScrollY += dy;
-                if (mScrollY > 100) {
+                if (mScrollY > SCROLL_Y) {
                     activity_case_info_top_layout.setVisibility(View.VISIBLE);
                     tv_title.setVisibility(View.VISIBLE);
                 } else {
@@ -190,13 +185,11 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
                     @Override
                     public void OnItemClick(View view, int position) {
                         LogTool.d(TAG, "position:" + position);
-                        Intent showPicIntent = new Intent(DesignerCaseInfoActivity.this, ShowPicActivity.class);
                         Bundle showPicBundle = new Bundle();
                         showPicBundle.putInt(Constant.CURRENT_POSITION, position);
                         showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                                 (ArrayList<String>) imgs);
-                        showPicIntent.putExtras(showPicBundle);
-                        startActivity(showPicIntent);
+                        startActivity(ShowPicActivity.class,showPicBundle);
                     }
 
                     @Override

@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:layout_marginTop="10dip"
         android:scrollbars="none"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#344a5d" />

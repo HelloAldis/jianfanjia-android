@@ -7,6 +7,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -41,6 +42,7 @@ public class BusinessManager {
     }
 
     public static String getWorkType(String workType) {
+        if(workType == null) return null;
         String str = null;
         if (workType.equals("0")) {
             str = "半包";
@@ -84,12 +86,25 @@ public class BusinessManager {
         return processInfo;
     }
 
+    public static SectionInfo getSectionInfoByName(ArrayList<SectionInfo> sections, String name) {
+        try {
+            for (SectionInfo info : sections) {
+                if (info.getName().equals(name)) {
+                    return info;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * @param
      * @return
      */
     public static String convertDectypeToShow(String decType) {
-        if (decType == null) return null;
+        if (TextUtils.isEmpty(decType)) return null;
         int decPosition = Integer.parseInt(decType);
         String[] dectypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_dectype);
         if (decPosition < 0 || decPosition > dectypes.length) return null;
@@ -137,6 +152,24 @@ public class BusinessManager {
         return designFees[feePosition];
     }
 
+    /**
+     * 装修直播显示阶段
+     *
+     * @param section
+     * @return
+     */
+    public static String convertSectionNameToLiveShow(String section) {
+        if (section == null) return null;
+        int sectionPosition = Integer.parseInt(section);
+        String[] sectionList = MyApplication.getInstance().getResources().getStringArray(R.array.live_site_procedure);
+        if (sectionPosition < 0 || sectionPosition > sectionList.length) return null;
+        return sectionList[sectionPosition];
+    }
+
+    /**
+     * @param decTypeText
+     * @return
+     */
     public static String getDecTypeByText(String decTypeText) {
         try {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_dectype);

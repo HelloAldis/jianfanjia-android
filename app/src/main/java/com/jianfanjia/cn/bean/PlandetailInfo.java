@@ -10,7 +10,10 @@ import java.util.List;
  * Time: 14:23
  */
 public class PlandetailInfo implements Serializable {
+
+    private static final long serialVersionUID = 4176946137457671385L;
     private String _id;
+    private String name;
     private long last_status_update_time;
     private long request_date;
     private String designerid;
@@ -25,12 +28,37 @@ public class PlandetailInfo implements Serializable {
     private String description;
     private int total_price;
     private int duration;
+    private int comment_count;
     private String status;
     private List<String> images;
     private List<PriceDetail> price_detail;
     private Designer designer;
     private User user;
     private RequirementInfo requirement;
+
+    public int getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public long getLast_status_update_time() {
         return last_status_update_time;

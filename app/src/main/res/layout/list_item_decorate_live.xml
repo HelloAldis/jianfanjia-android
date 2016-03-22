@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cover_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:scaleType="centerCrop" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:background="@drawable/bg_decorate_live">
+
+        <TextView
+            android:id="@+id/process_status"
+            style="@style/listview_item_text_style_small"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="30dip"
+            android:paddingBottom="@dimen/space_8"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_12"
+            android:paddingTop="@dimen/space_8"
+            android:text="@string/chai_gai"
+            android:textColor="@color/font_white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/space_24"
+            android:paddingLeft="@dimen/space_30"
+            android:paddingRight="@dimen/space_30">
+
+            <FrameLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true">
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/head_image"
+                    android:layout_width="60dip"
+                    android:layout_height="60dip"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_default_head"
+                    app:border_color="@color/white"
+                    app:border_width="2dip" />
+
+                <ImageView
+                    android:id="@+id/list_item_auth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@mipmap/icon_auth"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/imageLayout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/cell_name"
+                    style="@style/listview_item_text_style_middle"
+                    android:text="dadsad"
+                    android:textColor="@color/font_white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/produce_text"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:text="dadsad"
+                    android:textColor="@color/font_white" />
+
+                <TextView
+                    android:id="@+id/live_date"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:text="dadsad"
+                    android:textColor="@color/font_white" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+</FrameLayout>

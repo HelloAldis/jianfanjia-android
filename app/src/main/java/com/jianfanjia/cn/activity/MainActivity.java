@@ -3,21 +3,29 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import java.util.List;
+
+import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
+import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment_;
-import com.jianfanjia.cn.fragment.MyFragment;
+import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment_;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:主界面
@@ -25,66 +33,124 @@ import com.jianfanjia.cn.tools.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MainActivity extends BaseActivity implements
-        OnCheckedChangeListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
-    private RadioGroup mTabRg = null;
+    private ImageView badgeView = null;
+    private LinearLayout homeLayout = null;
+    private LinearLayout beautyLayout = null;
+    private LinearLayout reqLayout = null;
+    private LinearLayout myLayout = null;
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
-    private MyFragment myFragment = null;
+    private MyNewFragment myFragment = null;
     private long mExitTime = 0L;
     private int tab = -1;
-
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
+        switchTab(Constant.MANAGE);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initView() {
-        mTabRg = (RadioGroup) findViewById(R.id.tab_rg_menu);
-        setTabSelection(Constant.HOME);
-        //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
-        Intent intent = getIntent();
-        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
-        LogTool.d(TAG, "flag:" + flag);
-        if (flag) {
-            LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-            startActivityForResult(new Intent(this, PublishRequirementActivity_.class), XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
-        }
+        badgeView = (ImageView) findViewById(R.id.badgeView);
+        badgeView.setVisibility(View.GONE);
+
+        homeLayout = (LinearLayout) findViewById(R.id.home_layout);
+        beautyLayout = (LinearLayout) findViewById(R.id.img_layout);
+        reqLayout = (LinearLayout) findViewById(R.id.req_layout);
+        myLayout = (LinearLayout) findViewById(R.id.my_layout);
+
+        switchTab(Constant.HOME);
+//        //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
+//        Intent intent = getIntent();
+//        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
+//        LogTool.d(TAG, "flag:" + flag);
+//        if (flag) {
+//            LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
+//            startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+//        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //每次resume刷新一下消息条数
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+    }
+
+    private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
+        @Override
+        public void preLoad() {
+
+        }
+
+        @Override
+        public void loadSuccess(Object data) {
+            List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
+            }.getType());
+            if (countList != null) {
+                if (countList.get(0) > 0 || countList.get(1) > 0) {
+                    badgeView.setVisibility(View.VISIBLE);
+                } else {
+                    badgeView.setVisibility(View.GONE);
+                }
+                if (myFragment != null) {
+                    if (countList.get(0) > 0) {
+                        myFragment.noticeCountView.setVisibility(View.VISIBLE);
+                        myFragment.noticeCountView.setText(countList.get(0) + "");
+                    } else {
+                        myFragment.noticeCountView.setVisibility(View.GONE);
+                    }
+                    if (countList.get(1) > 0) {
+                        myFragment.commentCountView.setVisibility(View.VISIBLE);
+                        myFragment.commentCountView.setText(countList.get(1) + "");
+                    } else {
+                        myFragment.commentCountView.setVisibility(View.GONE);
+                        myFragment.commentCountView.setText("");
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void loadFailture(String error_msg) {
+
+        }
+    };
 
     @Override
     public void setListener() {
-        mTabRg.setOnCheckedChangeListener(this);
+        homeLayout.setOnClickListener(this);
+        beautyLayout.setOnClickListener(this);
+        reqLayout.setOnClickListener(this);
+        myLayout.setOnClickListener(this);
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch (checkedId) {
-            case R.id.tab_rb_1:
-                setTabSelection(Constant.HOME);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.home_layout:
+                switchTab(Constant.HOME);
                 break;
-            case R.id.tab_rb_2:
-                setTabSelection(Constant.DECORATE);
-//                showGuide();
+            case R.id.img_layout:
+                switchTab(Constant.DECORATE);
                 break;
-            case R.id.tab_rb_3:
-                setTabSelection(Constant.MANAGE);
+            case R.id.req_layout:
+                switchTab(Constant.MANAGE);
                 break;
-            case R.id.tab_rb_4:
-                setTabSelection(Constant.MY);
-                break;
-            default:
+            case R.id.my_layout:
+                switchTab(Constant.MY);
                 break;
         }
     }
@@ -92,16 +158,28 @@ public class MainActivity extends BaseActivity implements
     public void switchTab(int index) {
         switch (index) {
             case Constant.HOME:
-                mTabRg.check(R.id.tab_rb_1);
+                homeLayout.setSelected(true);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(false);
                 break;
             case Constant.DECORATE:
-                mTabRg.check(R.id.tab_rb_2);
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(true);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(false);
                 break;
             case Constant.MANAGE:
-                mTabRg.check(R.id.tab_rb_3);
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(true);
+                myLayout.setSelected(false);
                 break;
             case Constant.MY:
-                mTabRg.check(R.id.tab_rb_4);
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(true);
                 break;
         }
         setTabSelection(index);
@@ -140,7 +218,7 @@ public class MainActivity extends BaseActivity implements
                 if (myFragment != null) {
                     transaction.show(myFragment);
                 } else {
-                    myFragment = new MyFragment();
+                    myFragment = new MyNewFragment();
                     transaction.add(R.id.tablayout, myFragment);
                 }
                 break;
@@ -176,6 +254,11 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    public void onEventMainThread(MessageCountEvent messageCountEvent) {
+        //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -184,30 +267,31 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         Global.SECTION_POSITION = 0;
         Global.HOUSE_TYPE_POSITION = 0;
         Global.DEC_STYLE_POSITION = 0;
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != RESULT_OK){
+            return;
+        }
         LogTool.d(TAG, "onActivityResult requestCode =" + requestCode);
         if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            mTabRg.check(R.id.tab_rb_3);
-            setTabSelection(Constant.MANAGE);
+            switchTab(Constant.MANAGE);
             xuqiuFragment.onActivityResult(requestCode, resultCode, data);
-            homeFragment.onActivityResult(requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
+    }*/
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
     }
-
 
 }

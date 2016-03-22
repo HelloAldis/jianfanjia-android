@@ -5,17 +5,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author fengliang
@@ -29,7 +30,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     private LinearLayout btnLayout = null;
     private Button btnRegister = null;
     private Button btnLogin = null;
-    private List<View> list = new ArrayList<View>();
+    private List<View> list = new ArrayList<>();
     private ViewPageAdapter adapter = null;
     private int lastSelectorItem = 0;
     private int currentItem = 0; // 当前图片的索引号
@@ -39,6 +40,14 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
             R.mipmap.img_guide3, R.mipmap.img_guide4};
 
     private ImageView[] dots = new ImageView[4];
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     @Override
     public void initView() {

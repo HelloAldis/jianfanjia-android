@@ -33,7 +33,7 @@ public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent) {
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_decoration,
                 null);
         return new DecorationViewHolder(view);

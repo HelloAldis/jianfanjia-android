@@ -1,11 +1,12 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
@@ -63,7 +65,6 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 LogTool.d(TAG, "position=" + position);
                 BeautyImgInfo beautyImgInfo = decorationAdapter.getData().get(position);
                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                Intent decorationIntent = new Intent(getActivity(), PreviewDecorationActivity.class);
                 Bundle decorationBundle = new Bundle();
                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
                 decorationBundle.putInt(Global.POSITION, position);
@@ -71,8 +72,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
                 decorationBundle.putString(Global.SEARCH_TEXT, search);
-                decorationIntent.putExtras(decorationBundle);
-                startActivity(decorationIntent);
+                startActivity(PreviewDecorationActivity.class, decorationBundle);
             }
         });
         decorationAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
@@ -84,8 +84,12 @@ public class SearchDecorationImgFragment extends BaseFragment {
         decorationAdapter.setErrorView(errorLayout);
         decorationAdapter.setEmptyView(emptyLayout);
         recyclerView.setAdapter(decorationAdapter);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.leftMargin = MyApplication.dip2px(getContext().getApplicationContext(), 5);
+        lp.rightMargin = lp.leftMargin;
+        recyclerView.setLayoutParams(lp);
 
-        SpacesItemDecoration decoration = new SpacesItemDecoration(10);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext().getApplicationContext(), 5));
         recyclerView.addItemDecoration(decoration);
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
     }
@@ -152,7 +156,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_search_designer;
+        return R.layout.fragment_search_common;
     }
 
 }

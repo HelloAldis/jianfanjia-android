@@ -7,17 +7,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.OrderDesignerInfo;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.view.baseview.BaseAnnotationView;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -66,9 +64,9 @@ public class MyDesignerViewType3 extends BaseAnnotationView {
             }
         });
         if (!TextUtils.isEmpty(imageid)) {
-            ImageLoader.getInstance().displayImage(Url_New.getInstance().GET_THUMBNAIL_IMAGE + imageid, headView, options);
+            imageShow.displayImageHeadWidthThumnailImage(context, imageid, headView);
         } else {
-            ImageLoader.getInstance().displayImage(Constant.DEFALUT_OWNER_PIC, headView, options);
+            headView.setImageResource(R.mipmap.icon_default_head);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);

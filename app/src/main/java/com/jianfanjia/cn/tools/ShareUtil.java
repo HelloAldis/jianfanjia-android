@@ -138,7 +138,8 @@ public class ShareUtil {
     public void shareApp(Activity activity, SocializeListeners.SnsPostListener listener) {
         LogTool.d(this.getClass().getName(), context.getPackageResourcePath());
         UMImage image = new UMImage(context, url_new.SHARE_APP_LOGO);
-        setShareContent(image, context.getString(R.string.share_app_title), context.getString(R.string.share_app_des), context.getString(R.string.share_app_url));
+        setShareContent(image, context.getString(R.string.share_app_title), context.getString(R.string.share_app_des),
+                context.getString(R.string.share_app_url));
         mController.registerListener(listener);
         mController.openShare(activity, false);
     }

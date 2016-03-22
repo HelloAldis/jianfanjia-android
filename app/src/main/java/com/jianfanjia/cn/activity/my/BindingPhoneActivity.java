@@ -86,7 +86,6 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
 
     }
 
-
     private boolean checkInput(String phone) {
         if (TextUtils.isEmpty(phone)) {
             makeTextShort(getResources().getString(
@@ -113,7 +112,6 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
      * 发送验证码
      *
      * @param name
-     *
      */
     private void sendVerification(final String name) {
         JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {

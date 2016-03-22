@@ -2,21 +2,20 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <!--<item name="android:textCursorDrawable">@drawable/color_cursor</item>-->
         <item name="android:textColorHint">@color/light_white_color</item>
     </style>
 
     <style name="Theme.Swipe.Back" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="tab_rb_style">
-        <item name="android:gravity">center_horizontal|bottom</item>
-        <item name="android:button">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/tab_selector_text_color</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <!-- horizontal line_style -->
@@ -53,7 +52,7 @@
     <style name="button_add_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/space_40</item>
-        <item name="android:background">@drawable/btn_orange_bg</item>
+        <item name="android:background">@drawable/btn_orange_oval_bg</item>
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -79,7 +78,7 @@
         <item name="android:textColor">@color/font_white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/btn_orange_bg</item>
+        <item name="android:background">@drawable/btn_orange_oval_bg</item>
         <item name="android:visibility">gone</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">40.0dip</item>
@@ -117,7 +116,7 @@
         <item name="android:textColor">@color/font_white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/btn_orange_bg</item>
+        <item name="android:background">@drawable/btn_orange_oval_bg</item>
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">40.0dip</item>
         <item name="android:maxLines">2</item>

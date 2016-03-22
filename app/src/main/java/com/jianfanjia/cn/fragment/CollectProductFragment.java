@@ -1,18 +1,18 @@
 package com.jianfanjia.cn.fragment;
 
-import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -27,13 +27,9 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -42,7 +38,8 @@ import de.greenrobot.event.EventBus;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectProductFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class CollectProductFragment extends CommonFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -85,11 +82,8 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setHasFixedSize(true);
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
-        Paint paint = new Paint();
-        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()));
-        paint.setAlpha(0);
-        paint.setAntiAlias(true);
-        prodtct_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).paint(paint).showLastDivider().build());
+        prodtct_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext
+                ()));
     }
 
     @Override
@@ -153,7 +147,8 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                 products.clear();
                 products.addAll(productInfo.getProducts());
                 if (null != products && products.size() > 0) {
-                    productAdapter = new CollectProductAdapter(getActivity(), products, new RecyclerViewOnItemClickListener() {
+                    productAdapter = new CollectProductAdapter(getActivity(), products, new
+                            RecyclerViewOnItemClickListener() {
                         @Override
                         public void OnItemClick(View view, int position) {
                             LogTool.d(TAG, "position:" + position);
@@ -161,11 +156,9 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                             LogTool.d(TAG, "currentPos-------" + currentPos);
                             String productid = products.get(currentPos).get_id();
                             LogTool.d(TAG, "productid:" + productid);
-                            Intent productIntent = new Intent(getActivity(), DesignerCaseInfoActivity.class);
                             Bundle productBundle = new Bundle();
                             productBundle.putString(Global.PRODUCT_ID, productid);
-                            productIntent.putExtras(productBundle);
-                            startActivity(productIntent);
+                            startActivity(DesignerCaseInfoActivity.class, productBundle);
                         }
 
                         @Override

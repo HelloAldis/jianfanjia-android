@@ -111,7 +111,7 @@
                 android:layout_below="@+id/site_list_item_content_expand_node_picture_layout"
                 android:drawableLeft="@mipmap/btn_icon_comment_normal"
                 android:gravity="center_vertical"
-                android:text="@string/site_example_node_assess"
+                android:text="@string/commentText"
                 android:textColor="@color/main_color_grey" />
         </RelativeLayout>
     </RelativeLayout>

@@ -2,8 +2,9 @@ package com.jianfanjia.cn.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
@@ -36,6 +37,14 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
 
     @ViewById(R.id.dec_stage2)
     TextView dec_stage_2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     @Click({R.id.dec_stage0, R.id.dec_stage1, R.id.dec_stage2})
     protected void click(final View view) {
@@ -76,16 +85,11 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-    }
-
     protected void intentToCollectReq(String stage) {
         OwnerInfo ownerInfo = new OwnerInfo();
         ownerInfo.setDec_progress(stage);
-        Intent intent = new Intent(this, NewUserCollectLoveStyleActivity_.class);
-        intent.putExtra(Global.OWNERINFO, ownerInfo);
-        startActivity(intent);
+        Bundle ownerBundle = new Bundle();
+        ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
+        startActivity(NewUserCollectLoveStyleActivity_.class, ownerBundle);
     }
 }

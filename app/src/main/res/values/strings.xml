@@ -25,12 +25,13 @@
     <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
     <string name="tip_network_error">没有可用的网络</string>
     <string name="emtpy_view_no_designer_data">您还没有收藏任何设计师</string>
-    <string name="empty_view_no_product_data">您还没有收藏任何作品</string>
+    <string name="empty_view_no_product_data">您还没有收藏任何案例</string>
     <string name="empty_view_no_product_list_data">没有任何匹配的案例</string>
     <string name="empty_view_no_img_data">您还没有收藏任何美图</string>
     <string name="empty_view_no_caigou_data">您还没有采购提醒</string>
     <string name="empty_view_no_pay_data">您还没有付款提醒</string>
     <string name="empty_view_no_delay_data">您还没有改期提醒</string>
+    <string name="empty_view_no_notice_data">目前您还没有通知</string>
     <string name="no_more_data">没有更多了</string>
     <!-- main activity -->
     <string name="main_tab_name_darly">日记</string>
@@ -105,6 +106,7 @@
     <string name="site_example_node_assess">评价</string>
     <string name="more">更多</string>
     <string name="retract">收起</string>
+    <string name="site_example_node_delay_text">您有未处理的改期</string>
 
     <!-- my_site information -->
     <string name="my_current_site">当前工地</string>
@@ -130,8 +132,7 @@
 
     <!-- my_designer_information -->
     <string name="my_designer_name">Jeff Zhang</string>
-    <string name="my_designer_product">作品</string>
-    <string name="my_designer_product1">作品数</string>
+    <string name="my_designer_product1">案例数</string>
     <string name="my_designer_product_sum">9999</string>
     <string name="my_designer_appointment">预约</string>
     <string name="my_designer_appointment1">预约数</string>
@@ -180,14 +181,14 @@
     <string name="current_version_example">1.0</string>
     <string name="clear_cache">清空缓存</string>
     <string name="cache_size">110M</string>
-    <string name="feedback">用户反馈</string>
+    <string name="feedback">意见反馈</string>
     <string name="logout">退出登录</string>
-    <string name="kefuText">联系客服</string>
+    <string name="kefuText">客服中心</string>
     <string name="list_item_comment_pubtime_example">30分钟前</string>
     <string name="add_comment">添加评论</string>
     <string name="add_feedback">请添加您想说的内容</string>
     <string name="userinfo">个人信息</string>
-    <string name="comment">评论</string>
+    <string name="commentList">评论</string>
     <string name="check">阶段验收</string>
     <string name="back">返回</string>
     <string name="send">发送</string>
@@ -200,12 +201,12 @@
     <string name="fukuanText">付款提醒</string>
     <string name="yanqiText">改期提醒</string>
     <string name="yanshouText">验收提醒</string>
-    <string name="list_item_caigou_example">系统提示：您即将进入下一轮建材购买阶段，您需要购买的是</string>
+    <string name="list_item_caigou_example">您即将进入下一轮建材购买阶段，您需要购买的是</string>
     <string name="list_item_fukuan_example">系统提示：您即将进入下一轮付款环节，请您及时与设计师联系</string>
     <string name="list_item_yanqi_example">对方已申请改期验收至</string>
 
     <!-- activity_upload_pic -->
-    <string name="upload_pic">上传照片</string>
+    <string name="upload_pic">现场照片</string>
     <string name="show_pic">示范照片</string>
     <string name="edit">编辑</string>
     <string name="confirm_check">确认验收</string>
@@ -309,7 +310,6 @@
 
     <string name="resourceText">资料</string>
     <string name="designerText">设计师</string>
-    <string name="productText">作品</string>
     <string name="imgText">美图</string>
     <string name="man">男</string>
     <string name="women">女</string>
@@ -336,10 +336,10 @@
     <string name="__picker_image_count">%1$d张</string>
     <string name="home_tag0">免费方案</string>
     <string name="home_tag1">装修攻略</string>
-    <string name="home_tag2">装修美图</string>
+    <string name="home_tag2">装修直播</string>
     <string name="home_tag3">海量设计师</string>
-    <string name="home_good_case">精品案例</string>
-    <string name="all_good_case">全部案例</string>
+    <string name="home_good_recommend">猜你喜欢</string>
+    <string name="all_good_product">全部案例</string>
     <string name="str_case">案例</string>
     <string name="beauty_img">美图</string>
     <string name="searh_tip">设计师、案例、美图</string>
@@ -349,4 +349,38 @@
     <string name="search_no_product">没有找到任何匹配的作品</string>
     <string name="already_finish">已完成</string>
 
+    <string name="hint_choose_plan_text">选定方案</string>
+    <string name="hint_choose_plan_str">您确定要选定此方案吗？</string>
+    <string name="hint_contract_text">确认合同</string>
+    <string name="hint_contract_str">您确定要确认合同吗？</string>
+    <string name="my_comment">我的留言</string>
+    <string name="call_phone">咨询热线：400-8515-167</string>
+    <string name="title_activity_notice">NoticeActivity</string>
+
+    <string name="my_notice">我的通知</string>
+    <string name="my_notice_detail">通知详情</string>
+    <string name="all_notice">全部</string>
+    <string name="system_notice">系统</string>
+    <string name="req_notice">需求</string>
+    <string name="site_notice">工地</string>
+    <string name="decoration_live">装修直播</string>
+    <string name="response">回复</string>
+    <string name="title_activity_notice_detail">NoticeDetailActivity</string>
+    <string name="live_date">直播时间：</string>
+    <string name="search_no_process">暂时没有已竣工的工地</string>
+
+    <string name="delay_str">改期</string>
+    <string name="pay_str">付款</string>
+    <string name="caigou_str">采购</string>
+    <string name="check_str">验收</string>
+    <string name="sys_str">系统</string>
+    <string name="req_str">需求</string>
+    <string name="app_phone">4008515167</string>
+    <string name="reply">回复</string>
+    <string name="agree_str">已同意</string>
+    <string name="reject_str">已拒绝</string>
+    <string name="create_my_process">创建我的工地</string>
+    <string name="search_no_commnet">目前还没有任何留言</string>
+    <string name="plan_list">方案列表</string>
+    <string name="online_kefu">在线客服</string>
 </resources>

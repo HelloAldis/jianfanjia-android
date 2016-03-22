@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/btn_bg"
+        android:background="@drawable/btn_rectangle_orange_selector_bg"
         android:text="@string/submit_comment"
         android:textColor="@color/font_white"
         android:textSize="@dimen/text_size_17" />

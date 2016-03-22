@@ -41,6 +41,10 @@ public class NotifyMessage implements Serializable {
     @DatabaseField(columnName = "userid")
     private String userid;
 
+    private String messageid;
+
+    private String badge;
+
     public NotifyMessage() {
 
     }
@@ -115,5 +119,21 @@ public class NotifyMessage implements Serializable {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+    public String getMessageid() {
+        return messageid;
+    }
+
+    public void setMessageid(String messageid) {
+        this.messageid = messageid;
+    }
+
+    public String getBadge() {
+        return badge;
+    }
+
+    public void setBadge(String badge) {
+        this.badge = badge;
     }
 }

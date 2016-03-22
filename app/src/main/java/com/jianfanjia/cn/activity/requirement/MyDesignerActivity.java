@@ -1,31 +1,11 @@
 package com.jianfanjia.cn.activity.requirement;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
-
-import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.adapter.MyDesignerAdapter;
-import com.jianfanjia.cn.bean.OrderDesignerInfo;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -34,6 +14,24 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.adapter.MyDesignerAdapter;
+import com.jianfanjia.cn.bean.OrderDesignerInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.interf.ClickCallBack;
+import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
 /**
  * Description:我的设计师
@@ -64,6 +62,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
     protected RelativeLayout error_Layout;
 
     private String requirementid;
+    private RequirementInfo requirementInfo;
 
     MyDesignerAdapter myDesignerAdapter;
     List<OrderDesignerInfo> orderDesignerInfos = new ArrayList<>();
@@ -78,16 +77,17 @@ public class MyDesignerActivity extends SwipeBackActivity {
         mainHeadView.setRightTitleVisable(View.GONE);
 
         Intent intent = getIntent();
-        requirementid = intent.getStringExtra(Global.REQUIREMENT_ID);
+        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        if (requirementInfo != null) {
+            requirementid = requirementInfo.get_id();
+        }
         initPullRefresh();
-        initdata();
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
+    protected void onResume() {
+        super.onResume();
         initdata();
-        UiHelper.sendUpdateBroast(this);
     }
 
     private void initPullRefresh() {
@@ -108,11 +108,12 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         Bundle viewBundle = new Bundle();
                         viewBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
                         viewBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
+                        viewBundle.putFloat(Global.RESPOND_SPEED, orderDesignerInfo.getRespond_speed());
+                        viewBundle.putFloat(Global.SERVICE_ATTITUDE, orderDesignerInfo.getService_attitude());
                         viewBundle.putSerializable(Global.EVALUATION, orderDesignerInfo.getEvaluation());
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
-                        Intent commentIntent = new Intent(MyDesignerActivity.this, PingjiaActivity.class);
                         Bundle commentBundle = new Bundle();
                         commentBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
                         commentBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
@@ -120,33 +121,27 @@ public class MyDesignerActivity extends SwipeBackActivity {
                         commentBundle.putFloat(Global.SPEED, orderDesignerInfo.getRespond_speed());
                         commentBundle.putFloat(Global.ATTITUDE, orderDesignerInfo.getService_attitude());
                         commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        commentIntent.putExtras(commentBundle);
-                        startActivityForResult(commentIntent, REQUESTCODE_FRESH_LIST);
+                        startActivity(PingjiaActivity.class, commentBundle);
                         break;
                     case VIEW_CONTRACT:
-                        Intent viewContractIntent = new Intent(MyDesignerActivity.this, ContractActivity.class);
                         Bundle contractBundle = new Bundle();
-                        contractBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        contractBundle.putString(Global.REQUIREMENT_STATUS, orderDesignerInfo.getRequirement().getStatus());
-                        viewContractIntent.putExtras(contractBundle);
-                        startActivityForResult(viewContractIntent, REQUESTCODE_FRESH_LIST);
+                        contractBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
+                        contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
+                                .DESIGNER_LIST_INTENT);
+                        startActivity(ContractActivity.class, contractBundle);
                         break;
                     case VIEW_PLAN:
-                        Intent viewPlanIntent = new Intent(MyDesignerActivity.this, DesignerPlanListActivity.class);
                         Bundle planBundle = new Bundle();
                         planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        planBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
+                        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
                         planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
-                        viewPlanIntent.putExtras(planBundle);
-                        startActivity(viewPlanIntent);
+                        startActivity(DesignerPlanListActivity.class, planBundle);
                         break;
                     case CHANGE_DESIGNER:
-                        Intent changeDesignerIntent = new Intent(MyDesignerActivity.this, ReplaceDesignerActivity.class);
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
-                        changeDesignerIntent.putExtras(changeBundle);
-                        startActivityForResult(changeDesignerIntent, REQUESTCODE_FRESH_LIST);
+                        startActivity(ReplaceDesignerActivity.class, changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         confirmMeasureHouse(orderDesignerInfo.get_id());
@@ -162,11 +157,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
             }
         });
         refreshView.setAdapter(myDesignerAdapter);
-        Paint paint = new Paint();
-        paint.setStrokeWidth(1);
-        paint.setColor(getResources().getColor(R.color.light_white_color));
-        paint.setAntiAlias(true);
-        refreshView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        refreshView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
     }
 
     @Click(R.id.error_include)
@@ -176,25 +167,24 @@ public class MyDesignerActivity extends SwipeBackActivity {
 
 
     protected void confirmMeasureHouse(String designerid) {
-        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
-                showWaitDialog();
-            }
+        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new
+                ApiUiUpdateListener() {
+                    @Override
+                    public void preLoad() {
+                        showWaitDialog();
+                    }
 
-            @Override
-            public void loadSuccess(Object data) {
-                initdata();
-                //刷新Xuqiufragment
-                UiHelper.sendUpdateBroast(MyDesignerActivity.this);
-            }
+                    @Override
+                    public void loadSuccess(Object data) {
+                        initdata();
+                    }
 
-            @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-                hideWaitDialog();
-            }
-        }, MyDesignerActivity.this);
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        makeTextShort(error_msg);
+                        hideWaitDialog();
+                    }
+                }, MyDesignerActivity.this);
     }
 
     @Click(R.id.head_back_layout)
@@ -237,27 +227,11 @@ public class MyDesignerActivity extends SwipeBackActivity {
         super.loadFailture(error_msg);
         refreshView.onRefreshComplete();
         if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
-            if(!isLoadedOnce){
+            if (!isLoadedOnce) {
                 error_Layout.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        switch (requestCode) {
-            case REQUESTCODE_FRESH_LIST:
-                initdata();
-                //刷新Xuqiufragment
-                UiHelper.sendUpdateBroast(MyDesignerActivity.this);
-                break;
-            default:
-                break;
-        }
-    }
 
 }
