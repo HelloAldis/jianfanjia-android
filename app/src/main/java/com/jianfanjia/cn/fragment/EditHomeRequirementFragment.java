@@ -10,6 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterTextChange;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.my.EditCityActivity_;
@@ -22,13 +29,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.tools.LogTool;
-
-import org.androidannotations.annotations.AfterTextChange;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -213,7 +213,6 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
 
     @AfterViews
     protected void setMainHeadView() {
-
         initData();
     }
 

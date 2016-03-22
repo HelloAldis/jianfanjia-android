@@ -133,10 +133,8 @@
 
     <!-- my_designer_information -->
     <string name="my_designer_name">Jeff Zhang</string>
-    <string name="my_designer_product1">案例数</string>
+    <string name="my_designer_product1">案例</string>
     <string name="my_designer_product_sum">9999</string>
-    <string name="my_designer_appointment">预约</string>
-    <string name="my_designer_appointment1">预约数</string>
     <string name="my_designer_appointment_sum">20</string>
     <string name="work_city">服务城市:</string>
     <string name="designer_budget">设计费:</string>
@@ -387,4 +385,5 @@
     <string name="follow_weixin">关注官方微信：jianfanjia</string>
     <string name="follow_weibo">关注官方微博</string>
     <string name="follow_weixin_success">微信号已复制成功，请在微信搜索并关注简繁家</string>
+    <string name="scan">浏览</string>
 </resources>

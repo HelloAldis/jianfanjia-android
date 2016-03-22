@@ -20,7 +20,6 @@ import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
@@ -158,11 +157,8 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
-                if (dataManager.getAccount() != null) {
+                if (dataManager.getAccount() != null) {//先判断一下，防止老数据出现异常
                     orderDesignerByUser(requestmentid, designerIds);
-                } else {
-                    startActivity(BindingPhoneActivity_.class);
-                    overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 }
                 break;
             default:

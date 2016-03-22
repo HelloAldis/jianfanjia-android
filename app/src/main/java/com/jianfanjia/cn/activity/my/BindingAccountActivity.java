@@ -8,9 +8,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.Map;
+
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
@@ -19,14 +27,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Map;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -111,7 +111,9 @@ public class BindingAccountActivity extends SwipeBackActivity {
                 authUtil.doOauthVerify(this, platform, umDataListener);
                 break;
             case R.id.bindingaccount_phone_layout:
-                startActivity(BindingPhoneActivity_.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_USERINFO);
+                startActivity(BindingPhoneActivity_.class, bundle);
                 overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 break;
             case R.id.head_back_layout:

@@ -92,7 +92,7 @@
                         style="@style/listview_item_text_style_small"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dip"
-                        android:text="浏览数"
+                        android:text="@string/scan"
                         android:textColor="@color/designer_info_text_color_bg"
                         android:textSize="@dimen/text_size_14" />
                     <!-- android:textColor="@color/designer_info_text_color"-->
@@ -140,7 +140,7 @@
                         style="@style/listview_item_text_style_small"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dip"
-                        android:text="预约数"
+                        android:text="@string/appointText"
                         android:textColor="@color/designer_info_text_color_bg"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>

@@ -19,6 +19,7 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
@@ -126,17 +127,18 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                     case ITEM_EDIT:
                         Bundle requirementInfoBundle = new Bundle();
                         requirementInfoBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-                        startActivityForResult(UpdateRequirementActivity_.class, requirementInfoBundle, REQUESTCODE_EDIT_REQUIREMENT);
+                        startActivityForResult(UpdateRequirementActivity_.class, requirementInfoBundle,
+                                REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
                         Bundle gotoMyProcessBundle = new Bundle();
                         gotoMyProcessBundle.putSerializable(Global.PROCESS_INFO, requirementInfo.getProcess());
-                        startActivity(MyProcessDetailActivity_.class,gotoMyProcessBundle);
+                        startActivity(MyProcessDetailActivity_.class, gotoMyProcessBundle);
                         break;
                     case ITEM_GOTOMYDESI:
                         Bundle gotoMyDesignerBundle = new Bundle();
                         gotoMyDesignerBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        startActivity(MyDesignerActivity_.class,gotoMyDesignerBundle);
+                        startActivity(MyDesignerActivity_.class, gotoMyDesignerBundle);
                         break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner();
@@ -153,17 +155,25 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     protected void gotoOrderDesigner() {
         Bundle gotoOrderDesignerBundle = new Bundle();
         if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-            gotoOrderDesignerBundle.putInt(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size());
+            gotoOrderDesignerBundle.putInt(Global.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size
+                    ());
         } else {
             gotoOrderDesignerBundle.putInt(Global.REQUIREMENT_DESIGNER_NUM, 0);
         }
         gotoOrderDesignerBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
-        startActivity(AppointDesignerActivity.class,gotoOrderDesignerBundle);
+        startActivity(AppointDesignerActivity.class, gotoOrderDesignerBundle);
     }
 
     @Click({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
-        startActivity(PublishRequirementActivity_.class);
+        if (dataManager.getAccount() != null) {
+            startActivity(PublishRequirementActivity_.class);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Global.BINDING_PHONE_INTENT,Global.BINDING_PHONE_REQUIREMENT);
+            startActivity(BindingPhoneActivity_.class, bundle);
+            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+        }
     }
 
     @Click(R.id.error_include)
@@ -187,7 +197,7 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             //每次show都刷新一下数据
             initData();
         }

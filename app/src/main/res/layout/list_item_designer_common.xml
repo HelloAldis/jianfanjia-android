@@ -203,7 +203,7 @@
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/my_designer_appointment1"
+                    android:text="@string/appointText"
                     android:textColor="@color/designer_info_text_color_bg" />
             </LinearLayout>
         </RelativeLayout>
