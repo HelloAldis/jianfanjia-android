@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_layout_bg"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_layout_bg"
+                android:orientation="vertical">
 
     <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/my_notice_detail_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg" />
+        android:background="@color/head_layout_bg"/>
 
     <FrameLayout
         android:id="@+id/bottomLayout"
@@ -27,19 +27,19 @@
 
             <Button
                 android:id="@+id/btnAgree"
-                style="@style/button_add_style"
+                style="@style/button_style_1"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
-                android:text="同意" />
+                android:text="同意"/>
 
             <Button
                 android:id="@+id/btnReject"
-                style="@style/button_delete_style"
+                style="@style/button_style_2"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
-                android:text="拒绝" />
+                android:text="拒绝"/>
         </LinearLayout>
 
         <LinearLayout
@@ -51,51 +51,39 @@
 
             <Button
                 android:id="@+id/btnCheck"
-                style="@style/button_add_style"
+                style="@style/button_style_1"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginLeft="@dimen/space_100"
-                android:layout_marginRight="@dimen/space_100"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
                 android:text="对比验收"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btnPlan"
-                style="@style/button_add_style"
+                style="@style/button_style_1"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginLeft="@dimen/space_100"
-                android:layout_marginRight="@dimen/space_100"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
                 android:text="查看方案"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btnContract"
-                style="@style/button_add_style"
+                style="@style/button_style_1"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginLeft="@dimen/space_100"
-                android:layout_marginRight="@dimen/space_100"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
                 android:text="查看合同"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btnConfirm"
-                style="@style/button_add_style"
+                style="@style/button_style_1"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginLeft="@dimen/space_100"
-                android:layout_marginRight="@dimen/space_100"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
                 android:text="确认"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </LinearLayout>
     </FrameLayout>
 
@@ -127,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/font_white"
-                    android:textSize="@dimen/text_size_12" />
+                    android:textSize="@dimen/text_size_12"/>
 
                 <TextView
                     android:id="@+id/cellText"
@@ -135,7 +123,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space_10"
                     android:textColor="@color/home_page_text_color"
-                    android:textSize="@dimen/text_size_16" />
+                    android:textSize="@dimen/text_size_16"/>
 
                 <TextView
                     android:id="@+id/sectionText"
@@ -143,7 +131,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space_10"
                     android:textColor="@color/blue_color"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
@@ -154,19 +142,19 @@
                 android:layout_marginBottom="@dimen/space_10"
                 android:layout_marginLeft="@dimen/space_20"
                 android:layout_marginTop="@dimen/space_10"
-                android:textColor="@color/home_page_text_color" />
+                android:textColor="@color/home_page_text_color"/>
 
             <View
                 android:id="@+id/top_line"
                 style="@style/divier_line"
-                android:layout_below="@id/dateText" />
+                android:layout_below="@id/dateText"/>
 
             <WebView
                 android:id="@+id/contentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/top_line"
-                android:layerType="software" />
+                android:layerType="software"/>
 
         </LinearLayout>
     </ScrollView>
