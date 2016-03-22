@@ -126,6 +126,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
+                setResult(RESULT_OK);
                 appManager.finishActivity(this);
                 break;
             case R.id.btnAgree:
@@ -401,6 +402,12 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
                         makeTextShort(error_msg);
                     }
                 }, this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        appManager.finishActivity(this);
     }
 
     @Override
