@@ -12,6 +12,9 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -33,10 +36,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -66,7 +65,6 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
     private String sectionName = null;//工序名称
     private SectionInfo sectionInfo = null;
 
-    private int uploadCount = 0;//要上传图片个数
     private int currentUploadCount = 0;//当前已上传图片个数
 
 

@@ -28,7 +28,7 @@ public class NoticeDetailInfo implements Serializable {
     private ProcessInfo process;
     private RequirementInfo requirement;
     private RescheduleInfo reschedule;
-    private PlandetailInfo plan;
+    private PlanInfo plan;
 
     public String get_id() {
         return _id;
@@ -174,11 +174,11 @@ public class NoticeDetailInfo implements Serializable {
         this.reschedule = reschedule;
     }
 
-    public PlandetailInfo getPlan() {
+    public PlanInfo getPlan() {
         return plan;
     }
 
-    public void setPlan(PlandetailInfo plan) {
+    public void setPlan(PlanInfo plan) {
         this.plan = plan;
     }
 

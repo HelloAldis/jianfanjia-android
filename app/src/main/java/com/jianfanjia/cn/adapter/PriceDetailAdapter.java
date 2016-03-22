@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.PriceDetail;
 
 import java.util.List;
@@ -26,13 +26,13 @@ import java.util.List;
  */
 public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
     private static final String TAG = PriceDetailAdapter.class.getName();
-    private PlandetailInfo detailInfo;
+    private PlanInfo detailInfo;
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_ITEM = 1;
     private int viewType = -1;
     private boolean isDetail = false;
 
-    public PriceDetailAdapter(Context context, List<PriceDetail> list, PlandetailInfo detailInfo) {
+    public PriceDetailAdapter(Context context, List<PriceDetail> list, PlanInfo detailInfo) {
         super(context, list);
         this.detailInfo = detailInfo;
     }

@@ -19,7 +19,7 @@ import com.jianfanjia.cn.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NoticeDetailInfo;
-import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
@@ -65,7 +65,7 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     private String requirementid = null;
     private String designerid = null;
     private ProcessInfo processInfo = null;
-    private PlandetailInfo planInfo = null;
+    private PlanInfo planInfo = null;
     private RequirementInfo requirement = null;
     private SectionInfo sectionInfo = null;
 
