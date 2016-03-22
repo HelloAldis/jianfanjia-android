@@ -17,7 +17,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.PreviewAdapter;
-import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
@@ -69,7 +69,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
 
     private Button btnDetail = null;
     private Button btn_choose = null;
-    private PlandetailInfo planDetailInfo = null;
+    private PlanInfo planDetailInfo = null;
     private String designerid = null;
     private String planid = null;
     private String requirementid = null;
@@ -106,7 +106,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     private void initIntent() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        planDetailInfo = (PlandetailInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
+        planDetailInfo = (PlanInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
         planid = planDetailInfo.get_id();
         itemPosition = planDetailInfo.getName();
         requirementInfo = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
@@ -279,7 +279,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         dialog.show();
     }
 
-    private void startToActivity(PlandetailInfo detailInfo) {
+    private void startToActivity(PlanInfo detailInfo) {
         Bundle priceBundle = new Bundle();
         priceBundle.putSerializable(Global.PLAN_DETAIL, detailInfo);
         startActivity(DetailPriceActivity.class, priceBundle);

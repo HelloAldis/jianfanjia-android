@@ -25,7 +25,7 @@ import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
-import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -145,9 +145,9 @@ public class CommentListActivity extends SwipeBackActivity {
         getMyCommentInfo(Constant.FROM_START, pullDownListener);
     }
 
-    private void startPlanInfoActivity(PlandetailInfo plandetailInfo, RequirementInfo requirementInfo) {
+    private void startPlanInfoActivity(PlanInfo planInfo, RequirementInfo requirementInfo) {
         Bundle planBundle = new Bundle();
-        planBundle.putSerializable(Global.PLAN_DETAIL, plandetailInfo);
+        planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
         planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG, PreviewDesignerPlanActivity.COMMENT_INTENT);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);

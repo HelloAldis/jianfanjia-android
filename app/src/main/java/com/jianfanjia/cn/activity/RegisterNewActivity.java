@@ -159,10 +159,11 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
                 appManager.finishActivity(this);
                 break;
             case BINDING_PHONE:
-                EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
                 if (getIntent().getExtras().getInt(Global.BINDING_PHONE_INTENT) == Global.BINDING_PHONE_REQUIREMENT)
                 {//发布需求就导向发布需求
                     startActivity(PublishRequirementActivity_.class);
+                } else {
+                    EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
                 }
                 appManager.finishActivity(this);
                 break;

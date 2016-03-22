@@ -27,7 +27,7 @@ public class OrderDesignerInfo implements Serializable {
     private int order_count;
     private RequirementInfo requirement;
     private boolean is_rec;
-    private PlandetailInfo plan;//设计师方案
+    private PlanInfo plan;//设计师方案
     private Evaluation evaluation;
     private int match;
 
@@ -71,11 +71,11 @@ public class OrderDesignerInfo implements Serializable {
         this.username = username;
     }
 
-    public PlandetailInfo getPlan() {
+    public PlanInfo getPlan() {
         return plan;
     }
 
-    public void setPlan(PlandetailInfo plan) {
+    public void setPlan(PlanInfo plan) {
         this.plan = plan;
     }
 

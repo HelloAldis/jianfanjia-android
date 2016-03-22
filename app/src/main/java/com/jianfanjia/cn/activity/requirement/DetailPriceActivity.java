@@ -14,7 +14,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.PlandetailInfo;
+import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.PriceDetail;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
@@ -32,13 +32,13 @@ public class DetailPriceActivity extends SwipeBackActivity implements OnClickLis
     private MainHeadView mainHeadView = null;
     private RecyclerView detail_price_listview = null;
     private PriceDetailAdapter adapter = null;
-    private PlandetailInfo detailInfo = null;
+    private PlanInfo detailInfo = null;
 
     @Override
     public void initView() {
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
-        detailInfo = (PlandetailInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        detailInfo = (PlanInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
         LogTool.d(TAG, "detailInfo =" + detailInfo);
         initMainHeadView();
         detail_price_listview = (RecyclerView) findViewById(R.id.detail_price_listview);

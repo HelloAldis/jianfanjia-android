@@ -50,7 +50,6 @@ public class MyDesignerActivity extends SwipeBackActivity {
     public static final int CONFIRM_MEASURE_HOUSE = 5;//确认已量房
     public static final int VIEW_DESIGNER = 6;//查看设计师
 
-    public static final int REQUESTCODE_FRESH_LIST = 1;
 
     @ViewById(R.id.act_my_designer_head)
     protected MainHeadView mainHeadView;

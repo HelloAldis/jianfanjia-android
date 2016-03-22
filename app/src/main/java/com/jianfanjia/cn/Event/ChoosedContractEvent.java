@@ -9,6 +9,5 @@ package com.jianfanjia.cn.Event;
 public class ChoosedContractEvent {
 
     public ChoosedContractEvent() {
-
     }
 }  
