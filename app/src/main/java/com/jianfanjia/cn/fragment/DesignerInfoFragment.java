@@ -145,7 +145,7 @@ public class DesignerInfoFragment extends CommonFragment implements ApiUiUpdateL
 
     @Override
     public void loadFailture(String error_msg) {
-        makeTextLong(error_msg);
+        makeTextShort(error_msg);
     }
 
     @Override

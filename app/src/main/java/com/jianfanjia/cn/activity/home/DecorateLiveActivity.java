@@ -1,20 +1,23 @@
 package com.jianfanjia.cn.activity.home;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
-import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
-import com.jianfanjia.cn.view.MainHeadView;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
+import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description: com.jianfanjia.cn.activity.home
@@ -56,7 +59,14 @@ public class DecorateLiveActivity extends SwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_create_process:
-                startActivity(PublishRequirementActivity_.class);
+                if (dataManager.getAccount() != null) {
+                    startActivity(PublishRequirementActivity_.class);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(Global.BINDING_PHONE_INTENT,Global.BINDING_PHONE_REQUIREMENT);
+                    startActivity(BindingPhoneActivity_.class,bundle);
+                    overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+                }
                 break;
         }
     }

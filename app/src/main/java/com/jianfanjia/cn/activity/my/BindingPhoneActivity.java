@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.RegisterNewActivity;
 import com.jianfanjia.cn.activity.RegisterNewActivity_;
@@ -17,11 +22,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
 
 /**
  * @author zhanghao
@@ -127,6 +127,8 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
                 Bundle registerBundle = new Bundle();
                 registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
                 registerBundle.putInt(Global.REGISTER, RegisterNewActivity.BINDING_PHONE);
+                registerBundle.putInt(Global.BINDING_PHONE_INTENT, getIntent().getExtras().getInt(Global
+                        .BINDING_PHONE_INTENT));
                 startActivity(RegisterNewActivity_.class, registerBundle);
                 appManager.finishActivity(BindingPhoneActivity.this);
             }

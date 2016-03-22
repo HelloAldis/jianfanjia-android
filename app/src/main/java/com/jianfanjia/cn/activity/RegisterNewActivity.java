@@ -11,7 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -19,12 +25,6 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -66,7 +66,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public void initAnnotationView() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
-        requsetCode = intent.getIntExtra(Global.REGISTER,0);
+        requsetCode = intent.getIntExtra(Global.REGISTER, 0);
         if (registerInfo != null) {
             mPhoneView.setText(registerInfo.getPhone());
         }
@@ -87,16 +87,16 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
             public void afterTextChanged(Editable s) {
                 LogTool.d(TAG, "register afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text)){
+                if (!TextUtils.isEmpty(text)) {
                     mBtnCommit.setEnabled(true);
-                }else{
+                } else {
                     mBtnCommit.setEnabled(false);
                 }
             }
         });
     }
 
-    @Click({R.id.head_back_layout,R.id.btn_commit})
+    @Click({R.id.head_back_layout, R.id.btn_commit})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_commit:
@@ -121,17 +121,17 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
      * @param registerInfo
      */
     private void register(RegisterInfo registerInfo) {
-            switch (requsetCode){
-                case REGISTER_CODE:
-                    JianFanJiaClient.register(this, registerInfo, this, this);
-                    break;
-                case UPDATE_PSW_CODE:
-                    JianFanJiaClient.update_psw(this,registerInfo,this,this);
-                    break;
-                case BINDING_PHONE:
-                    JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
-                    break;
-            }
+        switch (requsetCode) {
+            case REGISTER_CODE:
+                JianFanJiaClient.register(this, registerInfo, this, this);
+                break;
+            case UPDATE_PSW_CODE:
+                JianFanJiaClient.update_psw(this, registerInfo, this, this);
+                break;
+            case BINDING_PHONE:
+                JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
+                break;
+        }
     }
 
     private boolean checkInput(String verification) {
@@ -148,7 +148,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public void loadSuccess(Object data) {
         //登录成功，加载首页
         super.loadSuccess(data);
-        switch (requsetCode){
+        switch (requsetCode) {
             case REGISTER_CODE:
                 startActivity(NewUserCollectDecStageActivity_.class);
                 appManager.finishActivity(this);
@@ -160,6 +160,10 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
                 break;
             case BINDING_PHONE:
                 EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
+                if (getIntent().getExtras().getInt(Global.BINDING_PHONE_INTENT) == Global.BINDING_PHONE_REQUIREMENT)
+                {//发布需求就导向发布需求
+                    startActivity(PublishRequirementActivity_.class);
+                }
                 appManager.finishActivity(this);
                 break;
         }

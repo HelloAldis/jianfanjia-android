@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -45,13 +46,26 @@ public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
 
     /**
+     * 实现文本复制功能
+     * add by wangqianzhou
+     *
+     * @param content
+     */
+    public static void copy(String content, Context context) {
+        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+        showShortToast(context.getString(R.string.follow_weixin_success));
+    }
+
+    /**
      * 拿到未读消息个数
      *
      * @param context
      * @param apiUiUpdateListener
      * @param selectLists
      */
-    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag, String[]... selectLists) {
+    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag,
+                                             String[]... selectLists) {
         Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {

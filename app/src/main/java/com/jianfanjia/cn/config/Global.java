@@ -13,6 +13,10 @@ public class Global {
     public static final String REGISTER_INFO = "register_info";
     public static final String REGISTER = "register";
 
+    public static final String BINDING_PHONE_INTENT = "binding_phone_intent";
+    public static final int BINDING_PHONE_REQUIREMENT = 0;
+    public static final int BINDING_PHONE_USERINFO = 1;
+
     public static final String REQUIREMENT_INFO = "requirement_info";
     public static final String REQUIREMENT_ID = "requirement_id";
     public static final String REQUIREMENT_STATUS = "requirement_status";
