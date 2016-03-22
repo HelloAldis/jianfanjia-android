@@ -76,6 +76,30 @@
                 android:text="查看合同"
                 android:visibility="gone"/>
 
+            <LinearLayout
+                android:id="@+id/appointBtnLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btnRespond"
+                    style="@style/button_style_1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/space_10"
+                    android:layout_weight="1"
+                    android:text="响应"/>
+
+                <Button
+                    android:id="@+id/btnRefuse"
+                    style="@style/button_style_2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/space_10"
+                    android:layout_weight="1"
+                    android:text="拒绝"/>
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btnConfirm"
                 style="@style/button_style_1"
