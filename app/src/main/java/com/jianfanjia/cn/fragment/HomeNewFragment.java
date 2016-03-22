@@ -30,6 +30,7 @@ import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.activity.home.SearchActivity_;
 import com.jianfanjia.cn.activity.home.WebViewActivity_;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -245,7 +246,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
-                startActivity(PublishRequirementActivity_.class);
+                publish_requirement();
                 break;
             case R.id.ltm_home_layout1:
                 Bundle bundle = new Bundle();
@@ -269,6 +270,17 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 break;
             default:
                 break;
+        }
+    }
+
+    protected void publish_requirement() {
+        if (dataManager.getAccount() != null) {
+            startActivity(PublishRequirementActivity_.class);
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Global.BINDING_PHONE_INTENT,Global.BINDING_PHONE_REQUIREMENT);
+            startActivity(BindingPhoneActivity_.class, bundle);
+            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }
     }
 
