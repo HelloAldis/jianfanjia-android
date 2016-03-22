@@ -182,13 +182,13 @@
         <!-- 边框 -->
         <item name="android:windowIsFloating">true</item>
         <!-- 是否浮现在activity之上 -->
-        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowIsTranslucent">true</item>
         <!-- 半透明 -->
         <item name="android:windowNoTitle">true</item>
         <!-- 无标题 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 背景透明 -->
-        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
         <!-- 模糊 -->
     </style>
 
@@ -225,7 +225,7 @@
     <!-- ProgressBar  style -->
     <style name="myProgressBarStyleLarge">
         <item name="android:indeterminate">true</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>
+        <!--<item name="android:indeterminateDrawable">@drawable/progress_large_shape</item>-->
         <item name="android:indeterminateOnly">true</item>
     </style>
 

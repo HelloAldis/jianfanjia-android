@@ -4,10 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.designer.view.baseview.ViewWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jianfanjia.cn.designer.view.baseview.ViewWrapper;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class RecyclerViewAdapterBase<T, V extends View> extends RecyclerView.Adapter<ViewWrapper<V>> {
 
-    protected List<T> items = new ArrayList<T>();
+    protected List<T> items = new ArrayList<>();
 
     @Override
     public int getItemCount() {

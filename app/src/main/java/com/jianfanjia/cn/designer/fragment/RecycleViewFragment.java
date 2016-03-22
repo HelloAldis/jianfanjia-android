@@ -466,7 +466,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
                     new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight()));
         } else {
             emptyLayout.setVisibility(View.GONE);
-
         }
     }
 

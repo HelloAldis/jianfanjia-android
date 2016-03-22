@@ -15,6 +15,10 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
@@ -41,10 +45,6 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author fengliang
@@ -176,7 +176,8 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
                     @Override
                     public void onClick(View v) {
-                        finish();
+                        setResult(RESULT_OK);
+                        appManager.finishActivity(CheckActivity.this);
                     }
                 });
                 if (currentState == FINISH_STATUS) {
@@ -269,6 +270,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
+                setResult(RESULT_OK);
                 appManager.finishActivity(this);
                 break;
             case R.id.head_right_title:
