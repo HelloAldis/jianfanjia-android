@@ -11,12 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
@@ -33,7 +27,11 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-import de.greenrobot.event.EventBus;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author fengliang
@@ -66,7 +64,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
         typeArray = getArguments().getStringArray("TypeArray");
         LogTool.d(TAG, "typeArray=" + typeArray);
     }
@@ -86,7 +83,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         return view;
     }
 
-    public void initView() {
+    private void initView() {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_notice_data));
@@ -106,7 +103,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
             return;
         }
         getNoticeList(typeArray, pullDownListener);
-
     }
 
     @Override
@@ -235,13 +231,4 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         }
     };
 
-    public void onEventMainThread(MessageEvent event) {
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 }
