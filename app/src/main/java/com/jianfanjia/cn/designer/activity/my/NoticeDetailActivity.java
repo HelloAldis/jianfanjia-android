@@ -1,15 +1,19 @@
 package com.jianfanjia.cn.designer.activity.my;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
@@ -25,6 +29,8 @@ import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
+import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
 /**
  * Description:通知详情
@@ -42,11 +48,14 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private WebView contentView = null;
     private LinearLayout doubleBtnLayout = null;
     private LinearLayout singleBtnLayout = null;
+    private LinearLayout appointBtnLayout = null;
     private Button btnAgree = null;
     private Button btnReject = null;
     private Button btnCheck = null;
     private Button btnPlan = null;
     private Button btnContract = null;
+    private Button btnRefuse = null;
+    private Button btnRespond = null;
     private Button btnConfirm = null;
 
     private String messageid = null;
@@ -55,6 +64,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private ProcessInfo processInfo = null;
     private PlanInfo planInfo = null;
     private RequirementInfo requirement = null;
+
+    private CommonDialog refuseDialog = null;
+    private String refuseMsg = null;
+    private String phone = null;
 
     @Override
     public void initView() {
@@ -73,11 +86,14 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
         contentView.setWebChromeClient(new WebChromeClient());
         doubleBtnLayout = (LinearLayout) findViewById(R.id.doubleBtnLayout);
         singleBtnLayout = (LinearLayout) findViewById(R.id.singleBtnLayout);
+        appointBtnLayout = (LinearLayout) findViewById(R.id.appointBtnLayout);
         btnAgree = (Button) findViewById(R.id.btnAgree);
         btnReject = (Button) findViewById(R.id.btnReject);
         btnCheck = (Button) findViewById(R.id.btnCheck);
         btnPlan = (Button) findViewById(R.id.btnPlan);
         btnContract = (Button) findViewById(R.id.btnContract);
+        btnRefuse = (Button) findViewById(R.id.btnRefuse);
+        btnRespond = (Button) findViewById(R.id.btnRespond);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
         getNoticeDetailInfo(messageid);
     }
@@ -99,6 +115,8 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
         btnCheck.setOnClickListener(this);
         btnPlan.setOnClickListener(this);
         btnContract.setOnClickListener(this);
+        btnRefuse.setOnClickListener(this);
+        btnRespond.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +140,20 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
             case R.id.btnContract:
+                break;
+            case R.id.btnRefuse:
+                showRefuseDialog(requirement.get_id());
+                break;
+            case R.id.btnRespond:
+                Intent settingHouseTimeIntent = new Intent(NoticeDetailActivity.this
+                        , SettingMeasureDateActivity_.class);
+                Bundle settingHouseTimeBundle = new Bundle();
+                settingHouseTimeBundle.putString(Global.REQUIREMENT_ID, requirement.get_id());
+                settingHouseTimeBundle.putString(Global.PHONE, phone);
+                settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
+                startActivity(settingHouseTimeIntent);
+                overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+                responseRequirement(requirement.get_id(), 0);
                 break;
             case R.id.btnConfirm:
                 appManager.finishActivity(this);
@@ -201,6 +233,31 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
+                    } else if (msgType.equals(Constant.TYPE_USER_APPOINT_MSG)) {
+                        typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
+                        requirement = noticeDetailInfo.getRequirement();
+                        phone = noticeDetailInfo.getUser().getPhone();
+                        LogTool.d(TAG, "requirement==" + requirement + " phone=" + phone);
+                        typeText.setText(getResources().getString(R.string.req_str));
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        appointBtnLayout.setVisibility(View.VISIBLE);
+                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        sectionText.setVisibility(View.GONE);
+                        if (noticeDetailInfo.getPlan().getStatus().equals(Global.PLAN_STATUS0)) {
+                            btnRefuse.setEnabled(true);
+                            btnRespond.setEnabled(true);
+                        } else if (noticeDetailInfo.getPlan().getStatus().equals(Global.PLAN_STATUS1)) {
+                            btnRefuse.setEnabled(false);
+                            btnRespond.setVisibility(View.GONE);
+                            btnRefuse.setText(getResources().getString(R.string.reject_str));
+                        } else if (noticeDetailInfo.getPlan().getStatus().equals(Global.PLAN_STATUS2)) {
+                            btnRespond.setEnabled(false);
+                            btnRefuse.setVisibility(View.GONE);
+                            btnRespond.setText(getResources().getString(R.string.repond_str));
+                        } else {
+
+                        }
                     } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant
                             .TYPE_PLAN_NOT_CHOOSED_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
@@ -292,6 +349,92 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
             }
         }, this);
     }
+
+    private void showRefuseDialog(final String requirementid) {
+        refuseDialog = DialogHelper
+                .getPinterestDialogCancelable(NoticeDetailActivity.this);
+        refuseDialog.setTitle(getString(R.string.refuse_reason));
+        View contentView = LayoutInflater.from(NoticeDetailActivity.this).inflate(R.layout.dialog_refuse_requirement,
+                null);
+        RadioGroup radioGroup = (RadioGroup) contentView
+                .findViewById(R.id.refuse_radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (group.getCheckedRadioButtonId() == R.id.refuse_radio0) {
+                    refuseMsg = getString(R.string.refuse_msg0);
+                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio1) {
+                    refuseMsg = getString(R.string.refuse_msg1);
+                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio2) {
+                    refuseMsg = getString(R.string.refuse_msg2);
+                } else {
+                    refuseMsg = getString(R.string.refuse_msg3);
+                }
+            }
+        });
+        refuseDialog.setContent(contentView);
+        refuseDialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (refuseMsg != null) {
+                            refuseRequirement(requirementid, refuseMsg);
+                            dialog.dismiss();
+                        } else {
+                            makeTextShort(getString(R.string.tip_choose_refuse_reason));
+                        }
+                    }
+                });
+        refuseDialog.setNegativeButton(R.string.no, null);
+        refuseDialog.show();
+    }
+
+    private void refuseRequirement(String requirementid, String msg) {
+        JianFanJiaClient.refuseRequirement(NoticeDetailActivity.this, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+
+            public void loadSuccess(Object data) {
+                if (refuseDialog != null) {
+                    refuseDialog.dismiss();
+                }
+                btnRefuse.setEnabled(false);
+                btnRespond.setVisibility(View.GONE);
+                btnRefuse.setText(getResources().getString(R.string.reject_str));
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, requirementid, msg, this);
+    }
+
+    private void responseRequirement(String requirementid, long houseCheckTime) {
+        JianFanJiaClient.responseRequirement(NoticeDetailActivity.this, new ApiUiUpdateListener() {
+            @Override
+            public void preLoad() {
+
+            }
+
+            @Override
+            public void loadSuccess(Object data) {
+                btnRespond.setEnabled(false);
+                btnRefuse.setVisibility(View.GONE);
+                btnRespond.setText(getResources().getString(R.string.repond_str));
+            }
+
+            @Override
+            public void loadFailture(String error_msg) {
+                makeTextShort(error_msg);
+            }
+        }, requirementid, houseCheckTime, this);
+    }
+
 
     @Override
     public int getLayoutId() {

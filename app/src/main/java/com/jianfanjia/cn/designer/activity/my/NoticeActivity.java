@@ -28,16 +28,14 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
     private TabLayout tabLayout = null;
     private MyFragmentPagerAdapter adapter = null;
     private ViewPager mPager = null;
-    private int initPosition = 0;
 
     @Override
     public void initView() {
         initMainHeadView();
         tabLayout = (TabLayout) findViewById(R.id.tabLyout);
         mPager = (ViewPager) findViewById(R.id.viewpager);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(1);
         setupViewPager(mPager);
-        mPager.setCurrentItem(initPosition);
         tabLayout.setupWithViewPager(mPager);
     }
 
@@ -68,10 +66,14 @@ public class NoticeActivity extends BaseActivity implements View.OnClickListener
 
     private void setupViewPager(ViewPager viewPager) {
         List<SelectItem> listViews = new ArrayList<>();
-        SelectItem allItem = new SelectItem(NoticeFragment.newInstance(Constant.ALL), getResources().getString(R.string.all_notice));
-        SelectItem sysItem = new SelectItem(NoticeFragment.newInstance(Constant.SYSTEM), getResources().getString(R.string.system_notice));
-        SelectItem reqItem = new SelectItem(NoticeFragment.newInstance(Constant.REQUIRE), getResources().getString(R.string.req_notice));
-        SelectItem siteItem = new SelectItem(NoticeFragment.newInstance(Constant.SITE), getResources().getString(R.string.site_notice));
+        SelectItem allItem = new SelectItem(NoticeFragment.newInstance(Constant.ALL), getResources().getString(R
+                .string.all_notice));
+        SelectItem sysItem = new SelectItem(NoticeFragment.newInstance(Constant.SYSTEM), getResources().getString(R
+                .string.system_notice));
+        SelectItem reqItem = new SelectItem(NoticeFragment.newInstance(Constant.REQUIRE), getResources().getString(R
+                .string.req_notice));
+        SelectItem siteItem = new SelectItem(NoticeFragment.newInstance(Constant.SITE), getResources().getString(R
+                .string.site_notice));
         listViews.add(allItem);
         listViews.add(sysItem);
         listViews.add(reqItem);

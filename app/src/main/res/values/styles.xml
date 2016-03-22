@@ -64,6 +64,22 @@
     </style>
     <!--btn_selector_bg-->
 
+    <style name="button_style_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_40</item>
+        <item name="android:background">@drawable/btn_selector_bg</item>
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="button_style_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_40</item>
+        <item name="android:background">@drawable/btn_selector_bg_1</item>
+        <item name="android:textColor">@color/home_page_text_color</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="button_cancel_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/space_40</item>
@@ -256,9 +272,9 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">?attr/colorAccent</item>
@@ -285,7 +301,7 @@
         <item name="textAllCaps">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

@@ -29,6 +29,7 @@ public class NoticeDetailInfo implements Serializable {
     private RequirementInfo requirement;
     private RescheduleInfo reschedule;
     private PlanInfo plan;
+    private User user;
 
     public String get_id() {
         return _id;
@@ -188,5 +189,13 @@ public class NoticeDetailInfo implements Serializable {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

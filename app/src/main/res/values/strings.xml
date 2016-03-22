@@ -288,6 +288,7 @@
     <string name="req_str">需求</string>
     <string name="agree_str">已同意</string>
     <string name="reject_str">已拒绝</string>
+    <string name="repond_str">已响应</string>
     <string name="search_no_commnet">目前还没有留言</string>
     <string name="plan_list">方案列表</string>
     <string name="notify_owner_confirm_mesaure_house">提醒业主确认量房</string>
