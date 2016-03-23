@@ -12,9 +12,6 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -36,6 +33,10 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -98,7 +99,8 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
             flagIntent = bundle.getInt(CheckActivity.CHECK_INTENT_FLAG);
-            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId + " flagIntent:" + flagIntent);
+            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
+                    processInfoId + " flagIntent:" + flagIntent);
             sectionInfo = (SectionInfo) bundle.getSerializable(Constant.SECTION_INFO);
             LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
             mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
@@ -106,7 +108,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             checkGridList = getCheckedImageById(sectionInfo.getName());
             imageids = sectionInfo.getYs().getImages();
             currentUploadCount = imageids.size();
-            LogTool.d(TAG, "currentUploadCount =====" + currentUploadCount);
+            LogTool.d(TAG, "currentUploadCount=" + currentUploadCount);
             for (int i = 0; imageids != null && i < imageids.size(); i++) {
                 String key = imageids.get(i).getKey();
                 LogTool.d(TAG, "key=" + key);
