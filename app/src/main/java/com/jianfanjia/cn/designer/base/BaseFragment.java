@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,7 @@ import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
  * Date:15-10-11 15:42
  */
 public abstract class BaseFragment extends Fragment
-        implements OnClickListener{
+        implements OnClickListener {
     protected FragmentManager fragmentManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
@@ -54,7 +55,7 @@ public abstract class BaseFragment extends Fragment
                              Bundle savedInstanceState) {
         LogTool.d(this.getClass().getName(), "onCreateView");
         this.inflater = inflater;
-        if(getLayoutId() != -1){
+        if (getLayoutId() != -1) {
             view = inflateView(getLayoutId());
         }
         return view;
@@ -142,6 +143,41 @@ public abstract class BaseFragment extends Fragment
         }
         startActivity(intent);
     }
+
+    protected void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
+        startActivityForResult(this, cls, bundle, requestCode);
+    }
+
+    protected void startActivityForResult(Activity activity, Class<?> clazz, int requestCode) {
+        startActivityForResult(activity, clazz, null, requestCode);
+    }
+
+    protected void startActivityForResult(Activity activity, Class<?> clazz, Bundle bundle, int requestCode) {
+        if (requestCode < 0) {
+            throw new IllegalArgumentException("the requestCode must be biger than 0");
+        }
+        Intent intent = new Intent(activity.getApplicationContext(), clazz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    protected void startActivityForResult(Fragment fragment, Class<?> clazz, int requestCode) {
+        startActivityForResult(fragment, clazz, null, requestCode);
+    }
+
+    protected void startActivityForResult(Fragment fragment, Class<?> clazz, Bundle bundle, int requestCode) {
+        if (requestCode < 0) {
+            throw new IllegalArgumentException("the requestCode must be biger than 0");
+        }
+        Intent intent = new Intent(fragment.getContext(), clazz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
 
     protected void hideWaitDialog() {
         FragmentActivity activity = getActivity();

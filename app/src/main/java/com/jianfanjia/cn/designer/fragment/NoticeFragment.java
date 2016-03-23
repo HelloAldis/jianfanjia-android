@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.designer.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.designer.adapter.NoticeAdapter;
@@ -34,8 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.greenrobot.event.EventBus;
-
 /**
  * @author fengliang
  * @ClassName: NoticeFragment
@@ -44,6 +43,7 @@ import de.greenrobot.event.EventBus;
  */
 public class NoticeFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = NoticeFragment.class.getName();
+    private static final int REQUESTCODE_DETAIL = 1;
     private View view = null;
     private PullToRefreshRecycleView all_notice_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -51,8 +51,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private NoticeAdapter noticeAdapter = null;
     private List<NoticeInfo> noticeList = new ArrayList<>();
     private boolean isPrepared = false;
-    private boolean mHasLoadedOnce = false;
-    private boolean isFirst = true;
+    private boolean mHasLoadedOnce = true;
     private int FROM = 0;
     private String[] typeArray = null;
 
@@ -67,7 +66,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
         typeArray = getArguments().getStringArray("TypeArray");
         LogTool.d(TAG, "typeArray=" + typeArray);
     }
@@ -102,9 +100,10 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
 
     @Override
     protected void load() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
+        FROM = 0;
         getNoticeList(typeArray, pullDownListener);
     }
 
@@ -139,6 +138,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        mHasLoadedOnce = false;
         FROM = 0;
         getNoticeList(typeArray, pullDownListener);
     }
@@ -151,7 +151,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            if (isFirst) {
+            if (mHasLoadedOnce) {
                 showWaitDialog();
             }
         }
@@ -175,14 +175,14 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
                             LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
                             Bundle detailBundle = new Bundle();
                             detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
-                            startActivity(NoticeDetailActivity.class, detailBundle);
+                            startActivityForResult(NoticeDetailActivity.class, detailBundle,
+                                    REQUESTCODE_DETAIL);
                         }
                     });
                     all_notice_listview.setAdapter(noticeAdapter);
                     all_notice_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
-                    isFirst = false;
                 } else {
                     all_notice_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -234,13 +234,19 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         }
     };
 
-    public void onEventMainThread(MessageEvent event) {
-
-    }
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUESTCODE_DETAIL:
+                FROM = 0;
+                getNoticeList(typeArray, pullDownListener);
+                break;
+            default:
+                break;
+        }
     }
 }

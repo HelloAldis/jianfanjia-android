@@ -81,20 +81,14 @@ public class MainHeadView extends RelativeLayout {
     }
 
     public void setRightTitleVisable(int visibility) {
-        if (visibility != View.GONE || visibility != View.VISIBLE)
-            return;
         rigthTitle.setVisibility(visibility);
     }
 
     public void setBackLayoutVisable(int visibility) {
-        if (visibility != View.GONE && visibility != View.VISIBLE)
-            return;
         backLayout.setVisibility(visibility);
     }
 
     public void setDividerVisable(int visibility) {
-        if (visibility != View.GONE && visibility != View.VISIBLE)
-            return;
         divider.setVisibility(visibility);
     }
 
