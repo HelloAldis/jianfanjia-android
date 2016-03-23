@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
@@ -33,6 +34,8 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:通知详情
@@ -70,6 +73,12 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private CommonDialog refuseDialog = null;
     private String refuseMsg = null;
     private String phone = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void initView() {
@@ -439,9 +448,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void loadSuccess(Object data) {
-                btnRespond.setEnabled(false);
-                btnRefuse.setVisibility(View.GONE);
-                btnRespond.setText(getResources().getString(R.string.repond_str));
+                getNoticeDetailInfo(messageid);
             }
 
             @Override
@@ -451,10 +458,21 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
         }, requirementid, houseCheckTime, this);
     }
 
+    public void onEventMainThread(UpdateEvent event) {
+        LogTool.d(TAG, "UpdateEvent event");
+        getNoticeDetailInfo(messageid);
+    }
+
     @Override
     public void onBackPressed() {
         setResult(RESULT_OK);
         appManager.finishActivity(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
