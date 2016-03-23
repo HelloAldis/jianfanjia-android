@@ -41,6 +41,7 @@ import java.util.Map;
  */
 public class NoticeFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = NoticeFragment.class.getName();
+    private static final int REQUESTCODE_DETAIL = 1;
     private View view = null;
     private PullToRefreshRecycleView all_notice_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -48,8 +49,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private NoticeAdapter noticeAdapter = null;
     private List<NoticeInfo> noticeList = new ArrayList<>();
     private boolean isPrepared = false;
-    private boolean mHasLoadedOnce = false;
-    private boolean isFirst = true;
+    private boolean mHasLoadedOnce = true;
     private int FROM = 0;
     private String[] typeArray = null;
 
@@ -70,11 +70,11 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogTool.d(TAG, "=====onCreateView");
         if (null == view) {
             view = inflater.inflate(R.layout.fragment_all_notice, container, false);
             initView();
             isPrepared = true;
-            load();
         }
         ViewGroup parent = (ViewGroup) view.getParent();
         if (null != parent) {
@@ -99,9 +99,10 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
 
     @Override
     protected void load() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
+        FROM = 0;
         getNoticeList(typeArray, pullDownListener);
     }
 
@@ -122,6 +123,12 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        load();
+    }
+
     private void getNoticeList(String[] typeStr, ApiUiUpdateListener listener) {
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
@@ -136,6 +143,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+        mHasLoadedOnce = false;
         FROM = 0;
         getNoticeList(typeArray, pullDownListener);
     }
@@ -148,7 +156,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
         @Override
         public void preLoad() {
-            if (isFirst) {
+            if (mHasLoadedOnce) {
                 showWaitDialog();
             }
         }
@@ -179,7 +187,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
                     all_notice_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
-                    isFirst = false;
                 } else {
                     all_notice_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
