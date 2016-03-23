@@ -186,12 +186,6 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
         initData();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-
     protected void initRecycleView() {
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
@@ -472,6 +466,7 @@ public class RecycleViewFragment extends BaseAnnotationFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        LogTool.d(this.getClass().getName(),"onAttach");
         _context = context.getApplicationContext();
     }
 
