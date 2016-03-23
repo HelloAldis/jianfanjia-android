@@ -135,7 +135,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                setResult(RESULT_OK);
                 appManager.finishActivity(this);
                 break;
             case R.id.btnAgree:
@@ -461,12 +460,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     public void onEventMainThread(UpdateEvent event) {
         LogTool.d(TAG, "UpdateEvent event");
         getNoticeDetailInfo(messageid);
-    }
-
-    @Override
-    public void onBackPressed() {
-        setResult(RESULT_OK);
-        appManager.finishActivity(this);
     }
 
     @Override
