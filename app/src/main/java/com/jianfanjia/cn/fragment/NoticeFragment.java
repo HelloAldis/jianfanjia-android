@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,7 +75,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
             view = inflater.inflate(R.layout.fragment_all_notice, container, false);
             initView();
             isPrepared = true;
-            load();
         }
         ViewGroup parent = (ViewGroup) view.getParent();
         if (null != parent) {
@@ -124,6 +121,12 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        load();
     }
 
     private void getNoticeList(String[] typeStr, ApiUiUpdateListener listener) {
@@ -177,8 +180,7 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
                             LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
                             Bundle detailBundle = new Bundle();
                             detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
-                            startActivityForResult(NoticeDetailActivity.class, detailBundle,
-                                    REQUESTCODE_DETAIL);
+                            startActivity(NoticeDetailActivity.class, detailBundle);
                         }
                     });
                     all_notice_listview.setAdapter(noticeAdapter);
@@ -235,21 +237,5 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
             all_notice_listview.onRefreshComplete();
         }
     };
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        switch (requestCode) {
-            case REQUESTCODE_DETAIL:
-                FROM = 0;
-                getNoticeList(typeArray, pullDownListener);
-                break;
-            default:
-                break;
-        }
-    }
 
 }
