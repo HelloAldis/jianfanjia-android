@@ -61,9 +61,9 @@
 
     <application
         android:name="com.jianfanjia.cn.application.MyApplication"
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:persistent="true"
         android:theme="@style/AppTheme">
 
         <!-- 友盟配置 -->
@@ -112,7 +112,7 @@
             android:process=":pushservice"/>
 
         <receiver android:name="com.igexin.sdk.PushReceiver">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
                 <action android:name="android.intent.action.USER_PRESENT"/>
