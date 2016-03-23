@@ -185,7 +185,6 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
                     all_notice_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
-
                 } else {
                     all_notice_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -252,4 +251,5 @@ public class NoticeFragment extends CommonFragment implements PullToRefreshBase.
                 break;
         }
     }
+
 }
