@@ -118,6 +118,7 @@
     <string name="confirm_done">确认验收</string>
     <string name="confirm_not_finish">工序未完工，您还不能提醒业主验收</string>
     <string name="confirm_finish">已确认验收</string>
+    <string name="checkRequire">查看需求</string>
 
     <!-- activity_upload_pic -->
     <string name="upload_pic">现场照片</string>

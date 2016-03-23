@@ -12,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.NoticeDetailInfo;
@@ -31,6 +34,8 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:通知详情
@@ -70,6 +75,12 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private String phone = null;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
@@ -99,12 +110,13 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.
-                my_notice_detail_head_layout);
+        mainHeadView = (MainHeadView) findViewById(R.id.my_notice_detail_head_layout);
         mainHeadView.setBackListener(this);
+        mainHeadView.setRightTextListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_notice_detail));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setDividerVisable(View.VISIBLE);
+        mainHeadView.setRightTitle(getResources().getString(R.string.checkRequire));
+        mainHeadView.setRightTitleVisable(View.GONE);
     }
 
     @Override
@@ -157,6 +169,17 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.btnConfirm:
                 appManager.finishActivity(this);
+                break;
+            case R.id.head_right_title:
+                Intent gotoPriviewRequirement = null;
+                if (requirement.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
+                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewBusinessRequirementActivity_
+                            .class);
+                } else {
+                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewRequirementActivity_.class);
+                }
+                gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirement);
+                startActivity(gotoPriviewRequirement);
                 break;
             default:
                 break;
@@ -242,6 +265,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         appointBtnLayout.setVisibility(View.VISIBLE);
+                        mainHeadView.setRightTitleVisable(View.VISIBLE);
                         cellText.setText(noticeDetailInfo.getRequirement().getCell());
                         sectionText.setVisibility(View.GONE);
                         if (noticeDetailInfo.getPlan().getStatus().equals(Global.PLAN_STATUS0)) {
@@ -423,9 +447,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void loadSuccess(Object data) {
-                btnRespond.setEnabled(false);
-                btnRefuse.setVisibility(View.GONE);
-                btnRespond.setText(getResources().getString(R.string.repond_str));
+                getNoticeDetailInfo(messageid);
             }
 
             @Override
@@ -435,6 +457,16 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
         }, requirementid, houseCheckTime, this);
     }
 
+    public void onEventMainThread(UpdateEvent event) {
+        LogTool.d(TAG, "UpdateEvent event");
+        getNoticeDetailInfo(messageid);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public int getLayoutId() {
