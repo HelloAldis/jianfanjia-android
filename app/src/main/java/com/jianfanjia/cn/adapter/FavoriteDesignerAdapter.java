@@ -17,6 +17,9 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: FavoriteDesignerAdapter
  * User: fengliang
@@ -36,14 +39,16 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<DesignerInf
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<DesignerInfo> list) {
         DesignerInfo designerInfo = list.get(position);
         final FavoriteDesignerViewHolder holder = (FavoriteDesignerViewHolder) viewHolder;
-        holder.ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R.string.designer) : designerInfo.getUsername());
+        holder.ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources()
+                .getString(R.string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.ltm_myfavdesi_head);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.ltm_myfavdesi_head);
         }
-        holder.ltm_myfavdesi_score.setRating((int) (designerInfo.getRespond_speed() + designerInfo.getService_attitude()) / 2);
+        holder.ltm_myfavdesi_score.setRating((int) (designerInfo.getRespond_speed() + designerInfo
+                .getService_attitude()) / 2);
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             holder.authView.setVisibility(View.VISIBLE);
         } else {
@@ -73,21 +78,18 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<DesignerInf
 
 
     private static class FavoriteDesignerViewHolder extends RecyclerViewHolderBase {
-        public TextView ltm_myfavdesi_name;
-        public ImageView ltm_myfavdesi_head;
-        public RatingBar ltm_myfavdesi_score;
-        public ImageView authView;
+        @Bind(R.id.ltm_myfavdesi_name)
+        TextView ltm_myfavdesi_name;
+        @Bind(R.id.ltm_myfavdesi_head)
+        ImageView ltm_myfavdesi_head;
+        @Bind(R.id.ltm_myfavdesi_score)
+        RatingBar ltm_myfavdesi_score;
+        @Bind(R.id.designerinfo_auth)
+        ImageView authView;
 
         public FavoriteDesignerViewHolder(View itemView) {
             super(itemView);
-            ltm_myfavdesi_name = (TextView) itemView
-                    .findViewById(R.id.ltm_myfavdesi_name);
-            ltm_myfavdesi_head = (ImageView) itemView
-                    .findViewById(R.id.ltm_myfavdesi_head);
-            ltm_myfavdesi_score = (RatingBar) itemView
-                    .findViewById(R.id.ltm_myfavdesi_score);
-            authView = (ImageView) itemView
-                    .findViewById(R.id.designerinfo_auth);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
