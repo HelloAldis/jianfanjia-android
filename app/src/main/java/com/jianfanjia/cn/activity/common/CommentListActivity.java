@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;

@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.List;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
@@ -17,14 +15,15 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment;
-import com.jianfanjia.cn.fragment.HomeNewFragment_;
 import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
+
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -194,7 +193,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (homeFragment != null) {
                     transaction.show(homeFragment);
                 } else {
-                    homeFragment = HomeNewFragment_.builder().build();
+                    homeFragment = HomeNewFragment.builder().build();
                     transaction.add(R.id.tablayout, homeFragment);
                 }
                 break;
@@ -210,7 +209,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (xuqiuFragment != null) {
                     transaction.show(xuqiuFragment);
                 } else {
-                    xuqiuFragment = XuQiuFragment_.builder().build();
+                    xuqiuFragment = XuQiuFragment.builder().build();
                     transaction.add(R.id.tablayout, xuqiuFragment);
                 }
                 break;
