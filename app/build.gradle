@@ -87,16 +87,16 @@ android {
     productFlavors {
         Default {
         }
-       zhushou_360 {
-        }
-        mi {
-        }
-        baidu {
-        }
-        yingyongbao {
-        }
-        huawei {
-        }
+//       zhushou_360 {
+//        }
+//        mi {
+//        }
+//        baidu {
+//        }
+//        yingyongbao {
+//        }
+//        huawei {
+//        }
     }
 
     productFlavors.all { flavor ->
@@ -123,7 +123,7 @@ android {
 //                if(variant.buildType.name.equals('andtest')){
 //                    output.outputFile = new File(testApkPath, fileName)
 //                }
-               if (variant.buildType.name.equals('debug')) {
+                if (variant.buildType.name.equals('debug')) {
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
             }
