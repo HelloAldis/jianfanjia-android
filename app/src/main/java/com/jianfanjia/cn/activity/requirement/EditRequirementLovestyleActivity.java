@@ -1,9 +1,13 @@
 package com.jianfanjia.cn.activity.requirement;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemLoveStyleAdapter;
@@ -11,45 +15,44 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.ViewById;
-
 /**
  * Description: com.jianfanjia.cn.activity
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-@EActivity(R.layout.activity_edit_req_lovestyle)
 public class EditRequirementLovestyleActivity extends SwipeBackActivity {
 
     //用来记录是展示那个列表
     private int requestCode;
 
-    @ViewById(R.id.act_edit_req_lovestyle_gridview)
+    @Bind(R.id.act_edit_req_lovestyle_gridview)
     GridView gridView;
 
-    @ViewById(R.id.act_edit_req_lovastyle_head)
+    @Bind(R.id.act_edit_req_lovastyle_head)
     MainHeadView mainHeadView;
 
-    @Bean
     RequirementItemLoveStyleAdapter requirementItemLoveStyleAdapter;
 
-    @AfterViews
-    void setView(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initView();
+    }
+
+    public void initView() {
         mainHeadView.setMianTitle(getString(R.string.style));
         Intent data = getIntent();
         requestCode = data.getIntExtra(Global.REQUIRE_DATA, 0);
 
+        requirementItemLoveStyleAdapter = new RequirementItemLoveStyleAdapter(this);
         gridView.setAdapter(requirementItemLoveStyleAdapter);
         requirementItemLoveStyleAdapter.changeShow(requestCode);
     }
 
-    @ItemClick(R.id.act_edit_req_lovestyle_gridview)
+
+    @OnItemClick(R.id.act_edit_req_lovestyle_gridview)
     void personListItemClicked(ReqItemFinderImp.ItemMap itemMap) {
         Intent data = new Intent(this, UpdateRequirementActivity_.class);
         data.putExtra(Global.RESPONSE_DATA, itemMap);
@@ -57,7 +60,7 @@ public class EditRequirementLovestyleActivity extends SwipeBackActivity {
         appManager.finishActivity(this);
     }
 
-    @Click({R.id.head_back_layout})
+    @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {
         int resId = clickView.getId();
         switch (resId) {
@@ -67,4 +70,8 @@ public class EditRequirementLovestyleActivity extends SwipeBackActivity {
         }
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_edit_req_lovestyle;
+    }
 }

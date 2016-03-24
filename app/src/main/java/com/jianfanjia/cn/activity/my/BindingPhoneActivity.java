@@ -8,11 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.RegisterNewActivity;
 import com.jianfanjia.cn.activity.RegisterNewActivity_;
@@ -29,19 +26,24 @@ import com.jianfanjia.cn.tools.LogTool;
  * @Description: 绑定手机号
  * @date 2015-10-27 下午12:11:23
  */
-@EActivity(R.layout.activity_binding_phone)
 public class BindingPhoneActivity extends SwipeBackActivity implements
         ApiUiUpdateListener {
     private static final String TAG = BindingPhoneActivity.class.getName();
-    @ViewById(R.id.act_binding_input_phone)
+    @Bind(R.id.act_binding_input_phone)
     EditText mEtPhone;// 用户名输入框
-    @ViewById(R.id.btn_commit)
+    @Bind(R.id.btn_commit)
     Button mBtnCommit;
 
     private String phone = null;// 密码
 
-    @AfterViews
-    public void initAnnotationView() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initView();
+    }
+
+    public void initView() {
         mBtnCommit.setEnabled(false);
 
         mEtPhone.addTextChangedListener(new TextWatcher() {
@@ -68,7 +70,7 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
         });
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_commit})
+    @OnClick({R.id.head_back_layout, R.id.btn_commit})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_commit:
@@ -138,5 +140,10 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
                 makeTextLong(error_msg);
             }
         }, this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_binding_phone;
     }
 }

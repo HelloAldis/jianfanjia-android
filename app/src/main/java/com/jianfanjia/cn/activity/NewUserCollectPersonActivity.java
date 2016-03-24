@@ -8,22 +8,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.adapter.CollectPersonViewPageAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -31,19 +27,18 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-14 11:08
  */
-@EActivity(R.layout.activity_register_collect_req)
-public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
+public class NewUserCollectPersonActivity extends BaseActivity {
 
-    @ViewById(R.id.viewPager)
+    @Bind(R.id.viewPager)
     ViewPager loveStyleViewPager;
 
-    @ViewById(R.id.act_reg_collect_content)
+    @Bind(R.id.act_reg_collect_content)
     TextView contentView;
 
-    @ViewById(R.id.act_reg_collect_title)
+    @Bind(R.id.act_reg_collect_title)
     TextView titleView;
 
-    @ViewById(R.id.btn_next)
+    @Bind(R.id.btn_next)
     Button buttonNext;
 
     List<String> personList = new ArrayList<>();
@@ -57,7 +52,6 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
     int lastSelectorPos = -1;
     int currentSelcetorPos = -1;
 
-    @StringArrayRes(R.array.arr_person)
     protected String[] persons;
 
     protected int[] personImageIds = new int[]{
@@ -71,12 +65,15 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        initView();
     }
 
-    @AfterViews
-    protected void initAnnotationView() {
+    public void initView() {
+        persons = getResources().getStringArray(R.array.arr_person);
+
         Intent intent = getIntent();
-        ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
+        ownerInfo = (OwnerInfo) intent.getSerializableExtra(Global.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_person_title));
         contentView.setText(getString(R.string.collect_person_content));
@@ -84,12 +81,14 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
         buttonNext.setEnabled(false);
 
         for (int imageid : personImageIds) {
-            CollectPersonViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = new CollectPersonViewPageAdapter.LoveStyleItemInfo();
+            CollectPersonViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = new CollectPersonViewPageAdapter
+                    .LoveStyleItemInfo();
             loveStyleItemInfo.setResId(imageid);
             loveStyleItemInfoList.add(loveStyleItemInfo);
         }
 
-        collectPersonViewPageAdapter = new CollectPersonViewPageAdapter(this, loveStyleItemInfoList, new OnItemClickListener() {
+        collectPersonViewPageAdapter = new CollectPersonViewPageAdapter(this, loveStyleItemInfoList, new
+                OnItemClickListener() {
             @Override
             public void OnItemClick(int position) {
                 currentSelcetorPos = position;
@@ -101,19 +100,19 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
                         personList.remove(persons[lastSelectorPos]);
                         buttonNext.setEnabled(true);
                         personList.add(persons[position]);
-                        contentView.setText(personList.toString().substring(1,personList.toString().length()-1));
+                        contentView.setText(personList.toString().substring(1, personList.toString().length() - 1));
                         contentView.setTextColor(getResources().getColor(R.color.orange_color));
 
                         lastSelectorPos = currentSelcetorPos;
                     } else {
                         //现在选择的是同一项，取消选中
-                            loveStyleItemInfo.setIsSelector(false);
-                            buttonNext.setEnabled(false);
-                            contentView.setText(getString(R.string.collect_person_content));
-                            personList.remove(persons[position]);
-                            contentView.setTextColor(getResources().getColor(R.color.light_black_color));
+                        loveStyleItemInfo.setIsSelector(false);
+                        buttonNext.setEnabled(false);
+                        contentView.setText(getString(R.string.collect_person_content));
+                        personList.remove(persons[position]);
+                        contentView.setTextColor(getResources().getColor(R.color.light_black_color));
 
-                            currentSelcetorPos = lastSelectorPos = -1;
+                        currentSelcetorPos = lastSelectorPos = -1;
                     }
                 } else {//还没有选择任何项
                     loveStyleItemInfo.setIsSelector(true);
@@ -129,7 +128,7 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
         loveStyleViewPager.setAdapter(collectPersonViewPageAdapter);
     }
 
-    @Click({R.id.head_back_layout,R.id.btn_next})
+    @OnClick({R.id.head_back_layout, R.id.btn_next})
     protected void back(View view) {
         switch (view.getId()) {
             case R.id.btn_next:
@@ -143,8 +142,8 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
         }
     }
 
-    protected void postCollectOwnerInfo(){
-        if(ownerInfo == null){
+    protected void postCollectOwnerInfo() {
+        if (ownerInfo == null) {
             ownerInfo = new OwnerInfo();
         }
         ownerInfo.setFamily_description(persons[currentSelcetorPos]);
@@ -166,8 +165,11 @@ public class NewUserCollectPersonActivity extends BaseAnnotationActivity {
                 hideWaitDialog();
                 makeTextShort(error_msg);
             }
-        },this);
+        }, this);
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_register_collect_req;
+    }
 }

@@ -17,6 +17,9 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DesignerListAdapter
  * User: fengliang
@@ -84,39 +87,30 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
     }
 
     private static class DesignerListViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemHeadView;
-        public TextView itemNameText;
-        public ImageView itemIdentityView;
-        public ImageView itemAuthView;
-        public RatingBar itemRatingBar;
-        public TextView itemDecTypeText;
-        public TextView itemDecStyleText;
-        public TextView itemProductCountText;
-        public TextView itemAppointCountText;
-        public TextView itemDecFeeText;
+        @Bind(R.id.ltm_req_owner_head)
+        ImageView itemHeadView;
+        @Bind(R.id.ltm_req_username)
+        TextView itemNameText;
+        @Bind(R.id.ltm_identity_auth)
+        ImageView itemIdentityView;
+        @Bind(R.id.ltm_info_auth)
+        ImageView itemAuthView;
+        @Bind(R.id.ratingBar)
+        RatingBar itemRatingBar;
+        @Bind(R.id.ltm_decoratehousetype_cont)
+        TextView itemDecTypeText;
+        @Bind(R.id.ltm_good_at_style_cont)
+        TextView itemDecStyleText;
+        @Bind(R.id.product_sum)
+        TextView itemProductCountText;
+        @Bind(R.id.appoint_sum)
+        TextView itemAppointCountText;
+        @Bind(R.id.designer_fee)
+        TextView itemDecFeeText;
 
         public DesignerListViewHolder(View itemView) {
             super(itemView);
-            itemHeadView = (ImageView) itemView
-                    .findViewById(R.id.ltm_req_owner_head);
-            itemNameText = (TextView) itemView
-                    .findViewById(R.id.ltm_req_username);
-            itemIdentityView = (ImageView) itemView
-                    .findViewById(R.id.ltm_identity_auth);
-            itemAuthView = (ImageView) itemView
-                    .findViewById(R.id.ltm_info_auth);
-            itemRatingBar = (RatingBar) itemView
-                    .findViewById(R.id.ratingBar);
-            itemDecTypeText = (TextView) itemView
-                    .findViewById(R.id.ltm_decoratehousetype_cont);
-            itemDecStyleText = (TextView) itemView
-                    .findViewById(R.id.ltm_good_at_style_cont);
-            itemProductCountText = (TextView) itemView
-                    .findViewById(R.id.product_sum);
-            itemAppointCountText = (TextView) itemView
-                    .findViewById(R.id.appoint_sum);
-            itemDecFeeText = (TextView) itemView
-                    .findViewById(R.id.designer_fee);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

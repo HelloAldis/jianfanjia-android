@@ -9,11 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -38,6 +33,15 @@ import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -46,23 +50,40 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends SwipeBackActivity implements View.OnClickListener, ViewPager
+public class PreviewDecorationActivity extends SwipeBackActivity implements ViewPager
         .OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
+
+    @Bind(R.id.showpicPager)
+    PullToRefreshViewPager mPullToRefreshViewPager;
+
+    @Bind(R.id.pic_tip)
+    TextView picTip;
+
+    @Bind(R.id.toolbar_collect)
+    ImageView toolbarCollect;
+
+    @Bind(R.id.toolbar_collect_layout)
+    RelativeLayout toolbarCollectLayout;
+
+    @Bind(R.id.toolbar_share)
+    ImageView toolbarShare;
+
+    @Bind(R.id.toolbar_share_layout)
+    RelativeLayout toolbarShareLayout;
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    @Bind(R.id.btn_download)
+    ImageView btnDownload;
+
+    @Bind(R.id.btn_download_layout)
+    RelativeLayout btnDownloadLayout;
+
     private ShareUtil shareUtil = null;
-    private Toolbar toolbar = null;
-    private ImageView toolbar_collect = null;
-    private ImageView toolbar_share = null;
-    private ImageView btn_download = null;
-    private RelativeLayout toolbar_collectLayout = null;
-    private RelativeLayout toolbar_shareLayout = null;
-    private RelativeLayout btn_downloadLayout = null;
     private boolean isFirst = true;
-    private PullToRefreshViewPager mPullToRefreshViewPager = null;
     private ViewPager imgViewPager = null;
-    private TextView pic_tip = null;
-    private TextView pic_title = null;
-    private TextView pic_des = null;
     private String decorationId = null;
     private List<BeautyImgInfo> beautiful_images = new ArrayList<>();
     private PreImgPagerAdapter showPicPagerAdapter = null;
@@ -80,31 +101,26 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private int FROM = 0;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
+        initView();
+        getDataFromIntent(getIntent());
+        initData();
+    }
+
     public void initView() {
-        initData(getIntent());
         shareUtil = new ShareUtil(this);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
-        toolbar_share = (ImageView) findViewById(R.id.toolbar_share);
-        btn_download = (ImageView) findViewById(R.id.btn_download);
-        toolbar_collectLayout = (RelativeLayout) findViewById(R.id.toolbar_collect_layout);
-        toolbar_shareLayout = (RelativeLayout) findViewById(R.id.toolbar_share_layout);
-        btn_downloadLayout = (RelativeLayout) findViewById(R.id.btn_download_layout);
         toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mPullToRefreshViewPager = (PullToRefreshViewPager) findViewById(R.id.showpicPager);
         imgViewPager = mPullToRefreshViewPager.getRefreshableView();
-        pic_tip = (TextView) findViewById(R.id.pic_tip);
-        pic_title = (TextView) findViewById(R.id.pic_title);
-        pic_des = (TextView) findViewById(R.id.pic_des);
-        btn_downloadLayout.setVisibility(View.VISIBLE);
-        toolbar_collectLayout.setVisibility(View.VISIBLE);
-        toolbar_shareLayout.setVisibility(View.VISIBLE);
-        initViewPager(beautiful_images);
+        btnDownloadLayout.setVisibility(View.VISIBLE);
+        toolbarCollectLayout.setVisibility(View.VISIBLE);
+        toolbarShareLayout.setVisibility(View.VISIBLE);
     }
 
-    private void initData(Intent intent) {
+    private void getDataFromIntent(Intent intent) {
         Bundle decorationBundle = intent.getExtras();
         viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
         LogTool.d(TAG, "viewType==" + viewType);
@@ -124,14 +140,14 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         LogTool.d(TAG, "FROM:" + FROM);
     }
 
-    private void initViewPager(List<BeautyImgInfo> beautyImagesList) {
-        showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautyImagesList, new
+    private void initData() {
+        showPicPagerAdapter = new PreImgPagerAdapter(PreviewDecorationActivity.this, beautiful_images, new
                 ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                appManager.finishActivity(PreviewDecorationActivity.this);
-            }
-        });
+                    @Override
+                    public void onClickItem(int pos) {
+                        appManager.finishActivity(PreviewDecorationActivity.this);
+                    }
+                });
         imgViewPager.setAdapter(showPicPagerAdapter);
         imgViewPager.setCurrentItem(currentPosition);
         setPreviewImgInfo(currentPosition);
@@ -145,30 +161,27 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
                 appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
-        toolbar_shareLayout.setOnClickListener(this);
-        toolbar_collectLayout.setOnClickListener(this);
-        btn_downloadLayout.setOnClickListener(this);
         mPullToRefreshViewPager.setOnRefreshListener(this);
         imgViewPager.setOnPageChangeListener(this);
     }
 
-    @Override
+    @OnClick({R.id.toolbar_collect_layout, R.id.toolbar_share_layout, R.id.btn_download_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.toolbar_collect_layout:
-                UiHelper.imageButtonAnim(toolbar_collect, null);
-                if (toolbar_collect.isSelected()) {
+                UiHelper.imageButtonAnim(toolbarCollect, null);
+                if (toolbarCollect.isSelected()) {
                     deleteDecorationImg(decorationId);
                 } else {
                     addDecorationImgInfo(decorationId);
                 }
                 break;
             case R.id.toolbar_share_layout:
-                UiHelper.imageButtonAnim(toolbar_share, null);
+                UiHelper.imageButtonAnim(toolbarShare, null);
                 showPopwindow();
                 break;
             case R.id.btn_download_layout:
-                UiHelper.imageButtonAnim(btn_download, null);
+                UiHelper.imageButtonAnim(btnDownload, null);
                 downloadImg();
                 break;
             default:
@@ -269,7 +282,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             makeTextShort(getString(R.string.str_collect_success));
-            toolbar_collect.setSelected(true);
+            toolbarCollect.setSelected(true);
             notifyChangeState(true);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
         }
@@ -289,7 +302,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
-            toolbar_collect.setSelected(false);
+            toolbarCollect.setSelected(false);
             notifyChangeState(false);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
@@ -328,7 +341,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
 
     private void setPreviewImgInfo(int position) {
         LogTool.d(TAG, "position===" + position);
-        pic_tip.setText((position + 1) + "/" + totalCount);
+        picTip.setText((position + 1) + "/" + totalCount);
         BeautyImgInfo beautyImgInfo = beautiful_images.get(position);
         currentImgId = beautyImgInfo.getImages().get(0).getImageid();
         LogTool.d(TAG, "  currentImgId=" + currentImgId);
@@ -338,9 +351,9 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         LogTool.d(TAG, "picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
         decorationId = beautyImgInfo.get_id();
         if (beautyImgInfo.is_my_favorite()) {
-            toolbar_collect.setSelected(true);
+            toolbarCollect.setSelected(true);
         } else {
-            toolbar_collect.setSelected(false);
+            toolbarCollect.setSelected(false);
         }
     }
 
@@ -385,7 +398,15 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_preview_decoration;
     }
+
+
 }

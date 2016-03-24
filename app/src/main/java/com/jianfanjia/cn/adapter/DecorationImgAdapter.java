@@ -16,6 +16,9 @@ import com.jianfanjia.cn.tools.TDevice;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DecorationImgAdapter
  * User: fengliang
@@ -75,15 +78,14 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
     }
 
     private static class DecorationViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemDecorateView;
-        public ImageView itemNoDecorateView;
+        @Bind(R.id.list_item_decorate_img)
+        ImageView itemDecorateView;
+        @Bind(R.id.list_item_no_decorate_img)
+        ImageView itemNoDecorateView;
 
         public DecorationViewHolder(View itemView) {
             super(itemView);
-            itemDecorateView = (ImageView) itemView
-                    .findViewById(R.id.list_item_decorate_img);
-            itemNoDecorateView = (ImageView) itemView
-                    .findViewById(R.id.list_item_no_decorate_img);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

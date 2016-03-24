@@ -8,21 +8,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.adapter.CollectLoveStyleViewPageAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -30,20 +26,21 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-14 11:08
  */
-@EActivity(R.layout.activity_register_collect_req)
-public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
+public class NewUserCollectLoveStyleActivity extends BaseActivity {
 
-    @ViewById(R.id.viewPager)
+    @Bind(R.id.viewPager)
     ViewPager loveStyleViewPager;
 
-    @ViewById(R.id.act_reg_collect_content)
+    @Bind(R.id.act_reg_collect_content)
     TextView contentView;
 
-    @ViewById(R.id.act_reg_collect_title)
+    @Bind(R.id.act_reg_collect_title)
     TextView titleView;
 
-    @ViewById(R.id.btn_next)
+    @Bind(R.id.btn_next)
     Button buttonNext;
+
+    protected String[] decstyles;
 
     OwnerInfo ownerInfo;
 
@@ -54,9 +51,6 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
     ArrayList<String> lovestyleList = new ArrayList<>();
 
     ArrayList<String> lovestyleNumber = new ArrayList<>();
-
-    @StringArrayRes(R.array.arr_decstyle)
-    protected String[] decstyles;
 
     protected int[] loveStyleImageIds = new int[]{
             R.mipmap.img_oushi, R.mipmap.img_zhongshi, R.mipmap.img_xiandai,
@@ -70,10 +64,13 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        initView();
     }
 
-    @AfterViews
-    protected void initAnnotationView() {
+    public void initView() {
+        decstyles = getResources().getStringArray(R.array.arr_decstyle);
+
         Intent intent = getIntent();
         ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
 
@@ -125,7 +122,7 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
         }
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_next})
+    @OnClick({R.id.head_back_layout, R.id.btn_next})
     protected void back(View view) {
         switch (view.getId()) {
             case R.id.btn_next:
@@ -147,5 +144,8 @@ public class NewUserCollectLoveStyleActivity extends BaseAnnotationActivity {
         startActivity(NewUserCollectPersonActivity_.class, ownerBundle);
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_register_collect_req;
+    }
 }

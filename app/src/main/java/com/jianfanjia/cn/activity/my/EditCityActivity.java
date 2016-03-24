@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.activity.my;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
@@ -18,21 +24,12 @@ import com.jianfanjia.cn.tools.CityFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.List;
-import java.util.Map;
-
 /**
  * Description: com.jianfanjia.cn.activity
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-11-09 13:06
  */
-@EActivity(R.layout.activity_cityedit)
 public class EditCityActivity extends SwipeBackActivity {
 
     private static final String TAG = "EditCityActivity";
@@ -40,19 +37,19 @@ public class EditCityActivity extends SwipeBackActivity {
     public static final int EDIT_USER_ADRESS = 0;
     public static final int EDIT_REQUIREMENT_ADRESS = 1;
 
-    @ViewById(R.id.spinner_pro)
+    @Bind(R.id.spinner_pro)
     Spinner spinner_pro;
 
-    @ViewById(R.id.spinner_city)
+    @Bind(R.id.spinner_city)
     Spinner spinner_city;
 
-    @ViewById(R.id.spinner_district)
+    @Bind(R.id.spinner_district)
     Spinner spinner_district;
 
-    @ViewById(R.id.btn_confirm)
+    @Bind(R.id.btn_confirm)
     Button btn_confirm;
 
-    @ViewById(R.id.cityedit_head_layout)
+    @Bind(R.id.cityedit_head_layout)
     MainHeadView mainHeadView;
 
     ArrayAdapter spinnerProAdapter;
@@ -79,11 +76,16 @@ public class EditCityActivity extends SwipeBackActivity {
     private Intent intent;
     private OwnerUpdateInfo ownerUpdateInfo = new OwnerUpdateInfo();
 
-    @AfterViews
-    public void init() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+        initData();
+    }
+
+    public void initView() {
         mainHeadView.setMianTitle(getString(R.string.user_address));
 
-        initData();
         initSpinner();
     }
 
@@ -235,7 +237,7 @@ public class EditCityActivity extends SwipeBackActivity {
         appManager.finishActivity(EditCityActivity.this);
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_confirm})
+    @OnClick({R.id.head_back_layout, R.id.btn_confirm})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -257,4 +259,8 @@ public class EditCityActivity extends SwipeBackActivity {
         }
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_cityedit;
+    }
 }

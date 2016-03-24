@@ -1,20 +1,21 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
-import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinder;
-import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
-import com.jianfanjia.cn.view.custom_annotation_view.RequirementItemLovestyleView;
-import com.jianfanjia.cn.view.custom_annotation_view.RequirementItemLovestyleView_;
-
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
+import android.widget.ImageView;
 
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinder;
+import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
+import com.jianfanjia.cn.tools.ImageShow;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -22,16 +23,21 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-16 10:00
  */
-@EBean
 public class RequirementItemLoveStyleAdapter extends BaseAdapter{
 
     List<ReqItemFinderImp.ItemMap> itemMaps;
 
-    @Bean(ReqItemFinderImp.class)
     ReqItemFinder reqItemFinder;
 
-    @RootContext
-    Context context;
+    private LayoutInflater layoutInflater;
+
+    private Context context;
+
+    public RequirementItemLoveStyleAdapter(Context context) {
+        this.context = context;
+        this.layoutInflater = LayoutInflater.from(context);
+        reqItemFinder = new ReqItemFinderImp(context);
+    }
 
     public void changeShow(int requsetcode){
         itemMaps = reqItemFinder.findAll(requsetcode);
@@ -39,18 +45,37 @@ public class RequirementItemLoveStyleAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
 
-        RequirementItemLovestyleView requirementItemLovestyleView;
-        if (convertView == null) {
-            requirementItemLovestyleView = RequirementItemLovestyleView_.build(context);
+        ViewHolder holder;
+        if (view != null) {
+            holder = (ViewHolder) view.getTag();
         } else {
-            requirementItemLovestyleView = (RequirementItemLovestyleView) convertView;
+            view = layoutInflater.inflate(R.layout.grid_item_req_item, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
         }
 
-        requirementItemLovestyleView.bind(getItem(position));
+        holder.bind(getItem(position));
 
-        return requirementItemLovestyleView;
+        return view;
+    }
+
+    private class ViewHolder{
+
+        @Bind(R.id.gtm_req_image)
+        ImageView gtm_req_image;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this,view);
+        }
+
+        public void bind(ReqItemFinderImp.ItemMap itemMap) {
+            TypedArray ta = context.getResources().obtainTypedArray(R.array.arr_lovestyle_pic);
+            String imageId = "drawable://" + ta.getResourceId(Integer.parseInt(itemMap.key), 0);
+            ImageShow.getImageShow().displayLocalImage(imageId, gtm_req_image);
+            ta.recycle();
+        }
     }
 
     @Override

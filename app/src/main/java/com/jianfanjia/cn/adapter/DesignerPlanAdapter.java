@@ -20,6 +20,9 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DesignerPlanAdapter
  * User: fengliang
@@ -97,21 +100,22 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
     }
 
     private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
-        public TextView numText;
-        public TextView statusText;
-        public RecyclerView item_plan_listview;
-        public TextView dateText;
-        public TextView commentText;
-        public TextView previewText;
+        @Bind(R.id.numText)
+        TextView numText;
+        @Bind(R.id.statusText)
+        TextView statusText;
+        @Bind(R.id.item_plan_listview)
+        RecyclerView item_plan_listview;
+        @Bind(R.id.dateText)
+        TextView dateText;
+        @Bind(R.id.commentText)
+        TextView commentText;
+        @Bind(R.id.previewText)
+        TextView previewText;
 
         public DesignerPlanViewHolder(View itemView) {
             super(itemView);
-            numText = (TextView) itemView.findViewById(R.id.numText);
-            statusText = (TextView) itemView.findViewById(R.id.statusText);
-            item_plan_listview = (RecyclerView) itemView.findViewById(R.id.item_plan_listview);
-            dateText = (TextView) itemView.findViewById(R.id.dateText);
-            previewText = (TextView) itemView.findViewById(R.id.previewText);
-            commentText = (TextView) itemView.findViewById(R.id.commentText);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

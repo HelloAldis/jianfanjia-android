@@ -17,6 +17,9 @@ import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: NoticeAdapter
  * User: fengliang
@@ -232,51 +235,50 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     }
 
     private static class SysViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemDate;
-        public TextView itemContent;
+        @Bind(R.id.list_item_sys_tip_title)
+        TextView itemTitle;
+        @Bind(R.id.list_item_sys_tip_date)
+        TextView itemDate;
+        @Bind(R.id.list_item_sys_tip_content)
+        TextView itemContent;
 
         public SysViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_sys_tip_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_sys_tip_date);
-            itemContent = (TextView) itemView.findViewById(R.id.list_item_sys_tip_content);
+            ButterKnife.bind(this, itemView);
         }
     }
 
     private static class ReqViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitleView;
-        public TextView itemCellView;
-        public TextView itemContentView;
-        public TextView itemPubTimeView;
+        @Bind(R.id.list_item_tip_req_title)
+        TextView itemTitleView;
+        @Bind(R.id.list_item_tip_req_cell)
+        TextView itemCellView;
+        @Bind(R.id.list_item_tip_req_content)
+        TextView itemContentView;
+        @Bind(R.id.list_item_tip_req_time)
+        TextView itemPubTimeView;
 
         public ReqViewHolder(View itemView) {
             super(itemView);
-            itemTitleView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_title);
-            itemContentView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_content);
-            itemCellView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_cell);
-            itemPubTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_time);
+            ButterKnife.bind(this, itemView);
         }
     }
 
     private static class SiteViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemDate;
-        public TextView itemCell;
-        public TextView itemSection;
-        public TextView itemContent;
+        @Bind(R.id.list_item_tip_site_title)
+        TextView itemTitle;
+        @Bind(R.id.list_item_tip_site_time)
+        TextView itemDate;
+        @Bind(R.id.list_item_tip_site_cell)
+        TextView itemCell;
+        @Bind(R.id.list_item_tip_site_node)
+        TextView itemSection;
+        @Bind(R.id.list_item_tip_site_content)
+        TextView itemContent;
 
         public SiteViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_tip_site_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_tip_site_time);
-            itemCell = (TextView) itemView.findViewById(R.id.list_item_tip_site_cell);
-            itemSection = (TextView) itemView.findViewById(R.id.list_item_tip_site_node);
-            itemContent = (TextView) itemView.findViewById(R.id.list_item_tip_site_content);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

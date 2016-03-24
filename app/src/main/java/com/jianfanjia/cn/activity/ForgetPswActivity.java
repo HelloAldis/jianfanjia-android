@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -19,26 +21,20 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-@EActivity(R.layout.activity_forget_psw)
 public class ForgetPswActivity extends BaseAnnotationActivity{
     private static final String TAG = ForgetPswActivity.class.getClass()
             .getName();
-    @ViewById(R.id.act_forget_psw_input_phone)
+    @Bind(R.id.act_forget_psw_input_phone)
     EditText mEtForgetPswUserName = null;// 注册用户名输入框
-    @ViewById(R.id.act_forget_psw_input_password)
+    @Bind(R.id.act_forget_psw_input_password)
     EditText mEtForgetPswPassword = null;// 注册用户密码输入框
-    @ViewById(R.id.btn_next)
+    @Bind(R.id.btn_next)
     Button mBtnNext;
-    @ViewById(R.id.forget_psw_layout)
+    @Bind(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
-    @ViewById(R.id.act_forget_psw_input_password_delete)
+    @Bind(R.id.act_forget_psw_input_password_delete)
     ImageView registerInputPasswordDelete;
-    @ViewById(R.id.act_forget_psw_input_phone_delete)
+    @Bind(R.id.act_forget_psw_input_phone_delete)
     ImageView registerInputPhoneDelete;
 
     private String mUserName = null;// 用户名
@@ -49,9 +45,11 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        initView();
     }
 
-    @Click({R.id.head_back_layout,R.id.btn_next})
+    @OnClick({R.id.head_back_layout,R.id.btn_next})
     void onClick(View view){
         int resId = view.getId();
         switch (resId){
@@ -94,14 +92,7 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        mEtForgetPswUserName.requestFocus();
-    }
-
-    @AfterViews
-    protected void initUi(){
+    public void initView(){
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
 
         mBtnNext.setEnabled(false);
@@ -182,5 +173,8 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
             }, this);
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_forget_psw;
+    }
 }

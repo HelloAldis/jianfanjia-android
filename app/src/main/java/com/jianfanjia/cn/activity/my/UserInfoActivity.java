@@ -18,15 +18,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.LoginNewActivity_;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -57,36 +54,36 @@ import com.yalantis.ucrop.UCrop;
  * @Description:用户个人信息(业主)
  * @date 2015-8-18 下午12:11:49
  */
-@EActivity(R.layout.activity_user_info)
 public class UserInfoActivity extends SwipeBackActivity implements
         OnClickListener, PopWindowCallBack {
     private static final String TAG = UserInfoActivity.class.getName();
-    @ViewById(R.id.head_layout)
+    @Bind(R.id.head_layout)
     protected RelativeLayout headLayout = null;
-    @ViewById(R.id.ownerinfoLayout)
+    @Bind(R.id.ownerinfoLayout)
     protected RelativeLayout ownerInfoLayout = null;
-    @ViewById(R.id.ownerinfo_scrollview)
+    @Bind(R.id.ownerinfo_scrollview)
     protected ScrollView scrollView = null;
-    @ViewById(R.id.nameText)
+    @Bind(R.id.nameText)
     protected TextView nameText = null;
-    @ViewById(R.id.sexText)
+    @Bind(R.id.sexText)
     protected TextView sexText = null;
-    @ViewById(R.id.phoneText)
+    @Bind(R.id.phoneText)
     protected TextView phoneText = null;
-    @ViewById(R.id.addressText)
+    @Bind(R.id.addressText)
     protected TextView addressText = null;
-    @ViewById(R.id.homeText)
+    @Bind(R.id.homeText)
     protected TextView homeText = null;
-    @ViewById(R.id.head_icon)
+    @Bind(R.id.head_icon)
     protected ImageView headImageView = null;
-    @ViewById(R.id.ownerinfo_head_layout)
+    @Bind(R.id.ownerinfo_head_layout)
     protected MainHeadView mainHeadView;
-    @ViewById(R.id.error_include)
+    @Bind(R.id.error_include)
     protected RelativeLayout error_Layout;
-    @ViewById(R.id.logout_layout)
+    @Bind(R.id.logout_layout)
     protected RelativeLayout logoutLayout;
     private OwnerInfo ownerInfo = null;
     private String sex = null;
+
 
 
     private boolean isUpdate = false;//是否更新，只有，更新了用户名或者头像才更新
@@ -95,11 +92,16 @@ public class UserInfoActivity extends SwipeBackActivity implements
     private File mTmpFile = null;
     private String imageId = null;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @AfterViews
-    public void initAnnotationView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
+        initView();
         initData();
+    }
+
+    public void initView() {
+        mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
     }
 
     private void setData() {
@@ -137,7 +139,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 : ownerInfo.getAddress());
     }
 
-    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout,
+    @OnClick({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout,
             R.id.name_layout, R.id.sex_layout, R.id.home_layout, R.id.phone_layout, R.id.logout_layout})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -505,5 +507,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
         }
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_user_info;
+    }
 }

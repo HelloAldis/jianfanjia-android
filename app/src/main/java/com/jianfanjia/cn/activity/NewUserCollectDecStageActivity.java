@@ -8,17 +8,14 @@ import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import butterknife.Bind;
+import butterknife.OnClick;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -26,16 +23,15 @@ import org.androidannotations.annotations.ViewById;
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-14 09:35
  */
-@EActivity(R.layout.activity_register_collect_decstage)
-public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
+public class NewUserCollectDecStageActivity extends BaseActivity {
 
-    @ViewById(R.id.dec_stage0)
+    @Bind(R.id.dec_stage0)
     TextView dec_stage_0;
 
-    @ViewById(R.id.dec_stage1)
+    @Bind(R.id.dec_stage1)
     TextView dec_stage_1;
 
-    @ViewById(R.id.dec_stage2)
+    @Bind(R.id.dec_stage2)
     TextView dec_stage_2;
 
     @Override
@@ -44,9 +40,11 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        initView();
     }
 
-    @Click({R.id.dec_stage0, R.id.dec_stage1, R.id.dec_stage2})
+    @OnClick({R.id.dec_stage0, R.id.dec_stage1, R.id.dec_stage2})
     protected void click(final View view) {
         UiHelper.imageButtonAnim(view, new AnimatorListenerAdapter() {
             @Override
@@ -67,13 +65,12 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
         });
     }
 
-
-    @AfterViews
-    protected void viewanim() {
+    public void initView() {
 //        dec_stage_1.setTranslationY(TDevice.getScreenHeight() / 2);
         LogTool.d(this.getClass().getName(), "TDevice.getScreenHeight() =" + TDevice.getScreenHeight());
         dec_stage_1.setTranslationY(TDevice.getScreenHeight());
-        dec_stage_1.animate().translationY(0).setInterpolator(new OvershootInterpolator(1.0f)).setStartDelay(200).setDuration(700).start();
+        dec_stage_1.animate().translationY(0).setInterpolator(new OvershootInterpolator(1.0f)).setStartDelay(200)
+                .setDuration(700).start();
         dec_stage_2.setScaleX(0.1f);
         dec_stage_2.setScaleY(0.1f);
         dec_stage_2.setAlpha(0.f);
@@ -82,7 +79,6 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
         dec_stage_0.setScaleY(0.1f);
         dec_stage_0.setAlpha(0.f);
         dec_stage_0.animate().alpha(1.0f).scaleX(1.0f).scaleY(1.0f).setDuration(300).setStartDelay(700).start();
-
     }
 
     protected void intentToCollectReq(String stage) {
@@ -91,5 +87,10 @@ public class NewUserCollectDecStageActivity extends BaseAnnotationActivity {
         Bundle ownerBundle = new Bundle();
         ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
         startActivity(NewUserCollectLoveStyleActivity_.class, ownerBundle);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_register_collect_decstage;
     }
 }
