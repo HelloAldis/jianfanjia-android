@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DesignerByAppointOrReplaceAdapter
  * User: fengliang
@@ -39,7 +42,8 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     private int viewType = -1;
     private int canOrderCount = -1;
 
-    public DesignerByAppointOrReplaceAdapter(Context context, List<Map<String, Object>> list, List<Map<String, Object>> splitList, int canOrderCount, CheckListener listener) {
+    public DesignerByAppointOrReplaceAdapter(Context context, List<Map<String, Object>> list, List<Map<String,
+            Object>> splitList, int canOrderCount, CheckListener listener) {
         super(context, list);
         this.splitList = splitList;
         this.canOrderCount = canOrderCount;
@@ -61,7 +65,8 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Map<String, Object>> list) {
         switch (viewHolder.getItemViewType()) {
             case TYPE_TAG:
-                DesignerByAppointOrReplaceTagViewHolder tagViewHolder = (DesignerByAppointOrReplaceTagViewHolder) viewHolder;
+                DesignerByAppointOrReplaceTagViewHolder tagViewHolder = (DesignerByAppointOrReplaceTagViewHolder)
+                        viewHolder;
                 String tag = (String) list.get(position).get(Constant.KEY);
                 String text_tag = (String) list.get(position).get(Constant.TEXT_KEY);
                 tagViewHolder.itemNameText.setText(tag);
@@ -69,13 +74,14 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        IntentUtil.startActivity(context,DesignerListActivity.class);
+                        IntentUtil.startActivity(context, DesignerListActivity.class);
                     }
                 });
                 break;
             case TYPE_TITLE:
                 final DesignerByAppointOrReplaceViewHolder holder = (DesignerByAppointOrReplaceViewHolder) viewHolder;
-                final DesignerCanOrderInfo designerCanOrderInfo = (DesignerCanOrderInfo) list.get(position).get(Constant.KEY);
+                final DesignerCanOrderInfo designerCanOrderInfo = (DesignerCanOrderInfo) list.get(position).get
+                        (Constant.KEY);
                 final String designerId = designerCanOrderInfo.get_id();
                 holder.itemCheck.setTag(new Integer(position));//设置tag 否则划回来时选中消失
                 holder.itemNameText.setText(designerCanOrderInfo.getUsername());
@@ -90,7 +96,8 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                     int service_attitude = (int) designerCanOrderInfo.getService_attitude();
                     holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
                 }
-                imageShow.displayImageHeadWidthThumnailImage(context, designerCanOrderInfo.getImageid(), holder.itemwHeadView);
+                imageShow.displayImageHeadWidthThumnailImage(context, designerCanOrderInfo.getImageid(), holder
+                        .itemwHeadView);
                 if (designerCanOrderInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     holder.itemAuthView.setVisibility(View.VISIBLE);
                 } else {
@@ -163,32 +170,34 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     }
 
     private static class DesignerByAppointOrReplaceTagViewHolder extends RecyclerViewHolderBase {
-        public TextView itemNameText = null;
-        public TextView itemMoreText = null;
+        @Bind(R.id.list_item_name_text)
+        TextView itemNameText;
+        @Bind(R.id.list_item_more_text)
+        TextView itemMoreText;
 
         public DesignerByAppointOrReplaceTagViewHolder(View itemView) {
             super(itemView);
-            itemNameText = (TextView) itemView.findViewById(R.id.list_item_name_text);
-            itemMoreText = (TextView) itemView.findViewById(R.id.list_item_more_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 
     private static class DesignerByAppointOrReplaceViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemwHeadView = null;
-        public ImageView itemAuthView = null;
-        public TextView itemNameText = null;
-        public TextView itemMarchText = null;
-        public RatingBar itemRatingBar = null;
-        public CheckBox itemCheck = null;
+        @Bind(R.id.list_item_head_img)
+        ImageView itemwHeadView;
+        @Bind(R.id.list_item_auth)
+        ImageView itemAuthView;
+        @Bind(R.id.list_item_name_text)
+        TextView itemNameText;
+        @Bind(R.id.list_item_march_text)
+        TextView itemMarchText;
+        @Bind(R.id.list_item_ratingBar)
+        RatingBar itemRatingBar;
+        @Bind(R.id.list_item_check)
+        CheckBox itemCheck;
 
         public DesignerByAppointOrReplaceViewHolder(View itemView) {
             super(itemView);
-            itemwHeadView = (ImageView) itemView.findViewById(R.id.list_item_head_img);
-            itemAuthView = (ImageView) itemView.findViewById(R.id.list_item_auth);
-            itemNameText = (TextView) itemView.findViewById(R.id.list_item_name_text);
-            itemMarchText = (TextView) itemView.findViewById(R.id.list_item_march_text);
-            itemRatingBar = (RatingBar) itemView.findViewById(R.id.list_item_ratingBar);
-            itemCheck = (CheckBox) itemView.findViewById(R.id.list_item_check);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -15,6 +15,9 @@ import com.jianfanjia.cn.interf.OnItemClickListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DesignerWorksAdapter
  * User: fengliang
@@ -33,12 +36,15 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Product> list) {
         Product product = list.get(position);
         DesignerWorksViewHolder holder = (DesignerWorksViewHolder) viewHolder;
-        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemwWorksView);
+        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder
+                .itemwWorksView);
         holder.itemXiaoQuText.setText(product.getCell());
         String decType = product.getDec_type();
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType) + "，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager.convertDecStyleToShow(dec_style) + "风格");
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType)
+                + "，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager
+                .convertDecStyleToShow(dec_style) + "风格");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,18 +69,16 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
 
 
     private static class DesignerWorksViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemwWorksView;
-        public TextView itemXiaoQuText;
-        public TextView itemProduceText;
+        @Bind(R.id.list_item_works_img)
+        ImageView itemwWorksView;
+        @Bind(R.id.list_item_works_xiaoqu_text)
+        TextView itemXiaoQuText;
+        @Bind(R.id.list_item_works_produce_text)
+        TextView itemProduceText;
 
         public DesignerWorksViewHolder(View itemView) {
             super(itemView);
-            itemwWorksView = (ImageView) itemView
-                    .findViewById(R.id.list_item_works_img);
-            itemXiaoQuText = (TextView) itemView
-                    .findViewById(R.id.list_item_works_xiaoqu_text);
-            itemProduceText = (TextView) itemView
-                    .findViewById(R.id.list_item_works_produce_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
