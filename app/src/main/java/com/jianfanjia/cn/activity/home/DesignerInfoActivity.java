@@ -32,6 +32,9 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -42,19 +45,47 @@ import de.greenrobot.event.EventBus;
  */
 public class DesignerInfoActivity extends SwipeBackActivity implements OnClickListener, ViewPager.OnPageChangeListener, ScrollableLayout.OnScrollListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
+
+    @Bind(R.id.sl_root)
     private ScrollableLayout sl_root = null;
+
+    @Bind(R.id.head_back_layout)
     private RelativeLayout head_back_layout = null;
+
+    @Bind(R.id.tv_title)
     private TextView tv_title = null;
+
+    @Bind(R.id.tabs)
     private TabLayout tabLayout = null;
+
+    @Bind(R.id.viewpager)
     private ViewPager viewPager = null;
+
+    @Bind(R.id.ratingBar)
     private RatingBar ratingBar = null;
+
+    @Bind(R.id.designerinfo_head_img)
     private ImageView designerinfo_head_img = null;
+
+    @Bind(R.id.designerinfo_auth)
     private ImageView designerinfo_auth = null;
+
+    @Bind(R.id.designer_name)
     private TextView designerName = null;
+
+    @Bind(R.id.viewCountText)
     private TextView viewCountText = null;
+
+    @Bind(R.id.productCountText)
     private TextView productCountText = null;
+
+    @Bind(R.id.appointCountText)
     private TextView appointCountText = null;
+
+    @Bind(R.id.btn_add)
     private Button addBtn = null;
+
+    @Bind(R.id.btn_delete)
     private Button deleteBtn = null;
 
     private String designerid = null;
@@ -67,30 +98,24 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
 
     private List<SelectItem> listViews = new ArrayList<SelectItem>();
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getDataFromIntent(this.getIntent());
+        this.initView();
+        this.setListener();
+    }
+
     @Override
     public void initView() {
-        sl_root = (ScrollableLayout) findViewById(R.id.sl_root);
-        head_back_layout = (RelativeLayout) findViewById(R.id.head_back_layout);
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(1);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        designerinfo_head_img = (ImageView) findViewById(R.id.designerinfo_head_img);
-        designerinfo_auth = (ImageView) findViewById(R.id.designerinfo_auth);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        designerName = (TextView) findViewById(R.id.designer_name);
-        viewCountText = (TextView) findViewById(R.id.viewCountText);
-        productCountText = (TextView) findViewById(R.id.productCountText);
-        appointCountText = (TextView) findViewById(R.id.appointCountText);
-        addBtn = (Button) findViewById(R.id.btn_add);
-        deleteBtn = (Button) findViewById(R.id.btn_delete);
         tv_title.setTranslationY(-1000);
-        initData(this.getIntent());
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void initData(Intent intent) {
+    private void getDataFromIntent(Intent intent) {
         Bundle designerBundle = intent.getExtras();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
         getDesignerPageInfo(designerid);
@@ -100,7 +125,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
-        initData(intent);
+        getDataFromIntent(intent);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -118,13 +143,10 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
 
     @Override
     public void setListener() {
-        head_back_layout.setOnClickListener(this);
         sl_root.setOnScrollListener(this);
-        addBtn.setOnClickListener(this);
-        deleteBtn.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.btn_add, R.id.btn_delete})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

@@ -37,8 +37,6 @@ public class PhotoPagerActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_photo_pager);
-
         int currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
         List<String> paths = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
         showDelete = getIntent().getBooleanExtra(EXTRA_SHOW_DELETE, false);
@@ -67,6 +65,10 @@ public class PhotoPagerActivity extends SwipeBackActivity {
         });
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_photo_pager;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

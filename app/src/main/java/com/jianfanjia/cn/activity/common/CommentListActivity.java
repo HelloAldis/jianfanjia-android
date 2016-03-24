@@ -8,18 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -39,6 +30,12 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -47,19 +44,18 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 15:21
  */
-@EActivity(R.layout.activity_comment_list)
 public class CommentListActivity extends SwipeBackActivity {
 
-    @ViewById(R.id.pullrefresh_recycleview)
+    @Bind(R.id.pullrefresh_recycleview)
     protected PullToRefreshRecycleView refreshRecycleView;
 
-    @ViewById(R.id.common_head)
+    @Bind(R.id.common_head)
     protected MainHeadView mainHeadView;
 
-    @ViewById(R.id.empty_include)
+    @Bind(R.id.empty_include)
     protected View emptyView;
 
-    @ViewById(R.id.error_include)
+    @Bind(R.id.error_include)
     protected View errorView;
 
     private boolean mHasLoadOnce;
@@ -72,6 +68,8 @@ public class CommentListActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+
+        this.initAnnotationView();
     }
 
     @Override
@@ -80,7 +78,11 @@ public class CommentListActivity extends SwipeBackActivity {
         getMyCommentInfo(Constant.FROM_START, pullDownListener);
     }
 
-    @AfterViews
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_comment_list;
+    }
+
     protected void initAnnotationView() {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
 
@@ -156,7 +158,7 @@ public class CommentListActivity extends SwipeBackActivity {
     private void startProcessDetailActivity(ProcessInfo processInfo) {
         Bundle processBundle = new Bundle();
         processBundle.putSerializable(Global.PROCESS_INFO, processInfo);
-        startActivity(MyProcessDetailActivity_.class, processBundle);
+        startActivity(MyProcessDetailActivity.class, processBundle);
     }
 
     private void getMyCommentInfo(int from, ApiUiUpdateListener apiUiUpdateListener) {
@@ -244,7 +246,7 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
     }
 
-    @Click({R.id.head_back_layout, R.id.img_error})
+    @OnClick({R.id.head_back_layout, R.id.img_error})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

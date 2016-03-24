@@ -37,6 +37,9 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:全部作品案例
  * Author：fengliang
@@ -50,19 +53,46 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     private static final int HOUSE_TYPE = 3;
     private static final int DEC_AREA = 4;
     private static final int NOT = 5;
+
+    @Bind(R.id.topLayout)
     private LinearLayout topLayout = null;
+
+    @Bind(R.id.decTypeLayout)
     private RelativeLayout decTypeLayout = null;
+
+    @Bind(R.id.designStyleLayout)
     private RelativeLayout designStyleLayout = null;
+
+    @Bind(R.id.houseTypeLayout)
     private RelativeLayout houseTypeLayout = null;
+
+    @Bind(R.id.decAreaLayout)
     private RelativeLayout decAreaLayout = null;
+
+    @Bind(R.id.decType_item)
     private TextView decType_item = null;
+
+    @Bind(R.id.designStyle_item)
     private TextView designStyle_item = null;
+
+    @Bind(R.id.houseType_item)
     private TextView houseType_item = null;
+
+    @Bind(R.id.decArea_item)
     private TextView decArea_item = null;
+
+    @Bind(R.id.designer_case_head)
     private MainHeadView mainHeadView = null;
+
+    @Bind(R.id.pull_refresh_scrollview)
     private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
+
+    @Bind(R.id.error_include)
     private RelativeLayout errorLayout = null;
+
+    @Bind(R.id.empty_include)
     private RelativeLayout emptyLayout = null;
+
     private FilterPopWindow window = null;
     private boolean isFirst = true;
     private ProductAdapter productAdapter = null;
@@ -75,22 +105,18 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     private Map<String, Object> decArea = null;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.initView();
+        this.setListener();
+    }
+
+    @Override
     public void initView() {
         initMainHeadView();
-        topLayout = (LinearLayout) findViewById(R.id.topLayout);
-        decTypeLayout = (RelativeLayout) findViewById(R.id.decTypeLayout);
-        designStyleLayout = (RelativeLayout) findViewById(R.id.designStyleLayout);
-        houseTypeLayout = (RelativeLayout) findViewById(R.id.houseTypeLayout);
-        decAreaLayout = (RelativeLayout) findViewById(R.id.decAreaLayout);
-        decType_item = (TextView) findViewById(R.id.decType_item);
-        designStyle_item = (TextView) findViewById(R.id.designStyle_item);
-        houseType_item = (TextView) findViewById(R.id.houseType_item);
-        decArea_item = (TextView) findViewById(R.id.decArea_item);
-        errorLayout = (RelativeLayout) findViewById(R.id.error_include);
-        emptyLayout = (RelativeLayout) findViewById(R.id.empty_include);
+
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_list_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
-        pullToRefreshRecyclerView = (PullToRefreshRecycleView) findViewById(R.id.pull_refresh_scrollview);
         linearLayoutManager = new LinearLayoutManager(DesignerCaseListActivity.this);
         pullToRefreshRecyclerView.setLayoutManager(linearLayoutManager);
         pullToRefreshRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -105,23 +131,16 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.designer_case_head);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.all_good_product));
         mainHeadView.setBackgroundTransparent();
     }
 
     @Override
     public void setListener() {
-        decTypeLayout.setOnClickListener(this);
-        designStyleLayout.setOnClickListener(this);
-        houseTypeLayout.setOnClickListener(this);
-        decAreaLayout.setOnClickListener(this);
         pullToRefreshRecyclerView.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.decTypeLayout, R.id.designStyleLayout, R.id.houseTypeLayout, R.id.decAreaLayout, R.id.error_include})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:

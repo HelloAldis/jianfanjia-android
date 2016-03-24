@@ -1,8 +1,8 @@
 package com.jianfanjia.cn.activity.home;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -25,34 +25,41 @@ import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
+import butterknife.Bind;
+import butterknife.OnClick;
 
 
 /**
  * Description:装修攻略
  * Author：Aldis.Zhan
  */
-@EActivity(R.layout.activity_web_view)
 public class WebViewActivity extends SwipeBackActivity {
 
     private static final String TAG = WebViewActivity.class.getName();
     private ShareUtil shareUtil = null;
     private JavaScriptObject javaScriptObject = null;
 
-    @ViewById(R.id.webView)
+    @Bind(R.id.webView)
     protected ProgressWebView progressWebView = null;
 
-    @ViewById(R.id.my_contract_head_layout)
+    @Bind(R.id.my_contract_head_layout)
     protected MainHeadView mainHeadView = null;
 
-    @ViewById(R.id.toolbar_share)
+    @Bind(R.id.toolbar_share)
     protected ImageView toolbar_share = null;
 
-    @AfterViews
-    void setView() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.initView();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_web_view;
+    }
+
+    public void initView() {
         super.initView();
         this.initMainHeadView();
 
@@ -94,7 +101,7 @@ public class WebViewActivity extends SwipeBackActivity {
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Click({R.id.head_back_layout, R.id.toolbar_share_layout})
+    @OnClick({R.id.head_back_layout, R.id.toolbar_share_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

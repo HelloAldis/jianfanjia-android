@@ -29,6 +29,8 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.ButterKnife;
+
 /**
  * Description:activity基类
  * Author：fengliang
@@ -36,13 +38,13 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, NetStateListener, ApiUiUpdateListener {
-    protected DownloadManager downloadManager = null;
+        DialogControl, ApiUiUpdateListener {
+//    protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-    protected NetStateReceiver netStateReceiver = null;
+//    protected NetStateReceiver netStateReceiver = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog;
     protected DataManagerNew dataManager;
@@ -53,47 +55,32 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onCreate()");
-        if (getLayoutId() != 0) {
-            setContentView(getLayoutId());
-        }
+        setContentView(getLayoutId());
         init(savedInstanceState);
-        initView();
-        setListener();
+        ButterKnife.bind(this);
+//        initView();
+//        setListener();
     }
 
     protected void init(Bundle savedInstanceState) {
         appManager = AppManager.getAppManager();
         appManager.addActivity(this);
-        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//        netStateReceiver = new NetStateReceiver(this);
         notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();
         fragmentManager = this.getSupportFragmentManager();
-        netStateReceiver = new NetStateReceiver(this);
         imageShow = ImageShow.getImageShow();
         _isVisible = true;
     }
 
-    public int getLayoutId() {
-        return 0;
-    }
+    public abstract int getLayoutId();
 
     public abstract void initView();
 
     public void setListener() {
-
-    }
-
-    @Override
-    public void onConnect() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onDisConnect() {
-        // TODO Auto-generated method stub
 
     }
 
@@ -222,14 +209,14 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     // 注册网络监听广播
-    protected void registerNetReceiver() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(netStateReceiver, intentFilter);
-    }
+//    protected void registerNetReceiver() {
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+//        registerReceiver(netStateReceiver, intentFilter);
+//    }
 
     // 取消网络监听广播
-    protected void unregisterNetReceiver() {
-        unregisterReceiver(netStateReceiver);
-    }
+//    protected void unregisterNetReceiver() {
+//        unregisterReceiver(netStateReceiver);
+//    }
 }

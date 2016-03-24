@@ -6,18 +6,14 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
 import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity.home
@@ -25,23 +21,32 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-08 17:49
  */
-@EActivity(R.layout.activity_decorate_live)
 public class DecorateLiveActivity extends SwipeBackActivity {
 
     private static final String TAG = DecorateLiveActivity.class.getName();
-    @ViewById(R.id.decorate_live_head_layout)
+    @Bind(R.id.decorate_live_head_layout)
     protected MainHeadView mainHeadView = null;
-    @ViewById(R.id.tablayout)
+    @Bind(R.id.tablayout)
     protected TabLayout tabLayout = null;
-    @ViewById(R.id.viewpager)
+    @Bind(R.id.viewpager)
     protected ViewPager viewPager = null;
 
-    @ViewById(R.id.btn_create_process)
+    @Bind(R.id.btn_create_process)
     protected TextView createProcess;
 
-    @AfterViews
-    protected void initAnnotationView(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.initView();
+    }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_decorate_live;
+    }
+
+
+    public void initView(){
         mainHeadView.setMianTitle(getString(R.string.decoration_live));
         initViewPagerAndTab();
     }
@@ -52,7 +57,7 @@ public class DecorateLiveActivity extends SwipeBackActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Click({R.id.head_back_layout,R.id.btn_create_process})
+    @OnClick({R.id.head_back_layout,R.id.btn_create_process})
     protected void click(View view){
         switch (view.getId()){
             case R.id.head_back_layout:
@@ -60,11 +65,11 @@ public class DecorateLiveActivity extends SwipeBackActivity {
                 break;
             case R.id.btn_create_process:
                 if (dataManager.getAccount() != null) {
-                    startActivity(PublishRequirementActivity_.class);
+                    startActivity(PublishRequirementActivity.class);
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putInt(Global.BINDING_PHONE_INTENT,Global.BINDING_PHONE_REQUIREMENT);
-                    startActivity(BindingPhoneActivity_.class,bundle);
+                    startActivity(BindingPhoneActivity.class,bundle);
                     overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 }
                 break;
