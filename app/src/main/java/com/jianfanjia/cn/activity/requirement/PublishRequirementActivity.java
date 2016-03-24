@@ -6,14 +6,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -41,15 +38,14 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-@EActivity(R.layout.activity_edit_requirement)
 public class PublishRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
 
     private static final String TAG = PublishRequirementActivity.class.getName();
-    @ViewById(R.id.act_edit_req_head_layout)
+    @Bind(R.id.act_edit_req_head_layout)
     protected MainHeadView mainHeadView = null;
-    @ViewById(R.id.tablayout)
+    @Bind(R.id.tablayout)
     protected TabLayout tabLayout = null;
-    @ViewById(R.id.viewpager)
+    @Bind(R.id.viewpager)
     protected ViewPager viewPager = null;
 
     private EditHomeRequirementFragment_ editHomeRequirementFragment_;
@@ -65,12 +61,13 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initView();
+        initData();
     }
 
-    @AfterViews
-    public void initAnnotationView() {
+    public void initView() {
         initMainHeadView();
-        initData();
     }
 
     private void initMainHeadView() {
@@ -277,7 +274,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         return false;
     }
 
-    @Click({
+    @OnClick({
             R.id.head_back_layout, R.id.head_right_title
     })
     public void click(View v) {
@@ -293,4 +290,8 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         }
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_edit_requirement;
+    }
 }

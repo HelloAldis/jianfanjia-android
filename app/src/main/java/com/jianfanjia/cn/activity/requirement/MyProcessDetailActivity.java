@@ -15,6 +15,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
@@ -50,38 +57,25 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 /**
  * @author fengliang
  * @ClassName:SiteManageFragment
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-@EActivity(R.layout.activity_my_process_detail)
 public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
-    @ViewById(R.id.process_viewpager)
+    @Bind(R.id.process_viewpager)
     ViewPager processViewPager;
-    @ViewById(R.id.process__listview)
+    @Bind(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
-    @ViewById(R.id.process_head_layout)
+    @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
 
-    @ViewById(R.id.head_notification_layout)
+    @Bind(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
-    @StringArrayRes(R.array.site_procedure)
     String[] proTitle = null;
 
     protected AddPhotoDialog popupWindow = null;
@@ -105,24 +99,21 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         if (currentList == -1) {
             currentList = dataManager.getCurrentList();
         }
+
+        initView();
     }
 
-    /**
-     * 拿到当前屏幕的工地id
-     *
-     * @return
-     */
-    public String getProcessId() {
-        return processId;
-    }
-
-    @AfterViews
-    public void initAnnotationView() {
+    public void initView() {
+        initStringArray();
         initPullRefresh();
         initMainHead();
         initScrollLayout();
         initListView();
         initProcessInfo();
+    }
+
+    private void initStringArray() {
+        proTitle = getResources().getStringArray(R.array.site_procedure);
     }
 
     private void initPullRefresh() {
@@ -182,12 +173,12 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         mainHeadView.setRightTitleVisable(View.GONE);
     }
 
-    @Click(R.id.head_back_layout)
+    @OnClick(R.id.head_back_layout)
     public void comeback() {
         appManager.finishActivity(this);
     }
 
-    @Click(R.id.head_notification_layout)
+    @OnClick(R.id.head_notification_layout)
     protected void gotoNotifyActivity() {
         startActivity(NoticeActivity.class);
     }
@@ -421,13 +412,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             default:
                 break;
         }
-    }
-
-    protected void showPopWindow() {
-        if (popupWindow == null) {
-            popupWindow = new AddPhotoDialog(this, this);
-        }
-        popupWindow.show();
     }
 
     @Override
@@ -676,4 +660,8 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         super.onDestroy();
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_my_process_detail;
+    }
 }

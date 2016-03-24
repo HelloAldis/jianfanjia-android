@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -17,21 +19,15 @@ import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 /**
  * Description: com.jianfanjia.cn.activity
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-17 15:46
  */
-@EActivity(R.layout.activity_edit_busi_req)
 public class UpdateRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
 
-    @ViewById(R.id.act_edit_req_head)
+    @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
 
     private EditHomeRequirementFragment_ editHomeRequirementFragment_;
@@ -40,8 +36,14 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
     protected String status;//当前页面的状态，家装还是商装
     private RequirementInfo requirementInfo;
 
-    @AfterViews
-    protected void initMainView() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initView();
+    }
+
+    public void initView() {
         mainHeadView.setMianTitle(getString(R.string.update_requirement));
         mainHeadView.setRightTitle(getString(R.string.confirm));
         mainHeadView.setRigthTitleEnable(false);
@@ -116,7 +118,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         appManager.finishActivity(this);
     }
 
-    @Click({R.id.head_back_layout, R.id.head_right_title})
+    @OnClick({R.id.head_back_layout, R.id.head_right_title})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -135,4 +137,8 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         return bundle;
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_edit_busi_req;
+    }
 }

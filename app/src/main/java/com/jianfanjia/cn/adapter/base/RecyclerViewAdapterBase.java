@@ -1,13 +1,9 @@
 package com.jianfanjia.cn.adapter.base;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jianfanjia.cn.view.baseview.ViewWrapper;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -15,7 +11,7 @@ import com.jianfanjia.cn.view.baseview.ViewWrapper;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 16:53
  */
-public abstract class RecyclerViewAdapterBase<T, V extends View> extends RecyclerView.Adapter<ViewWrapper<V>> {
+public abstract class RecyclerViewAdapterBase<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     protected List<T> items = new ArrayList<>();
 
@@ -24,12 +20,6 @@ public abstract class RecyclerViewAdapterBase<T, V extends View> extends Recycle
         return items.size();
     }
 
-    @Override
-    public final ViewWrapper<V> onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewWrapper<V>(onCreateItemView(parent, viewType));
-    }
-
-    protected abstract V onCreateItemView(ViewGroup parent, int viewType);
 
     public void addItem(List<T> ts) {
         clearItems();

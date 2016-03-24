@@ -7,14 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -39,7 +36,6 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-@EActivity(R.layout.activity_my_designer)
 public class MyDesignerActivity extends SwipeBackActivity {
     private static final String TAG = MyDesignerActivity.class.getName();
     public static final int CHANGE_DESIGNER = 0;//替换设计师
@@ -51,13 +47,13 @@ public class MyDesignerActivity extends SwipeBackActivity {
     public static final int VIEW_DESIGNER = 6;//查看设计师
 
 
-    @ViewById(R.id.act_my_designer_head)
+    @Bind(R.id.act_my_designer_head)
     protected MainHeadView mainHeadView;
 
-    @ViewById(R.id.act_my_designer_pull_refresh)
+    @Bind(R.id.act_my_designer_pull_refresh)
     protected PullToRefreshRecycleView refreshView;
 
-    @ViewById(R.id.error_include)
+    @Bind(R.id.error_include)
     protected RelativeLayout error_Layout;
 
     private String requirementid;
@@ -68,8 +64,14 @@ public class MyDesignerActivity extends SwipeBackActivity {
 
     private boolean isLoadedOnce;//是否成功加载过一次数据
 
-    @AfterViews
-    protected void initMainHeadView() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initView();
+    }
+
+    public void initView() {
         LogTool.d(this.getClass().getName(), "initMainHeadView");
         mainHeadView.setMianTitle(getResources().getString(R.string.my_designer));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
@@ -159,7 +161,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
         refreshView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
     }
 
-    @Click(R.id.error_include)
+    @OnClick(R.id.error_include)
     protected void errorRefresh() {
         initdata();
     }
@@ -186,7 +188,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
                 }, MyDesignerActivity.this);
     }
 
-    @Click(R.id.head_back_layout)
+    @OnClick(R.id.head_back_layout)
     protected void back() {
         appManager.finishActivity(this);
     }
@@ -232,5 +234,8 @@ public class MyDesignerActivity extends SwipeBackActivity {
         }
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_my_designer;
+    }
 }

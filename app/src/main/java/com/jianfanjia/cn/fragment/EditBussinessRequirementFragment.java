@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.my.EditCityActivity_;
@@ -23,63 +27,70 @@ import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.tools.LogTool;
 
-import org.androidannotations.annotations.AfterTextChange;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
 /**
  * Description: com.jianfanjia.cn.fragment
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-15 14:43
  */
-@EFragment(R.layout.fragment_edit_bussiness_req)
 public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
 
     private NotifyActivityStatusChange hostActivity;
     protected boolean isFinish = false;//编辑是否已经完成
     private int actionType = -1;//创建需求or修改需求
 
-    @ViewById
+    @Bind(R.id.act_edit_req_city_content)
     protected TextView act_edit_req_city_content;//所在城市
-    @ViewById
-    protected EditText act_edit_req_cell_content;//小区
-    @ViewById
+    @Bind(R.id.act_edit_req_lovestyle_content)
     protected TextView act_edit_req_lovestyle_content;//风格喜好
-    @ViewById
+    @Bind(R.id.act_edit_req_lovedesistyle_content)
     protected TextView act_edit_req_lovedesistyle_content;//偏好设计师类型
-    @ViewById
+    @Bind(R.id.act_edit_req_decoratetype_content)
     protected TextView act_edit_req_decoratetype_content;//装修类型
-    @ViewById
+    @Bind(R.id.act_edit_req_work_type_content)
     protected TextView act_edit_req_work_type_content;//包工类型
-    @ViewById
+    @Bind(R.id.act_edit_req_lovedesisex_content)
     protected TextView act_edit_req_lovedesisex_content;//偏好设计师性别
-    @ViewById
-    protected EditText act_edit_req_street_content;//所在街道
-    @ViewById
-    protected EditText act_edit_req_housearea_content;//装修面积
-    @ViewById
-    protected EditText act_edit_req_decoratebudget_content;//装修预算
+    @Bind(R.id.act_edit_req_street_content)
+    protected TextView act_edit_req_street_content;//所在街道
+    @Bind(R.id.act_edit_req_housearea_content)
+    protected TextView act_edit_req_housearea_content;//装修面积
+    @Bind(R.id.act_edit_req_decoratebudget_content)
+    protected TextView act_edit_req_decoratebudget_content;//装修预算
+    @Bind(R.id.act_edit_req_cell_content)
+    protected TextView act_edit_req_cell_content;//小区
 
-    @StringArrayRes(R.array.arr_decstyle)
     protected String[] arr_lovestyle;
-    @StringArrayRes(R.array.arr_housetype)
     protected String[] arr_housetype;
-    @StringArrayRes(R.array.arr_love_designerstyle)
     protected String[] arr_love_designerstyle;
-    @StringArrayRes(R.array.arr_worktype)
     protected String[] arr_worktype;
-    @StringArrayRes(R.array.arr_desisex)
-    protected String[] arr_desisex;
-    @StringArrayRes(R.array.arr_busi_housetype)
     protected String[] arr_busihousetype;
+    protected String[] arr_desisex;
 
     private RequirementInfo requirementInfo;
 
-    @AfterTextChange({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        initData();
+        return view;
+    }
+
+    public void initView(){
+        initStringArray();
+    }
+
+    private void initStringArray() {
+        arr_lovestyle = getResources().getStringArray(R.array.arr_decstyle);
+        arr_housetype = getResources().getStringArray(R.array.arr_housetype);
+        arr_love_designerstyle = getResources().getStringArray(R.array.arr_love_designerstyle);
+        arr_worktype = getResources().getStringArray(R.array.arr_worktype);
+        arr_busihousetype = getResources().getStringArray(R.array.arr_busi_housetype);
+        arr_desisex = getResources().getStringArray(R.array.arr_desisex);
+    }
+
+    @OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
     protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
         int viewId = tv.getId();
         String textContent = text.toString();
@@ -138,7 +149,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         return isFinish;
     }
 
-    @Click({R.id.act_edit_req_city, R.id.act_edit_req_decoratetype,
+    @OnClick({R.id.act_edit_req_city, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle,
             R.id.act_edit_req_persons,
             R.id.act_edit_req_lovedesistyle,
@@ -183,12 +194,6 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             default:
                 break;
         }
-    }
-
-    @AfterViews
-    protected void setMainHeadView() {
-
-        initData();
     }
 
     private void initData() {
@@ -271,5 +276,10 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             isAllInput();
         }
 
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_edit_bussiness_req;
     }
 }

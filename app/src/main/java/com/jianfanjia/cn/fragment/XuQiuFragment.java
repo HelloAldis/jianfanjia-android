@@ -3,20 +3,19 @@ package com.jianfanjia.cn.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
@@ -47,7 +46,6 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-@EFragment(R.layout.fragment_requirement)
 public class XuQiuFragment extends BaseAnnotationFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
@@ -63,28 +61,28 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     private List<RequirementInfo> requirementInfos = new ArrayList<>();
     private boolean isFirst = true;//第一次加载成功之前都只显示等待对话框
 
-    @ViewById(R.id.frag_req_rootview)
+    @Bind(R.id.frag_req_rootview)
     protected LinearLayout rootView;
 
-    @ViewById(R.id.req_head)
+    @Bind(R.id.req_head)
     protected MainHeadView mainHeadView = null;
 
-    @ViewById(R.id.req_tip)
+    @Bind(R.id.req_tip)
     protected TextView req_tip;
 
-    @ViewById(R.id.req_publish)
+    @Bind(R.id.req_publish)
     protected TextView req_publish;
 
-    @ViewById
+    @Bind(R.id.req_publish_wrap)
     protected LinearLayout req_publish_wrap;
 
-    @ViewById
+    @Bind(R.id.req_listview_wrap)
     protected FrameLayout req_listview_wrap;
 
-    @ViewById(R.id.req_pullfefresh)
+    @Bind(R.id.req_pullfefresh)
     protected PullToRefreshRecycleView pullrefresh;
 
-    @ViewById(R.id.error_include)
+    @Bind(R.id.error_include)
     RelativeLayout error_Layout;
 
     private RequirementInfo requirementInfo;
@@ -104,6 +102,13 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         LogTool.d(getClass().getName(), "setPublishVisiable()");
         req_listview_wrap.setVisibility(View.GONE);
         req_publish_wrap.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        return view;
     }
 
     protected void initListView() {
@@ -164,25 +169,24 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         startActivity(AppointDesignerActivity.class, gotoOrderDesignerBundle);
     }
 
-    @Click({R.id.req_publish_layout, R.id.head_right_title})
+    @OnClick({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
         if (dataManager.getAccount() != null) {
             startActivity(PublishRequirementActivity_.class);
         } else {
             Bundle bundle = new Bundle();
-            bundle.putInt(Global.BINDING_PHONE_INTENT,Global.BINDING_PHONE_REQUIREMENT);
+            bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_REQUIREMENT);
             startActivity(BindingPhoneActivity_.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }
     }
 
-    @Click(R.id.error_include)
+    @OnClick(R.id.error_include)
     protected void errorRefresh() {
         initData();
     }
 
-    @AfterViews
-    protected void initAnnotationView() {
+    protected void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.requirement_list));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setBackgroundTransparent();
@@ -260,5 +264,8 @@ public class XuQiuFragment extends BaseAnnotationFragment {
         }, this);
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_requirement;
+    }
 }

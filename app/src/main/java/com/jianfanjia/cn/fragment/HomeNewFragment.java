@@ -5,6 +5,7 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -14,14 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DecorateLiveActivity_;
@@ -56,35 +54,34 @@ import com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-19 09:54
  */
-@EFragment(R.layout.fragment_new_home)
 public class HomeNewFragment extends BaseAnnotationFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
     private int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2};
 
-    @ViewById(R.id.viewPager_lib)
+    @Bind(R.id.viewPager_lib)
     protected AutoScrollViewPager scrollViewPager;
 
-    @ViewById(R.id.indicatorGroup_lib)
+    @Bind(R.id.indicatorGroup_lib)
     protected LinearLayout dotLinearLayout;
 
-    @ViewById(R.id.content_layout)
+    @Bind(R.id.content_layout)
     protected RelativeLayout coordinatorLayout;
 
-    @ViewById(R.id.content_viewpager)
+    @Bind(R.id.content_viewpager)
     protected ViewPager contentViewPager;
 
-    @ViewById(R.id.pullrefresh_scrollview)
+    @Bind(R.id.pullrefresh_scrollview)
     protected PullToRefreshScrollViewNew pullToRefreshScrollView;
 
-    @ViewById(R.id.content_intent_to)
+    @Bind(R.id.content_intent_to)
     protected ImageButton contentIntent;
 
-    @ViewById(R.id.content_next)
+    @Bind(R.id.content_next)
     protected ImageButton contentNext;
 
-    @ViewById(R.id.rootview)
+    @Bind(R.id.rootview)
     protected LinearLayout rootView;
 
     private HomeProductPagerAdapter mPagerAdapter;
@@ -93,8 +90,14 @@ public class HomeNewFragment extends BaseAnnotationFragment {
     private GestureGuideView img;
     private WindowManager windowManager;
 
-    @AfterViews
-    protected void initAnnotationView() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        return view;
+    }
+
+    protected void initView() {
         initBannerView(scrollViewPager, dotLinearLayout, new ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
@@ -241,7 +244,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
         }, this);
     }
 
-    @Click({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id
+    @OnClick({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id
             .home_search, R.id.list_item_more_layout, R.id.content_intent_to})
     protected void click(View view) {
         switch (view.getId()) {
@@ -278,7 +281,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             startActivity(PublishRequirementActivity_.class);
         } else {
             Bundle bundle = new Bundle();
-            bundle.putInt(Global.BINDING_PHONE_INTENT,Global.BINDING_PHONE_REQUIREMENT);
+            bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_REQUIREMENT);
             startActivity(BindingPhoneActivity_.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }
@@ -348,4 +351,8 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_new_home;
+    }
 }

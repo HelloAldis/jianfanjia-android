@@ -1,9 +1,13 @@
 package com.jianfanjia.cn.activity.requirement;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
@@ -12,40 +16,38 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.ViewById;
-
 /**
  * Description: com.jianfanjia.cn.activity
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-@EActivity(R.layout.activity_edit_req_item)
 public class EditRequirementItemActivity extends SwipeBackActivity {
 
     //用来记录是展示那个列表
     private int requestCode;
 
-    @ViewById(R.id.act_edit_req_item_head)
+    @Bind(R.id.act_edit_req_item_head)
     protected MainHeadView mainHeadView;
 
-    @ViewById(R.id.act_edit_req_item_listview)
+    @Bind(R.id.act_edit_req_item_listview)
     protected ListView edit_req_item_listview;
 
-    @Bean
     protected RequirementItemAdapter requirementItemAdapter;
 
-    @AfterViews
-    protected void setView() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
+    @Override
+    public void initView() {
         Intent data = getIntent();
         requestCode = data.getIntExtra(Global.REQUIRE_DATA, 0);
         showHead(requestCode);
 
+        requirementItemAdapter = new RequirementItemAdapter(this);
         edit_req_item_listview.setAdapter(requirementItemAdapter);
         requirementItemAdapter.changeShow(requestCode);
     }
@@ -83,7 +85,7 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
 
     }
 
-    @ItemClick(R.id.act_edit_req_item_listview)
+    @OnItemClick(R.id.act_edit_req_item_listview)
     void personListItemClicked(ReqItemFinderImp.ItemMap itemMap) {
         Intent data = new Intent(this, UpdateRequirementActivity_.class);
         data.putExtra(Global.RESPONSE_DATA, itemMap);
@@ -91,7 +93,7 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
         appManager.finishActivity(this);
     }
 
-    @Click({R.id.head_back_layout})
+    @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {
         int resId = clickView.getId();
         switch (resId) {
@@ -101,4 +103,8 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
         }
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_edit_req_item;
+    }
 }
