@@ -69,7 +69,7 @@ public class CommentListActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
 
-        this.initAnnotationView();
+        this.initView();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class CommentListActivity extends SwipeBackActivity {
         return R.layout.activity_comment_list;
     }
 
-    protected void initAnnotationView() {
+    public void initView() {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
 
         ((TextView) emptyView.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_commnet));

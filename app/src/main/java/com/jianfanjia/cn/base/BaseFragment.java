@@ -69,8 +69,8 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onActivityCreated");
         initUserInfo();
-        initView(view);
-        setListener();
+//        initView(view);
+//        setListener();
     }
 
     private void init() {

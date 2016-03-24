@@ -36,18 +36,17 @@ public class ShowPicActivity extends SwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
+        this.getDataFromIntent(getIntent());
+        this.initView();
+    }
+
+    private void getDataFromIntent(Intent intent) {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
             totalCount = imageList.size();
         }
-        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
-        viewPager.setAdapter(showPicPagerAdapter);
-        viewPager.setCurrentItem(currentPosition);
-        viewPager.setOnPageChangeListener(this);
-        setTipText();
     }
 
     private void setTipText() {
@@ -57,7 +56,11 @@ public class ShowPicActivity extends SwipeBackActivity implements
 
     @Override
     public void initView() {
-
+        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
+        viewPager.setAdapter(showPicPagerAdapter);
+        viewPager.setCurrentItem(currentPosition);
+        viewPager.setOnPageChangeListener(this);
+        setTipText();
     }
 
     @Override
