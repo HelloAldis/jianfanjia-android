@@ -16,6 +16,9 @@ import com.jianfanjia.cn.tools.TDevice;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DecorationAdapter
  * User: fengliang
@@ -44,7 +47,8 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
             Img img = info.getImages().get(0);
             int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView
+                    .getLayoutParams();
             layoutParams.width = width;
             layoutParams.height = height;
             holder.itemDecorateView.setLayoutParams(layoutParams);
@@ -60,7 +64,8 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
         } else {
             int width = (int) TDevice.getScreenWidth() / 2;
             int height = width;
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView.getLayoutParams();
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView
+                    .getLayoutParams();
             layoutParams.width = width;
             layoutParams.height = height;
             holder.itemDecorateView.setLayoutParams(layoutParams);
@@ -81,12 +86,12 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
     }
 
     private static class DecorationViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemDecorateView;
+        @Bind(R.id.list_item_decorate_img)
+        ImageView itemDecorateView;
 
         public DecorationViewHolder(View itemView) {
             super(itemView);
-            itemDecorateView = (ImageView) itemView
-                    .findViewById(R.id.list_item_decorate_img);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

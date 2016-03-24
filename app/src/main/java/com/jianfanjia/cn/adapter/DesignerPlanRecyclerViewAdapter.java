@@ -14,6 +14,9 @@ import com.jianfanjia.cn.tools.TDevice;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DesignerPlanRecyclerViewAdapter
  * User: fengliang
@@ -24,7 +27,8 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
     private static final String TAG = DesignerPlanRecyclerViewAdapter.class.getName();
     private ViewPagerClickListener itemClickListener;
 
-    public DesignerPlanRecyclerViewAdapter(Context context, List<String> list, ViewPagerClickListener itemClickListener) {
+    public DesignerPlanRecyclerViewAdapter(Context context, List<String> list, ViewPagerClickListener
+            itemClickListener) {
         super(context, list);
         this.itemClickListener = itemClickListener;
     }
@@ -63,12 +67,12 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
     }
 
     private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemImgView;
+        @Bind(R.id.list_item_plan_img)
+        ImageView itemImgView;
 
         public DesignerPlanViewHolder(View itemView) {
             super(itemView);
-            itemImgView = (ImageView) itemView
-                    .findViewById(R.id.list_item_plan_img);
+            ButterKnife.bind(this, itemView);
         }
     }
 

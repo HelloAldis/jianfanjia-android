@@ -17,6 +17,9 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DesignerCaseAdapter
  * User: fengliang
@@ -30,7 +33,8 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
     private static final int TYPE_ITEM = 1;
     private int viewType = -1;
 
-    public DesignerCaseAdapter(Context context, List<ImageInfo> list, DesignerCaseInfo designerCaseInfo, RecyclerViewOnItemClickListener listener) {
+    public DesignerCaseAdapter(Context context, List<ImageInfo> list, DesignerCaseInfo designerCaseInfo,
+                               RecyclerViewOnItemClickListener listener) {
         super(context, list);
         this.designerCaseInfo = designerCaseInfo;
         this.listener = listener;
@@ -57,8 +61,12 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
             case TYPE_HEAD:
                 DesignerCaseInfoHeadHolder designerCaseInfoHeadHolder = (DesignerCaseInfoHeadHolder) viewHolder;
                 designerCaseInfoHeadHolder.cellNameText.setText(designerCaseInfo.getCell());
-                designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" + BusinessManager.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager.convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
-                imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(), designerCaseInfoHeadHolder.designerinfo_head_img);
+                designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" +
+                        BusinessManager.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" + BusinessManager
+                        .convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager
+                        .convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
+                imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(),
+                        designerCaseInfoHeadHolder.designerinfo_head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     designerCaseInfoHeadHolder.designerinfo_auth.setVisibility(View.VISIBLE);
                 } else {
@@ -120,39 +128,36 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
     }
 
     private static class DesignerCaseInfoHeadHolder extends RecyclerViewHolderBase {
-        public TextView cellNameText;
-        public TextView stylelNameText;
-        public ImageView designerinfo_head_img = null;
-        public ImageView designerinfo_auth = null;
-        public TextView itemTitleText;
-        public TextView itemProduceText;
+        @Bind(R.id.cell_name)
+        TextView cellNameText;
+        @Bind(R.id.stylelName)
+        TextView stylelNameText;
+        @Bind(R.id.designerinfo_head_img)
+        ImageView designerinfo_head_img = null;
+        @Bind(R.id.designerinfo_auth)
+        ImageView designerinfo_auth = null;
+        @Bind(R.id.produceTitle)
+        TextView itemTitleText;
+        @Bind(R.id.produceText)
+        TextView itemProduceText;
 
         public DesignerCaseInfoHeadHolder(View itemView) {
             super(itemView);
-            cellNameText = (TextView) itemView.findViewById(R.id.cell_name);
-            stylelNameText = (TextView) itemView.findViewById(R.id.stylelName);
-            designerinfo_head_img = (ImageView) itemView.findViewById(R.id.designerinfo_head_img);
-            designerinfo_auth = (ImageView) itemView.findViewById(R.id.designerinfo_auth);
-            itemTitleText = (TextView) itemView
-                    .findViewById(R.id.produceTitle);
-            itemProduceText = (TextView) itemView
-                    .findViewById(R.id.produceText);
+            ButterKnife.bind(this, itemView);
         }
     }
 
     private static class DesignerCaseViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemwCaseView;
-        public TextView itemTitleText;
-        public TextView itemProduceText;
+        @Bind(R.id.list_item_case_img)
+        ImageView itemwCaseView;
+        @Bind(R.id.list_item_case_title_text)
+        TextView itemTitleText;
+        @Bind(R.id.list_item_case_produce_text)
+        TextView itemProduceText;
 
         public DesignerCaseViewHolder(View itemView) {
             super(itemView);
-            itemwCaseView = (ImageView) itemView
-                    .findViewById(R.id.list_item_case_img);
-            itemTitleText = (TextView) itemView
-                    .findViewById(R.id.list_item_case_title_text);
-            itemProduceText = (TextView) itemView
-                    .findViewById(R.id.list_item_case_produce_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
