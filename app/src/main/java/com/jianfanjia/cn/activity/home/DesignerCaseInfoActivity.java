@@ -31,6 +31,8 @@ import com.jianfanjia.cn.tools.UiHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -43,60 +45,75 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private static final int SCROLL_Y = 100;
     private int mScrollY = 0;
+
+    @Bind(R.id.head_back_layout)
     private RelativeLayout head_back_layout = null;
+
+    @Bind(R.id.toolbar_collect_layout)
     private RelativeLayout toolbar_collect_layout = null;
+
+    @Bind(R.id.tv_title)
     private TextView tv_title = null;
+
+    @Bind(R.id.toolbar_collect)
     private ImageView toolbar_collect = null;
+
+    @Bind(R.id.top_info_layout)
     private LinearLayout activity_case_info_top_layout = null;
+
+    @Bind(R.id.designer_case_listview)
     private RecyclerView designer_case_listview = null;
+
     private LinearLayoutManager mLayoutManager = null;
+
+    @Bind(R.id.head_img)
     private ImageView head_img = null;
+
+    @Bind(R.id.name_text)
     private TextView nameText = null;
+
     private List<String> imgs = new ArrayList<>();
 
     private String productid = null;
     private String designertid = null;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.initView();
+        this.getDataFromIntent(this.getIntent());
+        this.setListener();
+    }
+
     @Override
     public void initView() {
-        head_back_layout = (RelativeLayout) findViewById(R.id.head_back_layout);
-        toolbar_collect_layout = (RelativeLayout) findViewById(R.id.toolbar_collect_layout);
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        toolbar_collect = (ImageView) findViewById(R.id.toolbar_collect);
-        activity_case_info_top_layout = (LinearLayout) findViewById(R.id.top_info_layout);
-        designer_case_listview = (RecyclerView) findViewById(R.id.designer_case_listview);
         mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
         designer_case_listview.setLayoutManager(mLayoutManager);
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
         designer_case_listview.setHasFixedSize(true);
         designer_case_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
-        head_img = (ImageView) findViewById(R.id.head_img);
-        head_img = (ImageView) findViewById(R.id.head_img);
-        nameText = (TextView) findViewById(R.id.name_text);
-        //---------------------------------------------
-        initData(this.getIntent());
     }
 
-    private void initData(Intent intent) {
+    private void getDataFromIntent(Intent intent) {
         Bundle productBundle = intent.getExtras();
         productid = productBundle.getString(Global.PRODUCT_ID);
         LogTool.d(TAG, "productid=" + productid);
         getProductHomePageInfo(productid);
     }
 
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
         mScrollY = 0;
-        initData(intent);
+        getDataFromIntent(intent);
     }
 
     @Override
     public void setListener() {
-        head_back_layout.setOnClickListener(this);
-        toolbar_collect_layout.setOnClickListener(this);
-        activity_case_info_top_layout.setOnClickListener(this);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -113,7 +130,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         });
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.toolbar_collect_layout, R.id.top_info_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

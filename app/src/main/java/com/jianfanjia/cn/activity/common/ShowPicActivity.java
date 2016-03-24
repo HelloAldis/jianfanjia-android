@@ -15,12 +15,19 @@ import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 
+import butterknife.Bind;
+
 public class ShowPicActivity extends SwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener {
     private static final String TAG = ShowPicActivity.class.getName();
+
+    @Bind(R.id.showpicPager)
     private ViewPager viewPager;
-    private ShowPicPagerAdapter showPicPagerAdapter;
+
+    @Bind(R.id.pic_tip)
     private TextView tipView;
+
+    private ShowPicPagerAdapter showPicPagerAdapter;
     private List<String> imageList = new ArrayList<String>();
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
@@ -50,8 +57,7 @@ public class ShowPicActivity extends SwipeBackActivity implements
 
     @Override
     public void initView() {
-        viewPager = (ViewPager) findViewById(R.id.showpicPager);
-        tipView = (TextView) findViewById(R.id.pic_tip);
+
     }
 
     @Override

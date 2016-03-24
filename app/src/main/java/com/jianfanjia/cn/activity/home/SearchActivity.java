@@ -24,10 +24,8 @@ import com.jianfanjia.cn.fragment.SearchDesignerFragment;
 import com.jianfanjia.cn.fragment.SearchProductFragment;
 import com.jianfanjia.cn.tools.LogTool;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity.home
@@ -35,29 +33,28 @@ import org.androidannotations.annotations.ViewById;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-20 09:12
  */
-@EActivity(R.layout.activity_search)
 public class SearchActivity extends SwipeBackActivity{
 
     public static final int DESIGNER = 0x00;
     public static final int PRODUCTCASE = 0x01;
     public static final int BEAUTYIMAGE = 0x02;
 
-    @ViewById(R.id.act_search_input)
+    @Bind(R.id.act_search_input)
     protected EditText searchText;
 
-    @ViewById(R.id.act_search_cancel)
+    @Bind(R.id.act_search_cancel)
     protected TextView cancelView;
 
-    @ViewById(R.id.act_search_delete)
+    @Bind(R.id.act_search_delete)
     protected ImageView deleteView;
 
-    @ViewById(R.id.act_search_content_layout)
+    @Bind(R.id.act_search_content_layout)
     protected LinearLayout contentLayout;
 
-    @ViewById(R.id.tab_rg_menu)
+    @Bind(R.id.tab_rg_menu)
     protected RadioGroup radioGroup;
 
-    @ViewById(R.id.tab_rb_1)
+    @Bind(R.id.tab_rb_1)
     protected RadioButton radioButton;
 
     private SearchDecorationImgFragment searchDecorationImgFragment;
@@ -66,8 +63,18 @@ public class SearchActivity extends SwipeBackActivity{
 
     private String search;
 
-    @AfterViews
-    protected void initAnnotationView(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.initView();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_search;
+    }
+
+    public void initView(){
         contentLayout.setVisibility(View.GONE);
         deleteView.setVisibility(View.GONE);
         searchText.addTextChangedListener(new TextWatcher() {
@@ -212,7 +219,7 @@ public class SearchActivity extends SwipeBackActivity{
         }
     }
 
-    @Click({R.id.act_search_cancel,R.id.act_search_delete})
+    @OnClick({R.id.act_search_cancel,R.id.act_search_delete})
     protected void click(View view){
         switch (view.getId()){
             case R.id.act_search_cancel:

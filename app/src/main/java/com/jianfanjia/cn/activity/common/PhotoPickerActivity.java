@@ -56,8 +56,6 @@ public class PhotoPickerActivity extends SwipeBackActivity {
         boolean showGif = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
         setShowGif(showGif);
 
-        setContentView(R.layout.activity_photo_picker);
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle(R.string.__picker_title);
@@ -107,6 +105,11 @@ public class PhotoPickerActivity extends SwipeBackActivity {
             }
         });
 
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_photo_picker;
     }
 
 

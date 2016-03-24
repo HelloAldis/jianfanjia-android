@@ -33,6 +33,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:评论留言
  * Author：fengliang
@@ -41,33 +44,39 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
  */
 public class CommentActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = CommentActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private RecyclerView commentListView = null;
-    private EditText commentEdit = null;
-    private Button btnSend = null;
-    private CommentAdapter commentAdapter = null;
 
+    @Bind(R.id.my_comment_head_layout)
+    private MainHeadView mainHeadView = null;
+
+    @Bind(R.id.comment_listview)
+    private RecyclerView commentListView = null;
+
+    @Bind(R.id.add_comment)
+    private EditText commentEdit = null;
+
+    @Bind(R.id.btn_send)
+    private Button btnSend = null;
+
+    private CommentAdapter commentAdapter = null;
     private String topicid = null;
     private String to = null;
     private String section = null;
     private String item = null;
     private String topictype = null;
-
     private List<CommentInfo> commentList = new ArrayList<>();
-
     private boolean isUpdate = false;//返回是否更新
 
     @Override
-    public void initView() {
-        initMainHeadView();
-        commentListView = (RecyclerView) findViewById(R.id.comment_listview);
-        commentListView.setLayoutManager(new LinearLayoutManager(this));
-        commentListView.setItemAnimator(new DefaultItemAnimator());
-        commentListView.setHasFixedSize(true);
-        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this,1),MyApplication.dip2px(this,10)));
-        commentEdit = (EditText) findViewById(R.id.add_comment);
-        btnSend = (Button) findViewById(R.id.btn_send);
-        btnSend.setEnabled(false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.getDataFormIntent();
+        this.initView();
+        this.setListener();
+        this.initData();
+    }
+
+    private void getDataFormIntent() {
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
         topicid = commentBundle.getString(Global.TOPIC_ID);
@@ -75,27 +84,39 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         section = commentBundle.getString(Global.SECTION);
         item = commentBundle.getString(Global.ITEM);
         topictype = commentBundle.getString(Global.TOPICTYPE);
-        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
-        getCommentList(topicid, 0, 10000, section, item);
     }
 
+
+    public void initView() {
+        initMainHeadView();
+        commentListView.setLayoutManager(new LinearLayoutManager(this));
+        commentListView.setItemAnimator(new DefaultItemAnimator());
+        commentListView.setHasFixedSize(true);
+        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1), MyApplication.dip2px(this, 10)));
+
+        btnSend.setEnabled(false);
+    }
+
+
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_comment_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.commentText));
+//        mainHeadView.setBackListener(this);
+        mainHeadView.setMianTitle(getResources().getString(R.string.commentText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-        commentEdit.addTextChangedListener(textWatcher);
-        btnSend.setOnClickListener(this);
+    private void initData() {
+        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
+        getCommentList(topicid, 0, 10000, section, item);
     }
 
-    @Override
+    public void setListener() {
+        commentEdit.addTextChangedListener(textWatcher);
+
+    }
+
+    @OnClick({R.id.btn_send, R.id.head_back_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

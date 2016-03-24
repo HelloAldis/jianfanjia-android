@@ -38,6 +38,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:海量设计师列表
  * Author：fengliang
@@ -51,19 +54,46 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
     private static final int DEC_STYLE = 3;
     private static final int DEC_FEE = 4;
     private static final int NOT = 5;
+
+    @Bind(R.id.designer_head)
     private MainHeadView mainHeadView = null;
+
+    @Bind(R.id.empty_include)
     private RelativeLayout emptyLayout = null;
+
+    @Bind(R.id.error_include)
     private RelativeLayout errorLayout = null;
+
+    @Bind(R.id.topLayout)
     private LinearLayout topLayout = null;
+
+    @Bind(R.id.decTypeLayout)
     private RelativeLayout decTypeLayout = null;
+
+    @Bind(R.id.dectHouseTypeLayout)
     private RelativeLayout decHouseTypeLayout = null;
+
+    @Bind(R.id.decStyleLayout)
     private RelativeLayout decStyleLayout = null;
+
+    @Bind(R.id.decFeeLayout)
     private RelativeLayout decFeeLayout = null;
+
+    @Bind(R.id.decType_item)
     private TextView decType_item = null;
+
+    @Bind(R.id.decHouseType_item)
     private TextView decHouseType_item = null;
+
+    @Bind(R.id.decStyle_item)
     private TextView decStyle_item = null;
+
+    @Bind(R.id.decFee_item)
     private TextView decFee_item = null;
+
+    @Bind(R.id.recycleview)
     private PullToRefreshRecycleView designerListView = null;
+
     private DesignerListAdapter designerListAdapter = null;
     private List<DesignerInfo> designerList = new ArrayList<>();
     private FilterPopWindow window = null;
@@ -75,48 +105,39 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
     private int FROM = 0;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.initView();
+        this.setListener();
+    }
+
+    @Override
     public void initView() {
         initMainHeadView();
-        emptyLayout = (RelativeLayout) findViewById(R.id.empty_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
-        errorLayout = (RelativeLayout) findViewById(R.id.error_include);
-        topLayout = (LinearLayout) findViewById(R.id.topLayout);
-        decTypeLayout = (RelativeLayout) findViewById(R.id.decTypeLayout);
-        decHouseTypeLayout = (RelativeLayout) findViewById(R.id.dectHouseTypeLayout);
-        decStyleLayout = (RelativeLayout) findViewById(R.id.decStyleLayout);
-        decFeeLayout = (RelativeLayout) findViewById(R.id.decFeeLayout);
-        decType_item = (TextView) findViewById(R.id.decType_item);
-        decHouseType_item = (TextView) findViewById(R.id.decHouseType_item);
-        decStyle_item = (TextView) findViewById(R.id.decStyle_item);
-        decFee_item = (TextView) findViewById(R.id.decFee_item);
-        designerListView = (PullToRefreshRecycleView) findViewById(R.id.recycleview);
+
         designerListView.setMode(PullToRefreshBase.Mode.BOTH);
         designerListView.setLayoutManager(new LinearLayoutManager(DesignerListActivity.this));
         designerListView.setHasFixedSize(true);
         designerListView.setItemAnimator(new DefaultItemAnimator());
         designerListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+
         searchDesigners(FROM, pullDownListener);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.designer_head);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.all_designer));
         mainHeadView.setBackgroundTransparent();
     }
 
     @Override
     public void setListener() {
-        decTypeLayout.setOnClickListener(this);
-        decHouseTypeLayout.setOnClickListener(this);
-        decStyleLayout.setOnClickListener(this);
-        decFeeLayout.setOnClickListener(this);
         designerListView.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.decTypeLayout, R.id.dectHouseTypeLayout, R.id.decStyleLayout,
+            R.id.decFeeLayout, R.id.error_include})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:

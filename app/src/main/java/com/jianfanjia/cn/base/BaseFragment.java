@@ -24,14 +24,15 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 
+import butterknife.ButterKnife;
+
 /**
  * Description:Fragment基类
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 15:42
  */
-public abstract class BaseFragment extends Fragment
-        implements OnClickListener, PopWindowCallBack {
+public abstract class BaseFragment extends Fragment {
     protected FragmentManager fragmentManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
@@ -59,6 +60,7 @@ public abstract class BaseFragment extends Fragment
         if (getLayoutId() > 0) {
             view = inflateView(getLayoutId());
         }
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -117,22 +119,17 @@ public abstract class BaseFragment extends Fragment
         LogTool.d(this.getClass().getName(), "onDestroy");
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    protected void makeTextShort(String text) {
-        if (getContext() == null) return;
-        if(TextUtils.isEmpty(text)) return;
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void makeTextLong(String text) {
-        if (getContext() == null) return;
-        if(TextUtils.isEmpty(text)) return;
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-    }
+//    protected void makeTextShort(String text) {
+//        if (getContext() == null) return;
+//        if(TextUtils.isEmpty(text)) return;
+//        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    protected void makeTextLong(String text) {
+//        if (getContext() == null) return;
+//        if(TextUtils.isEmpty(text)) return;
+//        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+//    }
 
     // 通过Class跳转界面
     protected void startActivity(Class<?> cls) {
@@ -158,18 +155,6 @@ public abstract class BaseFragment extends Fragment
 
     protected void startActivityForResultByHost(Class<?> cls, int requestCode) {
         startActivityForResultByHost(cls, null, requestCode);
-    }
-
-    @Override
-    public void firstItemClick() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void secondItemClick() {
-        // TODO Auto-generated method stub
-
     }
 
     protected void hideWaitDialog() {
