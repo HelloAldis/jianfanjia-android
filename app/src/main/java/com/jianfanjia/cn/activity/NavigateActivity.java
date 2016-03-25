@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,8 +26,7 @@ import butterknife.OnClick;
  * @Description: 引导
  * @date 2015-8-28 下午3:23:37
  */
-public class NavigateActivity extends BaseActivity implements OnClickListener,
-        OnPageChangeListener {
+public class NavigateActivity extends BaseActivity implements OnPageChangeListener {
     @Bind(R.id.viewPager)
     ViewPager viewPager;
 
