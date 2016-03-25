@@ -10,11 +10,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -32,6 +27,14 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -42,8 +45,13 @@ import de.greenrobot.event.EventBus;
  */
 public class AppointDesignerActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = AppointDesignerActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private RecyclerView appoint_designer_listview = null;
+
+    @Bind(R.id.my_appoint_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.appoint_designer_listview)
+    RecyclerView appoint_designer_listview;
+
     private List<Map<String, Object>> mylist = new ArrayList<>();
     private List<Map<String, Object>> splitList = new ArrayList<>();
     private List<DesignerCanOrderInfo> rec_designer = new ArrayList<>();
@@ -63,10 +71,10 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initView();
     }
 
-    @Override
-    public void initView() {
+    private void initView() {
         Intent intent = this.getIntent();
         orderDesignerNum = intent.getIntExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
@@ -74,23 +82,19 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         total = totalCount - orderDesignerNum;
         LogTool.d(TAG, " total :" + total);
         initMainHeadView();
-        appoint_designer_listview = (RecyclerView) findViewById(R.id.appoint_designer_listview);
         appoint_designer_listview.setLayoutManager(new LinearLayoutManager(AppointDesignerActivity.this));
         appoint_designer_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
+                .showLastDivider().build());
         getOrderDesignerList(requestmentid);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_appoint_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
-        mainHeadView
-                .setMianTitle(total + getResources().getString(R.string.appoint));
+        mainHeadView.setMianTitle(total + getResources().getString(R.string.appoint));
         mainHeadView.setMianTitleColor();
         mainHeadView.setRightTitle(getResources().getString(R.string.appointText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
@@ -99,7 +103,8 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         mainHeadView.setRigthTitleEnable(false);
     }
 
-    private void setAppointDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo> favorite_designerList) {
+    private void setAppointDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo>
+            favorite_designerList) {
         mylist.clear();
         splitList.clear();
         Map<String, Object> mp = new HashMap<>();
@@ -145,12 +150,7 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         }
     }
 
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.head_right_title})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -168,7 +168,8 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
-        JianFanJiaClient.getOrderDesignerListByUser(AppointDesignerActivity.this, requestmentid, getOrderDesignerListener, this);
+        JianFanJiaClient.getOrderDesignerListByUser(AppointDesignerActivity.this, requestmentid,
+                getOrderDesignerListener, this);
     }
 
     private ApiUiUpdateListener getOrderDesignerListener = new ApiUiUpdateListener() {
@@ -181,13 +182,15 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            DesignerCanOrderListInfo designerCanOrderListInfo = JsonParser.jsonToBean(data.toString(), DesignerCanOrderListInfo.class);
+            DesignerCanOrderListInfo designerCanOrderListInfo = JsonParser.jsonToBean(data.toString(),
+                    DesignerCanOrderListInfo.class);
             LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
             if (null != designerCanOrderListInfo) {
                 rec_designer = designerCanOrderListInfo.getRec_designer();
                 favorite_designer = designerCanOrderListInfo.getFavorite_designer();
                 setAppointDesignerList(rec_designer, favorite_designer);
-                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity.this, mylist, splitList, total, new CheckListener() {
+                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity
+                        .this, mylist, splitList, total, new CheckListener() {
 
                     @Override
                     public void getItemData(int position, String designerid) {
@@ -225,7 +228,8 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
 
     //业主预约设计师
     private void orderDesignerByUser(String requestmentid, List<String> designerids) {
-        JianFanJiaClient.orderDesignerByUser(AppointDesignerActivity.this, requestmentid, designerids, orderDesignerListener, this);
+        JianFanJiaClient.orderDesignerByUser(AppointDesignerActivity.this, requestmentid, designerids,
+                orderDesignerListener, this);
     }
 
     private ApiUiUpdateListener orderDesignerListener = new ApiUiUpdateListener() {
