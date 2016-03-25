@@ -11,12 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -26,15 +29,23 @@ import com.jianfanjia.cn.config.Global;
  */
 public class NavigateActivity extends BaseActivity implements OnClickListener,
         OnPageChangeListener {
-    private ViewPager viewPager = null;
-    private LinearLayout btnLayout = null;
-    private Button btnRegister = null;
-    private Button btnLogin = null;
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
+
+    @Bind(R.id.btnLayout)
+    LinearLayout btnLayout;
+
+    @Bind(R.id.btnRegister)
+    Button btnRegister;
+
+    @Bind(R.id.btnLogin)
+    Button btnLogin;
+
     private List<View> list = new ArrayList<>();
     private ViewPageAdapter adapter = null;
     private int lastSelectorItem = 0;
     private int currentItem = 0; // 当前图片的索引号
-    private RelativeLayout imageLayout;
+    private RelativeLayout imageLayout = null;
 
     private int imgId[] = {R.mipmap.img_guide1, R.mipmap.img_guide2,
             R.mipmap.img_guide3, R.mipmap.img_guide4};
@@ -44,40 +55,30 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        initView();
     }
 
-    public void initView() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
-        btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        // 导航测试资源
+    private void initView() {
         for (int i = 0; i < imgId.length; i++) {
-            imageLayout = (RelativeLayout)inflater.inflate(R.layout.viewpager_item_navigate,null,false);
-            ImageView view = (ImageView)(imageLayout.findViewById(R.id.viewpager_navigate_item_pic));
+            imageLayout = (RelativeLayout) inflater.inflate(R.layout.viewpager_item_navigate, null, false);
+            ImageView view = (ImageView) (imageLayout.findViewById(R.id.viewpager_navigate_item_pic));
             view.setImageResource(imgId[i]);
             list.add(view);
         }
-        for(int i = 0;i < dots.length; i++){
-            ImageView imageView = (ImageView)findViewById(getResources().getIdentifier("welcome_dot"+i,"id",getPackageName()));
+        for (int i = 0; i < dots.length; i++) {
+            ImageView imageView = (ImageView) findViewById(getResources().getIdentifier("welcome_dot" + i, "id",
+                    getPackageName()));
             dots[i] = imageView;
         }
         adapter = new ViewPageAdapter(NavigateActivity.this, list);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentItem);
-    }
-
-    @Override
-    public void setListener() {
         viewPager.setOnPageChangeListener(this);
-        btnRegister.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.btnRegister, R.id.btnLogin})
     public void onClick(View v) {
         dataManager.setFisrt(false);
         switch (v.getId()) {
@@ -115,7 +116,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         } else {
             btnLayout.setVisibility(View.GONE);
         }
-        if(currentItem != lastSelectorItem){
+        if (currentItem != lastSelectorItem) {
             dots[currentItem].setImageResource(R.mipmap.icon_dot_selector);
             dots[lastSelectorItem].setImageResource(R.mipmap.icon_dot_normal);
             lastSelectorItem = currentItem;

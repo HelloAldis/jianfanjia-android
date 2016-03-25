@@ -35,7 +35,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,11 +169,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     public void initView() {
         LogTool.d(TAG, "initView");
         GeTuiManager.initGeTui(getApplicationContext());
-    }
-
-    @Override
-    public void setListener() {
-        // TODO Auto-generated method stub
     }
 
     @Override
