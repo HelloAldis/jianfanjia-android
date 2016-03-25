@@ -11,11 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
@@ -34,6 +29,11 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author fengliang
  * @ClassName: NoticeFragment
@@ -51,10 +51,23 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
     private RelativeLayout errorLayout = null;
     private NoticeAdapter noticeAdapter = null;
     private List<NoticeInfo> noticeList = new ArrayList<>();
+    private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = true;
     private int FROM = 0;
     private String[] typeArray = null;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
 
     public static NoticeFragment newInstance(String[] typeArray) {
         Bundle args = new Bundle();
@@ -100,8 +113,15 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
                 .getApplicationContext()));
     }
 
-    @Override
-    protected void load() {
+    private void onVisible() {
+        loadData();
+    }
+
+    private void onInvisible() {
+
+    }
+
+    private void loadData() {
         if (!isPrepared || !isVisible) {
             return;
         }
@@ -109,7 +129,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         getNoticeList(typeArray, pullDownListener);
     }
 
-    @Override
     public void setListener() {
         all_notice_listview.setOnRefreshListener(this);
         errorLayout.setOnClickListener(this);
@@ -129,7 +148,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
     @Override
     public void onResume() {
         super.onResume();
-        load();
+        loadData();
     }
 
     private void getNoticeList(String[] typeStr, ApiUiUpdateListener listener) {
@@ -241,4 +260,8 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
     };
 
+    @Override
+    public int getLayoutId() {
+        return 0;
+    }
 }

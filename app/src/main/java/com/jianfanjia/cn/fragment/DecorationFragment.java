@@ -5,7 +5,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -48,7 +50,8 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DecorationFragment extends BaseFragment implements View.OnClickListener, PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationFragment.class.getName();
     private static final int SECTION = 1;
     private static final int HOUSETYPE = 2;
@@ -84,7 +87,13 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     }
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
         initMainHeadView(view);
         emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.error_view_no_img_data));
@@ -102,7 +111,8 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setHasFixedSize(true);
         decoration_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext().getApplicationContext(), 5));
+        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
+                .getApplicationContext(), 5));
         decoration_listview.addItemDecoration(decoration);
         getDecorationImgInfo(FROM, pullDownListener);
     }
@@ -115,7 +125,6 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         mainHeadView.setBackLayoutVisable(View.GONE);
     }
 
-    @Override
     public void setListener() {
         sectionLayout.setOnClickListener(this);
         houseTypeLayout.setOnClickListener(this);
@@ -218,26 +227,28 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
                 if (null != beautyImgList && beautyImgList.size() > 0) {
                     if (null == decorationAdapter) {
                         LogTool.d(TAG, "decorationAdapter is null");
-                        decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new OnItemClickListener() {
-                            @Override
-                            public void OnItemClick(int position) {
-                                LogTool.d(TAG, "position=" + position);
-                                currentPos = position;
-                                LogTool.d(TAG, "currentPos-----" + currentPos);
-                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
-                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                                Bundle decorationBundle = new Bundle();
-                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                                decorationBundle.putInt(Global.POSITION, position);
-                                decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>) beautyImgList);
-                                decorationBundle.putString(Global.HOUSE_SECTION, section);
-                                decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
-                                decorationBundle.putString(Global.DEC_STYLE, decStyle);
-                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                                decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
-                                startActivity(PreviewDecorationActivity.class,decorationBundle);
-                            }
-                        });
+                        decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
+                                OnItemClickListener() {
+                                    @Override
+                                    public void OnItemClick(int position) {
+                                        LogTool.d(TAG, "position=" + position);
+                                        currentPos = position;
+                                        LogTool.d(TAG, "currentPos-----" + currentPos);
+                                        BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
+                                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                        Bundle decorationBundle = new Bundle();
+                                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                                        decorationBundle.putInt(Global.POSITION, position);
+                                        decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>)
+                                                beautyImgList);
+                                        decorationBundle.putString(Global.HOUSE_SECTION, section);
+                                        decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
+                                        decorationBundle.putString(Global.DEC_STYLE, decStyle);
+                                        decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                                        decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
+                                        startActivity(PreviewDecorationActivity.class, decorationBundle);
+                                    }
+                                });
                         decoration_listview.setAdapter(decorationAdapter);
                     } else {
                         LogTool.d(TAG, "decorationAdapter is not null");

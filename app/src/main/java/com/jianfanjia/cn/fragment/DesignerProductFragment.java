@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
@@ -39,9 +39,10 @@ import java.util.Map;
  * @date 2015-8-26 下午1:07:52
  */
 
-public class DesignerProductFragment extends BaseAnnotationFragment implements PullToRefreshBase
+public class DesignerProductFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerProductFragment.class.getName();
+    private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private PullToRefreshRecycleView designer_works_listview = null;
@@ -49,6 +50,19 @@ public class DesignerProductFragment extends BaseAnnotationFragment implements P
     private List<Product> productList = new ArrayList<Product>();
     private String designerid = null;
     private int FROM = 0;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
+
 
     public static DesignerProductFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -82,16 +96,22 @@ public class DesignerProductFragment extends BaseAnnotationFragment implements P
         getDesignerProduct(designerid, FROM, listener);
     }
 
-    @Override
-    protected void load() {
+    private void onVisible() {
+        load();
+    }
+
+    private void onInvisible() {
+
+    }
+
+    private void load() {
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
         getDesignerProduct(designerid, FROM, pullUpListener);
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         designer_works_listview.setOnRefreshListener(this);
     }
 
@@ -188,4 +208,9 @@ public class DesignerProductFragment extends BaseAnnotationFragment implements P
         return designer_works_listview.getRefreshableView();
     }
 
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_designer_works;
+    }
 }

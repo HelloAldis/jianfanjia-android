@@ -11,14 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.CollectProductAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -31,6 +28,10 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -39,7 +40,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectProductFragment extends BaseAnnotationFragment implements PullToRefreshBase
+public class CollectProductFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
@@ -48,10 +49,23 @@ public class CollectProductFragment extends BaseAnnotationFragment implements Pu
     private CollectProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<>();
     private boolean isFirst = true;
+    private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int currentPos = -1;
     private int FROM = 0;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
 
     public static CollectProductFragment newInstance() {
         CollectProductFragment productFragment = new CollectProductFragment();
@@ -66,7 +80,7 @@ public class CollectProductFragment extends BaseAnnotationFragment implements Pu
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_collect_product, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         init(view);
         isPrepared = true;
         load();
@@ -87,8 +101,15 @@ public class CollectProductFragment extends BaseAnnotationFragment implements Pu
                 ()));
     }
 
-    @Override
-    protected void load() {
+    private void onVisible() {
+        load();
+    }
+
+    private void onInvisible() {
+
+    }
+
+    private void load() {
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
@@ -99,8 +120,7 @@ public class CollectProductFragment extends BaseAnnotationFragment implements Pu
         JianFanJiaClient.getCollectListByUser(getActivity(), from, limit, listener, this);
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         prodtct_listview.setOnRefreshListener(this);
         errorLayout.setOnClickListener(this);
     }
@@ -241,5 +261,10 @@ public class CollectProductFragment extends BaseAnnotationFragment implements Pu
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_collect_product;
     }
 }

@@ -10,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
-import com.jianfanjia.cn.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -25,13 +22,17 @@ import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.tools.LogTool;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * Description: com.jianfanjia.cn.fragment
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-15 14:43
  */
-public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
+public class EditBussinessRequirementFragment extends BaseFragment {
 
     private NotifyActivityStatusChange hostActivity;
     protected boolean isFinish = false;//编辑是否已经完成

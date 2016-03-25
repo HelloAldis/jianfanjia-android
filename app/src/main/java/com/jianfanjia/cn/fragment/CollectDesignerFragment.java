@@ -11,14 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Constant;
@@ -31,6 +28,10 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 
@@ -40,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDesignerFragment extends BaseAnnotationFragment implements PullToRefreshBase
+public class CollectDesignerFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = CollectDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
@@ -50,10 +51,23 @@ public class CollectDesignerFragment extends BaseAnnotationFragment implements P
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<>();
     private boolean isFirst = true;
+    private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int FROM = 0;
     private int currentPos = -1;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
 
     public static CollectDesignerFragment newInstance() {
         CollectDesignerFragment designerFragment = new CollectDesignerFragment();
@@ -68,7 +82,7 @@ public class CollectDesignerFragment extends BaseAnnotationFragment implements P
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_collect_designer, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         init(view);
         isPrepared = true;
         load();
@@ -106,8 +120,15 @@ public class CollectDesignerFragment extends BaseAnnotationFragment implements P
         }
     }
 
-    @Override
-    protected void load() {
+    private void onVisible() {
+        load();
+    }
+
+    private void onInvisible() {
+
+    }
+
+    private void load() {
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
@@ -243,5 +264,10 @@ public class CollectDesignerFragment extends BaseAnnotationFragment implements P
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_collect_designer;
     }
 }

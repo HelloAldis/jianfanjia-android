@@ -11,15 +11,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -32,6 +29,10 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -41,7 +42,7 @@ import de.greenrobot.event.EventBus;
  * @date 2015-8-26 下午1:07:52
  */
 
-public class CollectDecorationImgFragment extends BaseAnnotationFragment implements PullToRefreshBase
+public class CollectDecorationImgFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = CollectDecorationImgFragment.class.getName();
     private PullToRefreshRecycleView decoration_img_listview = null;
@@ -50,11 +51,24 @@ public class CollectDecorationImgFragment extends BaseAnnotationFragment impleme
     private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
     private DecorationAdapter decorationImgAdapter = null;
     private boolean isFirst = true;
+    private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int total = 0;
     private int currentPos = -1;
     private int FROM = 0;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
 
     public static CollectDecorationImgFragment newInstance() {
         CollectDecorationImgFragment imgFragment = new CollectDecorationImgFragment();
@@ -69,7 +83,7 @@ public class CollectDecorationImgFragment extends BaseAnnotationFragment impleme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_collect_decoration_img, container, false);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         init(view);
         isPrepared = true;
         load();
@@ -92,16 +106,22 @@ public class CollectDecorationImgFragment extends BaseAnnotationFragment impleme
         decoration_img_listview.addItemDecoration(decoration);
     }
 
-    @Override
-    protected void load() {
+    private void onVisible() {
+        load();
+    }
+
+    private void onInvisible() {
+
+    }
+
+    private void load() {
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
             return;
         }
         getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         decoration_img_listview.setOnRefreshListener(this);
         errorLayout.setOnClickListener(this);
     }
@@ -254,4 +274,8 @@ public class CollectDecorationImgFragment extends BaseAnnotationFragment impleme
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_collect_decoration_img;
+    }
 }
