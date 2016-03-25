@@ -35,7 +35,7 @@ import java.util.Map;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchProductFragment extends BaseFragment {
+public class SearchProductFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = SearchProductFragment.class.getName();
     private RecyclerView recyclerView = null;
     private RelativeLayout emptyLayout = null;
@@ -63,7 +63,7 @@ public class SearchProductFragment extends BaseFragment {
                 LogTool.d(TAG, "productid:" + productid);
                 Bundle productBundle = new Bundle();
                 productBundle.putString(Global.PRODUCT_ID, productid);
-                startActivity(DesignerCaseInfoActivity.class,productBundle);
+                startActivity(DesignerCaseInfoActivity.class, productBundle);
             }
 
             @Override
@@ -73,7 +73,7 @@ public class SearchProductFragment extends BaseFragment {
                 LogTool.d(TAG, "designertid=" + designertid);
                 Bundle designerBundle = new Bundle();
                 designerBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivity.class,designerBundle);
+                startActivity(DesignerInfoActivity.class, designerBundle);
             }
         });
         productAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
@@ -126,7 +126,8 @@ public class SearchProductFragment extends BaseFragment {
                 int total = worksInfo.getTotal();
                 if (total > 0) {
                     LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" + productAdapter.getData().size());
+                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" + productAdapter
+                            .getData().size());
                     productAdapter.addData(worksInfo.getProducts());
                     if (total > productAdapter.getData().size()) {
                         productAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);

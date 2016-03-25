@@ -11,13 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
+import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Constant;
@@ -30,6 +28,10 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 
@@ -39,8 +41,8 @@ import de.greenrobot.event.EventBus;
  * @Description: 我的意向设计师
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDesignerFragment extends CommonFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView>,View.OnClickListener{
+public class CollectDesignerFragment extends BaseAnnotationFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = CollectDesignerFragment.class.getName();
     private PullToRefreshRecycleView my_favorite_designer_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -150,23 +152,23 @@ public class CollectDesignerFragment extends CommonFragment implements PullToRef
                 if (null != designers && designers.size() > 0) {
                     designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new
                             RecyclerViewOnItemClickListener() {
-                        @Override
-                        public void OnItemClick(View view, int position) {
-                            LogTool.d(TAG, "position=" + position);
-                            currentPos = position;
-                            LogTool.d(TAG, "currentPos========" + currentPos);
-                            String designerId = designers.get(currentPos).get_id();
-                            LogTool.d(TAG, "designerId:" + designerId);
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designerId);
-                            startActivity(DesignerInfoActivity.class, designerBundle);
-                        }
+                                @Override
+                                public void OnItemClick(View view, int position) {
+                                    LogTool.d(TAG, "position=" + position);
+                                    currentPos = position;
+                                    LogTool.d(TAG, "currentPos========" + currentPos);
+                                    String designerId = designers.get(currentPos).get_id();
+                                    LogTool.d(TAG, "designerId:" + designerId);
+                                    Bundle designerBundle = new Bundle();
+                                    designerBundle.putString(Global.DESIGNER_ID, designerId);
+                                    startActivity(DesignerInfoActivity.class, designerBundle);
+                                }
 
-                        @Override
-                        public void OnViewClick(int position) {
+                                @Override
+                                public void OnViewClick(int position) {
 
-                        }
-                    });
+                                }
+                            });
                     my_favorite_designer_listview.setAdapter(designAdapter);
                     my_favorite_designer_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);

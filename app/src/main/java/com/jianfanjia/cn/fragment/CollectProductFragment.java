@@ -11,13 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.CollectProductAdapter;
+import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -30,6 +28,10 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -38,8 +40,8 @@ import de.greenrobot.event.EventBus;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectProductFragment extends CommonFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView> {
+public class CollectProductFragment extends BaseAnnotationFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -149,23 +151,23 @@ public class CollectProductFragment extends CommonFragment implements PullToRefr
                 if (null != products && products.size() > 0) {
                     productAdapter = new CollectProductAdapter(getActivity(), products, new
                             RecyclerViewOnItemClickListener() {
-                        @Override
-                        public void OnItemClick(View view, int position) {
-                            LogTool.d(TAG, "position:" + position);
-                            currentPos = position;
-                            LogTool.d(TAG, "currentPos-------" + currentPos);
-                            String productid = products.get(currentPos).get_id();
-                            LogTool.d(TAG, "productid:" + productid);
-                            Bundle productBundle = new Bundle();
-                            productBundle.putString(Global.PRODUCT_ID, productid);
-                            startActivity(DesignerCaseInfoActivity.class, productBundle);
-                        }
+                                @Override
+                                public void OnItemClick(View view, int position) {
+                                    LogTool.d(TAG, "position:" + position);
+                                    currentPos = position;
+                                    LogTool.d(TAG, "currentPos-------" + currentPos);
+                                    String productid = products.get(currentPos).get_id();
+                                    LogTool.d(TAG, "productid:" + productid);
+                                    Bundle productBundle = new Bundle();
+                                    productBundle.putString(Global.PRODUCT_ID, productid);
+                                    startActivity(DesignerCaseInfoActivity.class, productBundle);
+                                }
 
-                        @Override
-                        public void OnViewClick(int position) {
+                                @Override
+                                public void OnViewClick(int position) {
 
-                        }
-                    });
+                                }
+                            });
                     prodtct_listview.setAdapter(productAdapter);
                     prodtct_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);

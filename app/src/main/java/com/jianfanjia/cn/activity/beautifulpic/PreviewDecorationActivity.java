@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
@@ -103,7 +102,6 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         initView();
         getDataFromIntent(getIntent());
         initData();
@@ -395,12 +393,6 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     @Override
