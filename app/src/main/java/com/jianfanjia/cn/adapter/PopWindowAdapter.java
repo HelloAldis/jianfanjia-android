@@ -4,13 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseListAdapter;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 
 /**
  * Name: PopWindowAdapter
@@ -52,7 +51,7 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         notifyDataSetChanged();
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
         @Bind(R.id.title_item)
         TextView mName;
 

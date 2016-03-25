@@ -9,16 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.PriceDetail;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
@@ -129,7 +128,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
         return null;
     }
 
-    private static class PriceDetailHeadHolder extends RecyclerViewHolderBase {
+    static class PriceDetailHeadHolder extends RecyclerViewHolderBase {
         @Bind(R.id.project_total_price)
         TextView project_total_price;
         @Bind(R.id.project_price_after_discount)
@@ -145,7 +144,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
         }
     }
 
-    private static class PriceDetailViewHolder extends RecyclerViewHolderBase {
+    static class PriceDetailViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.titleText)
         TextView itemTitle;
         @Bind(R.id.contentText)

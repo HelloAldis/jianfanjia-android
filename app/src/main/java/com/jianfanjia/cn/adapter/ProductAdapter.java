@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -13,11 +17,6 @@ import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: ProductAdapter
@@ -84,7 +83,7 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
 
-    private static class ProductViewHolder extends RecyclerViewHolderBase {
+    static class ProductViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_product_img)
         ImageView itemProductView;
         @Bind(R.id.list_item_head_img)

@@ -4,16 +4,15 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
 
@@ -42,7 +41,7 @@ public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
         return convertView;
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
         @Bind(R.id.img)
         ImageView img;
 

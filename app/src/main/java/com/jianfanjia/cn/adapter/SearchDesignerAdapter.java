@@ -83,7 +83,7 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
         holder.goodAtStyleView.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
     }
 
-    private class SearchDesignerViewHolder extends RecyclerView.ViewHolder {
+    class SearchDesignerViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.ltm_req_owner_head)
         ImageView headImageView;
         @Bind(R.id.ltm_info_auth)

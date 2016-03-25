@@ -15,6 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.RescheduleInfo;
@@ -24,12 +29,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -424,7 +423,7 @@ public class SectionItemAdapter extends BaseAdapter {
         });
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
         @Bind(R.id.site_listview_item_content_small)
         RelativeLayout smallcloseLayout;
         @Bind(R.id.site_listview_item_content_expand)
@@ -451,7 +450,7 @@ public class SectionItemAdapter extends BaseAdapter {
         }
     }
 
-    private static class ViewHolder2 {
+    static class ViewHolder2 {
         @Bind(R.id.site_listview_item_content_small)
         RelativeLayout smallcloseLayout;
         @Bind(R.id.site_listview_item_content_expand)

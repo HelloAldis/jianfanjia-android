@@ -69,7 +69,7 @@ public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
         return new ProductViewHolder(view);
     }
 
-    private static class ProductViewHolder extends RecyclerViewHolderBase {
+    static class ProductViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_product_img)
         ImageView itemProductView;
         @Bind(R.id.list_item_head_img)

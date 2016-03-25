@@ -92,7 +92,7 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
         return new DecorateLiveViewHolder(view);
     }
 
-    private static class DecorateLiveViewHolder extends RecyclerViewHolderBase {
+    static class DecorateLiveViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.cover_image)
         ImageView bgImage;
         @Bind(R.id.cell_name)
