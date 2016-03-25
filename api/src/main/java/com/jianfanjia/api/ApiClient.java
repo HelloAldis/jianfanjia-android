@@ -54,7 +54,6 @@ public class ApiClient {
     private static final OkHttpClient CLIENT = new OkHttpClient.Builder().addInterceptor(new LoggingInterceptor()).build();
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 
-
     private static void api(Request okRequest, final BaseRequest baseRequest, final ApiCallback apiCallback) {
         preLoad(baseRequest, apiCallback);
 
@@ -75,7 +74,7 @@ public class ApiClient {
                 if (call.isCanceled()) {
                     //什么都不做应为请求被取消
                 } else {
-                    networkError(baseRequest, apiCallback,HttpCode.NO_NETWORK_ERROR_CODE);
+                    networkError(baseRequest, apiCallback, HttpCode.NO_NETWORK_ERROR_CODE);
                 }
 
             }
@@ -105,7 +104,9 @@ public class ApiClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                BASE_API_CALLBACK.onPreLoad();
+                if (BASE_API_CALLBACK != null) {
+                    BASE_API_CALLBACK.onPreLoad();
+                }
                 baseRequest.onPreLoad();
                 if (apiCallback != null) {
                     apiCallback.onPreLoad();
@@ -118,7 +119,9 @@ public class ApiClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                BASE_API_CALLBACK.onHttpDone();
+                if (BASE_API_CALLBACK != null) {
+                    BASE_API_CALLBACK.onHttpDone();
+                }
                 baseRequest.onHttpDone();
                 if (apiCallback != null) {
                     apiCallback.onHttpDone();
@@ -131,7 +134,9 @@ public class ApiClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                BASE_API_CALLBACK.onSuccess(apiResponse);
+                if (BASE_API_CALLBACK != null) {
+                    BASE_API_CALLBACK.onSuccess(apiResponse);
+                }
                 baseRequest.onSuccess(apiResponse);
                 if (apiCallback != null) {
                     apiCallback.onSuccess(apiResponse);
@@ -144,7 +149,9 @@ public class ApiClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                BASE_API_CALLBACK.onFailed(apiResponse);
+                if (BASE_API_CALLBACK != null) {
+                    BASE_API_CALLBACK.onFailed(apiResponse);
+                }
                 baseRequest.onFailed(apiResponse);
                 if (apiCallback != null) {
                     apiCallback.onFailed(apiResponse);
@@ -158,7 +165,9 @@ public class ApiClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                BASE_API_CALLBACK.onNetworkError(code);
+                if (BASE_API_CALLBACK != null) {
+                    BASE_API_CALLBACK.onNetworkError(code);
+                }
                 baseRequest.onNetworkError(code);
                 if (apiCallback != null) {
                     apiCallback.onNetworkError(code);

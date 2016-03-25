@@ -3,13 +3,13 @@ package com.jianfanjia.api;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jianfanjia.cn.api.request.BaseRequest;
-import com.jianfanjia.cn.api.request.DownloadRequest;
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
-import com.jianfanjia.cn.tools.FileUtil;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.NetTool;
+import com.jianfanjia.api.progress.UIProgressListener;
+import com.jianfanjia.api.request.BaseRequest;
+import com.jianfanjia.api.request.guest.DownloadRequest;
+import com.jianfanjia.base.application.BaseApplication;
+import com.jianfanjia.tool.FileUtil;
+import com.jianfanjia.tool.LogTool;
+import com.jianfanjia.tool.NetTool;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,7 +34,7 @@ public class DownloadClient {
     private static void okDownload(final Request request, final DownloadRequest downloadRequest, final ApiCallback apiCallback, final UIProgressListener uiProgressListener) {
         preLoad(downloadRequest, apiCallback);
 
-        if (!NetTool.isNetworkAvailable(MyApplication.getInstance())) {
+        if (!NetTool.isNetworkAvailable(BaseApplication.getInstance())) {
             httpDone(downloadRequest, apiCallback);
             networkError(downloadRequest, apiCallback, HttpCode.NO_NETWORK_ERROR_CODE);
             return;
