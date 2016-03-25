@@ -80,13 +80,13 @@ public class DecorateLiveFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNum = getArguments() != null ? getArguments().getInt("num") : 0;
-        LogTool.d(this.getClass().getName(), "num =" + mNum);
+        LogTool.d(TAG, "num =" + mNum);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(this.getClass().getName(), "onCreateView");
+        LogTool.d(TAG, "onCreateView");
         view = super.onCreateView(inflater, container, savedInstanceState);
 
         initRecycleView();
@@ -181,8 +181,8 @@ public class DecorateLiveFragment extends BaseFragment {
                 if (total > 0) {
                     decorateLiveAdapter.clear();
                     decorateLiveAdapter.addData(decorateLiveList.getShares());
-                    LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                    LogTool.d(TAG, "total size =" + total);
+                    LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
                             decorateLiveAdapter.getData().size());
                     if (total > decorateLiveAdapter.getData().size()) {
                         decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
@@ -221,8 +221,8 @@ public class DecorateLiveFragment extends BaseFragment {
                 if (total > 0) {
                     decorateLiveAdapter.clear();
                     decorateLiveAdapter.addData(decorateLiveList.getShares());
-                    LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                    LogTool.d(TAG, "total size =" + total);
+                    LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
                             decorateLiveAdapter.getData().size());
                     if (total > decorateLiveAdapter.getData().size()) {
                         decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
