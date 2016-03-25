@@ -9,11 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
@@ -24,6 +19,12 @@ import com.jianfanjia.cn.tools.CityFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description: com.jianfanjia.cn.activity
  * Author: zhanghao
@@ -31,8 +32,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Date:2015-11-09 13:06
  */
 public class EditCityActivity extends SwipeBackActivity {
-
-    private static final String TAG = "EditCityActivity";
+    private static final String TAG = EditCityActivity.class.getName();
     public static final String PAGE = "page";
     public static final int EDIT_USER_ADRESS = 0;
     public static final int EDIT_REQUIREMENT_ADRESS = 1;
@@ -80,12 +80,11 @@ public class EditCityActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getDataFromIntent();
-        initView();
         initData();
+        initView();
     }
 
     private void getDataFromIntent() {
-
         intent = getIntent();
         provice = intent.getStringExtra(Constant.EDIT_PROVICE);
         city = intent.getStringExtra(Constant.EDIT_CITY);
@@ -93,9 +92,8 @@ public class EditCityActivity extends SwipeBackActivity {
         page = intent.getIntExtra(PAGE, 0);
     }
 
-    public void initView() {
+    private void initView() {
         mainHeadView.setMianTitle(getString(R.string.user_address));
-
         initSpinner();
     }
 
