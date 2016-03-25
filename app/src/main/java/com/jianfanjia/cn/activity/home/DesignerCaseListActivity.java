@@ -55,43 +55,43 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     private static final int NOT = 5;
 
     @Bind(R.id.topLayout)
-    private LinearLayout topLayout = null;
+    protected LinearLayout topLayout = null;
 
     @Bind(R.id.decTypeLayout)
-    private RelativeLayout decTypeLayout = null;
+    protected RelativeLayout decTypeLayout = null;
 
     @Bind(R.id.designStyleLayout)
-    private RelativeLayout designStyleLayout = null;
+    protected RelativeLayout designStyleLayout = null;
 
     @Bind(R.id.houseTypeLayout)
-    private RelativeLayout houseTypeLayout = null;
+    protected RelativeLayout houseTypeLayout = null;
 
     @Bind(R.id.decAreaLayout)
-    private RelativeLayout decAreaLayout = null;
+    protected RelativeLayout decAreaLayout = null;
 
     @Bind(R.id.decType_item)
-    private TextView decType_item = null;
+    protected TextView decType_item = null;
 
     @Bind(R.id.designStyle_item)
-    private TextView designStyle_item = null;
+    protected TextView designStyle_item = null;
 
     @Bind(R.id.houseType_item)
-    private TextView houseType_item = null;
+    protected TextView houseType_item = null;
 
     @Bind(R.id.decArea_item)
-    private TextView decArea_item = null;
+    protected TextView decArea_item = null;
 
     @Bind(R.id.designer_case_head)
-    private MainHeadView mainHeadView = null;
+    protected MainHeadView mainHeadView = null;
 
     @Bind(R.id.pull_refresh_scrollview)
-    private PullToRefreshRecycleView pullToRefreshRecyclerView = null;
+    protected PullToRefreshRecycleView pullToRefreshRecyclerView = null;
 
     @Bind(R.id.error_include)
-    private RelativeLayout errorLayout = null;
+    protected RelativeLayout errorLayout = null;
 
     @Bind(R.id.empty_include)
-    private RelativeLayout emptyLayout = null;
+    protected RelativeLayout emptyLayout = null;
 
     private FilterPopWindow window = null;
     private boolean isFirst = true;

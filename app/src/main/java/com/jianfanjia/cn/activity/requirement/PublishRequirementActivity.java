@@ -20,8 +20,8 @@ import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
-import com.jianfanjia.cn.fragment.EditHomeRequirementFragment_;
+import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
+import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -48,8 +48,8 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     @Bind(R.id.viewpager)
     protected ViewPager viewPager = null;
 
-    private EditHomeRequirementFragment_ editHomeRequirementFragment_;
-    private EditBussinessRequirementFragment_ editBussinessRequirementFragment_;
+    private EditHomeRequirementFragment editHomeRequirementFragment_;
+    private EditBussinessRequirementFragment editBussinessRequirementFragment_;
 
     private MyFragmentPagerAdapter adapter;
 
@@ -126,9 +126,9 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     private void setupViewPager(ViewPager viewPager) {
         LogTool.d(this.getClass().getName(), "setupViewPager");
         List<SelectItem> listViews = new ArrayList<>();
-        editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
+        editBussinessRequirementFragment_ = new EditBussinessRequirementFragment();
         editBussinessRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_BUSINESS));
-        editHomeRequirementFragment_ = new EditHomeRequirementFragment_();
+        editHomeRequirementFragment_ = new EditHomeRequirementFragment();
         editHomeRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_HOME));
         SelectItem designerItem = new SelectItem(editHomeRequirementFragment_, getString(R.string.home_dec));
         SelectItem productItem = new SelectItem(editBussinessRequirementFragment_, getString(R.string.business_dec));

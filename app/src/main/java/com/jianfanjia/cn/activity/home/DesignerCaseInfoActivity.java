@@ -12,6 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -27,12 +32,6 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -47,30 +46,30 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     private int mScrollY = 0;
 
     @Bind(R.id.head_back_layout)
-    private RelativeLayout head_back_layout = null;
+    protected RelativeLayout head_back_layout = null;
 
     @Bind(R.id.toolbar_collect_layout)
-    private RelativeLayout toolbar_collect_layout = null;
+    protected RelativeLayout toolbar_collect_layout = null;
 
     @Bind(R.id.tv_title)
-    private TextView tv_title = null;
+    protected TextView tv_title = null;
 
     @Bind(R.id.toolbar_collect)
-    private ImageView toolbar_collect = null;
+    protected ImageView toolbar_collect = null;
 
     @Bind(R.id.top_info_layout)
-    private LinearLayout activity_case_info_top_layout = null;
+    protected LinearLayout activity_case_info_top_layout = null;
 
     @Bind(R.id.designer_case_listview)
-    private RecyclerView designer_case_listview = null;
+    protected RecyclerView designer_case_listview = null;
 
     private LinearLayoutManager mLayoutManager = null;
 
     @Bind(R.id.head_img)
-    private ImageView head_img = null;
+    protected ImageView head_img = null;
 
     @Bind(R.id.name_text)
-    private TextView nameText = null;
+    protected TextView nameText = null;
 
     private List<String> imgs = new ArrayList<>();
 

@@ -22,10 +22,10 @@ public class ShowPicActivity extends SwipeBackActivity implements
     private static final String TAG = ShowPicActivity.class.getName();
 
     @Bind(R.id.showpicPager)
-    private ViewPager viewPager;
+    protected ViewPager viewPager;
 
     @Bind(R.id.pic_tip)
-    private TextView tipView;
+    protected TextView tipView;
 
     private ShowPicPagerAdapter showPicPagerAdapter;
     private List<String> imageList = new ArrayList<String>();

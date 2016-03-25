@@ -16,9 +16,8 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
-import com.jianfanjia.cn.activity.my.EditCityActivity_;
-import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity_;
-import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity_;
+import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
+import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -188,41 +187,41 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
                 address.putString(Constant.EDIT_CITY, requirementInfo.getCity());
                 address.putString(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
-                startActivityForResult(EditCityActivity_.class, address, Constant.REQUIRECODE_CITY);
+                startActivityForResult(EditCityActivity.class, address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
                 Bundle loveDesignerBundle = new Bundle();
                 loveDesignerBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(EditRequirementItemActivity_.class, loveDesignerBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant
                         .REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(EditRequirementLovestyleActivity_.class, loveStyleBundle, Constant
+                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant
                         .REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_persons:
                 Bundle personBundle = new Bundle();
                 personBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_PERSONS);
-                startActivityForResult(EditRequirementItemActivity_.class, personBundle, Constant.REQUIRECODE_PERSONS);
+                startActivityForResult(EditRequirementItemActivity.class, personBundle, Constant.REQUIRECODE_PERSONS);
                 break;
             case R.id.act_edit_req_housetype:
                 Bundle houseTypeBundle = new Bundle();
                 houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
-                startActivityForResult(EditRequirementItemActivity_.class, houseTypeBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, houseTypeBundle, Constant
                         .REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(EditRequirementItemActivity_.class, workTypeBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
                 Bundle lovedesisexBundle = new Bundle();
                 lovedesisexBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(EditRequirementItemActivity_.class, lovedesisexBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, lovedesisexBundle, Constant
                         .REQUIRECODE_DESISEX);
                 break;
             default:
@@ -277,20 +276,7 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
                         arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
                 break;
-                /*act_edit_req_persons_content.setText(TextUtils.isEmpty(requirementInfo.getFamily_description()) ?
-                "" : requirementInfo.getFamily_description());
-                act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" :
-                arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
-                act_edit_req_persons_content.setText(TextUtils.isEmpty(requirementInfo.getFamily_description()) ? ""
-                : requirementInfo.getFamily_description());
-                act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
-                arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
-                act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type())
-                 ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
-                act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
-                arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
-                act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
-                arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);               */
+
         }
 
     }

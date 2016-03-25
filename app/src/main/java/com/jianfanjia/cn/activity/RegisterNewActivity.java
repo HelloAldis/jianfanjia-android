@@ -14,7 +14,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -147,7 +147,7 @@ public class RegisterNewActivity extends BaseActivity implements
         super.loadSuccess(data);
         switch (requsetCode) {
             case REGISTER_CODE:
-                startActivity(NewUserCollectDecStageActivity_.class);
+                startActivity(NewUserCollectDecStageActivity.class);
                 appManager.finishActivity(this);
                 GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                 break;
@@ -158,7 +158,7 @@ public class RegisterNewActivity extends BaseActivity implements
             case BINDING_PHONE:
                 if (getIntent().getExtras().getInt(Global.BINDING_PHONE_INTENT) == Global.BINDING_PHONE_REQUIREMENT)
                 {//发布需求就导向发布需求
-                    startActivity(PublishRequirementActivity_.class);
+                    startActivity(PublishRequirementActivity.class);
                 } else {
                     EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
                 }

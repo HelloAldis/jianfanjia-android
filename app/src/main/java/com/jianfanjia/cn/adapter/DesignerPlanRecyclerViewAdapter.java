@@ -65,7 +65,7 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
         return new DesignerPlanViewHolder(view);
     }
 
-    private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+    static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_plan_img)
         ImageView itemImgView;
 

@@ -8,10 +8,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.config.Global;
@@ -20,8 +22,6 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import java.util.List;
 
 /**
  * @author fengliang
@@ -88,7 +88,7 @@ public class MyProcessActivity extends SwipeBackActivity implements
         LogTool.d(TAG, "_id=" + processInfo.get_id());
         Bundle bundle = new Bundle();
         bundle.putSerializable(Global.PROCESS_INFO,processInfo);
-        startActivity(MyProcessDetailActivity_.class,bundle);
+        startActivity(MyProcessDetailActivity.class,bundle);
     }
 
     @Override

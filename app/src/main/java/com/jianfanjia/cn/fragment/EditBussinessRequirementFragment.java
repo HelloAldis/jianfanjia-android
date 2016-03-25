@@ -16,9 +16,8 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
-import com.jianfanjia.cn.activity.my.EditCityActivity_;
-import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity_;
-import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity_;
+import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
+import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -164,32 +163,32 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
                 address.putString(Constant.EDIT_CITY, requirementInfo.getCity());
                 address.putString(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
-                startActivityForResult(EditCityActivity_.class, address, Constant.REQUIRECODE_CITY);
+                startActivityForResult(EditCityActivity.class, address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
                 Bundle loveDesignerBundle = new Bundle();
                 loveDesignerBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(EditRequirementItemActivity_.class, loveDesignerBundle, Constant.REQUIRECODE_LOVEDESISTYLE);
+                startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant.REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(EditRequirementLovestyleActivity_.class, loveStyleBundle, Constant.REQUIRECODE_LOVESTYLE);
+                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
                 Bundle decorateTypeBundle = new Bundle();
                 decorateTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
-                startActivityForResult(EditRequirementItemActivity_.class, decorateTypeBundle, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                startActivityForResult(EditRequirementItemActivity.class, decorateTypeBundle, Constant.REQUIRECODE_BUSI_DECORATETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(EditRequirementItemActivity_.class,workTypeBundle, Constant.REQUIRECODE_WORKTYPE);
+                startActivityForResult(EditRequirementItemActivity.class,workTypeBundle, Constant.REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
                 Bundle loveDesiSexBundle = new Bundle();
                 loveDesiSexBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(EditRequirementItemActivity_.class,loveDesiSexBundle, Constant.REQUIRECODE_DESISEX);
+                startActivityForResult(EditRequirementItemActivity.class,loveDesiSexBundle, Constant.REQUIRECODE_DESISEX);
                 break;
             default:
                 break;

@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -17,11 +21,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DesignerPlanAdapter
@@ -99,7 +98,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
         return new DesignerPlanViewHolder(view);
     }
 
-    private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+    static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.numText)
         TextView numText;
         @Bind(R.id.statusText)

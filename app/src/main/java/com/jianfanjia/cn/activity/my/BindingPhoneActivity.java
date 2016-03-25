@@ -12,7 +12,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.RegisterNewActivity;
-import com.jianfanjia.cn.activity.RegisterNewActivity_;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -131,7 +130,7 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
                 registerBundle.putInt(Global.REGISTER, RegisterNewActivity.BINDING_PHONE);
                 registerBundle.putInt(Global.BINDING_PHONE_INTENT, getIntent().getExtras().getInt(Global
                         .BINDING_PHONE_INTENT));
-                startActivity(RegisterNewActivity_.class, registerBundle);
+                startActivity(RegisterNewActivity.class, registerBundle);
                 appManager.finishActivity(BindingPhoneActivity.this);
             }
 

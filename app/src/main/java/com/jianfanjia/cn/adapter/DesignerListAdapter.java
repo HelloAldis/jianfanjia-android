@@ -7,6 +7,10 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -14,11 +18,6 @@ import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DesignerListAdapter
@@ -86,7 +85,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
         return new DesignerListViewHolder(view);
     }
 
-    private static class DesignerListViewHolder extends RecyclerViewHolderBase {
+    static class DesignerListViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.ltm_req_owner_head)
         ImageView itemHeadView;
         @Bind(R.id.ltm_req_username)

@@ -7,24 +7,21 @@ import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
-import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
-
-import butterknife.ButterKnife;
 
 /**
  * Description:Fragment基类
@@ -119,17 +116,17 @@ public abstract class BaseFragment extends Fragment {
         LogTool.d(this.getClass().getName(), "onDestroy");
     }
 
-//    protected void makeTextShort(String text) {
-//        if (getContext() == null) return;
-//        if(TextUtils.isEmpty(text)) return;
-//        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-//    }
-//
-//    protected void makeTextLong(String text) {
-//        if (getContext() == null) return;
-//        if(TextUtils.isEmpty(text)) return;
-//        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-//    }
+    protected void makeTextShort(String text) {
+        if (getContext() == null) return;
+        if(TextUtils.isEmpty(text)) return;
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void makeTextLong(String text) {
+        if (getContext() == null) return;
+        if(TextUtils.isEmpty(text)) return;
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
 
     // 通过Class跳转界面
     protected void startActivity(Class<?> cls) {

@@ -6,17 +6,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DesignerWorksAdapter
@@ -68,7 +67,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
 
-    private static class DesignerWorksViewHolder extends RecyclerViewHolderBase {
+    static class DesignerWorksViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_works_img)
         ImageView itemwWorksView;
         @Bind(R.id.list_item_works_xiaoqu_text)

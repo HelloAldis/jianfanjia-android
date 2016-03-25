@@ -17,10 +17,8 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment;
-import com.jianfanjia.cn.fragment.HomeNewFragment_;
 import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.fragment.XuQiuFragment_;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -194,7 +192,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (homeFragment != null) {
                     transaction.show(homeFragment);
                 } else {
-                    homeFragment = HomeNewFragment_.builder().build();
+                    homeFragment = new HomeNewFragment();
                     transaction.add(R.id.tablayout, homeFragment);
                 }
                 break;
@@ -210,7 +208,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (xuqiuFragment != null) {
                     transaction.show(xuqiuFragment);
                 } else {
-                    xuqiuFragment = XuQiuFragment_.builder().build();
+                    xuqiuFragment = new XuQiuFragment();
                     transaction.add(R.id.tablayout, xuqiuFragment);
                 }
                 break;

@@ -47,46 +47,46 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     private static final String TAG = DesignerInfoActivity.class.getName();
 
     @Bind(R.id.sl_root)
-    private ScrollableLayout sl_root = null;
+    protected ScrollableLayout sl_root = null;
 
     @Bind(R.id.head_back_layout)
-    private RelativeLayout head_back_layout = null;
+    protected RelativeLayout head_back_layout = null;
 
     @Bind(R.id.tv_title)
-    private TextView tv_title = null;
+    protected TextView tv_title = null;
 
     @Bind(R.id.tabs)
-    private TabLayout tabLayout = null;
+    protected TabLayout tabLayout = null;
 
     @Bind(R.id.viewpager)
-    private ViewPager viewPager = null;
+    protected ViewPager viewPager = null;
 
     @Bind(R.id.ratingBar)
-    private RatingBar ratingBar = null;
+    protected RatingBar ratingBar = null;
 
     @Bind(R.id.designerinfo_head_img)
-    private ImageView designerinfo_head_img = null;
+    protected ImageView designerinfo_head_img = null;
 
     @Bind(R.id.designerinfo_auth)
-    private ImageView designerinfo_auth = null;
+    protected ImageView designerinfo_auth = null;
 
     @Bind(R.id.designer_name)
-    private TextView designerName = null;
+    protected TextView designerName = null;
 
     @Bind(R.id.viewCountText)
-    private TextView viewCountText = null;
+    protected TextView viewCountText = null;
 
     @Bind(R.id.productCountText)
-    private TextView productCountText = null;
+    protected TextView productCountText = null;
 
     @Bind(R.id.appointCountText)
-    private TextView appointCountText = null;
+    protected TextView appointCountText = null;
 
     @Bind(R.id.btn_add)
-    private Button addBtn = null;
+    protected Button addBtn = null;
 
     @Bind(R.id.btn_delete)
-    private Button deleteBtn = null;
+    protected Button deleteBtn = null;
 
     private String designerid = null;
     private String designer_name = null;

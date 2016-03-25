@@ -61,7 +61,7 @@ public class RequirementItemLoveStyleAdapter extends BaseAdapter{
         return view;
     }
 
-    private class ViewHolder{
+    class ViewHolder{
 
         @Bind(R.id.gtm_req_image)
         ImageView gtm_req_image;

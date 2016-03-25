@@ -12,6 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
@@ -33,14 +40,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * Description:海量设计师列表
  * Author：fengliang
@@ -56,43 +55,43 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
     private static final int NOT = 5;
 
     @Bind(R.id.designer_head)
-    private MainHeadView mainHeadView = null;
+    protected MainHeadView mainHeadView = null;
 
     @Bind(R.id.empty_include)
-    private RelativeLayout emptyLayout = null;
+    protected RelativeLayout emptyLayout = null;
 
     @Bind(R.id.error_include)
-    private RelativeLayout errorLayout = null;
+    protected RelativeLayout errorLayout = null;
 
     @Bind(R.id.topLayout)
-    private LinearLayout topLayout = null;
+    protected LinearLayout topLayout = null;
 
     @Bind(R.id.decTypeLayout)
-    private RelativeLayout decTypeLayout = null;
+    protected RelativeLayout decTypeLayout = null;
 
     @Bind(R.id.dectHouseTypeLayout)
-    private RelativeLayout decHouseTypeLayout = null;
+    protected RelativeLayout decHouseTypeLayout = null;
 
     @Bind(R.id.decStyleLayout)
-    private RelativeLayout decStyleLayout = null;
+    protected RelativeLayout decStyleLayout = null;
 
     @Bind(R.id.decFeeLayout)
-    private RelativeLayout decFeeLayout = null;
+    protected RelativeLayout decFeeLayout = null;
 
     @Bind(R.id.decType_item)
-    private TextView decType_item = null;
+    protected TextView decType_item = null;
 
     @Bind(R.id.decHouseType_item)
-    private TextView decHouseType_item = null;
+    protected TextView decHouseType_item = null;
 
     @Bind(R.id.decStyle_item)
-    private TextView decStyle_item = null;
+    protected TextView decStyle_item = null;
 
     @Bind(R.id.decFee_item)
-    private TextView decFee_item = null;
+    protected TextView decFee_item = null;
 
     @Bind(R.id.recycleview)
-    private PullToRefreshRecycleView designerListView = null;
+    protected PullToRefreshRecycleView designerListView = null;
 
     private DesignerListAdapter designerListAdapter = null;
     private List<DesignerInfo> designerList = new ArrayList<>();

@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -14,11 +18,6 @@ import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: CommentAdapter
@@ -69,7 +68,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
         return new CommentViewHolder(view);
     }
 
-    private static class CommentViewHolder extends RecyclerViewHolderBase {
+    static class CommentViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_comment_username)
         TextView itemNameView;// 评论人名称
         @Bind(R.id.list_item_comment_pubtime)

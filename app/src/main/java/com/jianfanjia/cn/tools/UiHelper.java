@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.activity.LoginNewActivity_;
+import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -118,7 +118,7 @@ public class UiHelper {
      * 跳转到登录界面
      */
     public static void forbiddenToLogin() {
-        Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
+        Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getInstance().startActivity(intent);
         AppManager.getAppManager().finishAllActivity();

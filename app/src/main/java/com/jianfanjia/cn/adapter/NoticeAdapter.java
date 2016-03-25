@@ -5,6 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -14,11 +18,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: NoticeAdapter
@@ -234,7 +233,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
         return null;
     }
 
-    private static class SysViewHolder extends RecyclerViewHolderBase {
+    static class SysViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_sys_tip_title)
         TextView itemTitle;
         @Bind(R.id.list_item_sys_tip_date)
@@ -248,7 +247,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
         }
     }
 
-    private static class ReqViewHolder extends RecyclerViewHolderBase {
+    static class ReqViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_tip_req_title)
         TextView itemTitleView;
         @Bind(R.id.list_item_tip_req_cell)
@@ -264,7 +263,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
         }
     }
 
-    private static class SiteViewHolder extends RecyclerViewHolderBase {
+    static class SiteViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_tip_site_title)
         TextView itemTitle;
         @Bind(R.id.list_item_tip_site_time)

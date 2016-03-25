@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.activity.LoginNewActivity_;
+import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.application.MyApplication;
@@ -158,7 +158,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 address.putString(Constant.EDIT_CITY, ownerInfo.getCity());
                 address.putString(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_USER_ADRESS);
-                startActivityForResult(EditCityActivity_.class, address, Constant.REQUESTCODE_EDIT_ADDRESS);
+                startActivityForResult(EditCityActivity.class, address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
             case R.id.name_layout:
                 Bundle name = new Bundle();
@@ -178,7 +178,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 showSexChooseDialog();
                 break;
             case R.id.phone_layout:
-                startActivity(BindingAccountActivity_.class);
+                startActivity(BindingAccountActivity.class);
                 break;
             case R.id.logout_layout:
                 onClickExit();
@@ -206,7 +206,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(UserInfoActivity.this).deleteOauth(UserInfoActivity.this, SHARE_MEDIA
                                 .WEIXIN);
-                        startActivity(LoginNewActivity_.class);
+                        startActivity(LoginNewActivity.class);
                         finish();
                     }
                 });

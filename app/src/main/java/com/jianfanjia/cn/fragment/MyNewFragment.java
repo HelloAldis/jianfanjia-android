@@ -15,14 +15,14 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.common.CommentListActivity_;
+import com.jianfanjia.cn.activity.common.CommentListActivity;
 import com.jianfanjia.cn.activity.my.AboutActivity;
-import com.jianfanjia.cn.activity.my.BindingAccountActivity_;
+import com.jianfanjia.cn.activity.my.BindingAccountActivity;
 import com.jianfanjia.cn.activity.my.CollectActivity;
 import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.activity.my.NoticeActivity;
-import com.jianfanjia.cn.activity.my.UserInfoActivity_;
+import com.jianfanjia.cn.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
@@ -41,7 +41,7 @@ import com.jianfanjia.cn.view.layout.BadgeView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MyNewFragment extends BaseFragment {
+public class MyNewFragment extends BaseFragment implements View.OnClickListener{
     private static final String TAG = MyNewFragment.class.getName();
     public static final int REQUESTCODE_USERINFO = 0;
 
@@ -191,7 +191,7 @@ public class MyNewFragment extends BaseFragment {
                 startActivity(CollectActivity.class);
                 break;
             case R.id.frag_my_info_layout:
-                startActivityForResult(UserInfoActivity_.class, REQUESTCODE_USERINFO);
+                startActivityForResult(UserInfoActivity.class, REQUESTCODE_USERINFO);
                 break;
             case R.id.kefu_layout:
                 startActivity(CustomerServiceActivity.class);
@@ -209,10 +209,10 @@ public class MyNewFragment extends BaseFragment {
                 UiHelper.callPhoneIntent(getContext(), getString(R.string.app_phone));
                 break;
             case R.id.comment_layout:
-                startActivity(CommentListActivity_.class);
+                startActivity(CommentListActivity.class);
                 break;
             case R.id.binding_account_layout:
-                startActivity(BindingAccountActivity_.class);
+                startActivity(BindingAccountActivity.class);
                 break;
             default:
                 break;

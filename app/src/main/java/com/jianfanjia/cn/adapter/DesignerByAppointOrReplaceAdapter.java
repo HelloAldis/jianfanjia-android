@@ -9,6 +9,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
@@ -17,13 +23,6 @@ import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.IntentUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DesignerByAppointOrReplaceAdapter
@@ -169,7 +168,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
         return null;
     }
 
-    private static class DesignerByAppointOrReplaceTagViewHolder extends RecyclerViewHolderBase {
+    static class DesignerByAppointOrReplaceTagViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_name_text)
         TextView itemNameText;
         @Bind(R.id.list_item_more_text)
@@ -181,7 +180,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
         }
     }
 
-    private static class DesignerByAppointOrReplaceViewHolder extends RecyclerViewHolderBase {
+    static class DesignerByAppointOrReplaceViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_head_img)
         ImageView itemwHeadView;
         @Bind(R.id.list_item_auth)

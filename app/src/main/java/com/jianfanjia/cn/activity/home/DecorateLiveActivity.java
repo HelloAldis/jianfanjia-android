@@ -6,14 +6,15 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity.home

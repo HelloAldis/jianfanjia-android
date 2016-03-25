@@ -12,8 +12,8 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment_;
-import com.jianfanjia.cn.fragment.EditHomeRequirementFragment_;
+import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
+import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
@@ -30,8 +30,8 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
 
-    private EditHomeRequirementFragment_ editHomeRequirementFragment_;
-    private EditBussinessRequirementFragment_ editBussinessRequirementFragment_;
+    private EditHomeRequirementFragment editHomeRequirementFragment_;
+    private EditBussinessRequirementFragment editBussinessRequirementFragment_;
 
     protected String status;//当前页面的状态，家装还是商装
     private RequirementInfo requirementInfo;
@@ -63,12 +63,12 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
                 .beginTransaction();
         switch (status) {
             case Global.DEC_TYPE_BUSINESS:
-                editBussinessRequirementFragment_ = new EditBussinessRequirementFragment_();
+                editBussinessRequirementFragment_ = new EditBussinessRequirementFragment();
                 editBussinessRequirementFragment_.setArguments(getBundle());
                 transaction.replace(R.id.content_layout, editBussinessRequirementFragment_);
                 break;
             case Global.DEC_TYPE_HOME:
-                editHomeRequirementFragment_ = new EditHomeRequirementFragment_();
+                editHomeRequirementFragment_ = new EditHomeRequirementFragment();
                 editHomeRequirementFragment_.setArguments(getBundle());
                 transaction.replace(R.id.content_layout, editHomeRequirementFragment_);
                 break;

@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -13,11 +17,6 @@ import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.TDevice;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DecorationImgAdapter
@@ -77,7 +76,7 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo>
         return new DecorationViewHolder(view);
     }
 
-    private static class DecorationViewHolder extends RecyclerViewHolderBase {
+    static class DecorationViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_decorate_img)
         ImageView itemDecorateView;
         @Bind(R.id.list_item_no_decorate_img)

@@ -6,17 +6,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: CheckGridViewAdapter
@@ -121,11 +120,11 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
         return null;
     }
 
-    private static class CheckHeadHolder extends RecyclerViewHolderBase {
+    static class CheckHeadHolder extends RecyclerViewHolderBase {
         @Bind(R.id.text_title_show_pic)
-        TextView text_title_show_pic;
+        protected TextView text_title_show_pic;
         @Bind(R.id.text_title_upload_pic)
-        public TextView text_title_upload_pic;
+        protected TextView text_title_upload_pic;
 
         public CheckHeadHolder(View itemView) {
             super(itemView);
@@ -133,7 +132,7 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
         }
     }
 
-    private static class CheckItemViewHolder extends RecyclerViewHolderBase {
+    static class CheckItemViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.img)
         ImageView img = null;
 

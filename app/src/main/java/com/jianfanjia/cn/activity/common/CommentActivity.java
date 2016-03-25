@@ -46,16 +46,16 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
     private static final String TAG = CommentActivity.class.getName();
 
     @Bind(R.id.my_comment_head_layout)
-    private MainHeadView mainHeadView = null;
+    protected MainHeadView mainHeadView = null;
 
     @Bind(R.id.comment_listview)
-    private RecyclerView commentListView = null;
+    protected RecyclerView commentListView = null;
 
     @Bind(R.id.add_comment)
-    private EditText commentEdit = null;
+    protected EditText commentEdit = null;
 
     @Bind(R.id.btn_send)
-    private Button btnSend = null;
+    protected Button btnSend = null;
 
     private CommentAdapter commentAdapter = null;
     private String topicid = null;

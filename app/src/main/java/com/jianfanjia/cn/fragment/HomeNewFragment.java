@@ -22,14 +22,14 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DecorateLiveActivity_;
+import com.jianfanjia.cn.activity.home.DecorateLiveActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
-import com.jianfanjia.cn.activity.home.SearchActivity_;
-import com.jianfanjia.cn.activity.home.WebViewActivity_;
-import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
+import com.jianfanjia.cn.activity.home.SearchActivity;
+import com.jianfanjia.cn.activity.home.WebViewActivity;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
@@ -105,11 +105,11 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 if (pos == 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
-                    startActivity(WebViewActivity_.class, bundle);
+                    startActivity(WebViewActivity.class, bundle);
                 } else if (pos == 1) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
-                    startActivity(WebViewActivity_.class, bundle);
+                    startActivity(WebViewActivity.class, bundle);
                 }
             }
         });
@@ -254,10 +254,10 @@ public class HomeNewFragment extends BaseAnnotationFragment {
             case R.id.ltm_home_layout1:
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_DEC_STRATEGY);
-                startActivity(WebViewActivity_.class, bundle);
+                startActivity(WebViewActivity.class, bundle);
                 break;
             case R.id.ltm_home_layout2:
-                startActivity(DecorateLiveActivity_.class);
+                startActivity(DecorateLiveActivity.class);
                 break;
             case R.id.ltm_home_layout3:
                 startActivity(DesignerListActivity.class);
@@ -266,7 +266,7 @@ public class HomeNewFragment extends BaseAnnotationFragment {
                 startActivity(DesignerCaseListActivity.class);
                 break;
             case R.id.home_search:
-                startActivity(SearchActivity_.class);
+                startActivity(SearchActivity.class);
                 break;
             case R.id.content_intent_to:
                 intentToProduct();
@@ -278,11 +278,11 @@ public class HomeNewFragment extends BaseAnnotationFragment {
 
     protected void publish_requirement() {
         if (dataManager.getAccount() != null) {
-            startActivity(PublishRequirementActivity_.class);
+            startActivity(PublishRequirementActivity.class);
         } else {
             Bundle bundle = new Bundle();
             bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_REQUIREMENT);
-            startActivity(BindingPhoneActivity_.class, bundle);
+            startActivity(BindingPhoneActivity.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }
     }

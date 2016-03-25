@@ -18,14 +18,14 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.BindingPhoneActivity_;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity_;
-import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity_;
-import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity_;
-import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity_;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity_;
-import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity_;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
+import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
@@ -124,26 +124,26 @@ public class XuQiuFragment extends BaseAnnotationFragment {
                         Bundle gotoPriviewRequirementBundle = new Bundle();
                         gotoPriviewRequirementBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
                         if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
-                            startActivity(PreviewBusinessRequirementActivity_.class, gotoPriviewRequirementBundle);
+                            startActivity(PreviewBusinessRequirementActivity.class, gotoPriviewRequirementBundle);
                         } else {
-                            startActivity(PreviewRequirementActivity_.class, gotoPriviewRequirementBundle);
+                            startActivity(PreviewRequirementActivity.class, gotoPriviewRequirementBundle);
                         }
                         break;
                     case ITEM_EDIT:
                         Bundle requirementInfoBundle = new Bundle();
                         requirementInfoBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-                        startActivityForResult(UpdateRequirementActivity_.class, requirementInfoBundle,
+                        startActivityForResult(UpdateRequirementActivity.class, requirementInfoBundle,
                                 REQUESTCODE_EDIT_REQUIREMENT);
                         break;
                     case ITEM_GOTOPRO:
                         Bundle gotoMyProcessBundle = new Bundle();
                         gotoMyProcessBundle.putSerializable(Global.PROCESS_INFO, requirementInfo.getProcess());
-                        startActivity(MyProcessDetailActivity_.class, gotoMyProcessBundle);
+                        startActivity(MyProcessDetailActivity.class, gotoMyProcessBundle);
                         break;
                     case ITEM_GOTOMYDESI:
                         Bundle gotoMyDesignerBundle = new Bundle();
                         gotoMyDesignerBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfos.get(position));
-                        startActivity(MyDesignerActivity_.class, gotoMyDesignerBundle);
+                        startActivity(MyDesignerActivity.class, gotoMyDesignerBundle);
                         break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner();
@@ -172,11 +172,11 @@ public class XuQiuFragment extends BaseAnnotationFragment {
     @OnClick({R.id.req_publish_layout, R.id.head_right_title})
     protected void publish_requirement() {
         if (dataManager.getAccount() != null) {
-            startActivity(PublishRequirementActivity_.class);
+            startActivity(PublishRequirementActivity.class);
         } else {
             Bundle bundle = new Bundle();
             bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_REQUIREMENT);
-            startActivity(BindingPhoneActivity_.class, bundle);
+            startActivity(BindingPhoneActivity.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }
     }

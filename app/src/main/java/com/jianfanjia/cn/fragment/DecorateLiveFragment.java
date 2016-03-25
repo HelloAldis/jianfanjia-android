@@ -13,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.WebViewActivity_;
+import com.jianfanjia.cn.activity.home.WebViewActivity;
 import com.jianfanjia.cn.adapter.DecorateLiveAdapter;
 import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -31,9 +34,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -96,12 +96,12 @@ public class DecorateLiveFragment extends BaseAnnotationFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogTool.d(this.getClass().getName(), "onCreateView");
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_decorate_live, container, false);
-            initRecycleView();
-            isPrepared = true;
-            lazyLoad();
-        }
+        view = super.onCreateView(inflater, container, savedInstanceState);
+
+        initRecycleView();
+        isPrepared = true;
+        lazyLoad();
+
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null) {
             parent.removeView(view);
@@ -132,14 +132,15 @@ public class DecorateLiveFragment extends BaseAnnotationFragment {
                 searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
             }
         });
-        decorateLiveAdapter = new DecorateLiveAdapter(_context, recyclerView.getRefreshableView(), new OnItemClickListener() {
+        decorateLiveAdapter = new DecorateLiveAdapter(_context, recyclerView.getRefreshableView(), new
+                OnItemClickListener() {
             @Override
             public void OnItemClick(int position) {
                 //跳到装修直播详情页面
                 String pid = decorateLiveAdapter.getData().get(position).get_id();
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().DECORATE_LIVE_URL + pid);
-                startActivity(WebViewActivity_.class,bundle);
+                startActivity(WebViewActivity.class, bundle);
             }
         });
         decorateLiveAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
@@ -195,7 +196,8 @@ public class DecorateLiveFragment extends BaseAnnotationFragment {
                     decorateLiveAdapter.clear();
                     decorateLiveAdapter.addData(decorateLiveList.getShares());
                     LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + decorateLiveAdapter.getData().size());
+                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                            decorateLiveAdapter.getData().size());
                     if (total > decorateLiveAdapter.getData().size()) {
                         decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
                     } else {
@@ -234,7 +236,8 @@ public class DecorateLiveFragment extends BaseAnnotationFragment {
                     decorateLiveAdapter.clear();
                     decorateLiveAdapter.addData(decorateLiveList.getShares());
                     LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + decorateLiveAdapter.getData().size());
+                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                            decorateLiveAdapter.getData().size());
                     if (total > decorateLiveAdapter.getData().size()) {
                         decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
                     } else {
@@ -263,5 +266,10 @@ public class DecorateLiveFragment extends BaseAnnotationFragment {
         query.put("progress", queryStatus + "");
         param.put(Constant.QUERY, query);
         JianFanJiaClient.searchShare(new GetDecorateLiveRequest(_context, param), listener, this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_decorate_live;
     }
 }

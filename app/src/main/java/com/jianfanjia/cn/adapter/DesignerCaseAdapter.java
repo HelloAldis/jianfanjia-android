@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
@@ -14,11 +18,6 @@ import com.jianfanjia.cn.bean.ImageInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DesignerCaseAdapter
@@ -127,7 +126,7 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
         return null;
     }
 
-    private static class DesignerCaseInfoHeadHolder extends RecyclerViewHolderBase {
+    static class DesignerCaseInfoHeadHolder extends RecyclerViewHolderBase {
         @Bind(R.id.cell_name)
         TextView cellNameText;
         @Bind(R.id.stylelName)
@@ -147,7 +146,7 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
         }
     }
 
-    private static class DesignerCaseViewHolder extends RecyclerViewHolderBase {
+    static class DesignerCaseViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_case_img)
         ImageView itemwCaseView;
         @Bind(R.id.list_item_case_title_text)
