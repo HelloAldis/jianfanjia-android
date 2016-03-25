@@ -33,6 +33,8 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -41,23 +43,53 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class NoticeDetailActivity extends SwipeBackActivity implements View.OnClickListener {
+public class NoticeDetailActivity extends SwipeBackActivity {
     private static final String TAG = NoticeDetailActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private TextView typeText = null;
-    private TextView cellText = null;
-    private TextView sectionText = null;
-    private TextView dateText = null;
-    private WebView contentView = null;
-    private LinearLayout doubleBtnLayout = null;
-    private LinearLayout singleBtnLayout = null;
-    private Button btnAgree = null;
-    private Button btnReject = null;
-    private Button btnCheck = null;
-    private Button btnPlan = null;
-    private Button btnContract = null;
-    private Button btnCheckHouse = null;
-    private Button btnConfirm = null;
+
+    @Bind(R.id.my_notice_detail_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.typeText)
+    TextView typeText;
+
+    @Bind(R.id.cellText)
+    TextView cellText;
+
+    @Bind(R.id.sectionText)
+    TextView sectionText;
+
+    @Bind(R.id.dateText)
+    TextView dateText;
+
+    @Bind(R.id.contentView)
+    WebView contentView;
+
+    @Bind(R.id.doubleBtnLayout)
+    LinearLayout doubleBtnLayout;
+
+    @Bind(R.id.singleBtnLayout)
+    LinearLayout singleBtnLayout;
+
+    @Bind(R.id.btnAgree)
+    Button btnAgree;
+
+    @Bind(R.id.btnReject)
+    Button btnReject;
+
+    @Bind(R.id.btnCheck)
+    Button btnCheck;
+
+    @Bind(R.id.btnPlan)
+    Button btnPlan;
+
+    @Bind(R.id.btnContract)
+    Button btnContract;
+
+    @Bind(R.id.btnCheckHouse)
+    Button btnCheckHouse;
+
+    @Bind(R.id.btnConfirm)
+    Button btnConfirm;
 
     private String messageid = null;
     private String processid = null;
@@ -73,56 +105,30 @@ public class NoticeDetailActivity extends SwipeBackActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initView();
     }
 
-    @Override
-    public void initView() {
+    private void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         messageid = planBundle.getString(Global.MSG_ID);
         LogTool.d(TAG, "messageid=" + messageid);
         initMainHeadView();
-        typeText = (TextView) findViewById(R.id.typeText);
-        cellText = (TextView) findViewById(R.id.cellText);
-        sectionText = (TextView) findViewById(R.id.sectionText);
-        dateText = (TextView) findViewById(R.id.dateText);
-        contentView = (WebView) findViewById(R.id.contentView);
         contentView.getSettings().setJavaScriptEnabled(true);
         contentView.setBackgroundColor(0); // 设置背景色
         contentView.setWebChromeClient(new WebChromeClient());
-        doubleBtnLayout = (LinearLayout) findViewById(R.id.doubleBtnLayout);
-        singleBtnLayout = (LinearLayout) findViewById(R.id.singleBtnLayout);
-        btnAgree = (Button) findViewById(R.id.btnAgree);
-        btnReject = (Button) findViewById(R.id.btnReject);
-        btnCheck = (Button) findViewById(R.id.btnCheck);
-        btnPlan = (Button) findViewById(R.id.btnPlan);
-        btnContract = (Button) findViewById(R.id.btnContract);
-        btnCheckHouse = (Button) findViewById(R.id.btnCheckHouse);
-        btnConfirm = (Button) findViewById(R.id.btnConfirm);
+
         getNoticeDetailInfo(messageid);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.
-                my_notice_detail_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_notice_detail));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-        btnAgree.setOnClickListener(this);
-        btnReject.setOnClickListener(this);
-        btnConfirm.setOnClickListener(this);
-        btnCheck.setOnClickListener(this);
-        btnPlan.setOnClickListener(this);
-        btnCheckHouse.setOnClickListener(this);
-        btnContract.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.btnAgree, R.id.btnReject, R.id.btnCheck, R.id.btnPlan, R.id.btnContract, R
+            .id.btnCheckHouse, R.id.btnConfirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
