@@ -17,6 +17,9 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.StringUtils;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Description: com.jianfanjia.cn.adapter
  * Author: zhanghao
@@ -27,7 +30,7 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
 
     private OnItemClickListener onItemClickListener;
 
-    public DecorateLiveAdapter(Context context, RecyclerView recyclerView,OnItemClickListener onItemClickListener) {
+    public DecorateLiveAdapter(Context context, RecyclerView recyclerView, OnItemClickListener onItemClickListener) {
         super(context, recyclerView);
         this.onItemClickListener = onItemClickListener;
     }
@@ -35,41 +38,39 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DecorateLiveInfo decorateLiveInfo = mDatas.get(position);
-
         DecorateLiveViewHolder viewHolder = (DecorateLiveViewHolder) holder;
         imageShow.displayScreenWidthThumnailImage(context, decorateLiveInfo.getCover_imageid(), viewHolder.bgImage);
-
         String designerImageid = decorateLiveInfo.getDesigner().getImageid();
         if (!TextUtils.isEmpty(designerImageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, designerImageid, viewHolder.headImage);
         }
 
-        String status = decorateLiveInfo.getProcess().get(decorateLiveInfo.getProcess().size() -1 ).getName();
+        String status = decorateLiveInfo.getProcess().get(decorateLiveInfo.getProcess().size() - 1).getName();
         viewHolder.statusText.setText(BusinessManager.convertSectionNameToLiveShow(status));
-        if(decorateLiveInfo.getProgress().equals(Constant.DECORATE_LIVE_GOING)){
+        if (decorateLiveInfo.getProgress().equals(Constant.DECORATE_LIVE_GOING)) {
             viewHolder.statusText.setBackgroundColor(context.getResources().getColor(R.color.orange_color));
-        }else {
+        } else {
             viewHolder.statusText.setBackgroundColor(context.getResources().getColor(R.color.green_color));
         }
 
         viewHolder.cellName.setText(decorateLiveInfo.getCell());
-
-        viewHolder.updateDate.setText(context.getString(R.string.live_date) + StringUtils.covertLongToString(decorateLiveInfo.getCreate_at()));
+        viewHolder.updateDate.setText(context.getString(R.string.live_date) + StringUtils.covertLongToString
+                (decorateLiveInfo.getCreate_at()));
 
         StringBuffer sb = new StringBuffer();
-        if(!TextUtils.isEmpty(decorateLiveInfo.getHouse_area())){
+        if (!TextUtils.isEmpty(decorateLiveInfo.getHouse_area())) {
             sb.append(decorateLiveInfo.getHouse_area() + "㎡ ");
         }
-        if(!TextUtils.isEmpty(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()))){
+        if (!TextUtils.isEmpty(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()))) {
             sb.append(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()) + " ");
         }
-        if(!TextUtils.isEmpty(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()))){
+        if (!TextUtils.isEmpty(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()))) {
             sb.append(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()) + " ");
         }
-        if(!TextUtils.isEmpty(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()))){
+        if (!TextUtils.isEmpty(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()))) {
             sb.append(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()) + " ");
         }
-        if(!TextUtils.isEmpty(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()))){
+        if (!TextUtils.isEmpty(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()))) {
             sb.append(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()));
         }
         viewHolder.descriptionText.setText(sb.toString());
@@ -77,7 +78,7 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
         viewHolder.bgImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(onItemClickListener != null){
+                if (onItemClickListener != null) {
                     onItemClickListener.OnItemClick(position);
                 }
             }
@@ -87,29 +88,29 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
 
     @Override
     public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.list_item_decorate_live, null,true);
+        View view = layoutInflater.inflate(R.layout.list_item_decorate_live, null, true);
         return new DecorateLiveViewHolder(view);
     }
 
     private static class DecorateLiveViewHolder extends RecyclerViewHolderBase {
-
-        public ImageView bgImage;
-        public TextView cellName;
-        public TextView descriptionText;
-        public TextView updateDate;
-        public ImageView headImage;
-        public TextView statusText;
-        public ImageView authImage;
+        @Bind(R.id.cover_image)
+        ImageView bgImage;
+        @Bind(R.id.cell_name)
+        TextView cellName;
+        @Bind(R.id.produce_text)
+        TextView descriptionText;
+        @Bind(R.id.live_date)
+        TextView updateDate;
+        @Bind(R.id.head_image)
+        ImageView headImage;
+        @Bind(R.id.process_status)
+        TextView statusText;
+        @Bind(R.id.list_item_auth)
+        ImageView authImage;
 
         public DecorateLiveViewHolder(View itemView) {
             super(itemView);
-            this.bgImage = (ImageView) itemView.findViewById(R.id.cover_image);
-            this.cellName = (TextView) itemView.findViewById(R.id.cell_name);
-            this.descriptionText = (TextView) itemView.findViewById(R.id.produce_text);
-            this.updateDate = (TextView) itemView.findViewById(R.id.live_date);
-            this.headImage = (ImageView) itemView.findViewById(R.id.head_image);
-            this.authImage = (ImageView) itemView.findViewById(R.id.list_item_auth);
-            this.statusText = (TextView) itemView.findViewById(R.id.process_status);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

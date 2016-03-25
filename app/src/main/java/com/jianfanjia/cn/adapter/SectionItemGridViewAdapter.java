@@ -44,7 +44,7 @@ public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
 
     private static class ViewHolder {
         @Bind(R.id.img)
-        ImageView img = null;
+        ImageView img;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);
