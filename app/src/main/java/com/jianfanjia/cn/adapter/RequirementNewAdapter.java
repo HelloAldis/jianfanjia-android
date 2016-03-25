@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -53,14 +52,10 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RequirementView requirementView = (RequirementView) holder;
-        requirementView.bind(items.get(position), clickCallBack, position);
+        requirementView.bind(context,items.get(position), clickCallBack, position);
     }
 
-    private Resources getResources() {
-        return context.getResources();
-    }
-
-    public class RequirementView extends RecyclerView.ViewHolder {
+    public static class RequirementView extends RecyclerView.ViewHolder {
 
         private ImageShow imageShow;
         private View rootView;
@@ -110,8 +105,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
         @Bind(R.id.ltm_req_designer_status2)
         protected TextView ltm_req_designer_status2;
 
-
-        public void bind(RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
+        public void bind(Context context,RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
             String cellPhase = requirementInfo.getCell_phase();
             if (!TextUtils.isEmpty(cellPhase)) {
                 ltm_req_cell.setText(requirementInfo.getCell() + cellPhase + context.getString(R.string.str_qi));
@@ -123,6 +117,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
                     ()));
             ltm_req_status.setText(context.getResources().getStringArray(R.array.requirement_status)[Integer.parseInt
                     (requirementInfo.getStatus())]);
+            DataManagerNew dataManagerNew = DataManagerNew.getInstance();
             if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {
                 imageShow.displayImageHeadWidthThumnailImage(context, dataManagerNew.getUserImagePath(),
                         ltm_req_owner_head);
@@ -202,15 +197,15 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
-                    RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources()
+                    RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(context.getResources()
                             .getIdentifier("ltm_req_designer_layout" + i, "id", context.getPackageName()));
-                    ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier
+                    ImageView headView = (ImageView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_head" + i, "id", context.getPackageName()));
-                    TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier
+                    TextView nameView = (TextView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_name" + i, "id", context.getPackageName()));
-                    TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier
+                    TextView statusView = (TextView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_status" + i, "id", context.getPackageName()));
-                    ImageView authView = (ImageView) getRootView().findViewById(getResources().getIdentifier
+                    ImageView authView = (ImageView) getRootView().findViewById(context.getResources().getIdentifier
                             ("designerinfo_auth" + i, "id", context.getPackageName()));
                     if (i < size) {
                         if (orderDesignerInfos.get(i).getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
@@ -286,20 +281,20 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
                 }
             } else {
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
-                    RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(getResources()
+                    RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(context.getResources()
                             .getIdentifier("ltm_req_designer_layout" + i, "id", context.getPackageName()));
-                    ImageView headView = (ImageView) getRootView().findViewById(getResources().getIdentifier
+                    ImageView headView = (ImageView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_head" + i, "id", context.getPackageName()));
-                    TextView nameView = (TextView) getRootView().findViewById(getResources().getIdentifier
+                    TextView nameView = (TextView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_name" + i, "id", context.getPackageName()));
-                    TextView statusView = (TextView) getRootView().findViewById(getResources().getIdentifier
+                    TextView statusView = (TextView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_status" + i, "id", context.getPackageName()));
-                    ImageView authView = (ImageView) getRootView().findViewById(getResources().getIdentifier
+                    ImageView authView = (ImageView) getRootView().findViewById(context.getResources().getIdentifier
                             ("designerinfo_auth" + i, "id", context.getPackageName()));
-                    nameView.setText(getResources().getString(R.string.designer));
+                    nameView.setText(context.getResources().getString(R.string.designer));
                     headView.setImageResource(R.mipmap.icon_add);
-                    statusView.setText(getResources().getString(R.string.str_not_order));
-                    statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));
+                    statusView.setText(context.getResources().getString(R.string.str_not_order));
+                    statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                     designerLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
