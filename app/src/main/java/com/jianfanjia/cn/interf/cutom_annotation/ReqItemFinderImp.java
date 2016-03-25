@@ -39,7 +39,7 @@ public class ReqItemFinderImp implements ReqItemFinder {
         arr_housetype = context.getResources().getStringArray(R.array.arr_housetype);
         arr_person = context.getResources().getStringArray(R.array.arr_person);
         arr_love_designerstyle = context.getResources().getStringArray(R.array.arr_love_designerstyle);
-        arr_housetype = context.getResources().getStringArray(R.array.arr_decstyle);
+        arr_lovestyle = context.getResources().getStringArray(R.array.arr_decstyle);
         arr_desisex = context.getResources().getStringArray(R.array.arr_desisex);
         arr_busihousetype = context.getResources().getStringArray(R.array.arr_busi_housetype);
     }

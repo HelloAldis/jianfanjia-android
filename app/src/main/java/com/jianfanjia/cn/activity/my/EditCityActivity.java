@@ -79,8 +79,18 @@ public class EditCityActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDataFromIntent();
         initView();
         initData();
+    }
+
+    private void getDataFromIntent() {
+
+        intent = getIntent();
+        provice = intent.getStringExtra(Constant.EDIT_PROVICE);
+        city = intent.getStringExtra(Constant.EDIT_CITY);
+        district = intent.getStringExtra(Constant.EDIT_DISTRICT);
+        page = intent.getIntExtra(PAGE, 0);
     }
 
     public void initView() {
@@ -120,7 +130,8 @@ public class EditCityActivity extends SwipeBackActivity {
                         city = citys.get(position);
                         districts = districtMap.get(city);
                         district = districts.get(currentDistrict);
-                        spinnerDistrictAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, districts);
+                        spinnerDistrictAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item,
+                                districts);
                         spinnerDistrictAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner_district.setAdapter(spinnerDistrictAdapter);
                         if (!isInit) {
@@ -164,12 +175,7 @@ public class EditCityActivity extends SwipeBackActivity {
         cityMap = CityFormatTool.getCityMap();
         districtMap = CityFormatTool.getDistrictMap();
 
-        intent = getIntent();
-        provice = intent.getStringExtra(Constant.EDIT_PROVICE);
-        city = intent.getStringExtra(Constant.EDIT_CITY);
-        district = intent.getStringExtra(Constant.EDIT_DISTRICT);
-        page = intent.getIntExtra(PAGE,0);
-        switch (page){
+        switch (page) {
             case EDIT_REQUIREMENT_ADRESS:
                 spinner_pro.setEnabled(false);
                 spinner_city.setEnabled(false);
@@ -228,7 +234,7 @@ public class EditCityActivity extends SwipeBackActivity {
                 }, this);
     }
 
-    protected void setResultTo(){
+    protected void setResultTo() {
         intent.putExtra(Constant.EDIT_PROVICE, provice);
         intent.putExtra(Constant.EDIT_CITY, city);
         intent.putExtra(Constant.EDIT_DISTRICT, district);
@@ -244,7 +250,7 @@ public class EditCityActivity extends SwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
-                switch (page){
+                switch (page) {
                     case EDIT_USER_ADRESS:
                         ownerUpdateInfo.setProvince(provice);
                         ownerUpdateInfo.setCity(city);

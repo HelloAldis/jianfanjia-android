@@ -215,7 +215,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
     }
 
     @OnClick({R.id.act_edit_req_city, R.id.act_edit_req_housetype,
-            R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle,
             R.id.act_edit_req_persons,
             R.id.act_edit_req_lovedesistyle,
