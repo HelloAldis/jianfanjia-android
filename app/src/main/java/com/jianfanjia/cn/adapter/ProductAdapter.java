@@ -16,6 +16,9 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: ProductAdapter
  * User: fengliang
@@ -39,8 +42,11 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
         String decType = product.getDec_type();
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType) + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle) + "风格");
-        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType)
+                + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager
+                .convertDecStyleToShow(decStyle) + "风格");
+        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder
+                .itemProductView);
         imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
         if (product.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             holder.itemAuthView.setVisibility(View.VISIBLE);
@@ -79,24 +85,20 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
 
 
     private static class ProductViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemProductView;
-        public ImageView itemHeadView;
-        public ImageView itemAuthView;
-        public TextView itemXiaoQuText;
-        public TextView itemProduceText;
+        @Bind(R.id.list_item_product_img)
+        ImageView itemProductView;
+        @Bind(R.id.list_item_head_img)
+        ImageView itemHeadView;
+        @Bind(R.id.list_item_auth)
+        ImageView itemAuthView;
+        @Bind(R.id.list_item_xiaoqu_text)
+        TextView itemXiaoQuText;
+        @Bind(R.id.list_item_produce_text)
+        TextView itemProduceText;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            itemProductView = (ImageView) itemView
-                    .findViewById(R.id.list_item_product_img);
-            itemHeadView = (ImageView) itemView
-                    .findViewById(R.id.list_item_head_img);
-            itemAuthView = (ImageView) itemView
-                    .findViewById(R.id.list_item_auth);
-            itemXiaoQuText = (TextView) itemView
-                    .findViewById(R.id.list_item_xiaoqu_text);
-            itemProduceText = (TextView) itemView
-                    .findViewById(R.id.list_item_produce_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

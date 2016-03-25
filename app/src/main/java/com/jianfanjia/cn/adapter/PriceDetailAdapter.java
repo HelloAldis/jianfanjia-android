@@ -17,6 +17,9 @@ import com.jianfanjia.cn.bean.PriceDetail;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 /**
  * Name: PriceDetailAdapter
@@ -59,7 +62,8 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
                 priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
                 priceDetailHeadHolder.project_total_price.setText("￥" + detailInfo.getProject_price_before_discount());
-                priceDetailHeadHolder.project_price_after_discount.setText("￥" + detailInfo.getProject_price_after_discount());
+                priceDetailHeadHolder.project_price_after_discount.setText("￥" + detailInfo
+                        .getProject_price_after_discount());
                 priceDetailHeadHolder.total_design_fee.setText("￥" + detailInfo.getTotal_design_fee());
                 priceDetailHeadHolder.project_price_before_discount.setText("￥" + detailInfo.getTotal_price());
                 break;
@@ -126,40 +130,40 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
     }
 
     private static class PriceDetailHeadHolder extends RecyclerViewHolderBase {
-        public TextView project_total_price;
-        public TextView project_price_after_discount;
-        public TextView total_design_fee;
-        public TextView project_price_before_discount;
+        @Bind(R.id.project_total_price)
+        TextView project_total_price;
+        @Bind(R.id.project_price_after_discount)
+        TextView project_price_after_discount;
+        @Bind(R.id.total_design_fee)
+        TextView total_design_fee;
+        @Bind(R.id.project_price_before_discount)
+        TextView project_price_before_discount;
 
         public PriceDetailHeadHolder(View itemView) {
             super(itemView);
-            project_total_price = (TextView) itemView.findViewById(R.id.project_total_price);
-            project_price_after_discount = (TextView) itemView.findViewById(R.id.project_price_after_discount);
-            total_design_fee = (TextView) itemView
-                    .findViewById(R.id.total_design_fee);
-            project_price_before_discount = (TextView) itemView
-                    .findViewById(R.id.project_price_before_discount);
+            ButterKnife.bind(this, itemView);
         }
     }
 
     private static class PriceDetailViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemContent;
-        public TextView itemDes;
-        public TextView itemDetail;
-        public RelativeLayout detailLayout;
-        public LinearLayout itemDetailLayout;
-        public TextView itemDetailText;
+        @Bind(R.id.titleText)
+        TextView itemTitle;
+        @Bind(R.id.contentText)
+        TextView itemContent;
+        @Bind(R.id.desText)
+        TextView itemDes;
+        @Bind(R.id.detailText)
+        TextView itemDetail;
+        @Bind(R.id.detailLayout)
+        RelativeLayout detailLayout;
+        @Bind(R.id.itemDetailLayout)
+        LinearLayout itemDetailLayout;
+        @Bind(R.id.itemDetailText)
+        TextView itemDetailText;
 
         public PriceDetailViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.titleText);
-            itemDes = (TextView) itemView.findViewById(R.id.desText);
-            itemContent = (TextView) itemView.findViewById(R.id.contentText);
-            itemDetail = (TextView) itemView.findViewById(R.id.detailText);
-            detailLayout = (RelativeLayout) itemView.findViewById(R.id.detailLayout);
-            itemDetailLayout = (LinearLayout) itemView.findViewById(R.id.itemDetailLayout);
-            itemDetailText = (TextView) itemView.findViewById(R.id.itemDetailText);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

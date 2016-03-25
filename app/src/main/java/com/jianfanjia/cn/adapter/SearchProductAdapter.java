@@ -14,6 +14,9 @@ import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: ProductAdapter
  * User: fengliang
@@ -24,7 +27,7 @@ public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
     private static final String TAG = SearchProductAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 
-    public SearchProductAdapter(Context context, RecyclerView recyclerView,RecyclerViewOnItemClickListener listener) {
+    public SearchProductAdapter(Context context, RecyclerView recyclerView, RecyclerViewOnItemClickListener listener) {
         super(context, recyclerView);
         this.listener = listener;
     }
@@ -36,8 +39,10 @@ public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
         holder.itemXiaoQuText.setText(product.getCell());
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
-        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder.itemProductView);
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow
+                (houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder
+                .itemProductView);
         imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,28 +63,25 @@ public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_product,
                 null);
         return new ProductViewHolder(view);
     }
 
     private static class ProductViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemProductView;
-        public ImageView itemHeadView;
-        public TextView itemXiaoQuText;
-        public TextView itemProduceText;
+        @Bind(R.id.list_item_product_img)
+        ImageView itemProductView;
+        @Bind(R.id.list_item_head_img)
+        ImageView itemHeadView;
+        @Bind(R.id.list_item_xiaoqu_text)
+        TextView itemXiaoQuText;
+        @Bind(R.id.list_item_produce_text)
+        TextView itemProduceText;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            itemProductView = (ImageView) itemView
-                    .findViewById(R.id.list_item_product_img);
-            itemHeadView = (ImageView) itemView
-                    .findViewById(R.id.list_item_head_img);
-            itemXiaoQuText = (TextView) itemView
-                    .findViewById(R.id.list_item_xiaoqu_text);
-            itemProduceText = (TextView) itemView
-                    .findViewById(R.id.list_item_produce_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
