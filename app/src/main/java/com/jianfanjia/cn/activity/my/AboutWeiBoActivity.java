@@ -25,7 +25,6 @@ public class AboutWeiBoActivity extends SwipeBackActivity implements View.OnClic
     private MainHeadView mainHeadView = null;
     private WebView webView = null;
 
-    @Override
     public void initView() {
 
         initMainHeadView();

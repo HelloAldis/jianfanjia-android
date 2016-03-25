@@ -49,7 +49,6 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
-    @Override
     public void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
@@ -85,11 +84,11 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
             case R.id.btnRegister:
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(Global.ISREGIISTER, true);
-                startActivity(LoginNewActivity_.class, bundle);
+                startActivity(LoginNewActivity.class, bundle);
                 appManager.finishActivity(this);
                 break;
             case R.id.btnLogin:
-                startActivity(LoginNewActivity_.class);
+                startActivity(LoginNewActivity.class);
                 appManager.finishActivity(this);
                 break;
             default:

@@ -42,7 +42,6 @@ public class AboutActivity extends SwipeBackActivity implements OnClickListener 
         shareUtil = new ShareUtil(this);
     }
 
-    @Override
     public void initView() {
         initMainHeadView();
         initContentLayout();

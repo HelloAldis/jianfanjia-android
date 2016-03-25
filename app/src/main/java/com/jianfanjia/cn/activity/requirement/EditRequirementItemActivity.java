@@ -13,7 +13,6 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -86,11 +85,11 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
     }
 
     @OnItemClick(R.id.act_edit_req_item_listview)
-    void personListItemClicked(ReqItemFinderImp.ItemMap itemMap) {
-        Intent data = new Intent(this, UpdateRequirementActivity_.class);
-        data.putExtra(Global.RESPONSE_DATA, itemMap);
-        setResult(RESULT_OK, data);
-        appManager.finishActivity(this);
+    void personListItemClicked(int position) {
+//        Intent data = new Intent(this, UpdateRequirementActivity.class);
+//        data.putExtra(Global.RESPONSE_DATA, itemMap);
+//        setResult(RESULT_OK, data);
+//        appManager.finishActivity(this);
     }
 
     @OnClick({R.id.head_back_layout})

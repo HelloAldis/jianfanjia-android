@@ -107,7 +107,6 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         this.setListener();
     }
 
-    @Override
     public void initView() {
         viewPager.setOffscreenPageLimit(1);
         tv_title.setTranslationY(-1000);

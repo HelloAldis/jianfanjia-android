@@ -141,7 +141,7 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
         ownerInfo.setDec_styles(lovestyleNumber);
         Bundle ownerBundle = new Bundle();
         ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
-        startActivity(NewUserCollectPersonActivity_.class, ownerBundle);
+        startActivity(NewUserCollectPersonActivity.class, ownerBundle);
     }
 
     @Override

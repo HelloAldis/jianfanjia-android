@@ -60,7 +60,6 @@ public class WebViewActivity extends SwipeBackActivity {
     }
 
     public void initView() {
-        super.initView();
         this.initMainHeadView();
 
         progressWebView.getSettings().setJavaScriptEnabled(true);

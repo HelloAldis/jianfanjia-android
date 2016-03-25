@@ -86,7 +86,7 @@ public class NewUserCollectDecStageActivity extends BaseActivity {
         ownerInfo.setDec_progress(stage);
         Bundle ownerBundle = new Bundle();
         ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
-        startActivity(NewUserCollectLoveStyleActivity_.class, ownerBundle);
+        startActivity(NewUserCollectLoveStyleActivity.class, ownerBundle);
     }
 
     @Override

@@ -54,7 +54,6 @@ public class ShowPicActivity extends SwipeBackActivity implements
         tipView.setText(tipText);
     }
 
-    @Override
     public void initView() {
         showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
         viewPager.setAdapter(showPicPagerAdapter);

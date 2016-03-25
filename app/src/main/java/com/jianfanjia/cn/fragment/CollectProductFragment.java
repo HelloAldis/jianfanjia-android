@@ -39,7 +39,7 @@ import de.greenrobot.event.EventBus;
  * @date 2015-8-26 下午1:07:52
  */
 public class CollectProductFragment extends CommonFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView> {
+        .OnRefreshListener2<RecyclerView>,View.OnClickListener {
     private static final String TAG = CollectProductFragment.class.getName();
     private PullToRefreshRecycleView prodtct_listview = null;
     private RelativeLayout emptyLayout = null;

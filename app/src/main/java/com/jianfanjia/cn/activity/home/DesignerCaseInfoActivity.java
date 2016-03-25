@@ -86,7 +86,6 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         this.setListener();
     }
 
-    @Override
     public void initView() {
         mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
         designer_case_listview.setLayoutManager(mLayoutManager);

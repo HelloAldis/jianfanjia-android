@@ -167,7 +167,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         dialog.show();
     }
 
-    @Override
     public void initView() {
         LogTool.d(TAG, "initView");
         GeTuiManager.initGeTui(getApplicationContext());
@@ -190,7 +189,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void loadFailture(String error_msg) {
-        startActivity(LoginNewActivity_.class);
+        startActivity(LoginNewActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
     }
 
@@ -204,7 +203,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 LogTool.d(TAG, "not first");
                 if (!isLogin) {
                     LogTool.d(TAG, "not login");
-                    startActivity(LoginNewActivity_.class);
+                    startActivity(LoginNewActivity.class);
                     appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份

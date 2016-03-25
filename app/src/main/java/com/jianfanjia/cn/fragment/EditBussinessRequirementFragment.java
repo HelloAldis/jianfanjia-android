@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,13 +69,13 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         initView();
         initData();
         return view;
     }
 
-    public void initView(){
+    public void initView() {
         initStringArray();
     }
 
@@ -89,7 +88,33 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         arr_desisex = getResources().getStringArray(R.array.arr_desisex);
     }
 
-    @OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id.act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
+    @OnTextChanged(value = R.id.act_edit_req_cell_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void cellAfterChanged(CharSequence charSequence) {
+        requirementInfo.setCell(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_street_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void streetAfterChanged(CharSequence charSequence) {
+        requirementInfo.setStreet(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void houseareaAfterChanged(CharSequence charSequence) {
+        requirementInfo.setHouse_area(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void decoratebudgetAfterChanged(CharSequence charSequence) {
+        requirementInfo.setTotal_price(charSequence.toString());
+        isAllInput();
+    }
+
+
+   /* @OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id
+            .act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
     protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
         int viewId = tv.getId();
         String textContent = text.toString();
@@ -109,7 +134,7 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
                 break;
         }
         isAllInput();
-    }
+    }*/
 
     @Override
     public void onAttach(Context context) {
@@ -168,27 +193,32 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             case R.id.act_edit_req_lovedesistyle:
                 Bundle loveDesignerBundle = new Bundle();
                 loveDesignerBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant.REQUIRECODE_LOVEDESISTYLE);
+                startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant
+                        .REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant.REQUIRECODE_LOVESTYLE);
+                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant
+                        .REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
                 Bundle decorateTypeBundle = new Bundle();
                 decorateTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
-                startActivityForResult(EditRequirementItemActivity.class, decorateTypeBundle, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                startActivityForResult(EditRequirementItemActivity.class, decorateTypeBundle, Constant
+                        .REQUIRECODE_BUSI_DECORATETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(EditRequirementItemActivity.class,workTypeBundle, Constant.REQUIRECODE_WORKTYPE);
+                startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
+                        .REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
                 Bundle loveDesiSexBundle = new Bundle();
                 loveDesiSexBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(EditRequirementItemActivity.class,loveDesiSexBundle, Constant.REQUIRECODE_DESISEX);
+                startActivityForResult(EditRequirementItemActivity.class, loveDesiSexBundle, Constant
+                        .REQUIRECODE_DESISEX);
                 break;
             default:
                 break;
@@ -202,8 +232,10 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
         switch (actionType) {
             case XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT:
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
-                if (!TextUtils.isEmpty(requirementInfo.getProvince()) && !TextUtils.isEmpty(requirementInfo.getCity()) && !TextUtils.isEmpty(requirementInfo.getDistrict())) {
-                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
+                if (!TextUtils.isEmpty(requirementInfo.getProvince()) && !TextUtils.isEmpty(requirementInfo.getCity()
+                ) && !TextUtils.isEmpty(requirementInfo.getDistrict())) {
+                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
+                            requirementInfo.getDistrict());
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getStreet())) {
                     act_edit_req_street_content.setText(requirementInfo.getStreet());
@@ -217,11 +249,18 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
                 if (!TextUtils.isEmpty(requirementInfo.getTotal_price())) {
                     act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
                 }
-                act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
-                act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
-                act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
-                act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
-                act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
+                act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type())
+                        ? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) >
+                        (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt
+                        (requirementInfo.getBusiness_house_type())]);
+                act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
+                        arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
+                act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type())
+                        ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+                act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
+                        arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
+                act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
+                        arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
                 break;
         }
 
@@ -238,7 +277,8 @@ public class EditBussinessRequirementFragment extends BaseAnnotationFragment {
             return;
         }
         if (data != null) {
-            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global.RESPONSE_DATA);
+            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global
+                    .RESPONSE_DATA);
             switch (requestCode) {
                 case Constant.REQUIRECODE_CITY:
                     String provice = data.getStringExtra(Constant.EDIT_PROVICE);

@@ -152,7 +152,7 @@ public class RegisterNewActivity extends BaseActivity implements
                 GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                 break;
             case UPDATE_PSW_CODE:
-                startActivity(LoginNewActivity_.class);
+                startActivity(LoginNewActivity.class);
                 appManager.finishActivity(this);
                 break;
             case BINDING_PHONE:

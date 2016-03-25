@@ -110,7 +110,6 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         this.setListener();
     }
 
-    @Override
     public void initView() {
         initMainHeadView();
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));

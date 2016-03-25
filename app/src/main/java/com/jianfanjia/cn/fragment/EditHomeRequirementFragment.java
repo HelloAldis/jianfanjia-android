@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,7 +95,49 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
         arr_desisex = getResources().getStringArray(R.array.arr_desisex);
     }
 
-    @OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content,
+    @OnTextChanged(value = R.id.act_edit_req_cell_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void cellAfterChanged(CharSequence charSequence) {
+        requirementInfo.setCell(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_qi_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void qiAfterChanged(CharSequence charSequence) {
+        requirementInfo.setCell_phase(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_danyuan_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void danyuanAfterChanged(CharSequence charSequence) {
+        requirementInfo.setCell_unit(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_dong_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void dongAfterChanged(CharSequence charSequence) {
+        requirementInfo.setCell_building(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_shi_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void shiAfterChanged(CharSequence charSequence) {
+        requirementInfo.setCell_detail_number(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void houseareaAfterChanged(CharSequence charSequence) {
+        requirementInfo.setHouse_area(charSequence.toString());
+        isAllInput();
+    }
+
+    @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void decoratebudgetAfterChanged(CharSequence charSequence) {
+        requirementInfo.setTotal_price(charSequence.toString());
+        isAllInput();
+    }
+
+    /*@OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content,
             R.id.act_edit_req_dong_content,
             R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id
             .act_edit_req_decoratebudget_content})
@@ -129,7 +170,7 @@ public class EditHomeRequirementFragment extends BaseAnnotationFragment {
         }
         isAllInput();
     }
-
+*/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

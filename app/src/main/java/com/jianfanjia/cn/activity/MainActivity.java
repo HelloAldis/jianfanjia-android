@@ -58,7 +58,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         EventBus.getDefault().register(this);
     }
 
-    @Override
     public void initView() {
         badgeView = (ImageView) findViewById(R.id.badgeView);
         badgeView.setVisibility(View.GONE);

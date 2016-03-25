@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
@@ -29,16 +32,13 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author fengliang
  * @ClassName: SearchDecorationImgFragment
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchDecorationImgFragment extends BaseFragment {
+public class SearchDecorationImgFragment extends BaseFragment implements View.OnClickListener{
     private static final String TAG = SearchDecorationImgFragment.class.getName();
     private RecyclerView recyclerView = null;
     private RelativeLayout emptyLayout = null;

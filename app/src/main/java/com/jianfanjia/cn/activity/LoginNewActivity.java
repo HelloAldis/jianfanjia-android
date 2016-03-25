@@ -294,7 +294,7 @@ public class LoginNewActivity extends BaseActivity implements
                 }
                 break;
             case R.id.act_forget_password:
-                startActivity(ForgetPswActivity_.class);
+                startActivity(ForgetPswActivity.class);
                 break;
             case R.id.act_login:
                 if (currentPage == REGISER) {
@@ -347,7 +347,7 @@ public class LoginNewActivity extends BaseActivity implements
                         hideWaitDialog();
                         if (data != null) {
                             if (dataManager.getWeixinFisrtLogin()) {
-                                startActivity(NewUserCollectDecStageActivity_.class);
+                                startActivity(NewUserCollectDecStageActivity.class);
                             } else {
                                 startActivity(MainActivity.class);
                             }
@@ -466,7 +466,7 @@ public class LoginNewActivity extends BaseActivity implements
                 Bundle registerBundle = new Bundle();
                 registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
                 registerBundle.putInt(Global.REGISTER, RegisterNewActivity.REGISTER_CODE);
-                startActivity(RegisterNewActivity_.class, registerBundle);
+                startActivity(RegisterNewActivity.class, registerBundle);
             }
 
             @Override

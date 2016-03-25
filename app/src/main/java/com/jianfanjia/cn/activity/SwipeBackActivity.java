@@ -6,13 +6,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.view.SwipeBackLayout;
 
 /**
  * Created by Eric on 15/3/3.
  */
-public class SwipeBackActivity extends BaseAnnotationActivity implements SwipeBackLayout.SwipeBackListener {
+public abstract class SwipeBackActivity extends BaseActivity implements SwipeBackLayout.SwipeBackListener {
 
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;

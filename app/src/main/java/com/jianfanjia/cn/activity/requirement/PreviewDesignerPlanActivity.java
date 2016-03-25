@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -29,10 +32,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -316,7 +315,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         btn_choose.setText(getString(R.string.str_has_choosed_plan));
         switch (flagIntent){
             case PLAN_LIST_INTENT:
-                startActivity(MyDesignerActivity_.class);
+                startActivity(MyDesignerActivity.class);
                 appManager.finishActivity(PreviewDesignerPlanActivity.this);
                 break;
             case COMMENT_INTENT:

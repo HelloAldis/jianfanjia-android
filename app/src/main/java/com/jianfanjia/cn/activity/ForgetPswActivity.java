@@ -163,7 +163,7 @@ public class ForgetPswActivity extends BaseAnnotationActivity{
                     Bundle registerBundle = new Bundle();
                     registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
                     registerBundle.putInt(Global.REGISTER,RegisterNewActivity.UPDATE_PSW_CODE);
-                    startActivity(RegisterNewActivity_.class, registerBundle);
+                    startActivity(RegisterNewActivity.class, registerBundle);
                 }
 
                 @Override

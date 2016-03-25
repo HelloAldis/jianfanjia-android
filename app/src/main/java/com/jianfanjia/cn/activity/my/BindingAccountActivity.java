@@ -110,7 +110,7 @@ public class BindingAccountActivity extends SwipeBackActivity {
             case R.id.bindingaccount_phone_layout:
                 Bundle bundle = new Bundle();
                 bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_USERINFO);
-                startActivity(BindingPhoneActivity_.class, bundle);
+                startActivity(BindingPhoneActivity.class, bundle);
                 overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 break;
             case R.id.head_back_layout:

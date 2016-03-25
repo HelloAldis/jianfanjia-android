@@ -3,16 +3,15 @@ package com.jianfanjia.cn.activity.requirement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemLoveStyleAdapter;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -48,17 +47,18 @@ public class EditRequirementLovestyleActivity extends SwipeBackActivity {
 
         requirementItemLoveStyleAdapter = new RequirementItemLoveStyleAdapter(this);
         gridView.setAdapter(requirementItemLoveStyleAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent data = new Intent(EditRequirementLovestyleActivity.this, UpdateRequirementActivity.class);
+                data.putExtra(Global.RESPONSE_DATA, requirementItemLoveStyleAdapter.getItemMaps().get(position));
+                setResult(RESULT_OK, data);
+                appManager.finishActivity(EditRequirementLovestyleActivity.this);
+            }
+        });
         requirementItemLoveStyleAdapter.changeShow(requestCode);
     }
 
-
-    @OnItemClick(R.id.act_edit_req_lovestyle_gridview)
-    void personListItemClicked(ReqItemFinderImp.ItemMap itemMap) {
-        Intent data = new Intent(this, UpdateRequirementActivity_.class);
-        data.putExtra(Global.RESPONSE_DATA, itemMap);
-        setResult(RESULT_OK, data);
-        appManager.finishActivity(this);
-    }
 
     @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {

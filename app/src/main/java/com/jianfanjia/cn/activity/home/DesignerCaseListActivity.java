@@ -111,7 +111,6 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         this.setListener();
     }
 
-    @Override
     public void initView() {
         initMainHeadView();
 

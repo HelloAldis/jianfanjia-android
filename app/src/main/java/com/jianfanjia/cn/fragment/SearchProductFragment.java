@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
@@ -26,16 +29,13 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author fengliang
  * @ClassName: SearchProductFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchProductFragment extends BaseFragment {
+public class SearchProductFragment extends BaseFragment implements View.OnClickListener{
     private static final String TAG = SearchProductFragment.class.getName();
     private RecyclerView recyclerView = null;
     private RelativeLayout emptyLayout = null;

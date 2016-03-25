@@ -1,16 +1,14 @@
 package com.jianfanjia.cn.base;
 
-import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -18,8 +16,6 @@ import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.NetStateListener;
-import com.jianfanjia.cn.receiver.NetStateReceiver;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
@@ -28,8 +24,6 @@ import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.umeng.analytics.MobclickAgent;
-
-import butterknife.ButterKnife;
 
 /**
  * Description:activity基类
@@ -77,8 +71,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     public abstract int getLayoutId();
-
-    public abstract void initView();
 
     public void setListener() {
 
