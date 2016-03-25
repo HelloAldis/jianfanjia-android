@@ -13,9 +13,6 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -33,6 +30,9 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
@@ -43,7 +43,8 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends SwipeBackActivity implements OnClickListener, ViewPager.OnPageChangeListener, ScrollableLayout.OnScrollListener {
+public class DesignerInfoActivity extends SwipeBackActivity implements OnClickListener, ViewPager
+        .OnPageChangeListener, ScrollableLayout.OnScrollListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
 
     @Bind(R.id.sl_root)
@@ -137,11 +138,11 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
-        sl_root.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer) listViews.get(0).getFragment());
+        sl_root.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer) listViews.get(0)
+                .getFragment());
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         sl_root.setOnScrollListener(this);
     }
 
@@ -169,7 +170,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
 
     @Override
     public void onPageSelected(int position) {
-        sl_root.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer) listViews.get(position).getFragment());
+        sl_root.getHelper().setCurrentScrollableContainer((ScrollableHelper.ScrollableContainer) listViews.get
+                (position).getFragment());
     }
 
     @Override
@@ -194,7 +196,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         int alpha = 0;
         int baseAlpha = 60;
         if (0 > avatarTop + translationY) {
-            alpha = Math.min(255, (int) (Math.abs(avatarTop + translationY) * (255 - baseAlpha) / (hearderMaxHeight - avatarTop) + baseAlpha));
+            alpha = Math.min(255, (int) (Math.abs(avatarTop + translationY) * (255 - baseAlpha) / (hearderMaxHeight -
+                    avatarTop) + baseAlpha));
             tv_title.setVisibility(View.VISIBLE);
         } else {
             tv_title.setVisibility(View.GONE);
@@ -212,7 +215,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     }
 
     private void deleteFavoriteDesigner(String designerid) {
-        JianFanJiaClient.deleteFavoriteDesigner(DesignerInfoActivity.this, designerid, deleteMyFavoriteDesignerListener, this);
+        JianFanJiaClient.deleteFavoriteDesigner(DesignerInfoActivity.this, designerid,
+                deleteMyFavoriteDesignerListener, this);
     }
 
     private ApiUiUpdateListener designerHomePage = new ApiUiUpdateListener() {
@@ -232,7 +236,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
                 designerName.setText(designer_name);
                 String designerid = designerInfo.getImageid();
                 if (!TextUtils.isEmpty(designerid)) {
-                    imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo.getImageid(), designerinfo_head_img);
+                    imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo.getImageid()
+                            , designerinfo_head_img);
                 } else {
                     imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designerinfo_head_img);
                 }

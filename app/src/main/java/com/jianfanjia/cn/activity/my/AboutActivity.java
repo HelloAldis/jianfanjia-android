@@ -20,6 +20,9 @@ import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:关于
  * Author：fengliang
@@ -28,52 +31,45 @@ import com.umeng.socialize.sso.UMSsoHandler;
  */
 public class AboutActivity extends SwipeBackActivity implements OnClickListener {
     private static final String TAG = AboutActivity.class.getName();
+
+    @Bind(R.id.about_head_layout)
     private MainHeadView mainHeadView = null;
+
+    @Bind(R.id.about_version)
     private TextView currentVersion;// 当前版本
+
+    @Bind(R.id.follow_weixin_layout)
+    RelativeLayout followWeixinLayout;
+
+    @Bind(R.id.follow_weibo_layout)
+    RelativeLayout followWeiBoLayout;
+
+    @Bind(R.id.share_layout)
+    RelativeLayout shareLayout;
+
     private String versionInfo;
-    private RelativeLayout followWeixinLayout;
-    private RelativeLayout followWeiBoLayout;
-    private RelativeLayout shareLayout;
     private ShareUtil shareUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shareUtil = new ShareUtil(this);
+        initView();
     }
 
     public void initView() {
         initMainHeadView();
-        initContentLayout();
-        currentVersion = (TextView) findViewById(R.id.about_version);
         versionInfo = String.format(getString(R.string.about_version), MyApplication.getInstance().getVersionName());
         currentVersion.setText(versionInfo);
     }
 
-    private void initContentLayout() {
-        followWeixinLayout = (RelativeLayout) findViewById(R.id.follow_weixin_layout);
-        followWeiBoLayout = (RelativeLayout) findViewById(R.id.follow_weibo_layout);
-        shareLayout = (RelativeLayout) findViewById(R.id.share_layout);
-    }
-
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.
-                about_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.about));
+        mainHeadView.setMianTitle(getResources().getString(R.string.about));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-        followWeiBoLayout.setOnClickListener(this);
-        followWeixinLayout.setOnClickListener(this);
-        shareLayout.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.share_layout, R.id.follow_weixin_layout, R.id.follow_weibo_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
@@ -93,7 +89,7 @@ public class AboutActivity extends SwipeBackActivity implements OnClickListener 
                 });
                 break;
             case R.id.follow_weixin_layout:
-                UiHelper.copy(getString(R.string.jianfanjia_weixin),this);
+                UiHelper.copy(getString(R.string.jianfanjia_weixin), this);
                 break;
             case R.id.follow_weibo_layout:
                 startActivity(AboutWeiBoActivity.class);

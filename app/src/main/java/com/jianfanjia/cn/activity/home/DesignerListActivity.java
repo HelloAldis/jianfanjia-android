@@ -12,13 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
@@ -40,13 +33,22 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:海量设计师列表
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerListActivity.class.getName();
     private static final int DEC_TYPE = 1;
     private static final int DEC_HOUSE_TYPE = 2;
@@ -129,8 +131,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         mainHeadView.setBackgroundTransparent();
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         designerListView.setOnRefreshListener(this);
     }
 
@@ -245,23 +246,26 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
                 designerList.addAll(designer.getDesigners());
                 if (null != designerList && designerList.size() > 0) {
                     if (null == designerListAdapter) {
-                        designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList, new RecyclerViewOnItemClickListener() {
-                            @Override
-                            public void OnItemClick(View view, int position) {
+                        designerListAdapter = new DesignerListAdapter(DesignerListActivity.this, designerList, new
+                                RecyclerViewOnItemClickListener() {
+                                    @Override
+                                    public void OnItemClick(View view, int position) {
 
-                            }
+                                    }
 
-                            @Override
-                            public void OnViewClick(int position) {
-                                String designerId = designerList.get(position).get_id();
-                                LogTool.d(TAG, "designerId:" + designerId);
-                                Intent designerIntent = new Intent(DesignerListActivity.this, DesignerInfoActivity.class);
-                                Bundle designerBundle = new Bundle();
-                                designerBundle.putString(Global.DESIGNER_ID, designerId);
-                                designerIntent.putExtras(designerBundle);
-                                startActivity(designerIntent);
-                            }
-                        });
+                                    @Override
+                                    public void OnViewClick(int position) {
+                                        String designerId = designerList.get(position).get_id();
+                                        LogTool.d(TAG, "designerId:" + designerId);
+                                        Intent designerIntent = new Intent(DesignerListActivity.this,
+                                                DesignerInfoActivity
+                                                .class);
+                                        Bundle designerBundle = new Bundle();
+                                        designerBundle.putString(Global.DESIGNER_ID, designerId);
+                                        designerIntent.putExtras(designerBundle);
+                                        startActivity(designerIntent);
+                                    }
+                                });
                         designerListView.setAdapter(designerListAdapter);
                     } else {
                         designerListView.scrollToPosition(0);
@@ -325,16 +329,20 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
     private void showWindow(int resId, int type) {
         switch (type) {
             case DEC_TYPE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecTypeCallback, Global.DEC_TYPE_POSITION);
+                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecTypeCallback, Global
+                        .DEC_TYPE_POSITION);
                 break;
             case DEC_HOUSE_TYPE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecHouseTypeCallback, Global.DEC_HOUSE_TYPE_POSITION);
+                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecHouseTypeCallback, Global
+                        .DEC_HOUSE_TYPE_POSITION);
                 break;
             case DEC_STYLE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecStyleCallback, Global.STYLE_POSITION);
+                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecStyleCallback, Global
+                        .STYLE_POSITION);
                 break;
             case DEC_FEE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecFeeCallback, Global.DEC_FEE_POSITION);
+                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecFeeCallback, Global
+                        .DEC_FEE_POSITION);
                 break;
             default:
                 break;

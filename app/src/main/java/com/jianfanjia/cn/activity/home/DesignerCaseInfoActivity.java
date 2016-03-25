@@ -12,11 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -32,6 +27,12 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -80,7 +81,6 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.initView();
         this.getDataFromIntent(this.getIntent());
         this.setListener();
@@ -92,6 +92,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
         designer_case_listview.setHasFixedSize(true);
         designer_case_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+        setListener();
     }
 
     private void getDataFromIntent(Intent intent) {
@@ -101,7 +102,6 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         getProductHomePageInfo(productid);
     }
 
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -110,8 +110,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         getDataFromIntent(intent);
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -157,11 +156,13 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     }
 
     private void getProductHomePageInfo(String productid) {
-        JianFanJiaClient.getProductHomePage(DesignerCaseInfoActivity.this, productid, getProductHomePageInfoListener, this);
+        JianFanJiaClient.getProductHomePage(DesignerCaseInfoActivity.this, productid, getProductHomePageInfoListener,
+                this);
     }
 
     private void addProductHomePageInfo(String productid) {
-        JianFanJiaClient.addCollectionByUser(DesignerCaseInfoActivity.this, productid, addProductHomePageInfoListener, this);
+        JianFanJiaClient.addCollectionByUser(DesignerCaseInfoActivity.this, productid,
+                addProductHomePageInfoListener, this);
     }
 
     private void deleteProductDesigner(String productid) {
@@ -190,13 +191,15 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
                 designertid = designerCaseInfo.getDesigner().get_id();
                 tv_title.setText(designerCaseInfo.getCell());
                 nameText.setText(designerCaseInfo.getDesigner().getUsername());
-                imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo.getDesigner().getImageid(), head_img);
+                imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo
+                        .getDesigner().getImageid(), head_img);
                 List<ImageInfo> imgList = designerCaseInfo.getImages();
                 imgs.clear();
                 for (ImageInfo info : imgList) {
                     imgs.add(info.getImageid());
                 }
-                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, imgList, designerCaseInfo, new RecyclerViewOnItemClickListener() {
+                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, imgList,
+                        designerCaseInfo, new RecyclerViewOnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
                         LogTool.d(TAG, "position:" + position);
@@ -204,7 +207,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
                         showPicBundle.putInt(Constant.CURRENT_POSITION, position);
                         showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                                 (ArrayList<String>) imgs);
-                        startActivity(ShowPicActivity.class,showPicBundle);
+                        startActivity(ShowPicActivity.class, showPicBundle);
                     }
 
                     @Override

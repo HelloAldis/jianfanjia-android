@@ -11,11 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
@@ -37,6 +32,11 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -46,7 +46,8 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerCaseListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerCaseListActivity.class.getName();
     private static final int DEC_TYPE = 1;
     private static final int DESIGN_STYLE = 2;
@@ -108,13 +109,12 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.initView();
-        this.setListener();
     }
 
     public void initView() {
         initMainHeadView();
-
-        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_list_data));
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string
+                .empty_view_no_product_list_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
         linearLayoutManager = new LinearLayoutManager(DesignerCaseListActivity.this);
         pullToRefreshRecyclerView.setLayoutManager(linearLayoutManager);
@@ -126,6 +126,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         });
         pullToRefreshRecyclerView.setHasFixedSize(true);
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        pullToRefreshRecyclerView.setOnRefreshListener(this);
         getDesignerProductList(FROM, pullDownListener);
     }
 
@@ -134,12 +135,8 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         mainHeadView.setBackgroundTransparent();
     }
 
-    @Override
-    public void setListener() {
-        pullToRefreshRecyclerView.setOnRefreshListener(this);
-    }
-
-    @OnClick({R.id.head_back_layout, R.id.decTypeLayout, R.id.designStyleLayout, R.id.houseTypeLayout, R.id.decAreaLayout, R.id.error_include})
+    @OnClick({R.id.head_back_layout, R.id.decTypeLayout, R.id.designStyleLayout, R.id.houseTypeLayout, R.id
+            .decAreaLayout, R.id.error_include})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
@@ -227,7 +224,8 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         param.put("query", conditionParam);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(DesignerCaseListActivity.this, param), listener, this);
+        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(DesignerCaseListActivity.this, param)
+                , listener, this);
     }
 
     private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
@@ -249,28 +247,29 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 productList.addAll(worksInfo.getProducts());
                 if (null != productList && productList.size() > 0) {
                     if (null == productAdapter) {
-                        productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new RecyclerViewOnItemClickListener() {
+                        productAdapter = new ProductAdapter(DesignerCaseListActivity.this, productList, new
+                                RecyclerViewOnItemClickListener() {
 
-                            @Override
-                            public void OnItemClick(View view, int position) {
-                                Product product = productList.get(position);
-                                String productid = product.get_id();
-                                LogTool.d(TAG, "productid:" + productid);
-                                Bundle productBundle = new Bundle();
-                                productBundle.putString(Global.PRODUCT_ID, productid);
-                                startActivity(DesignerCaseInfoActivity.class,productBundle);
-                            }
+                                    @Override
+                                    public void OnItemClick(View view, int position) {
+                                        Product product = productList.get(position);
+                                        String productid = product.get_id();
+                                        LogTool.d(TAG, "productid:" + productid);
+                                        Bundle productBundle = new Bundle();
+                                        productBundle.putString(Global.PRODUCT_ID, productid);
+                                        startActivity(DesignerCaseInfoActivity.class, productBundle);
+                                    }
 
-                            @Override
-                            public void OnViewClick(int position) {
-                                Product product = productList.get(position);
-                                String designertid = product.getDesignerid();
-                                LogTool.d(TAG, "designertid=" + designertid);
-                                Bundle designerBundle = new Bundle();
-                                designerBundle.putString(Global.DESIGNER_ID, designertid);
-                                startActivity(DesignerInfoActivity.class,designerBundle);
-                            }
-                        });
+                                    @Override
+                                    public void OnViewClick(int position) {
+                                        Product product = productList.get(position);
+                                        String designertid = product.getDesignerid();
+                                        LogTool.d(TAG, "designertid=" + designertid);
+                                        Bundle designerBundle = new Bundle();
+                                        designerBundle.putString(Global.DESIGNER_ID, designertid);
+                                        startActivity(DesignerInfoActivity.class, designerBundle);
+                                    }
+                                });
                         pullToRefreshRecyclerView.setAdapter(productAdapter);
                     } else {
                         pullToRefreshRecyclerView.scrollToPosition(0);
@@ -332,16 +331,20 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     private void showWindow(int resId, int type) {
         switch (type) {
             case DEC_TYPE:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDecTypeCallback, Global.DEC_TYPE_POSITION);
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDecTypeCallback, Global
+                        .DEC_TYPE_POSITION);
                 break;
             case DESIGN_STYLE:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDesignStyleCallback, Global.STYLE_POSITION);
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDesignStyleCallback, Global
+                        .STYLE_POSITION);
                 break;
             case HOUSE_TYPE:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseTypeCallback, Global.DEC_HOUSE_TYPE_POSITION);
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseTypeCallback, Global
+                        .DEC_HOUSE_TYPE_POSITION);
                 break;
             case DEC_AREA:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseAreaCallback, Global.DEC_AREA_POSITION);
+                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseAreaCallback, Global
+                        .DEC_AREA_POSITION);
                 break;
             default:
                 break;

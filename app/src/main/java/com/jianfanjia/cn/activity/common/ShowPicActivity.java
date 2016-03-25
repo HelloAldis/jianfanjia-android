@@ -6,14 +6,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -22,10 +22,10 @@ public class ShowPicActivity extends SwipeBackActivity implements
     private static final String TAG = ShowPicActivity.class.getName();
 
     @Bind(R.id.showpicPager)
-    protected ViewPager viewPager;
+    ViewPager viewPager;
 
     @Bind(R.id.pic_tip)
-    protected TextView tipView;
+    TextView tipView;
 
     private ShowPicPagerAdapter showPicPagerAdapter;
     private List<String> imageList = new ArrayList<String>();
@@ -63,17 +63,6 @@ public class ShowPicActivity extends SwipeBackActivity implements
     }
 
     @Override
-    public void setListener() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_showpic;
-    }
-
-    @Override
     public void onClickItem(int potition) {
         appManager.finishActivity(this);
     }
@@ -96,4 +85,8 @@ public class ShowPicActivity extends SwipeBackActivity implements
         setTipText();
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_showpic;
+    }
 }
