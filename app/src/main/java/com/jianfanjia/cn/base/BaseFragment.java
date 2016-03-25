@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
@@ -22,6 +21,8 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
+
+import butterknife.ButterKnife;
 
 /**
  * Description:Fragment基类
@@ -66,8 +67,6 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onActivityCreated");
         initUserInfo();
-//        initView(view);
-//        setListener();
     }
 
     private void init() {
@@ -87,8 +86,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public abstract int getLayoutId();
-
-    public abstract void setListener();
 
     protected View inflateView(int resId) {
         return this.inflater.inflate(resId, null);
@@ -116,13 +113,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected void makeTextShort(String text) {
         if (getContext() == null) return;
-        if(TextUtils.isEmpty(text)) return;
+        if (TextUtils.isEmpty(text)) return;
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     protected void makeTextLong(String text) {
         if (getContext() == null) return;
-        if(TextUtils.isEmpty(text)) return;
+        if (TextUtils.isEmpty(text)) return;
         Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
     }
 

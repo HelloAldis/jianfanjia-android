@@ -105,9 +105,10 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         initView();
         getDataFromIntent(getIntent());
         initData();
+        setListener();
     }
 
-    public void initView() {
+    private void initView() {
         shareUtil = new ShareUtil(this);
         toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
@@ -151,7 +152,6 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         setPreviewImgInfo(currentPosition);
     }
 
-    @Override
     public void setListener() {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
