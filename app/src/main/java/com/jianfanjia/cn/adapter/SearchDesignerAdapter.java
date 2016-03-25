@@ -18,6 +18,9 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Description: com.jianfanjia.cn.adapter
  * Author: zhanghao
@@ -28,15 +31,16 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
 
     private RecyclerViewOnItemClickListener listener;
 
-    public SearchDesignerAdapter(Context context,RecyclerView recyclerView,RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
-        super(context,recyclerView);
+    public SearchDesignerAdapter(Context context, RecyclerView recyclerView, RecyclerViewOnItemClickListener
+            recyclerViewOnItemClickListener) {
+        super(context, recyclerView);
         this.listener = recyclerViewOnItemClickListener;
 
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_designer_common,null);
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_designer_common, null);
         return new SearchDesignerViewHolder(view);
     }
 
@@ -46,7 +50,8 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
 
         DesignerInfo designerInfo = mDatas.get(position);
 
-        holder.nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R.string.designer) : designerInfo.getUsername());
+        holder.nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R
+                .string.designer) : designerInfo.getUsername());
         String imageid = designerInfo.getImageid();
         if (!TextUtils.isEmpty(imageid)) {
             ImageShow.getImageShow().displayImageHeadWidthThumnailImage(context, imageid, holder.headImageView);
@@ -59,9 +64,9 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
         } else {
             holder.infoAuthImageView.setVisibility(View.GONE);
         }
-        if(designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)){
+        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
             holder.identityAuthImageView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.identityAuthImageView.setVisibility(View.GONE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -78,31 +83,31 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
         holder.goodAtStyleView.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
     }
 
-    public class SearchDesignerViewHolder extends RecyclerView.ViewHolder{
-
-        private ImageView headImageView;
-        private ImageView infoAuthImageView;
-        private ImageView identityAuthImageView;
-        private TextView nameView;
-        private TextView goodAtStyleView;
-        private TextView decorateHouseStyleView;
-        private RatingBar ratingBar;
-        private TextView productSumView;
-        private TextView appointSumView;
-        private TextView designerFeeView;
+    private class SearchDesignerViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.ltm_req_owner_head)
+        ImageView headImageView;
+        @Bind(R.id.ltm_info_auth)
+        ImageView infoAuthImageView;
+        @Bind(R.id.ltm_identity_auth)
+        ImageView identityAuthImageView;
+        @Bind(R.id.ltm_req_username)
+        TextView nameView;
+        @Bind(R.id.ltm_good_at_style_cont)
+        TextView goodAtStyleView;
+        @Bind(R.id.ltm_decoratehousetype_cont)
+        TextView decorateHouseStyleView;
+        @Bind(R.id.ratingBar)
+        RatingBar ratingBar;
+        @Bind(R.id.product_sum)
+        TextView productSumView;
+        @Bind(R.id.appoint_sum)
+        TextView appointSumView;
+        @Bind(R.id.designer_fee)
+        TextView designerFeeView;
 
         public SearchDesignerViewHolder(View itemView) {
             super(itemView);
-            this.headImageView = (ImageView)itemView.findViewById(R.id.ltm_req_owner_head);
-            this.infoAuthImageView = (ImageView)itemView.findViewById(R.id.ltm_info_auth);
-            this.identityAuthImageView = (ImageView)itemView.findViewById(R.id.ltm_identity_auth);
-            this.nameView = (TextView) itemView.findViewById(R.id.ltm_req_username);
-            this.goodAtStyleView = (TextView) itemView.findViewById(R.id.ltm_good_at_style_cont);
-            this.decorateHouseStyleView = (TextView) itemView.findViewById(R.id.ltm_decoratehousetype_cont);
-            this.ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
-            this.productSumView = (TextView) itemView.findViewById(R.id.product_sum);
-            this.appointSumView = (TextView) itemView.findViewById(R.id.appoint_sum);
-            this.designerFeeView = (TextView) itemView.findViewById(R.id.designer_fee);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -17,6 +17,9 @@ import com.jianfanjia.cn.tools.TDevice;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: DecorationAdapter
  * User: fengliang
@@ -27,26 +30,26 @@ public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo
     private static final String TAG = SearchDecorationImgAdapter.class.getName();
     private OnItemClickListener listener;
 
-    public SearchDecorationImgAdapter(Context context, RecyclerView recyclerView,OnItemClickListener listener) {
+    public SearchDecorationImgAdapter(Context context, RecyclerView recyclerView, OnItemClickListener listener) {
         super(context, recyclerView);
         this.listener = listener;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent,int viewType) {
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_decoration,
                 null);
         return new DecorationViewHolder(view);
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder,final int position) {
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         BeautyImgInfo info = mDatas.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         List<Img> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {
             Img img = info.getImages().get(0);
-            int width = (int)TDevice.getScreenWidth() / 2;
+            int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
             layoutParams.width = width;
@@ -62,7 +65,7 @@ public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo
                 }
             });
         } else {
-            int width = (int)TDevice.getScreenWidth() / 2;
+            int width = (int) TDevice.getScreenWidth() / 2;
             int height = width;
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();
             layoutParams.width = width;
@@ -73,12 +76,12 @@ public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo
     }
 
     private static class DecorationViewHolder extends RecyclerViewHolderBase {
-        public ImageView itemDecorateView;
+        @Bind(R.id.list_item_decorate_img)
+        ImageView itemDecorateView;
 
         public DecorationViewHolder(View itemView) {
             super(itemView);
-            itemDecorateView = (ImageView) itemView
-                    .findViewById(R.id.list_item_decorate_img);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

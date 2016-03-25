@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -69,7 +70,7 @@ public class CommentListActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
 
-        this.initAnnotationView();
+        this.initView();
     }
 
     @Override
@@ -83,7 +84,7 @@ public class CommentListActivity extends SwipeBackActivity {
         return R.layout.activity_comment_list;
     }
 
-    protected void initAnnotationView() {
+    public void initView() {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
 
         ((TextView) emptyView.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_commnet));
