@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -21,7 +21,7 @@ import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
-public class ForgetPswActivity extends BaseAnnotationActivity{
+public class ForgetPswActivity extends BaseActivity {
     private static final String TAG = ForgetPswActivity.class.getClass()
             .getName();
     @Bind(R.id.act_forget_psw_input_phone)

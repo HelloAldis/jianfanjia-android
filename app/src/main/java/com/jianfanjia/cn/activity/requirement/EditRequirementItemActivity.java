@@ -40,7 +40,6 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
         initView();
     }
 
-    @Override
     public void initView() {
         Intent data = getIntent();
         requestCode = data.getIntExtra(Global.REQUIRE_DATA, 0);
