@@ -11,11 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchDesignerAdapter;
@@ -32,39 +27,55 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author fengliang
  * @ClassName: SearchDesignerFragment
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchDesignerFragment extends BaseFragment{
-
+public class SearchDesignerFragment extends BaseFragment {
     private static final String TAG = SearchDesignerFragment.class.getName();
+
     @Bind(R.id.recycleview)
-    protected RecyclerView recyclerView;
+    RecyclerView recyclerView;
+
     @Bind(R.id.empty_include)
-    protected RelativeLayout emptyLayout;
+    RelativeLayout emptyLayout;
+
     @Bind(R.id.empty_text)
-    protected TextView emptyText;
+    TextView emptyText;
+
     @Bind(R.id.empty_img)
-    protected ImageView emptyImage;
+    ImageView emptyImage;
+
     @Bind(R.id.error_include)
-    protected RelativeLayout errorLayout;
+    RelativeLayout errorLayout;
+
     private SearchDesignerAdapter searchDesignerAdapter = null;
     private int FROM = 0;
     private String search = null;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search=" + search);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         initView();
         return view;
     }
 
-    public void initView() {
-        search = getArguments().getString(Global.SEARCH_TEXT);
-        LogTool.d(TAG, "search=" + search);
+    private void initView() {
         emptyText.setText(getString(R.string.search_no_designer));
         emptyImage.setImageResource(R.mipmap.icon_designer);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

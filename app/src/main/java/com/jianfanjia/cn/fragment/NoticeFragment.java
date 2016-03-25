@@ -34,6 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author fengliang
  * @ClassName: NoticeFragment
@@ -42,13 +45,19 @@ import java.util.Map;
  */
 
 public class NoticeFragment extends BaseFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = NoticeFragment.class.getName();
-    private static final int REQUESTCODE_DETAIL = 1;
     private View view = null;
-    private PullToRefreshRecycleView all_notice_listview = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+
+    @Bind(R.id.all_notice_listview)
+    PullToRefreshRecycleView all_notice_listview;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
+
     private NoticeAdapter noticeAdapter = null;
     private List<NoticeInfo> noticeList = new ArrayList<>();
     private boolean isVisible = false;
@@ -88,7 +97,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogTool.d(TAG, "=====onCreateView");
         if (null == view) {
-            view = inflater.inflate(R.layout.fragment_all_notice, container, false);
+            view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
             isPrepared = true;
         }
@@ -100,17 +109,15 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
     }
 
     private void initView() {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_notice_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_notice);
-        all_notice_listview = (PullToRefreshRecycleView) view.findViewById(R.id.all_notice_listview);
         all_notice_listview.setMode(PullToRefreshBase.Mode.BOTH);
         all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         all_notice_listview.setHasFixedSize(true);
         all_notice_listview.setItemAnimator(new DefaultItemAnimator());
         all_notice_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
+        all_notice_listview.setOnRefreshListener(this);
     }
 
     private void onVisible() {
@@ -129,20 +136,9 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         getNoticeList(typeArray, pullDownListener);
     }
 
-    public void setListener() {
-        all_notice_listview.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.error_include:
-                getNoticeList(typeArray, pullDownListener);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.error_include)
+    public void onClick() {
+        getNoticeList(typeArray, pullDownListener);
     }
 
     @Override
@@ -262,6 +258,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.fragment_all_notice;
     }
 }

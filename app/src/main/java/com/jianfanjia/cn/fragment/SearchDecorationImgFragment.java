@@ -12,11 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
@@ -35,6 +30,12 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author fengliang
  * @ClassName: SearchDecorationImgFragment
@@ -42,21 +43,33 @@ import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
  * @date 2015-8-26 下午1:07:52
  */
 public class SearchDecorationImgFragment extends BaseFragment {
-
     private static final String TAG = SearchDecorationImgFragment.class.getName();
+
     @Bind(R.id.recycleview)
-    protected RecyclerView recyclerView;
+    RecyclerView recyclerView;
+
     @Bind(R.id.empty_include)
-    protected RelativeLayout emptyLayout;
+    RelativeLayout emptyLayout;
+
     @Bind(R.id.empty_text)
-    protected TextView emptyText;
+    TextView emptyText;
+
     @Bind(R.id.empty_img)
-    protected ImageView emptyImage;
+    ImageView emptyImage;
+
     @Bind(R.id.error_include)
-    protected RelativeLayout errorLayout;
+    RelativeLayout errorLayout;
+
     private SearchDecorationImgAdapter decorationAdapter = null;
     private String search = null;
     private int total = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        search = getArguments().getString(Global.SEARCH_TEXT);
+        LogTool.d(TAG, "search=" + search);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,9 +78,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
         return view;
     }
 
-    public void initView() {
-        search = getArguments().getString(Global.SEARCH_TEXT);
-        LogTool.d(TAG, "search=" + search);
+    private void initView() {
         emptyText.setText(getString(R.string.search_no_beautyimg));
         emptyImage.setImageResource(R.mipmap.icon_img);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
