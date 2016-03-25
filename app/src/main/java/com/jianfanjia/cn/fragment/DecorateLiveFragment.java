@@ -35,6 +35,9 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description: com.jianfanjia.cn.fragment
  * Author: zhanghao
@@ -42,53 +45,41 @@ import java.util.Map;
  * Date:2016-03-11 14:10
  */
 public class DecorateLiveFragment extends BaseFragment {
+    private static final String TAG = DecorateLiveFragment.class.getName();
+
+    private View view;
+
+    @Bind(R.id.pullrefresh_recycleview)
+    PullToRefreshRecycleView recyclerView;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
 
     private int mNum;
 
-    /**
-     * 标志位，标志已经初始化完成
-     */
     private boolean isPrepared;
-    /**
-     * 是否已被加载过一次，第二次就不再去请求数据了
-     */
     private boolean mHasLoadedOnce;
 
-    protected PullToRefreshRecycleView recyclerView;
-
-    protected RelativeLayout emptyLayout;
-
-    protected RelativeLayout errorLayout;
-
-    private View view;
 
     private DecorateLiveAdapter decorateLiveAdapter;
 
     private Context _context;
 
-    /**
-     * Create a new instance of CountingFragment, providing "num"
-     * as an argument.
-     */
     public static DecorateLiveFragment newInstance(int num) {
         DecorateLiveFragment f = new DecorateLiveFragment();
-
-        // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putInt("num", num);
         f.setArguments(args);
-
         return f;
     }
 
-    /**
-     * When creating, retrieve this instance's number from its arguments.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNum = getArguments() != null ? getArguments().getInt("num") : 0;
-
         LogTool.d(this.getClass().getName(), "num =" + mNum);
     }
 
@@ -110,17 +101,8 @@ public class DecorateLiveFragment extends BaseFragment {
     }
 
     private void initRecycleView() {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_process));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        errorLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
-            }
-        });
-        recyclerView = (PullToRefreshRecycleView) view.findViewById(R.id.pullrefresh_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
@@ -128,7 +110,6 @@ public class DecorateLiveFragment extends BaseFragment {
         recyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-//                initData();
                 searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
             }
         });
@@ -174,6 +155,11 @@ public class DecorateLiveFragment extends BaseFragment {
         if (!isPrepared || !getUserVisibleHint() || mHasLoadedOnce) {
             return;
         }
+        searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
+    }
+
+    @OnClick(R.id.error_include)
+    public void onClick() {
         searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
     }
 
