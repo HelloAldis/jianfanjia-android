@@ -9,7 +9,6 @@ import android.webkit.WebViewClient;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -23,13 +22,13 @@ import butterknife.OnClick;
  * Date:2016-03-21 17:32
  */
 public class AboutWeiBoActivity extends SwipeBackActivity implements View.OnKeyListener {
-    private static final String TAG = ContractActivity.class.getName();
+    private static final String TAG = AboutWeiBoActivity.class.getName();
 
     @Bind(R.id.my_contract_head_layout)
-    private MainHeadView mainHeadView = null;
+    MainHeadView mainHeadView;
 
     @Bind(R.id.webView)
-    private WebView webView = null;
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
