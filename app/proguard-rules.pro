@@ -64,6 +64,17 @@
 -keep class com.umeng.newxp.** { *; }
 -keep class u.aly.** {*;}
 
+#butterknife混淆
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
 -dontwarn android.support.v4.**
 -dontwarn android.support.v7.**
 -dontwarn org.apache.commons.net.**

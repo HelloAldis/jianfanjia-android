@@ -56,8 +56,8 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getDataFromIntent();
-        initView();
+        this.getDataFromIntent();
+        this.initView();
     }
 
     private void getDataFromIntent() {

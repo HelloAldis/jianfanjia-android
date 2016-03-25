@@ -72,7 +72,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getDateFromIntent();
+        getDataFromIntent();
         initView();
         initData();
     }
@@ -93,7 +93,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
         gridView.addItemDecoration(decoration);
     }
 
-    protected void getDateFromIntent() {
+    protected void getDataFromIntent() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (null != bundle) {

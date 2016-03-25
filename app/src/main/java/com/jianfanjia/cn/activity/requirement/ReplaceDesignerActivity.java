@@ -7,12 +7,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.View.OnClickListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -30,6 +24,14 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -38,10 +40,15 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClickListener {
+public class ReplaceDesignerActivity extends SwipeBackActivity {
     private static final String TAG = ReplaceDesignerActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private RecyclerView replace_designer_listview = null;
+
+    @Bind(R.id.my_appoint_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.replace_designer_listview)
+    RecyclerView replace_designer_listview;
+
     private List<Map<String, Object>> mylist = new ArrayList<>();
     private List<Map<String, Object>> splitList = new ArrayList<>();
     private List<DesignerCanOrderInfo> rec_designer = new ArrayList<>();
@@ -59,12 +66,11 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initView();
     }
 
-    @Override
-    public void initView() {
+    private void initView() {
         initMainHeadView();
-        replace_designer_listview = (RecyclerView) findViewById(R.id.replace_designer_listview);
         replace_designer_listview.setLayoutManager(new LinearLayoutManager(ReplaceDesignerActivity.this));
         replace_designer_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
@@ -81,9 +87,6 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_appoint_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
         mainHeadView.setMianTitleColor();
         mainHeadView.setRightTitle(getResources().getString(R.string.replaceText));
@@ -120,12 +123,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity implements OnClic
         }
     }
 
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.head_right_title})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

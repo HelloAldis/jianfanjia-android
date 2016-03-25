@@ -39,6 +39,10 @@ public class RequirementItemAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<ReqItemFinderImp.ItemMap> getItemMaps(){
+        return itemMaps;
+    }
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 

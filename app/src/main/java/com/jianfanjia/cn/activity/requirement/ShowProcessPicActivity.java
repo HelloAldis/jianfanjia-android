@@ -20,12 +20,19 @@ import com.jianfanjia.cn.view.DeletePicDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 public class ShowProcessPicActivity extends SwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = ShowProcessPicActivity.class.getName();
-    private ViewPager viewPager;
+
+    @Bind(R.id.showpicPager)
+    ViewPager viewPager;
+
+    @Bind(R.id.pic_tip)
+    TextView tipView;
+
     private ShowPicPagerAdapter showPicPagerAdapter;
-    private TextView tipView;
     private List<String> imageList = new ArrayList<String>();
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
@@ -40,7 +47,6 @@ public class ShowProcessPicActivity extends SwipeBackActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             processid = bundle.getString(Global.PROCESS_ID, null);
@@ -53,6 +59,7 @@ public class ShowProcessPicActivity extends SwipeBackActivity implements
             }
             totalCount = imageList.size();
         }
+        initView();
         showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
         showPicPagerAdapter.setOnLongClickListener(this);
         viewPager.setAdapter(showPicPagerAdapter);
@@ -67,12 +74,10 @@ public class ShowProcessPicActivity extends SwipeBackActivity implements
         tipView.setText(tipText);
     }
 
-    @Override
-    public void initView() {
+    private void initView() {
         viewPager = (ViewPager) findViewById(R.id.showpicPager);
         tipView = (TextView) findViewById(R.id.pic_tip);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -104,11 +109,6 @@ public class ShowProcessPicActivity extends SwipeBackActivity implements
     }
 
     @Override
-    public void setListener() {
-
-    }
-
-    @Override
     public boolean onLongClick(View v) {
         if (processid != null) {
             deletePicDialog.show();
@@ -124,9 +124,9 @@ public class ShowProcessPicActivity extends SwipeBackActivity implements
 
     @Override
     public void onClickItem(int potition) {
-        if(isDeletePic){
+        if (isDeletePic) {
             setResult(RESULT_OK);
-        }else{
+        } else {
             setResult(RESULT_CANCELED);
         }
         appManager.finishActivity(this);

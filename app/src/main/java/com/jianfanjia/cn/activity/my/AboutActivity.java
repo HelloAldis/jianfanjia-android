@@ -33,10 +33,10 @@ public class AboutActivity extends SwipeBackActivity implements OnClickListener 
     private static final String TAG = AboutActivity.class.getName();
 
     @Bind(R.id.about_head_layout)
-    protected MainHeadView mainHeadView = null;
+    protected MainHeadView mainHeadView;
 
     @Bind(R.id.about_version)
-    protected TextView currentVersion;// 当前版本
+    TextView currentVersion;// 当前版本
 
     @Bind(R.id.follow_weixin_layout)
     RelativeLayout followWeixinLayout;

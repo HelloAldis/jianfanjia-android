@@ -54,12 +54,12 @@ public class ContractActivity extends SwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getDateFromIntent();
+        getDataFromIntent();
         initView();
         initData();
     }
 
-    protected void getDateFromIntent() {
+    protected void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirement = (RequirementInfo) contractBundle.getSerializable(Global.REQUIREMENT_INFO);

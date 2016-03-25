@@ -113,7 +113,6 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
 
     public void setListener() {
         commentEdit.addTextChangedListener(textWatcher);
-
     }
 
     @OnClick({R.id.btn_send, R.id.head_back_layout})
