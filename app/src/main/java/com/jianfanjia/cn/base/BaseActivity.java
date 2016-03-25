@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.base;
 
+import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
-import butterknife.ButterKnife;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -25,6 +25,8 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.ButterKnife;
+
 /**
  * Description:activity基类
  * Author：fengliang
@@ -33,12 +35,11 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseActivity extends AppCompatActivity implements
         DialogControl, ApiUiUpdateListener {
-//    protected DownloadManager downloadManager = null;
+    protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-//    protected NetStateReceiver netStateReceiver = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog;
     protected DataManagerNew dataManager;
@@ -52,15 +53,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
         setContentView(getLayoutId());
         init(savedInstanceState);
         ButterKnife.bind(this);
-//        initView();
-//        setListener();
     }
 
     protected void init(Bundle savedInstanceState) {
         appManager = AppManager.getAppManager();
         appManager.addActivity(this);
-//        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-//        netStateReceiver = new NetStateReceiver(this);
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -71,10 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     public abstract int getLayoutId();
-
-    public void setListener() {
-
-    }
 
     @Override
     protected void onStart() {
