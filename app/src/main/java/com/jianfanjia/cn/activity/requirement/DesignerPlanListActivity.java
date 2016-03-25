@@ -6,11 +6,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -36,11 +37,16 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends SwipeBackActivity implements OnClickListener,
+public class DesignerPlanListActivity extends SwipeBackActivity implements
         ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private PullToRefreshRecycleView designer_plan_listview = null;
+
+    @Bind(R.id.my_plan_head_layout)
+    protected MainHeadView mainHeadView;
+
+    @Bind(R.id.designer_plan_listview)
+    protected PullToRefreshRecycleView designer_plan_listview;
+
     private List<PlanInfo> designerPlanList = new ArrayList<>();
     private String requirementid = null;
     private RequirementInfo requirementInfo = null;
@@ -48,7 +54,13 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     private String designerName = null;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDataFromIntent();
+        initView();
+    }
+
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
         requirementInfo = (RequirementInfo) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
@@ -57,13 +69,20 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
         LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" +
                 designerName);
+    }
+
+    private void initView() {
         initMainHeadView();
-        designer_plan_listview = (PullToRefreshRecycleView) findViewById(R.id.designer_plan_listview);
+        initRecycleView();
+    }
+
+    private void initRecycleView() {
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
         designer_plan_listview.setHasFixedSize(true);
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
         designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+        designer_plan_listview.setOnRefreshListener(this);
     }
 
     @Override
@@ -73,20 +92,13 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements OnCli
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.plan_list));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-        designer_plan_listview.setOnRefreshListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

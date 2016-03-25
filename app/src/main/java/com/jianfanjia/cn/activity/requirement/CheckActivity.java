@@ -9,9 +9,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -33,10 +36,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -51,11 +50,13 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
     public static final int NOTICE_INTENT = 0;//通知进入的
     public static final int PROCESS_LIST_INTENT = 1;//工地
     private int flagIntent = -1;
-    private RelativeLayout checkLayout = null;
-    private MainHeadView mainHeadView = null;
-    private RecyclerView gridView = null;
-    private GridLayoutManager gridLayoutManager = null;
-    private TextView btn_confirm = null;
+    @Bind(R.id.check_pic_head_layout)
+    protected MainHeadView mainHeadView;
+    @Bind(R.id.mygridview)
+    protected RecyclerView gridView = null;
+    @Bind(R.id.btn_confirm)
+    protected TextView btn_confirm = null;
+    protected GridLayoutManager gridLayoutManager = null;
     private CheckGridViewAdapter adapter = null;
     private List<GridItem> checkGridList = new ArrayList<>();
     private List<String> showSamplePic = new ArrayList<>();
@@ -68,14 +69,16 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
     private int currentUploadCount = 0;//当前已上传图片个数
 
-
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDateFromIntent();
+        initView();
+        initData();
+    }
+
     public void initView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.check_pic_head_layout);
         mainHeadView.setBackListener(this);
-        checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-        gridView = (RecyclerView) findViewById(R.id.mygridview);
         gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -88,10 +91,9 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
         gridView.setItemAnimator(new DefaultItemAnimator());
         ItemSpaceDecoration decoration = new ItemSpaceDecoration(MyApplication.dip2px(getApplicationContext(), 5));
         gridView.addItemDecoration(decoration);
-        initData();
     }
 
-    private void initData() {
+    protected void getDateFromIntent() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (null != bundle) {
@@ -102,25 +104,28 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId + " flagIntent:" + flagIntent);
             sectionInfo = (SectionInfo) bundle.getSerializable(Constant.SECTION_INFO);
-            LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
-            mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
-            checkGridList.clear();
-            checkGridList = getCheckedImageById(sectionInfo.getName());
-            imageids = sectionInfo.getYs().getImages();
-            currentUploadCount = imageids.size();
-            LogTool.d(TAG, "currentUploadCount=" + currentUploadCount);
-            for (int i = 0; imageids != null && i < imageids.size(); i++) {
-                String key = imageids.get(i).getKey();
-                LogTool.d(TAG, "key=" + key);
-                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                        imageids.get(i).getImageid());
-            }
-            adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
-                    this);
-            gridView.setAdapter(adapter);
-            setConfimStatus();
-            initShowList();
         }
+    }
+
+    private void initData() {
+        LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
+        checkGridList.clear();
+        checkGridList = getCheckedImageById(sectionInfo.getName());
+        imageids = sectionInfo.getYs().getImages();
+        currentUploadCount = imageids.size();
+        LogTool.d(TAG, "currentUploadCount=" + currentUploadCount);
+        for (int i = 0; imageids != null && i < imageids.size(); i++) {
+            String key = imageids.get(i).getKey();
+            LogTool.d(TAG, "key=" + key);
+            checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                    imageids.get(i).getImageid());
+        }
+        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
+                this);
+        gridView.setAdapter(adapter);
+        setConfimStatus();
+        initShowList();
     }
 
     private void setConfimStatus() {
@@ -178,10 +183,6 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
             }
         }
         return flag;
-    }
-
-    @Override
-    public void setListener() {
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,6 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -40,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDesignerPlanActivity extends SwipeBackActivity implements OnClickListener {
+public class PreviewDesignerPlanActivity extends SwipeBackActivity{
 
     public static final String PLAN_INTENT_FLAG = "plan_intent_flag";//标识从哪个屏传过来的
 
@@ -49,60 +50,64 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     public static final int COMMENT_INTENT = 2;//评论进入的
 
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private LinearLayout houseTypeLayout = null;
-    private LinearLayout houseAreaLayout = null;
-    private LinearLayout decorateTypeLayout = null;
-    private LinearLayout totalDateLayout = null;
-    private LinearLayout priceLayout = null;
-    private LinearLayout designTextLayout = null;
-    private ViewPager viewPager = null;
-    private LinearLayout indicatorGroup_lib = null;
-    private TextView cellName = null;
-    private TextView houseType = null;
-    private TextView houseArea = null;
-    private TextView decorateType = null;
-    private TextView totalDate = null;
-    private TextView price = null;
-    private TextView designText = null;
+    @Bind(R.id.my_prieview_head_layout)
+    protected MainHeadView mainHeadView = null;
+    @Bind(R.id.houseTypeLayout)
+    protected LinearLayout houseTypeLayout;
+    @Bind(R.id.houseAreaLayout)
+    protected LinearLayout houseAreaLayout;
+    @Bind(R.id.decorateTypeLayout)
+    protected LinearLayout decorateTypeLayout;
+    @Bind(R.id.totalDateLayout)
+    protected LinearLayout totalDateLayout;
+    @Bind(R.id.priceLayout)
+    protected LinearLayout priceLayout;
+    @Bind(R.id.designTextLayout)
+    protected LinearLayout designTextLayout;
+    @Bind(R.id.viewpager)
+    protected ViewPager viewPager;
+    @Bind(R.id.indicatorGroup_lib)
+    protected LinearLayout indicatorGroup_lib ;
+    @Bind(R.id.cellName)
+    protected TextView cellName ;
+    @Bind(R.id.houseType)
+    protected TextView houseType ;
+    @Bind(R.id.houseArea)
+    protected TextView houseArea ;
+    @Bind(R.id.decorateType)
+    protected TextView decorateType ;
+    @Bind(R.id.totalDate)
+    protected TextView totalDate ;
+    @Bind(R.id.price)
+    protected TextView price ;
+    @Bind(R.id.designText)
+    protected TextView designText ;
+    @Bind(R.id.btnDetail)
+    protected Button btnDetail ;
+    @Bind(R.id.btn_choose)
+    protected Button btn_choose ;
 
-    private Button btnDetail = null;
-    private Button btn_choose = null;
-    private PlanInfo planDetailInfo = null;
+    protected PlanInfo planDetailInfo = null;
     private String designerid = null;
     private String planid = null;
-    private String requirementid = null;
+    private String requirementid ;
     private RequirementInfo requirementInfo = null;
     private String itemPosition;
     private int flagIntent = -1;
-//    private PlanInfo planInfo;
 
     @Override
-    public void initView() {
-        initIntent();
-        initMainHeadView();
-        houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
-        houseAreaLayout = (LinearLayout) findViewById(R.id.houseAreaLayout);
-        decorateTypeLayout = (LinearLayout) findViewById(R.id.decorateTypeLayout);
-        totalDateLayout = (LinearLayout) findViewById(R.id.totalDateLayout);
-        priceLayout = (LinearLayout) findViewById(R.id.priceLayout);
-        designTextLayout = (LinearLayout) findViewById(R.id.designTextLayout);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        indicatorGroup_lib = (LinearLayout) findViewById(R.id.indicatorGroup_lib);
-        cellName = (TextView) findViewById(R.id.cellName);
-        houseType = (TextView) findViewById(R.id.houseType);
-        houseArea = (TextView) findViewById(R.id.houseArea);
-        decorateType = (TextView) findViewById(R.id.decorateType);
-        totalDate = (TextView) findViewById(R.id.totalDate);
-        price = (TextView) findViewById(R.id.price);
-        designText = (TextView) findViewById(R.id.designText);
-        btnDetail = (Button) findViewById(R.id.btnDetail);
-        btn_choose = (Button) findViewById(R.id.btn_choose);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDataFromIntent();
+        initView();
         initData();
     }
 
-    private void initIntent() {
+    public void initView() {
+        initMainHeadView();
+    }
+
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         planDetailInfo = (PlanInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
@@ -121,7 +126,8 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
             designTextLayout.setVisibility(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
             designerid = planDetailInfo.getDesignerid();
-            LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" + requirementInfo);
+            LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" +
+                    requirementInfo);
             if (!TextUtils.isEmpty(requirementInfo.getCell())) {
                 cellName.setVisibility(View.VISIBLE);
                 cellName.setText(requirementInfo.getCell());
@@ -169,9 +175,6 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView.setMianTitle(itemPosition);
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
@@ -196,17 +199,18 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
             indicators[i].setLayoutParams(params);
             indicatorGroup_lib.addView(indicators[i]);
         }
-        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                LogTool.d(TAG, "pos:" + pos);
-                Bundle showPicBundle = new Bundle();
-                showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
-                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                        (ArrayList<String>) imgList);
-                startActivity(ShowPicActivity.class, showPicBundle);
-            }
-        });
+        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new
+                ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        LogTool.d(TAG, "pos:" + pos);
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) imgList);
+                        startActivity(ShowPicActivity.class, showPicBundle);
+                    }
+                });
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -234,13 +238,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         });
     }
 
-    @Override
-    public void setListener() {
-        btnDetail.setOnClickListener(this);
-        btn_choose.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.head_right_title, R.id.btnDetail, R.id.btn_choose})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -287,7 +285,8 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
     //选的方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
-        JianFanJiaClient.chooseDesignerPlan(PreviewDesignerPlanActivity.this, requirementid, designerid, planid, chooseDesignerPlanListener, this);
+        JianFanJiaClient.chooseDesignerPlan(PreviewDesignerPlanActivity.this, requirementid, designerid, planid,
+                chooseDesignerPlanListener, this);
     }
 
     private ApiUiUpdateListener chooseDesignerPlanListener = new ApiUiUpdateListener() {
@@ -310,10 +309,10 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity implements On
         }
     };
 
-    private void afterChooseSuccess(){
+    private void afterChooseSuccess() {
         btn_choose.setEnabled(false);
         btn_choose.setText(getString(R.string.str_has_choosed_plan));
-        switch (flagIntent){
+        switch (flagIntent) {
             case PLAN_LIST_INTENT:
                 startActivity(MyDesignerActivity.class);
                 appManager.finishActivity(PreviewDesignerPlanActivity.this);

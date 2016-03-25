@@ -8,8 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -27,14 +33,6 @@ import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -43,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class AppointDesignerActivity extends SwipeBackActivity implements OnClickListener {
+public class AppointDesignerActivity extends SwipeBackActivity{
     private static final String TAG = AppointDesignerActivity.class.getName();
 
     @Bind(R.id.my_appoint_head_layout)
@@ -71,16 +69,22 @@ public class AppointDesignerActivity extends SwipeBackActivity implements OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        getDataFromIntent();
         initView();
     }
 
-    private void initView() {
+    private void getDataFromIntent(){
+
         Intent intent = this.getIntent();
         orderDesignerNum = intent.getIntExtra(Global.REQUIREMENT_DESIGNER_NUM, 0);
         requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
         LogTool.d(TAG, "requestmentid:" + requestmentid + " orderDesignerNum:" + orderDesignerNum);
         total = totalCount - orderDesignerNum;
         LogTool.d(TAG, " total :" + total);
+
+    }
+    private void initView() {
+
         initMainHeadView();
         appoint_designer_listview.setLayoutManager(new LinearLayoutManager(AppointDesignerActivity.this));
         appoint_designer_listview.setItemAnimator(new DefaultItemAnimator());

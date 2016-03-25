@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.Evaluation;
@@ -23,16 +24,24 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PingJiaInfoActivity extends SwipeBackActivity implements
-        OnClickListener {
+public class PingJiaInfoActivity extends SwipeBackActivity {
     private static final String TAG = PingJiaInfoActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private ImageView designer_head_img = null;
-    private TextView designerName = null;
-    private RatingBar bar = null;
-    private RatingBar speedBar = null;
-    private RatingBar attudeBar = null;
-    private TextView commentText = null;
+
+    @Bind(R.id.my_pingjia_head_layout)
+    protected MainHeadView mainHeadView;
+    @Bind(R.id.designer_head_img)
+    protected ImageView designer_head_img;
+    @Bind(R.id.designerName)
+    protected TextView designerName;
+    @Bind(R.id.ratingBar)
+    protected RatingBar bar;
+    @Bind(R.id.speedBar)
+    protected RatingBar speedBar;
+    @Bind(R.id.attudeBar)
+    protected RatingBar attudeBar;
+    @Bind(R.id.commentText)
+    protected TextView commentText;
+
     private String imageid = null;
     private String designer_name = null;
     private float respond_speed;
@@ -40,14 +49,13 @@ public class PingJiaInfoActivity extends SwipeBackActivity implements
     private Evaluation evaluation = null;
 
     @Override
-    public void initView() {
-        initMainHeadView();
-        designer_head_img = (ImageView) findViewById(R.id.designer_head_img);
-        designerName = (TextView) findViewById(R.id.designerName);
-        bar = (RatingBar) findViewById(R.id.ratingBar);
-        speedBar = (RatingBar) findViewById(R.id.speedBar);
-        attudeBar = (RatingBar) findViewById(R.id.attudeBar);
-        commentText = (TextView) findViewById(R.id.commentText);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDataFromIntent();
+        initView();
+    }
+
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle viewBundle = intent.getExtras();
         imageid = viewBundle.getString(Global.IMAGE_ID);
@@ -58,6 +66,11 @@ public class PingJiaInfoActivity extends SwipeBackActivity implements
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " respond_speed:" + respond_speed +
                 " service_attitude:" + service_attitude + " evaluation:"
                 + evaluation);
+    }
+
+    public void initView() {
+        initMainHeadView();
+
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
         } else {
@@ -79,20 +92,13 @@ public class PingJiaInfoActivity extends SwipeBackActivity implements
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_pingjia_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.pingjiaDetailText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
+    @OnClick(R.id.head_back_layout)
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

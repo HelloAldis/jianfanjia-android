@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -25,7 +26,6 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -35,27 +35,41 @@ import de.greenrobot.event.EventBus;
  * Date:15-10-11 14:30
  */
 public class ContractActivity extends SwipeBackActivity implements
-        OnClickListener, View.OnKeyListener {
+        View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     public static final String CONSTRACT_INTENT_FLAG = "contract_intent_flag";
     public static final int NOTICE_INTENT = 0;//通知进入的
     public static final int DESIGNER_LIST_INTENT = 1;//我的设计师列表
     private int flagIntent = -1;
-    private MainHeadView mainHeadView = null;
-    private Button checkBtn = null;
-    private WebView webView = null;
+    @Bind(R.id.my_contract_head_layout)
+    protected MainHeadView mainHeadView = null;
+    @Bind(R.id.btn_choose)
+    protected Button checkBtn = null;
+    @Bind(R.id.webView)
+    protected WebView webView = null;
+
     private RequirementInfo requirement = null;
     private String final_planid = null;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDateFromIntent();
+        initView();
+        initData();
+    }
+
+    protected void getDateFromIntent() {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirement = (RequirementInfo) contractBundle.getSerializable(Global.REQUIREMENT_INFO);
         flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
         LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
+    }
+
+    public void initView() {
         initMainHeadView();
-        checkBtn = (Button) findViewById(R.id.btn_choose);
+        initWebView();
         if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS5) ||
                 requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
             checkBtn.setEnabled(false);
@@ -64,7 +78,13 @@ public class ContractActivity extends SwipeBackActivity implements
             checkBtn.setEnabled(true);
             checkBtn.setText(getString(R.string.str_check_contract));
         }
-        webView = (WebView) findViewById(R.id.webView);
+    }
+
+    private void initData() {
+        getContractInfo(requirement.get_id());
+    }
+
+    private void initWebView() {
         //支持javascript
         webView.getSettings().setJavaScriptEnabled(true);
         // 设置可以支持缩放
@@ -85,14 +105,10 @@ public class ContractActivity extends SwipeBackActivity implements
                 return true;
             }
         });
-        getContractInfo(requirement.get_id());
+        webView.setOnKeyListener(this);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id
-                .my_contract_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string
                 .contractText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
@@ -100,14 +116,7 @@ public class ContractActivity extends SwipeBackActivity implements
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-
-    @Override
-    public void setListener() {
-        checkBtn.setOnClickListener(this);
-        webView.setOnKeyListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.btn_choose})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
