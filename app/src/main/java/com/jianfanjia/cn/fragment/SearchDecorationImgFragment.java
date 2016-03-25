@@ -39,6 +39,7 @@ import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
  * @date 2015-8-26 下午1:07:52
  */
 public class SearchDecorationImgFragment extends BaseFragment implements View.OnClickListener{
+
     private static final String TAG = SearchDecorationImgFragment.class.getName();
     private RecyclerView recyclerView = null;
     private RelativeLayout emptyLayout = null;
@@ -84,12 +85,14 @@ public class SearchDecorationImgFragment extends BaseFragment implements View.On
         decorationAdapter.setErrorView(errorLayout);
         decorationAdapter.setEmptyView(emptyLayout);
         recyclerView.setAdapter(decorationAdapter);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                .LayoutParams.MATCH_PARENT);
         lp.leftMargin = MyApplication.dip2px(getContext().getApplicationContext(), 5);
         lp.rightMargin = lp.leftMargin;
         recyclerView.setLayoutParams(lp);
 
-        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext().getApplicationContext(), 5));
+        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
+                .getApplicationContext(), 5));
         recyclerView.addItemDecoration(decoration);
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
     }
@@ -132,7 +135,8 @@ public class SearchDecorationImgFragment extends BaseFragment implements View.On
                 total = decorationItemInfo.getTotal();
                 if (total > 0) {
                     LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" + decorationAdapter.getData().size());
+                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" +
+                            decorationAdapter.getData().size());
                     decorationAdapter.addData(decorationItemInfo.getBeautiful_images());
                     if (total > decorationAdapter.getData().size()) {
                         decorationAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);

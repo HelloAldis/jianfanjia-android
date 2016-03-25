@@ -35,6 +35,7 @@ import com.jianfanjia.cn.tools.UiHelper;
  * @date 2015-8-26 下午1:07:52
  */
 public class SearchDesignerFragment extends BaseFragment implements View.OnClickListener{
+
     private static final String TAG = SearchDesignerFragment.class.getName();
     private RecyclerView recyclerView = null;
     private RelativeLayout emptyLayout = null;
@@ -55,21 +56,22 @@ public class SearchDesignerFragment extends BaseFragment implements View.OnClick
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-        searchDesignerAdapter = new SearchDesignerAdapter(getContext(), recyclerView, new RecyclerViewOnItemClickListener() {
-            @Override
-            public void OnItemClick(View view, int position) {
+        searchDesignerAdapter = new SearchDesignerAdapter(getContext(), recyclerView, new
+                RecyclerViewOnItemClickListener() {
+                    @Override
+                    public void OnItemClick(View view, int position) {
 
-            }
+                    }
 
-            @Override
-            public void OnViewClick(int position) {
-                String designerId = searchDesignerAdapter.getData().get(position).get_id();
-                LogTool.d(TAG, "designerId:" + designerId);
-                Bundle designerBundle = new Bundle();
-                designerBundle.putString(Global.DESIGNER_ID, designerId);
-                startActivity(DesignerInfoActivity.class,designerBundle);
-            }
-        });
+                    @Override
+                    public void OnViewClick(int position) {
+                        String designerId = searchDesignerAdapter.getData().get(position).get_id();
+                        LogTool.d(TAG, "designerId:" + designerId);
+                        Bundle designerBundle = new Bundle();
+                        designerBundle.putString(Global.DESIGNER_ID, designerId);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
+                    }
+                });
         searchDesignerAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
@@ -120,7 +122,8 @@ public class SearchDesignerFragment extends BaseFragment implements View.OnClick
                 int total = designer.getTotal();
                 if (total > 0) {
                     LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" + searchDesignerAdapter.getData().size());
+                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" +
+                            searchDesignerAdapter.getData().size());
                     searchDesignerAdapter.addData(designer.getDesigners());
                     if (total > searchDesignerAdapter.getData().size()) {
                         searchDesignerAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);

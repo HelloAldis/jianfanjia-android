@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
+import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
@@ -38,7 +39,8 @@ import java.util.Map;
  * @date 2015-8-26 下午1:07:52
  */
 
-public class DesignerProductFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
+public class DesignerProductFragment extends BaseAnnotationFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerProductFragment.class.getName();
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
@@ -74,7 +76,8 @@ public class DesignerProductFragment extends CommonFragment implements PullToRef
         designer_works_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         designer_works_listview.setItemAnimator(new DefaultItemAnimator());
         designer_works_listview.setHasFixedSize(true);
-        designer_works_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
+        designer_works_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+                .getApplicationContext()));
         designer_works_listview.setFocusable(false);
         getDesignerProduct(designerid, FROM, listener);
     }

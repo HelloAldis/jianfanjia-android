@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
@@ -24,7 +25,8 @@ import com.jianfanjia.cn.tools.ScrollableHelper;
  * @Description: 设计师资料
  * @date 2015-8-26 下午1:07:52
  */
-public class DesignerInfoFragment extends CommonFragment implements ApiUiUpdateListener, ScrollableHelper.ScrollableContainer {
+public class DesignerInfoFragment extends BaseAnnotationFragment implements ApiUiUpdateListener, ScrollableHelper
+        .ScrollableContainer {
     private static final String TAG = DesignerInfoFragment.class.getName();
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;

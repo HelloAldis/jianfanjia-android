@@ -19,6 +19,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseAnnotationFragment;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -39,8 +40,9 @@ import de.greenrobot.event.EventBus;
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class CollectDecorationImgFragment extends CommonFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView>,View.OnClickListener{
+
+public class CollectDecorationImgFragment extends BaseAnnotationFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = CollectDecorationImgFragment.class.getName();
     private PullToRefreshRecycleView decoration_img_listview = null;
     private RelativeLayout emptyLayout = null;
@@ -155,23 +157,23 @@ public class CollectDecorationImgFragment extends CommonFragment implements Pull
                     if (null == decorationImgAdapter) {
                         decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
                                 OnItemClickListener() {
-                            @Override
-                            public void OnItemClick(int position) {
-                                LogTool.d(TAG, "position:" + position);
-                                currentPos = position;
-                                LogTool.d(TAG, "currentPos====" + currentPos);
-                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
-                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                                Bundle decorationBundle = new Bundle();
-                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                                decorationBundle.putInt(Global.POSITION, position);
-                                decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>)
-                                        beautyImgList);
-                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                                decorationBundle.putInt(Global.VIEW_TYPE, Constant.COLLECT_BEAUTY_FRAGMENT);
-                                startActivity(PreviewDecorationActivity.class, decorationBundle);
-                            }
-                        });
+                                    @Override
+                                    public void OnItemClick(int position) {
+                                        LogTool.d(TAG, "position:" + position);
+                                        currentPos = position;
+                                        LogTool.d(TAG, "currentPos====" + currentPos);
+                                        BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
+                                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                        Bundle decorationBundle = new Bundle();
+                                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
+                                        decorationBundle.putInt(Global.POSITION, position);
+                                        decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>)
+                                                beautyImgList);
+                                        decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                                        decorationBundle.putInt(Global.VIEW_TYPE, Constant.COLLECT_BEAUTY_FRAGMENT);
+                                        startActivity(PreviewDecorationActivity.class, decorationBundle);
+                                    }
+                                });
                         decoration_img_listview.setAdapter(decorationImgAdapter);
                     } else {
                         decorationImgAdapter.notifyDataSetChanged();

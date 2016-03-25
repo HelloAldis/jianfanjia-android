@@ -19,6 +19,7 @@ import java.util.Map;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -39,7 +40,9 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
  * @Description: 通知 全部
  * @date 2015-8-26 下午1:07:52
  */
-public class NoticeFragment extends CommonFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView>,View.OnClickListener {
+
+public class NoticeFragment extends BaseFragment implements PullToRefreshBase
+        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
     private static final String TAG = NoticeFragment.class.getName();
     private static final int REQUESTCODE_DETAIL = 1;
     private View view = null;

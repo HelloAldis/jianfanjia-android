@@ -88,8 +88,6 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract int getLayoutId();
 
-    public abstract void initView(View view);
-
     public abstract void setListener();
 
     protected View inflateView(int resId) {
