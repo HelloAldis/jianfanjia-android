@@ -237,11 +237,6 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         return bundle;
     }
 
-    @Override
-    public void setListener() {
-
-    }
-
     protected void back() {
         if (isHomeTypeChange() || isBusinessTypeChange()) {
             LogTool.d(this.getClass().getName(), "有改变");

@@ -27,7 +27,7 @@ import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
-import com.jianfanjia.cn.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -46,7 +46,7 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class XuQiuFragment extends BaseAnnotationFragment {
+public class XuQiuFragment extends BaseFragment {
     private static final String TAG = XuQiuFragment.class.getName();
     public static final int REQUESTCODE_PUBLISH_REQUIREMENT = 1;
     public static final int REQUESTCODE_EDIT_REQUIREMENT = 2;

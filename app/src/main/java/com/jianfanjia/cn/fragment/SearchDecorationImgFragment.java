@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
@@ -38,26 +41,35 @@ import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
  * @Description: 装修美图收藏
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchDecorationImgFragment extends BaseFragment implements View.OnClickListener{
+public class SearchDecorationImgFragment extends BaseFragment {
 
     private static final String TAG = SearchDecorationImgFragment.class.getName();
-    private RecyclerView recyclerView = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+    @Bind(R.id.recycleview)
+    protected RecyclerView recyclerView;
+    @Bind(R.id.empty_include)
+    protected RelativeLayout emptyLayout;
+    @Bind(R.id.empty_text)
+    protected TextView emptyText;
+    @Bind(R.id.empty_img)
+    protected ImageView emptyImage;
+    @Bind(R.id.error_include)
+    protected RelativeLayout errorLayout;
     private SearchDecorationImgAdapter decorationAdapter = null;
-    private int FROM = 0;
     private String search = null;
     private int total = 0;
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        return view;
+    }
+
+    public void initView() {
         search = getArguments().getString(Global.SEARCH_TEXT);
         LogTool.d(TAG, "search=" + search);
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_beautyimg));
-        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
+        emptyText.setText(getString(R.string.search_no_beautyimg));
+        emptyImage.setImageResource(R.mipmap.icon_img);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         decorationAdapter = new SearchDecorationImgAdapter(getContext(), recyclerView, new OnItemClickListener() {
@@ -105,20 +117,9 @@ public class SearchDecorationImgFragment extends BaseFragment implements View.On
         JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getContext(), param), listener, this);
     }
 
-    @Override
-    public void setListener() {
-        errorLayout.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.error_include:
-                getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.error_include)
+    protected void errorClick() {
+        getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
     }
 
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {

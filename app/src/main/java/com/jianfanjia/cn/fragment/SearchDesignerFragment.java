@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchDesignerAdapter;
@@ -34,25 +38,35 @@ import com.jianfanjia.cn.tools.UiHelper;
  * @Description: 作品
  * @date 2015-8-26 下午1:07:52
  */
-public class SearchDesignerFragment extends BaseFragment implements View.OnClickListener{
+public class SearchDesignerFragment extends BaseFragment{
 
     private static final String TAG = SearchDesignerFragment.class.getName();
-    private RecyclerView recyclerView = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+    @Bind(R.id.recycleview)
+    protected RecyclerView recyclerView;
+    @Bind(R.id.empty_include)
+    protected RelativeLayout emptyLayout;
+    @Bind(R.id.empty_text)
+    protected TextView emptyText;
+    @Bind(R.id.empty_img)
+    protected ImageView emptyImage;
+    @Bind(R.id.error_include)
+    protected RelativeLayout errorLayout;
     private SearchDesignerAdapter searchDesignerAdapter = null;
     private int FROM = 0;
     private String search = null;
 
     @Override
-    public void initView(View view) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        return view;
+    }
+
+    public void initView() {
         search = getArguments().getString(Global.SEARCH_TEXT);
         LogTool.d(TAG, "search=" + search);
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_designer));
-        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
+        emptyText.setText(getString(R.string.search_no_designer));
+        emptyImage.setImageResource(R.mipmap.icon_designer);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
@@ -93,20 +107,9 @@ public class SearchDesignerFragment extends BaseFragment implements View.OnClick
         JianFanJiaClient.searchDesigner(new SearchDesignerRequest(getContext(), param), listener, this);
     }
 
-    @Override
-    public void setListener() {
-        errorLayout.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.error_include:
-                searchDesignerInfo(searchDesignerAdapter.getData().size(), search, listener);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.error_include)
+    protected void errorClick() {
+        searchDesignerInfo(searchDesignerAdapter.getData().size(), search, listener);
     }
 
     private ApiUiUpdateListener listener = new ApiUiUpdateListener() {

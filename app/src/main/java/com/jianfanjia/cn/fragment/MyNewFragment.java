@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -65,11 +67,13 @@ public class MyNewFragment extends BaseFragment implements View.OnClickListener{
     public BadgeView commentCountView = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  super.onCreateView(inflater, container, savedInstanceState);
+        initView(view);
+        setListener();
+        return view;
     }
 
-    @Override
     public void initView(View view) {
         notifyLayout = (RelativeLayout) view.findViewById(R.id.notify_layout);
         my_collect_layout = (RelativeLayout) view.findViewById(R.id.collect_layout);
@@ -113,7 +117,6 @@ public class MyNewFragment extends BaseFragment implements View.OnClickListener{
         }
     }
 
-    @Override
     public void setListener() {
         notifyLayout.setOnClickListener(this);
         my_collect_layout.setOnClickListener(this);
