@@ -42,6 +42,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -50,24 +52,47 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DecorationFragment extends BaseFragment implements View.OnClickListener, PullToRefreshBase
+public class DecorationFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DecorationFragment.class.getName();
     private static final int SECTION = 1;
     private static final int HOUSETYPE = 2;
     private static final int DECSTYLE = 3;
     private static final int NOT = 4;
-    private MainHeadView mainHeadView = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
-    private LinearLayout topLayout = null;
-    private RelativeLayout sectionLayout = null;
-    private RelativeLayout houseTypeLayout = null;
-    private RelativeLayout decStyleLayout = null;
-    private TextView section_item = null;
-    private TextView houseType_item = null;
-    private TextView decStyle_item = null;
-    private PullToRefreshRecycleView decoration_listview = null;
+
+    @Bind(R.id.dec_head)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
+
+    @Bind(R.id.topLayout)
+    LinearLayout topLayout;
+
+    @Bind(R.id.sectionLayout)
+    RelativeLayout sectionLayout;
+
+    @Bind(R.id.houseTypeLayout)
+    RelativeLayout houseTypeLayout;
+
+    @Bind(R.id.decStyleLayout)
+    RelativeLayout decStyleLayout;
+
+    @Bind(R.id.section_item)
+    TextView section_item;
+
+    @Bind(R.id.houseType_item)
+    TextView houseType_item;
+
+    @Bind(R.id.decStyle_item)
+    TextView decStyle_item;
+
+    @Bind(R.id.decoration_listview)
+    PullToRefreshRecycleView decoration_listview;
+
     private DecorationAdapter decorationAdapter = null;
     private FilterPopWindow window = null;
     private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
@@ -89,24 +114,14 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initView(view);
+        initView();
         return view;
     }
 
-    private void initView(View view) {
-        initMainHeadView(view);
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+    private void initView() {
+        initMainHeadView();
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.error_view_no_img_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        topLayout = (LinearLayout) view.findViewById(R.id.topLayout);
-        sectionLayout = (RelativeLayout) view.findViewById(R.id.sectionLayout);
-        houseTypeLayout = (RelativeLayout) view.findViewById(R.id.houseTypeLayout);
-        decStyleLayout = (RelativeLayout) view.findViewById(R.id.decStyleLayout);
-        section_item = (TextView) view.findViewById(R.id.section_item);
-        houseType_item = (TextView) view.findViewById(R.id.houseType_item);
-        decStyle_item = (TextView) view.findViewById(R.id.decStyle_item);
-        decoration_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_listview);
         decoration_listview.setMode(PullToRefreshBase.Mode.BOTH);
         decoration_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         decoration_listview.setHasFixedSize(true);
@@ -114,26 +129,18 @@ public class DecorationFragment extends BaseFragment implements View.OnClickList
         SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
                 .getApplicationContext(), 5));
         decoration_listview.addItemDecoration(decoration);
+        decoration_listview.setOnRefreshListener(this);
         getDecorationImgInfo(FROM, pullDownListener);
     }
 
-    private void initMainHeadView(View view) {
-        mainHeadView = (MainHeadView) view.findViewById(R.id.dec_head);
+    private void initMainHeadView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.decoration_img));
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.GONE);
     }
 
-    public void setListener() {
-        sectionLayout.setOnClickListener(this);
-        houseTypeLayout.setOnClickListener(this);
-        decStyleLayout.setOnClickListener(this);
-        decoration_listview.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.sectionLayout, R.id.houseTypeLayout, R.id.decStyleLayout, R.id.error_include})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sectionLayout:

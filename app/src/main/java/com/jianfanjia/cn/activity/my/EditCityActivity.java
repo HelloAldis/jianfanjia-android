@@ -9,11 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
@@ -24,6 +19,12 @@ import com.jianfanjia.cn.tools.CityFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description: com.jianfanjia.cn.activity
  * Author: zhanghao
@@ -31,8 +32,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Date:2015-11-09 13:06
  */
 public class EditCityActivity extends SwipeBackActivity {
-
-    private static final String TAG = "EditCityActivity";
+    private static final String TAG = EditCityActivity.class.getName();
     public static final String PAGE = "page";
     public static final int EDIT_USER_ADRESS = 0;
     public static final int EDIT_REQUIREMENT_ADRESS = 1;
@@ -79,13 +79,21 @@ public class EditCityActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        getDataFromIntent();
         initData();
+        initView();
     }
 
-    public void initView() {
-        mainHeadView.setMianTitle(getString(R.string.user_address));
+    private void getDataFromIntent() {
+        intent = getIntent();
+        provice = intent.getStringExtra(Constant.EDIT_PROVICE);
+        city = intent.getStringExtra(Constant.EDIT_CITY);
+        district = intent.getStringExtra(Constant.EDIT_DISTRICT);
+        page = intent.getIntExtra(PAGE, 0);
+    }
 
+    private void initView() {
+        mainHeadView.setMianTitle(getString(R.string.user_address));
         initSpinner();
     }
 
@@ -120,7 +128,8 @@ public class EditCityActivity extends SwipeBackActivity {
                         city = citys.get(position);
                         districts = districtMap.get(city);
                         district = districts.get(currentDistrict);
-                        spinnerDistrictAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, districts);
+                        spinnerDistrictAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item,
+                                districts);
                         spinnerDistrictAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinner_district.setAdapter(spinnerDistrictAdapter);
                         if (!isInit) {
@@ -164,12 +173,7 @@ public class EditCityActivity extends SwipeBackActivity {
         cityMap = CityFormatTool.getCityMap();
         districtMap = CityFormatTool.getDistrictMap();
 
-        intent = getIntent();
-        provice = intent.getStringExtra(Constant.EDIT_PROVICE);
-        city = intent.getStringExtra(Constant.EDIT_CITY);
-        district = intent.getStringExtra(Constant.EDIT_DISTRICT);
-        page = intent.getIntExtra(PAGE,0);
-        switch (page){
+        switch (page) {
             case EDIT_REQUIREMENT_ADRESS:
                 spinner_pro.setEnabled(false);
                 spinner_city.setEnabled(false);
@@ -228,7 +232,7 @@ public class EditCityActivity extends SwipeBackActivity {
                 }, this);
     }
 
-    protected void setResultTo(){
+    protected void setResultTo() {
         intent.putExtra(Constant.EDIT_PROVICE, provice);
         intent.putExtra(Constant.EDIT_CITY, city);
         intent.putExtra(Constant.EDIT_DISTRICT, district);
@@ -244,7 +248,7 @@ public class EditCityActivity extends SwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_confirm:
-                switch (page){
+                switch (page) {
                     case EDIT_USER_ADRESS:
                         ownerUpdateInfo.setProvince(provice);
                         ownerUpdateInfo.setCity(city);

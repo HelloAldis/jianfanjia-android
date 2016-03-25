@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
@@ -51,7 +50,10 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
         edit_req_item_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent data = new Intent(EditRequirementItemActivity.this, UpdateRequirementActivity.class);
+                data.putExtra(Global.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
+                setResult(RESULT_OK, data);
+                appManager.finishActivity(EditRequirementItemActivity.this);
             }
         });
         requirementItemAdapter.changeShow(requestCode);
@@ -88,14 +90,6 @@ public class EditRequirementItemActivity extends SwipeBackActivity {
                 break;
         }
 
-    }
-
-    @OnItemClick(R.id.act_edit_req_item_listview)
-    void personListItemClicked(int position) {
-        Intent data = new Intent(this, UpdateRequirementActivity.class);
-        data.putExtra(Global.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
-        setResult(RESULT_OK, data);
-        appManager.finishActivity(this);
     }
 
     @OnClick({R.id.head_back_layout})

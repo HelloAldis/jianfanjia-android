@@ -381,9 +381,6 @@
             android:name=".NewUserCollectDecStageActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".NewUserGuideActivity"
-            android:screenOrientation="portrait"/>1
-        <activity
             android:name=".requirement.PublishRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

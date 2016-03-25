@@ -176,7 +176,6 @@ public class EditBussinessRequirementFragment extends BaseFragment {
 
     @OnClick({R.id.act_edit_req_city, R.id.act_edit_req_decoratetype,
             R.id.act_edit_req_lovestyle,
-            R.id.act_edit_req_persons,
             R.id.act_edit_req_lovedesistyle,
             R.id.act_edit_req_lovedesisex,
             R.id.act_edit_req_work_type})

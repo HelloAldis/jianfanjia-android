@@ -1,1 +1,1 @@
-include ':app', ':hud', ':api', ':tool', ':base'
+include ':app', ':hud', ':api', ':tool', ':base',':photopicker'
