@@ -124,6 +124,7 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogTool.d(TAG, "onCreateView()");
         View view = super.onCreateView(inflater, container, savedInstanceState);
         isPrepared = true;
         load();
