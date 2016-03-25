@@ -32,6 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+
 /**
  * @author fengliang
  * @ClassName: DesignerProductFragment
@@ -42,10 +44,13 @@ import java.util.Map;
 public class DesignerProductFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView>, ScrollableHelper.ScrollableContainer {
     private static final String TAG = DesignerProductFragment.class.getName();
+
+    @Bind(R.id.designer_works_listview)
+    PullToRefreshRecycleView designer_works_listview;
+
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
-    private PullToRefreshRecycleView designer_works_listview = null;
     private DesignerWorksAdapter adapter = null;
     private List<Product> productList = new ArrayList<Product>();
     private String designerid = null;
@@ -73,19 +78,23 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        designerid = bundle.getString(Global.DESIGNER_ID);
+        LogTool.d(TAG, "designerid:" + designerid);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_designer_works, container, false);
-        init(view);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView();
         isPrepared = true;
         load();
         return view;
     }
 
-    public void init(View view) {
-        Bundle bundle = getArguments();
-        designerid = bundle.getString(Global.DESIGNER_ID);
-        LogTool.d(TAG, "designerid:" + designerid);
-        designer_works_listview = (PullToRefreshRecycleView) view.findViewById(R.id.designer_works_listview);
+    private void initView() {
         designer_works_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         designer_works_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         designer_works_listview.setItemAnimator(new DefaultItemAnimator());
@@ -93,7 +102,6 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
         designer_works_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
         designer_works_listview.setFocusable(false);
-        getDesignerProduct(designerid, FROM, listener);
     }
 
     private void onVisible() {

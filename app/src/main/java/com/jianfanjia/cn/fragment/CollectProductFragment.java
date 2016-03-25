@@ -32,6 +32,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -41,11 +43,18 @@ import de.greenrobot.event.EventBus;
  * @date 2015-8-26 下午1:07:52
  */
 public class CollectProductFragment extends BaseFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectProductFragment.class.getName();
-    private PullToRefreshRecycleView prodtct_listview = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+
+    @Bind(R.id.prodtct_listview)
+    PullToRefreshRecycleView prodtct_listview = null;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout = null;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout = null;
+
     private CollectProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<>();
     private boolean isFirst = true;
@@ -81,24 +90,22 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        init(view);
+        initView();
         isPrepared = true;
         load();
         return view;
     }
 
-    public void init(View view) {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+    private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        prodtct_listview = (PullToRefreshRecycleView) view.findViewById(R.id.prodtct_listview);
         prodtct_listview.setMode(PullToRefreshBase.Mode.BOTH);
         prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         prodtct_listview.setHasFixedSize(true);
         prodtct_listview.setItemAnimator(new DefaultItemAnimator());
         prodtct_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext
                 ()));
+        prodtct_listview.setOnRefreshListener(this);
     }
 
     private void onVisible() {
@@ -120,20 +127,9 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         JianFanJiaClient.getCollectListByUser(getActivity(), from, limit, listener, this);
     }
 
-    private void setListener() {
-        prodtct_listview.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.error_include:
-                getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.error_include)
+    public void onClick() {
+        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override

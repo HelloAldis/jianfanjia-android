@@ -32,6 +32,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 
@@ -42,11 +44,18 @@ import de.greenrobot.event.EventBus;
  * @date 2015-8-26 下午1:07:52
  */
 public class CollectDesignerFragment extends BaseFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectDesignerFragment.class.getName();
-    private PullToRefreshRecycleView my_favorite_designer_listview = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+
+    @Bind(R.id.my_favorite_designer_listview)
+    PullToRefreshRecycleView my_favorite_designer_listview;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
+
     private FavoriteDesignerAdapter designAdapter = null;
     private MyFavoriteDesigner myFavoriteDesigner = null;
     private List<DesignerInfo> designers = new ArrayList<>();
@@ -83,41 +92,27 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        init(view);
+        initView();
         isPrepared = true;
         load();
         return view;
     }
 
-    public void init(View view) {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+    private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        my_favorite_designer_listview = (PullToRefreshRecycleView) view.findViewById(R.id
-                .my_favorite_designer_listview);
         my_favorite_designer_listview.setMode(PullToRefreshBase.Mode.BOTH);
         my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
         my_favorite_designer_listview.setHasFixedSize(true);
         my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
         my_favorite_designer_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
-    }
-
-    public void setListener() {
-        errorLayout.setOnClickListener(this);
         my_favorite_designer_listview.setOnRefreshListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.error_include:
-                getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.error_include)
+    public void onClick() {
+        getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     private void onVisible() {

@@ -33,6 +33,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -43,11 +45,18 @@ import de.greenrobot.event.EventBus;
  */
 
 public class CollectDecorationImgFragment extends BaseFragment implements PullToRefreshBase
-        .OnRefreshListener2<RecyclerView>, View.OnClickListener {
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = CollectDecorationImgFragment.class.getName();
-    private PullToRefreshRecycleView decoration_img_listview = null;
-    private RelativeLayout emptyLayout = null;
-    private RelativeLayout errorLayout = null;
+
+    @Bind(R.id.decoration_img_listview)
+    PullToRefreshRecycleView decoration_img_listview;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
+
     private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
     private DecorationAdapter decorationImgAdapter = null;
     private boolean isFirst = true;
@@ -84,18 +93,15 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        init(view);
+        initView();
         isPrepared = true;
         load();
         return view;
     }
 
-    public void init(View view) {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
+    private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_img_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        decoration_img_listview = (PullToRefreshRecycleView) view.findViewById(R.id.decoration_img_listview);
         decoration_img_listview.setMode(PullToRefreshBase.Mode.BOTH);
         decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager
                 .VERTICAL));
@@ -104,6 +110,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
                 .getApplicationContext(), 5));
         decoration_img_listview.addItemDecoration(decoration);
+        decoration_img_listview.setOnRefreshListener(this);
     }
 
     private void onVisible() {
@@ -121,20 +128,9 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
-    private void setListener() {
-        decoration_img_listview.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.error_include:
-                getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.error_include)
+    public void onClick() {
+        getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void getDecorationImgList(int from, int limit, ApiUiUpdateListener listener) {
