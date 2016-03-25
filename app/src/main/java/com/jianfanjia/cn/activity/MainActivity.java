@@ -1,13 +1,10 @@
 package com.jianfanjia.cn.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.AppManager;
@@ -21,8 +18,12 @@ import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -31,13 +32,24 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getName();
-    private ImageView badgeView = null;
-    private LinearLayout homeLayout = null;
-    private LinearLayout beautyLayout = null;
-    private LinearLayout reqLayout = null;
-    private LinearLayout myLayout = null;
+
+    @Bind(R.id.badgeView)
+    ImageView badgeView;
+
+    @Bind(R.id.home_layout)
+    LinearLayout homeLayout;
+
+    @Bind(R.id.img_layout)
+    LinearLayout beautyLayout;
+
+    @Bind(R.id.req_layout)
+    LinearLayout reqLayout;
+
+    @Bind(R.id.my_layout)
+    LinearLayout myLayout;
+
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
@@ -46,44 +58,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int tab = -1;
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        LogTool.d(TAG, "onNewIntent");
-        switchTab(Constant.MANAGE);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initView();
     }
 
-    public void initView() {
-        badgeView = (ImageView) findViewById(R.id.badgeView);
+    private void initView() {
         badgeView.setVisibility(View.GONE);
-
-        homeLayout = (LinearLayout) findViewById(R.id.home_layout);
-        beautyLayout = (LinearLayout) findViewById(R.id.img_layout);
-        reqLayout = (LinearLayout) findViewById(R.id.req_layout);
-        myLayout = (LinearLayout) findViewById(R.id.my_layout);
-
         switchTab(Constant.HOME);
-//        //如果是注册直接点击发布需求，先创建mainactivity再启动editrequirementactivity
-//        Intent intent = getIntent();
-//        boolean flag = intent.getBooleanExtra(Global.IS_PUBLISHREQUIREMENT, false);
-//        LogTool.d(TAG, "flag:" + flag);
-//        if (flag) {
-//            LogTool.d(TAG, "REGISTER PUBLISH REQUIREMENG");
-//            startActivityForResult(PublishRequirementActivity_.class, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
-//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         //每次resume刷新一下消息条数
-        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant
+                .searchMsgCountType2);
     }
 
     private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
@@ -126,17 +117,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     };
 
-    @Override
-    public void setListener() {
-        homeLayout.setOnClickListener(this);
-        beautyLayout.setOnClickListener(this);
-        reqLayout.setOnClickListener(this);
-        myLayout.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.home_layout:
                 switchTab(Constant.HOME);
                 break;
@@ -152,7 +135,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    public void switchTab(int index) {
+    private void switchTab(int index) {
         switch (index) {
             case Constant.HOME:
                 homeLayout.setSelected(true);
@@ -253,7 +236,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onEventMainThread(MessageCountEvent messageCountEvent) {
         //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
-        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant
+                .searchMsgCountType2);
     }
 
     @Override
@@ -269,22 +253,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Global.HOUSE_TYPE_POSITION = 0;
         Global.DEC_STYLE_POSITION = 0;
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_OK){
-            return;
-        }
-        LogTool.d(TAG, "onActivityResult requestCode =" + requestCode);
-        if (requestCode == XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT) {
-            xuqiuFragment.onActivityResult(requestCode, resultCode, data);
-        } else if (requestCode == XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT) {
-            switchTab(Constant.MANAGE);
-            xuqiuFragment.onActivityResult(requestCode, resultCode, data);
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }*/
 
     @Override
     public int getLayoutId() {
