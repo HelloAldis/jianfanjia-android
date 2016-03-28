@@ -13,8 +13,12 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.EvaluateDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -137,24 +141,41 @@ public class PingjiaActivity extends SwipeBackActivity implements
             respond_speed, String comment, String is_anonymous) {
         JianFanJiaClient.evaluateDesignerByUser(PingjiaActivity.this, requirementid, designerid, service_attitude,
                 respond_speed, comment, is_anonymous, this, this);
-    }
 
-    @Override
-    public void preLoad() {
+        EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest();
+        evaluateDesignerRequest.setRequirementid(requirementid);
+        evaluateDesignerRequest.setDesignerid(designerid);
+        evaluateDesignerRequest.setResponse_speed(respond_speed);
+        evaluateDesignerRequest.setService_attitude(service_attitude);
+        evaluateDesignerRequest.setIs_anonymous(is_anonymous);
+        evaluateDesignerRequest.setComment(comment);
 
-    }
+        Api.evaluateDesigner(evaluateDesignerRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        LogTool.d(TAG, "data:" + data);
-//        setResult(RESULT_OK);
-        appManager.finishActivity(this);
-    }
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        makeTextShort(error_msg);
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(PingjiaActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

@@ -11,17 +11,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.CollectProductAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -121,8 +122,9 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
-    private void getProductList(int from, int limit, ApiUiUpdateListener listener) {
-        JianFanJiaClient.getCollectListByUser(getActivity(), from, limit, listener, this);
+    private void getProductList(int from, int limit, ApiCallback<ApiResponse<ProductInfo>> listener) {
+        GetCollectionRequest request = new GetCollectionRequest(from, limit);
+        Api.getCollectListByUser(request, listener);
     }
 
     @OnClick(R.id.error_include)
@@ -142,21 +144,24 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<ProductInfo>> pullDownListener = new ApiCallback<ApiResponse<ProductInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             if (isFirst) {
                 showWaitDialog();
             }
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
+        public void onHttpDone() {
             hideWaitDialog();
-            mHasLoadedOnce = true;
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<ProductInfo> apiResponse) {
             prodtct_listview.onRefreshComplete();
-            ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
+            mHasLoadedOnce = true;
+            ProductInfo productInfo = apiResponse.getData();
             LogTool.d(TAG, "productInfo=" + productInfo);
             if (productInfo != null) {
                 products.clear();
@@ -197,27 +202,35 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
+        public void onFailed(ApiResponse<ProductInfo> apiResponse) {
             prodtct_listview.onRefreshComplete();
             prodtct_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+
     };
 
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<ProductInfo>> pullUpListener = new ApiCallback<ApiResponse<ProductInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<ProductInfo> apiResponse) {
             prodtct_listview.onRefreshComplete();
-            ProductInfo productInfo = JsonParser.jsonToBean(data.toString(), ProductInfo.class);
+            ProductInfo productInfo = apiResponse.getData();
             LogTool.d(TAG, "productInfo=" + productInfo);
             if (productInfo != null) {
                 List<Product> productList = productInfo.getProducts();
@@ -231,10 +244,15 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<ProductInfo> apiResponse) {
             prodtct_listview.onRefreshComplete();
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+
     };
 
     public void onEventMainThread(MessageEvent event) {

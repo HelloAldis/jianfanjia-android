@@ -9,11 +9,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import butterknife.Bind;
@@ -69,25 +71,34 @@ public class FeedBackActivity extends SwipeBackActivity implements OnClickListen
     }
 
     private void feedBack(String content, String version, String platform) {
-        JianFanJiaClient.feedBack(this, content, version, platform, new ApiUiUpdateListener() {
+        FeedBackRequest request = new FeedBackRequest(content, version, platform);
+        Api.feedBack(request, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 showWaitDialog();
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
                 hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 feedContentView.setText("");
                 appManager.finishActivity(FeedBackActivity.this);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                hideWaitDialog();
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private TextWatcher textWatcher = new TextWatcher() {

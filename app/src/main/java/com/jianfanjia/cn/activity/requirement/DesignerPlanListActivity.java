@@ -7,27 +7,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:设计师方案列表
@@ -35,8 +36,8 @@ import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends SwipeBackActivity implements
-        ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerPlanListActivity extends SwipeBackActivity implements ItemClickListener, PullToRefreshBase
+        .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
 
     @Bind(R.id.my_plan_head_layout)
@@ -119,33 +120,45 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements
 
     //业主获取我的方案
     private void getDesignerPlansList(String requestmentid, String designerid) {
-        JianFanJiaClient.getDesignerPlansByUser(DesignerPlanListActivity.this, requestmentid, designerid, this, this);
-    }
+//        JianFanJiaClient.getDesignerPlansByUser(DesignerPlanListActivity.this, requestmentid, designerid, this, this);
 
-    @Override
-    public void preLoad() {
-        showWaitDialog(R.string.loading);
-    }
+        GetDesignerPlanListRequest getDesignerPlanListRequest = new GetDesignerPlanListRequest();
+        getDesignerPlanListRequest.setRequirementid(requestmentid);
+        getDesignerPlanListRequest.setDesignerid(designerid);
 
-    @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data);
-        hideWaitDialog();
-        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<PlanInfo>>() {
-        }.getType());
-        LogTool.d(TAG, "designerPlanList:" + designerPlanList);
-        if (null != designerPlanList && designerPlanList.size() > 0) {
-            DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
-            designer_plan_listview.setAdapter(adapter);
-        }
-        designer_plan_listview.onRefreshComplete();
-    }
+        Api.getDesignerPlanList(getDesignerPlanListRequest, new ApiCallback<ApiResponse<List<PlanInfo>>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        makeTextShort(error_msg);
-        hideWaitDialog();
-        designer_plan_listview.onRefreshComplete();
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+                designer_plan_listview.onRefreshComplete();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<PlanInfo>> apiResponse) {
+                designerPlanList = apiResponse.getData();
+                if (null != designerPlanList && designerPlanList.size() > 0) {
+                    DesignerPlanAdapter adapter = new DesignerPlanAdapter(DesignerPlanListActivity.this,
+                            designerPlanList, DesignerPlanListActivity.this);
+                    designer_plan_listview.setAdapter(adapter);
+                }
+                designer_plan_listview.onRefreshComplete();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<PlanInfo>> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

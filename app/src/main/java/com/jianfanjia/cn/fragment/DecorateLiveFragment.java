@@ -13,19 +13,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.WebViewActivity;
 import com.jianfanjia.cn.adapter.DecorateLiveAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.GetDecorateLiveRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -162,95 +162,118 @@ public class DecorateLiveFragment extends BaseFragment {
         searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
     }
 
-    private ApiUiUpdateListener pullDownUpdateListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            if (!mHasLoadedOnce) {
-                showWaitDialog();
-            }
-        }
+    private ApiCallback<ApiResponse<DecorateLiveList>> pullDownUpdateListener = new
+            ApiCallback<ApiResponse<DecorateLiveList>>() {
 
-        @Override
-        public void loadSuccess(Object data) {
-            recyclerView.onRefreshComplete();
-            hideWaitDialog();
-            DecorateLiveList decorateLiveList = JsonParser.jsonToBean(data.toString(), DecorateLiveList.class);
-            if (decorateLiveList != null) {
-                int total = decorateLiveList.getTotal();
-                if (total > 0) {
-                    decorateLiveAdapter.clear();
-                    decorateLiveAdapter.addData(decorateLiveList.getShares());
-                    LogTool.d(TAG, "total size =" + total);
-                    LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
-                            decorateLiveAdapter.getData().size());
-                    if (total > decorateLiveAdapter.getData().size()) {
-                        decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
-                    } else {
-                        decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                @Override
+                public void onPreLoad() {
+                    if (!mHasLoadedOnce) {
+                        showWaitDialog();
                     }
-                    decorateLiveAdapter.hideErrorAndEmptyView();
-                } else {
-                    decorateLiveAdapter.setEmptyViewShow();
                 }
-                mHasLoadedOnce = true;
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
-            recyclerView.onRefreshComplete();
-            decorateLiveAdapter.setErrorViewShow();
-            decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-        }
-    };
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                }
 
-    private ApiUiUpdateListener loadmoreUpdateListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            DecorateLiveList decorateLiveList = JsonParser.jsonToBean(data.toString(), DecorateLiveList.class);
-            if (decorateLiveList != null) {
-                int total = decorateLiveList.getTotal();
-                if (total > 0) {
-                    decorateLiveAdapter.clear();
-                    decorateLiveAdapter.addData(decorateLiveList.getShares());
-                    LogTool.d(TAG, "total size =" + total);
-                    LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
-                            decorateLiveAdapter.getData().size());
-                    if (total > decorateLiveAdapter.getData().size()) {
-                        decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
-                    } else {
-                        decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                @Override
+                public void onSuccess(ApiResponse<DecorateLiveList> apiResponse) {
+                    recyclerView.onRefreshComplete();
+                    DecorateLiveList decorateLiveList = apiResponse.getData();
+                    if (decorateLiveList != null) {
+                        int total = decorateLiveList.getTotal();
+                        if (total > 0) {
+                            decorateLiveAdapter.clear();
+                            decorateLiveAdapter.addData(decorateLiveList.getShares());
+                            LogTool.d(TAG, "total size =" + total);
+                            LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
+                                    decorateLiveAdapter.getData().size());
+                            if (total > decorateLiveAdapter.getData().size()) {
+                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                            } else {
+                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                            }
+                            decorateLiveAdapter.hideErrorAndEmptyView();
+                        } else {
+                            decorateLiveAdapter.setEmptyViewShow();
+                        }
+                        mHasLoadedOnce = true;
                     }
-                    decorateLiveAdapter.hideErrorAndEmptyView();
-                } else {
-                    decorateLiveAdapter.setEmptyViewShow();
                 }
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            decorateLiveAdapter.setErrorViewShow();
-            decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-        }
-    };
+                @Override
+                public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
+                    recyclerView.onRefreshComplete();
+                    decorateLiveAdapter.setErrorViewShow();
+                    decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+                }
 
-    private void searchShare(int from, int queryStatus, ApiUiUpdateListener listener) {
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
+
+    private ApiCallback<ApiResponse<DecorateLiveList>> loadmoreUpdateListener = new
+            ApiCallback<ApiResponse<DecorateLiveList>>() {
+
+
+                @Override
+                public void onPreLoad() {
+
+                }
+
+                @Override
+                public void onHttpDone() {
+
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<DecorateLiveList> apiResponse) {
+                    DecorateLiveList decorateLiveList = apiResponse.getData();
+                    if (decorateLiveList != null) {
+                        int total = decorateLiveList.getTotal();
+                        if (total > 0) {
+                            decorateLiveAdapter.clear();
+                            decorateLiveAdapter.addData(decorateLiveList.getShares());
+                            LogTool.d(TAG, "total size =" + total);
+                            LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
+                                    decorateLiveAdapter.getData().size());
+                            if (total > decorateLiveAdapter.getData().size()) {
+                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                            } else {
+                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                            }
+                            decorateLiveAdapter.hideErrorAndEmptyView();
+                        } else {
+                            decorateLiveAdapter.setEmptyViewShow();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
+                    decorateLiveAdapter.setErrorViewShow();
+                    decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
+
+    private void searchShare(int from, int queryStatus, ApiCallback<ApiResponse<DecorateLiveList>> listener) {
+        GetDecorateLiveRequest request = new GetDecorateLiveRequest();
         Map<String, Object> param = new HashMap<>();
         param.put(Constant.FROM, from);
         param.put(Constant.LIMIT, Constant.HOME_PAGE_LIMIT);
         Map<String, Object> query = new HashMap<>();
         query.put("progress", queryStatus + "");
         param.put(Constant.QUERY, query);
-        JianFanJiaClient.searchShare(new GetDecorateLiveRequest(_context, param), listener, this);
+        request.setParam(param);
+        Api.searchShare(request, listener);
     }
 
     @Override

@@ -8,16 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.SendVerificationRequest;
+import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.RegisterNewActivity;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author zhanghao
@@ -25,8 +29,7 @@ import com.jianfanjia.cn.tools.LogTool;
  * @Description: 绑定手机号
  * @date 2015-10-27 下午12:11:23
  */
-public class BindingPhoneActivity extends SwipeBackActivity implements
-        ApiUiUpdateListener {
+public class BindingPhoneActivity extends SwipeBackActivity {
     private static final String TAG = BindingPhoneActivity.class.getName();
     @Bind(R.id.act_binding_input_phone)
     EditText mEtPhone;// 用户名输入框
@@ -38,13 +41,11 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
     }
 
-    public void initView() {
+    private void initView() {
         mBtnCommit.setEnabled(false);
-
         mEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,7 +76,7 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
             case R.id.btn_commit:
                 phone = mEtPhone.getText().toString().trim();
                 if (checkInput(phone)) {
-                    JianFanJiaClient.verifyPhone(this, phone, this, this);
+                    verifyPhone(phone);
                 }
                 break;
             case R.id.head_back_layout:
@@ -102,11 +103,34 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
         return true;
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-        //登录成功，加载首页
-        super.loadSuccess(data);
-        sendVerification(phone);
+    private void verifyPhone(final String phone) {
+        VerifyPhoneRequest request = new VerifyPhoneRequest(phone);
+        Api.verifyPhone(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                sendVerification(phone);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     /**
@@ -115,14 +139,20 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
      * @param name
      */
     private void sendVerification(final String name) {
-        JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
+        SendVerificationRequest request = new SendVerificationRequest(name);
+        Api.sendVerification(request, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 RegisterInfo registerInfo = new RegisterInfo();
                 registerInfo.setPhone(name);
                 Bundle registerBundle = new Bundle();
@@ -135,10 +165,16 @@ public class BindingPhoneActivity extends SwipeBackActivity implements
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @Override

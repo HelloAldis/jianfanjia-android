@@ -15,18 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.CheckGridViewAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CheckInfo.Imageid;
 import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -236,23 +238,37 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
     // 业主确认对比验收完成
     private void confirmCheckDoneByOwner(String processid, String section) {
-        JianFanJiaClient.confirm_CheckDoneByOwner(this, processid, section, new ApiUiUpdateListener() {
+        ConfirmCheckRequest confirmCheckRequest = new ConfirmCheckRequest();
+        confirmCheckRequest.set_id(processid);
+        confirmCheckRequest.setSection(section);
+
+        Api.confirmSectionCheck(confirmCheckRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 btn_confirm.setEnabled(false);
                 checkSuccess();
             }
 
             @Override
-            public void loadFailture(String err_msg) {
+            public void onFailed(ApiResponse<String> apiResponse) {
 
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void checkSuccess() {

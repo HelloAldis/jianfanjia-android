@@ -23,11 +23,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import java.util.Calendar;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.LoginRequest;
+import com.jianfanjia.api.request.guest.SendVerificationRequest;
+import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -427,22 +435,34 @@ public class LoginNewActivity extends BaseActivity implements
     }
 
     private void verifyPhone(final String phone) {
-        JianFanJiaClient.verifyPhone(this, phone, new ApiUiUpdateListener() {
+        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(phone);
+
+        Api.verifyPhone(verifyPhoneRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 sendVerification(mUserName, mPassword);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     /**
@@ -452,14 +472,21 @@ public class LoginNewActivity extends BaseActivity implements
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
+
+        Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 RegisterInfo registerInfo = new RegisterInfo();
                 registerInfo.setPass(password);
                 registerInfo.setPhone(name);
@@ -470,10 +497,15 @@ public class LoginNewActivity extends BaseActivity implements
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     /**
@@ -482,8 +514,46 @@ public class LoginNewActivity extends BaseActivity implements
      * @param name
      * @param password
      */
-    private void login(String name, String password) {
-        JianFanJiaClient.login(this, name, password, this, this);
+    private void login(String name, final String password) {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setPhone(name);
+        loginRequest.setPass(password);
+
+        Api.login(loginRequest, new ApiCallback<ApiResponse<LoginUserBean>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<LoginUserBean> apiResponse) {
+                dataManager.setLogin(true);
+                dataManager.savaLastLoginTime(Calendar.getInstance()
+                        .getTimeInMillis());
+                LoginUserBean loginUserBean = apiResponse.getData();
+                loginUserBean.setPass(password);
+                dataManager.saveLoginUserBean(loginUserBean);
+
+                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+                startActivity(MainActivity.class);
+                appManager.finishActivity(LoginNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<LoginUserBean> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

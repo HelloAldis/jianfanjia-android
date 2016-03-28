@@ -11,18 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -131,8 +132,11 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
-    private void getDecorationImgList(int from, int limit, ApiUiUpdateListener listener) {
-        JianFanJiaClient.getBeautyImgListByUser(getActivity(), from, limit, listener, this);
+    private void getDecorationImgList(int from, int limit, ApiCallback<ApiResponse<DecorationItemInfo>> listener) {
+        GetBeautyImgListRequest request = new GetBeautyImgListRequest();
+        request.setFrom(from);
+        request.setLimit(limit);
+        Api.getBeautyImgListByUser(request, listener);
     }
 
     @Override
@@ -147,104 +151,128 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     }
 
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            if (isFirst) {
-                showWaitDialog();
-            }
-        }
+    private ApiCallback<ApiResponse<DecorationItemInfo>> pullDownListener = new
+            ApiCallback<ApiResponse<DecorationItemInfo>>() {
 
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            hideWaitDialog();
-            mHasLoadedOnce = true;
-            decoration_img_listview.onRefreshComplete();
-            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
-            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-            if (null != decorationItemInfo) {
-                total = decorationItemInfo.getTotal();
-                beautyImgList.clear();
-                beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
-                if (null != beautyImgList && beautyImgList.size() > 0) {
-                    if (null == decorationImgAdapter) {
-                        decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
-                                OnItemClickListener() {
-                                    @Override
-                                    public void OnItemClick(int position) {
-                                        LogTool.d(TAG, "position:" + position);
-                                        currentPos = position;
-                                        LogTool.d(TAG, "currentPos====" + currentPos);
-                                        BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
-                                        LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
-                                        Bundle decorationBundle = new Bundle();
-                                        decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                                        decorationBundle.putInt(Global.POSITION, position);
-                                        decorationBundle.putSerializable(Global.IMG_LIST, (ArrayList<BeautyImgInfo>)
-                                                beautyImgList);
-                                        decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                                        decorationBundle.putInt(Global.VIEW_TYPE, Constant.COLLECT_BEAUTY_FRAGMENT);
-                                        startActivity(PreviewDecorationActivity.class, decorationBundle);
-                                    }
-                                });
-                        decoration_img_listview.setAdapter(decorationImgAdapter);
-                    } else {
-                        decorationImgAdapter.notifyDataSetChanged();
+
+                @Override
+                public void onPreLoad() {
+                    if (isFirst) {
+                        showWaitDialog();
                     }
-                    decoration_img_listview.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                    isFirst = false;
-                } else {
+                }
+
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+                    decoration_img_listview.onRefreshComplete();
+                    mHasLoadedOnce = true;
+                    DecorationItemInfo decorationItemInfo = apiResponse.getData();
+                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    if (null != decorationItemInfo) {
+                        total = decorationItemInfo.getTotal();
+                        beautyImgList.clear();
+                        beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
+                        if (null != beautyImgList && beautyImgList.size() > 0) {
+                            if (null == decorationImgAdapter) {
+                                decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
+                                        OnItemClickListener() {
+                                            @Override
+                                            public void OnItemClick(int position) {
+                                                LogTool.d(TAG, "position:" + position);
+                                                currentPos = position;
+                                                LogTool.d(TAG, "currentPos====" + currentPos);
+                                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
+                                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                                Bundle decorationBundle = new Bundle();
+                                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id
+                                                        ());
+                                                decorationBundle.putInt(Global.POSITION, position);
+                                                decorationBundle.putSerializable(Global.IMG_LIST,
+                                                        (ArrayList<BeautyImgInfo>)
+                                                                beautyImgList);
+                                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
+                                                decorationBundle.putInt(Global.VIEW_TYPE, Constant
+                                                        .COLLECT_BEAUTY_FRAGMENT);
+                                                startActivity(PreviewDecorationActivity.class, decorationBundle);
+                                            }
+                                        });
+                                decoration_img_listview.setAdapter(decorationImgAdapter);
+                            } else {
+                                decorationImgAdapter.notifyDataSetChanged();
+                            }
+                            decoration_img_listview.setVisibility(View.VISIBLE);
+                            emptyLayout.setVisibility(View.GONE);
+                            isFirst = false;
+                        } else {
+                            decoration_img_listview.setVisibility(View.GONE);
+                            emptyLayout.setVisibility(View.VISIBLE);
+                        }
+                        FROM = beautyImgList.size();
+                        LogTool.d(TAG, "FROM:" + FROM);
+                        errorLayout.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+                    decoration_img_listview.onRefreshComplete();
                     decoration_img_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
                 }
-                FROM = beautyImgList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
-                errorLayout.setVisibility(View.GONE);
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
-            decoration_img_listview.onRefreshComplete();
-            decoration_img_listview.setVisibility(View.GONE);
-            emptyLayout.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
-        }
-    };
+                @Override
+                public void onNetworkError(int code) {
 
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            decoration_img_listview.onRefreshComplete();
-            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
-            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-            if (null != decorationItemInfo) {
-                List<BeautyImgInfo> beautyList = decorationItemInfo.getBeautiful_images();
-                if (null != beautyList && beautyList.size() > 0) {
-                    decorationImgAdapter.add(FROM, beautyList);
-                    FROM += Constant.HOME_PAGE_LIMIT;
-                } else {
-                    makeTextShort(getResources().getString(R.string.no_more_data));
                 }
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            decoration_img_listview.onRefreshComplete();
-        }
-    };
+            };
+
+    private ApiCallback<ApiResponse<DecorationItemInfo>> pullUpListener = new
+            ApiCallback<ApiResponse<DecorationItemInfo>>() {
+
+
+                @Override
+                public void onPreLoad() {
+
+                }
+
+                @Override
+                public void onHttpDone() {
+                    decoration_img_listview.onRefreshComplete();
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+                    DecorationItemInfo decorationItemInfo = apiResponse.getData();
+                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    if (null != decorationItemInfo) {
+                        List<BeautyImgInfo> beautyList = decorationItemInfo.getBeautiful_images();
+                        if (null != beautyList && beautyList.size() > 0) {
+                            decorationImgAdapter.add(FROM, beautyList);
+                            FROM += Constant.HOME_PAGE_LIMIT;
+                        } else {
+                            makeTextShort(getResources().getString(R.string.no_more_data));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+
+            };
 
     public void onEventMainThread(MessageEvent event) {
         LogTool.d(TAG, "event=" + event.getEventType());
