@@ -11,21 +11,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.SearchDesignerProductRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
+import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -121,13 +121,13 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         pullToRefreshRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                getDesignerProductList(FROM, pullUpListener);
+                getDesignerProductList(FROM, DesignerCaseListActivity.this.pullUpCallback);
             }
         });
         pullToRefreshRecyclerView.setHasFixedSize(true);
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
         pullToRefreshRecyclerView.setOnRefreshListener(this);
-        getDesignerProductList(FROM, pullDownListener);
+        getDesignerProductList(FROM, this.pullDownCallback);
     }
 
     private void initMainHeadView() {
@@ -155,7 +155,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 setSelectState(DEC_AREA);
                 break;
             case R.id.error_include:
-                getDesignerProductList(FROM, pullDownListener);
+                getDesignerProductList(FROM, this.pullDownCallback);
                 break;
             default:
                 break;
@@ -206,40 +206,43 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        getDesignerProductList(FROM, pullDownListener);
+        getDesignerProductList(FROM, this.pullDownCallback);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDesignerProductList(FROM, pullUpListener);
+        getDesignerProductList(FROM, this.pullUpCallback);
     }
 
-    private void getDesignerProductList(int from, ApiUiUpdateListener listener) {
-        Map<String, Object> conditionParam = new HashMap<>();
-        conditionParam.put("dec_type", decType);
-        conditionParam.put("house_type", houseType);
-        conditionParam.put("dec_style", designStyle);
-        conditionParam.put("house_area", decArea);
-        Map<String, Object> param = new HashMap<>();
-        param.put("query", conditionParam);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(DesignerCaseListActivity.this, param)
-                , listener, this);
+    private void getDesignerProductList(int from, ApiCallback<ApiResponse<DesignerWorksInfo>> apiCallback) {
+        Map<String, Object> query = new HashMap<>();
+        query.put("dec_type", decType);
+        query.put("house_type", houseType);
+        query.put("dec_style", designStyle);
+        query.put("house_area", decArea);
+        SearchDesignerProductRequest request = new SearchDesignerProductRequest();
+        request.setQuery(query);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchDesignerProduct(request, apiCallback);
     }
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<DesignerWorksInfo>> pullDownCallback = new ApiCallback<ApiResponse<DesignerWorksInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             if (isFirst) {
                 showWaitDialog();
             }
         }
 
         @Override
-        public void loadSuccess(Object data) {
+        public void onHttpDone() {
             hideWaitDialog();
-            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<DesignerWorksInfo> apiResponse) {
+            DesignerWorksInfo worksInfo = apiResponse.getData();
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 isFirst = false;
@@ -290,25 +293,34 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            hideWaitDialog();
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<DesignerWorksInfo> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
             pullToRefreshRecyclerView.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
             pullToRefreshRecyclerView.onRefreshComplete();
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
     };
 
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<DesignerWorksInfo>> pullUpCallback = new ApiCallback<ApiResponse<DesignerWorksInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<DesignerWorksInfo> apiResponse) {
+            DesignerWorksInfo worksInfo = apiResponse.getData();
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 List<Product> products = worksInfo.getProducts();
@@ -322,9 +334,14 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<DesignerWorksInfo> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
             pullToRefreshRecyclerView.onRefreshComplete();
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
@@ -364,7 +381,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             }
             FROM = 0;
             decType = BusinessManager.getDecTypeByText(title);
-            getDesignerProductList(FROM, pullDownListener);
+            getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -397,7 +414,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             }
             FROM = 0;
             designStyle = BusinessManager.getDecStyleByText(title);
-            getDesignerProductList(FROM, pullDownListener);
+            getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -430,7 +447,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             }
             FROM = 0;
             houseType = BusinessManager.getHouseTypeByText(title);
-            getDesignerProductList(FROM, pullDownListener);
+            getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -464,7 +481,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
             FROM = 0;
             decArea = BusinessManager.convertDecAreaValueByText(title);
             LogTool.d(TAG, "decArea=" + decArea);
-            getDesignerProductList(FROM, pullDownListener);
+            getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();

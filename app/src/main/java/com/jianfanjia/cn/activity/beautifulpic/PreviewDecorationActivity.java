@@ -9,20 +9,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.AddBeautyImgRequest;
+import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
+import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
+import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.BeautyImgInfo;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.SearchDecorationImgRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -206,48 +209,59 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     }
 
     private void getDecorationImgInfo(int from) {
-        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> query = new HashMap<>();
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("section", section);
         conditionParam.put("house_type", houseStyle);
         conditionParam.put("dec_style", decStyle);
-        param.put("query", conditionParam);
-        param.put("search_word", search);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(PreviewDecorationActivity.this, param),
-                getDecorationImgInfoListener, this);
+        query.put("query", conditionParam);
+        query.put("search_word", search);
+        query.put("from", from);
+        query.put("limit", Constant.HOME_PAGE_LIMIT);
+
+        SearchDecorationImgRequest request = new SearchDecorationImgRequest();
+        request.setQuery(query);
+        Api.searchDecorationImg(request, this.getDecorationImgInfoCallback);
     }
 
     private void getCollectedDecorationImgInfo(int from, int limit) {
-        JianFanJiaClient.getBeautyImgListByUser(PreviewDecorationActivity.this, from, limit,
-                getDecorationImgInfoListener, this);
+        GetBeautyImgListRequest request = new GetBeautyImgListRequest();
+        request.setFrom(from);
+        request.setLimit(limit);
+        Api.getBeautyImgListByUser(request, this.getDecorationImgInfoCallback);
     }
 
     private void addDecorationImgInfo(String decorationId) {
-        JianFanJiaClient.addBeautyImgByUser(PreviewDecorationActivity.this, decorationId,
-                AddDecorationImgInfoListener, this);
+        AddBeautyImgRequest request = new AddBeautyImgRequest();
+        request.set_id(decorationId);
+
+        Api.addBeautyImgByUser(request, this.addDecorationImgInfoCallback);
     }
 
     private void deleteDecorationImg(String decorationId) {
-        JianFanJiaClient.deleteBeautyImgByUser(PreviewDecorationActivity.this, decorationId,
-                deleteDecorationImgListener, this);
+        DeleteBeautyImgRequest request = new DeleteBeautyImgRequest();
+        request.set_id(decorationId);
+
+        Api.deleteBeautyImgByUser(request, this.deleteDecorationImgCallback);
     }
 
-    private ApiUiUpdateListener getDecorationImgInfoListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<DecorationItemInfo>> getDecorationImgInfoCallback = new ApiCallback<ApiResponse<DecorationItemInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             if (isFirst) {
                 showWaitDialog();
             }
         }
 
         @Override
-        public void loadSuccess(Object data) {
+        public void onHttpDone() {
             hideWaitDialog();
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
             mPullToRefreshViewPager.onRefreshComplete();
-            LogTool.d(TAG, "data:" + data.toString());
-            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+            DecorationItemInfo decorationItemInfo = apiResponse.getData();
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
@@ -263,22 +277,30 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            hideWaitDialog();
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
             mPullToRefreshViewPager.onRefreshComplete();
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
-    private ApiUiUpdateListener AddDecorationImgInfoListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<Object>> addDecorationImgInfoCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             makeTextShort(getString(R.string.str_collect_success));
             toolbarCollect.setSelected(true);
             notifyChangeState(true);
@@ -286,28 +308,42 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<Object> apiResponse) {
+
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
-    private ApiUiUpdateListener deleteDecorationImgListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<Object>> deleteDecorationImgCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             toolbarCollect.setSelected(false);
             notifyChangeState(false);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
