@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.api;
 
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -20,6 +18,7 @@ import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
+import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -38,15 +37,15 @@ import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
-import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
-import com.jianfanjia.api.request.user.GetMsgDetailRequest;
-import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.api.request.user.EvaluateDesignerRequest;
+import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
+import com.jianfanjia.api.request.user.GetMsgDetailRequest;
 import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.api.request.user.GetProcessInfoRequest;
+import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
 import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
@@ -55,8 +54,8 @@ import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.CommentList;
-import com.jianfanjia.cn.bean.DecorateLiveList;
 import com.jianfanjia.cn.bean.ContractInfo;
+import com.jianfanjia.cn.bean.DecorateLiveList;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
@@ -68,12 +67,15 @@ import com.jianfanjia.cn.bean.NoticeDetailInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.bean.ProductInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.Product;
+import com.jianfanjia.cn.bean.ProductInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 
 /**
@@ -328,4 +330,9 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback);
     }
 
+
+    public static void getTopProducts(GetHomeProductRequest request, ApiCallback<ApiResponse<List<Product>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_TOP_PRODUCTS, request, apiCallback);
+    }
 }
