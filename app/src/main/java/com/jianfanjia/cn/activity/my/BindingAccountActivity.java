@@ -8,22 +8,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
+
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -137,33 +140,46 @@ public class BindingAccountActivity extends SwipeBackActivity {
         public void onComplete(int i, Map<String, Object> data) {
             LogTool.d(TAG, "i:" + i + " data:" + data);
             if (i == 200 && data != null) {
-                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, data.get("openid").toString(), data.get
-                        ("unionid").toString(), new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        bindingaccount_wexinText.setText(getString(R.string.already_binding));
-                        bindingaccount_weixin_layout.setEnabled(false);
-                        bindingaccount_weixin_goto.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextShort(error_msg);
-                    }
-                }, BindingAccountActivity.this);
+                bindWinxin(data.get("openid").toString(), data.get("unionid").toString());
             } else {
                 hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));
             }
         }
     };
+
+
+    private void bindWinxin(String openid, String unionid) {
+        BindingWeiXinRequest request = new BindingWeiXinRequest(openid, unionid);
+        Api.bindingWeixin(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                bindingaccount_wexinText.setText(getString(R.string.already_binding));
+                bindingaccount_weixin_layout.setEnabled(false);
+                bindingaccount_weixin_goto.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

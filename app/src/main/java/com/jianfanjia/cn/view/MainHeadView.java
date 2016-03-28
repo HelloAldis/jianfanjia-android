@@ -62,7 +62,8 @@ public class MainHeadView extends RelativeLayout {
     public void setMianTitleColor() {
         SpannableStringBuilder builder = new SpannableStringBuilder(mainTitle.getText().toString());
         ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor("#fe7003"));
-        builder.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(span, mainTitle.getText().length() - 2, mainTitle.getText().length() - 1, Spannable
+                .SPAN_EXCLUSIVE_EXCLUSIVE);
         mainTitle.setText(builder);
     }
 

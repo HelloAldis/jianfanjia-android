@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="60dip"
-    android:background="@color/main_layout_bg"
-    android:descendantFocusability="blocksDescendants">
+                android:layout_width="match_parent"
+                android:layout_height="60dip"
+                android:background="@color/main_layout_bg"
+                android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
 
         <View
             android:id="@+id/top_line"
-            style="@style/divier_line" />
+            style="@style/divier_line"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,15 +26,15 @@
                 style="@style/listview_item_text_style_middle"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_15"
-                android:textColor="@color/grey_color" />
+                android:textColor="@color/grey_color"/>
 
             <TextView
                 android:id="@+id/list_item_more_text"
                 style="@style/listview_item_text_style_middle"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/space_20"
-                android:textColor="@color/grey_color" />
+                android:layout_marginRight="@dimen/space_10"
+                android:textColor="@color/grey_color"/>
         </RelativeLayout>
 
     </RelativeLayout>

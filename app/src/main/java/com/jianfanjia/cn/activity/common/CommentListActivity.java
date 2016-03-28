@@ -8,12 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.SearchUserCommentRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
@@ -23,7 +27,6 @@ import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.SearchUserCommentRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -76,7 +79,7 @@ public class CommentListActivity extends SwipeBackActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        getMyCommentInfo(Constant.FROM_START, pullDownListener);
+        getMyCommentInfo(Constant.FROM_START, this.pullDownCallback);
     }
 
     @Override
@@ -131,13 +134,13 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-                getMyCommentInfo(myCommentInfoAdapter.getData().size(), CommentListActivity.this);
+                getMyCommentInfo(myCommentInfoAdapter.getData().size(), CommentListActivity.this.loadMoreCallback);
             }
         });
         refreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getMyCommentInfo(Constant.FROM_START, pullDownListener);
+                getMyCommentInfo(Constant.FROM_START, CommentListActivity.this.pullDownCallback);
             }
         });
         refreshRecycleView.setAdapter(myCommentInfoAdapter);
@@ -145,7 +148,7 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter.setEmptyView(emptyView);
         myCommentInfoAdapter.setErrorView(errorView);
 
-        getMyCommentInfo(Constant.FROM_START, pullDownListener);
+        getMyCommentInfo(Constant.FROM_START, this.pullDownCallback);
     }
 
     private void startPlanInfoActivity(PlanInfo planInfo, RequirementInfo requirementInfo) {
@@ -162,26 +165,30 @@ public class CommentListActivity extends SwipeBackActivity {
         startActivity(MyProcessDetailActivity.class, processBundle);
     }
 
-    private void getMyCommentInfo(int from, ApiUiUpdateListener apiUiUpdateListener) {
-        Map<String, Object> param = new HashMap<>();
-        param.put(Constant.FROM, from);
-        param.put(Constant.LIMIT, Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchUserComment(new SearchUserCommentRequest(this, param), apiUiUpdateListener, this);
+    private void getMyCommentInfo(int from, ApiCallback< ApiResponse<NoticeListInfo>> apiCallback) {
+        SearchUserCommentRequest request = new SearchUserCommentRequest();
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchUserComment(request, apiCallback);
     }
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<NoticeListInfo>> pullDownCallback = new ApiCallback<ApiResponse<NoticeListInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             if (!mHasLoadOnce) {
                 showWaitDialog();
             }
         }
 
         @Override
-        public void loadSuccess(Object data) {
+        public void onHttpDone() {
             hideWaitDialog();
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
             refreshRecycleView.onRefreshComplete();
-            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
+            NoticeListInfo noticeListInfo = apiResponse.getData();
             if (noticeListInfo != null) {
                 int total = noticeListInfo.getTotal();
                 if (total > 0) {
@@ -204,48 +211,65 @@ public class CommentListActivity extends SwipeBackActivity {
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            hideWaitDialog();
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
             refreshRecycleView.onRefreshComplete();
             myCommentInfoAdapter.setErrorViewShow();
             myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
     };
 
-    @Override
-    public void preLoad() {
-    }
+    private ApiCallback<ApiResponse<NoticeListInfo>> loadMoreCallback = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+        @Override
+        public void onPreLoad() {
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
-        if (noticeListInfo != null) {
-            int total = noticeListInfo.getTotal();
-            if (total > 0) {
-                myCommentInfoAdapter.addData(noticeListInfo.getList());
-                LogTool.d(this.getClass().getName(), "total size =" + total);
-                LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter
-                        .getData().size());
-                if (total > myCommentInfoAdapter.getData().size()) {
-                    myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+        }
+
+        @Override
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
+            NoticeListInfo noticeListInfo = apiResponse.getData();
+            if (noticeListInfo != null) {
+                int total = noticeListInfo.getTotal();
+                if (total > 0) {
+                    myCommentInfoAdapter.addData(noticeListInfo.getList());
+                    LogTool.d(this.getClass().getName(), "total size =" + total);
+                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter
+                            .getData().size());
+                    if (total > myCommentInfoAdapter.getData().size()) {
+                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                    } else {
+                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                    }
+                    myCommentInfoAdapter.hideErrorAndEmptyView();
                 } else {
-                    myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                    myCommentInfoAdapter.setEmptyViewShow();
                 }
-                myCommentInfoAdapter.hideErrorAndEmptyView();
-            } else {
-                myCommentInfoAdapter.setEmptyViewShow();
             }
         }
-    }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
-        myCommentInfoAdapter.setErrorViewShow();
-        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-    }
+        @Override
+        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
+            refreshRecycleView.onRefreshComplete();
+            myCommentInfoAdapter.setErrorViewShow();
+            myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+    };
 
     @OnClick({R.id.head_back_layout, R.id.img_error})
     protected void click(View view) {
@@ -254,7 +278,7 @@ public class CommentListActivity extends SwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.img_error:
-                getMyCommentInfo(Constant.FROM_START, pullDownListener);
+                getMyCommentInfo(Constant.FROM_START, this.pullDownCallback);
                 break;
         }
     }

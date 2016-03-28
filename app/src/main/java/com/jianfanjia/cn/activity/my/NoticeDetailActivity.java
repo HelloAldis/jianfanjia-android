@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.GetMsgDetailRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
@@ -17,6 +20,7 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.NoticeDetailInfo;
 import com.jianfanjia.cn.bean.PlanInfo;
@@ -29,7 +33,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -190,19 +193,23 @@ public class NoticeDetailActivity extends SwipeBackActivity {
         sectionInfo.setStatus(Constant.FINISHED);
     }
 
-    //获取通知详情
     private void getNoticeDetailInfo(String messageid) {
-        JianFanJiaClient.getUserMsgDetail(NoticeDetailActivity.this, messageid, new ApiUiUpdateListener() {
+        GetMsgDetailRequest request = new GetMsgDetailRequest(messageid);
+        Api.getNoticeDetail(request, new ApiCallback<ApiResponse<NoticeDetailInfo>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 showWaitDialog();
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
+            public void onHttpDone() {
                 hideWaitDialog();
-                NoticeDetailInfo noticeDetailInfo = JsonParser.jsonToBean(data.toString(), NoticeDetailInfo.class);
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<NoticeDetailInfo> apiResponse) {
+                NoticeDetailInfo noticeDetailInfo = apiResponse.getData();
+                LogTool.d(TAG, "noticeDetailInfo=" + noticeDetailInfo);
                 if (null != noticeDetailInfo) {
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType==================" + msgType);
@@ -334,11 +341,15 @@ public class NoticeDetailActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                hideWaitDialog();
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<NoticeDetailInfo> apiResponse) {
+
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     //同意改期

@@ -151,8 +151,7 @@ public class ForgetPswActivity extends BaseActivity {
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest();
-        sendVerificationRequest.setPhone(name);
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
 
         Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override

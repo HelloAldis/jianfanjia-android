@@ -3,6 +3,7 @@ package com.jianfanjia.api.request.guest;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
+<<<<<<< HEAD
  * Description: com.jianfanjia.api.request.guest
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
@@ -19,4 +20,9 @@ public class VerifyPhoneRequest extends BaseRequest {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public VerifyPhoneRequest(String phone) {
+        this.phone = phone;
+    }
 }
+

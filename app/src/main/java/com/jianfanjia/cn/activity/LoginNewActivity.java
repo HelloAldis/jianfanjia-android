@@ -435,8 +435,7 @@ public class LoginNewActivity extends BaseActivity implements
     }
 
     private void verifyPhone(final String phone) {
-        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest();
-        verifyPhoneRequest.setPhone(phone);
+        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(phone);
 
         Api.verifyPhone(verifyPhoneRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
@@ -473,8 +472,7 @@ public class LoginNewActivity extends BaseActivity implements
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest();
-        sendVerificationRequest.setPhone(name);
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
 
         Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
