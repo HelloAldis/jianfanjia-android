@@ -3,15 +3,16 @@ package com.jianfanjia.api.request.guest;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
-<<<<<<< HEAD
  * Description: com.jianfanjia.api.request.guest
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
- * Date:2016-03-28 16:29
+ * Date:2016-03-28 16:33
  */
-public class VerifyPhoneRequest extends BaseRequest {
+public class LoginRequest extends BaseRequest {
 
     private String phone;
+
+    private String pass;
 
     public String getPhone() {
         return phone;
@@ -21,8 +22,11 @@ public class VerifyPhoneRequest extends BaseRequest {
         this.phone = phone;
     }
 
-    public VerifyPhoneRequest(String phone) {
-        this.phone = phone;
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }
-

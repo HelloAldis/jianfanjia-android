@@ -22,12 +22,21 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
+import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
+import com.jianfanjia.api.request.user.ApplyRescheduleRequest;
+import com.jianfanjia.api.request.user.GetProcessInfoRequest;
+import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.ProcessInfo;
 import com.jianfanjia.cn.bean.SectionInfo;
@@ -35,19 +44,15 @@ import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
@@ -78,7 +83,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     RelativeLayout notificationLayout;
     String[] proTitle = null;
 
-    protected AddPhotoDialog popupWindow = null;
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
@@ -121,29 +125,11 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadCurrentProcess(new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        detailNodeListView.onRefreshComplete();
-                        if (data != null) {
-                            processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
-                            initData();
-                        }
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        detailNodeListView.onRefreshComplete();
-                        if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
-                            makeTextShort(error_msg);
-                        }
-                    }
-                });
+                if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
+                    loadCurrentProcess();
+                } else {
+                    detailNodeListView.onRefreshComplete();
+                }
             }
         });
     }
@@ -154,7 +140,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         if (processInfo != null) {
             LogTool.d(TAG, "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
-            loadCurrentProcess(this);
+            loadCurrentProcess();
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
             processInfo = BusinessManager.getDefaultProcessInfo(this);
@@ -163,9 +149,41 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
 
     }
 
-    private void loadCurrentProcess(ApiUiUpdateListener apiUiUpdateListener) {
+    private void loadCurrentProcess() {
         if (processId != null) {
-            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, apiUiUpdateListener, this);
+//            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, apiUiUpdateListener, this);
+
+            GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
+            getProcessInfoRequest.setProcessId(processId);
+
+            Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<ProcessInfo>>() {
+                @Override
+                public void onPreLoad() {
+                    showWaitDialog();
+                }
+
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                    detailNodeListView.onRefreshComplete();
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<ProcessInfo> apiResponse) {
+                    processInfo = apiResponse.getData();
+                    initData();
+                }
+
+                @Override
+                public void onFailed(ApiResponse<ProcessInfo> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            });
         }
     }
 
@@ -365,26 +383,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     }
 
     @Override
-    public void preLoad() {
-        super.preLoad();
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        hideWaitDialog();
-        if (data != null) {
-            processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
-            initData();
-        }
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        hideWaitDialog();
-        makeTextShort(error_msg);
-    }
-
-    @Override
     public void click(int position, int itemType, List<String> imageUrlList) {
         switch (itemType) {
             case Constant.IMG_ITEM:
@@ -495,65 +493,105 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         LogTool.d(TAG, "processId:" + processId + " userId:" + userId
                 + " designerId:" + designerId + " section:" + section
                 + " newDate:" + newDate);
-        JianFanJiaClient.postReschedule(this, processId, userId,
-                designerId, section, newDate, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
+        ApplyRescheduleRequest applyRescheduleRequest = new ApplyRescheduleRequest();
+        applyRescheduleRequest.setProcessid(processId);
+        applyRescheduleRequest.setUserid(userId);
+        applyRescheduleRequest.setDesignerid(designerId);
+        applyRescheduleRequest.setNew_date(DateFormatTool.covertStringToLong(newDate));
+        applyRescheduleRequest.setSection(section);
 
-                    }
+        Api.applyReschedule(applyRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        loadCurrentProcess(MyProcessDetailActivity.this);
-                    }
+            }
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextShort(error_msg);
-                    }
-                }, this);
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     //同意改期
     private void agreeReschedule(String processid) {
-        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+        AgreeRescheduleRequest agreeRescheduleRequest = new AgreeRescheduleRequest();
+        agreeRescheduleRequest.setProcessid(processid);
+
+        Api.agreeReschedule(agreeRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
+            public void onHttpDone() {
+
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
             }
-        }, this);
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     // 拒绝改期
     private void refuseReschedule(String processid) {
-        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+        RefuseRescheduleRequest refuseRescheduleRequest = new RefuseRescheduleRequest();
+        refuseRescheduleRequest.setProcessid(processid);
+
+        Api.refuseReschedule(refuseRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
+            public void onHttpDone() {
+
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
             }
-        }, this);
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override
@@ -601,7 +639,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
             case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
-                loadCurrentProcess(this);
+                loadCurrentProcess();
                 break;
             default:
                 break;
@@ -609,50 +647,73 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     }
 
     protected void upload_image(Bitmap bitmap) {
-        JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
+        UploadPicRequest uploadPicRequest = new UploadPicRequest();
+        uploadPicRequest.setBytes(ImageUtil.transformBitmapToBytes(bitmap));
+
+        Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
-                showWaitDialog();
+            public void onPreLoad() {
+
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 String itemName = sectionItemAdapter
                         .getCurrentItem();
-                JianFanJiaClient.submitImageToProcess(MyProcessDetailActivity.this,
-                        processInfo.get_id(),
-                        sectionInfo.getName(),
-                        itemName,
-                        data.toString(), new ApiUiUpdateListener() {
-                            @Override
-                            public void preLoad() {
+                SubmitImageToProcessRequest submitImageToProcessRequest = new SubmitImageToProcessRequest();
+                submitImageToProcessRequest.set_id(processId);
+                submitImageToProcessRequest.setSection(sectionInfo.getName());
+                submitImageToProcessRequest.setItem(itemName);
+                submitImageToProcessRequest.setImageid(apiResponse.getData());
 
-                            }
+                Api.submitImageToProcess(submitImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
+                    @Override
+                    public void onPreLoad() {
 
-                            @Override
-                            public void loadSuccess(Object data) {
-                                loadCurrentProcess(MyProcessDetailActivity.this);
-                                if (mTmpFile != null
-                                        && mTmpFile
-                                        .exists()) {
-                                    mTmpFile.delete();
-                                }
-                            }
+                    }
 
-                            @Override
-                            public void loadFailture(String error_msg) {
-                                makeTextShort(error_msg);
-                                hideWaitDialog();
-                            }
-                        }, this);
+                    @Override
+                    public void onHttpDone() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ApiResponse<String> apiResponse) {
+                        loadCurrentProcess();
+                        if (mTmpFile != null
+                                && mTmpFile
+                                .exists()) {
+                            mTmpFile.delete();
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(ApiResponse<String> apiResponse) {
+                        makeTextShort(apiResponse.getErr_msg());
+                    }
+
+                    @Override
+                    public void onNetworkError(int code) {
+
+                    }
+                });
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-                hideWaitDialog();
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

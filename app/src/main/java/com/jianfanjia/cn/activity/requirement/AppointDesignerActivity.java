@@ -9,24 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.jianfanjia.cn.Event.BindingPhoneEvent;
-import com.jianfanjia.cn.Event.MessageEvent;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
-import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
-import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.CheckListener;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +16,25 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
+import com.jianfanjia.api.request.user.OrderDesignerRequest;
+import com.jianfanjia.cn.Event.BindingPhoneEvent;
+import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
+import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.interf.CheckListener;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -72,6 +73,7 @@ public class AppointDesignerActivity extends SwipeBackActivity {
         EventBus.getDefault().register(this);
         getDataFromIntent();
         initView();
+        initData();
     }
 
     private void getDataFromIntent() {
@@ -93,6 +95,10 @@ public class AppointDesignerActivity extends SwipeBackActivity {
         paint.setAntiAlias(true);
         appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
+
+    }
+
+    private void initData() {
         getOrderDesignerList(requestmentid);
     }
 
@@ -172,88 +178,105 @@ public class AppointDesignerActivity extends SwipeBackActivity {
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
-        JianFanJiaClient.getOrderDesignerListByUser(AppointDesignerActivity.this, requestmentid,
-                getOrderDesignerListener, this);
-    }
+        GetCanOrderDesignerListRequest getCanOrderDesignerListRequest = new GetCanOrderDesignerListRequest();
+        getCanOrderDesignerListRequest.setRequirementis(requestmentid);
 
-    private ApiUiUpdateListener getOrderDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            showWaitDialog(R.string.loading);
-        }
+        Api.getCanOrderDesigner(getCanOrderDesignerListRequest, new
+                ApiCallback<ApiResponse<DesignerCanOrderListInfo>>() {
 
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
-            hideWaitDialog();
-            DesignerCanOrderListInfo designerCanOrderListInfo = JsonParser.jsonToBean(data.toString(),
-                    DesignerCanOrderListInfo.class);
-            LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
-            if (null != designerCanOrderListInfo) {
-                rec_designer = designerCanOrderListInfo.getRec_designer();
-                favorite_designer = designerCanOrderListInfo.getFavorite_designer();
-                setAppointDesignerList(rec_designer, favorite_designer);
-                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity
-                        .this, mylist, splitList, total, new CheckListener() {
-
-                    @Override
-                    public void getItemData(int position, String designerid) {
-                        LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
-                        currentPos = position;
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designerid);
-                        startActivity(DesignerInfoActivity.class, designerBundle);
-                    }
-
-                    @Override
-                    public void getCheckedData(List<String> designerids) {
-                        int checkNum = designerids.size();
-                        LogTool.d(TAG, "checkNum=" + checkNum);
-                        if (null != designerids && designerids.size() > 0) {
-                            mainHeadView.setRigthTitleEnable(true);
-                            designerIds = designerids;
-                        } else {
-                            mainHeadView.setRigthTitleEnable(false);
-                        }
-                        mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + (total - checkNum) +
-                                getResources().getString(R.string.appointNum));
-                        mainHeadView.setMianTitleColor();
-                    }
-                });
-                appoint_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
             }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
-        }
-    };
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DesignerCanOrderListInfo> apiResponse) {
+                DesignerCanOrderListInfo designerCanOrderListInfo = apiResponse.getData();
+                if (null != designerCanOrderListInfo) {
+                    rec_designer = designerCanOrderListInfo.getRec_designer();
+                    favorite_designer = designerCanOrderListInfo.getFavorite_designer();
+                    setAppointDesignerList(rec_designer, favorite_designer);
+                    designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity
+                            .this, mylist, splitList, total, new CheckListener() {
+
+                        @Override
+                        public void getItemData(int position, String designerid) {
+                            LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                            currentPos = position;
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerid);
+                            startActivity(DesignerInfoActivity.class, designerBundle);
+                        }
+
+                        @Override
+                        public void getCheckedData(List<String> designerids) {
+                            int checkNum = designerids.size();
+                            LogTool.d(TAG, "checkNum=" + checkNum);
+                            if (null != designerids && designerids.size() > 0) {
+                                mainHeadView.setRigthTitleEnable(true);
+                                designerIds = designerids;
+                            } else {
+                                mainHeadView.setRigthTitleEnable(false);
+                            }
+                            mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + (total - checkNum) +
+                                    getResources().getString(R.string.appointNum));
+                            mainHeadView.setMianTitleColor();
+                        }
+                    });
+                    appoint_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DesignerCanOrderListInfo> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
 
     //业主预约设计师
     private void orderDesignerByUser(String requestmentid, List<String> designerids) {
-        JianFanJiaClient.orderDesignerByUser(AppointDesignerActivity.this, requestmentid, designerids,
-                orderDesignerListener, this);
+        OrderDesignerRequest orderDesignerRequest = new OrderDesignerRequest();
+        orderDesignerRequest.setRequirementid(requestmentid);
+        orderDesignerRequest.setDesignerids(designerIds);
+
+        Api.orderDesigner(orderDesignerRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(AppointDesignerActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
-
-    private ApiUiUpdateListener orderDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            appManager.finishActivity(AppointDesignerActivity.this);
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
 
     @Override
     public void onDestroy() {

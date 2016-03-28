@@ -12,18 +12,19 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
+import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -168,24 +169,36 @@ public class MyDesignerActivity extends SwipeBackActivity {
 
 
     protected void confirmMeasureHouse(String designerid) {
-        JianFanJiaClient.confirmMeasureHouse(MyDesignerActivity.this, requirementid, designerid, new
-                ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
+        ConfirmMeasureHouseRequest confirmMeasureHouseRequest = new ConfirmMeasureHouseRequest();
+        confirmMeasureHouseRequest.setRequirementid(requirementid);
+        confirmMeasureHouseRequest.setDesignerid(designerid);
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        initdata();
-                    }
+        Api.confirmMeasureHouse(confirmMeasureHouseRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextShort(error_msg);
-                        hideWaitDialog();
-                    }
-                }, MyDesignerActivity.this);
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                initdata();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @OnClick(R.id.head_back_layout)
@@ -195,43 +208,47 @@ public class MyDesignerActivity extends SwipeBackActivity {
 
     protected void initdata() {
         LogTool.d(this.getClass().getName(), "initdata");
-        if (requirementid != null) {
-            JianFanJiaClient.getOrderedDesignerList(this, requirementid, this, this);
-        }
-    }
+        GetOrderedDesignerListRequest getOrderedDesignerListRequest = new GetOrderedDesignerListRequest();
+        getOrderedDesignerListRequest.setRequirementid(requirementid);
 
-    @Override
-    public void preLoad() {
-        if (!isLoadedOnce) {
-            super.preLoad();
-        }
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        refreshView.onRefreshComplete();
-        if (data != null) {
-            orderDesignerInfos = JsonParser.jsonToList(data.toString(),
-                    new TypeToken<List<OrderDesignerInfo>>() {
-                    }.getType());
-            if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
-                isLoadedOnce = true;
-                myDesignerAdapter.addItem(orderDesignerInfos);
-                error_Layout.setVisibility(View.GONE);
+        Api.getOrderedDesignerList(getOrderedDesignerListRequest, new ApiCallback<ApiResponse<List<OrderDesignerInfo>>>() {
+            @Override
+            public void onPreLoad() {
+                if (!isLoadedOnce) {
+                    showWaitDialog();
+                }
             }
-        }
-    }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
-        refreshView.onRefreshComplete();
-        if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
-            if (!isLoadedOnce) {
-                error_Layout.setVisibility(View.VISIBLE);
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+                refreshView.onRefreshComplete();
             }
-        }
+
+            @Override
+            public void onSuccess(ApiResponse<List<OrderDesignerInfo>> apiResponse) {
+                orderDesignerInfos = apiResponse.getData();
+                if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
+                    isLoadedOnce = true;
+                    myDesignerAdapter.addItem(orderDesignerInfos);
+                    error_Layout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<OrderDesignerInfo>> apiResponse) {
+                if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
+                    if (!isLoadedOnce) {
+                        error_Layout.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

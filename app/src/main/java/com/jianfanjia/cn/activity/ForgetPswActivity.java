@@ -13,11 +13,13 @@ import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.SendVerificationRequest;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
@@ -149,28 +151,40 @@ public class ForgetPswActivity extends BaseActivity {
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-            JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
-                @Override
-                public void preLoad() {
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
 
-                }
+        Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
 
-                @Override
-                public void loadSuccess(Object data) {
-                    RegisterInfo registerInfo = new RegisterInfo();
-                    registerInfo.setPass(password);
-                    registerInfo.setPhone(name);
-                    Bundle registerBundle = new Bundle();
-                    registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
-                    registerBundle.putInt(Global.REGISTER,RegisterNewActivity.UPDATE_PSW_CODE);
-                    startActivity(RegisterNewActivity.class, registerBundle);
-                }
+            }
 
-                @Override
-                public void loadFailture(String error_msg) {
-                    makeTextShort(error_msg);
-                }
-            }, this);
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                RegisterInfo registerInfo = new RegisterInfo();
+                registerInfo.setPass(password);
+                registerInfo.setPhone(name);
+                Bundle registerBundle = new Bundle();
+                registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
+                registerBundle.putInt(Global.REGISTER, RegisterNewActivity.UPDATE_PSW_CODE);
+                startActivity(RegisterNewActivity.class, registerBundle);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override
