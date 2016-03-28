@@ -25,7 +25,6 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
-import com.jianfanjia.cn.activity.common.PhotoPickerActivity;
 import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
@@ -46,7 +45,6 @@ import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.tools.PhotoPickerIntent;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
@@ -56,6 +54,8 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
+import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 /**
  * @author fengliang

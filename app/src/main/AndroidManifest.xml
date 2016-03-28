@@ -132,11 +132,11 @@
         </receiver>
 
         <activity
-            android:name=".common.PhotoPickerActivity"
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".common.PhotoPagerActivity"
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity

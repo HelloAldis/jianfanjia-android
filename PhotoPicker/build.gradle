@@ -20,5 +20,6 @@ dependencies {
   compile 'com.android.support:design:23.1.1'
   compile 'com.nineoldandroids:library:2.4.0'
   compile 'com.github.bumptech.glide:glide:3.6.0'
+  compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
 

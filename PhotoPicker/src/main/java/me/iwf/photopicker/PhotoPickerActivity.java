@@ -50,7 +50,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_picker);
+        setContentView(R.layout.__picker_activity_photo_picker);
 
         boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
         boolean showGif = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
