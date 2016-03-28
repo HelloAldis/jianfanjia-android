@@ -22,7 +22,6 @@ import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
-import com.jianfanjia.cn.http.request.GetHomeProductRequest;
 import com.jianfanjia.cn.http.request.GetMsgDetailRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
@@ -812,27 +811,6 @@ public class JianFanJiaClient {
             jsonParams.put("new_designerid", new_designerid);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(changeOrderedDesignerRequest, jsonParams
                     .toString(), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * 拿到首页作品列表
-     *
-     * @param context
-     * @param limit
-     * @param listener
-     * @param tag
-     */
-    public static void getTopProducts(Context context, int limit, ApiUiUpdateListener listener, Object tag) {
-        GetHomeProductRequest getHomeProductRequest = new GetHomeProductRequest(context);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("limit", limit);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getHomeProductRequest, jsonParams.toString()
-                    , listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -40,6 +40,9 @@ public class Requirement extends BaseModel implements Serializable {
     private List<String> rec_designerids;
     private List<Designer> rec_designers;//匹配的设计师
     private List<Designer> order_designers;//预约的设计师
+    private Plan plan;
+    private Designer designer;
+    private User user;
 
     public String get_id() {
         return _id;
@@ -287,5 +290,29 @@ public class Requirement extends BaseModel implements Serializable {
 
     public void setOrder_designers(List<Designer> order_designers) {
         this.order_designers = order_designers;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
+    public Designer getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(Designer designer) {
+        this.designer = designer;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
