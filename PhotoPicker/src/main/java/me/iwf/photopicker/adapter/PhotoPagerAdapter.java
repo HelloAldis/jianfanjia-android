@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 
@@ -35,7 +35,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
   @Override public Object instantiateItem(ViewGroup container, int position) {
 
-    View itemView = mLayoutInflater.inflate(R.layout.picker_item_pager, container, false);
+    View itemView = mLayoutInflater.inflate(R.layout.__picker_item_pager, container, false);
 
     ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_pager);
 
@@ -46,15 +46,18 @@ public class PhotoPagerAdapter extends PagerAdapter {
     } else {
       uri = Uri.fromFile(new File(path));
     }
-    Glide.with(mContext)
-        .load(uri)
-        .thumbnail(0.1f)
-        .dontAnimate()
-        .dontTransform()
-        .override(800, 800)
-        .placeholder(R.drawable.ic_photo_black_48dp)
-        .error(R.drawable.ic_broken_image_black_48dp)
-        .into(imageView);
+
+    ImageLoader.getInstance().displayImage(uri.toString(), imageView);
+
+//    Glide.with(mContext)
+//        .load(uri)
+//        .thumbnail(0.1f)
+//        .dontAnimate()
+//        .dontTransform()
+//        .override(800, 800)
+//        .placeholder(R.drawable.ic_photo_black_48dp)
+//        .error(R.drawable.ic_broken_image_black_48dp)
+//        .into(imageView);
 
     imageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {

@@ -129,7 +129,7 @@ public class ImagePagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //        LogTool.d(this.getClass().getName(), "onCreateView");
-        View rootView = inflater.inflate(R.layout.picker_fragment_image_pager, container, false);
+        View rootView = inflater.inflate(R.layout.__picker_fragment_image_pager, container, false);
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.vp_photos);
         mViewPager.setAdapter(mPagerAdapter);

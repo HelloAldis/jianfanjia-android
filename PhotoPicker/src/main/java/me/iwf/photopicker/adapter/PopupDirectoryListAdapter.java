@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bumptech.glide.Glide;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.entity.PhotoDirectory;
 
@@ -52,7 +54,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
   @Override public View getView(int position, View convertView, ViewGroup parent) {
     ViewHolder holder;
     if (convertView == null) {
-      convertView = mLayoutInflater.inflate(R.layout.item_directory, parent, false);
+      convertView = mLayoutInflater.inflate(R.layout.__picker_item_directory, parent, false);
       holder = new ViewHolder(convertView);
       convertView.setTag(holder);
     } else {
