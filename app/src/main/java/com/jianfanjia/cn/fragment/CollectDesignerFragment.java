@@ -11,19 +11,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -141,104 +142,122 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
         getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getUpMyFavoriteDesignerListener);
     }
 
-    private void getMyFavoriteDesignerList(int from, int limit, ApiUiUpdateListener listener) {
-        JianFanJiaClient.get_MyFavoriteDesignerList(getActivity(), from, limit, listener, this);
+    private void getMyFavoriteDesignerList(int from, int limit, ApiCallback<ApiResponse<MyFavoriteDesigner>> listener) {
+        FavoriteDesignerListRequest request = new FavoriteDesignerListRequest(from, limit);
+        Api.get_MyFavoriteDesignerList(request, listener);
     }
 
-    private ApiUiUpdateListener getDownMyFavoriteDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            if (isFirst) {
-                showWaitDialog();
-            }
-        }
+    private ApiCallback<ApiResponse<MyFavoriteDesigner>> getDownMyFavoriteDesignerListener = new
+            ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+                @Override
+                public void onPreLoad() {
+                    if (isFirst) {
+                        showWaitDialog();
+                    }
+                }
 
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
-            hideWaitDialog();
-            mHasLoadedOnce = true;
-            my_favorite_designer_listview.onRefreshComplete();
-            myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
-            LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
-            if (myFavoriteDesigner != null) {
-                designers.clear();
-                designers.addAll(myFavoriteDesigner.getDesigners());
-                if (null != designers && designers.size() > 0) {
-                    designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new
-                            RecyclerViewOnItemClickListener() {
-                                @Override
-                                public void OnItemClick(View view, int position) {
-                                    LogTool.d(TAG, "position=" + position);
-                                    currentPos = position;
-                                    LogTool.d(TAG, "currentPos========" + currentPos);
-                                    String designerId = designers.get(currentPos).get_id();
-                                    LogTool.d(TAG, "designerId:" + designerId);
-                                    Bundle designerBundle = new Bundle();
-                                    designerBundle.putString(Global.DESIGNER_ID, designerId);
-                                    startActivity(DesignerInfoActivity.class, designerBundle);
-                                }
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                    my_favorite_designer_listview.onRefreshComplete();
+                }
 
-                                @Override
-                                public void OnViewClick(int position) {
+                @Override
+                public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                    mHasLoadedOnce = true;
+                    myFavoriteDesigner = apiResponse.getData();
+                    LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
+                    if (myFavoriteDesigner != null) {
+                        designers.clear();
+                        designers.addAll(myFavoriteDesigner.getDesigners());
+                        if (null != designers && designers.size() > 0) {
+                            designAdapter = new FavoriteDesignerAdapter(getActivity(), designers, new
+                                    RecyclerViewOnItemClickListener() {
+                                        @Override
+                                        public void OnItemClick(View view, int position) {
+                                            LogTool.d(TAG, "position=" + position);
+                                            currentPos = position;
+                                            LogTool.d(TAG, "currentPos========" + currentPos);
+                                            String designerId = designers.get(currentPos).get_id();
+                                            LogTool.d(TAG, "designerId:" + designerId);
+                                            Bundle designerBundle = new Bundle();
+                                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                                            startActivity(DesignerInfoActivity.class, designerBundle);
+                                        }
 
-                                }
-                            });
-                    my_favorite_designer_listview.setAdapter(designAdapter);
-                    my_favorite_designer_listview.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
-                    isFirst = false;
-                } else {
+                                        @Override
+                                        public void OnViewClick(int position) {
+
+                                        }
+                                    });
+                            my_favorite_designer_listview.setAdapter(designAdapter);
+                            my_favorite_designer_listview.setVisibility(View.VISIBLE);
+                            emptyLayout.setVisibility(View.GONE);
+                            errorLayout.setVisibility(View.GONE);
+                            isFirst = false;
+                        } else {
+                            my_favorite_designer_listview.setVisibility(View.GONE);
+                            emptyLayout.setVisibility(View.VISIBLE);
+                            errorLayout.setVisibility(View.GONE);
+                        }
+                        FROM = designers.size();
+                        LogTool.d(TAG, "FROM:" + FROM);
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
                     my_favorite_designer_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    errorLayout.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
                 }
-                FROM = designers.size();
-                LogTool.d(TAG, "FROM:" + FROM);
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
-            my_favorite_designer_listview.onRefreshComplete();
-            my_favorite_designer_listview.setVisibility(View.GONE);
-            emptyLayout.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
-        }
-    };
+                @Override
+                public void onNetworkError(int code) {
 
-    private ApiUiUpdateListener getUpMyFavoriteDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
-            my_favorite_designer_listview.onRefreshComplete();
-            myFavoriteDesigner = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
-            LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
-            if (myFavoriteDesigner != null) {
-                List<DesignerInfo> designerList = myFavoriteDesigner.getDesigners();
-                if (null != designerList && designerList.size() > 0) {
-                    designAdapter.add(FROM, designerList);
-                    FROM += Constant.HOME_PAGE_LIMIT;
-                } else {
-                    makeTextShort(getResources().getString(R.string.no_more_data));
                 }
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            my_favorite_designer_listview.onRefreshComplete();
-        }
-    };
+            };
+
+    private ApiCallback<ApiResponse<MyFavoriteDesigner>> getUpMyFavoriteDesignerListener = new
+            ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+
+                @Override
+                public void onPreLoad() {
+
+                }
+
+                @Override
+                public void onHttpDone() {
+                    my_favorite_designer_listview.onRefreshComplete();
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                    myFavoriteDesigner = apiResponse.getData();
+                    LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
+                    if (myFavoriteDesigner != null) {
+                        List<DesignerInfo> designerList = myFavoriteDesigner.getDesigners();
+                        if (null != designerList && designerList.size() > 0) {
+                            designAdapter.add(FROM, designerList);
+                            FROM += Constant.HOME_PAGE_LIMIT;
+                        } else {
+                            makeTextShort(getResources().getString(R.string.no_more_data));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+
+            };
 
     public void onEventMainThread(MessageEvent event) {
         LogTool.d(TAG, "event:" + event.getEventType());

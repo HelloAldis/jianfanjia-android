@@ -9,7 +9,9 @@ import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteCollectionRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
+import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
@@ -22,11 +24,14 @@ import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
+import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
 import com.jianfanjia.api.request.user.GetMsgDetailRequest;
+import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.CommentList;
+import com.jianfanjia.cn.bean.DecorateLiveList;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
 import com.jianfanjia.cn.bean.DesignerInfo;
@@ -35,7 +40,11 @@ import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.bean.NoticeDetailInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
+import com.jianfanjia.cn.bean.ProductInfo;
+import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 
 /**
@@ -91,6 +100,12 @@ public class Api {
     //业主修改个人资料
     public static void put_OwnerInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
+    }
+
+    //业主获取我的装修需求列表
+    public static void get_Requirement_List(GetRequirementListRequest request,
+                                            ApiCallback<ApiResponse<List<RequirementInfo>>> apiCallback) {
+        ApiClient.okGet(Url_New.getInstance().REQUIREMENT_LIST, request, apiCallback);
     }
 
     public static void searchDecorationImg(SearchDecorationImgRequest request,
@@ -158,6 +173,24 @@ public class Api {
     public static void deleteFavoriteDesigner(DeleteFavoriteDesignerRequest request, ApiCallback<ApiResponse<Object>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().DELETE_FAVORITE_DESIGNER, request, apiCallback);
+    }
+
+    public static void get_MyFavoriteDesignerList(FavoriteDesignerListRequest request,
+                                                  ApiCallback<ApiResponse<MyFavoriteDesigner>>
+                                                          apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback);
+    }
+
+
+    public static void getCollectListByUser(GetCollectionRequest request, ApiCallback<ApiResponse<ProductInfo>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback);
+    }
+
+
+    public static void searchShare(GetDecorateLiveRequest request, ApiCallback<ApiResponse<DecorateLiveList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback);
     }
 
 }

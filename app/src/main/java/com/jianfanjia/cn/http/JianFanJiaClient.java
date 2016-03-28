@@ -20,15 +20,11 @@ import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
 import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
-import com.jianfanjia.cn.http.request.DesignerHomePageRequest;
 import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
-import com.jianfanjia.cn.http.request.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
-import com.jianfanjia.cn.http.request.GetCollectionRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
-import com.jianfanjia.cn.http.request.GetDecorateLiveRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
 import com.jianfanjia.cn.http.request.GetHomeProductRequest;
 import com.jianfanjia.cn.http.request.GetMsgDetailRequest;
@@ -37,7 +33,6 @@ import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
 import com.jianfanjia.cn.http.request.GetProcessInfoRequest;
 import com.jianfanjia.cn.http.request.GetProcessListRequest;
-import com.jianfanjia.cn.http.request.GetRequirementListRequest;
 import com.jianfanjia.cn.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.http.request.LoginRequest;
 import com.jianfanjia.cn.http.request.LogoutRequest;
@@ -259,17 +254,6 @@ public class JianFanJiaClient {
     }
 
     /**
-     * @param context
-     * @author zhanghao
-     * @Description 获取业主需求
-     */
-    public static void get_Requirement_List(Context context, ApiUiUpdateListener listener, Object tag) {
-        GetRequirementListRequest getRequirementListRequest = new GetRequirementListRequest(context);
-        LogTool.d(TAG, "get_Requirement_list --" + getRequirementListRequest.getUrl());
-        OkHttpClientManager.getInstance().getGetDelegate().getAsyn(getRequirementListRequest, listener, tag);
-    }
-
-    /**
      * 发布需求
      *
      * @param context
@@ -393,31 +377,6 @@ public class JianFanJiaClient {
             LogTool.d(TAG, "refreshSession  " + refreshSessionRequest.getUrl() + "--" + jsonParams.toString());
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refreshSessionRequest, jsonParams.toString()
                     , listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 拿到我的意向设计师列表
-     *
-     * @param context
-     * @param from
-     * @param limit
-     * @param listener
-     * @param tag
-     */
-    public static void get_MyFavoriteDesignerList(Context context, int from, int limit, ApiUiUpdateListener listener,
-                                                  Object tag) {
-        FavoriteDesignerListRequest favoriteDesignerListRequest = new FavoriteDesignerListRequest(context, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            LogTool.d(TAG, "get_MyFavoriteDesignerList --" + favoriteDesignerListRequest.getUrl() + "---" +
-                    jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(favoriteDesignerListRequest, jsonParams
-                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -680,27 +639,6 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 获取设计师信息主页
-     *
-     * @param context
-     * @param designerid
-     * @param listener
-     * @param tag
-     */
-    public static void getDesignerHomePage(Context context, String designerid, ApiUiUpdateListener listener, Object
-            tag) {
-        DesignerHomePageRequest homePageRequest = new DesignerHomePageRequest(context, designerid);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("_id", designerid);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(homePageRequest, jsonParams.toString(),
-                    listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 业主获取自己可以预约的设计师列表
      *
      * @param context
@@ -952,30 +890,6 @@ public class JianFanJiaClient {
 
 
     /**
-     * 用户获取收藏作品列表
-     *
-     * @param context
-     * @param from
-     * @param limit
-     * @param listener
-     * @param tag
-     */
-    public static void getCollectListByUser(Context context, int from, int limit, ApiUiUpdateListener listener,
-                                            Object tag) {
-        GetCollectionRequest getCollectionRequest = new GetCollectionRequest(context, from, limit);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("from", from);
-            jsonParams.put("limit", limit);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCollectionRequest, jsonParams.toString(),
-                    listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
      * 拿到首页作品列表
      *
      * @param context
@@ -1020,20 +934,6 @@ public class JianFanJiaClient {
             tag) {
         LogTool.d(TAG, "jsonParams:" + searchUserMsgRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserMsgRequest, searchUserMsgRequest
-                .getParam(), listener, tag);
-    }
-
-    /**
-     * 用户获取装修直播列表
-     *
-     * @param getDecorateLiveRequest
-     * @param listener
-     * @param tag
-     */
-    public static void searchShare(GetDecorateLiveRequest getDecorateLiveRequest, ApiUiUpdateListener listener,
-                                   Object tag) {
-        LogTool.d(TAG, "jsonParams:" + getDecorateLiveRequest.getParam());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDecorateLiveRequest, getDecorateLiveRequest
                 .getParam(), listener, tag);
     }
 

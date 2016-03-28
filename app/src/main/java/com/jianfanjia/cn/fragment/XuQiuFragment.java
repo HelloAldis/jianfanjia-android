@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
@@ -22,13 +24,11 @@ import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -225,44 +225,49 @@ public class XuQiuFragment extends BaseFragment {
         });
     }
 
-    protected void initData() {
-        JianFanJiaClient.get_Requirement_List(getActivity(), new ApiUiUpdateListener() {
+    private void initData() {
+        GetRequirementListRequest request = new GetRequirementListRequest();
+        Api.get_Requirement_List(request, new ApiCallback<ApiResponse<List<RequirementInfo>>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 if (isFirst) {
                     showWaitDialog();
                 }
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
                 hideWaitDialog();
-                pullrefresh.onRefreshComplete();
-                if (data != null) {
-                    requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
-                    }.getType());
-                    if (null != requirementInfos && requirementInfos.size() > 0) {
-                        requirementAdapter.addItem(requirementInfos);
-                        setListVisiable();
-                        isFirst = false;
-                    } else {
-                        setPublishVisiable();
-                    }
-                    error_Layout.setVisibility(View.GONE);
-                }
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                hideWaitDialog();
-                makeTextShort(error_msg);
+            public void onSuccess(ApiResponse<List<RequirementInfo>> apiResponse) {
+                pullrefresh.onRefreshComplete();
+                requirementInfos = apiResponse.getData();
+                if (null != requirementInfos && requirementInfos.size() > 0) {
+                    requirementAdapter.addItem(requirementInfos);
+                    setListVisiable();
+                    isFirst = false;
+                } else {
+                    setPublishVisiable();
+                }
+                error_Layout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<RequirementInfo>> apiResponse) {
+                pullrefresh.onRefreshComplete();
                 setListVisiable();
                 if (isFirst) {
                     error_Layout.setVisibility(View.VISIBLE);
                 }
-                pullrefresh.onRefreshComplete();
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

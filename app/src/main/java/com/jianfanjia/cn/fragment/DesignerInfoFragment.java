@@ -8,14 +8,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 
@@ -27,7 +28,7 @@ import butterknife.Bind;
  * @Description: 设计师资料
  * @date 2015-8-26 下午1:07:52
  */
-public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateListener, ScrollableHelper
+public class DesignerInfoFragment extends BaseFragment implements ScrollableHelper
         .ScrollableContainer {
     private static final String TAG = DesignerInfoFragment.class.getName();
 
@@ -147,46 +148,58 @@ public class DesignerInfoFragment extends BaseFragment implements ApiUiUpdateLis
     }
 
     private void getDesignerPageInfo(String designerid) {
-        JianFanJiaClient.getDesignerHomePage(getActivity(), designerid, this, this);
-    }
+        DesignerHomePageRequest request = new DesignerHomePageRequest();
+        request.setDesignerid(designerid);
+        Api.getDesignerHomePage(request, new ApiCallback<ApiResponse<DesignerInfo>>() {
+            @Override
+            public void onPreLoad() {
 
-    @Override
-    public void preLoad() {
+            }
 
-    }
+            @Override
+            public void onHttpDone() {
 
-    @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data);
-        mHasLoadedOnce = true;
-        DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
-        LogTool.d(TAG, "designerInfo:" + designerInfo);
-        if (null != designerInfo) {
-            jiandanTypeLayout.setVisibility(View.VISIBLE);
-            jiandanHouseTypeLayout.setVisibility(View.VISIBLE);
-            jiandanDistrictLayout.setVisibility(View.VISIBLE);
-            designStyleLayout.setVisibility(View.VISIBLE);
-            designIdeaLayout.setVisibility(View.VISIBLE);
-            designAchievementLayout.setVisibility(View.VISIBLE);
-            companyLayout.setVisibility(View.VISIBLE);
-            teamCountLayout.setVisibility(View.VISIBLE);
-            designFeeLayout.setVisibility(View.VISIBLE);
-            jiandanType.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
-            jiandanHouseType.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
-            jiandanDistrict.setText(BusinessManager.getDecDistrictStr(designerInfo.getDec_districts()));
-            designStyle.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
-            designIdea.setText(designerInfo.getPhilosophy());
-            designAchievement.setText(designerInfo.getAchievement());
-            company.setText(designerInfo.getCompany());
-            teamCount.setText(designerInfo.getTeam_count() + "");
-            String designFeeRange = designerInfo.getDesign_fee_range();
-            designFee.setText(BusinessManager.convertDesignFeeToShow(designFeeRange));
-        }
-    }
+            }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        makeTextShort(error_msg);
+            @Override
+            public void onSuccess(ApiResponse<DesignerInfo> apiResponse) {
+                mHasLoadedOnce = true;
+                DesignerInfo designerInfo = apiResponse.getData();
+                LogTool.d(TAG, "designerInfo:" + designerInfo);
+                if (null != designerInfo) {
+                    jiandanTypeLayout.setVisibility(View.VISIBLE);
+                    jiandanHouseTypeLayout.setVisibility(View.VISIBLE);
+                    jiandanDistrictLayout.setVisibility(View.VISIBLE);
+                    designStyleLayout.setVisibility(View.VISIBLE);
+                    designIdeaLayout.setVisibility(View.VISIBLE);
+                    designAchievementLayout.setVisibility(View.VISIBLE);
+                    companyLayout.setVisibility(View.VISIBLE);
+                    teamCountLayout.setVisibility(View.VISIBLE);
+                    designFeeLayout.setVisibility(View.VISIBLE);
+                    jiandanType.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
+                    jiandanHouseType.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
+                    jiandanDistrict.setText(BusinessManager.getDecDistrictStr(designerInfo.getDec_districts()));
+                    designStyle.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
+                    designIdea.setText(designerInfo.getPhilosophy());
+                    designAchievement.setText(designerInfo.getAchievement());
+                    company.setText(designerInfo.getCompany());
+                    teamCount.setText(designerInfo.getTeam_count() + "");
+                    String designFeeRange = designerInfo.getDesign_fee_range();
+                    designFee.setText(BusinessManager.convertDesignFeeToShow(designFeeRange));
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DesignerInfo> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @Override
