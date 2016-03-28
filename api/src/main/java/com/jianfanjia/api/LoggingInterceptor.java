@@ -18,7 +18,8 @@ public class LoggingInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        LogTool.d(TAG, String.format("%s request %s -- headers %s", request.method(), request.url(), request.headers().toString()));
+        LogTool.d(TAG, String.format("%s request %s -- headers %s", request.method(), request.url(), request.headers
+                ().toString()));
 
         Response response = chain.proceed(request);
 

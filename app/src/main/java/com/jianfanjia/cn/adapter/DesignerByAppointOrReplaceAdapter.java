@@ -9,12 +9,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
@@ -23,6 +17,13 @@ import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.IntentUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: DesignerByAppointOrReplaceAdapter
@@ -86,21 +87,24 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 holder.itemNameText.setText(designerCanOrderInfo.getUsername());
                 if (designerCanOrderInfo.getMatch() != 0) {
                     holder.itemMarchText.setVisibility(View.VISIBLE);
-                    holder.itemRatingBar.setVisibility(View.GONE);
                     holder.itemMarchText.setText("匹配度" + designerCanOrderInfo.getMatch() + "%");
                 } else {
                     holder.itemMarchText.setVisibility(View.GONE);
-                    holder.itemRatingBar.setVisibility(View.VISIBLE);
-                    int respond_speed = (int) designerCanOrderInfo.getRespond_speed();
-                    int service_attitude = (int) designerCanOrderInfo.getService_attitude();
-                    holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
                 }
+                int respond_speed = (int) designerCanOrderInfo.getRespond_speed();
+                int service_attitude = (int) designerCanOrderInfo.getService_attitude();
+                holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCanOrderInfo.getImageid(), holder
                         .itemwHeadView);
                 if (designerCanOrderInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-                    holder.itemAuthView.setVisibility(View.VISIBLE);
+                    holder.itemInfoAuthView.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAuthView.setVisibility(View.GONE);
+                    holder.itemInfoAuthView.setVisibility(View.GONE);
+                }
+                if (designerCanOrderInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+                    holder.itemIdentityAuthView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemIdentityAuthView.setVisibility(View.GONE);
                 }
                 holder.itemwHeadView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -183,10 +187,12 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     static class DesignerByAppointOrReplaceViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_head_img)
         ImageView itemwHeadView;
-        @Bind(R.id.list_item_auth)
-        ImageView itemAuthView;
         @Bind(R.id.list_item_name_text)
         TextView itemNameText;
+        @Bind(R.id.list_item_identity_auth)
+        ImageView itemIdentityAuthView;
+        @Bind(R.id.list_item_info_auth)
+        ImageView itemInfoAuthView;
         @Bind(R.id.list_item_march_text)
         TextView itemMarchText;
         @Bind(R.id.list_item_ratingBar)
