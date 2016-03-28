@@ -11,18 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchDesignerAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
@@ -109,12 +110,14 @@ public class SearchDesignerFragment extends BaseFragment {
         searchDesignerInfo(searchDesignerAdapter.getData().size(), search, listener);
     }
 
-    private void searchDesignerInfo(int from, String searchText, ApiUiUpdateListener listener) {
+    private void searchDesignerInfo(int from, String searchText, ApiCallback<ApiResponse<MyFavoriteDesigner>> listener) {
+        SearchDesignerRequest request = new SearchDesignerRequest();
         Map<String, Object> param = new HashMap<>();
         param.put("search_word", searchText);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesigner(new SearchDesignerRequest(getContext(), param), listener, this);
+        request.setQuery(param);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchDesigner(request, listener);
     }
 
     @OnClick(R.id.error_include)
@@ -122,20 +125,26 @@ public class SearchDesignerFragment extends BaseFragment {
         searchDesignerInfo(searchDesignerAdapter.getData().size(), search, listener);
     }
 
-    private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<MyFavoriteDesigner>> listener = new ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
+
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
-            MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+            MyFavoriteDesigner designer = apiResponse.getData();
             if (designer != null) {
                 int total = designer.getTotal();
                 if (total > 0) {
-                    LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" +
+                    LogTool.d(TAG, "total size =" + total);
+                    LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
                             searchDesignerAdapter.getData().size());
                     searchDesignerAdapter.addData(designer.getDesigners());
                     if (total > searchDesignerAdapter.getData().size()) {
@@ -152,11 +161,16 @@ public class SearchDesignerFragment extends BaseFragment {
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
             searchDesignerAdapter.setErrorViewShow();
             searchDesignerAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+
     };
 
 
