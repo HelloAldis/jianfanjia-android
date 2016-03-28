@@ -3,7 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.bean.ProcessInfo;
 
 public class AddPicToSectionItemRequest extends BaseRequest {
 	

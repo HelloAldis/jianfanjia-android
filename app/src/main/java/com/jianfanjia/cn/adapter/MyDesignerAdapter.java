@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.jianfanjia.cn.adapter.base.RecyclerViewAdapterBase;
-import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType0;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType1;

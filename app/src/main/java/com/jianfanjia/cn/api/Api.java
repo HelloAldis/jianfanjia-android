@@ -18,13 +18,6 @@ import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
-import com.jianfanjia.cn.bean.CommentList;
-import com.jianfanjia.cn.bean.DecorationItemInfo;
-import com.jianfanjia.cn.bean.DesignerCaseInfo;
-import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.DesignerWorksInfo;
-import com.jianfanjia.cn.bean.MyFavoriteDesigner;
-import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
 

@@ -13,7 +13,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.IntentUtil;

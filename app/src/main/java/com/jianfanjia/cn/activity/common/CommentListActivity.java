@@ -19,24 +19,13 @@ import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.bean.NoticeInfo;
-import com.jianfanjia.cn.bean.NoticeListInfo;
-import com.jianfanjia.cn.bean.PlanInfo;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;

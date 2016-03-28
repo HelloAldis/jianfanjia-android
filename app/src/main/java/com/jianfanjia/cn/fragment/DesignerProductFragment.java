@@ -12,8 +12,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerWorksInfo;
-import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;

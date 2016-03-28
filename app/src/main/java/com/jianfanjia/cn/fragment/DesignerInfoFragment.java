@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;

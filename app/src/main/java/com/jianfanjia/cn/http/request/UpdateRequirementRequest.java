@@ -3,8 +3,6 @@ package com.jianfanjia.cn.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.bean.RequirementInfo;
-import com.jianfanjia.cn.config.Url_New;
 
 public class UpdateRequirementRequest extends BaseRequest {
 

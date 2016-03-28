@@ -3,11 +3,9 @@ package com.jianfanjia.cn.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddBeautyImgRequest;

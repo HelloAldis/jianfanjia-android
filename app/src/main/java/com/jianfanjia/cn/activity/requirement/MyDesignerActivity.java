@@ -17,8 +17,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
-import com.jianfanjia.cn.bean.OrderDesignerInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;

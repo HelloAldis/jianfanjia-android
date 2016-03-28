@@ -29,8 +29,6 @@ import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.SectionInfo;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;

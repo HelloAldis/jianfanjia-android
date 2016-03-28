@@ -14,8 +14,6 @@ import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.bean.BeautyImgInfo;
-import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.TDevice;
 

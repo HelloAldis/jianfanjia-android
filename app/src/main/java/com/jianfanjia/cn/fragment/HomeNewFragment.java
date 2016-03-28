@@ -29,7 +29,6 @@ import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;

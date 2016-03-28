@@ -23,7 +23,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;

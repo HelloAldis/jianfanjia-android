@@ -15,8 +15,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.NoticeInfo;
-import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;

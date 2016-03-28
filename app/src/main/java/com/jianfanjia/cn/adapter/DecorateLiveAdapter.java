@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.bean.DecorateLiveInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.OnItemClickListener;

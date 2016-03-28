@@ -4,15 +4,9 @@ import android.content.Context;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.DesignerInfo;
-import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.bean.Process;
-import com.jianfanjia.cn.bean.ProcessInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
-import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
@@ -20,8 +21,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.bean.BeautyImgInfo;
-import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -87,7 +86,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private boolean isFirst = true;
     private ViewPager imgViewPager = null;
     private String decorationId = null;
-    private List<BeautyImgInfo> beautiful_images = new ArrayList<>();
+    private List<BeautifulImage> beautiful_images = new ArrayList<>();
     private PreImgPagerAdapter showPicPagerAdapter = null;
     private int viewType = -1;
     private String section = null;
@@ -131,7 +130,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         decorationId = decorationBundle.getString(Global.DECORATION_ID);
         currentPosition = decorationBundle.getInt(Global.POSITION, 0);
         totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
-        beautiful_images = (List<BeautyImgInfo>) decorationBundle.getSerializable(Global.IMG_LIST);
+        beautiful_images = (List<BeautifulImage>) decorationBundle.getSerializable(Global.IMG_LIST);
         section = decorationBundle.getString(Global.HOUSE_SECTION);
         houseStyle = decorationBundle.getString(Global.HOUSE_STYLE);
         decStyle = decorationBundle.getString(Global.DEC_STYLE);
@@ -264,7 +263,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
             DecorationItemInfo decorationItemInfo = apiResponse.getData();
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
-                List<BeautyImgInfo> beautyImages = decorationItemInfo.getBeautiful_images();
+                List<BeautifulImage> beautyImages = decorationItemInfo.getBeautiful_images();
                 LogTool.d(TAG, "beautyImages:" + beautyImages.size());
                 if (null != beautyImages && beautyImages.size() > 0) {
                     showPicPagerAdapter.addItem(beautyImages);
@@ -348,9 +347,9 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     };
 
     private void notifyChangeState(boolean isSelect) {
-        BeautyImgInfo beautyImgInfo = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);
-        LogTool.d(TAG, "beautyImgInfo=" + beautyImgInfo);
-        beautyImgInfo.setIs_my_favorite(isSelect);
+        BeautifulImage BeautifulImage = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);
+        LogTool.d(TAG, "BeautifulImage=" + BeautifulImage);
+        BeautifulImage.setIs_my_favorite(isSelect);
         showPicPagerAdapter.notifyDataSetChanged();
     }
 
@@ -376,15 +375,15 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private void setPreviewImgInfo(int position) {
         LogTool.d(TAG, "position===" + position);
         picTip.setText((position + 1) + "/" + totalCount);
-        BeautyImgInfo beautyImgInfo = beautiful_images.get(position);
-        currentImgId = beautyImgInfo.getImages().get(0).getImageid();
+        BeautifulImage BeautifulImage = beautiful_images.get(position);
+        currentImgId = BeautifulImage.getImages().get(0).getImageid();
         LogTool.d(TAG, "  currentImgId=" + currentImgId);
-        picTitle = beautyImgInfo.getTitle();
-        currentStyle = beautyImgInfo.getDec_style();
-        currentTag = beautyImgInfo.getSection();
+        picTitle = BeautifulImage.getTitle();
+        currentStyle = BeautifulImage.getDec_style();
+        currentTag = BeautifulImage.getSection();
         LogTool.d(TAG, "picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
-        decorationId = beautyImgInfo.get_id();
-        if (beautyImgInfo.is_my_favorite()) {
+        decorationId = BeautifulImage.get_id();
+        if (BeautifulImage.is_my_favorite()) {
             toolbarCollect.setSelected(true);
         } else {
             toolbarCollect.setSelected(false);

@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.ImageInfo;
-import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;

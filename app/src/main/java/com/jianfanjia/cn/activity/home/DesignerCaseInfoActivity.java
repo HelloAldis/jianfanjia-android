@@ -23,8 +23,6 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.bean.DesignerCaseInfo;
-import com.jianfanjia.cn.bean.ImageInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;

@@ -18,8 +18,6 @@ import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.bean.BeautyImgInfo;
-import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;

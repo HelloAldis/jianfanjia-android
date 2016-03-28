@@ -18,7 +18,6 @@ import com.jianfanjia.cn.activity.home.WebViewActivity;
 import com.jianfanjia.cn.adapter.DecorateLiveAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.bean.DecorateLiveList;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;

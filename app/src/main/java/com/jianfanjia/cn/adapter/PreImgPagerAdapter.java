@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.BeautyImgInfo;
-import com.jianfanjia.cn.bean.Img;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;

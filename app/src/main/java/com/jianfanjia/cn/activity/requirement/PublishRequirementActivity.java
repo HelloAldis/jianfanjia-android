@@ -16,7 +16,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.bean.OwnerInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Global;

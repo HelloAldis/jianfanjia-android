@@ -16,8 +16,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewAdapterBase;
-import com.jianfanjia.cn.bean.OrderDesignerInfo;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;

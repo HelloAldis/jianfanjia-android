@@ -23,7 +23,6 @@ import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;

@@ -13,7 +13,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.tools.DateFormatTool;

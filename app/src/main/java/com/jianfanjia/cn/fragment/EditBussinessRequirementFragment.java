@@ -15,7 +15,6 @@ import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;

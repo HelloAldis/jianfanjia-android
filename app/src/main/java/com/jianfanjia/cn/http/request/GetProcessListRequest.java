@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.base.BaseRequest;
-import com.jianfanjia.cn.bean.Process;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JsonParser;
 
 import java.util.List;

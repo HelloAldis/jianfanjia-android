@@ -10,7 +10,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;

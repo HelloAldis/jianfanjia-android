@@ -15,8 +15,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.PlanInfo;
-import com.jianfanjia.cn.bean.PriceDetail;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;

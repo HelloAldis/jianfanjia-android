@@ -13,8 +13,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
-import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
-import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
