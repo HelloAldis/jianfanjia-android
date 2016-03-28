@@ -17,18 +17,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.CommentInfo;
 import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
@@ -159,21 +161,30 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
-        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item,
-                getCommentListener, this);
+        GetCommentsRequest request = new GetCommentsRequest();
+        request.setTopicid(topicid);
+        request.setFrom(from);
+        request.setLimit(limit);
+        request.setSection(section);
+        request.setItem(item);
+
+        Api.getCommentList(request, this.getCommentCallback);
     }
 
-    private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             showWaitDialog(R.string.loading);
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+        public void onHttpDone() {
             hideWaitDialog();
-            CommentList commentList = JsonParser.jsonToBean(data.toString(), CommentList.class);
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<CommentList> apiResponse) {
+            CommentList commentList = apiResponse.getData();
             LogTool.d(TAG, "commentList:" + commentList);
             if (null != commentList) {
                 CommentActivity.this.commentList = commentList.getComments();
@@ -184,28 +195,42 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
+        public void onFailed(ApiResponse<CommentList> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
     //添加评论
     private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
-        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to,
-                addCommentListener, this);
+        AddCommentRequest request = new AddCommentRequest();
+        request.setTopicid(topicid);
+        request.setTopictype(topictype);
+        request.setSection(section);
+        request.setItem(item);
+        request.setContent(content);
+        request.setTo(to);
+
+        Api.addComment(request, this.addCommentCallback);
     }
 
-    private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             showWaitDialog(R.string.loading);
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+        public void onHttpDone() {
             hideWaitDialog();
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
             commentList.add(0, commentInfo);
             commentAdapter.notifyItemInserted(0);
@@ -215,9 +240,13 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 

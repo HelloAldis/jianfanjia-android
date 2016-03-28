@@ -13,19 +13,22 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
+import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
+import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.fragment.DesignerProductFragment;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
@@ -207,28 +210,39 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     }
 
     private void getDesignerPageInfo(String designerid) {
-        JianFanJiaClient.getDesignerHomePage(DesignerInfoActivity.this, designerid, designerHomePage, this);
+        DesignerHomePageRequest request = new DesignerHomePageRequest();
+        request.setDesignerid(designerid);
+        Api.getDesignerHomePage(request, this.designerHomePageCallback);
     }
 
     private void addFavoriteDesignerToList(String designerid) {
-        JianFanJiaClient.addFavoriteDesigner(DesignerInfoActivity.this, designerid, addFavoriteDesigner, this);
+        AddFavoriteDesignerRequest request = new AddFavoriteDesignerRequest();
+        request.set_id(designerid);
+
+        Api.addFavoriteDesigner(request, addFavoriteDesignerCallback);
     }
 
     private void deleteFavoriteDesigner(String designerid) {
-        JianFanJiaClient.deleteFavoriteDesigner(DesignerInfoActivity.this, designerid,
-                deleteMyFavoriteDesignerListener, this);
+        DeleteFavoriteDesignerRequest request = new DeleteFavoriteDesignerRequest();
+        request.set_id(designerid);
+
+        Api.deleteFavoriteDesigner(request, this.deleteMyFavoriteDesignerCallback);
     }
 
-    private ApiUiUpdateListener designerHomePage = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<DesignerInfo>> designerHomePageCallback = new ApiCallback<ApiResponse<DesignerInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data);
-            DesignerInfo designerInfo = JsonParser.jsonToBean(data.toString(), DesignerInfo.class);
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<DesignerInfo> apiResponse) {
+            DesignerInfo designerInfo = apiResponse.getData();
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
                 designer_name = designerInfo.getUsername();
@@ -263,40 +277,59 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<DesignerInfo> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
-    private ApiUiUpdateListener addFavoriteDesigner = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<Object>> addFavoriteDesignerCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             addBtn.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.VISIBLE);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
-    private ApiUiUpdateListener deleteMyFavoriteDesignerListener = new ApiUiUpdateListener() {
+
+    private ApiCallback<ApiResponse<Object>> deleteMyFavoriteDesignerCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             addBtn.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
             EventBus.getDefault().post(new MessageEvent(Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT));
@@ -304,8 +337,13 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 

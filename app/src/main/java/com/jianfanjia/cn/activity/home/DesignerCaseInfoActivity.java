@@ -12,19 +12,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.AddCollectionRequest;
+import com.jianfanjia.api.request.common.DeleteCollectionRequest;
+import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
 import com.jianfanjia.cn.bean.ImageInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
@@ -156,30 +159,39 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
     }
 
     private void getProductHomePageInfo(String productid) {
-        JianFanJiaClient.getProductHomePage(DesignerCaseInfoActivity.this, productid, getProductHomePageInfoListener,
-                this);
+        GetProductHomePageRequest request = new GetProductHomePageRequest();
+        request.setProductid(productid);
+
+        Api.getProductHomePage(request, this.getProductHomePageInfoCallback);
     }
 
     private void addProductHomePageInfo(String productid) {
-        JianFanJiaClient.addCollectionByUser(DesignerCaseInfoActivity.this, productid,
-                addProductHomePageInfoListener, this);
+        AddCollectionRequest request = new AddCollectionRequest();
+        request.set_id(productid);
+
+        Api.addCollectionByUser(request, this.addProductHomePageInfoCallback);
     }
 
     private void deleteProductDesigner(String productid) {
-        JianFanJiaClient.deleteCollectionByUser(DesignerCaseInfoActivity.this, productid, deleteProductListener, this);
+        DeleteCollectionRequest request = new DeleteCollectionRequest();
+        request.set_id(productid);
+        Api.deleteCollectionByUser(request, this.deleteProductCallback);
     }
 
-    private ApiUiUpdateListener getProductHomePageInfoListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<DesignerCaseInfo>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<DesignerCaseInfo>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             showWaitDialog(R.string.loading);
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+        public void onHttpDone() {
             hideWaitDialog();
-            DesignerCaseInfo designerCaseInfo = JsonParser.jsonToBean(data.toString(), DesignerCaseInfo.class);
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<DesignerCaseInfo> apiResponse) {
+            DesignerCaseInfo designerCaseInfo = apiResponse.getData();
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
                 toolbar_collect_layout.setVisibility(View.VISIBLE);
@@ -221,47 +233,71 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            hideWaitDialog();
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<DesignerCaseInfo> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
             toolbar_collect.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
-    private ApiUiUpdateListener addProductHomePageInfoListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<Object>> addProductHomePageInfoCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             toolbar_collect.setSelected(true);
             makeTextShort(getString(R.string.str_collect_success));
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
-    private ApiUiUpdateListener deleteProductListener = new ApiUiUpdateListener() {
+
+    private ApiCallback<ApiResponse<Object>> deleteProductCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
             toolbar_collect.setSelected(false);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 

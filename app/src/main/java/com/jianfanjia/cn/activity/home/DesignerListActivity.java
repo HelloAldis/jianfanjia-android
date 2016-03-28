@@ -12,20 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.SearchDesignerRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.FilterPopWindow;
@@ -123,7 +123,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         designerListView.setItemAnimator(new DefaultItemAnimator());
         designerListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
 
-        searchDesigners(FROM, pullDownListener);
+        searchDesigners(FROM, this.pullDownCallback);
     }
 
     private void initMainHeadView() {
@@ -155,7 +155,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
                 setSelectState(DEC_FEE);
                 break;
             case R.id.error_include:
-                searchDesigners(FROM, pullUpListener);
+                searchDesigners(FROM, this.pullUpCallback);
                 break;
             default:
                 break;
@@ -202,44 +202,48 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
     }
 
-    private void searchDesigners(int from, ApiUiUpdateListener listener) {
-        Map<String, Object> conditionParam = new HashMap<>();
-        conditionParam.put("dec_types", decType);
-        conditionParam.put("dec_house_types", decHouseStyle);
-        conditionParam.put("dec_styles", decStyle);
-        conditionParam.put("design_fee_range", decFee);
-        Map<String, Object> param = new HashMap<>();
-        param.put("query", conditionParam);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesigner(new SearchDesignerRequest(DesignerListActivity.this, param), listener, this);
+    private void searchDesigners(int from, ApiCallback<ApiResponse<MyFavoriteDesigner>> apiCallback) {
+        Map<String, Object> query = new HashMap<>();
+        query.put("dec_types", decType);
+        query.put("dec_house_types", decHouseStyle);
+        query.put("dec_styles", decStyle);
+        query.put("design_fee_range", decFee);
+        SearchDesignerRequest request = new SearchDesignerRequest();
+        request.setQuery(query);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+
+        Api.searchDesigner(request, apiCallback);
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
         FROM = 0;
-        searchDesigners(FROM, pullDownListener);
+        searchDesigners(FROM, this.pullDownCallback);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        searchDesigners(FROM, pullUpListener);
+        searchDesigners(FROM, this.pullUpCallback);
     }
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<MyFavoriteDesigner>> pullDownCallback = new ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             if (isFirst) {
                 showWaitDialog();
             }
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
+        public void onHttpDone() {
             hideWaitDialog();
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
             designerListView.onRefreshComplete();
-            MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+            MyFavoriteDesigner designer = apiResponse.getData();
             LogTool.d(TAG, "designer:" + designer);
             if (null != designer) {
                 designerList.clear();
@@ -259,7 +263,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
                                         LogTool.d(TAG, "designerId:" + designerId);
                                         Intent designerIntent = new Intent(DesignerListActivity.this,
                                                 DesignerInfoActivity
-                                                .class);
+                                                        .class);
                                         Bundle designerBundle = new Bundle();
                                         designerBundle.putString(Global.DESIGNER_ID, designerId);
                                         designerIntent.putExtras(designerBundle);
@@ -286,26 +290,36 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
             hideWaitDialog();
             designerListView.onRefreshComplete();
             designerListView.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
     };
 
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<MyFavoriteDesigner>> pullUpCallback = new ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
             designerListView.onRefreshComplete();
-            MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+            MyFavoriteDesigner designer = apiResponse.getData();
             LogTool.d(TAG, "designer:" + designer);
             if (null != designer) {
                 List<DesignerInfo> designers = designer.getDesigners();
@@ -320,11 +334,17 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
             designerListView.onRefreshComplete();
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
     };
+
 
     private void showWindow(int resId, int type) {
         switch (type) {
@@ -362,7 +382,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             }
             FROM = 0;
             decType = BusinessManager.getDecTypeByText(title);
-            searchDesigners(FROM, pullDownListener);
+            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -395,7 +415,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             }
             decHouseStyle = BusinessManager.getHouseTypeByText(title);
             FROM = 0;
-            searchDesigners(FROM, pullDownListener);
+            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -428,7 +448,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             }
             decStyle = BusinessManager.getDecStyleByText(title);
             FROM = 0;
-            searchDesigners(FROM, pullDownListener);
+            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
@@ -461,7 +481,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             }
             decFee = BusinessManager.getDecFeeByText(title);
             FROM = 0;
-            searchDesigners(FROM, pullDownListener);
+            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
                     window.dismiss();
