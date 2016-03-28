@@ -167,11 +167,11 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
-                    decoration_img_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+                    decoration_img_listview.onRefreshComplete();
                     mHasLoadedOnce = true;
                     DecorationItemInfo decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
@@ -222,6 +222,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+                    decoration_img_listview.onRefreshComplete();
                     decoration_img_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);

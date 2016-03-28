@@ -159,11 +159,11 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
-                    my_favorite_designer_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                    my_favorite_designer_listview.onRefreshComplete();
                     mHasLoadedOnce = true;
                     myFavoriteDesigner = apiResponse.getData();
                     LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
@@ -207,6 +207,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                    my_favorite_designer_listview.onRefreshComplete();
                     my_favorite_designer_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);

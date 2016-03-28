@@ -21,6 +21,7 @@ import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
+import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -72,6 +73,7 @@ import com.jianfanjia.cn.bean.OrderDesignerInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.ProcessInfo;
+import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.UpdateVersion;
@@ -339,4 +341,9 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback);
     }
 
+
+    public static void getTopProducts(GetHomeProductRequest request, ApiCallback<ApiResponse<List<Product>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_TOP_PRODUCTS, request, apiCallback);
+    }
 }

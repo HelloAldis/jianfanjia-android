@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DecorateLiveActivity;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
@@ -27,14 +29,12 @@ import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.view.GestureGuideView;
@@ -211,16 +211,22 @@ public class HomeNewFragment extends BaseFragment {
     }
 
     private void getProduct(int limit) {
-        JianFanJiaClient.getTopProducts(getContext(), limit, new ApiUiUpdateListener() {
+        GetHomeProductRequest request = new GetHomeProductRequest();
+        request.setLimit(limit);
+        Api.getTopProducts(request, new ApiCallback<ApiResponse<List<Product>>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                productNews = JsonParser.jsonToList(data.toString(), new TypeToken<List<Product>>() {
-                }.getType());
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<Product>> apiResponse) {
+                productNews = apiResponse.getData();
                 if (mPagerAdapter == null) {
                     mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout
                             .getWidth(), coordinatorLayout.getHeight());
@@ -236,13 +242,17 @@ public class HomeNewFragment extends BaseFragment {
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<List<Product>> apiResponse) {
                 contentNext.setVisibility(View.GONE);
                 contentIntent.setVisibility(View.GONE);
                 pullToRefreshScrollView.onRefreshComplete();
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @OnClick({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id

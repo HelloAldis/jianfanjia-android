@@ -8,19 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
 import com.jianfanjia.cn.bean.Product;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -56,8 +56,6 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
     private String designerid = null;
     private int FROM = 0;
 
-    private boolean isUp = false;
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -69,7 +67,6 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
             onInvisible();
         }
     }
-
 
     public static DesignerProductFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -133,64 +130,78 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
         getDesignerProduct(designerid, pullUpListener);
     }
 
-    private void getDesignerProduct(String designerid, ApiUiUpdateListener listener) {
+    private void getDesignerProduct(String designerid, ApiCallback<ApiResponse<DesignerWorksInfo>> listener) {
+        SearchDesignerProductRequest request = new SearchDesignerProductRequest();
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("designerid", designerid);
         Map<String, Object> param = new HashMap<>();
         param.put("query", conditionParam);
-        param.put("from", FROM);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getActivity(), param), listener, this);
+        request.setQuery(param);
+        request.setFrom(FROM);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchDesignerProduct(request, listener);
     }
 
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
+    private ApiCallback<ApiResponse<DesignerWorksInfo>> pullUpListener = new
+            ApiCallback<ApiResponse<DesignerWorksInfo>>() {
 
-        }
+                @Override
+                public void onPreLoad() {
 
-        @Override
-        public void loadSuccess(Object data) {
-            mHasLoadedOnce = true;
-            designer_works_listview.onRefreshComplete();
-            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
-            LogTool.d(TAG, "worksInfo :" + worksInfo);
-            if (null != worksInfo) {
-                if (null == adapter) {
-                    productList.addAll(worksInfo.getProducts());
-                    adapter = new DesignerWorksAdapter(getActivity(), productList, new OnItemClickListener() {
-                        @Override
-                        public void OnItemClick(int position) {
-                            Product product = productList.get(position);
-                            String productid = product.get_id();
-                            LogTool.d(TAG, "productid:" + productid);
-                            Bundle productBundle = new Bundle();
-                            productBundle.putString(Global.PRODUCT_ID, productid);
-                            startActivity(DesignerCaseInfoActivity.class, productBundle);
+                }
+
+                @Override
+                public void onHttpDone() {
+
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<DesignerWorksInfo> apiResponse) {
+                    mHasLoadedOnce = true;
+                    designer_works_listview.onRefreshComplete();
+                    DesignerWorksInfo worksInfo = apiResponse.getData();
+                    LogTool.d(TAG, "worksInfo :" + worksInfo);
+                    if (null != worksInfo) {
+                        if (null == adapter) {
+                            productList.addAll(worksInfo.getProducts());
+                            adapter = new DesignerWorksAdapter(getActivity(), productList, new OnItemClickListener() {
+                                @Override
+                                public void OnItemClick(int position) {
+                                    Product product = productList.get(position);
+                                    String productid = product.get_id();
+                                    LogTool.d(TAG, "productid:" + productid);
+                                    Bundle productBundle = new Bundle();
+                                    productBundle.putString(Global.PRODUCT_ID, productid);
+                                    startActivity(DesignerCaseInfoActivity.class, productBundle);
+                                }
+                            });
+                            designer_works_listview.setAdapter(adapter);
+                            FROM = productList.size();
+                            LogTool.d(TAG, "FROM:" + FROM);
+                        } else {
+                            List<Product> products = worksInfo.getProducts();
+                            if (null != products && products.size() > 0) {
+                                adapter.add(FROM, products);
+                                FROM += Constant.HOME_PAGE_LIMIT;
+                                LogTool.d(TAG, "FROM=" + FROM);
+                            } else {
+                                makeTextShort(getResources().getString(R.string.no_more_data));
+                            }
                         }
-                    });
-                    designer_works_listview.setAdapter(adapter);
-                    FROM = productList.size();
-                    LogTool.d(TAG, "FROM:" + FROM);
-                } else {
-                    List<Product> products = worksInfo.getProducts();
-                    if (null != products && products.size() > 0) {
-                        adapter.add(FROM, products);
-                        FROM += Constant.HOME_PAGE_LIMIT;
-                        LogTool.d(TAG, "FROM=" + FROM);
-                    } else {
-                        makeTextShort(getResources().getString(R.string.no_more_data));
                     }
                 }
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            designer_works_listview.onRefreshComplete();
-        }
-    };
+                @Override
+                public void onFailed(ApiResponse<DesignerWorksInfo> apiResponse) {
+                    designer_works_listview.onRefreshComplete();
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+
+            };
 
     @Override
     public View getScrollableView() {
