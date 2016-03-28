@@ -156,7 +156,8 @@
     <string name="owner_detail">业主详情</string>
     <string name="designer_detail">设计师详情</string>
     <string name="xuqiu">装修需求</string>
-    <string name="appoint">位可预约</string>
+    <string name="appoint">还可预约</string>
+    <string name="appointNum">位</string>
     <string name="appointText">预约</string>
     <string name="marchDesignerText">匹配的设计师</string>
     <string name="intentionDesignerText">意向设计师</string>

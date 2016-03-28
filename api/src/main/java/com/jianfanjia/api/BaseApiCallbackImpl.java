@@ -4,8 +4,6 @@ package com.jianfanjia.api;
  * Created by Aldis.Zhan on 16/2/24.
  */
 
-import com.jianfanjia.cn.tools.UiHelper;
-
 /**
  * 基础的Api回调方法, 可以将一些全局的无关具体请求和具体屏的公共逻辑放这里
  */
@@ -33,7 +31,7 @@ public class BaseApiCallbackImpl implements ApiCallback<ApiResponse<Object>> {
     @Override
     public void onNetworkError(int code) {
         if (HttpCode.HTTP_FORBIDDEN_CODE == code) {
-            UiHelper.forbiddenToLogin();
+//            UiHelper.forbiddenToLogin();
         }
     }
 }

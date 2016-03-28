@@ -87,7 +87,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
     }
 
     private void initMainHeadView() {
-        mainHeadView.setMianTitle(totalCount + getResources().getString(R.string.appoint));
+        mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + totalCount + getResources().getString
+                (R.string.appointNum));
         mainHeadView.setMianTitleColor();
         mainHeadView.setRightTitle(getResources().getString(R.string.replaceText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
@@ -181,7 +182,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
                         } else {
                             mainHeadView.setRigthTitleEnable(false);
                         }
-                        mainHeadView.setMianTitle((totalCount - checkNum) + getResources().getString(R.string.appoint));
+                        mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + (totalCount -
+                                checkNum) + getResources().getString(R.string.appointNum));
                         mainHeadView.setMianTitleColor();
                     }
                 });
