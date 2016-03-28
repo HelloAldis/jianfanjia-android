@@ -50,6 +50,7 @@ import com.jianfanjia.api.request.user.OrderDesignerRequest;
 import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
+import com.jianfanjia.api.request.user.SearchUserMsgRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
@@ -334,5 +335,10 @@ public class Api {
     public static void getTopProducts(GetHomeProductRequest request, ApiCallback<ApiResponse<List<Product>>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_TOP_PRODUCTS, request, apiCallback);
+    }
+
+    public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<NoticeListInfo>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
     }
 }

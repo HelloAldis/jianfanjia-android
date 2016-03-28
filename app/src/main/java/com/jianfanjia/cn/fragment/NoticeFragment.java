@@ -11,19 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.SearchUserMsgRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.NoticeInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -147,7 +147,8 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         loadData();
     }
 
-    private void getNoticeList(String[] typeStr, ApiUiUpdateListener listener) {
+    private void getNoticeList(String[] typeStr, ApiCallback<ApiResponse<NoticeListInfo>> listener) {
+        SearchUserMsgRequest request = new SearchUserMsgRequest();
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
         Map<String, Object> conditionParam = new HashMap<>();
@@ -156,7 +157,8 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         param.put("query", conditionParam);
         param.put("from", FROM);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchUserMsg(new SearchUserMsgRequest(getContext(), param), listener, this);
+        request.setParam(param);
+        Api.searchUserMsg(request, listener);
     }
 
     @Override
@@ -171,21 +173,25 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         getNoticeList(typeArray, pullUpListener);
     }
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<NoticeListInfo>> pullDownListener = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             if (mHasLoadedOnce) {
                 showWaitDialog();
             }
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
+        public void onHttpDone() {
             hideWaitDialog();
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
             mHasLoadedOnce = true;
             all_notice_listview.onRefreshComplete();
-            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
+            NoticeListInfo noticeListInfo = apiResponse.getData();
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
                 noticeList.clear();
@@ -216,27 +222,36 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
+        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
             all_notice_listview.onRefreshComplete();
             all_notice_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
     };
 
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<NoticeListInfo>> pullUpListener = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+
+
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
 
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
             all_notice_listview.onRefreshComplete();
-            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
+            NoticeListInfo noticeListInfo = apiResponse.getData();
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
                 List<NoticeInfo> noticeLists = noticeListInfo.getList();
@@ -250,9 +265,13 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
             all_notice_listview.onRefreshComplete();
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 

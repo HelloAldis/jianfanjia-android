@@ -42,7 +42,6 @@ import com.jianfanjia.cn.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.http.request.RefreshSessionRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
-import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
 import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
@@ -829,20 +828,6 @@ public class JianFanJiaClient {
             tag) {
         LogTool.d(TAG, "jsonParams:" + getUnReadMsgRequest.getParam());
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getUnReadMsgRequest, getUnReadMsgRequest
-                .getParam(), listener, tag);
-    }
-
-    /**
-     * 业主搜索业主通知
-     *
-     * @param searchUserMsgRequest
-     * @param listener
-     * @param tag
-     */
-    public static void searchUserMsg(SearchUserMsgRequest searchUserMsgRequest, ApiUiUpdateListener listener, Object
-            tag) {
-        LogTool.d(TAG, "jsonParams:" + searchUserMsgRequest.getParam());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserMsgRequest, searchUserMsgRequest
                 .getParam(), listener, tag);
     }
 
