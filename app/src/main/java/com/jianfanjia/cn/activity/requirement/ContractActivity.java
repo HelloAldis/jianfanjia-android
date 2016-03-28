@@ -12,16 +12,18 @@ import android.widget.Button;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.ConfirmContractRequest;
+import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.ContractInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -162,63 +164,80 @@ public class ContractActivity extends SwipeBackActivity implements
 
     //查看合同
     private void getContractInfo(String requirementid) {
-        JianFanJiaClient.getContractInfo(ContractActivity.this,
-                requirementid, getContractListener, this);
+        GetContractInfoRequest getContractInfoRequest = new GetContractInfoRequest();
+        getContractInfoRequest.setRequirementid(requirementid);
+
+        Api.getContractInfo(getContractInfoRequest, new ApiCallback<ApiResponse<ContractInfo>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<ContractInfo> apiResponse) {
+                ContractInfo contractInfo = apiResponse.getData();
+                LogTool.d(TAG, "contractInfo:" + contractInfo);
+                if (null != contractInfo) {
+                    final_planid = contractInfo.getFinal_planid();
+                    LogTool.d(TAG, "final_planid:" + final_planid);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<ContractInfo> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
-    private ApiUiUpdateListener getContractListener = new ApiUiUpdateListener
-            () {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            ContractInfo contractInfo = JsonParser.jsonToBean(data.toString()
-                    , ContractInfo.class);
-            LogTool.d(TAG, "contractInfo:" + contractInfo);
-            if (null != contractInfo) {
-                final_planid = contractInfo.getFinal_planid();
-                LogTool.d(TAG, "final_planid:" + final_planid);
-            }
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-        }
-    };
 
     //确认开启工地  确认合同
     private void postUserProcess(String requirementid, String final_planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + "  final_planid=" +
                 final_planid);
-        JianFanJiaClient.post_Owner_Process(ContractActivity.this,
-                requirementid, final_planid, postUserProcessListener, this);
+        ConfirmContractRequest confirmContractRequest = new ConfirmContractRequest();
+        confirmContractRequest.setRequirementid(requirementid);
+        confirmContractRequest.setFinal_planid(final_planid);
+
+        Api.confirmContract(confirmContractRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                checkBtn.setEnabled(false);
+                postProcessSuccess();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+                checkBtn.setEnabled(true);
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
-
-    private ApiUiUpdateListener postUserProcessListener = new
-            ApiUiUpdateListener() {
-                @Override
-                public void preLoad() {
-
-                }
-
-                @Override
-                public void loadSuccess(Object data) {
-                    LogTool.d(TAG, "data:" + data.toString());
-                    checkBtn.setEnabled(false);
-                    postProcessSuccess();
-                }
-
-                @Override
-                public void loadFailture(String error_msg) {
-                    makeTextShort(error_msg);
-                    checkBtn.setEnabled(true);
-                }
-            };
 
     private void postProcessSuccess() {
         switch (flagIntent) {

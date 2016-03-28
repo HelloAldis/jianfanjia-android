@@ -10,6 +10,7 @@ import java.util.List;
  * Time: 09:50
  */
 public class DesignerCanOrderListInfo implements Serializable {
+
     private List<DesignerCanOrderInfo> rec_designer;
 
     private List<DesignerCanOrderInfo> favorite_designer;

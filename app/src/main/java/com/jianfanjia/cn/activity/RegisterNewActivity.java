@@ -13,9 +13,15 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.RegisterRequest;
+import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.http.JianFanJiaClient;
@@ -100,7 +106,7 @@ public class RegisterNewActivity extends BaseActivity implements
                 mVerification = mEtVerification.getText().toString().trim();
                 if (checkInput(mVerification)) {
                     registerInfo.setCode(mVerification);
-                    register(registerInfo);
+                    actionCommit(registerInfo);
                 }
                 break;
             case R.id.head_back_layout:
@@ -117,18 +123,89 @@ public class RegisterNewActivity extends BaseActivity implements
      *
      * @param registerInfo
      */
-    private void register(RegisterInfo registerInfo) {
+    private void actionCommit(RegisterInfo registerInfo) {
         switch (requsetCode) {
             case REGISTER_CODE:
-                JianFanJiaClient.register(this, registerInfo, this, this);
+                register(registerInfo);
                 break;
             case UPDATE_PSW_CODE:
-                JianFanJiaClient.update_psw(this, registerInfo, this, this);
+                updatePassword(registerInfo);
                 break;
             case BINDING_PHONE:
                 JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
                 break;
         }
+    }
+
+    private void register(RegisterInfo registerInfo){
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setPass(registerInfo.getPass());
+        registerRequest.setPhone(registerInfo.getPhone());
+        registerRequest.setCode(registerInfo.getCode());
+
+        Api.register(registerRequest, new ApiCallback<ApiResponse<LoginUserBean>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<LoginUserBean> apiResponse) {
+                startActivity(NewUserCollectDecStageActivity.class);
+                appManager.finishActivity(RegisterNewActivity.this);
+                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+            }
+
+            @Override
+            public void onFailed(ApiResponse<LoginUserBean> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void updatePassword(RegisterInfo registerInfo){
+        UpdatePasswordRequest updatePasswordRequest = new UpdatePasswordRequest();
+        updatePasswordRequest.setCode(registerInfo.getCode());
+        updatePasswordRequest.setPhone(registerInfo.getPhone());
+        updatePasswordRequest.setPass(registerInfo.getPass());
+
+        Api.updatePassword(updatePasswordRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                startActivity(LoginNewActivity.class);
+                appManager.finishActivity(RegisterNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private boolean checkInput(String verification) {

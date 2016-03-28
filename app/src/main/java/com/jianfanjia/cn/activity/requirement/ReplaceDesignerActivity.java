@@ -8,23 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.jianfanjia.cn.Event.MessageEvent;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
-import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
-import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.interf.CheckListener;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +15,24 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
+import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
+import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.bean.DesignerCanOrderInfo;
+import com.jianfanjia.cn.bean.DesignerCanOrderListInfo;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.interf.CheckListener;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -140,90 +141,107 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
-        JianFanJiaClient.getOrderDesignerListByUser(ReplaceDesignerActivity.this, requestmentid,
-                getOrderDesignerListener, this);
-    }
 
-    private ApiUiUpdateListener getOrderDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            showWaitDialog(R.string.loading);
-        }
+        GetCanOrderDesignerListRequest getCanOrderDesignerListRequest = new GetCanOrderDesignerListRequest();
+        getCanOrderDesignerListRequest.setRequirementis(requestmentid);
 
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
-            hideWaitDialog();
-            DesignerCanOrderListInfo designerCanOrderListInfo = JsonParser.jsonToBean(data.toString(),
-                    DesignerCanOrderListInfo.class);
-            LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
-            if (null != designerCanOrderListInfo) {
-                rec_designer = designerCanOrderListInfo.getRec_designer();
-                favorite_designer = designerCanOrderListInfo.getFavorite_designer();
-                setReplaceDesignerList(rec_designer, favorite_designer);
-                designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity
-                        .this, mylist, splitList, totalCount, new CheckListener() {
-                    @Override
-                    public void getItemData(int position, String designerid) {
-                        LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
-                        currentPos = position;
-                        Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designerid);
-                        startActivity(DesignerInfoActivity.class, designerBundle);
-                    }
+        Api.getCanOrderDesigner(getCanOrderDesignerListRequest, new ApiCallback<ApiResponse<DesignerCanOrderListInfo>>() {
 
-                    @Override
-                    public void getCheckedData(List<String> designerids) {
-                        int checkNum = designerids.size();
-                        LogTool.d(TAG, "checkNum:" + checkNum);
-                        if (null != designerids && designerids.size() > 0) {
-                            mainHeadView.setRigthTitleEnable(true);
-                            newDesignerid = designerids.get(0);
-                        } else {
-                            mainHeadView.setRigthTitleEnable(false);
-                        }
-                        mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + (totalCount -
-                                checkNum) + getResources().getString(R.string.appointNum));
-                        mainHeadView.setMianTitleColor();
-                    }
-                });
-                replace_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
+
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
             }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
-        }
-    };
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DesignerCanOrderListInfo> apiResponse) {
+                DesignerCanOrderListInfo designerCanOrderListInfo = apiResponse.getData();
+                LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
+                if (null != designerCanOrderListInfo) {
+                    rec_designer = designerCanOrderListInfo.getRec_designer();
+                    favorite_designer = designerCanOrderListInfo.getFavorite_designer();
+                    setReplaceDesignerList(rec_designer, favorite_designer);
+                    designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(ReplaceDesignerActivity
+                            .this, mylist, splitList, totalCount, new CheckListener() {
+                        @Override
+                        public void getItemData(int position, String designerid) {
+                            LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                            currentPos = position;
+                            Bundle designerBundle = new Bundle();
+                            designerBundle.putString(Global.DESIGNER_ID, designerid);
+                            startActivity(DesignerInfoActivity.class, designerBundle);
+                        }
+
+                        @Override
+                        public void getCheckedData(List<String> designerids) {
+                            int checkNum = designerids.size();
+                            LogTool.d(TAG, "checkNum:" + checkNum);
+                            if (null != designerids && designerids.size() > 0) {
+                                mainHeadView.setRigthTitleEnable(true);
+                                newDesignerid = designerids.get(0);
+                            } else {
+                                mainHeadView.setRigthTitleEnable(false);
+                            }
+                            mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + (totalCount -
+                                    checkNum) + getResources().getString(R.string.appointNum));
+                            mainHeadView.setMianTitleColor();
+                        }
+                    });
+                    replace_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DesignerCanOrderListInfo> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
 
     //替换设计师
     private void replaceDesignerByUser(String requirementid, String old_designerid, String new_designerid) {
-        JianFanJiaClient.changeOrderedDesignerByUser(ReplaceDesignerActivity.this, requirementid, old_designerid,
-                new_designerid, replaceDesignerListener, this);
+        ReplaceOrderedDesignerRequest replaceOrderedDesignerRequest = new ReplaceOrderedDesignerRequest();
+        replaceOrderedDesignerRequest.setRequirementid(requirementid);
+        replaceOrderedDesignerRequest.setOld_designserid(old_designerid);
+        replaceOrderedDesignerRequest.setNew_designerid(new_designerid);
+
+        Api.replaceOrderedDesigner(replaceOrderedDesignerRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(ReplaceDesignerActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
-
-    private ApiUiUpdateListener replaceDesignerListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            showWaitDialog(R.string.loading);
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            hideWaitDialog();
-//            setResult(RESULT_OK);
-            appManager.finishActivity(ReplaceDesignerActivity.this);
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
-        }
-    };
 
     public void onEventMainThread(MessageEvent messageEvent) {
         LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());

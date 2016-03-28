@@ -16,18 +16,20 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.PreviewAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.PlanInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -285,29 +287,39 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity{
     //选的方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
-        JianFanJiaClient.chooseDesignerPlan(PreviewDesignerPlanActivity.this, requirementid, designerid, planid,
-                chooseDesignerPlanListener, this);
+
+        ChooseDesignerPlanRequest chooseDesignerPlanRequest = new ChooseDesignerPlanRequest();
+        chooseDesignerPlanRequest.setRequiremendid(requirementid);
+        chooseDesignerPlanRequest.setDesignerid(designerid);
+        chooseDesignerPlanRequest.setPlanid(planid);
+
+        Api.chooseDesignerPlan(chooseDesignerPlanRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                afterChooseSuccess();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
-
-    private ApiUiUpdateListener chooseDesignerPlanListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            showWaitDialog(R.string.loading);
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
-            hideWaitDialog();
-            afterChooseSuccess();
-        }
-
-        @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
-        }
-    };
 
     private void afterChooseSuccess() {
         btn_choose.setEnabled(false);
