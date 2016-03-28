@@ -3,18 +3,6 @@ package com.jianfanjia.cn.api;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
-import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
-import com.jianfanjia.api.request.common.UploadPicRequest;
-import com.jianfanjia.api.request.guest.FeedBackRequest;
-import com.jianfanjia.api.request.guest.SendVerificationRequest;
-import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
-import com.jianfanjia.api.request.user.BindingWeiXinRequest;
-import com.jianfanjia.api.request.user.GetMsgDetailRequest;
-import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.bean.MyFavoriteDesigner;
-import com.jianfanjia.cn.bean.NoticeDetailInfo;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
@@ -22,19 +10,32 @@ import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteCollectionRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
+import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
+import com.jianfanjia.api.request.guest.SendVerificationRequest;
+import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
+import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
+import com.jianfanjia.api.request.user.BindingWeiXinRequest;
+import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
+import com.jianfanjia.api.request.user.GetMsgDetailRequest;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
+import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
+import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.CommentList;
 import com.jianfanjia.cn.bean.DecorationItemInfo;
 import com.jianfanjia.cn.bean.DesignerCaseInfo;
 import com.jianfanjia.cn.bean.DesignerInfo;
 import com.jianfanjia.cn.bean.DesignerWorksInfo;
+import com.jianfanjia.cn.bean.MyFavoriteDesigner;
+import com.jianfanjia.cn.bean.NoticeDetailInfo;
 import com.jianfanjia.cn.bean.NoticeListInfo;
+import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
 
 
 /**
@@ -85,6 +86,11 @@ public class Api {
     public static void get_Owner_Info(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<OwnerInfo>>
             apiCallback) {
         ApiClient.okGet(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
+    }
+
+    //业主修改个人资料
+    public static void put_OwnerInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
     }
 
     public static void searchDecorationImg(SearchDecorationImgRequest request,
@@ -153,5 +159,5 @@ public class Api {
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().DELETE_FAVORITE_DESIGNER, request, apiCallback);
     }
-    
+
 }
