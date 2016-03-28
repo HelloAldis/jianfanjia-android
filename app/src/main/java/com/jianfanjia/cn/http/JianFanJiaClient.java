@@ -3,6 +3,12 @@ package com.jianfanjia.cn.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
 import com.jianfanjia.cn.bean.CommitCommentInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
@@ -56,12 +62,6 @@ import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 /**
  * @author zhanghao
