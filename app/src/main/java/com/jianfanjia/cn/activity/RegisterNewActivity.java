@@ -11,12 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
+import com.jianfanjia.api.request.user.BindPhoneRequest;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.api.Api;
@@ -24,7 +27,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.LoginUserBean;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
@@ -132,12 +134,12 @@ public class RegisterNewActivity extends BaseActivity implements
                 updatePassword(registerInfo);
                 break;
             case BINDING_PHONE:
-                JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
+                bindPhone(registerInfo);
                 break;
         }
     }
 
-    private void register(RegisterInfo registerInfo){
+    private void register(final RegisterInfo registerInfo) {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setPass(registerInfo.getPass());
         registerRequest.setPhone(registerInfo.getPhone());
@@ -156,9 +158,15 @@ public class RegisterNewActivity extends BaseActivity implements
 
             @Override
             public void onSuccess(ApiResponse<LoginUserBean> apiResponse) {
+                dataManager.setLogin(true);
+                dataManager.savaLastLoginTime(Calendar.getInstance()
+                        .getTimeInMillis());
+                LoginUserBean loginUserBean = apiResponse.getData();
+                loginUserBean.setPass(registerInfo.getPass());
+                dataManager.saveLoginUserBean(loginUserBean);
+                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                 startActivity(NewUserCollectDecStageActivity.class);
                 appManager.finishActivity(RegisterNewActivity.this);
-                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
             }
 
             @Override
@@ -173,7 +181,7 @@ public class RegisterNewActivity extends BaseActivity implements
         });
     }
 
-    private void updatePassword(RegisterInfo registerInfo){
+    private void updatePassword(RegisterInfo registerInfo) {
         UpdatePasswordRequest updatePasswordRequest = new UpdatePasswordRequest();
         updatePasswordRequest.setCode(registerInfo.getCode());
         updatePasswordRequest.setPhone(registerInfo.getPhone());
@@ -208,6 +216,46 @@ public class RegisterNewActivity extends BaseActivity implements
         });
     }
 
+    private void bindPhone(final RegisterInfo registerInfo) {
+        BindPhoneRequest bindPhoneReques = new BindPhoneRequest();
+        bindPhoneReques.setPhone(registerInfo.getPhone());
+        bindPhoneReques.setCode(registerInfo.getCode());
+
+        Api.bindPhone(bindPhoneReques, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                dataManager.setAccount(registerInfo.getPhone());
+                if (getIntent().getExtras().getInt(Global.BINDING_PHONE_INTENT) == Global.BINDING_PHONE_REQUIREMENT)
+                {//发布需求就导向发布需求
+                    startActivity(PublishRequirementActivity.class);
+                } else {
+                    EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
+                }
+                appManager.finishActivity(RegisterNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
     private boolean checkInput(String verification) {
         if (TextUtils.isEmpty(verification)) {
             makeTextShort(getResources().getString(
@@ -216,37 +264,6 @@ public class RegisterNewActivity extends BaseActivity implements
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        //登录成功，加载首页
-        super.loadSuccess(data);
-        switch (requsetCode) {
-            case REGISTER_CODE:
-                startActivity(NewUserCollectDecStageActivity.class);
-                appManager.finishActivity(this);
-                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                break;
-            case UPDATE_PSW_CODE:
-                startActivity(LoginNewActivity.class);
-                appManager.finishActivity(this);
-                break;
-            case BINDING_PHONE:
-                if (getIntent().getExtras().getInt(Global.BINDING_PHONE_INTENT) == Global.BINDING_PHONE_REQUIREMENT)
-                {//发布需求就导向发布需求
-                    startActivity(PublishRequirementActivity.class);
-                } else {
-                    EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
-                }
-                appManager.finishActivity(this);
-                break;
-        }
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
     }
 
     @Override

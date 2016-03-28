@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.api;
 
+import java.util.List;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -9,6 +11,7 @@ import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteCollectionRequest;
+import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
@@ -31,6 +34,7 @@ import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.user.ApplyRescheduleRequest;
+import com.jianfanjia.api.request.user.BindPhoneRequest;
 import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
 import com.jianfanjia.api.request.user.ConfirmCheckRequest;
@@ -75,8 +79,6 @@ import com.jianfanjia.cn.bean.ProductInfo;
 import com.jianfanjia.cn.bean.RequirementInfo;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
-
-import java.util.List;
 
 
 /**
@@ -125,6 +127,10 @@ public class Api {
     //游客验证手机是否注册
     public static void verifyPhone(VerifyPhoneRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().VERIFY_PHONE, request, apiCallback);
+    }
+
+    public static void bindPhone(BindPhoneRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().BIND_PHONE, request, apiCallback);
     }
 
     public static void sendVerification(SendVerificationRequest
@@ -216,6 +222,11 @@ public class Api {
     public static void submitImageToProcess(SubmitImageToProcessRequest request, ApiCallback<ApiResponse<String>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().POST_PROCESS_IMAGE, request, apiCallback);
+    }
+
+    public static void deleteImageToProcess(DeleteImageToProcessRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_PROCESS_PIC, request, apiCallback);
     }
 
     //业主绑定微信
