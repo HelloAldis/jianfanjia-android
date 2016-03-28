@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.DecorateLive;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-11 11:15
  */
-public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
+public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLive> {
 
     private OnItemClickListener onItemClickListener;
 
@@ -36,7 +37,7 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLiveInfo> {
 
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        DecorateLiveInfo decorateLiveInfo = mDatas.get(position);
+        DecorateLive decorateLiveInfo = mDatas.get(position);
         DecorateLiveViewHolder viewHolder = (DecorateLiveViewHolder) holder;
         imageShow.displayScreenWidthThumnailImage(context, decorateLiveInfo.getCover_imageid(), viewHolder.bgImage);
         String designerImageid = decorateLiveInfo.getDesigner().getImageid();

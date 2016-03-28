@@ -62,7 +62,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
     private String section = null;
     private String item = null;
     private String topictype = null;
-    private List<CommentInfo> commentList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
     private boolean isUpdate = false;//返回是否更新
 
     @Override
@@ -228,7 +228,7 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
 
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
-            CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
+            Comment commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
             commentList.add(0, commentInfo);
             commentAdapter.notifyItemInserted(0);
             commentListView.scrollToPosition(0);
@@ -247,8 +247,8 @@ public class CommentActivity extends SwipeBackActivity implements OnClickListene
         }
     };
 
-    protected CommentInfo createCommentInfo(String content) {
-        CommentInfo commentInfo = new CommentInfo();
+    protected Comment createCommentInfo(String content) {
+        Comment commentInfo = new Comment();
         commentInfo.setTo(to);
         commentInfo.setTopicid(topicid);
         commentInfo.setTopictype(topictype);

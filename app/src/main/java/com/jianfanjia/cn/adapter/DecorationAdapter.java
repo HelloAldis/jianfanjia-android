@@ -22,22 +22,22 @@ import com.jianfanjia.cn.tools.TDevice;
  * Date: 2015-12-07
  * Time: 10:33
  */
-public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautyImgInfo> {
+public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautifulImage> {
     private static final String TAG = DecorationAdapter.class.getName();
     private OnItemClickListener listener;
 
-    public DecorationAdapter(Context context, List<BeautyImgInfo> list, OnItemClickListener listener) {
+    public DecorationAdapter(Context context, List<BeautifulImage> list, OnItemClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
 
-    public List<BeautyImgInfo> getBeautyImgList() {
+    public List<BeautifulImage> getBeautyImgList() {
         return list;
     }
 
     @Override
-    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautyImgInfo> list) {
-        BeautyImgInfo info = list.get(position);
+    public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautifulImage> list) {
+        BeautifulImage info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         List<Img> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
@@ -84,7 +85,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
             @Override
             public void OnItemClick(int position) {
                 LogTool.d(TAG, "position=" + position);
-                BeautyImgInfo beautyImgInfo = decorationAdapter.getData().get(position);
+                BeautifulImage beautyImgInfo = decorationAdapter.getData().get(position);
                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                 Bundle decorationBundle = new Bundle();
                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
@@ -138,7 +139,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
-            DecorationItemInfo decorationItemInfo = JsonParser.jsonToBean(data.toString(), DecorationItemInfo.class);
+            BeautifulImageList decorationItemInfo = JsonParser.jsonToBean(data.toString(), BeautifulImageList.class);
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 total = decorationItemInfo.getTotal();

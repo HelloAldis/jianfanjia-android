@@ -240,12 +240,12 @@ public class Api {
     }
 
     public static void searchDecorationImg(SearchDecorationImgRequest request,
-                                           ApiCallback<ApiResponse<DecorationItemInfo>> apiCallback) {
+                                           ApiCallback<ApiResponse<BeautifulImageList>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_DECORATION_IMG, request, apiCallback);
     }
 
     public static void getBeautyImgListByUser(GetBeautyImgListRequest request,
-                                              ApiCallback<ApiResponse<DecorationItemInfo>> apiCallback) {
+                                              ApiCallback<ApiResponse<BeautifulImageList>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_BEAUTY_IMG_LIST_BY_USER, request, apiCallback);
     }
 

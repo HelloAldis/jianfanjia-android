@@ -244,7 +244,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         Api.deleteBeautyImgByUser(request, this.deleteDecorationImgCallback);
     }
 
-    private ApiCallback<ApiResponse<DecorationItemInfo>> getDecorationImgInfoCallback = new ApiCallback<ApiResponse<DecorationItemInfo>>() {
+    private ApiCallback<ApiResponse<BeautifulImageList>> getDecorationImgInfoCallback = new ApiCallback<ApiResponse<BeautifulImageList>>() {
         @Override
         public void onPreLoad() {
             if (isFirst) {
@@ -258,9 +258,9 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         }
 
         @Override
-        public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+        public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
             mPullToRefreshViewPager.onRefreshComplete();
-            DecorationItemInfo decorationItemInfo = apiResponse.getData();
+            BeautifulImageList decorationItemInfo = apiResponse.getData();
             LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
             if (null != decorationItemInfo) {
                 List<BeautifulImage> beautyImages = decorationItemInfo.getBeautiful_images();
@@ -276,7 +276,7 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
         }
 
         @Override
-        public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+        public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             mPullToRefreshViewPager.onRefreshComplete();
         }

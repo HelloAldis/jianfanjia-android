@@ -27,12 +27,12 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 public class PreImgPagerAdapter extends PagerAdapter {
     private Context context;
-    private List<BeautyImgInfo> beautyImagesList;
+    private List<BeautifulImage> beautyImagesList;
     private LayoutInflater inflater;
     private ViewPagerClickListener viewPagerClickListener;
     private ImageShow imageShow;
 
-    public PreImgPagerAdapter(Context context, List<BeautyImgInfo> beautyImagesList,
+    public PreImgPagerAdapter(Context context, List<BeautifulImage> beautyImagesList,
                               ViewPagerClickListener viewPagerClickListener) {
         this.context = context;
         this.beautyImagesList = beautyImagesList;
@@ -41,11 +41,11 @@ public class PreImgPagerAdapter extends PagerAdapter {
         imageShow = ImageShow.getImageShow();
     }
 
-    public List<BeautyImgInfo> getBeautyImagesList() {
+    public List<BeautifulImage> getBeautyImagesList() {
         return beautyImagesList;
     }
 
-    public void addItem(List<BeautyImgInfo> list) {
+    public void addItem(List<BeautifulImage> list) {
         beautyImagesList.addAll(list);
         notifyDataSetChanged();
     }
@@ -74,7 +74,7 @@ public class PreImgPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        BeautyImgInfo info = beautyImagesList.get(position);
+        BeautifulImage info = beautyImagesList.get(position);
         List<Img> images = info.getImages();
         View view = inflater.inflate(R.layout.viewpager_item_show_img, null);
         PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);

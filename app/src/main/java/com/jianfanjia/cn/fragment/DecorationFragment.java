@@ -93,7 +93,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
     private DecorationAdapter decorationAdapter = null;
     private FilterPopWindow window = null;
-    private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
+    private List<BeautifulImage> beautyImgList = new ArrayList<>();
     private String section = null;
     private String houseStyle = null;
     private String decStyle = null;
@@ -187,7 +187,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
         }
     }
 
-    private void getDecorationImgInfo(ApiCallback<ApiResponse<DecorationItemInfo>> listener) {
+    private void getDecorationImgInfo(ApiCallback<ApiResponse<BeautifulImageList>> listener) {
         SearchDecorationImgRequest request = new SearchDecorationImgRequest();
         Map<String, Object> param = new HashMap<>();
         Map<String, Object> conditionParam = new HashMap<>();
@@ -212,8 +212,8 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
         getDecorationImgInfo(pullUpListener);
     }
 
-    private ApiCallback<ApiResponse<DecorationItemInfo>> pullDownListener = new
-            ApiCallback<ApiResponse<DecorationItemInfo>>() {
+    private ApiCallback<ApiResponse<BeautifulImageList>> pullDownListener = new
+            ApiCallback<ApiResponse<BeautifulImageList>>() {
 
                 @Override
                 public void onPreLoad() {
@@ -228,9 +228,9 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     decoration_listview.onRefreshComplete();
-                    DecorationItemInfo decorationItemInfo = apiResponse.getData();
+                    BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         total = decorationItemInfo.getTotal();
@@ -248,14 +248,14 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                                 LogTool.d(TAG, "position=" + position);
                                                 currentPos = position;
                                                 LogTool.d(TAG, "currentPos-----" + currentPos);
-                                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
+                                                BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
                                                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id
                                                         ());
                                                 decorationBundle.putInt(Global.POSITION, position);
                                                 decorationBundle.putSerializable(Global.IMG_LIST,
-                                                        (ArrayList<BeautyImgInfo>)
+                                                        (ArrayList<BeautifulImage>)
                                                                 beautyImgList);
                                                 decorationBundle.putString(Global.HOUSE_SECTION, section);
                                                 decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
@@ -287,7 +287,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 }
 
                 @Override
-                public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
                     decoration_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
@@ -301,8 +301,8 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
             };
 
-    private ApiCallback<ApiResponse<DecorationItemInfo>> pullUpListener = new
-            ApiCallback<ApiResponse<DecorationItemInfo>>() {
+    private ApiCallback<ApiResponse<BeautifulImageList>> pullUpListener = new
+            ApiCallback<ApiResponse<BeautifulImageList>>() {
 
 
                 @Override
@@ -316,12 +316,12 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     decoration_listview.onRefreshComplete();
-                    DecorationItemInfo decorationItemInfo = apiResponse.getData();
+                    BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
-                        List<BeautyImgInfo> beautyImgs = decorationItemInfo.getBeautiful_images();
+                        List<BeautifulImage> beautyImgs = decorationItemInfo.getBeautiful_images();
                         LogTool.d(TAG, "beautyImgs=" + beautyImgs);
                         if (null != beautyImgs && beautyImgs.size() > 0) {
                             decorationAdapter.add(FROM, beautyImgs);
@@ -334,7 +334,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 }
 
                 @Override
-                public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
                     decoration_listview.onRefreshComplete();
                 }
 
@@ -474,7 +474,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     }
 
     private void notifyChangeItemState(boolean isSelect) {
-        BeautyImgInfo beautyImgInfo = decorationAdapter.getBeautyImgList().get(currentPos);
+        BeautifulImage beautyImgInfo = decorationAdapter.getBeautyImgList().get(currentPos);
         beautyImgInfo.setIs_my_favorite(isSelect);
         decorationAdapter.notifyDataSetChanged();
     }

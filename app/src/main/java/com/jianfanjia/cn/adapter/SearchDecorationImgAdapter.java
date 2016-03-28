@@ -23,7 +23,7 @@ import com.jianfanjia.cn.tools.TDevice;
  * Date: 2015-12-07
  * Time: 10:33
  */
-public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo> {
+public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautifulImage> {
     private static final String TAG = SearchDecorationImgAdapter.class.getName();
     private OnItemClickListener listener;
 
@@ -41,7 +41,7 @@ public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautyImgInfo
 
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        BeautyImgInfo info = mDatas.get(position);
+        BeautifulImage info = mDatas.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
         List<Img> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {

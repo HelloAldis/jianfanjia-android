@@ -56,7 +56,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     @Bind(R.id.error_include)
     RelativeLayout errorLayout;
 
-    private List<BeautyImgInfo> beautyImgList = new ArrayList<>();
+    private List<BeautifulImage> beautyImgList = new ArrayList<>();
     private DecorationAdapter decorationImgAdapter = null;
     private boolean isFirst = true;
     private boolean isVisible = false;
@@ -132,7 +132,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
-    private void getDecorationImgList(int from, int limit, ApiCallback<ApiResponse<DecorationItemInfo>> listener) {
+    private void getDecorationImgList(int from, int limit, ApiCallback<ApiResponse<BeautifulImageList>> listener) {
         GetBeautyImgListRequest request = new GetBeautyImgListRequest();
         request.setFrom(from);
         request.setLimit(limit);
@@ -151,8 +151,8 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     }
 
 
-    private ApiCallback<ApiResponse<DecorationItemInfo>> pullDownListener = new
-            ApiCallback<ApiResponse<DecorationItemInfo>>() {
+    private ApiCallback<ApiResponse<BeautifulImageList>> pullDownListener = new
+            ApiCallback<ApiResponse<BeautifulImageList>>() {
 
 
                 @Override
@@ -168,10 +168,10 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     decoration_img_listview.onRefreshComplete();
                     mHasLoadedOnce = true;
-                    DecorationItemInfo decorationItemInfo = apiResponse.getData();
+                    BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         total = decorationItemInfo.getTotal();
@@ -186,14 +186,14 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                                 LogTool.d(TAG, "position:" + position);
                                                 currentPos = position;
                                                 LogTool.d(TAG, "currentPos====" + currentPos);
-                                                BeautyImgInfo beautyImgInfo = beautyImgList.get(currentPos);
+                                                BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
                                                 decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id
                                                         ());
                                                 decorationBundle.putInt(Global.POSITION, position);
                                                 decorationBundle.putSerializable(Global.IMG_LIST,
-                                                        (ArrayList<BeautyImgInfo>)
+                                                        (ArrayList<BeautifulImage>)
                                                                 beautyImgList);
                                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant
@@ -219,7 +219,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 }
 
                 @Override
-                public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
                     decoration_img_listview.onRefreshComplete();
                     decoration_img_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
@@ -233,8 +233,8 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
             };
 
-    private ApiCallback<ApiResponse<DecorationItemInfo>> pullUpListener = new
-            ApiCallback<ApiResponse<DecorationItemInfo>>() {
+    private ApiCallback<ApiResponse<BeautifulImageList>> pullUpListener = new
+            ApiCallback<ApiResponse<BeautifulImageList>>() {
 
 
                 @Override
@@ -248,11 +248,11 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<DecorationItemInfo> apiResponse) {
-                    DecorationItemInfo decorationItemInfo = apiResponse.getData();
+                public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
+                    BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
-                        List<BeautyImgInfo> beautyList = decorationItemInfo.getBeautiful_images();
+                        List<BeautifulImage> beautyList = decorationItemInfo.getBeautiful_images();
                         if (null != beautyList && beautyList.size() > 0) {
                             decorationImgAdapter.add(FROM, beautyList);
                             FROM += Constant.HOME_PAGE_LIMIT;
@@ -263,7 +263,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 }
 
                 @Override
-                public void onFailed(ApiResponse<DecorationItemInfo> apiResponse) {
+                public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
 
                 }
 
