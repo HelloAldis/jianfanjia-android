@@ -97,10 +97,8 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCanOrderInfo.getImageid(), holder
                         .itemwHeadView);
                 if (designerCanOrderInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-                    holder.itemAuthView.setVisibility(View.VISIBLE);
                     holder.itemInfoAuthView.setVisibility(View.VISIBLE);
                 } else {
-                    holder.itemAuthView.setVisibility(View.GONE);
                     holder.itemInfoAuthView.setVisibility(View.GONE);
                 }
                 if (designerCanOrderInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
@@ -189,8 +187,6 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     static class DesignerByAppointOrReplaceViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_head_img)
         ImageView itemwHeadView;
-        @Bind(R.id.list_item_auth)
-        ImageView itemAuthView;
         @Bind(R.id.list_item_name_text)
         TextView itemNameText;
         @Bind(R.id.list_item_identity_auth)
