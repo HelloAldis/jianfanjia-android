@@ -35,7 +35,7 @@ import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Constant;
@@ -519,7 +519,7 @@ public class LoginNewActivity extends BaseActivity implements
         loginRequest.setPhone(name);
         loginRequest.setPass(password);
 
-        Api.login(loginRequest, new ApiCallback<ApiResponse<LoginUserBean>>() {
+        Api.login(loginRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -531,11 +531,11 @@ public class LoginNewActivity extends BaseActivity implements
             }
 
             @Override
-            public void onSuccess(ApiResponse<LoginUserBean> apiResponse) {
+            public void onSuccess(ApiResponse<User> apiResponse) {
                 dataManager.setLogin(true);
                 dataManager.savaLastLoginTime(Calendar.getInstance()
                         .getTimeInMillis());
-                LoginUserBean loginUserBean = apiResponse.getData();
+                User loginUserBean = apiResponse.getData();
                 loginUserBean.setPass(password);
                 dataManager.saveLoginUserBean(loginUserBean);
 
@@ -545,7 +545,7 @@ public class LoginNewActivity extends BaseActivity implements
             }
 
             @Override
-            public void onFailed(ApiResponse<LoginUserBean> apiResponse) {
+            public void onFailed(ApiResponse<User> apiResponse) {
 
             }
 

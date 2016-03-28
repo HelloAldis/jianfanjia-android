@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import com.jianfanjia.api.model.Evaluation;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;

@@ -39,9 +39,9 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautifulImage> {
     public void bindView(final RecyclerViewHolderBase viewHolder, final int position, final List<BeautifulImage> list) {
         BeautifulImage info = list.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        List<Img> imgList = info.getImages();
+        List<BeautifulImageDetail> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {
-            Img img = info.getImages().get(0);
+            BeautifulImageDetail img = info.getImages().get(0);
             int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.itemDecorateView

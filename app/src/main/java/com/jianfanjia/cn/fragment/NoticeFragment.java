@@ -57,7 +57,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
     RelativeLayout errorLayout;
 
     private NoticeAdapter noticeAdapter = null;
-    private List<NoticeInfo> noticeList = new ArrayList<>();
+    private List<UserMessage> noticeList = new ArrayList<>();
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = true;
@@ -145,7 +145,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         loadData();
     }
 
-    private void getNoticeList(String[] typeStr, ApiCallback<ApiResponse<NoticeListInfo>> listener) {
+    private void getNoticeList(String[] typeStr, ApiCallback<ApiResponse<UserMessageList>> listener) {
         SearchUserMsgRequest request = new SearchUserMsgRequest();
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
@@ -171,7 +171,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         getNoticeList(typeArray, pullUpListener);
     }
 
-    private ApiCallback<ApiResponse<NoticeListInfo>> pullDownListener = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+    private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new ApiCallback<ApiResponse<UserMessageList>>() {
 
         @Override
         public void onPreLoad() {
@@ -186,10 +186,10 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
 
         @Override
-        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
             mHasLoadedOnce = true;
             all_notice_listview.onRefreshComplete();
-            NoticeListInfo noticeListInfo = apiResponse.getData();
+            UserMessageList noticeListInfo = apiResponse.getData();
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
                 noticeList.clear();
@@ -198,7 +198,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
                     noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
                         @Override
                         public void onClick(int position, Object obj) {
-                            NoticeInfo noticeInfo = (NoticeInfo) obj;
+                            UserMessage noticeInfo = (UserMessage) obj;
                             LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
                             Bundle detailBundle = new Bundle();
                             detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
@@ -220,7 +220,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
 
         @Override
-        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
             all_notice_listview.onRefreshComplete();
             all_notice_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
@@ -233,7 +233,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
     };
 
-    private ApiCallback<ApiResponse<NoticeListInfo>> pullUpListener = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+    private ApiCallback<ApiResponse<UserMessageList>> pullUpListener = new ApiCallback<ApiResponse<UserMessageList>>() {
 
 
         @Override
@@ -247,12 +247,12 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
 
         @Override
-        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
             all_notice_listview.onRefreshComplete();
-            NoticeListInfo noticeListInfo = apiResponse.getData();
+            UserMessageList noticeListInfo = apiResponse.getData();
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
-                List<NoticeInfo> noticeLists = noticeListInfo.getList();
+                List<UserMessage> noticeLists = noticeListInfo.getList();
                 if (null != noticeLists && noticeLists.size() > 0) {
                     noticeAdapter.add(FROM, noticeLists);
                     FROM += Constant.HOME_PAGE_LIMIT;
@@ -263,7 +263,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         }
 
         @Override
-        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
             all_notice_listview.onRefreshComplete();
         }
 

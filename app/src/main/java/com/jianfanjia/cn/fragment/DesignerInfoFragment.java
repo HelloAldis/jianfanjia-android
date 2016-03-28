@@ -149,7 +149,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
     private void getDesignerPageInfo(String designerid) {
         DesignerHomePageRequest request = new DesignerHomePageRequest();
         request.setDesignerid(designerid);
-        Api.getDesignerHomePage(request, new ApiCallback<ApiResponse<DesignerInfo>>() {
+        Api.getDesignerHomePage(request, new ApiCallback<ApiResponse<Designer>>() {
             @Override
             public void onPreLoad() {
 
@@ -161,9 +161,9 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
             }
 
             @Override
-            public void onSuccess(ApiResponse<DesignerInfo> apiResponse) {
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
                 mHasLoadedOnce = true;
-                DesignerInfo designerInfo = apiResponse.getData();
+                Designer designerInfo = apiResponse.getData();
                 LogTool.d(TAG, "designerInfo:" + designerInfo);
                 if (null != designerInfo) {
                     jiandanTypeLayout.setVisibility(View.VISIBLE);
@@ -189,7 +189,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
             }
 
             @Override
-            public void onFailed(ApiResponse<DesignerInfo> apiResponse) {
+            public void onFailed(ApiResponse<Designer> apiResponse) {
 
             }
 

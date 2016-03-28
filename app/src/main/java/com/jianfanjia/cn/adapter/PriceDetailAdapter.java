@@ -24,15 +24,15 @@ import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
  * Date: 2015-10-23
  * Time: 16:14
  */
-public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
+public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail> {
     private static final String TAG = PriceDetailAdapter.class.getName();
-    private PlanInfo detailInfo;
+    private Plan detailInfo;
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_ITEM = 1;
     private int viewType = -1;
     private boolean isDetail = false;
 
-    public PriceDetailAdapter(Context context, List<PriceDetail> list, PlanInfo detailInfo) {
+    public PriceDetailAdapter(Context context, List<PlanPriceDetail> list, Plan detailInfo) {
         super(context, list);
         this.detailInfo = detailInfo;
     }
@@ -53,7 +53,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PriceDetail> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanPriceDetail> list) {
         switch (viewType) {
             case TYPE_HEAD:
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
@@ -65,7 +65,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
                 priceDetailHeadHolder.project_price_before_discount.setText("￥" + detailInfo.getTotal_price());
                 break;
             case TYPE_ITEM:
-                final PriceDetail detail = list.get(position - 1);
+                final PlanPriceDetail detail = list.get(position - 1);
                 final PriceDetailViewHolder priceDetailViewHolder = (PriceDetailViewHolder) viewHolder;
                 priceDetailViewHolder.itemTitle.setText(detail.getItem());
                 priceDetailViewHolder.itemContent.setText(detail.getPrice());

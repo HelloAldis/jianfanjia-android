@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.config.Constant;
@@ -62,7 +64,7 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder{
         return new MyDesignerViewType8(view, context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
+    public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();

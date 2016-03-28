@@ -63,7 +63,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
         return new MyDesignerViewType5(view, context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
+    public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         headView.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
             }
         });
 
-        RequirementInfo requirementInfo = designerInfo.getRequirement();
+        Requirement requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4)) {
             button2.setEnabled(false);

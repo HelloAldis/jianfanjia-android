@@ -11,6 +11,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -55,7 +57,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     protected String status = Global.DEC_TYPE_HOME;//当前页面的状态，家装还是商装
 
     private OwnerInfo ownerInfo;
-    private RequirementInfo requirementInfoInit = new RequirementInfo();
+    private Requirement requirementInfoInit = new Requirement();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,12 +165,12 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     }
 
     protected void confirm() {
-        RequirementInfo requirementInfo = getConfirmRequirement();
+        Requirement requirementInfo = getConfirmRequirement();
         JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
     }
 
-    protected RequirementInfo getConfirmRequirement() {
-        RequirementInfo requirementInfo = null;
+    protected Requirement getConfirmRequirement() {
+        Requirement requirementInfo = null;
         switch (status) {
             case Global.DEC_TYPE_HOME:
                 requirementInfo = editHomeRequirementFragment_.getRequirementInfo();
@@ -212,7 +214,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
 
     protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
-        RequirementInfo requirementInfo = new RequirementInfo();
+        Requirement requirementInfo = new Requirement();
         requirementInfo.setDec_type(type);
         switch (type) {
             case Global.DEC_TYPE_HOME:

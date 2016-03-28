@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
 import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.cn.activity.R;
@@ -57,10 +59,10 @@ public class MyDesignerActivity extends SwipeBackActivity {
     protected RelativeLayout error_Layout;
 
     private String requirementid;
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     MyDesignerAdapter myDesignerAdapter;
-    List<OrderDesignerInfo> orderDesignerInfos = new ArrayList<>();
+    List<Designer> orderDesignerInfos = new ArrayList<>();
 
     private boolean isLoadedOnce;//是否成功加载过一次数据
 
@@ -78,7 +80,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
         mainHeadView.setRightTitleVisable(View.GONE);
 
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
         }
@@ -103,7 +105,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
         myDesignerAdapter = new MyDesignerAdapter(this, new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-                OrderDesignerInfo orderDesignerInfo = orderDesignerInfos.get(position);
+                Designer orderDesignerInfo = orderDesignerInfos.get(position);
                 switch (itemType) {
                     case VIEW_COMMENT:
                         Bundle viewBundle = new Bundle();
@@ -210,7 +212,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
         GetOrderedDesignerListRequest getOrderedDesignerListRequest = new GetOrderedDesignerListRequest();
         getOrderedDesignerListRequest.setRequirementid(requirementid);
 
-        Api.getOrderedDesignerList(getOrderedDesignerListRequest, new ApiCallback<ApiResponse<List<OrderDesignerInfo>>>() {
+        Api.getOrderedDesignerList(getOrderedDesignerListRequest, new ApiCallback<ApiResponse<List<Designer>>>() {
             @Override
             public void onPreLoad() {
                 if (!isLoadedOnce) {
@@ -225,7 +227,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void onSuccess(ApiResponse<List<OrderDesignerInfo>> apiResponse) {
+            public void onSuccess(ApiResponse<List<Designer>> apiResponse) {
                 orderDesignerInfos = apiResponse.getData();
                 if (orderDesignerInfos != null && orderDesignerInfos.size() > 0) {
                     isLoadedOnce = true;
@@ -235,7 +237,7 @@ public class MyDesignerActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void onFailed(ApiResponse<List<OrderDesignerInfo>> apiResponse) {
+            public void onFailed(ApiResponse<List<Designer>> apiResponse) {
                 if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
                     if (!isLoadedOnce) {
                         error_Layout.setVisibility(View.VISIBLE);

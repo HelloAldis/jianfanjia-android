@@ -11,6 +11,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
@@ -35,7 +38,7 @@ public class DetailPriceActivity extends SwipeBackActivity{
     protected RecyclerView detail_price_listview;
 
     private PriceDetailAdapter adapter = null;
-    private PlanInfo detailInfo = null;
+    private Plan detailInfo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class DetailPriceActivity extends SwipeBackActivity{
     private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
-        detailInfo = (PlanInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        detailInfo = (Plan) priceBundle.getSerializable(Global.PLAN_DETAIL);
         LogTool.d(TAG, "detailInfo =" + detailInfo);
     }
 
@@ -61,11 +64,11 @@ public class DetailPriceActivity extends SwipeBackActivity{
         detail_price_listview.setItemAnimator(new DefaultItemAnimator());
         detail_price_listview.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1)));
         if (null != detailInfo) {
-            PriceDetail detail = new PriceDetail();
+            PlanPriceDetail detail = new PlanPriceDetail();
             detail.setItem(getResources().getString(R.string.project_text));
             detail.setPrice(getResources().getString(R.string.project_price_text));
             detail.setDescription(getResources().getString(R.string.des_text));
-            List<PriceDetail> details = detailInfo.getPrice_detail();
+            List<PlanPriceDetail> details = detailInfo.getPrice_detail();
             if (null != details && details.size() > 0) {
                 details.add(0, detail);
             }

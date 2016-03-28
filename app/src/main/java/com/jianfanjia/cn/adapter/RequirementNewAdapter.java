@@ -30,7 +30,7 @@ import com.jianfanjia.cn.tools.StringUtils;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 19:15
  */
-public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementInfo> {
+public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> {
     private Context context;
     private ClickCallBack clickCallBack;
     private DataManagerNew dataManagerNew;
@@ -103,7 +103,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
         @Bind(R.id.ltm_req_designer_status2)
         protected TextView ltm_req_designer_status2;
 
-        public void bind(Context context,RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
+        public void bind(Context context,Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
             String cellPhase = requirementInfo.getCell_phase();
             if (!TextUtils.isEmpty(cellPhase)) {
                 ltm_req_cell.setText(requirementInfo.getCell() + cellPhase + context.getString(R.string.str_qi));
@@ -190,8 +190,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<RequirementIn
                     break;
             }
 
-            List<OrderDesignerInfo> recDesignerInfos = requirementInfo.getRec_designers();
-            List<OrderDesignerInfo> orderDesignerInfos = requirementInfo.getOrder_designers();
+            List<Designer> recDesignerInfos = requirementInfo.getRec_designers();
+            List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {

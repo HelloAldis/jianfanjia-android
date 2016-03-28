@@ -37,24 +37,24 @@ public class SectionItemAdapter extends BaseAdapter {
     private int currentClickItem = -1;// 记录当前点击位置
     private SectionItemGridViewAdapter sectionItemGridViewAdapter;
     private String section_status;// 节点的状态
-    private SectionInfo sectionInfo;
+    private ProcessSection sectionInfo;
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<SectionItemInfo> list = new ArrayList<>();
+    private List<ProcessSectionItem> list = new ArrayList<>();
     private List<String> imageUrlList = new ArrayList<>();//源数据的List
     private List<String> showImageUrlList = new ArrayList<>();//用来展示图片的List
     private boolean isHasCheck;// 是否有验收
-    private List<SectionInfo> showSectionInfoList = new ArrayList<>();
+    private List<ProcessSection> showSectionInfoList = new ArrayList<>();
 
     public SectionItemAdapter(Context context, int position,
-                              List<SectionInfo> showSectionInfoList, ItemClickCallBack callBack) {
+                              List<ProcessSection> showSectionInfoList, ItemClickCallBack callBack) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.callBack = callBack;
         setSectionInfoList(showSectionInfoList, position);
     }
 
-    public void setSectionInfoList(List<SectionInfo> sectionInfos, int position) {
+    public void setSectionInfoList(List<ProcessSection> sectionInfos, int position) {
         if (sectionInfos != null) {
             showSectionInfoList.clear();
             showSectionInfoList.addAll(sectionInfos);
@@ -75,7 +75,7 @@ public class SectionItemAdapter extends BaseAdapter {
         if (!sectionInfo.getName().equals("kai_gong")
                 && !sectionInfo.getName().equals("chai_gai")) {
             isHasCheck = true;
-            SectionItemInfo sectionItemInfo = new SectionItemInfo();
+            ProcessSectionItem sectionItemInfo = new ProcessSectionItem();
             sectionItemInfo.setName(context.getResources().getStringArray(
                     R.array.site_check_name)[MyApplication.getInstance()
                     .getPositionByItemName(sectionInfo.getName())]);
@@ -86,7 +86,7 @@ public class SectionItemAdapter extends BaseAdapter {
             isHasCheck = false;
         }
 
-        for (SectionItemInfo sectionItemInfo : sectionInfo.getItems()) {
+        for (ProcessSectionItem sectionItemInfo : sectionInfo.getItems()) {
             sectionItemInfo.setOpen(false);
             list.add(sectionItemInfo);
         }
@@ -186,7 +186,7 @@ public class SectionItemAdapter extends BaseAdapter {
             }
         }
 
-        final SectionItemInfo sectionItemInfo = list.get(position);
+        final ProcessSectionItem sectionItemInfo = list.get(position);
         switch (type) {
             case SECTION_ITME_VIEW:
                 LogTool.d(TAG, "sectionItemInfo.getName()=" + sectionItemInfo.getName());
@@ -354,7 +354,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         break;
                     case Constant.YANQI_BE_DOING:
                         LogTool.d(TAG, "this section is yanqi_doing");
-                        RescheduleInfo rescheduleInfo = sectionInfo.getReschedule();
+                        Reschedule rescheduleInfo = sectionInfo.getReschedule();
                         if (null != rescheduleInfo) {
                             String role = rescheduleInfo.getRequest_role();
                             if (role.equals(Constant.IDENTITY_OWNER)) {

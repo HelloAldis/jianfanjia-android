@@ -133,7 +133,7 @@ public class SearchProductFragment extends BaseFragment {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
-            DesignerWorksInfo worksInfo = JsonParser.jsonToBean(data.toString(), DesignerWorksInfo.class);
+            ProductList worksInfo = JsonParser.jsonToBean(data.toString(), ProductList.class);
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 int total = worksInfo.getTotal();

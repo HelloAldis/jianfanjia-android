@@ -6,9 +6,9 @@ import com.jianfanjia.cn.base.BaseRequest;
 
 public class UpdateRequirementRequest extends BaseRequest {
 
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
-    public UpdateRequirementRequest(Context context, RequirementInfo requirementInfo) {
+    public UpdateRequirementRequest(Context context, Requirement requirementInfo) {
         super(context);
         this.requirementInfo = requirementInfo;
         url = url_new.REQUIREMENT_UPDATE;
@@ -34,11 +34,11 @@ public class UpdateRequirementRequest extends BaseRequest {
         }
     }
 
-    public RequirementInfo getRequirementInfo() {
+    public Requirement getRequirementInfo() {
         return requirementInfo;
     }
 
-    public void setRequirementInfo(RequirementInfo requirementInfo) {
+    public void setRequirementInfo(Requirement requirementInfo) {
         this.requirementInfo = requirementInfo;
     }
 

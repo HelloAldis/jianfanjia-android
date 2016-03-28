@@ -18,6 +18,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
@@ -87,11 +89,11 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity{
     @Bind(R.id.btn_choose)
     protected Button btn_choose ;
 
-    protected PlanInfo planDetailInfo = null;
+    protected Plan planDetailInfo = null;
     private String designerid = null;
     private String planid = null;
     private String requirementid ;
-    private RequirementInfo requirementInfo = null;
+    private Requirement requirementInfo = null;
     private String itemPosition;
     private int flagIntent = -1;
 
@@ -110,10 +112,10 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity{
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        planDetailInfo = (PlanInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
+        planDetailInfo = (Plan) planBundle.getSerializable(Global.PLAN_DETAIL);
         planid = planDetailInfo.get_id();
         itemPosition = planDetailInfo.getName();
-        requirementInfo = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) planBundle.getSerializable(Global.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
         flagIntent = planBundle.getInt(PLAN_INTENT_FLAG);
         LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
@@ -276,7 +278,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity{
         dialog.show();
     }
 
-    private void startToActivity(PlanInfo detailInfo) {
+    private void startToActivity(Plan detailInfo) {
         Bundle priceBundle = new Bundle();
         priceBundle.putSerializable(Global.PLAN_DETAIL, detailInfo);
         startActivity(DetailPriceActivity.class, priceBundle);

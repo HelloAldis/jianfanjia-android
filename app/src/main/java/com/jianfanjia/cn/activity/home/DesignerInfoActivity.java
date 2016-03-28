@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
@@ -228,7 +229,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         Api.deleteFavoriteDesigner(request, this.deleteMyFavoriteDesignerCallback);
     }
 
-    private ApiCallback<ApiResponse<DesignerInfo>> designerHomePageCallback = new ApiCallback<ApiResponse<DesignerInfo>>() {
+    private ApiCallback<ApiResponse<Designer>> designerHomePageCallback = new ApiCallback<ApiResponse<Designer>>() {
         @Override
         public void onPreLoad() {
 
@@ -240,8 +241,8 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         }
 
         @Override
-        public void onSuccess(ApiResponse<DesignerInfo> apiResponse) {
-            DesignerInfo designerInfo = apiResponse.getData();
+        public void onSuccess(ApiResponse<Designer> apiResponse) {
+            Designer designerInfo = apiResponse.getData();
             LogTool.d(TAG, "designerInfo:" + designerInfo);
             if (null != designerInfo) {
                 designer_name = designerInfo.getUsername();
@@ -276,7 +277,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
         }
 
         @Override
-        public void onFailed(ApiResponse<DesignerInfo> apiResponse) {
+        public void onFailed(ApiResponse<Designer> apiResponse) {
             makeTextLong(apiResponse.getErr_msg());
         }
 

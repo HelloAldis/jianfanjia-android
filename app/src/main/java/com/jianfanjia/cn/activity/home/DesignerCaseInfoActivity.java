@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.DeleteCollectionRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
@@ -176,7 +178,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         Api.deleteCollectionByUser(request, this.deleteProductCallback);
     }
 
-    private ApiCallback<ApiResponse<DesignerCaseInfo>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<DesignerCaseInfo>>() {
+    private ApiCallback<ApiResponse<Product>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<Product>>() {
         @Override
         public void onPreLoad() {
             showWaitDialog(R.string.loading);
@@ -188,8 +190,8 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         }
 
         @Override
-        public void onSuccess(ApiResponse<DesignerCaseInfo> apiResponse) {
-            DesignerCaseInfo designerCaseInfo = apiResponse.getData();
+        public void onSuccess(ApiResponse<Product> apiResponse) {
+            Product designerCaseInfo = apiResponse.getData();
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
                 toolbar_collect_layout.setVisibility(View.VISIBLE);
@@ -203,9 +205,9 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
                 nameText.setText(designerCaseInfo.getDesigner().getUsername());
                 imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo
                         .getDesigner().getImageid(), head_img);
-                List<ImageInfo> imgList = designerCaseInfo.getImages();
+                List<ProductImageInfo> imgList = designerCaseInfo.getImages();
                 imgs.clear();
-                for (ImageInfo info : imgList) {
+                for (ProductImageInfo info : imgList) {
                     imgs.add(info.getImageid());
                 }
                 DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, imgList,
@@ -231,7 +233,7 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
         }
 
         @Override
-        public void onFailed(ApiResponse<DesignerCaseInfo> apiResponse) {
+        public void onFailed(ApiResponse<Product> apiResponse) {
             makeTextLong(apiResponse.getErr_msg());
             toolbar_collect.setVisibility(View.GONE);
         }

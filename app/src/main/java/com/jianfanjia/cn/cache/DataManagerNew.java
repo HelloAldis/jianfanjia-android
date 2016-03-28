@@ -20,8 +20,8 @@ public class DataManagerNew {
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
     private List<Process> processLists;
-    private RequirementInfo requirementInfo;// 需求信息
-    private ProcessInfo currentProcessInfo;// 当前工地信息p
+    private Requirement requirementInfo;// 需求信息
+    private Process currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
 
     public static DataManagerNew getInstance() {
@@ -57,11 +57,11 @@ public class DataManagerNew {
         this.currentUploadImageId = currentUploadImageId;
     }
 
-    public RequirementInfo getRequirementInfo() {
+    public Requirement getRequirementInfo() {
         return requirementInfo;
     }
 
-    public void setRequirementInfo(RequirementInfo requirementInfo) {
+    public void setRequirementInfo(Requirement requirementInfo) {
         this.requirementInfo = requirementInfo;
     }
 
@@ -69,7 +69,7 @@ public class DataManagerNew {
         return (OwnerInfo) sharedPreferdata.getValue(ownerId);
     }
 
-    public void setDesignerInfo(DesignerInfo designerInfo) {
+    public void setDesignerInfo(Designer designerInfo) {
         sharedPreferdata.setValue(designerInfo.get_id(), designerInfo);
     }
 
@@ -77,11 +77,11 @@ public class DataManagerNew {
         sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
     }
 
-    public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
+    public void setCurrentProcessInfo(Process currentProcessInfo) {
         this.currentProcessInfo = currentProcessInfo;
     }
 
-    public ProcessInfo getDefaultProcessInfo() {
+    public Process getDefaultProcessInfo() {
         return currentProcessInfo;
     }
 
@@ -117,11 +117,11 @@ public class DataManagerNew {
      * @param processId
      * @return
      */
-    public ProcessInfo getProcessInfoById(String processId) {
-        return (ProcessInfo) sharedPreferdata.getValue(processId);
+    public Process getProcessInfoById(String processId) {
+        return (Process) sharedPreferdata.getValue(processId);
     }
 
-    public void saveProcessInfo(ProcessInfo processInfo) {
+    public void saveProcessInfo(Process processInfo) {
         sharedPreferdata.setValue(processInfo.get_id(), processInfo);
     }
 
@@ -188,7 +188,7 @@ public class DataManagerNew {
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, imgId);
     }
 
-    public void saveLoginUserBean(LoginUserBean userBean) {
+    public void saveLoginUserBean(User userBean) {
         sharedPreferuser.setValue(Constant.ACCOUNT, userBean.getPhone());
         sharedPreferuser.setValue(Constant.USERTYPE, userBean.getUsertype());
         sharedPreferuser.setValue(Constant.USERNAME, userBean.getUsername());

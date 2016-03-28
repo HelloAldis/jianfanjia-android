@@ -13,12 +13,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Comment;
+import com.jianfanjia.api.model.CommentList;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.cn.activity.R;
@@ -31,6 +30,10 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;

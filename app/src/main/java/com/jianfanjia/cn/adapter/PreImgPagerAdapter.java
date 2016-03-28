@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
@@ -75,7 +76,7 @@ public class PreImgPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         BeautifulImage info = beautyImagesList.get(position);
-        List<Img> images = info.getImages();
+        List<BeautifulImageDetail> images = info.getImages();
         View view = inflater.inflate(R.layout.viewpager_item_show_img, null);
         PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);
         TextView pic_title = (TextView) view.findViewById(R.id.pic_title);

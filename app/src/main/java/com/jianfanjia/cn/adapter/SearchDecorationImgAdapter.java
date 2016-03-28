@@ -11,6 +11,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -43,9 +45,9 @@ public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautifulImag
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         BeautifulImage info = mDatas.get(position);
         final DecorationViewHolder holder = (DecorationViewHolder) viewHolder;
-        List<Img> imgList = info.getImages();
+        List<BeautifulImageDetail> imgList = info.getImages();
         if (null != imgList && imgList.size() > 0) {
-            Img img = info.getImages().get(0);
+            BeautifulImageDetail img = info.getImages().get(0);
             int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) holder.itemDecorateView.getLayoutParams();

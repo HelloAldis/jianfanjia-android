@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
@@ -55,7 +59,7 @@ public class CommentListActivity extends SwipeBackActivity {
 
     private MyCommentInfoAdapter myCommentInfoAdapter;
 
-    private NoticeInfo currentnNoticeInfo;//当前点击的留言位置
+    private UserMessage currentnNoticeInfo;//当前点击的留言位置
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +93,7 @@ public class CommentListActivity extends SwipeBackActivity {
         myCommentInfoAdapter = new MyCommentInfoAdapter(this, refreshRecycleView.getRefreshableView(), new
                 MyCommentInfoAdapter.OnItemCallback() {
             @Override
-            public void onResponse(NoticeInfo noticeInfo, int viewType) {
+            public void onResponse(UserMessage noticeInfo, int viewType) {
 
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, noticeInfo.getTopicid());
@@ -108,7 +112,7 @@ public class CommentListActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void showDetail(NoticeInfo noticeInfo, int viewType) {
+            public void showDetail(UserMessage noticeInfo, int viewType) {
                 switch (viewType) {
                     case MyCommentInfoAdapter.PLAN_TYPE:
                         currentnNoticeInfo = noticeInfo;
@@ -140,7 +144,7 @@ public class CommentListActivity extends SwipeBackActivity {
         getMyCommentInfo(Constant.FROM_START, this.pullDownCallback);
     }
 
-    private void startPlanInfoActivity(PlanInfo planInfo, RequirementInfo requirementInfo) {
+    private void startPlanInfoActivity(Plan planInfo, Requirement requirementInfo) {
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
@@ -148,20 +152,20 @@ public class CommentListActivity extends SwipeBackActivity {
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
-    private void startProcessDetailActivity(ProcessInfo processInfo) {
+    private void startProcessDetailActivity(Process processInfo) {
         Bundle processBundle = new Bundle();
         processBundle.putSerializable(Global.PROCESS_INFO, processInfo);
         startActivity(MyProcessDetailActivity.class, processBundle);
     }
 
-    private void getMyCommentInfo(int from, ApiCallback< ApiResponse<NoticeListInfo>> apiCallback) {
+    private void getMyCommentInfo(int from, ApiCallback< ApiResponse<UserMessageList>> apiCallback) {
         SearchUserCommentRequest request = new SearchUserCommentRequest();
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchUserComment(request, apiCallback);
     }
 
-    private ApiCallback<ApiResponse<NoticeListInfo>> pullDownCallback = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+    private ApiCallback<ApiResponse<UserMessageList>> pullDownCallback = new ApiCallback<ApiResponse<UserMessageList>>() {
         @Override
         public void onPreLoad() {
             if (!mHasLoadOnce) {
@@ -175,9 +179,9 @@ public class CommentListActivity extends SwipeBackActivity {
         }
 
         @Override
-        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
             refreshRecycleView.onRefreshComplete();
-            NoticeListInfo noticeListInfo = apiResponse.getData();
+            UserMessageList noticeListInfo = apiResponse.getData();
             if (noticeListInfo != null) {
                 int total = noticeListInfo.getTotal();
                 if (total > 0) {
@@ -200,7 +204,7 @@ public class CommentListActivity extends SwipeBackActivity {
         }
 
         @Override
-        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             refreshRecycleView.onRefreshComplete();
             myCommentInfoAdapter.setErrorViewShow();
@@ -213,7 +217,7 @@ public class CommentListActivity extends SwipeBackActivity {
         }
     };
 
-    private ApiCallback<ApiResponse<NoticeListInfo>> loadMoreCallback = new ApiCallback<ApiResponse<NoticeListInfo>>() {
+    private ApiCallback<ApiResponse<UserMessageList>> loadMoreCallback = new ApiCallback<ApiResponse<UserMessageList>>() {
         @Override
         public void onPreLoad() {
 
@@ -225,8 +229,8 @@ public class CommentListActivity extends SwipeBackActivity {
         }
 
         @Override
-        public void onSuccess(ApiResponse<NoticeListInfo> apiResponse) {
-            NoticeListInfo noticeListInfo = apiResponse.getData();
+        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
+            UserMessageList noticeListInfo = apiResponse.getData();
             if (noticeListInfo != null) {
                 int total = noticeListInfo.getTotal();
                 if (total > 0) {
@@ -247,7 +251,7 @@ public class CommentListActivity extends SwipeBackActivity {
         }
 
         @Override
-        public void onFailed(ApiResponse<NoticeListInfo> apiResponse) {
+        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             refreshRecycleView.onRefreshComplete();
             myCommentInfoAdapter.setErrorViewShow();

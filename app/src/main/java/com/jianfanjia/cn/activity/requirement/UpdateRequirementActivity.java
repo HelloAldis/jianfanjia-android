@@ -8,6 +8,8 @@ import android.view.View;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
@@ -33,7 +35,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
     private EditBussinessRequirementFragment editBussinessRequirementFragment_;
 
     protected String status;//当前页面的状态，家装还是商装
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         mainHeadView.setRigthTitleEnable(false);
 
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             status = requirementInfo.getDec_type();
             if (status != null) {
@@ -93,7 +95,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
     }
 
     protected void confirm() {
-        RequirementInfo requirementInfo = null;
+        Requirement requirementInfo = null;
         switch (status) {
             case Global.DEC_TYPE_HOME:
                 requirementInfo = editHomeRequirementFragment_.getRequirementInfo();

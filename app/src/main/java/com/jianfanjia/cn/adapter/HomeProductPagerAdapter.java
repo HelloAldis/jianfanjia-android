@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -53,7 +55,7 @@ public class HomeProductPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) itemView.findViewById(R.id.viewpager_home_item_pic);
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
         Product productNew = productList.get(position);
-        ImageInfo imageInfo = productNew.getImages().get(0);
+        ProductImageInfo imageInfo = productNew.getImages().get(0);
         String uri = Url_New.getInstance().GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "") + height + "/" + imageInfo.getImageid();
         LogTool.d(this.getClass().getName(), " uri =" + uri);
         Picasso.with(mContext).load(uri).resize(width, height)

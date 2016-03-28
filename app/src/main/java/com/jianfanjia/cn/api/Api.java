@@ -5,6 +5,9 @@ import java.util.List;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.DesignerCanOrderList;
+import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
@@ -58,7 +61,6 @@ import com.jianfanjia.api.request.user.SearchUserMsgRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.bean.ContractInfo;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
@@ -73,7 +75,7 @@ import com.jianfanjia.cn.config.Url_New;
  */
 public class Api {
 
-    public static void searchDesigner(SearchDesignerRequest request, ApiCallback<ApiResponse<MyFavoriteDesigner>>
+    public static void searchDesigner(SearchDesignerRequest request, ApiCallback<ApiResponse<DesignerList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_DESIGNER, request, apiCallback);
     }
@@ -82,11 +84,11 @@ public class Api {
         ApiClient.okUpload(Url_New.getInstance().UPLOAD_IMAGE, request, request.getBytes(), apiCallback);
     }
 
-    public static void login(LoginRequest request, ApiCallback<ApiResponse<LoginUserBean>> apiCallback) {
+    public static void login(LoginRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().LOGIN_URL, request, apiCallback);
     }
 
-    public static void register(RegisterRequest request, ApiCallback<ApiResponse<LoginUserBean>> apiCallback) {
+    public static void register(RegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().REGISTER_URL, request, apiCallback);
     }
 
@@ -123,12 +125,12 @@ public class Api {
 
 
     public static void getCanOrderDesigner(GetCanOrderDesignerListRequest request,
-                                           ApiCallback<ApiResponse<DesignerCanOrderListInfo>> apiCallback) {
+                                           ApiCallback<ApiResponse<DesignerCanOrderList>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().REQUIREMENT_ORDER_DESIGNER_LIST, request, apiCallback);
     }
 
     public static void getOrderedDesignerList(GetOrderedDesignerListRequest request,
-                                              ApiCallback<ApiResponse<List<OrderDesignerInfo>>> apiCallback) {
+                                              ApiCallback<ApiResponse<List<Designer>>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().USER_ORDERD_DESIGNERS, request, apiCallback);
     }
 
@@ -140,7 +142,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().CONFIRM_CHECK_DONE_BY_OWNER, request, apiCallback);
     }
 
-    public static void getContractInfo(GetContractInfoRequest request, ApiCallback<ApiResponse<ContractInfo>>
+    public static void getContractInfo(GetContractInfoRequest request, ApiCallback<ApiResponse<Requirement>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().ONE_CONTRACT, request, apiCallback);
     }
@@ -150,7 +152,7 @@ public class Api {
     }
 
     public static void getDesignerPlanList(GetDesignerPlanListRequest request,
-                                           ApiCallback<ApiResponse<List<PlanInfo>>> apiCallback) {
+                                           ApiCallback<ApiResponse<List<Plan>>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().USER_REQUIREMENT_PLANS, request, apiCallback);
     }
 
@@ -159,7 +161,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().DESIGNER_HOUSE_CHECKED, request, apiCallback);
     }
 
-    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<ProcessInfo>>
+    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<Process>>
             apiCallback) {
         String getProcessUrl = Url_New.getInstance().GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 request.getProcessId());
@@ -218,7 +220,7 @@ public class Api {
     }
 
     //业主通知详情
-    public static void getNoticeDetail(GetMsgDetailRequest request, ApiCallback<ApiResponse<NoticeDetailInfo>>
+    public static void getNoticeDetail(GetMsgDetailRequest request, ApiCallback<ApiResponse<UserMessage>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_USER_MSG_DETAIL, request, apiCallback);
     }
@@ -236,7 +238,7 @@ public class Api {
 
     //业主获取我的装修需求列表
     public static void get_Requirement_List(GetRequirementListRequest request,
-                                            ApiCallback<ApiResponse<List<RequirementInfo>>> apiCallback) {
+                                            ApiCallback<ApiResponse<List<Requirement>>> apiCallback) {
         ApiClient.okGet(Url_New.getInstance().REQUIREMENT_LIST, request, apiCallback);
     }
 
@@ -268,13 +270,13 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().ADD_COMMENT, request, apiCallback);
     }
 
-    public static void searchUserComment(SearchUserCommentRequest request, ApiCallback<ApiResponse<NoticeListInfo>>
+    public static void searchUserComment(SearchUserCommentRequest request, ApiCallback<ApiResponse<UserMessageList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_USER_COMMENT, request, apiCallback);
     }
 
     public static void getProductHomePage(GetProductHomePageRequest request,
-                                          ApiCallback<ApiResponse<DesignerCaseInfo>> apiCallback) {
+                                          ApiCallback<ApiResponse<Product>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().PRODUCT_HOME_PAGE, request, apiCallback);
     }
 
@@ -288,11 +290,11 @@ public class Api {
     }
 
     public static void searchDesignerProduct(SearchDesignerProductRequest request,
-                                             ApiCallback<ApiResponse<DesignerWorksInfo>> apiCallback) {
+                                             ApiCallback<ApiResponse<ProductList>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_DESIGNER_PRODUCT, request, apiCallback);
     }
 
-    public static void getDesignerHomePage(DesignerHomePageRequest request, ApiCallback<ApiResponse<DesignerInfo>>
+    public static void getDesignerHomePage(DesignerHomePageRequest request, ApiCallback<ApiResponse<Designer>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().DESIGNER_HOME_PAGE, request, apiCallback);
     }
@@ -308,7 +310,7 @@ public class Api {
     }
 
     public static void get_MyFavoriteDesignerList(FavoriteDesignerListRequest request,
-                                                  ApiCallback<ApiResponse<MyFavoriteDesigner>>
+                                                  ApiCallback<ApiResponse<DesignerList>>
                                                           apiCallback) {
         ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback);
     }
@@ -331,7 +333,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().GET_TOP_PRODUCTS, request, apiCallback);
     }
 
-    public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<NoticeListInfo>>
+    public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<UserMessageList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
     }

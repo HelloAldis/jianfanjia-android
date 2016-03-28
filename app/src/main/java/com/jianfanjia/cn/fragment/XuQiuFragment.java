@@ -58,7 +58,7 @@ public class XuQiuFragment extends BaseFragment {
     public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
 
     protected RequirementNewAdapter requirementAdapter;
-    private List<RequirementInfo> requirementInfos = new ArrayList<>();
+    private List<Requirement> requirementInfos = new ArrayList<>();
     private boolean isFirst = true;//第一次加载成功之前都只显示等待对话框
 
     @Bind(R.id.frag_req_rootview)
@@ -85,7 +85,7 @@ public class XuQiuFragment extends BaseFragment {
     @Bind(R.id.error_include)
     RelativeLayout error_Layout;
 
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -226,7 +226,7 @@ public class XuQiuFragment extends BaseFragment {
 
     private void initData() {
         GetRequirementListRequest request = new GetRequirementListRequest();
-        Api.get_Requirement_List(request, new ApiCallback<ApiResponse<List<RequirementInfo>>>() {
+        Api.get_Requirement_List(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
             @Override
             public void onPreLoad() {
                 if (isFirst) {
@@ -240,7 +240,7 @@ public class XuQiuFragment extends BaseFragment {
             }
 
             @Override
-            public void onSuccess(ApiResponse<List<RequirementInfo>> apiResponse) {
+            public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
                 pullrefresh.onRefreshComplete();
                 requirementInfos = apiResponse.getData();
                 if (null != requirementInfos && requirementInfos.size() > 0) {
@@ -254,7 +254,7 @@ public class XuQiuFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailed(ApiResponse<List<RequirementInfo>> apiResponse) {
+            public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
                 pullrefresh.onRefreshComplete();
                 setListVisiable();
                 if (isFirst) {

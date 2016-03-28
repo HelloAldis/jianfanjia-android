@@ -33,7 +33,7 @@ public class WeiXinLoginRequest extends BaseRequest{
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()
                     .getTimeInMillis());
-            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(),LoginUserBean.class);
+            User loginUserBean = JsonParser.jsonToBean(data.toString(),User.class);
             loginUserBean.setWechat_openid(weiXinRegisterInfo.getWechat_openid());
             loginUserBean.setWechat_unionid(weiXinRegisterInfo.getWechat_unionid());
             dataManager.saveLoginUserBean(loginUserBean);

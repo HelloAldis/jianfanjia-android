@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
@@ -79,7 +80,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 break;
             case TYPE_TITLE:
                 final DesignerByAppointOrReplaceViewHolder holder = (DesignerByAppointOrReplaceViewHolder) viewHolder;
-                final DesignerCanOrderInfo designerCanOrderInfo = (DesignerCanOrderInfo) list.get(position).get
+                final Designer designerCanOrderInfo = (Designer) list.get(position).get
                         (Constant.KEY);
                 final String designerId = designerCanOrderInfo.get_id();
                 holder.itemCheck.setTag(new Integer(position));//设置tag 否则划回来时选中消失

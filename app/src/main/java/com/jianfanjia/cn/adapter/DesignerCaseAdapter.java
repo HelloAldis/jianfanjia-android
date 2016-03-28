@@ -23,14 +23,14 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
  * Date: 2015-10-15
  * Time: 15:14
  */
-public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
+public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ProductImageInfo> {
     private RecyclerViewOnItemClickListener listener;
-    private DesignerCaseInfo designerCaseInfo;
+    private Product designerCaseInfo;
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_ITEM = 1;
     private int viewType = -1;
 
-    public DesignerCaseAdapter(Context context, List<ImageInfo> list, DesignerCaseInfo designerCaseInfo,
+    public DesignerCaseAdapter(Context context, List<ProductImageInfo> list, Product designerCaseInfo,
                                RecyclerViewOnItemClickListener listener) {
         super(context, list);
         this.designerCaseInfo = designerCaseInfo;
@@ -53,7 +53,7 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<ImageInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<ProductImageInfo> list) {
         switch (viewType) {
             case TYPE_HEAD:
                 DesignerCaseInfoHeadHolder designerCaseInfoHeadHolder = (DesignerCaseInfoHeadHolder) viewHolder;
@@ -81,7 +81,7 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ImageInfo> {
                 });
                 break;
             case TYPE_ITEM:
-                ImageInfo info = list.get(position - 1);
+                ProductImageInfo info = list.get(position - 1);
                 final DesignerCaseViewHolder holder = (DesignerCaseViewHolder) viewHolder;
                 imageShow.displayScreenWidthThumnailImage(context, info.getImageid(), holder.itemwCaseView);
                 holder.itemTitleText.setText(info.getSection());

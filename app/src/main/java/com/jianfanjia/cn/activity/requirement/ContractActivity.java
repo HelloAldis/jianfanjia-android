@@ -14,13 +14,13 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.bean.ContractInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.LogTool;
@@ -49,7 +49,7 @@ public class ContractActivity extends SwipeBackActivity implements
     @Bind(R.id.webView)
     protected WebView webView = null;
 
-    private RequirementInfo requirement = null;
+    private Requirement requirement = null;
     private String final_planid = null;
 
     @Override
@@ -63,7 +63,7 @@ public class ContractActivity extends SwipeBackActivity implements
     protected void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
-        requirement = (RequirementInfo) contractBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirement = (Requirement) contractBundle.getSerializable(Global.REQUIREMENT_INFO);
         flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
         LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
     }
@@ -166,7 +166,7 @@ public class ContractActivity extends SwipeBackActivity implements
         GetContractInfoRequest getContractInfoRequest = new GetContractInfoRequest();
         getContractInfoRequest.setRequirementid(requirementid);
 
-        Api.getContractInfo(getContractInfoRequest, new ApiCallback<ApiResponse<ContractInfo>>() {
+        Api.getContractInfo(getContractInfoRequest, new ApiCallback<ApiResponse<Requirement>>() {
             @Override
             public void onPreLoad() {
 
@@ -178,8 +178,8 @@ public class ContractActivity extends SwipeBackActivity implements
             }
 
             @Override
-            public void onSuccess(ApiResponse<ContractInfo> apiResponse) {
-                ContractInfo contractInfo = apiResponse.getData();
+            public void onSuccess(ApiResponse<Requirement> apiResponse) {
+                Requirement contractInfo = apiResponse.getData();
                 LogTool.d(TAG, "contractInfo:" + contractInfo);
                 if (null != contractInfo) {
                     final_planid = contractInfo.getFinal_planid();
@@ -188,7 +188,7 @@ public class ContractActivity extends SwipeBackActivity implements
             }
 
             @Override
-            public void onFailed(ApiResponse<ContractInfo> apiResponse) {
+            public void onFailed(ApiResponse<Requirement> apiResponse) {
 
             }
 

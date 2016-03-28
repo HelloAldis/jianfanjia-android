@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.request.user.GetMsgDetailRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
@@ -94,10 +99,10 @@ public class NoticeDetailActivity extends SwipeBackActivity {
     private String sectionName = null;
     private String requirementid = null;
     private String designerid = null;
-    private ProcessInfo processInfo = null;
-    private PlanInfo planInfo = null;
-    private RequirementInfo requirement = null;
-    private SectionInfo sectionInfo = null;
+    private Process processInfo = null;
+    private Plan planInfo = null;
+    private Requirement requirement = null;
+    private ProcessSection sectionInfo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +195,7 @@ public class NoticeDetailActivity extends SwipeBackActivity {
 
     private void getNoticeDetailInfo(String messageid) {
         GetMsgDetailRequest request = new GetMsgDetailRequest(messageid);
-        Api.getNoticeDetail(request, new ApiCallback<ApiResponse<NoticeDetailInfo>>() {
+        Api.getNoticeDetail(request, new ApiCallback<ApiResponse<UserMessage>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -202,8 +207,8 @@ public class NoticeDetailActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void onSuccess(ApiResponse<NoticeDetailInfo> apiResponse) {
-                NoticeDetailInfo noticeDetailInfo = apiResponse.getData();
+            public void onSuccess(ApiResponse<UserMessage> apiResponse) {
+                UserMessage noticeDetailInfo = apiResponse.getData();
                 LogTool.d(TAG, "noticeDetailInfo=" + noticeDetailInfo);
                 if (null != noticeDetailInfo) {
                     String msgType = noticeDetailInfo.getMessage_type();
@@ -336,7 +341,7 @@ public class NoticeDetailActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void onFailed(ApiResponse<NoticeDetailInfo> apiResponse) {
+            public void onFailed(ApiResponse<UserMessage> apiResponse) {
 
             }
 

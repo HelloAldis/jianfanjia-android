@@ -128,7 +128,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
         getDesignerProduct(designerid, pullUpListener);
     }
 
-    private void getDesignerProduct(String designerid, ApiCallback<ApiResponse<DesignerWorksInfo>> listener) {
+    private void getDesignerProduct(String designerid, ApiCallback<ApiResponse<ProductList>> listener) {
         SearchDesignerProductRequest request = new SearchDesignerProductRequest();
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("designerid", designerid);
@@ -140,8 +140,8 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
         Api.searchDesignerProduct(request, listener);
     }
 
-    private ApiCallback<ApiResponse<DesignerWorksInfo>> pullUpListener = new
-            ApiCallback<ApiResponse<DesignerWorksInfo>>() {
+    private ApiCallback<ApiResponse<ProductList>> pullUpListener = new
+            ApiCallback<ApiResponse<ProductList>>() {
 
                 @Override
                 public void onPreLoad() {
@@ -154,10 +154,10 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<DesignerWorksInfo> apiResponse) {
+                public void onSuccess(ApiResponse<ProductList> apiResponse) {
                     mHasLoadedOnce = true;
                     designer_works_listview.onRefreshComplete();
-                    DesignerWorksInfo worksInfo = apiResponse.getData();
+                    ProductList worksInfo = apiResponse.getData();
                     LogTool.d(TAG, "worksInfo :" + worksInfo);
                     if (null != worksInfo) {
                         if (null == adapter) {
@@ -190,7 +190,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                 }
 
                 @Override
-                public void onFailed(ApiResponse<DesignerWorksInfo> apiResponse) {
+                public void onFailed(ApiResponse<ProductList> apiResponse) {
                     designer_works_listview.onRefreshComplete();
                 }
 

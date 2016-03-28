@@ -24,11 +24,11 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
  * Date: 2015-10-14
  * Time: 14:03
  */
-public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
+public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
     private static final String TAG = DesignerListAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 
-    public DesignerListAdapter(Context context, List<DesignerInfo> list, RecyclerViewOnItemClickListener listener) {
+    public DesignerListAdapter(Context context, List<Designer> list, RecyclerViewOnItemClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
@@ -39,8 +39,8 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DesignerInfo> list) {
-        DesignerInfo designerInfo = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Designer> list) {
+        Designer designerInfo = list.get(position);
         DesignerListViewHolder holder = (DesignerListViewHolder) viewHolder;
         holder.itemNameText.setText(designerInfo.getUsername());
         imageShow.displayImageHeadWidthThumnailImage(context, designerInfo.getImageid(), holder.itemHeadView);

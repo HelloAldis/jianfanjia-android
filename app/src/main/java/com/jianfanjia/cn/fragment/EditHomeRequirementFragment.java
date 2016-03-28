@@ -73,7 +73,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
     protected String[] arr_desisex;
 
 
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -273,7 +273,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     private void initData() {
         LogTool.d(this.getClass().getName(), "initData");
-        requirementInfo = (RequirementInfo) getArguments().getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) getArguments().getSerializable(Global.REQUIREMENT_INFO);
         actionType = getArguments().getInt(Global.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {
             case XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT:
@@ -322,7 +322,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     }
 
-    public RequirementInfo getRequirementInfo() {
+    public Requirement getRequirementInfo() {
         return requirementInfo;
     }
 

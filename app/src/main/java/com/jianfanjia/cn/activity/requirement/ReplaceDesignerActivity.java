@@ -17,6 +17,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
@@ -50,8 +52,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
 
     private List<Map<String, Object>> mylist = new ArrayList<>();
     private List<Map<String, Object>> splitList = new ArrayList<>();
-    private List<DesignerCanOrderInfo> rec_designer = new ArrayList<>();
-    private List<DesignerCanOrderInfo> favorite_designer = new ArrayList<>();
+    private List<Designer> rec_designer = new ArrayList<>();
+    private List<Designer> favorite_designer = new ArrayList<>();
     private DesignerByAppointOrReplaceAdapter designerByAppointOrReplaceAdapter = null;
     private String requestmentid = null;
     private String designerid = null;
@@ -96,7 +98,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
         mainHeadView.setRigthTitleEnable(false);
     }
 
-    private void setReplaceDesignerList(List<DesignerCanOrderInfo> rec_designerList, List<DesignerCanOrderInfo>
+    private void setReplaceDesignerList(List<Designer> rec_designerList, List<Designer>
             favorite_designerList) {
         mylist.clear();
         splitList.clear();
@@ -105,7 +107,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
         mp.put(Constant.TEXT_KEY, "");
         mylist.add(mp);
         splitList.add(mp);
-        for (DesignerCanOrderInfo designerCanOrderInfo : rec_designerList) {
+        for (Designer designerCanOrderInfo : rec_designerList) {
             Map<String, Object> map = new HashMap<>();
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
@@ -116,7 +118,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
         mp.put(Constant.TEXT_KEY, getResources().getString(R.string.moreText));
         mylist.add(mp);
         splitList.add(mp);
-        for (DesignerCanOrderInfo designerCanOrderInfo : favorite_designerList) {
+        for (Designer designerCanOrderInfo : favorite_designerList) {
             Map<String, Object> map = new HashMap<>();
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
@@ -143,7 +145,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
         GetCanOrderDesignerListRequest getCanOrderDesignerListRequest = new GetCanOrderDesignerListRequest();
         getCanOrderDesignerListRequest.setRequirementis(requestmentid);
 
-        Api.getCanOrderDesigner(getCanOrderDesignerListRequest, new ApiCallback<ApiResponse<DesignerCanOrderListInfo>>() {
+        Api.getCanOrderDesigner(getCanOrderDesignerListRequest, new ApiCallback<ApiResponse<DesignerCanOrderList>>() {
 
 
             @Override
@@ -157,8 +159,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void onSuccess(ApiResponse<DesignerCanOrderListInfo> apiResponse) {
-                DesignerCanOrderListInfo designerCanOrderListInfo = apiResponse.getData();
+            public void onSuccess(ApiResponse<DesignerCanOrderList> apiResponse) {
+                DesignerCanOrderList designerCanOrderListInfo = apiResponse.getData();
                 LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
                 if (null != designerCanOrderListInfo) {
                     rec_designer = designerCanOrderListInfo.getRec_designer();
@@ -195,7 +197,7 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
             }
 
             @Override
-            public void onFailed(ApiResponse<DesignerCanOrderListInfo> apiResponse) {
+            public void onFailed(ApiResponse<DesignerCanOrderList> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
             }
 

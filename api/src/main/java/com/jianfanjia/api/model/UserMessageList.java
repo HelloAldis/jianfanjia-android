@@ -19,4 +19,12 @@ public class UserMessageList implements Serializable {
     public void setList(List<UserMessage> list) {
         this.list = list;
     }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

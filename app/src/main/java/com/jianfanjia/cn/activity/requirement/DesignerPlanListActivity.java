@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -46,9 +48,9 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
     @Bind(R.id.designer_plan_listview)
     protected PullToRefreshRecycleView designer_plan_listview;
 
-    private List<PlanInfo> designerPlanList = new ArrayList<>();
+    private List<Plan> designerPlanList = new ArrayList<>();
     private String requirementid = null;
-    private RequirementInfo requirementInfo = null;
+    private Requirement requirementInfo = null;
     private String designerid = null;
     private String designerName = null;
 
@@ -62,7 +64,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementInfo = (RequirementInfo) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
         designerName = designerBundle.getString(Global.DESIGNER_NAME);
@@ -126,7 +128,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
         getDesignerPlanListRequest.setRequirementid(requestmentid);
         getDesignerPlanListRequest.setDesignerid(designerid);
 
-        Api.getDesignerPlanList(getDesignerPlanListRequest, new ApiCallback<ApiResponse<List<PlanInfo>>>() {
+        Api.getDesignerPlanList(getDesignerPlanListRequest, new ApiCallback<ApiResponse<List<Plan>>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -139,7 +141,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
             }
 
             @Override
-            public void onSuccess(ApiResponse<List<PlanInfo>> apiResponse) {
+            public void onSuccess(ApiResponse<List<Plan>> apiResponse) {
                 designerPlanList = apiResponse.getData();
                 if (null != designerPlanList && designerPlanList.size() > 0) {
                     DesignerPlanAdapter adapter = new DesignerPlanAdapter(DesignerPlanListActivity.this,
@@ -150,7 +152,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
             }
 
             @Override
-            public void onFailed(ApiResponse<List<PlanInfo>> apiResponse) {
+            public void onFailed(ApiResponse<List<Plan>> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
             }
 
@@ -164,7 +166,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
     @Override
     public void onCallBack(int position, int pos) {
         LogTool.d(TAG, "position=" + position + "  pos=" + pos);
-        PlanInfo planInfo = designerPlanList.get(position);
+        Plan planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         LogTool.d(TAG, "planid:" + planid);
@@ -174,7 +176,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
     @Override
     public void onItemCallBack(int position, int itemType) {
         LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
-        PlanInfo planInfo = designerPlanList.get(position);
+        Plan planInfo = designerPlanList.get(position);
         LogTool.d(TAG, "planInfo:" + planInfo);
         String planid = planInfo.get_id();
         String designerid = planInfo.getDesignerid();
@@ -195,7 +197,7 @@ public class DesignerPlanListActivity extends SwipeBackActivity implements ItemC
         }
     }
 
-    private void startToActivity(PlanInfo planInfo) {
+    private void startToActivity(Plan planInfo) {
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);

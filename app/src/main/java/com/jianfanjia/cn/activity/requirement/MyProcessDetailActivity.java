@@ -24,6 +24,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
@@ -84,9 +85,9 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
-    private List<SectionInfo> sectionInfos;
-    private SectionInfo sectionInfo = null;
-    private ProcessInfo processInfo = null;
+    private List<ProcessSection> sectionInfos;
+    private ProcessSection sectionInfo = null;
+    private Process processInfo = null;
     private String processId = null;// 默认的工地id
 
     private int currentPro = -1;// 当前进行工序
@@ -134,7 +135,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
 
     private void initProcessInfo() {
         Intent intent = getIntent();
-        processInfo = (ProcessInfo) intent.getSerializableExtra(Global.PROCESS_INFO);
+        processInfo = (Process) intent.getSerializableExtra(Global.PROCESS_INFO);
         if (processInfo != null) {
             LogTool.d(TAG, "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
@@ -154,7 +155,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
             getProcessInfoRequest.setProcessId(processId);
 
-            Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<ProcessInfo>>() {
+            Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
                 @Override
                 public void onPreLoad() {
                     showWaitDialog();
@@ -167,13 +168,13 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<ProcessInfo> apiResponse) {
+                public void onSuccess(ApiResponse<Process> apiResponse) {
                     processInfo = apiResponse.getData();
                     initData();
                 }
 
                 @Override
-                public void onFailed(ApiResponse<ProcessInfo> apiResponse) {
+                public void onFailed(ApiResponse<Process> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
                 }
 

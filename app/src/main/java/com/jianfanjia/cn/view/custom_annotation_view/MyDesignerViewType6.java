@@ -62,7 +62,7 @@ public class MyDesignerViewType6 extends RecyclerView.ViewHolder {
         return new MyDesignerViewType6(view, context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
+    public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         headView.setOnClickListener(new View.OnClickListener() {

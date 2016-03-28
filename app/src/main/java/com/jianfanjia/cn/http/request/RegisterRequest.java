@@ -37,7 +37,7 @@ public class RegisterRequest extends BaseRequest {
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()
                     .getTimeInMillis());
-            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(),LoginUserBean.class);
+            User loginUserBean = JsonParser.jsonToBean(data.toString(),User.class);
             loginUserBean.setPass(registerInfo.getPass());
             dataManager.saveLoginUserBean(loginUserBean);
         }

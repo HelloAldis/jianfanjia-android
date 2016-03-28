@@ -24,7 +24,7 @@ import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.LoginUserBean;
+import com.jianfanjia.cn.bean.User;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
@@ -145,7 +145,7 @@ public class RegisterNewActivity extends BaseActivity implements
         registerRequest.setPhone(registerInfo.getPhone());
         registerRequest.setCode(registerInfo.getCode());
 
-        Api.register(registerRequest, new ApiCallback<ApiResponse<LoginUserBean>>() {
+        Api.register(registerRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -157,11 +157,11 @@ public class RegisterNewActivity extends BaseActivity implements
             }
 
             @Override
-            public void onSuccess(ApiResponse<LoginUserBean> apiResponse) {
+            public void onSuccess(ApiResponse<User> apiResponse) {
                 dataManager.setLogin(true);
                 dataManager.savaLastLoginTime(Calendar.getInstance()
                         .getTimeInMillis());
-                LoginUserBean loginUserBean = apiResponse.getData();
+                User loginUserBean = apiResponse.getData();
                 loginUserBean.setPass(registerInfo.getPass());
                 dataManager.saveLoginUserBean(loginUserBean);
                 GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
@@ -170,7 +170,7 @@ public class RegisterNewActivity extends BaseActivity implements
             }
 
             @Override
-            public void onFailed(ApiResponse<LoginUserBean> apiResponse) {
+            public void onFailed(ApiResponse<User> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
             }
 

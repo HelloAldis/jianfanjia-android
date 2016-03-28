@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
@@ -212,7 +214,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         getDesignerProductList(FROM, this.pullUpCallback);
     }
 
-    private void getDesignerProductList(int from, ApiCallback<ApiResponse<DesignerWorksInfo>> apiCallback) {
+    private void getDesignerProductList(int from, ApiCallback<ApiResponse<ProductList>> apiCallback) {
         Map<String, Object> query = new HashMap<>();
         query.put("dec_type", decType);
         query.put("house_type", houseType);
@@ -225,7 +227,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         Api.searchDesignerProduct(request, apiCallback);
     }
 
-    private ApiCallback<ApiResponse<DesignerWorksInfo>> pullDownCallback = new ApiCallback<ApiResponse<DesignerWorksInfo>>() {
+    private ApiCallback<ApiResponse<ProductList>> pullDownCallback = new ApiCallback<ApiResponse<ProductList>>() {
         @Override
         public void onPreLoad() {
             if (isFirst) {
@@ -239,8 +241,8 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
 
         @Override
-        public void onSuccess(ApiResponse<DesignerWorksInfo> apiResponse) {
-            DesignerWorksInfo worksInfo = apiResponse.getData();
+        public void onSuccess(ApiResponse<ProductList> apiResponse) {
+            ProductList worksInfo = apiResponse.getData();
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 isFirst = false;
@@ -291,7 +293,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
 
         @Override
-        public void onFailed(ApiResponse<DesignerWorksInfo> apiResponse) {
+        public void onFailed(ApiResponse<ProductList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             pullToRefreshRecyclerView.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
@@ -305,7 +307,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
     };
 
-    private ApiCallback<ApiResponse<DesignerWorksInfo>> pullUpCallback = new ApiCallback<ApiResponse<DesignerWorksInfo>>() {
+    private ApiCallback<ApiResponse<ProductList>> pullUpCallback = new ApiCallback<ApiResponse<ProductList>>() {
         @Override
         public void onPreLoad() {
 
@@ -317,8 +319,8 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
 
         @Override
-        public void onSuccess(ApiResponse<DesignerWorksInfo> apiResponse) {
-            DesignerWorksInfo worksInfo = apiResponse.getData();
+        public void onSuccess(ApiResponse<ProductList> apiResponse) {
+            ProductList worksInfo = apiResponse.getData();
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 List<Product> products = worksInfo.getProducts();
@@ -332,7 +334,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
         }
 
         @Override
-        public void onFailed(ApiResponse<DesignerWorksInfo> apiResponse) {
+        public void onFailed(ApiResponse<ProductList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             pullToRefreshRecyclerView.onRefreshComplete();
         }

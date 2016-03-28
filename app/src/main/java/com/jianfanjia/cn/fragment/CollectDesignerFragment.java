@@ -56,8 +56,8 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     RelativeLayout errorLayout;
 
     private FavoriteDesignerAdapter designAdapter = null;
-    private MyFavoriteDesigner myFavoriteDesigner = null;
-    private List<DesignerInfo> designers = new ArrayList<>();
+    private DesignerList myFavoriteDesigner = null;
+    private List<Designer> designers = new ArrayList<>();
     private boolean isFirst = true;
     private boolean isVisible = false;
     private boolean isPrepared = false;
@@ -140,13 +140,13 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
         getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getUpMyFavoriteDesignerListener);
     }
 
-    private void getMyFavoriteDesignerList(int from, int limit, ApiCallback<ApiResponse<MyFavoriteDesigner>> listener) {
+    private void getMyFavoriteDesignerList(int from, int limit, ApiCallback<ApiResponse<DesignerList>> listener) {
         FavoriteDesignerListRequest request = new FavoriteDesignerListRequest(from, limit);
         Api.get_MyFavoriteDesignerList(request, listener);
     }
 
-    private ApiCallback<ApiResponse<MyFavoriteDesigner>> getDownMyFavoriteDesignerListener = new
-            ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+    private ApiCallback<ApiResponse<DesignerList>> getDownMyFavoriteDesignerListener = new
+            ApiCallback<ApiResponse<DesignerList>>() {
                 @Override
                 public void onPreLoad() {
                     if (isFirst) {
@@ -160,7 +160,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                public void onSuccess(ApiResponse<DesignerList> apiResponse) {
                     my_favorite_designer_listview.onRefreshComplete();
                     mHasLoadedOnce = true;
                     myFavoriteDesigner = apiResponse.getData();
@@ -204,7 +204,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 }
 
                 @Override
-                public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                public void onFailed(ApiResponse<DesignerList> apiResponse) {
                     my_favorite_designer_listview.onRefreshComplete();
                     my_favorite_designer_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
@@ -218,8 +218,8 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
             };
 
-    private ApiCallback<ApiResponse<MyFavoriteDesigner>> getUpMyFavoriteDesignerListener = new
-            ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+    private ApiCallback<ApiResponse<DesignerList>> getUpMyFavoriteDesignerListener = new
+            ApiCallback<ApiResponse<DesignerList>>() {
 
                 @Override
                 public void onPreLoad() {
@@ -232,11 +232,11 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 }
 
                 @Override
-                public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                public void onSuccess(ApiResponse<DesignerList> apiResponse) {
                     myFavoriteDesigner = apiResponse.getData();
                     LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
                     if (myFavoriteDesigner != null) {
-                        List<DesignerInfo> designerList = myFavoriteDesigner.getDesigners();
+                        List<Designer> designerList = myFavoriteDesigner.getDesigners();
                         if (null != designerList && designerList.size() > 0) {
                             designAdapter.add(FROM, designerList);
                             FROM += Constant.HOME_PAGE_LIMIT;
@@ -247,7 +247,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 }
 
                 @Override
-                public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+                public void onFailed(ApiResponse<DesignerList> apiResponse) {
 
                 }
 

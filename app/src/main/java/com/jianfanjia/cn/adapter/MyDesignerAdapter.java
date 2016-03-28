@@ -22,7 +22,7 @@ import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType8;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 19:15
  */
-public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo> {
+public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
     public static final int PLAN_TYPE0 = 0;
     public static final int PLAN_TYPE1 = 1;
     public static final int PLAN_TYPE2 = 2;
@@ -43,7 +43,7 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo
 
     @Override
     public int getItemViewType(int position) {
-        OrderDesignerInfo orderDesignerInfo = items.get(position);
+        Designer orderDesignerInfo = items.get(position);
         String status = orderDesignerInfo.getPlan().getStatus();
         return Integer.parseInt(status);
     }
@@ -75,7 +75,7 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<OrderDesignerInfo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        OrderDesignerInfo orderDesignerInfo = items.get(position);
+        Designer orderDesignerInfo = items.get(position);
         switch (getItemViewType(position)) {
             case PLAN_TYPE0:
                 MyDesignerViewType0 view0 = (MyDesignerViewType0) holder;

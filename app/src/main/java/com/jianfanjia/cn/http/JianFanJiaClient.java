@@ -209,7 +209,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void add_Requirement(Context context, RequirementInfo requirementInfo, ApiUiUpdateListener
+    public static void add_Requirement(Context context, Requirement requirementInfo, ApiUiUpdateListener
             listener, Object tag) {
         PostRequirementRequest postRequirementRequest = new PostRequirementRequest(context, requirementInfo);
         LogTool.d(TAG, "add_Requirement --" + postRequirementRequest.getUrl() + "--" + JsonParser.beanToJson
@@ -226,7 +226,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void update_Requirement(Context context, RequirementInfo requirementInfo, ApiUiUpdateListener
+    public static void update_Requirement(Context context, Requirement requirementInfo, ApiUiUpdateListener
             listener, Object tag) {
         UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest(context, requirementInfo);
         LogTool.d(TAG, "add_Requirement --" + updateRequirementRequest.getUrl() + "--" + JsonParser.beanToJson

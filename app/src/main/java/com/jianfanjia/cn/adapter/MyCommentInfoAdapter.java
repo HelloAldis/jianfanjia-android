@@ -30,7 +30,7 @@ import com.jianfanjia.cn.tools.StringUtils;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 17:46
  */
-public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
+public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
 
     public static final int PLAN_TYPE = 0;//方案的评论
     public static final int NODE_TYPE = 1;//节点的评论
@@ -72,7 +72,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
 
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        NoticeInfo noticeInfo = mDatas.get(position);
+        UserMessage noticeInfo = mDatas.get(position);
         switch (getItemViewType(position)) {
             case PLAN_TYPE:
                 PlanCommentViewHolder planHolder = (PlanCommentViewHolder) viewHolder;
@@ -85,7 +85,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         }
     }
 
-    private void onBindPlanCommentViewHolder(final NoticeInfo noticeInfo, PlanCommentViewHolder holder) {
+    private void onBindPlanCommentViewHolder(final UserMessage noticeInfo, PlanCommentViewHolder holder) {
 
         //设计师的名字
         holder.nameView.setText(noticeInfo.getDesigner().getUsername());
@@ -156,7 +156,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
 
     }
 
-    private void onBindProcessCommentViewHolder(final NoticeInfo noticeInfo, ProcessCommentViewHolder holder) {
+    private void onBindProcessCommentViewHolder(final UserMessage noticeInfo, ProcessCommentViewHolder holder) {
         String imageid = noticeInfo.getDesigner().getImageid();
         LogTool.d(this.getClass().getName(), "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
@@ -289,9 +289,9 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
     }
 
     public interface OnItemCallback {
-        void onResponse(NoticeInfo noticeInfo, int viewType);
+        void onResponse(UserMessage noticeInfo, int viewType);
 
-        void showDetail(NoticeInfo noticeInfo, int viewType);
+        void showDetail(UserMessage noticeInfo, int viewType);
     }
 
 

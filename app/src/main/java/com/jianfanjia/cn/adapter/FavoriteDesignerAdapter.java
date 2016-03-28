@@ -24,18 +24,18 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
  * Date: 2015-12-11
  * Time: 17:43
  */
-public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<DesignerInfo> {
+public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<Designer> {
     private static final String TAG = FavoriteDesignerAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 
-    public FavoriteDesignerAdapter(Context context, List<DesignerInfo> list, RecyclerViewOnItemClickListener listener) {
+    public FavoriteDesignerAdapter(Context context, List<Designer> list, RecyclerViewOnItemClickListener listener) {
         super(context, list);
         this.listener = listener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<DesignerInfo> list) {
-        DesignerInfo designerInfo = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Designer> list) {
+        Designer designerInfo = list.get(position);
         final FavoriteDesignerViewHolder holder = (FavoriteDesignerViewHolder) viewHolder;
         holder.ltm_myfavdesi_name.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources()
                 .getString(R.string.designer) : designerInfo.getUsername());

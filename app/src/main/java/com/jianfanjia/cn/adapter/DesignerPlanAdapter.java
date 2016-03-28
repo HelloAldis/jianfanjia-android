@@ -27,17 +27,17 @@ import com.jianfanjia.cn.tools.DateFormatTool;
  * Date: 2015-10-22
  * Time: 17:54
  */
-public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
+public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
     private ItemClickListener itemClickListener;
 
-    public DesignerPlanAdapter(Context context, List<PlanInfo> list, ItemClickListener itemClickListener) {
+    public DesignerPlanAdapter(Context context, List<Plan> list, ItemClickListener itemClickListener) {
         super(context, list);
         this.itemClickListener = itemClickListener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<PlanInfo> list) {
-        PlanInfo info = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Plan> list) {
+        Plan info = list.get(position);
         final DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
         holder.numText.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));

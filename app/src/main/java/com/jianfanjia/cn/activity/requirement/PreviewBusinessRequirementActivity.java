@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
@@ -51,7 +53,7 @@ public class PreviewBusinessRequirementActivity extends SwipeBackActivity {
     protected String[] arr_busihousetype;
     protected String[] arr_desisex;
 
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {
@@ -91,7 +93,7 @@ public class PreviewBusinessRequirementActivity extends SwipeBackActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                     requirementInfo.getDistrict());

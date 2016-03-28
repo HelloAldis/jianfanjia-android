@@ -17,6 +17,8 @@ import java.util.List;
 import butterknife.Bind;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
@@ -61,9 +63,9 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
     private List<String> showProcessPic = new ArrayList<>();
     private List<Imageid> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
-    private ProcessInfo processInfo = null;
+    private Process processInfo = null;
     private String sectionName = null;//工序名称
-    private SectionInfo sectionInfo = null;
+    private ProcessSection sectionInfo = null;
 
     private int currentUploadCount = 0;//当前已上传图片个数
 
@@ -96,12 +98,12 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
         Bundle bundle = intent.getExtras();
         if (null != bundle) {
             sectionName = bundle.getString(Constant.SECTION);
-            processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
+            processInfo = (Process) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
             flagIntent = bundle.getInt(CheckActivity.CHECK_INTENT_FLAG);
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId + " flagIntent:" + flagIntent);
-            sectionInfo = (SectionInfo) bundle.getSerializable(Constant.SECTION_INFO);
+            sectionInfo = (ProcessSection) bundle.getSerializable(Constant.SECTION_INFO);
         }
     }
 
@@ -169,9 +171,9 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
      * @param sectionItemInfos
      * @return
      */
-    private boolean isSectionInfoFishish(List<SectionItemInfo> sectionItemInfos) {
+    private boolean isSectionInfoFishish(List<ProcessSectionItem> sectionItemInfos) {
         boolean flag = true;
-        for (SectionItemInfo sectionItemInfo : sectionItemInfos) {
+        for (ProcessSectionItem sectionItemInfo : sectionItemInfos) {
             LogTool.d(TAG, "sectionitem name =" + sectionItemInfo.getName());
             LogTool.d(TAG, "sectionitem status =" + sectionItemInfo.getStatus());
             if (!sectionItemInfo.getStatus().equals(Constant.FINISHED)) {

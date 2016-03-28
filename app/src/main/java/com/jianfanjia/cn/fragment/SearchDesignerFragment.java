@@ -129,7 +129,7 @@ public class SearchDesignerFragment extends BaseFragment {
         @Override
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data=" + data.toString());
-            MyFavoriteDesigner designer = JsonParser.jsonToBean(data.toString(), MyFavoriteDesigner.class);
+            DesignerList designer = JsonParser.jsonToBean(data.toString(), DesignerList.class);
             if (designer != null) {
                 int total = designer.getTotal();
                 if (total > 0) {

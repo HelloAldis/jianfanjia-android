@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-20 14:59
  */
-public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
+public class SearchDesignerAdapter extends BaseRecycleAdapter<Designer> {
 
     private RecyclerViewOnItemClickListener listener;
 
@@ -47,7 +47,7 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<DesignerInfo> {
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         SearchDesignerViewHolder holder = (SearchDesignerViewHolder) viewHolder;
 
-        DesignerInfo designerInfo = mDatas.get(position);
+        Designer designerInfo = mDatas.get(position);
 
         holder.nameView.setText(TextUtils.isEmpty(designerInfo.getUsername()) ? context.getResources().getString(R
                 .string.designer) : designerInfo.getUsername());

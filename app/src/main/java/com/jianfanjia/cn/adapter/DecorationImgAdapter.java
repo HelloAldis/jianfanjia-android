@@ -38,7 +38,7 @@ public class DecorationImgAdapter extends BaseRecyclerViewAdapter<BeautifulImage
         if (!beautyImgInfo.is_deleted()) {
             holder.itemDecorateView.setVisibility(View.VISIBLE);
             holder.itemNoDecorateView.setVisibility(View.GONE);
-            Img img = beautyImgInfo.getImages().get(0);
+            BeautifulImageDetail img = beautyImgInfo.getImages().get(0);
             int width = (int) TDevice.getScreenWidth() / 2;
             int height = width * img.getHeight() / img.getWidth();//高通过宽等比例缩放
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.itemDecorateView.getLayoutParams();

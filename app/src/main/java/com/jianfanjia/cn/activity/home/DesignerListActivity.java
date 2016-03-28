@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -94,7 +96,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
     protected PullToRefreshRecycleView designerListView = null;
 
     private DesignerListAdapter designerListAdapter = null;
-    private List<DesignerInfo> designerList = new ArrayList<>();
+    private List<Designer> designerList = new ArrayList<>();
     private FilterPopWindow window = null;
     private String decType = null;
     private String decHouseStyle = null;
@@ -200,7 +202,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
     }
 
-    private void searchDesigners(int from, ApiCallback<ApiResponse<MyFavoriteDesigner>> apiCallback) {
+    private void searchDesigners(int from, ApiCallback<ApiResponse<DesignerList>> apiCallback) {
         Map<String, Object> query = new HashMap<>();
         query.put("dec_types", decType);
         query.put("dec_house_types", decHouseStyle);
@@ -225,7 +227,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         searchDesigners(FROM, this.pullUpCallback);
     }
 
-    private ApiCallback<ApiResponse<MyFavoriteDesigner>> pullDownCallback = new ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+    private ApiCallback<ApiResponse<DesignerList>> pullDownCallback = new ApiCallback<ApiResponse<DesignerList>>() {
         @Override
         public void onPreLoad() {
             if (isFirst) {
@@ -239,9 +241,9 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
 
         @Override
-        public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+        public void onSuccess(ApiResponse<DesignerList> apiResponse) {
             designerListView.onRefreshComplete();
-            MyFavoriteDesigner designer = apiResponse.getData();
+            DesignerList designer = apiResponse.getData();
             LogTool.d(TAG, "designer:" + designer);
             if (null != designer) {
                 designerList.clear();
@@ -288,7 +290,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
 
         @Override
-        public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+        public void onFailed(ApiResponse<DesignerList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             hideWaitDialog();
             designerListView.onRefreshComplete();
@@ -303,7 +305,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
     };
 
-    private ApiCallback<ApiResponse<MyFavoriteDesigner>> pullUpCallback = new ApiCallback<ApiResponse<MyFavoriteDesigner>>() {
+    private ApiCallback<ApiResponse<DesignerList>> pullUpCallback = new ApiCallback<ApiResponse<DesignerList>>() {
         @Override
         public void onPreLoad() {
 
@@ -315,12 +317,12 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
 
         @Override
-        public void onSuccess(ApiResponse<MyFavoriteDesigner> apiResponse) {
+        public void onSuccess(ApiResponse<DesignerList> apiResponse) {
             designerListView.onRefreshComplete();
-            MyFavoriteDesigner designer = apiResponse.getData();
+            DesignerList designer = apiResponse.getData();
             LogTool.d(TAG, "designer:" + designer);
             if (null != designer) {
-                List<DesignerInfo> designers = designer.getDesigners();
+                List<Designer> designers = designer.getDesigners();
                 if (null != designers && designers.size() > 0) {
                     designerListAdapter.add(FROM, designers);
                     FROM += Constant.HOME_PAGE_LIMIT;
@@ -332,7 +334,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
         }
 
         @Override
-        public void onFailed(ApiResponse<MyFavoriteDesigner> apiResponse) {
+        public void onFailed(ApiResponse<DesignerList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
             designerListView.onRefreshComplete();
         }

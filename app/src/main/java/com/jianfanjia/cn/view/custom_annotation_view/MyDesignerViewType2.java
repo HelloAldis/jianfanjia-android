@@ -70,7 +70,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         return new MyDesignerViewType2(view, context);
     }
 
-    public void bind(OrderDesignerInfo designerInfo, final ClickCallBack clickCallBack, final int position) {
+    public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         headView.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             textView2.setText(StringUtils.covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
 
-        RequirementInfo requirementInfo = designerInfo.getRequirement();
+        Requirement requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
                 || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8) ) {

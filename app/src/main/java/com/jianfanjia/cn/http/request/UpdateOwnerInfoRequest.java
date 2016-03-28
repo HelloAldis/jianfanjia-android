@@ -34,8 +34,8 @@ public class UpdateOwnerInfoRequest extends BaseRequest{
 		super.onSuccess(data);
 		/*String data = baseResponse.getData().toString();
 		if(data != null){
-			DesignerInfo designerInfo = JsonParser.jsonToBean(data,
-					DesignerInfo.class);
+			Designer designerInfo = JsonParser.jsonToBean(data,
+					Designer.class);
 			dataManager.setDesignerInfo(designerInfo);
 		}*/
 	}

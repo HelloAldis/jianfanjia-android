@@ -18,16 +18,16 @@ import java.util.List;
  * @class MyProcessInfoAdapter
  * @date 2015-8-26 下午20:05
  */
-public class MyProcessInfoAdapter extends BaseListAdapter<ProcessInfo> {
+public class MyProcessInfoAdapter extends BaseListAdapter<Process> {
 
-    public MyProcessInfoAdapter(Context context, List<ProcessInfo> caigouList) {
+    public MyProcessInfoAdapter(Context context, List<Process> caigouList) {
         super(context, caigouList);
     }
 
     @Override
     public View initView(int position, View convertView) {
         ViewHolder viewHolder = null;
-        ProcessInfo designerSiteInfo = list.get(position);
+        Process designerSiteInfo = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(
                     R.layout.list_item_my_process, null);
