@@ -13,7 +13,6 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.http.request.AddPicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.AgreeRescheduleRequest;
 import com.jianfanjia.cn.http.request.BindingPhoneRequest;
-import com.jianfanjia.cn.http.request.BindingWeiXinRequest;
 import com.jianfanjia.cn.http.request.ChangeOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.CheckVersionRequest;
 import com.jianfanjia.cn.http.request.ChoosePlanByUserRequest;
@@ -21,7 +20,6 @@ import com.jianfanjia.cn.http.request.CommitCommentRequest;
 import com.jianfanjia.cn.http.request.ConformMeasureHouseRequest;
 import com.jianfanjia.cn.http.request.DeletePicToSectionItemRequest;
 import com.jianfanjia.cn.http.request.EvaluateDesignerRequest;
-import com.jianfanjia.cn.http.request.FeedBackRequest;
 import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
@@ -46,7 +44,6 @@ import com.jianfanjia.cn.http.request.RefreshSessionRequest;
 import com.jianfanjia.cn.http.request.RefuseRescheduleRequest;
 import com.jianfanjia.cn.http.request.RegisterRequest;
 import com.jianfanjia.cn.http.request.SearchUserMsgRequest;
-import com.jianfanjia.cn.http.request.SendVerificationRequest;
 import com.jianfanjia.cn.http.request.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
@@ -193,50 +190,6 @@ public class JianFanJiaClient {
     }
 
     /**
-     * 用户反馈
-     *
-     * @param context
-     * @param content
-     * @param listener
-     * @param tag
-     */
-    public static void feedBack(Context context, String content, String version, String platform,
-                                ApiUiUpdateListener listener, Object tag) {
-        FeedBackRequest feedBackRequest = new FeedBackRequest(context);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("content", content);
-            jsonParams.put("version", version);
-            jsonParams.put("platform", platform);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(feedBackRequest, jsonParams.toString(),
-                    listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 发送验证码
-     *
-     * @param phone
-     * @param listener
-     * @param tag
-     * @author zhanghao
-     */
-    public static void send_verification(Context context, String phone,
-                                         ApiUiUpdateListener listener, Object tag) {
-        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(context);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("phone", phone);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(sendVerificationRequest, jsonParams.toString
-                    (), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 收集新用户的个人偏好
      *
      * @param context
@@ -337,28 +290,6 @@ public class JianFanJiaClient {
         LogTool.d(TAG, "register  " + bindingPhoneRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson
                 (registerInfo), listener, tag);
-    }
-
-    /**
-     * 绑定微信
-     *
-     * @param context
-     * @param listener
-     * @param tag
-     */
-    public static void bindingWeixin(Context context, String openid, String unionid,
-                                     ApiUiUpdateListener listener, Object tag) {
-        BindingWeiXinRequest bindingWeiXinRequest = new BindingWeiXinRequest(context, unionid);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("wechat_openid", openid);
-            jsonParams.put("wechat_unionid", unionid);
-            LogTool.d(TAG, "bindingWeixin  " + bindingWeiXinRequest.getUrl() + "--" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingWeiXinRequest, jsonParams.toString(),
-                    listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
