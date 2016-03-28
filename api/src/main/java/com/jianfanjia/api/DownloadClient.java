@@ -102,7 +102,6 @@ public class DownloadClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                baseRequest.onPreLoad();
                 if (apiCallback != null) {
                     apiCallback.onPreLoad();
                 }
@@ -114,7 +113,6 @@ public class DownloadClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                baseRequest.onHttpDone();
                 if (apiCallback != null) {
                     apiCallback.onHttpDone();
                 }
@@ -126,7 +124,6 @@ public class DownloadClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                baseRequest.onSuccess(apiResponse);
                 if (apiCallback != null) {
                     apiCallback.onSuccess(apiResponse);
                 }
@@ -138,7 +135,6 @@ public class DownloadClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                baseRequest.onFailed(apiResponse);
                 if (apiCallback != null) {
                     apiCallback.onFailed(apiResponse);
                 }
@@ -151,7 +147,6 @@ public class DownloadClient {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                baseRequest.onNetworkError(code);
                 if (apiCallback != null) {
                     apiCallback.onNetworkError(code);
                 }

@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.api;
 
-import com.jianfanjia.cn.api.request.SearchDesignerRequest;
-import com.jianfanjia.cn.api.request.UploadPicRequest;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiClient;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.user.SearchDesignerRequest;
 import com.jianfanjia.cn.bean.MyFavoriteDesigner;
 import com.jianfanjia.cn.config.Url_New;
 
@@ -19,6 +22,6 @@ public class Api {
     }
 
     public static void uploadImage(UploadPicRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.upload(Url_New.getInstance().UPLOAD_IMAGE, request, request.getBytes(), apiCallback);
+        ApiClient.okUpload(Url_New.getInstance().UPLOAD_IMAGE, request, request.getBytes(), apiCallback);
     }
 }

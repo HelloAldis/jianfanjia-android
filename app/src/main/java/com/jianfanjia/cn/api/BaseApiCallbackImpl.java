@@ -4,6 +4,9 @@ package com.jianfanjia.cn.api;
  * Created by Aldis.Zhan on 16/2/24.
  */
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.cn.tools.UiHelper;
 
 /**

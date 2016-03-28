@@ -30,19 +30,19 @@ import okhttp3.RequestBody;
  * 各个接口执行顺序一般为下面三类
  *
  * 1. 成功
- * BaseApiCallbackImpl.onPreLoad() -> request.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
- * -> BaseApiCallbackImpl.onHttpDone() -> request.onHttpDone() -> apiCallback.onHttpDone()
- * -> BaseApiCallbackImpl.onSuccess() -> request.onSuccess() -> apiCallback.onSuccess()
+ * BaseApiCallbackImpl.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
+ * -> BaseApiCallbackImpl.onHttpDone() -> apiCallback.onHttpDone()
+ * -> BaseApiCallbackImpl.onSuccess() -> apiCallback.onSuccess()
  *
  * 2. 业务失败
- * BaseApiCallbackImpl.onPreLoad() -> request.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
- * -> BaseApiCallbackImpl.onHttpDone() -> request.onHttpDone() -> apiCallback.onHttpDone()
- * -> BaseApiCallbackImpl.onFailed() -> request.onFailed() -> apiCallback.onFailed()
+ * BaseApiCallbackImpl.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
+ * -> BaseApiCallbackImpl.onHttpDone() -> apiCallback.onHttpDone()
+ * -> BaseApiCallbackImpl.onFailed() -> apiCallback.onFailed()
  *
  * 3. 网络失败
- * BaseApiCallbackImpl.onPreLoad() -> request.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
- * -> BaseApiCallbackImpl.onHttpDone() -> request.onHttpDone() -> apiCallback.onHttpDone()
- * -> BaseApiCallbackImpl.onNetworkError() -> request.onNetworkError() -> apiCallback.onNetworkError()
+ * BaseApiCallbackImpl.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
+ * -> BaseApiCallbackImpl.onHttpDone() -> apiCallback.onHttpDone()
+ * -> BaseApiCallbackImpl.onNetworkError() -> apiCallback.onNetworkError()
  *
  */
 public class ApiClient {
@@ -107,7 +107,6 @@ public class ApiClient {
                 if (BASE_API_CALLBACK != null) {
                     BASE_API_CALLBACK.onPreLoad();
                 }
-                baseRequest.onPreLoad();
                 if (apiCallback != null) {
                     apiCallback.onPreLoad();
                 }
@@ -122,7 +121,6 @@ public class ApiClient {
                 if (BASE_API_CALLBACK != null) {
                     BASE_API_CALLBACK.onHttpDone();
                 }
-                baseRequest.onHttpDone();
                 if (apiCallback != null) {
                     apiCallback.onHttpDone();
                 }
@@ -137,7 +135,6 @@ public class ApiClient {
                 if (BASE_API_CALLBACK != null) {
                     BASE_API_CALLBACK.onSuccess(apiResponse);
                 }
-                baseRequest.onSuccess(apiResponse);
                 if (apiCallback != null) {
                     apiCallback.onSuccess(apiResponse);
                 }
@@ -152,7 +149,6 @@ public class ApiClient {
                 if (BASE_API_CALLBACK != null) {
                     BASE_API_CALLBACK.onFailed(apiResponse);
                 }
-                baseRequest.onFailed(apiResponse);
                 if (apiCallback != null) {
                     apiCallback.onFailed(apiResponse);
                 }
@@ -168,7 +164,6 @@ public class ApiClient {
                 if (BASE_API_CALLBACK != null) {
                     BASE_API_CALLBACK.onNetworkError(code);
                 }
-                baseRequest.onNetworkError(code);
                 if (apiCallback != null) {
                     apiCallback.onNetworkError(code);
                 }
@@ -234,7 +229,7 @@ public class ApiClient {
      * @param bytes       数据的byte数组
      * @param apiCallback 回调
      */
-    public static void upload(String url, BaseRequest baseRequest, byte[] bytes, ApiCallback apiCallback) {
+    public static void okUpload(String url, BaseRequest baseRequest, byte[] bytes, ApiCallback apiCallback) {
         RequestBody body = RequestBody.create(IMAGE_MEDIA_TYPE, bytes);
         Request request = new Request.Builder().url(url).post(body).build();
         api(request, baseRequest, apiCallback);

@@ -140,6 +140,7 @@ dependencies {
 //    apt "org.androidannotations:androidannotations:$AAVersion"
 //    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile project(':hud')
+    compile project(':api')
 
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
