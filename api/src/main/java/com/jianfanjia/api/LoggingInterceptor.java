@@ -1,6 +1,6 @@
 package com.jianfanjia.api;
 
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.io.IOException;
 

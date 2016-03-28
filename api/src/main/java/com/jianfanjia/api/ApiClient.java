@@ -5,11 +5,11 @@ import android.os.Looper;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.api.request.BaseRequest;
-import com.jianfanjia.base.application.BaseApplication;
-import com.jianfanjia.tool.JsonParser;
-import com.jianfanjia.tool.LogTool;
-import com.jianfanjia.tool.NetTool;
-import com.jianfanjia.tool.StringUtils;
+import com.jianfanjia.common.base.application.BaseApplication;
+import com.jianfanjia.common.tool.JsonParser;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.NetTool;
+import com.jianfanjia.common.tool.StringUtils;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -50,7 +50,7 @@ public class ApiClient {
     private static final String TAG = ApiClient.class.getName();
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType IMAGE_MEDIA_TYPE = MediaType.parse("image/jpeg");
-    private static final BaseApiCallbackImpl BASE_API_CALLBACK = new BaseApiCallbackImpl();
+    private static final ApiCallback BASE_API_CALLBACK = null;
     private static final OkHttpClient CLIENT = new OkHttpClient.Builder().addInterceptor(new LoggingInterceptor()).build();
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 

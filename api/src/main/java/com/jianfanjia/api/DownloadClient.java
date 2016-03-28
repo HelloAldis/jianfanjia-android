@@ -6,10 +6,10 @@ import android.os.Looper;
 import com.jianfanjia.api.progress.UIProgressListener;
 import com.jianfanjia.api.request.BaseRequest;
 import com.jianfanjia.api.request.guest.DownloadRequest;
-import com.jianfanjia.base.application.BaseApplication;
-import com.jianfanjia.tool.FileUtil;
-import com.jianfanjia.tool.LogTool;
-import com.jianfanjia.tool.NetTool;
+import com.jianfanjia.common.base.application.BaseApplication;
+import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.NetTool;
 
 import java.io.File;
 import java.io.FileOutputStream;
