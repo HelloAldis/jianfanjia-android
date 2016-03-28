@@ -7,20 +7,22 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.LogTool;
-import com.jianfanjia.cn.view.DeletePicDialog;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.cn.view.DeletePicDialog;
 
 public class ShowProcessPicActivity extends SwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
@@ -83,29 +85,54 @@ public class ShowProcessPicActivity extends SwipeBackActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.dialog_btn_delete_pic:
-                JianFanJiaClient.deleteImageToProcess(this, processid, section, item, currentPosition, this, this);
+                deleteImage();
                 break;
         }
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        if (showPicPagerAdapter.getCount() == 1) {
-            setResult(RESULT_OK);
-            appManager.finishActivity(this);
-        } else {
-            deletePicDialog.dismiss();
-            totalCount--;
-            setTipText();
-            showPicPagerAdapter.deleteItem(currentPosition);
-            isDeletePic = true;
-        }
-    }
+    private void deleteImage(){
+        DeleteImageToProcessRequest deleteImageToProcessRequest = new DeleteImageToProcessRequest();
+        deleteImageToProcessRequest.set_id(processid);
+        deleteImageToProcessRequest.setSection(section);
+        deleteImageToProcessRequest.setItem(item);
+        deleteImageToProcessRequest.setIndex(currentPosition);
 
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
+        Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                if (showPicPagerAdapter.getCount() == 1) {
+                    setResult(RESULT_OK);
+                    appManager.finishActivity(ShowProcessPicActivity.this);
+                } else {
+                    deletePicDialog.dismiss();
+                    totalCount--;
+                    setTipText();
+                    showPicPagerAdapter.deleteItem(currentPosition);
+                    isDeletePic = true;
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @Override
