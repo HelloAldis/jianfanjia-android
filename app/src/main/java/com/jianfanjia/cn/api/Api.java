@@ -30,6 +30,7 @@ import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
+import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
@@ -242,19 +243,19 @@ public class Api {
     }
 
     //业主获取个人信息
-    public static void get_Owner_Info(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<User>>
+    public static void getUserInfo(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<User>>
             apiCallback) {
         ApiClient.okGet(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
     }
 
     //业主修改个人资料
-    public static void put_OwnerInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+    public static void updateUserInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
     }
 
     //业主获取我的装修需求列表
-    public static void get_Requirement_List(GetRequirementListRequest request,
-                                            ApiCallback<ApiResponse<List<Requirement>>> apiCallback) {
+    public static void getRequirementList(GetRequirementListRequest request,
+                                          ApiCallback<ApiResponse<List<Requirement>>> apiCallback) {
         ApiClient.okGet(Url_New.getInstance().REQUIREMENT_LIST, request, apiCallback);
     }
 
@@ -331,18 +332,15 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback);
     }
 
-
     public static void getCollectListByUser(GetCollectionRequest request, ApiCallback<ApiResponse<ProductList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback);
     }
 
-
     public static void searchShare(GetDecorateLiveRequest request, ApiCallback<ApiResponse<DecorateLiveList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback);
     }
-
 
     public static void getTopProducts(GetHomeProductRequest request, ApiCallback<ApiResponse<List<Product>>>
             apiCallback) {
@@ -352,5 +350,10 @@ public class Api {
     public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<UserMessageList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
+    }
+
+    public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
     }
 }
