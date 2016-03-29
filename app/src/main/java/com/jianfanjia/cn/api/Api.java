@@ -326,18 +326,15 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback);
     }
 
-
     public static void getCollectListByUser(GetCollectionRequest request, ApiCallback<ApiResponse<ProductList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback);
     }
 
-
     public static void searchShare(GetDecorateLiveRequest request, ApiCallback<ApiResponse<DecorateLiveList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback);
     }
-
 
     public static void getTopProducts(GetHomeProductRequest request, ApiCallback<ApiResponse<List<Product>>>
             apiCallback) {
@@ -348,7 +345,6 @@ public class Api {
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
     }
-
 
     public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
             apiCallback) {
