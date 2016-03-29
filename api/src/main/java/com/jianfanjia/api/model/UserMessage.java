@@ -24,6 +24,7 @@ public class UserMessage extends BaseModel implements Serializable {
     private long create_at;
     private long lastupdate;
     private String status;
+    private String html;
     private Requirement requirement;
     private Designer designer;
     private Plan plan;
@@ -196,5 +197,13 @@ public class UserMessage extends BaseModel implements Serializable {
 
     public void setReschedule(Reschedule reschedule) {
         this.reschedule = reschedule;
+    }
+
+    public String getHtml() {
+        return html;
+    }
+
+    public void setHtml(String html) {
+        this.html = html;
     }
 }
