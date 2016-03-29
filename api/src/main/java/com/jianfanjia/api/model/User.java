@@ -50,4 +50,44 @@ public class User extends BaseModel implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public boolean is_wechat_first_login() {
+        return is_wechat_first_login;
+    }
+
+    public void setIs_wechat_first_login(boolean is_wechat_first_login) {
+        this.is_wechat_first_login = is_wechat_first_login;
+    }
+
+    public String getWechat_openid() {
+        return wechat_openid;
+    }
+
+    public void setWechat_openid(String wechat_openid) {
+        this.wechat_openid = wechat_openid;
+    }
+
+    public String getWechat_unionid() {
+        return wechat_unionid;
+    }
+
+    public void setWechat_unionid(String wechat_unionid) {
+        this.wechat_unionid = wechat_unionid;
+    }
 }

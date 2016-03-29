@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;

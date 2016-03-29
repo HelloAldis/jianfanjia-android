@@ -5,9 +5,19 @@ import java.util.List;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.BeautifulImageList;
+import com.jianfanjia.api.model.CommentList;
+import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
+import com.jianfanjia.api.model.DesignerList;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductList;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
@@ -316,7 +326,7 @@ public class Api {
     }
 
 
-    public static void getCollectListByUser(GetCollectionRequest request, ApiCallback<ApiResponse<ProductInfo>>
+    public static void getCollectListByUser(GetCollectionRequest request, ApiCallback<ApiResponse<ProductList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback);
     }

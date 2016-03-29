@@ -3,6 +3,8 @@ package com.jianfanjia.cn.cache;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;

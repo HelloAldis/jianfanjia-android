@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;

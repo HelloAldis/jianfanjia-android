@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DecorateLiveActivity;

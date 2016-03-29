@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;

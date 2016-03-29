@@ -3,11 +3,15 @@ package com.jianfanjia.cn.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+<<<<<<< HEAD
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+=======
+import com.jianfanjia.cn.bean.CommitCommentInfo;
+>>>>>>> c37a4abc4663cbcf0985f1b5f9d3b5fb4487a066
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
@@ -50,13 +54,18 @@ import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.http.request.UploadPicRequestNew;
 import com.jianfanjia.cn.http.request.UploadRegisterIdRequest;
 import com.jianfanjia.cn.http.request.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.http.request.VerifyPhoneRequest;
 import com.jianfanjia.cn.http.request.WeiXinLoginRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * @author zhanghao
@@ -82,27 +91,6 @@ public class JianFanJiaClient {
             jsonParams.put("cid", clientId);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadRegisterIdRequest, jsonParams.toString
                     (), listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 检查手机号是否被占用
-     *
-     * @param context
-     * @param phone
-     * @param listener
-     * @param tag
-     */
-    public static void verifyPhone(Context context, String phone, ApiUiUpdateListener listener, Object tag) {
-        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(context);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("phone", phone);
-            LogTool.d(TAG, "verifyPhone --" + verifyPhoneRequest.getUrl() + "---" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(verifyPhoneRequest, jsonParams.toString(),
-                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

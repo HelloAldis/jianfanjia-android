@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jianfanjia.api.model.BeautifulImage;
+import com.jianfanjia.api.model.BeautifulImageDetail;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;

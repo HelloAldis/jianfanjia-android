@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
@@ -122,7 +124,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
-    private void getProductList(int from, int limit, ApiCallback<ApiResponse<ProductInfo>> listener) {
+    private void getProductList(int from, int limit, ApiCallback<ApiResponse<ProductList>> listener) {
         GetCollectionRequest request = new GetCollectionRequest(from, limit);
         Api.getCollectListByUser(request, listener);
     }
@@ -144,7 +146,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
 
-    private ApiCallback<ApiResponse<ProductInfo>> pullDownListener = new ApiCallback<ApiResponse<ProductInfo>>() {
+    private ApiCallback<ApiResponse<ProductList>> pullDownListener = new ApiCallback<ApiResponse<ProductList>>() {
         @Override
         public void onPreLoad() {
             if (isFirst) {
@@ -158,14 +160,14 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
         @Override
-        public void onSuccess(ApiResponse<ProductInfo> apiResponse) {
+        public void onSuccess(ApiResponse<ProductList> apiResponse) {
             prodtct_listview.onRefreshComplete();
             mHasLoadedOnce = true;
-            ProductInfo productInfo = apiResponse.getData();
-            LogTool.d(TAG, "productInfo=" + productInfo);
-            if (productInfo != null) {
+            ProductList ProductList = apiResponse.getData();
+            LogTool.d(TAG, "ProductList=" + ProductList);
+            if (ProductList != null) {
                 products.clear();
-                products.addAll(productInfo.getProducts());
+                products.addAll(ProductList.getProducts());
                 if (null != products && products.size() > 0) {
                     productAdapter = new CollectProductAdapter(getActivity(), products, new
                             RecyclerViewOnItemClickListener() {
@@ -202,7 +204,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
         @Override
-        public void onFailed(ApiResponse<ProductInfo> apiResponse) {
+        public void onFailed(ApiResponse<ProductList> apiResponse) {
             prodtct_listview.onRefreshComplete();
             prodtct_listview.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
@@ -216,7 +218,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
     };
 
-    private ApiCallback<ApiResponse<ProductInfo>> pullUpListener = new ApiCallback<ApiResponse<ProductInfo>>() {
+    private ApiCallback<ApiResponse<ProductList>> pullUpListener = new ApiCallback<ApiResponse<ProductList>>() {
         @Override
         public void onPreLoad() {
 
@@ -228,12 +230,12 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
         @Override
-        public void onSuccess(ApiResponse<ProductInfo> apiResponse) {
+        public void onSuccess(ApiResponse<ProductList> apiResponse) {
             prodtct_listview.onRefreshComplete();
-            ProductInfo productInfo = apiResponse.getData();
-            LogTool.d(TAG, "productInfo=" + productInfo);
-            if (productInfo != null) {
-                List<Product> productList = productInfo.getProducts();
+            ProductList ProductList = apiResponse.getData();
+            LogTool.d(TAG, "ProductList=" + ProductList);
+            if (ProductList != null) {
+                List<Product> productList = ProductList.getProducts();
                 if (null != productList && productList.size() > 0) {
                     productAdapter.add(FROM, productList);
                     FROM += Constant.HOME_PAGE_LIMIT;
@@ -244,7 +246,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
         @Override
-        public void onFailed(ApiResponse<ProductInfo> apiResponse) {
+        public void onFailed(ApiResponse<ProductList> apiResponse) {
             prodtct_listview.onRefreshComplete();
         }
 

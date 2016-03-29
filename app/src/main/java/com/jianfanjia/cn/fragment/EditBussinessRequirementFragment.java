@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;

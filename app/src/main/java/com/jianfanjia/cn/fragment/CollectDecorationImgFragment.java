@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.BeautifulImage;
+import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;

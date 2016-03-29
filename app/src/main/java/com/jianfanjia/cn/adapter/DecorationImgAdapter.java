@@ -10,6 +10,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.jianfanjia.api.model.BeautifulImage;
+import com.jianfanjia.api.model.BeautifulImageDetail;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;

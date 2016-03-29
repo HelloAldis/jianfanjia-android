@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;

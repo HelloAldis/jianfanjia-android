@@ -20,6 +20,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;

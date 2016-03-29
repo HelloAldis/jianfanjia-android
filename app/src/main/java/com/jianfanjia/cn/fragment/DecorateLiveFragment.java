@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.WebViewActivity;

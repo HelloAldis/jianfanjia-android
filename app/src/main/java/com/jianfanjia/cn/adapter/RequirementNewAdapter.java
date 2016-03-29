@@ -14,6 +14,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.cache.DataManagerNew;
