@@ -3,10 +3,7 @@ package com.jianfanjia.cn.cache;
 import android.content.Context;
 
 import java.util.Calendar;
-import java.util.List;
 
-import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.activity.R;
@@ -15,7 +12,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
-import com.jianfanjia.api.model.Process;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();
@@ -23,10 +19,7 @@ public class DataManagerNew {
     private Context context;
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
-    private List<Process> processLists;
     private Requirement requirementInfo;// 需求信息
-    private Process currentProcessInfo;// 当前工地信息p
-    private String currentUploadImageId;// 当前上传的imageId;
 
     public static DataManagerNew getInstance() {
         if (instance == null) {
@@ -53,54 +46,10 @@ public class DataManagerNew {
         this.sharedPreferdata.setValue(Constant.TEMP_IMG, picPath);
     }
 
-    public String getCurrentUploadImageId() {
-        return currentUploadImageId;
-    }
-
-    public void setCurrentUploadImageId(String currentUploadImageId) {
-        this.currentUploadImageId = currentUploadImageId;
-    }
-
-    public Requirement getRequirementInfo() {
-        return requirementInfo;
-    }
-
-    public void setRequirementInfo(Requirement requirementInfo) {
-        this.requirementInfo = requirementInfo;
-    }
-
-    public User getOwnerInfoById(String ownerId) {
-        return (User) sharedPreferdata.getValue(ownerId);
-    }
-
-    public void setDesignerInfo(Designer designerInfo) {
-        sharedPreferdata.setValue(designerInfo.get_id(), designerInfo);
-    }
-
     public void setOwnerInfo(User user) {
         sharedPreferdata.setValue(user.get_id(), user);
     }
 
-    public void setCurrentProcessInfo(Process currentProcessInfo) {
-        this.currentProcessInfo = currentProcessInfo;
-    }
-
-    public Process getDefaultProcessInfo() {
-        return currentProcessInfo;
-    }
-
-    public List<Process> getProcessLists() {
-        return processLists;
-    }
-
-    public void setProcessLists(List<Process> processLists) {
-        this.processLists = processLists;
-    }
-
-    public void saveProcessLists(String jsonProcessLists) {
-        sharedPreferdata.setValue(Constant.DESIGNER_PROCESS_LIST,
-                jsonProcessLists);
-    }
 
     public int getDefaultPro() {
         if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
@@ -109,24 +58,6 @@ public class DataManagerNew {
             return 0;
         }
         return 0;
-    }
-
-    public void setDefaultPro(int defaultPro) {
-        sharedPreferuser.setValue(Constant.DEFAULT_PROCESS, defaultPro);
-    }
-
-    /**
-     * 拿工地信息
-     *
-     * @param processId
-     * @return
-     */
-    public Process getProcessInfoById(String processId) {
-        return (Process) sharedPreferdata.getValue(processId);
-    }
-
-    public void saveProcessInfo(Process processInfo) {
-        sharedPreferdata.setValue(processInfo.get_id(), processInfo);
     }
 
     public boolean isLogin() {
@@ -208,24 +139,12 @@ public class DataManagerNew {
         return sharedPreferuser.getValue(Constant.UNION_ID, null);
     }
 
-    public void setWechat_unionid(String wechat_unionid) {
-        sharedPreferuser.setValue(Constant.UNION_ID, wechat_unionid);
-    }
-
-    public void setWeixinFisrtLogin(boolean flag) {
-        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, flag);
-    }
-
     public boolean getWeixinFisrtLogin() {
         return sharedPreferdata.getValue(Constant.IS_WEIXIN_FIRST_LOGIN, false);
     }
 
     public void setUserName(String userName) {
         sharedPreferuser.setValue(Constant.USERNAME, userName);
-    }
-
-    public String getPassword() {
-        return sharedPreferuser.getValue(Constant.PASSWORD, null);
     }
 
     public void setAccount(String phone) {
@@ -248,11 +167,7 @@ public class DataManagerNew {
     public String getUserName() {
         String userName = sharedPreferuser.getValue(Constant.USERNAME, null);
         if (userName == null) {
-            if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-                return context.getString(R.string.ower);
-            } else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-                return context.getString(R.string.designer);
-            }
+            return context.getString(R.string.ower);
         }
         return userName;
     }
@@ -270,9 +185,7 @@ public class DataManagerNew {
 
     public void cleanData() {
         sharedPreferuser.clear();
-        processLists = null;
         requirementInfo = null;
-        currentProcessInfo = null;
         DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
