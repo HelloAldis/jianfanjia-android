@@ -13,12 +13,17 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
-import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -29,15 +34,9 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.fragment.DesignerProductFragment;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -121,6 +120,7 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
     private void getDataFromIntent(Intent intent) {
         Bundle designerBundle = intent.getExtras();
         designerid = designerBundle.getString(Global.DESIGNER_ID);
+        LogTool.d(TAG,"designerid =" + designerid);
         getDesignerPageInfo(designerid);
     }
 

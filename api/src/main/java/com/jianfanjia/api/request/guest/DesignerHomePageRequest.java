@@ -9,6 +9,7 @@ import com.jianfanjia.api.request.BaseRequest;
  * Time: 16:27
  */
 public class DesignerHomePageRequest extends BaseRequest {
+
     private String designerid;
 
     public String getDesignerid() {
