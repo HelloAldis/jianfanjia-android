@@ -18,12 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -35,22 +29,28 @@ import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yalantis.ucrop.UCrop;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -87,7 +87,6 @@ public class UserInfoActivity extends SwipeBackActivity implements
     protected RelativeLayout logoutLayout;
     private User user = null;
     private String sex = null;
-
 
     private boolean isUpdate = false;//是否更新，只有，更新了用户名或者头像才更新
     protected AddPhotoDialog popupWindow = null;
@@ -363,6 +362,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
                 user = apiResponse.getData();
+                LogTool.d(TAG, "user: " + user);
                 setData();
                 error_Layout.setVisibility(View.GONE);
             }
