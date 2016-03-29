@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DownLoadManager;
 import com.jianfanjia.cn.tools.LogTool;
 
@@ -23,7 +22,7 @@ import java.io.File;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 16:14
  */
-public class UpdateService extends Service implements ApiUiUpdateListener {
+public class UpdateService extends Service {
     // 指定文件类型
     private static String[] allowedContentTypes = new String[]{"image/png",
             "image/jpeg", "application/octet-stream", "application/zip",

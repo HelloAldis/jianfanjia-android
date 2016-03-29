@@ -27,7 +27,6 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
 import de.greenrobot.event.EventBus;
@@ -38,8 +37,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 注册
  * @date 2015-10-27 下午12:11:23
  */
-public class RegisterNewActivity extends BaseActivity implements
-        ApiUiUpdateListener {
+public class RegisterNewActivity extends BaseActivity {
     private static final String TAG = RegisterNewActivity.class.getName();
 
     public static final int REGISTER_CODE = 0;

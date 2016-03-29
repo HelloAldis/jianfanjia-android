@@ -40,7 +40,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
@@ -54,8 +53,7 @@ import com.umeng.socialize.sso.UMSsoHandler;
  * @Description: 登录
  * @date 2015-8-18 下午12:11:23
  */
-public class LoginNewActivity extends BaseActivity implements
-        ApiUiUpdateListener, GestureDetector.OnGestureListener {
+public class LoginNewActivity extends BaseActivity implements GestureDetector.OnGestureListener {
     private static final String TAG = LoginNewActivity.class.getName();
     private static final int LOGIN = 0;
     private static final int REGISER = 1;
@@ -570,22 +568,10 @@ public class LoginNewActivity extends BaseActivity implements
         });
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-        startActivity(MainActivity.class);
-        appManager.finishActivity(this);
-    }
 
     @Override
     public void onBackPressed() {
         appManager.finishAllActivity();
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
     }
 
     void showRegister() {

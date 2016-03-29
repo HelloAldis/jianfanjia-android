@@ -16,7 +16,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.LogTool;
@@ -30,7 +29,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * @Description: 欢迎
  * @date 2015-8-29 上午9:30:21
  */
-public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
+public class WelcomeActivity extends BaseActivity {
     private static final String TAG = WelcomeActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示

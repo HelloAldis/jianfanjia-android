@@ -14,7 +14,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;

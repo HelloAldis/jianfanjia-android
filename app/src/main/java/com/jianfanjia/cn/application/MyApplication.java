@@ -8,7 +8,6 @@ import java.net.CookiePolicy;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataCleanManager;
-import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.common.base.application.BaseApplication;

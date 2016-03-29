@@ -1,8 +1,6 @@
 package com.jianfanjia.cn.tools;
 
-import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 
 /**
  * Name: DownLoadManager

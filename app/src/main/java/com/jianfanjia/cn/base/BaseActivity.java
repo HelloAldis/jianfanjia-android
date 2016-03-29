@@ -14,8 +14,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.http.OkHttpClientManager;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
@@ -34,7 +32,7 @@ import butterknife.ButterKnife;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, ApiUiUpdateListener {
+        DialogControl {
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
@@ -137,24 +135,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
 
     protected void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
         IntentUtil.startActivityForResult(this, cls, bundle, requestCode);
-    }
-
-    @Override
-    public void preLoad() {
-        if (_waitDialog == null) {
-            showWaitDialog();
-        }
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        hideWaitDialog();
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        hideWaitDialog();
-        makeTextShort(error_msg);
     }
 
     @Override
