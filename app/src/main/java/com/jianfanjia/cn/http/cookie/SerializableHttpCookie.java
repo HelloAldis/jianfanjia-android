@@ -3,7 +3,7 @@ package com.jianfanjia.cn.http.cookie;
 /**
  * Created by Administrator on 2015/10/13.
  */
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -26,7 +26,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;

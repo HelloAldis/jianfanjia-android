@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;

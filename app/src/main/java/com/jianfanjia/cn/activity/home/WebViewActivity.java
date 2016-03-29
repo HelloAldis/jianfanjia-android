@@ -13,7 +13,7 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JavaScriptObject;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;

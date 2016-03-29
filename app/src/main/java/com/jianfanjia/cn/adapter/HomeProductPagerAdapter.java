@@ -13,7 +13,7 @@ import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 import com.squareup.picasso.Picasso;
 

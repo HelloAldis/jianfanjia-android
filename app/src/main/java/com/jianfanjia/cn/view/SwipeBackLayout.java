@@ -32,7 +32,7 @@ import android.widget.ScrollView;
 
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Swipe or Pull to finish a Activity.

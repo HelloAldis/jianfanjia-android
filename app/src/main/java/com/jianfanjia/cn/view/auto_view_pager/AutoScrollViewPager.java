@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;

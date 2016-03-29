@@ -2,14 +2,14 @@ package com.jianfanjia.common.tool;
 
 import android.util.Log;
 
-import com.jianfanjia.common.base.application.BaseApplication;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.jianfanjia.common.base.application.BaseApplication;
 
 /**
  * Description:log工具类
@@ -40,7 +40,8 @@ public class LogTool {
         try {
             randomAccessFile = new RandomAccessFile(file, "rw");
             try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss:SSS");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+                        "hh:mm:ss:SSS");
                 Date date = new Date(System.currentTimeMillis());
                 String time = simpleDateFormat.format(date);
                 long fileLength = randomAccessFile.length();

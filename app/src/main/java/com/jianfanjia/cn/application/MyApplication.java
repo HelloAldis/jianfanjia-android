@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
 
+import java.net.CookieStore;
+
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.BaseApiCallbackImpl;
@@ -17,8 +19,6 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-
-import java.net.CookieStore;
 
 
 /**

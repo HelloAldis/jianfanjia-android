@@ -23,9 +23,16 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
@@ -35,13 +42,8 @@ import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();

@@ -26,7 +26,7 @@ import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
 import butterknife.OnClick;

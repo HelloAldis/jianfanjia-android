@@ -10,8 +10,6 @@ import android.os.Handler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jianfanjia.cn.tools.LogTool;
-
 /**
  * Name: ProgressWebView
  * User: fengliang

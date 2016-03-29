@@ -3,6 +3,7 @@ package com.jianfanjia.cn.tools;
 import android.content.Context;
 
 import com.igexin.sdk.PushManager;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.tools

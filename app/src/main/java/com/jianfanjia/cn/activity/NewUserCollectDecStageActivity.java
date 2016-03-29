@@ -13,7 +13,7 @@ import butterknife.OnClick;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 

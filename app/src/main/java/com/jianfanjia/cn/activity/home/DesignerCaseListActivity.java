@@ -26,7 +26,7 @@ import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;

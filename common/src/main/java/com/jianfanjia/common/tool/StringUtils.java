@@ -200,19 +200,7 @@ public class StringUtils {
     }
 
     /**
-     * 鍒ゆ柇鏄笉鏄竴涓悎娉曠殑鐢靛瓙閭欢鍦板潃
      *
-     * @param email
-     * @return
-     */
-    public static boolean isEmail(String email) {
-        if (email == null || email.trim().length() == 0)
-            return false;
-        return emailer.matcher(email).matches();
-    }
-
-    /**
-     * 鍒ゆ柇锟?涓猽rl鏄惁涓哄浘鐗噓rl
      *
      * @param url
      * @return

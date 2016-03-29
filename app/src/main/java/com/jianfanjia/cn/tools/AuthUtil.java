@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;

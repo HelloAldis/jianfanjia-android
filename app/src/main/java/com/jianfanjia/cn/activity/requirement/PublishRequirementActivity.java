@@ -30,7 +30,7 @@ import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;

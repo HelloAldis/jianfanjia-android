@@ -18,12 +18,12 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author fengliang

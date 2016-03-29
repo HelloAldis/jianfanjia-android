@@ -18,7 +18,7 @@ import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Name: CommentAdapter

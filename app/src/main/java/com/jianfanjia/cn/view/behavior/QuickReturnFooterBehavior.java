@@ -9,7 +9,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 
 public class QuickReturnFooterBehavior extends CoordinatorLayout.Behavior<View> {

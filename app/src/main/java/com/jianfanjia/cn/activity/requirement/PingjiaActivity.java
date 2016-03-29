@@ -21,8 +21,8 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:评价设计师

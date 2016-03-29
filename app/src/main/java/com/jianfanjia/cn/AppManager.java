@@ -5,7 +5,7 @@ import android.app.Activity;
 import java.util.Iterator;
 import java.util.Stack;
 
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * activity堆栈式管理
