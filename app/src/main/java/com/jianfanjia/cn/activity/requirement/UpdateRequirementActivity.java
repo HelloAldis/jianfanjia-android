@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.activity.requirement;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -8,15 +7,17 @@ import android.view.View;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -104,19 +105,38 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
                 requirementInfo = editBussinessRequirementFragment_.getRequirementInfo();
                 break;
         }
-        JianFanJiaClient.update_Requirement(this, requirementInfo, this, this);
-    }
+//        JianFanJiaClient.update_Requirement(this, requirementInfo, this, this);
 
-    @Override
-    public void preLoad() {
-        showWaitDialog(getString(R.string.loading));
-    }
+        UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest();
+        updateRequirementRequest.setRequirement(requirementInfo);
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        setResult(Activity.RESULT_OK);
-        appManager.finishActivity(this);
+        Api.updateRequirement(updateRequirementRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(UpdateRequirementActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @OnClick({R.id.head_back_layout, R.id.head_right_title})

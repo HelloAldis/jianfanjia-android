@@ -3,22 +3,20 @@ package com.jianfanjia.cn.cache;
 import android.content.Context;
 import android.text.TextUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class BusinessManager {
 
@@ -270,45 +268,6 @@ public class BusinessManager {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    /**
-     * 比较需求是否改变
-     *
-     * @param src
-     * @param target
-     * @return
-     */
-    public static boolean isRequirementChange(Requirement src, Requirement target) {
-        LogTool.d("isRequirementChange", "isRequirementChange");
-        try {
-            Class clazz = src.getClass();
-            Field[] fields = clazz.getDeclaredFields();
-            for (Field field : fields) {
-                LogTool.d("isRequirementChange", field.getName());
-                field.setAccessible(true);
-                Object srcValue = field.get(src);
-                Object targetValue = field.get(target);
-                if (srcValue == null && target == null) {
-                    continue;
-                }
-                if (srcValue == null && targetValue != null) {
-                    return true;
-                }
-                if (srcValue != null && targetValue == null) {
-                    return true;
-                }
-                if (srcValue == targetValue || srcValue.equals(targetValue)) {
-                    continue;
-                } else {
-                    return true;
-                }
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public static List<String> getListByResource(Context context, int resId) {

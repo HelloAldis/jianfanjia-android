@@ -34,13 +34,12 @@ import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
+import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
@@ -334,42 +333,57 @@ public class LoginNewActivity extends BaseActivity implements
         public void onComplete(int i, Map<String, Object> data) {
             if (i == 200 && data != null) {
                 LogTool.d(this.getClass().getName(), data.toString());
-                WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
-                weiXinRegisterInfo.setUsername(data.get("nickname").toString());
-                weiXinRegisterInfo.setImage_url((String) data.get("headimgurl").toString());
+                WeiXinRegisterRequest weiXinRegisterRequest = new WeiXinRegisterRequest();
+                weiXinRegisterRequest.setUsername(data.get("nickname").toString());
+                weiXinRegisterRequest.setImage_url((String) data.get("headimgurl").toString());
                 String sex = null;
                 if ((sex = data.get("sex").toString()) != null) {
-                    weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);
+                    weiXinRegisterRequest.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);
                     //系统的性别和微信的性别要转换
                 }
-                weiXinRegisterInfo.setWechat_openid(data.get("openid").toString());
-                weiXinRegisterInfo.setWechat_unionid(data.get("unionid").toString());
+                weiXinRegisterRequest.setWechat_openid(data.get("openid").toString());
+                weiXinRegisterRequest.setWechat_unionid(data.get("unionid").toString());
 
-                JianFanJiaClient.weixinLogin(LoginNewActivity.this, weiXinRegisterInfo, new ApiUiUpdateListener() {
+                Api.weiXinRegister(weiXinRegisterRequest, new ApiCallback<User>() {
                     @Override
-                    public void preLoad() {
+                    public void onPreLoad() {
+
                     }
 
                     @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        if (data != null) {
-                            if (dataManager.getWeixinFisrtLogin()) {
-                                startActivity(NewUserCollectDecStageActivity.class);
-                            } else {
-                                startActivity(MainActivity.class);
-                            }
-                            GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                            appManager.finishActivity(LoginNewActivity.this);
+                    public void onHttpDone() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(User apiResponse) {
+                        dataManager.setLogin(true);
+                        dataManager.savaLastLoginTime(Calendar.getInstance()
+                                .getTimeInMillis());
+                        User loginUserBean = apiResponse;
+                        loginUserBean.setWechat_openid(loginUserBean.getWechat_openid());
+                        loginUserBean.setWechat_unionid(loginUserBean.getWechat_unionid());
+                        dataManager.saveLoginUserBean(loginUserBean);
+
+                        if (dataManager.getWeixinFisrtLogin()) {
+                            startActivity(NewUserCollectDecStageActivity.class);
+                        } else {
+                            startActivity(MainActivity.class);
                         }
+                        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+                        appManager.finishActivity(LoginNewActivity.this);
                     }
 
                     @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextShort(error_msg);
+                    public void onFailed(User apiResponse) {
+
                     }
-                }, LoginNewActivity.this);
+
+                    @Override
+                    public void onNetworkError(int code) {
+
+                    }
+                });
             } else {
                 hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));

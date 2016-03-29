@@ -17,8 +17,10 @@ import java.util.List;
 import butterknife.Bind;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.ProcessSectionYsImage;
 import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
@@ -61,7 +63,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
     private List<GridItem> checkGridList = new ArrayList<>();
     private List<String> showSamplePic = new ArrayList<>();
     private List<String> showProcessPic = new ArrayList<>();
-    private List<Imageid> imageids = new ArrayList<>();
+    private List<ProcessSectionYsImage> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
     private Process processInfo = null;
     private String sectionName = null;//工序名称

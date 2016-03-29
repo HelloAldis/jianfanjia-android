@@ -2,7 +2,11 @@ package com.jianfanjia.cn.cache;
 
 import android.content.Context;
 
+import java.util.Calendar;
+import java.util.List;
+
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.activity.R;
@@ -12,9 +16,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
-
-import java.util.Calendar;
-import java.util.List;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();

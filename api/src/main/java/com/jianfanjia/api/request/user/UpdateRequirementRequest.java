@@ -1,5 +1,6 @@
 package com.jianfanjia.api.request.user;
 
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
@@ -10,5 +11,13 @@ import com.jianfanjia.api.request.BaseRequest;
  */
 public class UpdateRequirementRequest extends BaseRequest {
 
+    private Requirement requirement;
 
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(Requirement requirement) {
+        this.requirement = requirement;
+    }
 }

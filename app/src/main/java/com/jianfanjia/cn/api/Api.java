@@ -44,6 +44,7 @@ import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
+import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.user.ApplyRescheduleRequest;
@@ -64,6 +65,7 @@ import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.api.request.user.GetProcessInfoRequest;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
+import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
@@ -100,6 +102,10 @@ public class Api {
 
     public static void register(RegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().REGISTER_URL, request, apiCallback);
+    }
+
+    public static void weiXinRegister(WeiXinRegisterRequest request, ApiCallback<User> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().WEIXIN_LOGIN_URL, request, apiCallback);
     }
 
     public static void refreshSession(RefreshSessionRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
@@ -209,7 +215,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().REQUIREMENT_UPDATE, request, apiCallback);
     }
 
-    public static void publishRequirement(UpdateRequirementRequest request, ApiCallback<ApiResponse<String>>
+    public static void publishRequirement(PublishRequirementRequest request, ApiCallback<ApiResponse<String>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().POST_REQUIREMENT, request, apiCallback);
     }

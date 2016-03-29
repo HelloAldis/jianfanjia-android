@@ -11,15 +11,18 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.SelectItem;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
@@ -165,8 +168,39 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     }
 
     protected void confirm() {
+//        JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
+//
         Requirement requirementInfo = getConfirmRequirement();
-        JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
+        PublishRequirementRequest publishRequirementRequest = new PublishRequirementRequest();
+        publishRequirementRequest.setRequirement(requirementInfo);
+
+        Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                startActivity(MainActivity.class);
+                appManager.finishActivity(PublishRequirementActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     protected Requirement getConfirmRequirement() {
@@ -180,14 +214,6 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
                 break;
         }
         return requirementInfo;
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-//        setResult(Activity.RESULT_OK);
-        startActivity(MainActivity.class);
-        appManager.finishActivity(this);
     }
 
     //显示放弃提交提醒
@@ -215,13 +241,17 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
         Requirement requirementInfo = new Requirement();
-        requirementInfo.setDec_type(type);
+//        requirementInfo.setDec_type(type);
         switch (type) {
             case Global.DEC_TYPE_HOME:
-                requirementInfo.setHouse_type("2");//设置默认初始值
+                RequirementBusiness.initHomeRequirement(requirementInfo);
+                RequirementBusiness.initHomeRequirement(requirementInfoInit);
+                //                requirementInfo.setHouse_type("2");//设置默认初始值
                 break;
             case Global.DEC_TYPE_BUSINESS:
-                requirementInfo.setBusiness_house_type("0");//设置默认初始值
+                RequirementBusiness.initBussinessRequirement(requirementInfo);
+//                requirementInfo.setBusiness_house_type("0");//设置默认初始值
+                RequirementBusiness.initBussinessRequirement(requirementInfoInit);
                 break;
         }
         String family_des = requirementInfoInit.getFamily_description();
@@ -252,7 +282,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
         requirementInfoInit.setHouse_type("2");
         requirementInfoInit.setBusiness_house_type(null);
-        if (BusinessManager.isRequirementChange(
+        if (RequirementBusiness.isRequirementChange(
                 editHomeRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
             return true;
         }
@@ -263,7 +293,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         requirementInfoInit.setHouse_type(null);
         requirementInfoInit.setBusiness_house_type("0");
         requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);
-        if (BusinessManager.isRequirementChange(
+        if (RequirementBusiness.isRequirementChange(
                 editBussinessRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
             return true;
         }
