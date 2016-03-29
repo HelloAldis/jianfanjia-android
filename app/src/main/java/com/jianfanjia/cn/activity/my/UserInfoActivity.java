@@ -18,6 +18,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -44,13 +50,6 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yalantis.ucrop.UCrop;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -446,7 +445,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                String imageid = dataManager.getCurrentUploadImageId();
+                String imageid = apiResponse.getData();
                 LogTool.d(TAG, "imageid:" + imageid);
                 if (!TextUtils.isEmpty(imageid)) {
                     getImageId(imageid);
