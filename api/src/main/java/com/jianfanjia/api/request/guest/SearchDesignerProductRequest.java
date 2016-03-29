@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class SearchDesignerProductRequest extends BaseRequest {
     private Map<String, Object> query;
+    private String search_word;
     private int from;
     private int limit;
 
@@ -37,5 +38,13 @@ public class SearchDesignerProductRequest extends BaseRequest {
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+
+    public String getSearch_word() {
+        return search_word;
+    }
+
+    public void setSearch_word(String search_word) {
+        this.search_word = search_word;
     }
 }

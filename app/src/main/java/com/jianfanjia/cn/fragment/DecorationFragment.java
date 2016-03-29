@@ -192,14 +192,12 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     private void getDecorationImgInfo(ApiCallback<ApiResponse<BeautifulImageList>> listener) {
         SearchDecorationImgRequest request = new SearchDecorationImgRequest();
         Map<String, Object> param = new HashMap<>();
-        Map<String, Object> conditionParam = new HashMap<>();
-        conditionParam.put("section", section);
-        conditionParam.put("house_type", houseStyle);
-        conditionParam.put("dec_style", decStyle);
-        param.put("query", conditionParam);
-        param.put("from", FROM);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
+        param.put("section", section);
+        param.put("house_type", houseStyle);
+        param.put("dec_style", decStyle);
         request.setQuery(param);
+        request.setFrom(FROM);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchDecorationImg(request, listener);
     }
 

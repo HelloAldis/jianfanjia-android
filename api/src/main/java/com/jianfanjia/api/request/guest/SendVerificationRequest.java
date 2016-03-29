@@ -24,7 +24,4 @@ public class SendVerificationRequest extends BaseRequest {
         this.phone = phone;
     }
 
-    public SendVerificationRequest(String phone) {
-        this.phone = phone;
-    }
 }  

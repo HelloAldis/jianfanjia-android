@@ -150,7 +150,9 @@ public class BindingAccountActivity extends SwipeBackActivity {
 
 
     private void bindWinxin(String openid, String unionid) {
-        BindingWeiXinRequest request = new BindingWeiXinRequest(openid, unionid);
+        BindingWeiXinRequest request = new BindingWeiXinRequest();
+        request.setOpenid(openid);
+        request.setUnionid(unionid);
         Api.bindingWeixin(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {

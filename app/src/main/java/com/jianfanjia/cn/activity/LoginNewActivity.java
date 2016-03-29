@@ -23,11 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import java.util.Calendar;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -40,7 +35,6 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.common.tool.LogTool;
@@ -48,14 +42,19 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
+import java.util.Calendar;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author fengliang
  * @ClassName: LoginActivity
  * @Description: 登录
  * @date 2015-8-18 下午12:11:23
  */
-public class LoginNewActivity extends BaseActivity implements
-        ApiUiUpdateListener, GestureDetector.OnGestureListener {
+public class LoginNewActivity extends BaseActivity implements GestureDetector.OnGestureListener {
     private static final String TAG = LoginNewActivity.class.getName();
     private static final int LOGIN = 0;
     private static final int REGISER = 1;
@@ -449,8 +448,8 @@ public class LoginNewActivity extends BaseActivity implements
     }
 
     private void verifyPhone(final String phone) {
-        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(phone);
-
+        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest();
+        verifyPhoneRequest.setPhone(phone);
         Api.verifyPhone(verifyPhoneRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -486,8 +485,8 @@ public class LoginNewActivity extends BaseActivity implements
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
-
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest();
+        sendVerificationRequest.setPhone(name);
         Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -532,7 +531,6 @@ public class LoginNewActivity extends BaseActivity implements
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setPhone(name);
         loginRequest.setPass(password);
-
         Api.login(loginRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
@@ -570,22 +568,10 @@ public class LoginNewActivity extends BaseActivity implements
         });
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-        startActivity(MainActivity.class);
-        appManager.finishActivity(this);
-    }
 
     @Override
     public void onBackPressed() {
         appManager.finishAllActivity();
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
     }
 
     void showRegister() {

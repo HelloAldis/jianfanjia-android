@@ -30,9 +30,6 @@ import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -120,13 +117,12 @@ public class SearchDecorationImgFragment extends BaseFragment {
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
     }
 
-    private void getDecorationImgInfo(int from, String searchText, ApiCallback<ApiResponse<BeautifulImageList>> listener) {
+    private void getDecorationImgInfo(int from, String searchText, ApiCallback<ApiResponse<BeautifulImageList>>
+            listener) {
         SearchDecorationImgRequest request = new SearchDecorationImgRequest();
-        Map<String, Object> param = new HashMap<>();
-        param.put("search_word", searchText);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        request.setQuery(param);
+        request.setSearch_word(searchText);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchDecorationImg(request, listener);
     }
 

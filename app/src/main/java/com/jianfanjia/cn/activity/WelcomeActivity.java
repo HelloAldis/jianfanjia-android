@@ -8,7 +8,9 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.cn.api.Api;
@@ -16,13 +18,12 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.GeTuiManager;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author fengliang
@@ -30,7 +31,7 @@ import com.jianfanjia.common.tool.FileUtil;
  * @Description: 欢迎
  * @date 2015-8-29 上午9:30:21
  */
-public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
+public class WelcomeActivity extends BaseActivity {
     private static final String TAG = WelcomeActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示
@@ -199,7 +200,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                         appManager.finishActivity(WelcomeActivity.this);
                     } else {
                         LogTool.d(TAG, "expire");
-                        MyApplication.getInstance().clearCookie();
+                        ApiClient.clearCookie();
                         refreshSession();
                     }
                 }
@@ -216,7 +217,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         RefreshSessionRequest refreshSessionRequest = new RefreshSessionRequest();
         refreshSessionRequest.set_id(dataManager.getUserId());
 
-        Api.refreshSession(refreshSessionRequest, new ApiCallback<ApiResponse<String>>() {
+        Api.refreshSession(refreshSessionRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
 
@@ -228,13 +229,13 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             }
 
             @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
+            public void onSuccess(ApiResponse<User> apiResponse) {
                 startActivity(MainActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onFailed(ApiResponse<User> apiResponse) {
                 startActivity(LoginNewActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
             }

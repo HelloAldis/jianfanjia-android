@@ -47,8 +47,10 @@
 -keep class com.j256.ormlite.stmt.** { *; }
 
 #okio混淆
--dontwarn com.squareup.okhttp.**
--keep class com.squareup.okhttp.** { *;}
+#-dontwarn com.squareup.okhttp.**
+#-keep class com.squareup.okhttp.** { *;}
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *;}
 -dontwarn okio.**
 
 #androidannotations混淆

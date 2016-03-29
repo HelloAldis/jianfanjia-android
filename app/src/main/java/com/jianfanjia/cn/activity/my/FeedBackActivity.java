@@ -71,7 +71,10 @@ public class FeedBackActivity extends SwipeBackActivity implements OnClickListen
     }
 
     private void feedBack(String content, String version, String platform) {
-        FeedBackRequest request = new FeedBackRequest(content, version, platform);
+        FeedBackRequest request = new FeedBackRequest();
+        request.setContent(content);
+        request.setVersion(version);
+        request.setPlatform(platform);
         Api.feedBack(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {

@@ -6,6 +6,7 @@ import com.jianfanjia.api.DownloadClient;
 import com.jianfanjia.api.progress.UIProgressListener;
 import com.jianfanjia.api.request.guest.DownloadRequest;
 
+
 /**
  * Name: DownLoadManager
  * User: fengliang

@@ -21,9 +21,8 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:评价设计师
@@ -31,8 +30,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PingjiaActivity extends SwipeBackActivity implements
-        ApiUiUpdateListener {
+public class PingjiaActivity extends SwipeBackActivity {
     private static final String TAG = PingjiaActivity.class.getName();
 
     @Bind(R.id.my_pingjia_head_layout)

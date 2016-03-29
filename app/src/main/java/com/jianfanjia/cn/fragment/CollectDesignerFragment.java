@@ -143,7 +143,9 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     }
 
     private void getMyFavoriteDesignerList(int from, int limit, ApiCallback<ApiResponse<DesignerList>> listener) {
-        FavoriteDesignerListRequest request = new FavoriteDesignerListRequest(from, limit);
+        FavoriteDesignerListRequest request = new FavoriteDesignerListRequest();
+        request.setFrom(from);
+        request.setLimit(limit);
         Api.get_MyFavoriteDesignerList(request, listener);
     }
 

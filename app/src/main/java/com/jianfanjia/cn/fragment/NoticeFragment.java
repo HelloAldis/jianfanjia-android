@@ -153,11 +153,9 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         params.put("$in", typeStr);
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("message_type", params);
-        Map<String, Object> param = new HashMap<>();
-        param.put("query", conditionParam);
-        param.put("from", FROM);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        request.setParam(param);
+        request.setQuery(conditionParam);
+        request.setFrom(FROM);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchUserMsg(request, listener);
     }
 
@@ -173,67 +171,68 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
         getNoticeList(typeArray, pullUpListener);
     }
 
-    private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new ApiCallback<ApiResponse<UserMessageList>>() {
+    private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new
+            ApiCallback<ApiResponse<UserMessageList>>() {
 
-        @Override
-        public void onPreLoad() {
-            if (mHasLoadedOnce) {
-                showWaitDialog();
-            }
-        }
-
-        @Override
-        public void onHttpDone() {
-            hideWaitDialog();
-        }
-
-        @Override
-        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
-            mHasLoadedOnce = true;
-            all_notice_listview.onRefreshComplete();
-            UserMessageList noticeListInfo = apiResponse.getData();
-            LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
-            if (null != noticeListInfo) {
-                noticeList.clear();
-                noticeList.addAll(noticeListInfo.getList());
-                if (null != noticeList && noticeList.size() > 0) {
-                    noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
-                        @Override
-                        public void onClick(int position, Object obj) {
-                            UserMessage noticeInfo = (UserMessage) obj;
-                            LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
-                            Bundle detailBundle = new Bundle();
-                            detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
-                            startActivity(NoticeDetailActivity.class, detailBundle);
-                        }
-                    });
-                    all_notice_listview.setAdapter(noticeAdapter);
-                    all_notice_listview.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
-                } else {
-                    all_notice_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    errorLayout.setVisibility(View.GONE);
+                @Override
+                public void onPreLoad() {
+                    if (mHasLoadedOnce) {
+                        showWaitDialog();
+                    }
                 }
-                FROM = noticeList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
-            }
-        }
 
-        @Override
-        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-            all_notice_listview.onRefreshComplete();
-            all_notice_listview.setVisibility(View.GONE);
-            emptyLayout.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
-        }
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                }
 
-        @Override
-        public void onNetworkError(int code) {
+                @Override
+                public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
+                    mHasLoadedOnce = true;
+                    all_notice_listview.onRefreshComplete();
+                    UserMessageList noticeListInfo = apiResponse.getData();
+                    LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
+                    if (null != noticeListInfo) {
+                        noticeList.clear();
+                        noticeList.addAll(noticeListInfo.getList());
+                        if (null != noticeList && noticeList.size() > 0) {
+                            noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
+                                @Override
+                                public void onClick(int position, Object obj) {
+                                    UserMessage noticeInfo = (UserMessage) obj;
+                                    LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
+                                    Bundle detailBundle = new Bundle();
+                                    detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
+                                    startActivity(NoticeDetailActivity.class, detailBundle);
+                                }
+                            });
+                            all_notice_listview.setAdapter(noticeAdapter);
+                            all_notice_listview.setVisibility(View.VISIBLE);
+                            emptyLayout.setVisibility(View.GONE);
+                            errorLayout.setVisibility(View.GONE);
+                        } else {
+                            all_notice_listview.setVisibility(View.GONE);
+                            emptyLayout.setVisibility(View.VISIBLE);
+                            errorLayout.setVisibility(View.GONE);
+                        }
+                        FROM = noticeList.size();
+                        LogTool.d(TAG, "FROM:" + FROM);
+                    }
+                }
 
-        }
-    };
+                @Override
+                public void onFailed(ApiResponse<UserMessageList> apiResponse) {
+                    all_notice_listview.onRefreshComplete();
+                    all_notice_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
 
     private ApiCallback<ApiResponse<UserMessageList>> pullUpListener = new ApiCallback<ApiResponse<UserMessageList>>() {
 

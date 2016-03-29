@@ -132,10 +132,8 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
 
     private void getDesignerProduct(String designerid, ApiCallback<ApiResponse<ProductList>> listener) {
         SearchDesignerProductRequest request = new SearchDesignerProductRequest();
-        Map<String, Object> conditionParam = new HashMap<>();
-        conditionParam.put("designerid", designerid);
         Map<String, Object> param = new HashMap<>();
-        param.put("query", conditionParam);
+        param.put("designerid", designerid);
         request.setQuery(param);
         request.setFrom(FROM);
         request.setLimit(Constant.HOME_PAGE_LIMIT);

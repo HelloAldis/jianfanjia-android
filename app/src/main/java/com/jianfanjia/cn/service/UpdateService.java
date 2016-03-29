@@ -26,6 +26,7 @@ import com.jianfanjia.cn.tools.ToastUtil;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 16:14
  */
+
 public class UpdateService extends Service{
     // 指定文件类型
     private static String[] allowedContentTypes = new String[]{"image/png",
