@@ -149,7 +149,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
 
     private void getDesignerPageInfo(String designerid) {
         DesignerHomePageRequest request = new DesignerHomePageRequest();
-        request.setDesignerid(designerid);
+        request.set_id(designerid);
         Api.getDesignerHomePage(request, new ApiCallback<ApiResponse<Designer>>() {
             @Override
             public void onPreLoad() {
