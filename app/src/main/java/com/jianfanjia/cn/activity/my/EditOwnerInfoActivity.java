@@ -11,10 +11,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import butterknife.Bind;
@@ -35,7 +39,7 @@ public class EditOwnerInfoActivity extends SwipeBackActivity implements OnClickL
     private Intent intent;
     private int type;// 输入类型
     private String content;//输入内容
-    private OwnerUpdateInfo ownerUpdateInfo = new OwnerUpdateInfo();
+    private User user = new User();
     InputFilter[] namefilters = {new InputFilter.LengthFilter(20)};
     InputFilter[] addressfilters = {new InputFilter.LengthFilter(100)};
 
@@ -84,10 +88,10 @@ public class EditOwnerInfoActivity extends SwipeBackActivity implements OnClickL
                 if (!TextUtils.isEmpty(content)) {
                     switch (type) {
                         case Constant.REQUESTCODE_EDIT_USERNAME:
-                            ownerUpdateInfo.setUsername(content);
+                            user.setUsername(content);
                             break;
                         case Constant.REQUESTCODE_EDIT_HOME:
-                            ownerUpdateInfo.setAddress(content);
+                            user.setAddress(content);
                             break;
                     }
                     put_Owner_Info();
@@ -126,28 +130,36 @@ public class EditOwnerInfoActivity extends SwipeBackActivity implements OnClickL
 
     // 修改设计师个人资料
     private void put_Owner_Info() {
-        JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo,
-                new ApiUiUpdateListener() {
+        UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
+        request.setUser(user);
+        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        intent.putExtra(Constant.EDIT_CONTENT, content);
-                        setResult(RESULT_OK, intent);
-                        appManager.finishActivity(EditOwnerInfoActivity.this);
-                    }
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                intent.putExtra(Constant.EDIT_CONTENT, content);
+                setResult(RESULT_OK, intent);
+                appManager.finishActivity(EditOwnerInfoActivity.this);
+            }
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextLong(error_msg);
-                    }
-                }, this);
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

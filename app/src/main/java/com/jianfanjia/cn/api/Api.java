@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.api;
 
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -12,13 +10,13 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
@@ -74,6 +72,8 @@ import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 
 /**
@@ -236,7 +236,7 @@ public class Api {
     }
 
     //业主获取个人信息
-    public static void get_Owner_Info(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<OwnerInfo>>
+    public static void get_Owner_Info(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<User>>
             apiCallback) {
         ApiClient.okGet(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
     }

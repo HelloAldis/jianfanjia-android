@@ -9,10 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.CityFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -72,7 +76,7 @@ public class EditCityActivity extends SwipeBackActivity {
     private Map<String, List<String>> districtMap;
 
     private Intent intent;
-    private OwnerUpdateInfo ownerUpdateInfo = new OwnerUpdateInfo();
+    private User user = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,26 +212,34 @@ public class EditCityActivity extends SwipeBackActivity {
 
     // 修改设计师个人资料
     private void put_Owner_Info() {
-        JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo,
-                new ApiUiUpdateListener() {
+        UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
+        request.setUser(user);
+        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        setResultTo();
-                    }
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                setResultTo();
+            }
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextLong(error_msg);
-                    }
-                }, this);
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     protected void setResultTo() {
@@ -248,9 +260,9 @@ public class EditCityActivity extends SwipeBackActivity {
             case R.id.btn_confirm:
                 switch (page) {
                     case EDIT_USER_ADRESS:
-                        ownerUpdateInfo.setProvince(provice);
-                        ownerUpdateInfo.setCity(city);
-                        ownerUpdateInfo.setDistrict(district);
+                        user.setProvince(provice);
+                        user.setCity(city);
+                        user.setDistrict(district);
                         put_Owner_Info();
                         break;
                     case EDIT_REQUIREMENT_ADRESS:
