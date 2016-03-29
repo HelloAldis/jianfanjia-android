@@ -74,8 +74,7 @@ public class UiHelper {
         for (String[] temp : selectLists) {
             contain.add(temp);
         }
-        param.put("query_array", contain);
-        getUnReadMsgRequest.setParam(param);
+        getUnReadMsgRequest.setQuery_array(contain);
         Api.getUnReadMsg(getUnReadMsgRequest, callback);
     }
 

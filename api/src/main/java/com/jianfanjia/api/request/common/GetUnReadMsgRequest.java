@@ -2,7 +2,7 @@ package com.jianfanjia.api.request.common;
 
 import com.jianfanjia.api.request.BaseRequest;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Name: GetUnReadMsgRequest
@@ -12,13 +12,13 @@ import java.util.Map;
  */
 public class GetUnReadMsgRequest extends BaseRequest {
 
-    private Map<String, Object> param;
+    private List<String[]> query_array;
 
-    public Map<String, Object> getParam() {
-        return param;
+    public List<String[]> getQuery_array() {
+        return query_array;
     }
 
-    public void setParam(Map<String, Object> param) {
-        this.param = param;
+    public void setQuery_array(List<String[]> query_array) {
+        this.query_array = query_array;
     }
 }
