@@ -2,17 +2,24 @@ package com.jianfanjia.cn.application;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.StrictMode;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.DataCleanManager;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.common.base.application.BaseApplication;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.squareup.okhttp.OkHttpClient;
 
 /**
@@ -22,7 +29,7 @@ import com.squareup.okhttp.OkHttpClient;
  * Date:15-10-11 16:19
  */
 public class MyApplication extends BaseApplication {
-    private static MyApplication instance;
+
     private PersistentCookieStore cookieStore;// cookie实例化
 
 //    private RefWatcher refWatcher;
@@ -30,15 +37,19 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-//        saveDefaultProcess();// 加载默认的工地信息
+        if (Constant.Config.DEVELOPER_MODE
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll().penaltyDialog().build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectAll().penaltyDeath().build());
+        }
+        
         cookieStore = new PersistentCookieStore(getApplicationContext());// 记录cookie
         saveCookie(OkHttpClientManager.getInstance().client());
 
-        /*
-         * Thread.setDefaultUncaughtExceptionHandler(AppException
-		 * .getAppExceptionHandler(this));
-		 */
+        initImageLoader(this);
+
 //        refWatcher = LeakCanary.install(this);
     }
 
@@ -47,8 +58,31 @@ public class MyApplication extends BaseApplication {
 //        return application.refWatcher;
 //    }
 
+    public static void initImageLoader(Context context) {
+        // This configuration tuning is custom. You can tune every option, you
+        // may tune some of them,
+        // or you can create default configuration by
+        // ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(
+                context);
+        config.memoryCacheExtraOptions(480, 800);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.threadPoolSize(3);
+        config.memoryCache(new WeakMemoryCache());
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.memoryCacheSize(2 * 1024 * 1024);
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs(); // Remove for release app
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config.build());
+    }
+
+
     public static MyApplication getInstance() {
-        return instance;
+        return (MyApplication) baseApplication;
     }
 
     /**
@@ -137,9 +171,9 @@ public class MyApplication extends BaseApplication {
      * 清除app缓存
      */
     public void clearAppCache() {
-		DataCleanManager.cleanDatabases(this);
+        DataCleanManager.cleanDatabases(this);
         // 清除数据缓存
-		DataCleanManager.cleanInternalCache(this);
+        DataCleanManager.cleanInternalCache(this);
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().clearMemoryCache();
         //
@@ -154,9 +188,10 @@ public class MyApplication extends BaseApplication {
     }
 
     public void clearCookie() {
-        LogTool.d(this.getClass().getName(),"clearCookie");
+        LogTool.d(this.getClass().getName(), "clearCookie");
         cookieStore.removeAll();
 //        cookieStore = new PersistentCookieStore(this);
-//        OkHttpClientManager.getInstance().client().setCookieHandler(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL));
+//        OkHttpClientManager.getInstance().client().setCookieHandler(new CookieManager(cookieStore, CookiePolicy
+// .ACCEPT_ALL));
     }
 }
