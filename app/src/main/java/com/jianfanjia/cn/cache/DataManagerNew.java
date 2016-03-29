@@ -11,6 +11,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.api.model.Process;
 
 import java.util.Calendar;
 import java.util.List;
@@ -67,16 +68,16 @@ public class DataManagerNew {
         this.requirementInfo = requirementInfo;
     }
 
-    public OwnerInfo getOwnerInfoById(String ownerId) {
-        return (OwnerInfo) sharedPreferdata.getValue(ownerId);
+    public User getOwnerInfoById(String ownerId) {
+        return (User) sharedPreferdata.getValue(ownerId);
     }
 
     public void setDesignerInfo(Designer designerInfo) {
         sharedPreferdata.setValue(designerInfo.get_id(), designerInfo);
     }
 
-    public void setOwnerInfo(OwnerInfo ownerInfo) {
-        sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
+    public void setOwnerInfo(User user) {
+        sharedPreferdata.setValue(user.get_id(), user);
     }
 
     public void setCurrentProcessInfo(Process currentProcessInfo) {

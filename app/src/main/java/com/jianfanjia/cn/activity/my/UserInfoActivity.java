@@ -18,24 +18,24 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
+import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
-import com.jianfanjia.cn.tools.JsonParser;
+import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
@@ -44,6 +44,13 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yalantis.ucrop.UCrop;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -78,9 +85,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
     protected RelativeLayout error_Layout;
     @Bind(R.id.logout_layout)
     protected RelativeLayout logoutLayout;
-    private OwnerInfo ownerInfo = null;
+    private User user = null;
     private String sex = null;
-
 
 
     private boolean isUpdate = false;//是否更新，只有，更新了用户名或者头像才更新
@@ -92,7 +98,6 @@ public class UserInfoActivity extends SwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initData();
     }
@@ -103,15 +108,14 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
     private void setData() {
         scrollView.setVisibility(View.VISIBLE);
-
-        if (TextUtils.isEmpty(ownerInfo.getImageid())) {
+        if (TextUtils.isEmpty(user.getImageid())) {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
         } else {
-            imageShow.displayImageHeadWidthThumnailImage(this, ownerInfo.getImageid(), headImageView);
+            imageShow.displayImageHeadWidthThumnailImage(this, user.getImageid(), headImageView);
         }
-        nameText.setText(TextUtils.isEmpty(ownerInfo.getUsername()) ? getString(R.string.ower)
-                : ownerInfo.getUsername());
-        String sexInfo = ownerInfo.getSex();
+        nameText.setText(TextUtils.isEmpty(user.getUsername()) ? getString(R.string.ower)
+                : user.getUsername());
+        String sexInfo = user.getSex();
         if (!TextUtils.isEmpty(sexInfo)) {
             if (sexInfo.equals(Constant.SEX_MAN)) {
                 sexText.setText(getString(R.string.man));
@@ -121,19 +125,18 @@ public class UserInfoActivity extends SwipeBackActivity implements
         } else {
             sexText.setText(getString(R.string.not_edit));
         }
-        String city = ownerInfo.getCity();
+        String city = user.getCity();
         if (TextUtils.isEmpty(city)) {
             addressText
                     .setText(getString(R.string.not_edit));
         } else {
-            String province = ownerInfo.getProvince();
-            String district = ownerInfo.getDistrict();
-            addressText
-                    .setText(province + city + (TextUtils.isEmpty(district) ? ""
-                            : district));
+            String province = user.getProvince();
+            String district = user.getDistrict();
+            addressText.setText(province + city + (TextUtils.isEmpty(district) ? ""
+                    : district));
         }
-        homeText.setText(TextUtils.isEmpty(ownerInfo.getAddress()) ? getString(R.string.not_edit)
-                : ownerInfo.getAddress());
+        homeText.setText(TextUtils.isEmpty(user.getAddress()) ? getString(R.string.not_edit)
+                : user.getAddress());
     }
 
     @OnClick({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout,
@@ -151,9 +154,9 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 break;
             case R.id.address_layout:
                 Bundle address = new Bundle();
-                address.putString(Constant.EDIT_PROVICE, ownerInfo.getProvince());
-                address.putString(Constant.EDIT_CITY, ownerInfo.getCity());
-                address.putString(Constant.EDIT_DISTRICT, ownerInfo.getDistrict());
+                address.putString(Constant.EDIT_PROVICE, user.getProvince());
+                address.putString(Constant.EDIT_CITY, user.getCity());
+                address.putString(Constant.EDIT_DISTRICT, user.getDistrict());
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_USER_ADRESS);
                 startActivityForResult(EditCityActivity.class, address, Constant.REQUESTCODE_EDIT_ADDRESS);
                 break;
@@ -161,14 +164,14 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 Bundle name = new Bundle();
                 name.putInt(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_USERNAME);
-                name.putString(Constant.EDIT_CONTENT, ownerInfo.getUsername());
+                name.putString(Constant.EDIT_CONTENT, user.getUsername());
                 startActivityForResult(EditOwnerInfoActivity.class, name, Constant.REQUESTCODE_EDIT_USERNAME);
                 break;
             case R.id.home_layout:
                 Bundle home = new Bundle();
                 home.putInt(Constant.EDIT_TYPE,
                         Constant.REQUESTCODE_EDIT_HOME);
-                home.putString(Constant.EDIT_CONTENT, ownerInfo.getAddress());
+                home.putString(Constant.EDIT_CONTENT, user.getAddress());
                 startActivityForResult(EditOwnerInfoActivity.class, home, Constant.REQUESTCODE_EDIT_HOME);
                 break;
             case R.id.sex_layout:
@@ -230,7 +233,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
     // 显示选择性别对话框
     private void showSexChooseDialog() {
-        final OwnerUpdateInfo ownerUpdateInfo = new OwnerUpdateInfo();
+        final User userInfo = new User();
         CommonDialog commonDialog = DialogHelper
                 .getPinterestDialogCancelable(this);
         View contentView = inflater.inflate(R.layout.sex_choose, null);
@@ -244,19 +247,19 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 } else {
                     sex = Constant.SEX_WOMEN;
                 }
-                ownerUpdateInfo.setSex(sex);
+                userInfo.setSex(sex);
             }
         });
-        if (!TextUtils.isEmpty(ownerInfo.getSex())) {
-            radioGroup.check(ownerInfo.getSex().equals(
+        if (!TextUtils.isEmpty(userInfo.getSex())) {
+            radioGroup.check(userInfo.getSex().equals(
                     Constant.SEX_MAN) ? R.id.sex_radio0 : R.id.sex_radio1);
-            sex = ownerInfo.getSex().equals(Constant.SEX_MAN) ? Constant.SEX_MAN
+            sex = userInfo.getSex().equals(Constant.SEX_MAN) ? Constant.SEX_MAN
                     : Constant.SEX_WOMEN;
         } else {
             radioGroup.check(R.id.sex_radio0);
             sex = Constant.SEX_MAN;
         }
-        ownerUpdateInfo.setSex(sex);
+        userInfo.setSex(sex);
         commonDialog.setContent(contentView);
         commonDialog.setTitle(getString(R.string.choose_sex));
         commonDialog.setPositiveButton(R.string.ok,
@@ -264,8 +267,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ownerInfo.getSex() == null || !ownerInfo.getSex().equals(ownerUpdateInfo.getSex())) {
-                            updateSexInfo(ownerUpdateInfo);
+                        if (user.getSex() == null || !user.getSex().equals(userInfo.getSex())) {
+                            updateSexInfo(userInfo);
                         }
                         dialog.dismiss();
                     }
@@ -274,80 +277,107 @@ public class UserInfoActivity extends SwipeBackActivity implements
         commonDialog.show();
     }
 
-    /**
-     * 更新性别
-     *
-     * @param ownerUpdateInfo
-     */
-    protected void updateSexInfo(OwnerUpdateInfo ownerUpdateInfo) {
-        JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo, new ApiUiUpdateListener() {
+    protected void updateSexInfo(User userInfo) {
+        UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
+        request.setUser(userInfo);
+        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                ownerInfo.setSex(sex);
-                sexText.setText(ownerInfo.getSex().equals(
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                user.setSex(sex);
+                sexText.setText(user.getSex().equals(
                         Constant.SEX_MAN) ? getString(R.string.man) : getString(R.string.women));
-                dataManager.setOwnerInfo(ownerInfo);
+                dataManager.setOwnerInfo(user);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
+            public void onFailed(ApiResponse<String> apiResponse) {
 
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     // 修改设计师头像
-    private void updateImageId(final OwnerUpdateInfo ownerUpdateInfo) {
-        JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo,
-                new ApiUiUpdateListener() {
+    private void updateImageId(final User userInfo) {
+        UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
+        request.setUser(userInfo);
+        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
 
-                    @Override
-                    public void preLoad() {
-                    }
+            }
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        if (!TextUtils.isEmpty(ownerUpdateInfo.getImageid())) {
-                            dataManager.setUserImagePath(ownerUpdateInfo.getImageid());
-                        }
-                        dataManager.setOwnerInfo(ownerInfo);
-                        isUpdate = true;
-                    }
+            @Override
+            public void onHttpDone() {
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextLong(error_msg);
-                    }
-                }, this);
-    }
+            }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        if (data.toString() != null) {
-            ownerInfo = JsonParser.jsonToBean(data.toString(), OwnerInfo.class);
-            setData();
-            error_Layout.setVisibility(View.GONE);
-        } else {
-            scrollView.setVisibility(View.GONE);
-            error_Layout.setVisibility(View.VISIBLE);
-        }
-    }
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                if (!TextUtils.isEmpty(userInfo.getImageid())) {
+                    dataManager.setUserImagePath(userInfo.getImageid());
+                }
+                dataManager.setOwnerInfo(userInfo);
+                isUpdate = true;
+            }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
-        scrollView.setVisibility(View.GONE);
-        error_Layout.setVisibility(View.VISIBLE);
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void initData() {
-        JianFanJiaClient.get_Owner_Info(this, this, this);
+        UserByOwnerInfoRequest request = new UserByOwnerInfoRequest();
+        Api.get_Owner_Info(request, new ApiCallback<ApiResponse<User>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<User> apiResponse) {
+                user = apiResponse.getData();
+                setData();
+                error_Layout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<User> apiResponse) {
+                scrollView.setVisibility(View.GONE);
+                error_Layout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override
@@ -393,32 +423,46 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 return;
             }
             if (bitmap != null) {
-                JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        if (data != null) {
-                            String imageid = dataManager.getCurrentUploadImageId();
-                            LogTool.d(TAG, "imageid:" + imageid);
-                            if (!TextUtils.isEmpty(imageid)) {
-                                getImageId(imageid);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void loadFailture(String msg) {
-
-                    }
-                }, this);
+                uploadImage(bitmap);
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             Toast.makeText(this, UCrop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void uploadImage(Bitmap bitmap) {
+        UploadPicRequest request = new UploadPicRequest();
+        request.setBytes(ImageUtil.transformBitmapToBytes(bitmap));
+        Api.uploadImage(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                String imageid = dataManager.getCurrentUploadImageId();
+                LogTool.d(TAG, "imageid:" + imageid);
+                if (!TextUtils.isEmpty(imageid)) {
+                    getImageId(imageid);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override
@@ -432,8 +476,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 if (data != null) {
                     String name = data.getStringExtra(Constant.EDIT_CONTENT);
                     nameText.setText(name);
-                    ownerInfo.setUsername(name);
-                    dataManager.setOwnerInfo(ownerInfo);
+                    user.setUsername(name);
+                    dataManager.setOwnerInfo(user);
                     dataManager.setUserName(name);
                     isUpdate = true;
                 }
@@ -445,10 +489,10 @@ public class UserInfoActivity extends SwipeBackActivity implements
                     String district = data.getStringExtra(Constant.EDIT_DISTRICT);
                     if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
                         addressText.setText(provice + city + district);
-                        ownerInfo.setProvince(provice);
-                        ownerInfo.setCity(city);
-                        ownerInfo.setDistrict(district);
-                        dataManager.setOwnerInfo(ownerInfo);
+                        user.setProvince(provice);
+                        user.setCity(city);
+                        user.setDistrict(district);
+                        dataManager.setOwnerInfo(user);
                     }
                 }
                 break;
@@ -456,8 +500,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
                 if (data != null) {
                     String address = data.getStringExtra(Constant.EDIT_CONTENT);
                     homeText.setText(address);
-                    ownerInfo.setAddress(address);
-                    dataManager.setOwnerInfo(ownerInfo);
+                    user.setAddress(address);
+                    dataManager.setOwnerInfo(user);
                 }
                 break;
             case Constant.REQUESTCODE_CAMERA:// 拍照
@@ -495,9 +539,9 @@ public class UserInfoActivity extends SwipeBackActivity implements
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, headImageView);
         } else {
             imageShow.displayImageHeadWidthThumnailImage(this, imageId, headImageView);
-            OwnerUpdateInfo ownerUpdateInfo = new OwnerUpdateInfo();
-            ownerUpdateInfo.setImageid(imageId);
-            updateImageId(ownerUpdateInfo);
+            User userInfo = new User();
+            userInfo.setImageid(imageId);
+            updateImageId(userInfo);
         }
         if (mTmpFile != null && mTmpFile.exists()) {
             mTmpFile.delete();
