@@ -173,15 +173,4 @@ public abstract class BaseActivity extends AppCompatActivity implements
         }
     }
 
-    // 注册网络监听广播
-//    protected void registerNetReceiver() {
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-//        registerReceiver(netStateReceiver, intentFilter);
-//    }
-
-    // 取消网络监听广播
-//    protected void unregisterNetReceiver() {
-//        unregisterReceiver(netStateReceiver);
-//    }
 }
