@@ -9,13 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
@@ -32,9 +25,17 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.CheckListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -95,7 +96,6 @@ public class AppointDesignerActivity extends SwipeBackActivity {
         paint.setAntiAlias(true);
         appoint_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
-
     }
 
     private void initData() {
@@ -179,69 +179,71 @@ public class AppointDesignerActivity extends SwipeBackActivity {
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
         GetCanOrderDesignerListRequest getCanOrderDesignerListRequest = new GetCanOrderDesignerListRequest();
-        getCanOrderDesignerListRequest.setRequirementis(requestmentid);
-
+        getCanOrderDesignerListRequest.setRequirementid(requestmentid);
         Api.getCanOrderDesigner(getCanOrderDesignerListRequest, new
                 ApiCallback<ApiResponse<DesignerCanOrderList>>() {
 
-            @Override
-            public void onPreLoad() {
-                showWaitDialog();
-            }
+                    @Override
+                    public void onPreLoad() {
+                        showWaitDialog();
+                    }
 
-            @Override
-            public void onHttpDone() {
-                hideWaitDialog();
-            }
+                    @Override
+                    public void onHttpDone() {
+                        hideWaitDialog();
+                    }
 
-            @Override
-            public void onSuccess(ApiResponse<DesignerCanOrderList> apiResponse) {
-                DesignerCanOrderList designerCanOrderListInfo = apiResponse.getData();
-                if (null != designerCanOrderListInfo) {
-                    rec_designer = designerCanOrderListInfo.getRec_designer();
-                    favorite_designer = designerCanOrderListInfo.getFavorite_designer();
-                    setAppointDesignerList(rec_designer, favorite_designer);
-                    designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter(AppointDesignerActivity
-                            .this, mylist, splitList, total, new CheckListener() {
+                    @Override
+                    public void onSuccess(ApiResponse<DesignerCanOrderList> apiResponse) {
+                        DesignerCanOrderList designerCanOrderListInfo = apiResponse.getData();
+                        if (null != designerCanOrderListInfo) {
+                            rec_designer = designerCanOrderListInfo.getRec_designer();
+                            favorite_designer = designerCanOrderListInfo.getFavorite_designer();
+                            setAppointDesignerList(rec_designer, favorite_designer);
+                            designerByAppointOrReplaceAdapter = new DesignerByAppointOrReplaceAdapter
+                                    (AppointDesignerActivity
+                                            .this, mylist, splitList, total, new CheckListener() {
 
-                        @Override
-                        public void getItemData(int position, String designerid) {
-                            LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
-                            currentPos = position;
-                            Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designerid);
-                            startActivity(DesignerInfoActivity.class, designerBundle);
+                                        @Override
+                                        public void getItemData(int position, String designerid) {
+                                            LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                                            currentPos = position;
+                                            Bundle designerBundle = new Bundle();
+                                            designerBundle.putString(Global.DESIGNER_ID, designerid);
+                                            startActivity(DesignerInfoActivity.class, designerBundle);
+                                        }
+
+                                        @Override
+                                        public void getCheckedData(List<String> designerids) {
+                                            int checkNum = designerids.size();
+                                            LogTool.d(TAG, "checkNum=" + checkNum);
+                                            if (null != designerids && designerids.size() > 0) {
+                                                mainHeadView.setRigthTitleEnable(true);
+                                                designerIds = designerids;
+                                            } else {
+                                                mainHeadView.setRigthTitleEnable(false);
+                                            }
+                                            mainHeadView.setMianTitle(getResources().getString(R.string.appoint) +
+                                                    (total -
+                                                            checkNum) +
+                                                    getResources().getString(R.string.appointNum));
+                                            mainHeadView.setMianTitleColor();
+                                        }
+                                    });
+                            appoint_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
                         }
+                    }
 
-                        @Override
-                        public void getCheckedData(List<String> designerids) {
-                            int checkNum = designerids.size();
-                            LogTool.d(TAG, "checkNum=" + checkNum);
-                            if (null != designerids && designerids.size() > 0) {
-                                mainHeadView.setRigthTitleEnable(true);
-                                designerIds = designerids;
-                            } else {
-                                mainHeadView.setRigthTitleEnable(false);
-                            }
-                            mainHeadView.setMianTitle(getResources().getString(R.string.appoint) + (total - checkNum) +
-                                    getResources().getString(R.string.appointNum));
-                            mainHeadView.setMianTitleColor();
-                        }
-                    });
-                    appoint_designer_listview.setAdapter(designerByAppointOrReplaceAdapter);
-                }
-            }
+                    @Override
+                    public void onFailed(ApiResponse<DesignerCanOrderList> apiResponse) {
+                        makeTextShort(apiResponse.getErr_msg());
+                    }
 
-            @Override
-            public void onFailed(ApiResponse<DesignerCanOrderList> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
-            }
+                    @Override
+                    public void onNetworkError(int code) {
 
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
+                    }
+                });
     }
 
     //业主预约设计师

@@ -8,15 +8,15 @@ import com.jianfanjia.api.request.BaseRequest;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-28 11:15
  */
-public class GetCanOrderDesignerListRequest extends BaseRequest{
+public class GetCanOrderDesignerListRequest extends BaseRequest {
 
-    private String requirementis;
+    private String requirementid;
 
-    public String getRequirementis() {
-        return requirementis;
+    public String getRequirementid() {
+        return requirementid;
     }
 
-    public void setRequirementis(String requirementis) {
-        this.requirementis = requirementis;
+    public void setRequirementid(String requirementid) {
+        this.requirementid = requirementid;
     }
 }
