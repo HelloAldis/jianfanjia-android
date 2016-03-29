@@ -125,7 +125,9 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
     private void getProductList(int from, int limit, ApiCallback<ApiResponse<ProductList>> listener) {
-        GetCollectionRequest request = new GetCollectionRequest(from, limit);
+        GetCollectionRequest request = new GetCollectionRequest();
+        request.setFrom(from);
+        request.setLimit(limit);
         Api.getCollectListByUser(request, listener);
     }
 

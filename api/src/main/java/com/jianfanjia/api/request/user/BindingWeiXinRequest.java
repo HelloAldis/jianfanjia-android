@@ -12,11 +12,6 @@ public class BindingWeiXinRequest extends BaseRequest {
     private String openid;
     private String unionid;
 
-    public BindingWeiXinRequest(String openid, String unionid) {
-        this.openid = openid;
-        this.unionid = unionid;
-    }
-
     public String getOpenid() {
         return openid;
     }

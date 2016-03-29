@@ -210,18 +210,15 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     }
 
     private void getDecorationImgInfo(int from) {
-        Map<String, Object> query = new HashMap<>();
-        Map<String, Object> conditionParam = new HashMap<>();
-        conditionParam.put("section", section);
-        conditionParam.put("house_type", houseStyle);
-        conditionParam.put("dec_style", decStyle);
-        query.put("query", conditionParam);
-        query.put("search_word", search);
-        query.put("from", from);
-        query.put("limit", Constant.HOME_PAGE_LIMIT);
-
         SearchDecorationImgRequest request = new SearchDecorationImgRequest();
-        request.setQuery(query);
+        Map<String, Object> param = new HashMap<>();
+        param.put("section", section);
+        param.put("house_type", houseStyle);
+        param.put("dec_style", decStyle);
+        request.setQuery(param);
+        request.setSearch_word(search);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchDecorationImg(request, this.getDecorationImgInfoCallback);
     }
 
@@ -235,59 +232,58 @@ public class PreviewDecorationActivity extends SwipeBackActivity implements View
     private void addDecorationImgInfo(String decorationId) {
         AddBeautyImgRequest request = new AddBeautyImgRequest();
         request.set_id(decorationId);
-
         Api.addBeautyImgByUser(request, this.addDecorationImgInfoCallback);
     }
 
     private void deleteDecorationImg(String decorationId) {
         DeleteBeautyImgRequest request = new DeleteBeautyImgRequest();
         request.set_id(decorationId);
-
         Api.deleteBeautyImgByUser(request, this.deleteDecorationImgCallback);
     }
 
-    private ApiCallback<ApiResponse<BeautifulImageList>> getDecorationImgInfoCallback = new ApiCallback<ApiResponse<BeautifulImageList>>() {
-        @Override
-        public void onPreLoad() {
-            if (isFirst) {
-                showWaitDialog();
-            }
-        }
-
-        @Override
-        public void onHttpDone() {
-            hideWaitDialog();
-        }
-
-        @Override
-        public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
-            mPullToRefreshViewPager.onRefreshComplete();
-            BeautifulImageList decorationItemInfo = apiResponse.getData();
-            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-            if (null != decorationItemInfo) {
-                List<BeautifulImage> beautyImages = decorationItemInfo.getBeautiful_images();
-                LogTool.d(TAG, "beautyImages:" + beautyImages.size());
-                if (null != beautyImages && beautyImages.size() > 0) {
-                    showPicPagerAdapter.addItem(beautyImages);
-                    FROM += Constant.HOME_PAGE_LIMIT;
-//                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
-                } else {
-                    makeTextShort(getResources().getString(R.string.no_more_data));
+    private ApiCallback<ApiResponse<BeautifulImageList>> getDecorationImgInfoCallback = new
+            ApiCallback<ApiResponse<BeautifulImageList>>() {
+                @Override
+                public void onPreLoad() {
+                    if (isFirst) {
+                        showWaitDialog();
+                    }
                 }
-            }
-        }
 
-        @Override
-        public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
-            makeTextShort(apiResponse.getErr_msg());
-            mPullToRefreshViewPager.onRefreshComplete();
-        }
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                }
 
-        @Override
-        public void onNetworkError(int code) {
+                @Override
+                public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
+                    mPullToRefreshViewPager.onRefreshComplete();
+                    BeautifulImageList decorationItemInfo = apiResponse.getData();
+                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    if (null != decorationItemInfo) {
+                        List<BeautifulImage> beautyImages = decorationItemInfo.getBeautiful_images();
+                        LogTool.d(TAG, "beautyImages:" + beautyImages.size());
+                        if (null != beautyImages && beautyImages.size() > 0) {
+                            showPicPagerAdapter.addItem(beautyImages);
+                            FROM += Constant.HOME_PAGE_LIMIT;
+//                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
+                        } else {
+                            makeTextShort(getResources().getString(R.string.no_more_data));
+                        }
+                    }
+                }
 
-        }
-    };
+                @Override
+                public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
+                    mPullToRefreshViewPager.onRefreshComplete();
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
 
     private ApiCallback<ApiResponse<Object>> addDecorationImgInfoCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override

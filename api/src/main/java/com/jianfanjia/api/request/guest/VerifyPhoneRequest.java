@@ -20,8 +20,5 @@ public class VerifyPhoneRequest extends BaseRequest {
         this.phone = phone;
     }
 
-    public VerifyPhoneRequest(String phone) {
-        this.phone = phone;
-    }
 }
 

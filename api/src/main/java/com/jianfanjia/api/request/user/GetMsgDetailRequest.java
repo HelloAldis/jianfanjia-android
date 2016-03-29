@@ -12,10 +12,6 @@ public class GetMsgDetailRequest extends BaseRequest {
 
     private String messageid;
 
-    public GetMsgDetailRequest(String messageid) {
-        this.messageid = messageid;
-    }
-
     public String getMessageid() {
         return messageid;
     }

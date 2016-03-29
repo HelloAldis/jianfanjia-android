@@ -11,13 +11,33 @@ import java.util.Map;
  * Time: 18:32
  */
 public class SearchUserMsgRequest extends BaseRequest {
-    private Map<String, Object> param;
+    private Map<String, Object> query;
 
-    public Map<String, Object> getParam() {
-        return param;
+    private int from;
+
+    private int limit;
+
+    public Map<String, Object> getQuery() {
+        return query;
     }
 
-    public void setParam(Map<String, Object> param) {
-        this.param = param;
+    public void setQuery(Map<String, Object> query) {
+        this.query = query;
+    }
+
+    public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }

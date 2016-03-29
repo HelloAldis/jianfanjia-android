@@ -23,11 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import java.util.Calendar;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -46,6 +41,12 @@ import com.jianfanjia.cn.tools.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
+
+import java.util.Calendar;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -447,8 +448,8 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
     }
 
     private void verifyPhone(final String phone) {
-        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest(phone);
-
+        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest();
+        verifyPhoneRequest.setPhone(phone);
         Api.verifyPhone(verifyPhoneRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -484,8 +485,8 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
-
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest();
+        sendVerificationRequest.setPhone(name);
         Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -530,7 +531,6 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setPhone(name);
         loginRequest.setPass(password);
-
         Api.login(loginRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {

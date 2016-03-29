@@ -195,7 +195,8 @@ public class NoticeDetailActivity extends SwipeBackActivity {
     }
 
     private void getNoticeDetailInfo(String messageid) {
-        GetMsgDetailRequest request = new GetMsgDetailRequest(messageid);
+        GetMsgDetailRequest request = new GetMsgDetailRequest();
+        request.setMessageid(messageid);
         Api.getNoticeDetail(request, new ApiCallback<ApiResponse<UserMessage>>() {
             @Override
             public void onPreLoad() {
