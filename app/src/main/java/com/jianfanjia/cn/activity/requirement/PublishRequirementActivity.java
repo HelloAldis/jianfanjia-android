@@ -16,6 +16,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.PublishRequirementRequest;
+import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -27,8 +28,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
@@ -57,10 +56,9 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
 
     private MyFragmentPagerAdapter adapter;
 
-    protected String status = Global.DEC_TYPE_HOME;//当前页面的状态，家装还是商装
-
     private User ownerInfo;
-    private Requirement requirementInfoInit = new Requirement();
+
+    protected String status = Global.DEC_TYPE_HOME;//当前页面的状态，家装还是商装
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,35 +78,33 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     }
 
     protected void initData() {
-
-
-        JianFanJiaClient.get_Owner_Info(this, new ApiUiUpdateListener() {
+        Api.get_Owner_Info(new UserByOwnerInfoRequest(), new ApiCallback<ApiResponse<User>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                ownerInfo = JsonParser.jsonToBean(data.toString(), OwnerInfo.class);
-                if (ownerInfo != null) {
-                    String family_des = ownerInfo.getFamily_description();
-                    if (family_des != null) {
-                        requirementInfoInit.setFamily_description(family_des);
-                    }
-                    List<String> lovestyle = ownerInfo.getDec_styles();
-                    if (lovestyle != null && lovestyle.size() > 0) {
-                        requirementInfoInit.setDec_style(lovestyle.get(0));
-                    }
-                }
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<User> apiResponse) {
+                ownerInfo = apiResponse.getData();
                 initViewPager();
             }
 
             @Override
-            public void loadFailture(String error_msg) {
+            public void onFailed(ApiResponse<User> apiResponse) {
                 initViewPager();
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void initViewPager() {
@@ -242,28 +238,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
 
     protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
-        Requirement requirementInfo = new Requirement();
-//        requirementInfo.setDec_type(type);
-        switch (type) {
-            case Global.DEC_TYPE_HOME:
-                RequirementBusiness.initHomeRequirement(requirementInfo);
-                RequirementBusiness.initHomeRequirement(requirementInfoInit);
-                //                requirementInfo.setHouse_type("2");//设置默认初始值
-                break;
-            case Global.DEC_TYPE_BUSINESS:
-                RequirementBusiness.initBussinessRequirement(requirementInfo);
-//                requirementInfo.setBusiness_house_type("0");//设置默认初始值
-                RequirementBusiness.initBussinessRequirement(requirementInfoInit);
-                break;
-        }
-        String family_des = requirementInfoInit.getFamily_description();
-        if (family_des != null) {
-            requirementInfo.setFamily_description(family_des);
-        }
-        String lovestyle = requirementInfoInit.getDec_style();
-        if (lovestyle != null) {
-            requirementInfo.setDec_style(lovestyle);
-        }
+        Requirement requirementInfo = getSourceRequirement(type);
         bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
         LogTool.d(TAG, "requirmentInfo =" + JsonParser.beanToJson(requirementInfo));
         bundle.putInt(Global.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
@@ -280,23 +255,44 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         }
     }
 
+    private Requirement getSourceRequirement(String type) {
+        Requirement requirement = new Requirement();
+        switch (type) {
+            case Global.DEC_TYPE_HOME:
+                RequirementBusiness.initHomeRequirement(requirement);
+                break;
+            case Global.DEC_TYPE_BUSINESS:
+                RequirementBusiness.initHomeRequirement(requirement);
+                break;
+        }
+        if (ownerInfo != null) {
+            String family_des = ownerInfo.getFamily_description();
+            if (family_des != null) {
+                requirement.setFamily_description(family_des);
+            }
+            if (ownerInfo.getDec_styles().size() > 0) {
+                String lovestyle = ownerInfo.getDec_styles().get(0);
+                if (lovestyle != null) {
+                    requirement.setDec_style(lovestyle);
+                }
+            }
+        }
+        return requirement;
+    }
+
     private boolean isHomeTypeChange() {
-        requirementInfoInit.setDec_type(Global.DEC_TYPE_HOME);
-        requirementInfoInit.setHouse_type("2");
-        requirementInfoInit.setBusiness_house_type(null);
+        Requirement requirementInit = getSourceRequirement(Global.DEC_TYPE_HOME);
         if (RequirementBusiness.isRequirementChange(
-                editHomeRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
+                editHomeRequirementFragment_.getRequirementInfo(), requirementInit)) {
             return true;
         }
         return false;
     }
 
     private boolean isBusinessTypeChange() {
-        requirementInfoInit.setHouse_type(null);
-        requirementInfoInit.setBusiness_house_type("0");
-        requirementInfoInit.setDec_type(Global.DEC_TYPE_BUSINESS);
+        Requirement requirementInit = getSourceRequirement(Global.DEC_TYPE_BUSINESS);
         if (RequirementBusiness.isRequirementChange(
-                editBussinessRequirementFragment_.getRequirementInfo(), requirementInfoInit)) {
+                editBussinessRequirementFragment_.getRequirementInfo(), requirementInit)) {
             return true;
         }
         return false;

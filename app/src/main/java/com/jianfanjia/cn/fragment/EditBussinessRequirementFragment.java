@@ -67,6 +67,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
     protected String[] arr_desisex;
 
     private Requirement requirementInfo;
+    private Requirement sourceRequirement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
