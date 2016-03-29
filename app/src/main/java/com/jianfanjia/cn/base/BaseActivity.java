@@ -103,7 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        OkHttpClientManager.cancelTag(this);
+//        OkHttpClientManager.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy()");
     }
 

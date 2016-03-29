@@ -6,8 +6,11 @@ import android.os.Looper;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.cookie.PersistentCookieStore;
 import com.jianfanjia.api.request.BaseRequest;
 import com.jianfanjia.common.base.application.BaseApplication;
 import com.jianfanjia.common.tool.JsonParser;
@@ -16,6 +19,7 @@ import com.jianfanjia.common.tool.NetTool;
 import com.jianfanjia.common.tool.StringUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.JavaNetCookieJar;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -50,7 +54,11 @@ public class ApiClient {
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType IMAGE_MEDIA_TYPE = MediaType.parse("image/jpeg");
     private static final ApiCallback BASE_API_CALLBACK = null;
-    private static final OkHttpClient CLIENT = new OkHttpClient.Builder().addInterceptor(new LoggingInterceptor()).build();
+    private static PersistentCookieStore cookieStore = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());// 记录cookie
+
+    private static final OkHttpClient CLIENT = new OkHttpClient.Builder()
+            .cookieJar(new JavaNetCookieJar(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL)))
+            .addInterceptor(new LoggingInterceptor()).build();
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 
     private static void api(Request okRequest, final BaseRequest baseRequest, final ApiCallback apiCallback) {
@@ -234,5 +242,10 @@ public class ApiClient {
         RequestBody body = RequestBody.create(IMAGE_MEDIA_TYPE, bytes);
         Request request = new Request.Builder().url(url).post(body).build();
         api(request, baseRequest, apiCallback);
+    }
+
+    public static void clearCookie() {
+        LogTool.d(TAG, "clearCookie");
+        ApiClient.cookieStore.removeAll();
     }
 }

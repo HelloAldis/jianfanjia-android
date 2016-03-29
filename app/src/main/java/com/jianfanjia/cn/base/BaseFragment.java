@@ -106,7 +106,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        OkHttpClientManager.cancelTag(this);
+//        OkHttpClientManager.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy");
     }
 

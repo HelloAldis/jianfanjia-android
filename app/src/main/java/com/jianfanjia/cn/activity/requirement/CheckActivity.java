@@ -202,11 +202,6 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
         }
     }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-    }
-
     private void onClickCheckDone() {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(CheckActivity.this);

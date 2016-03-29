@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.UploadPicRequest;
@@ -201,7 +202,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
                         dialog.dismiss();
                         GeTuiManager.cancelBind(getApplicationContext(), dataManager.getUserId());
                         dataManager.cleanData();
-                        MyApplication.getInstance().clearCookie();
+                        ApiClient.clearCookie();
 //                        MyApplication.getInstance().clearAppCache();
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(UserInfoActivity.this).deleteOauth(UserInfoActivity.this, SHARE_MEDIA
