@@ -88,6 +88,7 @@ public class DownloadClient {
                     } catch (IOException e) {
                         networkError(downloadRequest, apiCallback, HttpCode.SAVE_FILE_ERROR_CODE);
                     } finally {
+                        response.body().close();
                         FileUtil.closeQuietly(is);
                         FileUtil.closeQuietly(fos);
                     }

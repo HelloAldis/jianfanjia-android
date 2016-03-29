@@ -84,6 +84,7 @@ public class ApiClient {
 
                 if (response.isSuccessful()) {
                     String json = response.body().string();
+                    response.body().close();
                     logResponseBody(json);
                     ApiResponse apiResponse = getApiResponse(json, apiCallback);
 
@@ -93,6 +94,7 @@ public class ApiClient {
                         failed(baseRequest, apiCallback, apiResponse);
                     }
                 } else {
+                    response.body().close();
                     networkError(baseRequest, apiCallback, response.code());
                 }
             }
