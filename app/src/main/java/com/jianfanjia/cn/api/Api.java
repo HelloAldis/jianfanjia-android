@@ -109,7 +109,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().WEIXIN_LOGIN_URL, request, apiCallback);
     }
 
-    public static void refreshSession(RefreshSessionRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+    public static void refreshSession(RefreshSessionRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().REFRESH_SESSION, request, apiCallback);
     }
 

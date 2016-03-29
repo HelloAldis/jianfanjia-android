@@ -8,9 +8,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.CookieStore;
 
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.api.cookie.PersistentCookieStore;
 import com.jianfanjia.api.request.BaseRequest;
 import com.jianfanjia.common.base.application.BaseApplication;
 import com.jianfanjia.common.tool.JsonParser;
@@ -53,12 +53,11 @@ public class ApiClient {
     private static final String TAG = ApiClient.class.getName();
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType IMAGE_MEDIA_TYPE = MediaType.parse("image/jpeg");
-    private static final ApiCallback BASE_API_CALLBACK = null;
-    private static PersistentCookieStore cookieStore = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());// 记录cookie
 
-    private static final OkHttpClient CLIENT = new OkHttpClient.Builder()
-            .cookieJar(new JavaNetCookieJar(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL)))
-            .addInterceptor(new LoggingInterceptor()).build();
+    private static  ApiCallback BASE_API_CALLBACK = null;
+    private static CookieStore COOKIE_STORE = null;
+    private static OkHttpClient CLIENT = null;
+
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 
     private static void api(Request okRequest, final BaseRequest baseRequest, final ApiCallback apiCallback) {
@@ -244,8 +243,19 @@ public class ApiClient {
         api(request, baseRequest, apiCallback);
     }
 
+    /**
+     * 清空Cookie
+     */
     public static void clearCookie() {
         LogTool.d(TAG, "clearCookie");
-        ApiClient.cookieStore.removeAll();
+        ApiClient.COOKIE_STORE.removeAll();
+    }
+
+    public static void init(CookieStore store, ApiCallback apiCallback) {
+        ApiClient.COOKIE_STORE = store;
+        ApiClient.BASE_API_CALLBACK = apiCallback;
+        ApiClient.CLIENT = new OkHttpClient.Builder()
+                .cookieJar(new JavaNetCookieJar(new CookieManager(ApiClient.COOKIE_STORE, CookiePolicy.ACCEPT_ALL)))
+                .addInterceptor(new LoggingInterceptor()).build();
     }
 }

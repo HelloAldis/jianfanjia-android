@@ -5,15 +5,20 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.api.BaseApiCallbackImpl;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.common.base.application.BaseApplication;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import java.net.CookieStore;
 
 
 /**
@@ -23,8 +28,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  * Date:15-10-11 16:19
  */
 public class MyApplication extends BaseApplication {
-
-//    private PersistentCookieStore cookieStore;// cookie实例化
 
 //    private RefWatcher refWatcher;
 
@@ -38,13 +41,16 @@ public class MyApplication extends BaseApplication {
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                     .detectAll().penaltyDeath().build());
         }
-        
-//        cookieStore = new PersistentCookieStore(getApplicationContext());// 记录cookie
-//        saveCookie(OkHttpClientManager.getInstance().client());
 
         initImageLoader(this);
+        initApiClient();
 
 //        refWatcher = LeakCanary.install(this);
+    }
+
+    private void initApiClient() {
+        CookieStore store = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());
+        ApiClient.init(store, new BaseApiCallbackImpl());
     }
 
 //    public static RefWatcher getRefWatcher(Context context) {
@@ -176,17 +182,4 @@ public class MyApplication extends BaseApplication {
             DataCleanManager.cleanCustomCache(getExternalCacheDir());
         }
     }
-
-//    public void saveCookie(OkHttpClient client) {
-//        client.
-//        client.setCookieHandler();
-//    }
-
-//    public void clearCookie() {
-//        LogTool.d(this.getClass().getName(), "clearCookie");
-//        cookieStore.removeAll();
-////        cookieStore = new PersistentCookieStore(this);
-////        OkHttpClientManager.getInstance().client().setCookieHandler(new CookieManager(cookieStore, CookiePolicy
-//// .ACCEPT_ALL));
-//    }
 }

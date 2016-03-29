@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.cn.api.Api;
@@ -216,7 +217,7 @@ public class WelcomeActivity extends BaseActivity {
         RefreshSessionRequest refreshSessionRequest = new RefreshSessionRequest();
         refreshSessionRequest.set_id(dataManager.getUserId());
 
-        Api.refreshSession(refreshSessionRequest, new ApiCallback<ApiResponse<String>>() {
+        Api.refreshSession(refreshSessionRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
 
@@ -228,13 +229,13 @@ public class WelcomeActivity extends BaseActivity {
             }
 
             @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
+            public void onSuccess(ApiResponse<User> apiResponse) {
                 startActivity(MainActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onFailed(ApiResponse<User> apiResponse) {
                 startActivity(LoginNewActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
             }
