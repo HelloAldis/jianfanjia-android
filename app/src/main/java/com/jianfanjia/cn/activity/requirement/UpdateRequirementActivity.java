@@ -16,7 +16,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.view.MainHeadView;
 

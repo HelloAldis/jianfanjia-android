@@ -3,7 +3,7 @@ package com.jianfanjia.api.model;
 import java.io.Serializable;
 
 /**
- * Created by jyz on 16/3/28.
+ * Created by Aldis on 16/3/28.
  */
 public class UserMessage extends BaseModel implements Serializable {
     private static final long serialVersionUID = 0L;
@@ -28,6 +28,7 @@ public class UserMessage extends BaseModel implements Serializable {
     private Designer designer;
     private Plan plan;
     private Process process;
+    private Reschedule reschedule;
 
     public String get_id() {
         return _id;
@@ -187,5 +188,13 @@ public class UserMessage extends BaseModel implements Serializable {
 
     public void setProcess(Process process) {
         this.process = process;
+    }
+
+    public Reschedule getReschedule() {
+        return reschedule;
+    }
+
+    public void setReschedule(Reschedule reschedule) {
+        this.reschedule = reschedule;
     }
 }

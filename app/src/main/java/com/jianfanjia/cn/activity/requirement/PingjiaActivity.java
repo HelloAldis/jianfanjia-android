@@ -21,7 +21,6 @@ import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;

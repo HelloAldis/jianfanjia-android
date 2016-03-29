@@ -11,7 +11,6 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;

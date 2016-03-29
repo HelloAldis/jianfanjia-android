@@ -81,4 +81,15 @@ public class ProcessSection extends BaseModel implements Serializable {
     public void setReschedule(Reschedule reschedule) {
         this.reschedule = reschedule;
     }
+
+    public ProcessSectionItem getSectionItemInfoByName(String itemName) {
+        if (items != null) {
+            for (ProcessSectionItem sectionitem : items) {
+                if (sectionitem.getName().equals(itemName)) {
+                    return sectionitem;
+                }
+            }
+        }
+        return null;
+    }
 }

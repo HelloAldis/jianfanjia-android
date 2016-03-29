@@ -18,6 +18,7 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
@@ -71,7 +72,6 @@ import com.jianfanjia.api.request.user.SearchUserMsgRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
 

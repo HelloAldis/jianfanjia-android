@@ -35,7 +35,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.http.request.GetUnReadMsgRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.service.UpdateService;

@@ -40,7 +40,6 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;

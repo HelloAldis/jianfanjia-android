@@ -14,6 +14,7 @@ import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
