@@ -28,9 +28,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.LogTool;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -116,9 +113,7 @@ public class SearchProductFragment extends BaseFragment {
 
     private void searchProduct(int from, String searchText, ApiCallback<ApiResponse<ProductList>> listener) {
         SearchDesignerProductRequest request = new SearchDesignerProductRequest();
-        Map<String, Object> param = new HashMap<>();
-        param.put("search_word", searchText);
-        request.setQuery(param);
+        request.setSearch_word(searchText);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchDesignerProduct(request, listener);
