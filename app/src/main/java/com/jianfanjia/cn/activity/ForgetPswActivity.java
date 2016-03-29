@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
@@ -22,6 +20,9 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 public class ForgetPswActivity extends BaseActivity {
     private static final String TAG = ForgetPswActivity.class.getClass()
@@ -51,18 +52,18 @@ public class ForgetPswActivity extends BaseActivity {
         initView();
     }
 
-    @OnClick({R.id.head_back_layout,R.id.btn_next})
-    void onClick(View view){
+    @OnClick({R.id.head_back_layout, R.id.btn_next})
+    void onClick(View view) {
         int resId = view.getId();
-        switch (resId){
+        switch (resId) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
             case R.id.btn_next:
                 mUserName = mEtForgetPswUserName.getText().toString().trim();
-                mPassword = mEtForgetPswPassword .getText().toString().trim();
-                if(checkRegisterInput(mUserName,mPassword)){
-                    sendVerification(mUserName,mPassword);
+                mPassword = mEtForgetPswPassword.getText().toString().trim();
+                if (checkRegisterInput(mUserName, mPassword)) {
+                    sendVerification(mUserName, mPassword);
                 }
                 break;
         }
@@ -75,7 +76,7 @@ public class ForgetPswActivity extends BaseActivity {
             mEtForgetPswUserName.requestFocus();
             return false;
         }
-        if(!name.matches(Global.PHONE_MATCH)){
+        if (!name.matches(Global.PHONE_MATCH)) {
             makeTextShort(getString(R.string.tip_input_corrent_phone));
             mEtForgetPswUserName.requestFocus();
             return false;
@@ -86,7 +87,7 @@ public class ForgetPswActivity extends BaseActivity {
             mEtForgetPswPassword.requestFocus();
             return false;
         }
-        if(!password.matches(Global.PASSWORD_MATCH)){
+        if (!password.matches(Global.PASSWORD_MATCH)) {
             makeTextShort(getString(R.string.tip_input_correct_password));
             mEtForgetPswPassword.requestFocus();
             return false;
@@ -94,7 +95,7 @@ public class ForgetPswActivity extends BaseActivity {
         return true;
     }
 
-    public void initView(){
+    public void initView() {
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
 
         mBtnNext.setEnabled(false);
@@ -114,9 +115,9 @@ public class ForgetPswActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 LogTool.d(TAG, "forgetPsw afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())){
+                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())) {
                     mBtnNext.setEnabled(true);
-                }else{
+                } else {
                     mBtnNext.setEnabled(false);
                 }
             }
@@ -134,11 +135,11 @@ public class ForgetPswActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG,"forgetPsw afterTextChanged");
+                LogTool.d(TAG, "forgetPsw afterTextChanged");
                 String text = s.toString();
-                if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())){
+                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())) {
                     mBtnNext.setEnabled(true);
-                }else{
+                } else {
                     mBtnNext.setEnabled(false);
                 }
             }
@@ -147,12 +148,13 @@ public class ForgetPswActivity extends BaseActivity {
 
     /**
      * 发送验证码
+     *
      * @param name
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest(name);
-
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest();
+        sendVerificationRequest.setPhone(name);
         Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {

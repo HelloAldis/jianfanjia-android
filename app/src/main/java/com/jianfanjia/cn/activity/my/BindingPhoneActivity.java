@@ -104,7 +104,8 @@ public class BindingPhoneActivity extends SwipeBackActivity {
     }
 
     private void verifyPhone(final String phone) {
-        VerifyPhoneRequest request = new VerifyPhoneRequest(phone);
+        VerifyPhoneRequest request = new VerifyPhoneRequest();
+        request.setPhone(phone);
         Api.verifyPhone(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -139,7 +140,8 @@ public class BindingPhoneActivity extends SwipeBackActivity {
      * @param name
      */
     private void sendVerification(final String name) {
-        SendVerificationRequest request = new SendVerificationRequest(name);
+        SendVerificationRequest request = new SendVerificationRequest();
+        request.setPhone(name);
         Api.sendVerification(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {

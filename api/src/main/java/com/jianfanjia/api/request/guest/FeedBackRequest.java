@@ -15,12 +15,6 @@ public class FeedBackRequest extends BaseRequest {
 
     private String platform;
 
-    public FeedBackRequest(String content, String version, String platform) {
-        this.content = content;
-        this.version = version;
-        this.platform = platform;
-    }
-
     public String getContent() {
         return content;
     }
