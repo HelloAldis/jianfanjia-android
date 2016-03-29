@@ -160,15 +160,13 @@ public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnCli
 
     private void getProductHomePageInfo(String productid) {
         GetProductHomePageRequest request = new GetProductHomePageRequest();
-        request.setProductid(productid);
-
+        request.set_id(productid);
         Api.getProductHomePage(request, this.getProductHomePageInfoCallback);
     }
 
     private void addProductHomePageInfo(String productid) {
         AddCollectionRequest request = new AddCollectionRequest();
         request.set_id(productid);
-
         Api.addCollectionByUser(request, this.addProductHomePageInfoCallback);
     }
 
