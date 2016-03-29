@@ -20,6 +20,7 @@
 -keepattributes EnclosingMethod
 
 -keep class com.jianfanjia.cn.bean.** { * ;}
+-keep class com.jianfanjia.api.** { * ;}
 -keep class com.jianfanjia.cn.http.** { * ;}
 -keep class com.jianfanjia.cn.api.** {* ;}
 -keep class me.iwf.photopicker.** {*;}

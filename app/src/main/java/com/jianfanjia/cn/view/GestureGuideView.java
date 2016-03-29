@@ -12,9 +12,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.tools.ImageUtil;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Description: com.jianfanjia.cn.view
@@ -85,7 +85,7 @@ public class GestureGuideView extends View {
     }
 
     private Bitmap loadBitmap() {
-        Bitmap bitmap = ImageLoader.getInstance().loadImageSync("drawable://" + R.mipmap.home_guide_gesture);
+        Bitmap bitmap = ImageUtil.drawableResToBitmap(getContext(), R.mipmap.home_guide_gesture);
         return bitmap;
     }
 
