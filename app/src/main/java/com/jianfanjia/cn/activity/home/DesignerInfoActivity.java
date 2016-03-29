@@ -211,21 +211,19 @@ public class DesignerInfoActivity extends SwipeBackActivity implements OnClickLi
 
     private void getDesignerPageInfo(String designerid) {
         DesignerHomePageRequest request = new DesignerHomePageRequest();
-        request.setDesignerid(designerid);
-        Api.getDesignerHomePage(request, this.designerHomePageCallback);
+        request.set_id(designerid);
+        Api.getDesignerHomePage(request, designerHomePageCallback);
     }
 
     private void addFavoriteDesignerToList(String designerid) {
         AddFavoriteDesignerRequest request = new AddFavoriteDesignerRequest();
         request.set_id(designerid);
-
         Api.addFavoriteDesigner(request, addFavoriteDesignerCallback);
     }
 
     private void deleteFavoriteDesigner(String designerid) {
         DeleteFavoriteDesignerRequest request = new DeleteFavoriteDesignerRequest();
         request.set_id(designerid);
-
         Api.deleteFavoriteDesigner(request, this.deleteMyFavoriteDesignerCallback);
     }
 
