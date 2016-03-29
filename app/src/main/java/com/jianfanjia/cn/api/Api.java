@@ -248,8 +248,8 @@ public class Api {
     }
 
     //业主获取我的装修需求列表
-    public static void get_Requirement_List(GetRequirementListRequest request,
-                                            ApiCallback<ApiResponse<List<Requirement>>> apiCallback) {
+    public static void getRequirementList(GetRequirementListRequest request,
+                                          ApiCallback<ApiResponse<List<Requirement>>> apiCallback) {
         ApiClient.okGet(Url_New.getInstance().REQUIREMENT_LIST, request, apiCallback);
     }
 

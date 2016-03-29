@@ -227,7 +227,7 @@ public class XuQiuFragment extends BaseFragment {
 
     private void initData() {
         GetRequirementListRequest request = new GetRequirementListRequest();
-        Api.get_Requirement_List(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
+        Api.getRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
             @Override
             public void onPreLoad() {
                 if (isFirst) {
