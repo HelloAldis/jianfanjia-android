@@ -11,11 +11,11 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.api.model.Process;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();
@@ -69,16 +69,16 @@ public class DataManagerNew {
         this.requirementInfo = requirementInfo;
     }
 
-    public OwnerInfo getOwnerInfoById(String ownerId) {
-        return (OwnerInfo) sharedPreferdata.getValue(ownerId);
+    public User getOwnerInfoById(String ownerId) {
+        return (User) sharedPreferdata.getValue(ownerId);
     }
 
     public void setDesignerInfo(Designer designerInfo) {
         sharedPreferdata.setValue(designerInfo.get_id(), designerInfo);
     }
 
-    public void setOwnerInfo(OwnerInfo ownerInfo) {
-        sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
+    public void setOwnerInfo(User user) {
+        sharedPreferdata.setValue(user.get_id(), user);
     }
 
     public void setCurrentProcessInfo(Process currentProcessInfo) {

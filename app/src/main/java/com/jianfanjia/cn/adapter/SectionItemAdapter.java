@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.Reschedule;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
@@ -83,14 +84,14 @@ public class SectionItemAdapter extends BaseAdapter {
                     R.array.site_check_name)[MyApplication.getInstance()
                     .getPositionByItemName(sectionInfo.getName())]);
             sectionItemInfo.setDate(sectionInfo.getYs().getDate());
-            sectionItemInfo.setOpen(false);
+            sectionItemInfo.setIsOpen(false);
             list.add(sectionItemInfo);
         } else {
             isHasCheck = false;
         }
 
         for (ProcessSectionItem sectionItemInfo : sectionInfo.getItems()) {
-            sectionItemInfo.setOpen(false);
+            sectionItemInfo.setIsOpen(false);
             list.add(sectionItemInfo);
         }
 
@@ -112,15 +113,15 @@ public class SectionItemAdapter extends BaseAdapter {
         this.currentClickItem = position;
         if (currentClickItem != lastClickItem) {
             if (lastClickItem != -1) {
-                list.get(lastClickItem).setOpen(false);
+                list.get(lastClickItem).setIsOpen(false);
             }
-            list.get(currentClickItem).setOpen(true);
+            list.get(currentClickItem).setIsOpen(true);
             lastClickItem = currentClickItem;
         } else {
             if (list.get(currentClickItem).isOpen()) {
-                list.get(currentClickItem).setOpen(false);
+                list.get(currentClickItem).setIsOpen(false);
             } else {
-                list.get(currentClickItem).setOpen(true);
+                list.get(currentClickItem).setIsOpen(true);
             }
         }
         notifyDataSetChanged();

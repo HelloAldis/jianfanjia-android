@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
+import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
 import com.jianfanjia.api.request.user.GetMsgDetailRequest;
+import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
@@ -30,7 +33,6 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
@@ -354,70 +356,106 @@ public class NoticeDetailActivity extends SwipeBackActivity {
 
     //同意改期
     private void agreeReschedule(String processid) {
-        JianFanJiaClient.agreeReschedule(NoticeDetailActivity.this, processid, new ApiUiUpdateListener() {
+        AgreeRescheduleRequest agreeRescheduleRequest = new AgreeRescheduleRequest();
+        agreeRescheduleRequest.setProcessid(processid);
+        Api.agreeReschedule(agreeRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 btnAgree.setText(getResources().getString(R.string.agree_str));
                 btnAgree.setEnabled(false);
                 btnReject.setVisibility(View.GONE);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     // 拒绝改期
     private void refuseReschedule(String processid) {
-        JianFanJiaClient.refuseReschedule(NoticeDetailActivity.this, processid, new ApiUiUpdateListener() {
+        RefuseRescheduleRequest refuseRescheduleRequest = new RefuseRescheduleRequest();
+        refuseRescheduleRequest.setProcessid(processid);
+        Api.refuseReschedule(refuseRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 btnReject.setText(getResources().getString(R.string.reject_str));
                 btnAgree.setVisibility(View.GONE);
                 btnReject.setEnabled(false);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     //确认量房
     private void confirmMeasureHouse(String requirementid, String designerid) {
-        JianFanJiaClient.confirmMeasureHouse(NoticeDetailActivity.this, requirementid, designerid, new
-                ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
+        ConfirmMeasureHouseRequest confirmMeasureHouseRequest = new ConfirmMeasureHouseRequest();
+        confirmMeasureHouseRequest.setRequirementid(requirementid);
+        confirmMeasureHouseRequest.setDesignerid(designerid);
+        Api.confirmMeasureHouse(confirmMeasureHouseRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
 
-                    }
+            }
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        btnCheckHouse.setText(getResources().getString(R.string.already_measure));
-                        btnCheckHouse.setEnabled(false);
-                    }
+            @Override
+            public void onHttpDone() {
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextShort(error_msg);
-                    }
-                }, this);
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                btnCheckHouse.setText(getResources().getString(R.string.already_measure));
+                btnCheckHouse.setEnabled(false);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @Override

@@ -15,9 +15,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.adapter.CollectPersonViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 

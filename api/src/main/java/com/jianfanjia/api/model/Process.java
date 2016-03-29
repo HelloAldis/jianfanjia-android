@@ -183,4 +183,15 @@ public class Process extends BaseModel implements Serializable {
     public void setSections(ArrayList<ProcessSection> sections) {
         this.sections = sections;
     }
+
+    public ProcessSection getSectionInfoByName(String sectionName) {
+        if (sections != null) {
+            for (ProcessSection sectionInfo : sections) {
+                if (sectionInfo.getName().equals(sectionName)) {
+                    return sectionInfo;
+                }
+            }
+        }
+        return null;
+    }
 }

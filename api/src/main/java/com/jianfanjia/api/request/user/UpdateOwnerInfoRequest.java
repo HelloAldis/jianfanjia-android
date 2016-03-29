@@ -1,5 +1,6 @@
 package com.jianfanjia.api.request.user;
 
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
@@ -11,4 +12,13 @@ import com.jianfanjia.api.request.BaseRequest;
 
 public class UpdateOwnerInfoRequest extends BaseRequest {
 
-}  
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}

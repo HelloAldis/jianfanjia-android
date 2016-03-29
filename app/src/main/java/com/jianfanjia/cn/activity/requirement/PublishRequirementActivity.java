@@ -14,20 +14,20 @@ import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.http.JianFanJiaClient;
+import com.jianfanjia.cn.http.request.UpdateRequirementRequest;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.tools.JsonParser;
@@ -59,7 +59,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
 
     protected String status = Global.DEC_TYPE_HOME;//当前页面的状态，家装还是商装
 
-    private OwnerInfo ownerInfo;
+    private User ownerInfo;
     private Requirement requirementInfoInit = new Requirement();
 
     @Override
@@ -80,6 +80,8 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     }
 
     protected void initData() {
+
+
         JianFanJiaClient.get_Owner_Info(this, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
