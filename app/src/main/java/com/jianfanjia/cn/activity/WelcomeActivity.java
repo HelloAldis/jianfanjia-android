@@ -117,7 +117,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
             @Override
             public void onNetworkError(int code) {
-
+                handler.postDelayed(runnable, 1500);
             }
         });
     }
