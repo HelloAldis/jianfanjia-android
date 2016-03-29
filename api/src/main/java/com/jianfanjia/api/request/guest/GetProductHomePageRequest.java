@@ -9,13 +9,13 @@ import com.jianfanjia.api.request.BaseRequest;
  * Date:15-10-20 21:57
  */
 public class GetProductHomePageRequest extends BaseRequest {
-    private String productid;
+    private String _id;
 
-    public String getProductid() {
-        return productid;
+    public String get_id() {
+        return _id;
     }
 
-    public void setProductid(String productid) {
-        this.productid = productid;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
