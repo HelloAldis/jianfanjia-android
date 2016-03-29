@@ -16,4 +16,20 @@ public class GetCollectionRequest extends BaseRequest {
         this.from = from;
         this.limit = limit;
     }
+
+    public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 }
