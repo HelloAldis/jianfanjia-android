@@ -3,6 +3,11 @@ package com.jianfanjia.api;
 import android.os.Handler;
 import android.os.Looper;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.jianfanjia.api.progress.UIProgressListener;
 import com.jianfanjia.api.request.BaseRequest;
 import com.jianfanjia.api.request.guest.DownloadRequest;
@@ -10,12 +15,6 @@ import com.jianfanjia.common.base.application.BaseApplication;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.NetTool;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

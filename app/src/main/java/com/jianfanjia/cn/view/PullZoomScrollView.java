@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.view

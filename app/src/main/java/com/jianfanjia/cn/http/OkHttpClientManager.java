@@ -15,7 +15,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.coreprogress.helper.ProgressHelper;
 import com.jianfanjia.cn.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.NetTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.squareup.okhttp.Call;

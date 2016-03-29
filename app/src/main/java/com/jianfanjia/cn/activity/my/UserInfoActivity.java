@@ -39,15 +39,15 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.cn.tools.FileUtil;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.cn.tools.GeTuiManager;
-import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.ImageUtil;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yalantis.ucrop.UCrop;
 
@@ -381,7 +381,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
     @Override
     public void firstItemClick() {
-        mTmpFile = FileUtil.createTmpFile(this);
+        mTmpFile = FileUtil.createTimeStampTmpFile();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if (cameraIntent != null) {

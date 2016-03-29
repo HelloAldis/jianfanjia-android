@@ -3,7 +3,6 @@ package com.jianfanjia.cn.activity.requirement;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
@@ -24,8 +23,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
@@ -48,9 +47,7 @@ import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.cn.tools.FileUtil;
-import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -59,6 +56,8 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
+import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.ImageUtil;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -414,7 +413,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
 
     @Override
     public void firstItemClick() {
-        mTmpFile = FileUtil.createTmpFile(this);
+        mTmpFile = FileUtil.createTimeStampTmpFile();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if (cameraIntent != null) {
@@ -607,29 +606,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
                     for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
                         LogTool.d(TAG, "imageBitmap: path :" + path);
-                        if (null != imageBitmap) {
-                            upload_image(imageBitmap);
-                        }
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_CAMERA:// 拍照
-                mTmpFile = new File(dataManager.getPicPath());
-                if (mTmpFile != null) {
-                    Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
-                    LogTool.d(TAG, "imageBitmap:" + imageBitmap);
-                    if (null != imageBitmap) {
-                        upload_image(imageBitmap);
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_LOCATION:// 本地选取
-                if (data != null) {
-                    Uri uri = data.getData();
-                    LogTool.d(TAG, "uri:" + uri);
-                    if (null != uri) {
-                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
-                                .getImagePath(this, uri));
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }

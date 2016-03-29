@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.base.application.BaseApplication;
 
 /**

@@ -16,7 +16,8 @@ import com.jianfanjia.api.progress.UIProgressListener;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DownLoadManager;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ToastUtil;
 
 /**
@@ -95,7 +96,7 @@ public class UpdateService extends Service{
                 int startPos = download_url.lastIndexOf("/");
                 if (startPos != -1) {
                     String fileName = download_url.substring(startPos);
-                    downLoadManager.download(download_url, Constant.APK_PATH, fileName, downloadCallback, uiProgressListener);
+                    downLoadManager.download(download_url, FileUtil.APK_PATH, fileName, downloadCallback, uiProgressListener);
                 }
             }
         }

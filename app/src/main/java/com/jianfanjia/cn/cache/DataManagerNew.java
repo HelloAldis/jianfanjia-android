@@ -4,13 +4,12 @@ import android.content.Context;
 
 import java.util.Calendar;
 
-import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.SharedPrefer;
 
 public class DataManagerNew {
@@ -19,7 +18,6 @@ public class DataManagerNew {
     private Context context;
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
-    private Requirement requirementInfo;// 需求信息
 
     public static DataManagerNew getInstance() {
         if (instance == null) {
@@ -185,7 +183,6 @@ public class DataManagerNew {
 
     public void cleanData() {
         sharedPreferuser.clear();
-        requirementInfo = null;
         DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 

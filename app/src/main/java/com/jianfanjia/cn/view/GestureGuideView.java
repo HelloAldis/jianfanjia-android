@@ -12,8 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 
 /**

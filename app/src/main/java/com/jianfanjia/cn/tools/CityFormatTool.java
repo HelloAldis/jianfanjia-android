@@ -3,6 +3,7 @@ package com.jianfanjia.cn.tools;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.common.tool.LogTool;
 
 import org.json.JSONArray;
 import org.json.JSONException;

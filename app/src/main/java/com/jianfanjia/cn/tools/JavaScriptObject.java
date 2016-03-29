@@ -3,6 +3,8 @@ package com.jianfanjia.cn.tools;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.jianfanjia.common.tool.LogTool;
+
 /**
  * Created by Aldis.Zhan on 16/3/18.
  */

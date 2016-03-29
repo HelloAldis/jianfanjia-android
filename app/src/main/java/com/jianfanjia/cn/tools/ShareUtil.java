@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;

@@ -22,7 +22,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.SearchDecorationImgFragment;
 import com.jianfanjia.cn.fragment.SearchDesignerFragment;
 import com.jianfanjia.cn.fragment.SearchProductFragment;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
 import butterknife.OnClick;

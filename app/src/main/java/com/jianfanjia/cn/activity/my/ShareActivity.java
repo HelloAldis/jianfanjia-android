@@ -7,16 +7,15 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.ImageUtil;
-import com.jianfanjia.cn.view.MainHeadView;
-
 import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.ImageUtil;
 
 public class ShareActivity extends SwipeBackActivity implements OnLongClickListener {
     private static final String TAG = ShareActivity.class.getName();
@@ -58,7 +57,7 @@ public class ShareActivity extends SwipeBackActivity implements OnLongClickListe
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.icon_jianfanjia_qr);
         try {
-            ImageUtil.saveImageToSD(ShareActivity.this, Constant.IMAG_PATH
+            ImageUtil.saveImageToSD(ShareActivity.this, FileUtil.IMAG_PATH
                     + "myqr.jpg", bitmap, 100);
             makeTextShort(getResources().getString(R.string.save_image_success));
         } catch (IOException e) {

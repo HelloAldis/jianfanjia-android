@@ -12,7 +12,7 @@ import android.view.animation.Interpolator;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.TDevice;
 
 /**

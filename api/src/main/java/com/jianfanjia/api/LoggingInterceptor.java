@@ -1,9 +1,8 @@
 package com.jianfanjia.api;
 
-import com.jianfanjia.common.tool.LogTool;
-
 import java.io.IOException;
 
+import com.jianfanjia.common.tool.LogTool;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,7 +22,8 @@ public class LoggingInterceptor implements Interceptor {
 
         Response response = chain.proceed(request);
 
-        LogTool.d(TAG, String.format("Receive %s %s, headers %s", response.request().url(), response.code(), response.headers()));
+        LogTool.d(TAG, String.format("Receive %s %s, headers %s", response.request().url(), response.code(), response
+                .headers()));
 
         return response;
     }

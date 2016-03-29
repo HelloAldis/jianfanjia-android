@@ -19,7 +19,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 public class PullToRefreshLinearLayout extends PullToRefreshBase<LinearLayout> {
 
