@@ -280,7 +280,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
     protected void updateSexInfo(User userInfo) {
         UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
         request.setUser(userInfo);
-        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+        Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
 
@@ -315,7 +315,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
     private void updateImageId(final User userInfo) {
         UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
         request.setUser(userInfo);
-        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+        Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
 
@@ -349,7 +349,7 @@ public class UserInfoActivity extends SwipeBackActivity implements
 
     private void initData() {
         UserByOwnerInfoRequest request = new UserByOwnerInfoRequest();
-        Api.get_Owner_Info(request, new ApiCallback<ApiResponse<User>>() {
+        Api.getUserInfo(request, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
 

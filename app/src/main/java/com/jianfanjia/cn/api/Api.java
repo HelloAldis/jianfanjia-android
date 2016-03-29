@@ -237,13 +237,13 @@ public class Api {
     }
 
     //业主获取个人信息
-    public static void get_Owner_Info(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<User>>
+    public static void getUserInfo(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<User>>
             apiCallback) {
         ApiClient.okGet(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
     }
 
     //业主修改个人资料
-    public static void put_OwnerInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+    public static void updateUserInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
     }
 
