@@ -13,10 +13,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.adapter.CollectPersonViewPageAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 /**
@@ -41,7 +45,7 @@ public class NewUserCollectPersonActivity extends BaseActivity {
 
     List<String> personList = new ArrayList<>();
 
-    OwnerInfo ownerInfo;
+    User ownerInfo;
 
     CollectPersonViewPageAdapter collectPersonViewPageAdapter;
 
@@ -71,7 +75,7 @@ public class NewUserCollectPersonActivity extends BaseActivity {
         persons = getResources().getStringArray(R.array.arr_person);
 
         Intent intent = getIntent();
-        ownerInfo = (OwnerInfo) intent.getSerializableExtra(Global.OWNERINFO);
+        ownerInfo = (User) intent.getSerializableExtra(Global.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_person_title));
         contentView.setText(getString(R.string.collect_person_content));
@@ -142,28 +146,40 @@ public class NewUserCollectPersonActivity extends BaseActivity {
 
     protected void postCollectOwnerInfo() {
         if (ownerInfo == null) {
-            ownerInfo = new OwnerInfo();
+            ownerInfo = new User();
         }
         ownerInfo.setFamily_description(persons[currentSelcetorPos]);
-        JianFanJiaClient.post_collect_ownerinfo(this, ownerInfo, new ApiUiUpdateListener() {
+
+        UpdateOwnerInfoRequest updateOwnerInfoRequest = new UpdateOwnerInfoRequest();
+        updateOwnerInfoRequest.setUser(ownerInfo);
+
+        Api.updateUserInfo(updateOwnerInfoRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 showWaitDialog();
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
                 hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 startActivity(MainActivity.class);
                 appManager.finishAllActivity();
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                hideWaitDialog();
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.adapter.CollectLoveStyleViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
@@ -41,7 +42,7 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
 
     protected String[] decstyles;
 
-    OwnerInfo ownerInfo;
+    User ownerInfo;
 
     CollectLoveStyleViewPageAdapter collectLoveStyleViewPageAdapter;
 
@@ -71,7 +72,7 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
         decstyles = getResources().getStringArray(R.array.arr_decstyle);
 
         Intent intent = getIntent();
-        ownerInfo = (OwnerInfo)intent.getSerializableExtra(Global.OWNERINFO);
+        ownerInfo = (User)intent.getSerializableExtra(Global.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_lovestyle_title));
         contentView.setText(getString(R.string.collect_lovestyle_content));
@@ -135,7 +136,7 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
 
     protected void intentToCollectPerson() {
         if(ownerInfo == null){
-            ownerInfo = new OwnerInfo();
+            ownerInfo = new User();
         }
         ownerInfo.setDec_styles(lovestyleNumber);
         Bundle ownerBundle = new Bundle();

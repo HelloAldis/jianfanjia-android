@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.LogTool;
@@ -81,7 +82,7 @@ public class NewUserCollectDecStageActivity extends BaseActivity {
     }
 
     protected void intentToCollectReq(String stage) {
-        OwnerInfo ownerInfo = new OwnerInfo();
+        User ownerInfo = new User();
         ownerInfo.setDec_progress(stage);
         Bundle ownerBundle = new Bundle();
         ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);

@@ -78,7 +78,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
     }
 
     protected void initData() {
-        Api.get_Owner_Info(new UserByOwnerInfoRequest(), new ApiCallback<ApiResponse<User>>() {
+        Api.getUserInfo(new UserByOwnerInfoRequest(), new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
 

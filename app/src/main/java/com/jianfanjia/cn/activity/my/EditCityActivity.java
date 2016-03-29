@@ -9,6 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -20,12 +25,6 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.CityFormatTool;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -214,7 +213,8 @@ public class EditCityActivity extends SwipeBackActivity {
     private void put_Owner_Info() {
         UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
         request.setUser(user);
-        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+
+        Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();

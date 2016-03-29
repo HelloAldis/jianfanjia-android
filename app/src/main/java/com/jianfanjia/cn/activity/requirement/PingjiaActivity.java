@@ -138,8 +138,6 @@ public class PingjiaActivity extends SwipeBackActivity implements
     //评价设计师
     private void evaluateDesignerByUser(String requirementid, String designerid, int service_attitude, int
             respond_speed, String comment, String is_anonymous) {
-        JianFanJiaClient.evaluateDesignerByUser(PingjiaActivity.this, requirementid, designerid, service_attitude,
-                respond_speed, comment, is_anonymous, this, this);
 
         EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest();
         evaluateDesignerRequest.setRequirementid(requirementid);

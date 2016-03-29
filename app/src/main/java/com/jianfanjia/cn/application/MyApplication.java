@@ -3,17 +3,17 @@ package com.jianfanjia.cn.application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseApplication;
 import com.jianfanjia.cn.cache.DataCleanManager;
 import com.jianfanjia.cn.http.OkHttpClientManager;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.cn.tools.LogTool;
+import com.jianfanjia.common.base.application.BaseApplication;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
-
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 
 /**
  * Description:此类是我的应用程序类

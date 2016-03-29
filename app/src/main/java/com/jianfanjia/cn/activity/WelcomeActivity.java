@@ -212,8 +212,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
     };
 
     private void refreshSession() {
-        JianFanJiaClient.refreshSession(WelcomeActivity.this, dataManager.getUserId(),
-                WelcomeActivity.this, WelcomeActivity.this);
 
         RefreshSessionRequest refreshSessionRequest = new RefreshSessionRequest();
         refreshSessionRequest.set_id(dataManager.getUserId());

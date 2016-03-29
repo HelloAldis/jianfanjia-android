@@ -132,7 +132,7 @@ public class EditOwnerInfoActivity extends SwipeBackActivity implements OnClickL
     private void put_Owner_Info() {
         UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
         request.setUser(user);
-        Api.put_OwnerInfo(request, new ApiCallback<ApiResponse<String>>() {
+        Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
