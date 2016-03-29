@@ -28,6 +28,7 @@ import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
+import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
@@ -346,5 +347,11 @@ public class Api {
     public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<UserMessageList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
+    }
+
+
+    public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
     }
 }

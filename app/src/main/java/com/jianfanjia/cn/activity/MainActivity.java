@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.base.BaseActivity;
@@ -16,8 +17,6 @@ import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment;
 import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.UiHelper;
 
 import java.util.List;
@@ -73,49 +72,61 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         //每次resume刷新一下消息条数
-        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
-    private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
+    private ApiCallback<ApiResponse<List<Integer>>> getMessageCountListener = new
+            ApiCallback<ApiResponse<List<Integer>>>() {
 
-        }
 
-        @Override
-        public void loadSuccess(Object data) {
-            List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
-            }.getType());
-            if (countList != null) {
-                if (countList.get(0) > 0 || countList.get(1) > 0) {
-                    badgeView.setVisibility(View.VISIBLE);
-                } else {
-                    badgeView.setVisibility(View.GONE);
+                @Override
+                public void onPreLoad() {
+
                 }
-                if (myFragment != null) {
-                    if (countList.get(0) > 0) {
-                        myFragment.noticeCountView.setVisibility(View.VISIBLE);
-                        myFragment.noticeCountView.setText(countList.get(0) + "");
-                    } else {
-                        myFragment.noticeCountView.setVisibility(View.GONE);
-                    }
-                    if (countList.get(1) > 0) {
-                        myFragment.commentCountView.setVisibility(View.VISIBLE);
-                        myFragment.commentCountView.setText(countList.get(1) + "");
-                    } else {
-                        myFragment.commentCountView.setVisibility(View.GONE);
-                        myFragment.commentCountView.setText("");
+
+                @Override
+                public void onHttpDone() {
+
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<List<Integer>> apiResponse) {
+                    List<Integer> countList = apiResponse.getData();
+                    if (countList != null) {
+                        if (countList.get(0) > 0 || countList.get(1) > 0) {
+                            badgeView.setVisibility(View.VISIBLE);
+                        } else {
+                            badgeView.setVisibility(View.GONE);
+                        }
+                        if (myFragment != null) {
+                            if (countList.get(0) > 0) {
+                                myFragment.noticeCountView.setVisibility(View.VISIBLE);
+                                myFragment.noticeCountView.setText(countList.get(0) + "");
+                            } else {
+                                myFragment.noticeCountView.setVisibility(View.GONE);
+                            }
+                            if (countList.get(1) > 0) {
+                                myFragment.commentCountView.setVisibility(View.VISIBLE);
+                                myFragment.commentCountView.setText(countList.get(1) + "");
+                            } else {
+                                myFragment.commentCountView.setVisibility(View.GONE);
+                                myFragment.commentCountView.setText("");
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
+                @Override
+                public void onFailed(ApiResponse<List<Integer>> apiResponse) {
 
-        }
-    };
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
 
     @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout})
     public void onClick(View view) {
@@ -236,7 +247,7 @@ public class MainActivity extends BaseActivity {
 
     public void onEventMainThread(MessageCountEvent messageCountEvent) {
         //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
-        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
