@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;

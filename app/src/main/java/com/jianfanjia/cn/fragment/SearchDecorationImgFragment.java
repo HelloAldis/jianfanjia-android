@@ -12,20 +12,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
+import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 
@@ -119,12 +120,14 @@ public class SearchDecorationImgFragment extends BaseFragment {
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
     }
 
-    private void getDecorationImgInfo(int from, String searchText, ApiUiUpdateListener listener) {
+    private void getDecorationImgInfo(int from, String searchText, ApiCallback<ApiResponse<BeautifulImageList>> listener) {
+        SearchDecorationImgRequest request = new SearchDecorationImgRequest();
         Map<String, Object> param = new HashMap<>();
         param.put("search_word", searchText);
         param.put("from", from);
         param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDecorationImg(new SearchDecorationImgRequest(getContext(), param), listener, this);
+        request.setQuery(param);
+        Api.searchDecorationImg(request, listener);
     }
 
     @OnClick(R.id.error_include)
@@ -132,23 +135,29 @@ public class SearchDecorationImgFragment extends BaseFragment {
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
     }
 
-    private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<BeautifulImageList>> listener = new ApiCallback<ApiResponse<BeautifulImageList>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
+
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
-            BeautifulImageList decorationItemInfo = JsonParser.jsonToBean(data.toString(), BeautifulImageList.class);
-            LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
-            if (null != decorationItemInfo) {
-                total = decorationItemInfo.getTotal();
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
+            BeautifulImageList BeautifulImageList = apiResponse.getData();
+
+            LogTool.d(TAG, "BeautifulImageList:" + BeautifulImageList);
+            if (null != BeautifulImageList) {
+                total = BeautifulImageList.getTotal();
                 if (total > 0) {
                     LogTool.d(this.getClass().getName(), "total size =" + total);
                     LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" +
                             decorationAdapter.getData().size());
-                    decorationAdapter.addData(decorationItemInfo.getBeautiful_images());
+                    decorationAdapter.addData(BeautifulImageList.getBeautiful_images());
                     if (total > decorationAdapter.getData().size()) {
                         decorationAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
                     } else {
@@ -162,11 +171,16 @@ public class SearchDecorationImgFragment extends BaseFragment {
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
             decorationAdapter.setErrorViewShow();
             decorationAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
         }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+
     };
 
     @Override

@@ -11,21 +11,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
+import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchProductAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.http.JianFanJiaClient;
-import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
-import com.jianfanjia.cn.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.JsonParser;
 import com.jianfanjia.cn.tools.LogTool;
 
 import java.util.HashMap;
@@ -114,12 +114,14 @@ public class SearchProductFragment extends BaseFragment {
         searchProduct(productAdapter.getData().size(), search, listener);
     }
 
-    private void searchProduct(int from, String searchText, ApiUiUpdateListener listener) {
+    private void searchProduct(int from, String searchText, ApiCallback<ApiResponse<ProductList>> listener) {
+        SearchDesignerProductRequest request = new SearchDesignerProductRequest();
         Map<String, Object> param = new HashMap<>();
         param.put("search_word", searchText);
-        param.put("from", from);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchDesignerProduct(new SearchDesignerProductRequest(getContext(), param), listener, this);
+        request.setQuery(param);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchDesignerProduct(request, listener);
     }
 
     @OnClick(R.id.error_include)
@@ -127,15 +129,22 @@ public class SearchProductFragment extends BaseFragment {
         searchProduct(productAdapter.getData().size(), search, listener);
     }
 
-    private ApiUiUpdateListener listener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<ProductList>> listener = new ApiCallback<ApiResponse<ProductList>>() {
+
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
+
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data=" + data.toString());
-            ProductList worksInfo = JsonParser.jsonToBean(data.toString(), ProductList.class);
+        public void onHttpDone() {
+
+        }
+
+        @Override
+
+        public void onSuccess(ApiResponse<ProductList> apiResponse) {
+            ProductList worksInfo = apiResponse.getData();
             LogTool.d(TAG, "worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 int total = worksInfo.getTotal();
@@ -157,10 +166,14 @@ public class SearchProductFragment extends BaseFragment {
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
+        public void onFailed(ApiResponse<ProductList> apiResponse) {
             productAdapter.setErrorViewShow();
             productAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 

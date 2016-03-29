@@ -3,15 +3,13 @@ package com.jianfanjia.cn.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-<<<<<<< HEAD
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-=======
-import com.jianfanjia.cn.bean.CommitCommentInfo;
->>>>>>> c37a4abc4663cbcf0985f1b5f9d3b5fb4487a066
+
 import com.jianfanjia.cn.bean.OwnerInfo;
 import com.jianfanjia.cn.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.bean.RegisterInfo;
@@ -31,7 +29,6 @@ import com.jianfanjia.cn.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.http.request.GetAllRescheduleRequest;
 import com.jianfanjia.cn.http.request.GetContractRequest;
 import com.jianfanjia.cn.http.request.GetDesignerPlansByUserRequest;
-import com.jianfanjia.cn.http.request.GetMsgDetailRequest;
 import com.jianfanjia.cn.http.request.GetOrderDesignerListByUserRequest;
 import com.jianfanjia.cn.http.request.GetOrderedDesignerRequest;
 import com.jianfanjia.cn.http.request.GetPlanInfoRequest;
@@ -816,25 +813,6 @@ public class JianFanJiaClient {
                 .getParam(), listener, tag);
     }
 
-    /**
-     * 业主通知详情
-     *
-     * @param context
-     * @param messageid
-     * @param listener
-     * @param tag
-     */
-    public static void getUserMsgDetail(Context context, String messageid, ApiUiUpdateListener listener, Object tag) {
-        GetMsgDetailRequest getMsgDetailRequest = new GetMsgDetailRequest(context, messageid);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("messageid", messageid);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getMsgDetailRequest, jsonParams.toString(),
-                    listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
 
