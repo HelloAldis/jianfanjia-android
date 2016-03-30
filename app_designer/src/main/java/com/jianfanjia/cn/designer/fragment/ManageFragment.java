@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -39,6 +41,8 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -53,20 +57,32 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     public static final int ITEM_CONTRACT = 20;
     public static final int ITEM_PLAN = 30;
     public static final int ITEM_GOTOO_SITE = 40;
-    private MainHeadView mainHeadView = null;
-    private PullToRefreshRecycleView manage_pullfefresh = null;
+
+    @Bind(R.id.manage_head)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.manage_pullfefresh)
+    PullToRefreshRecycleView manage_pullfefresh;
+
+    @Bind(R.id.emptyPullRefreshScrollView)
+    PullToRefreshScrollView emptyPullRefresh;
+
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
+
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
+
+    @Bind(R.id.frag_req_rootview)
+    LinearLayout rootLayout;
+
+    @Bind(R.id.process_tip_text)
+    TextView process_tip_text;
+
     private String[] proTitle = null;
     private List<Process> processList = new ArrayList<Process>();
     private List<SiteProcessItem> siteProcessList = new ArrayList<SiteProcessItem>();
-    protected PullToRefreshScrollView emptyPullRefresh;
     private MySiteAdapter adapter = null;
-    protected RelativeLayout emptyLayout;
-
-    protected RelativeLayout errorLayout;
-
-    private LinearLayout rootLayout;
-    private TextView process_tip_text = null;
-
     private String processId = null;
     private int itemPosition = -1;
 
@@ -77,45 +93,38 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     }
 
     @Override
-    public void initView(View view) {
-        initMainHeadView(view);
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        rootLayout = (LinearLayout) view.findViewById(R.id.frag_req_rootview);
-        emptyPullRefresh = (PullToRefreshScrollView) view.findViewById(R.id.emptyPullRefreshScrollView);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        return view;
+    }
+
+    private void initView() {
+        initMainHeadView();
         emptyPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 getProcessList();
             }
         });
-        process_tip_text = (TextView) view.findViewById(R.id.process_tip_text);
         proTitle = getActivity().getApplication().getResources().getStringArray(
                 R.array.site_procedure);
         setProcessList();
-        manage_pullfefresh = (PullToRefreshRecycleView) view.findViewById(R.id.manage_pullfefresh);
         manage_pullfefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
         manage_pullfefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
+        manage_pullfefresh.setOnRefreshListener(this);
     }
 
-    private void initMainHeadView(View view) {
-        mainHeadView = (MainHeadView) view.findViewById(R.id.manage_head);
+    private void initMainHeadView() {
         mainHeadView.setMianTitle("我的工地");
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.GONE);
     }
 
-    @Override
-    public void setListener() {
-        manage_pullfefresh.setOnRefreshListener(this);
-        errorLayout.setOnClickListener(this);
-        process_tip_text.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.error_include, R.id.process_tip_text})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:

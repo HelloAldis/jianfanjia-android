@@ -3,22 +3,22 @@ package com.jianfanjia.cn.designer.fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.common.CommentListActivity_;
+import com.jianfanjia.cn.designer.activity.common.CommentListActivity;
+import com.jianfanjia.cn.designer.activity.my.AboutActivity;
 import com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.designer.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
-import com.jianfanjia.cn.designer.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -31,6 +31,11 @@ import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.layout.BadgeView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:我的
  * Author：fengliang
@@ -39,21 +44,53 @@ import com.jianfanjia.cn.designer.view.layout.BadgeView;
  */
 public class MyNewFragment extends BaseFragment {
     private static final String TAG = MyNewFragment.class.getName();
-    private RelativeLayout notifyLayout = null;
-    private RelativeLayout setting_layout = null;
-    private RelativeLayout kefu_layout = null;
-    private RelativeLayout my_info_layout = null;
-    private RelativeLayout feedback_layout = null;
-    private RelativeLayout clearCacheLayout = null;
-    private RelativeLayout callPhoneLayout = null;
-    private RelativeLayout commentLayout = null;
-    private TextView cacheSizeView = null;
-    private ScrollView scrollView = null;
-    private ImageView head_img = null;
-    private ImageView user_head_img = null;
-    private TextView my_name = null;
-    private TextView my_account = null;
+
+    @Bind(R.id.notify_layout)
+    RelativeLayout notifyLayout;
+
+    @Bind(R.id.setting_layout)
+    RelativeLayout setting_layout;
+
+    @Bind(R.id.kefu_layout)
+    RelativeLayout kefu_layout;
+
+    @Bind(R.id.frag_my_info_layout)
+    RelativeLayout my_info_layout;
+
+    @Bind(R.id.feedback_layout)
+    RelativeLayout feedback_layout;
+
+    @Bind(R.id.clear_cache_layout)
+    RelativeLayout clearCacheLayout;
+
+    @Bind(R.id.call_layout)
+    RelativeLayout callPhoneLayout;
+
+    @Bind(R.id.comment_layout)
+    RelativeLayout commentLayout;
+
+    @Bind(R.id.cache_size)
+    TextView cacheSizeView;
+
+    @Bind(R.id.setting_scrollview)
+    ScrollView scrollView;
+
+    @Bind(R.id.head_img)
+    ImageView head_img;
+
+    @Bind(R.id.user_head_img)
+    ImageView user_head_img;
+
+    @Bind(R.id.frag_my_name)
+    TextView my_name;
+
+    @Bind(R.id.frag_my_account)
+    TextView my_account;
+
+    @Bind(R.id.notify_count_text)
     public BadgeView noticeCountView = null;
+
+    @Bind(R.id.comment_count_text)
     public BadgeView commentCountView = null;
 
     @Override
@@ -62,58 +99,67 @@ public class MyNewFragment extends BaseFragment {
     }
 
     @Override
-    public void initView(View view) {
-        notifyLayout = (RelativeLayout) view.findViewById(R.id.notify_layout);
-        setting_layout = (RelativeLayout) view.findViewById(R.id.setting_layout);
-        my_info_layout = (RelativeLayout) view.findViewById(R.id.frag_my_info_layout);
-        kefu_layout = (RelativeLayout) view.findViewById(R.id.kefu_layout);
-        feedback_layout = (RelativeLayout) view.findViewById(R.id.feedback_layout);
-        clearCacheLayout = (RelativeLayout) view.findViewById(R.id.clear_cache_layout);
-        cacheSizeView = (TextView) view.findViewById(R.id.cache_size);
-        callPhoneLayout = (RelativeLayout) view.findViewById(R.id.call_layout);
-        commentLayout = (RelativeLayout) view.findViewById(R.id.comment_layout);
-        head_img = (ImageView) view.findViewById(R.id.head_img);
-        user_head_img = (ImageView) view.findViewById(R.id.user_head_img);
-        my_account = (TextView) view.findViewById(R.id.frag_my_account);
-        my_name = (TextView) view.findViewById(R.id.frag_my_name);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initView();
+        setListener();
+        return view;
+    }
 
-        commentCountView = (BadgeView) view.findViewById(R.id.comment_count_text);
-        noticeCountView = (BadgeView) view.findViewById(R.id.notify_count_text);
+    private void initView() {
         commentCountView.setVisibility(View.GONE);
         noticeCountView.setVisibility(View.GONE);
-
-        scrollView = (ScrollView) view.findViewById(R.id.setting_scrollview);
-
         cacheSizeView.setText(UiHelper.caculateCacheSize());
         //动态计算imageview的宽高
         head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 /
                 TDevice.getScreenWidth()))));
-
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
-    protected void initMyInfo() {
+    private void initMyInfo() {
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
-//            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
             imageShow.displayImageHeadWidthThumnailImage(getActivity(), imgPath, user_head_img);
         } else {
             user_head_img.setImageResource(R.mipmap.icon_default_head);
         }
     }
 
-    @Override
-    public void setListener() {
-        notifyLayout.setOnClickListener(this);
-        setting_layout.setOnClickListener(this);
-//        my_info_layout.setOnClickListener(this);
-        kefu_layout.setOnClickListener(this);
-        feedback_layout.setOnClickListener(this);
-        clearCacheLayout.setOnClickListener(this);
-        callPhoneLayout.setOnClickListener(this);
-        commentLayout.setOnClickListener(this);
+    private void setListener() {
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+    }
+
+    @OnClick({R.id.notify_layout, R.id.frag_my_info_layout, R.id.kefu_layout, R.id
+            .setting_layout, R.id.feedback_layout, R.id.clear_cache_layout, R.id.call_layout, R.id.comment_layout})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.notify_layout:
+                startActivity(NoticeActivity.class);
+                break;
+            case R.id.frag_my_info_layout:
+                break;
+            case R.id.kefu_layout:
+                startActivity(CustomerServiceActivity.class);
+                break;
+            case R.id.setting_layout:
+                startActivity(AboutActivity.class);
+                break;
+            case R.id.feedback_layout:
+                startActivity(FeedBackActivity.class);
+                break;
+            case R.id.clear_cache_layout:
+                onClickCleanCache();
+                break;
+            case R.id.call_layout:
+                UiHelper.callPhoneIntent(getContext(), getString(R.string.app_phone));
+                break;
+            case R.id.comment_layout:
+                startActivity(CommentListActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -167,38 +213,6 @@ public class MyNewFragment extends BaseFragment {
 
             }
         }, this, selectLists);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.notify_layout:
-                startActivity(NoticeActivity.class);
-                break;
-            case R.id.frag_my_info_layout:
-//                startActivityForResult(UserInfoActivity_.class, REQUESTCODE_USERINFO);
-                break;
-            case R.id.kefu_layout:
-                startActivity(CustomerServiceActivity.class);
-                break;
-            case R.id.setting_layout:
-                startActivity(SettingActivity.class);
-                break;
-            case R.id.feedback_layout:
-                startActivity(FeedBackActivity.class);
-                break;
-            case R.id.clear_cache_layout:
-                onClickCleanCache();
-                break;
-            case R.id.call_layout:
-                UiHelper.callPhoneIntent(getContext(), getString(R.string.app_phone));
-                break;
-            case R.id.comment_layout:
-                startActivity(CommentListActivity_.class);
-                break;
-            default:
-                break;
-        }
     }
 
     /**

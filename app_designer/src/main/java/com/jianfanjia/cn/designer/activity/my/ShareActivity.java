@@ -2,8 +2,8 @@ package com.jianfanjia.cn.designer.activity.my;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 
@@ -15,40 +15,42 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 
 import java.io.IOException;
 
-public class ShareActivity extends BaseActivity implements OnClickListener,
-        OnLongClickListener {
+import butterknife.Bind;
+import butterknife.OnClick;
+
+public class ShareActivity extends BaseActivity implements OnLongClickListener {
     private static final String TAG = ShareActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private ImageView mIvCode = null;// 当前版本
+
+    @Bind(R.id.my_share_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.share_qr)
+    ImageView mIvCode;// 当前版本
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+        setListener();
+    }
+
+    private void initView() {
         initMainHeadView();
-        mIvCode = (ImageView) findViewById(R.id.share_qr);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_share_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.share_title));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         mIvCode.setOnLongClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.head_back_layout:
-                appManager.finishActivity(this);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.head_back_layout)
+    public void onClick() {
+        appManager.finishActivity(this);
     }
 
     @Override
