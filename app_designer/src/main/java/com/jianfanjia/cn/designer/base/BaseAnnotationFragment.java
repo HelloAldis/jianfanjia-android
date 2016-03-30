@@ -8,9 +8,5 @@ package com.jianfanjia.cn.designer.base;
  */
 public class BaseAnnotationFragment extends BaseFragment {
 
-    @Override
-    public int getLayoutId() {
-        return -1;
-    }
-
+    
 }
