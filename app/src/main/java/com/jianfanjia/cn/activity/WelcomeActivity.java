@@ -130,7 +130,7 @@ public class WelcomeActivity extends BaseActivity {
      * @param message
      * @param updateVersion
      */
-    public void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
+    private void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialog(this);
         dialog.setTitle("版本更新");
@@ -176,7 +176,7 @@ public class WelcomeActivity extends BaseActivity {
         dialog.show();
     }
 
-    public void initView() {
+    private void initView() {
         LogTool.d(TAG, "initView");
         GeTuiManager.initGeTui(getApplicationContext());
     }
@@ -214,10 +214,8 @@ public class WelcomeActivity extends BaseActivity {
     };
 
     private void refreshSession() {
-
         RefreshSessionRequest refreshSessionRequest = new RefreshSessionRequest();
         refreshSessionRequest.set_id(dataManager.getUserId());
-
         Api.refreshSession(refreshSessionRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
