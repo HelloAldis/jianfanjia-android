@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 /**
  * @author zhanghao
- * @class SectionInfo.class
+ * @class ProcessSection.class
  * @Decription 此类是工序信息实体类
  * @date 2015-8-31 上午11:50
  */
-public class SectionInfo implements Serializable {
+public class ProcessSection implements Serializable {
 
     private static final long serialVersionUID = 7265654008649361788L;
 
@@ -23,9 +23,9 @@ public class SectionInfo implements Serializable {
 
     private String status;
 
-    private ArrayList<SectionItemInfo> items;
+    private ArrayList<ProcessSectionItem> items;
 
-    private CheckInfo ys;
+    private ProcessSectionYs ys;
 
     private RescheduleInfo reschedule;
 
@@ -69,19 +69,19 @@ public class SectionInfo implements Serializable {
         this.name = name;
     }
 
-    public ArrayList<SectionItemInfo> getItems() {
+    public ArrayList<ProcessSectionItem> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<SectionItemInfo> items) {
+    public void setItems(ArrayList<ProcessSectionItem> items) {
         this.items = items;
     }
 
-    public CheckInfo getYs() {
+    public ProcessSectionYs getYs() {
         return ys;
     }
 
-    public void setYs(CheckInfo ys) {
+    public void setYs(ProcessSectionYs ys) {
         this.ys = ys;
     }
 
@@ -93,9 +93,9 @@ public class SectionInfo implements Serializable {
         this.reschedule = reschedule;
     }
 
-    public SectionItemInfo getSectionItemInfoByName(String itemName) {
+    public ProcessSectionItem getSectionItemInfoByName(String itemName) {
         if (items != null) {
-            for (SectionItemInfo sectionitem : items) {
+            for (ProcessSectionItem sectionitem : items) {
                 if (sectionitem.getName().equals(itemName)) {
                     return sectionitem;
                 }

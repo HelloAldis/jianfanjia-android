@@ -8,9 +8,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.designer.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
@@ -20,8 +22,6 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-
-import java.util.List;
 
 /**
  * @author fengliang

@@ -3,21 +3,21 @@ package com.jianfanjia.cn.designer.cache;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
-import com.jianfanjia.cn.designer.bean.SectionInfo;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.tools.JsonParser;
-import com.jianfanjia.cn.designer.tools.LogTool;
-import com.jianfanjia.cn.designer.tools.StringUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.bean.ProcessInfo;
+import com.jianfanjia.cn.designer.bean.ProcessSection;
+import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.tools.JsonParser;
+import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.tools.StringUtils;
 
 public class BusinessManager {
 
@@ -83,9 +83,9 @@ public class BusinessManager {
         return processInfo;
     }
 
-    public static SectionInfo getSectionInfoByName(ArrayList<SectionInfo> sections, String name) {
+    public static ProcessSection getSectionInfoByName(ArrayList<ProcessSection> sections, String name) {
         try {
-            for (SectionInfo info : sections) {
+            for (ProcessSection info : sections) {
                 if (info.getName().equals(name)) {
                     return info;
                 }

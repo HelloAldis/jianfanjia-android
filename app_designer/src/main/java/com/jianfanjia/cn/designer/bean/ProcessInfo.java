@@ -1,10 +1,9 @@
 package com.jianfanjia.cn.designer.bean;
 
-import com.jianfanjia.cn.designer.bean.CheckInfo.Imageid;
-import com.jianfanjia.cn.designer.tools.LogTool;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import com.jianfanjia.cn.designer.tools.LogTool;
 
 /**
  * @author zhanghao
@@ -36,7 +35,7 @@ public class ProcessInfo implements Serializable {
 
     private String going_on;
 
-    private ArrayList<SectionInfo> sections;
+    private ArrayList<ProcessSection> sections;
 
     public User getUser() {
         return user;
@@ -62,11 +61,11 @@ public class ProcessInfo implements Serializable {
         this.going_on = going_on;
     }
 
-    public ArrayList<SectionInfo> getSections() {
+    public ArrayList<ProcessSection> getSections() {
         return sections;
     }
 
-    public void setSections(ArrayList<SectionInfo> sections) {
+    public void setSections(ArrayList<ProcessSection> sections) {
         this.sections = sections;
     }
 
@@ -190,12 +189,12 @@ public class ProcessInfo implements Serializable {
         this.duration = duration;
     }
 
-    public SectionInfo getSectionInfoByName(String sectionName) {
-        LogTool.d("SectionInfo", sectionName);
+    public ProcessSection getSectionInfoByName(String sectionName) {
+        LogTool.d("ProcessSection", sectionName);
         if (sections != null) {
-            for (SectionInfo sectionInfo : sections) {
-                if (sectionInfo.getName().equals(sectionName)) {
-                    return sectionInfo;
+            for (ProcessSection processSection : sections) {
+                if (processSection.getName().equals(sectionName)) {
+                    return processSection;
                 }
             }
         }
@@ -204,13 +203,13 @@ public class ProcessInfo implements Serializable {
 
     public void addImageToItem(String section, String item, String imageId) {
         if (sections != null) {
-            for (SectionInfo sectionInfo : sections) {
-                if (sectionInfo.getName().equals(section)) {
-                    LogTool.d("SectionInfo", section);
-                    for (SectionItemInfo sectionItemInfo : sectionInfo.getItems()) {
-                        if (sectionItemInfo.getName().equals(item)) {
+            for (ProcessSection processSection : sections) {
+                if (processSection.getName().equals(section)) {
+                    LogTool.d("ProcessSection", section);
+                    for (ProcessSectionItem processSectionItem : processSection.getItems()) {
+                        if (processSectionItem.getName().equals(item)) {
                             LogTool.d("SectionItem", item);
-                            sectionItemInfo.addImageToItem(imageId);
+                            processSectionItem.addImageToItem(imageId);
                         }
                     }
                 }
@@ -220,11 +219,11 @@ public class ProcessInfo implements Serializable {
 
     public void addImageToCheck(String section, String key, String imageId) {
         if (sections != null) {
-            for (SectionInfo sectionInfo : sections) {
-                if (sectionInfo.getName().equals(section)) {
+            for (ProcessSection processSection : sections) {
+                if (processSection.getName().equals(section)) {
                     if (!section.equals("kai_gong") && !section.equals("chai_gai")) {
-                        LogTool.d("SectionInfo", section + "--" + key + imageId);
-                        sectionInfo.getYs().addImageId(new Imageid(key, imageId));
+                        LogTool.d("ProcessSection", section + "--" + key + imageId);
+                        processSection.getYs().addImageId(new ProcessSectionYsImage(key, imageId));
                     }
                 }
             }
@@ -234,11 +233,11 @@ public class ProcessInfo implements Serializable {
     public boolean deleteCheckImage(String section, String key) {
         boolean flag = false;
         if (sections != null) {
-            for (SectionInfo sectionInfo : sections) {
-                if (sectionInfo.getName().equals(section)) {
+            for (ProcessSection processSection : sections) {
+                if (processSection.getName().equals(section)) {
                     if (!section.equals("kai_gong") && !section.equals("chai_gai")) {
-                        flag = sectionInfo.getYs().deleteImageIdBykey(key);
-                        LogTool.d("SectionInfo", section + "--" + key + flag);
+                        flag = processSection.getYs().deleteImageIdBykey(key);
+                        LogTool.d("ProcessSection", section + "--" + key + flag);
                     }
                 }
             }
@@ -246,13 +245,13 @@ public class ProcessInfo implements Serializable {
         return flag;
     }
 
-    public ArrayList<Imageid> getImageidsByName(String section) {
+    public ArrayList<ProcessSectionYsImage> getImageidsByName(String section) {
         if (sections != null) {
-            for (SectionInfo sectionInfo : sections) {
-                if (sectionInfo.getName().equals(section)) {
-                    LogTool.d("SectionInfo", section);
+            for (ProcessSection processSection : sections) {
+                if (processSection.getName().equals(section)) {
+                    LogTool.d("ProcessSection", section);
                     if (!section.equals("kai_gong") && !section.equals("chai_gai")) {
-                        return sectionInfo.getYs().getImages();
+                        return processSection.getYs().getImages();
                     }
                 }
             }

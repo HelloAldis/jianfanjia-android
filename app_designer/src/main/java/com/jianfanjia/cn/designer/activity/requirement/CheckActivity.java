@@ -24,11 +24,11 @@ import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.CheckInfo.Imageid;
+import com.jianfanjia.cn.designer.bean.ProcessSection;
+import com.jianfanjia.cn.designer.bean.ProcessSectionYsImage;
 import com.jianfanjia.cn.designer.bean.GridItem;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.SectionInfo;
-import com.jianfanjia.cn.designer.bean.SectionItemInfo;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -70,14 +70,14 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
     private List<String> showSamplePic = new ArrayList<>();//示例照片
     private List<String> showProcessPic = new ArrayList<>();//工地验收照片
-    private List<Imageid> imageids = new ArrayList<>();
+    private List<ProcessSectionYsImage> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
     private ProcessInfo processInfo = null;
     private String sectionName = null;//工序名称
-    private SectionInfo sectionInfo = null;
+    private ProcessSection processSection = null;
     private int key = -1;
     private File mTmpFile = null;
-    private List<SectionItemInfo> sectionItemInfos;
+    private List<ProcessSectionItem> processSectionItems;
     private int currentState;
 
     private int uploadCount = 0;//要上传图片个数
@@ -126,12 +126,12 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId);
-            sectionInfo = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
-            LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
-            mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
+            processSection = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+            LogTool.d(TAG, "processSection:" + processSection.get_id());
+            mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(processSection.getName()) + "阶段验收");
             checkGridList.clear();
-            checkGridList = getCheckedImageById(sectionInfo.getName());
-            imageids = sectionInfo.getYs().getImages();
+            checkGridList = getCheckedImageById(processSection.getName());
+            imageids = processSection.getYs().getImages();
             LogTool.d(TAG, "imageids=" + imageids);
             currentUploadCount = imageids.size();
             LogTool.d(TAG, "currentUploadCount=======" + currentUploadCount);
@@ -164,11 +164,11 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setConfimStatus() {
-        if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
+        if (!processSection.getStatus().equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
             if (currentUploadCount < BusinessManager
-                    .getCheckPicCountBySection(sectionInfo.getName())) {
+                    .getCheckPicCountBySection(processSection.getName())) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(
                         R.string.confirm_upload));
@@ -186,7 +186,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
                     btn_confirm.setEnabled(false);
                 }
             } else {
-                boolean isFinish = isSectionInfoFishish(sectionInfo.getItems());
+                boolean isFinish = isSectionInfoFishish(processSection.getItems());
                 LogTool.d(TAG, "isFinish=" + isFinish);
                 if (isFinish) {
                     //图片上传完了，可以进行验收
@@ -223,15 +223,15 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     /**
      * 判断是否所有节点都已经完工了
      *
-     * @param sectionItemInfos
+     * @param processSectionItems
      * @return
      */
-    private boolean isSectionInfoFishish(List<SectionItemInfo> sectionItemInfos) {
+    private boolean isSectionInfoFishish(List<ProcessSectionItem> processSectionItems) {
         boolean flag = true;
-        for (SectionItemInfo sectionItemInfo : sectionItemInfos) {
-            LogTool.d(TAG, "sectionitem name =" + sectionItemInfo.getName());
-            LogTool.d(TAG, "sectionitem status =" + sectionItemInfo.getStatus());
-            if (!sectionItemInfo.getStatus().equals(Constant.FINISHED)) {
+        for (ProcessSectionItem processSectionItem : processSectionItems) {
+            LogTool.d(TAG, "sectionitem name =" + processSectionItem.getName());
+            LogTool.d(TAG, "sectionitem status =" + processSectionItem.getStatus());
+            if (!processSectionItem.getStatus().equals(Constant.FINISHED)) {
                 LogTool.d(TAG, "sectionitem not finish");
                 flag = false;
                 return flag;
@@ -247,7 +247,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     public void changeEditStatus() {
-        if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
+        if (!processSection.getStatus().equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
                 mainHeadView.setRightTitle(getString(R.string.finish));
                 currentState = EDIT_STATUS;

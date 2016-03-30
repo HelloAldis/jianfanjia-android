@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
@@ -27,22 +30,20 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Description:设计师方案列表
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener, ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener,
+        ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private PullToRefreshRecycleView designer_plan_listview = null;
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
-//    private String designerid = null;
+    //    private String designerid = null;
     private RequirementInfo requirementInfo = null;
     private int itemPosition = -1;
 
@@ -50,8 +51,8 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     public void initView() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementInfo = (RequirementInfo)designerBundle.getSerializable(Global.REQUIREMENT_INFO);
-        if(requirementInfo != null){
+        requirementInfo = (RequirementInfo) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
         }
         LogTool.d(TAG, "requirementid:" + requirementid);

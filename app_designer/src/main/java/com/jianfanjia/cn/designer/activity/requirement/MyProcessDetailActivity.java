@@ -35,7 +35,7 @@ import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.SectionInfo;
+import com.jianfanjia.cn.designer.bean.ProcessSection;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -84,8 +84,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
-    private List<SectionInfo> sectionInfos;
-    private SectionInfo sectionInfo = null;
+    private List<ProcessSection> processSections;
+    private ProcessSection processSection = null;
     private ProcessInfo processInfo = null;
     private String processId = null;// 默认的工地id
 
@@ -188,11 +188,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 currentList = currentPro;
                 lastPro = currentPro;
             }
-            sectionInfos = processInfo.getSections();
-            sectionInfo = sectionInfos.get(currentList);
+            processSections = processInfo.getSections();
+            processSection = processSections.get(currentList);
             setScrollHeadTime();
-            LogTool.d(TAG, sectionInfos.size() + "--sectionInfos.size()");
-            sectionItemAdapter.setSectionInfoList(sectionInfos, currentList);
+            LogTool.d(TAG, processSections.size() + "--processSections.size()");
+            sectionItemAdapter.setSectionInfoList(processSections, currentList);
             processViewPager.setVisibility(View.VISIBLE);
             processViewPager.setCurrentItem(currentList);
         }
@@ -230,10 +230,10 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     @Override
                     public void onClickItem(int potition) {
                         Log.i(TAG, "potition=" + potition);
-                        if (sectionInfos != null) {
+                        if (processSections != null) {
                             if (potition < TOTAL_PROCESS) {
                                 currentList = potition;
-                                sectionInfo = sectionInfos.get(currentList);
+                                processSection = processSections.get(currentList);
                                 sectionItemAdapter.setPosition(currentList);
                                 processViewPager.setCurrentItem(potition);
                             }
@@ -257,11 +257,11 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
             @Override
             public void onPageSelected(int arg0) {
-                if (sectionInfos != null) {
+                if (processSections != null) {
                     if (arg0 < TOTAL_PROCESS) {
                         currentList = arg0;
-                        sectionInfo = sectionInfos.get(currentList);
-                        Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
+                        processSection = processSections.get(currentList);
+                        Log.i(TAG, "processSection=" + processSection.getName());
                         sectionItemAdapter.setPosition(currentList);
                         detailNodeListView.getRefreshableView().startLayoutAnimation();
                     }
@@ -272,24 +272,24 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
     }
 
     private void setScrollHeadTime() {
-        if (sectionInfos != null) {
+        if (processSections != null) {
             for (int i = 0; i < proTitle.length; i++) {
                 ViewPagerItem viewPagerItem = sectionViewPageAdapter.getList()
                         .get(i);
-                if (sectionInfos.get(i).getStart_at() > 0) {
+                if (processSections.get(i).getStart_at() > 0) {
                     viewPagerItem.setDate(DateFormatTool.covertLongToString(
-                            sectionInfos.get(i).getStart_at(), "M.dd")
+                            processSections.get(i).getStart_at(), "M.dd")
                             + "-"
-                            + DateFormatTool.covertLongToString(sectionInfos
+                            + DateFormatTool.covertLongToString(processSections
                             .get(i).getEnd_at(), "M.dd"));
                 }
-                if (sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
+                if (processSections.get(i).getStatus().equals(Constant.NO_START)) {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_normal" + (i + 1),
                                     "mipmap",
                                     getApplication().getPackageName());
                     viewPagerItem.setResId(drawableId);
-                } else if (sectionInfos.get(i).getStatus().equals(Constant.FINISHED)) {
+                } else if (processSections.get(i).getStatus().equals(Constant.FINISHED)) {
                     int drawableId = getApplication().getResources()
                             .getIdentifier("icon_home_checked" + (i + 1),
                                     "mipmap",
@@ -309,7 +309,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     private void initListView() {
         sectionItemAdapter = new SectionItemAdapter(getApplication(),
-                currentList, sectionInfos, this);
+                currentList, processSections, this);
         detailNodeListView.setAdapter(sectionItemAdapter);
         UiHelper.setLayoutAnim(this, detailNodeListView.getRefreshableView());
         detailNodeListView.setFocusable(false);
@@ -337,8 +337,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.TOPIC_ID, processId);
                 bundle.putString(Global.TO, processInfo.getUserid());
-                bundle.putString(Global.SECTION, sectionInfo.getName());
-                bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
+                bundle.putString(Global.SECTION, processSection.getName());
+                bundle.putString(Global.ITEM, processSection.getItems().get(position).getName());
                 bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
                 Intent intent = new Intent(this, CommentActivity.class);
                 intent.putExtras(bundle);
@@ -349,7 +349,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                 break;
             case Constant.CHECK_ITEM:
                 Bundle checkBundle = new Bundle();
-                checkBundle.putString(Constant.SECTION, sectionInfo.getName());
+                checkBundle.putString(Constant.SECTION, processSection.getName());
                 checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
                 Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity.class);
                 checkIntent.putExtras(checkBundle);
@@ -392,7 +392,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         (ArrayList<String>) imageUrlList);
                 bundle.putInt(Constant.CURRENT_POSITION, position);
                 bundle.putString(Global.PROCESS_ID, processId);
-                bundle.putString(Global.SECTION, sectionInfo.getName());
+                bundle.putString(Global.SECTION, processSection.getName());
                 bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
                 Intent intent = new Intent(this, ShowProcessPicActivity.class);
                 intent.putExtras(bundle);
@@ -450,7 +450,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         confirmProcessItemDone(processInfo.get_id(),
-                                sectionInfo.getName(),
+                                processSection.getName(),
                                 sectionItemAdapter.getCurrentItem());
                     }
                 });
@@ -460,7 +460,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
 
     private void delayDialog() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(sectionInfo.getStart_at() + Constant.DELAY_TIME);
+        calendar.setTimeInMillis(processSection.getStart_at() + Constant.DELAY_TIME);
         DateWheelDialog dateWheelDialog = new DateWheelDialog(this,
                 calendar);
         dateWheelDialog.setTitle("选择时间");
@@ -477,7 +477,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),
                                 processInfo.getFinal_designerid(),
-                                sectionInfo.getName(), dateStr);
+                                processSection.getName(), dateStr);
                     }
                 });
         dateWheelDialog.setNegativeButton(R.string.no, null);
@@ -488,7 +488,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         dialog.setTitle("改期提醒");
-        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(sectionInfo.getReschedule().getNew_date()));
+        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(processSection.getReschedule().getNew_date()));
         dialog.setPositiveButton(R.string.agree,
                 new DialogInterface.OnClickListener() {
 
@@ -666,7 +666,7 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
                         .getCurrentItem();
                 JianFanJiaClient.submitImageToProcess(MyProcessDetailActivity.this,
                         processInfo.get_id(),
-                        sectionInfo.getName(),
+                        processSection.getName(),
                         itemName,
                         data.toString(), new ApiUiUpdateListener() {
                             @Override

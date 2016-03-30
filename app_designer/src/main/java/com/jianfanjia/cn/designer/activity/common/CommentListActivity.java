@@ -8,6 +8,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
@@ -30,14 +38,6 @@ import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Description: com.jianfanjia.cn.activity.common
@@ -109,7 +109,7 @@ public class CommentListActivity extends BaseAnnotationActivity {
                         startPlanInfoActivity(noticeInfo.getPlan(), noticeInfo.getRequirement());
                         break;
                     case MyCommentInfoAdapter.NODE_TYPE:
-                        startProcessDetailActivity(noticeInfo.getProcess());
+                        startProcessInfoDetailActivity(noticeInfo.getProcessInfo());
                         break;
                 }
             }

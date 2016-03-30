@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
@@ -12,8 +14,6 @@ import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.User;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
-
-import java.util.List;
 
 /**
  * @author zhanghao

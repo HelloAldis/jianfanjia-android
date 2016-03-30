@@ -3,7 +3,7 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
 public class DeletePicRequest extends BaseRequest {

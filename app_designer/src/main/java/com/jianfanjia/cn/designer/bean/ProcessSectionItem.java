@@ -7,11 +7,11 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 
 /**
  * @author zhanghao
- * @class SectionItemInfo.class
+ * @class ProcessSectionItem.class
  * @Decription 此类是节点信息实体类
  * @date 2015-8-31 上午11:57
  */
-public class SectionItemInfo implements Serializable {
+public class ProcessSectionItem implements Serializable {
 
     private static final long serialVersionUID = -8274501297058657269L;
     private boolean isOpen;

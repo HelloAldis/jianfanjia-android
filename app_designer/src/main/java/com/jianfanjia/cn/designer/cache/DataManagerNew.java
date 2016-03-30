@@ -2,20 +2,19 @@ package com.jianfanjia.cn.designer.cache;
 
 import android.content.Context;
 
+import java.util.Calendar;
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.bean.LoginUserBean;
 import com.jianfanjia.cn.designer.bean.OwnerInfo;
-import com.jianfanjia.cn.designer.bean.Process;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.db.DBHelper;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
-
-import java.util.Calendar;
-import java.util.List;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();

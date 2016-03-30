@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.bean.ProcessSection;
+import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.bean.RescheduleInfo;
-import com.jianfanjia.cn.designer.bean.SectionInfo;
-import com.jianfanjia.cn.designer.bean.SectionItemInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -38,59 +38,59 @@ public class SectionItemAdapter extends BaseAdapter {
     private int currentClickItem = -1;// 记录当前点击位置
     private SectionItemGridViewAdapter sectionItemGridViewAdapter;
     private String section_status;// 节点的状态
-    private SectionInfo sectionInfo;
+    private ProcessSection processSection;
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<SectionItemInfo> list = new ArrayList<>();
+    private List<ProcessSectionItem> list = new ArrayList<>();
     private List<String> imageUrlList = new ArrayList<>();//源数据的List
     private List<String> showImageUrlList = new ArrayList<>();//用来展示图片的List
     private boolean isHasCheck;// 是否有验收
-    private List<SectionInfo> showSectionInfoList = new ArrayList<>();
+    private List<ProcessSection> showProcessSectionList = new ArrayList<>();
 
     public SectionItemAdapter(Context context, int position,
-                              List<SectionInfo> showSectionInfoList, ItemClickCallBack callBack) {
+                              List<ProcessSection> showProcessSectionList, ItemClickCallBack callBack) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         this.callBack = callBack;
-        setSectionInfoList(showSectionInfoList, position);
+        setSectionInfoList(showProcessSectionList, position);
     }
 
-    public void setSectionInfoList(List<SectionInfo> sectionInfos, int position) {
-        if (sectionInfos != null) {
-            showSectionInfoList.clear();
-            showSectionInfoList.addAll(sectionInfos);
+    public void setSectionInfoList(List<ProcessSection> processSections, int position) {
+        if (processSections != null) {
+            showProcessSectionList.clear();
+            showProcessSectionList.addAll(processSections);
             setPosition(position);
         }
     }
 
     public void setPosition(int position) {
-        sectionInfo = showSectionInfoList.get(position);
-        section_status = sectionInfo.getStatus();
+        processSection = showProcessSectionList.get(position);
+        section_status = processSection.getStatus();
         initList();
     }
 
     private void initList() {
-        section_status = sectionInfo.getStatus();
+        section_status = processSection.getStatus();
         list.clear();
         clearCurrentPosition();
-        if (!sectionInfo.getName().equals("kai_gong")
-                && !sectionInfo.getName().equals("chai_gai")) {
+        if (!processSection.getName().equals("kai_gong")
+                && !processSection.getName().equals("chai_gai")) {
             isHasCheck = true;
-            SectionItemInfo sectionItemInfo = new SectionItemInfo();
-            sectionItemInfo.setName(context.getResources().getStringArray(
+            ProcessSectionItem processSectionItem = new ProcessSectionItem();
+            processSectionItem.setName(context.getResources().getStringArray(
                     R.array.site_check_name)[MyApplication.getInstance()
-                    .getPositionByItemName(sectionInfo.getName())]);
-            sectionItemInfo.setDate(sectionInfo.getYs().getDate());
-            sectionItemInfo.setOpen(false);
-            sectionItemInfo.setStatus(sectionInfo.getStatus() + "");//验收的状态就是工序的状态
-            list.add(sectionItemInfo);
+                    .getPositionByItemName(processSection.getName())]);
+            processSectionItem.setDate(processSection.getYs().getDate());
+            processSectionItem.setOpen(false);
+            processSectionItem.setStatus(processSection.getStatus() + "");//验收的状态就是工序的状态
+            list.add(processSectionItem);
         } else {
             isHasCheck = false;
         }
 
-        for (SectionItemInfo sectionItemInfo : sectionInfo.getItems()) {
-            sectionItemInfo.setOpen(false);
-            list.add(sectionItemInfo);
+        for (ProcessSectionItem processSectionItem : processSection.getItems()) {
+            processSectionItem.setOpen(false);
+            list.add(processSectionItem);
         }
 
         setLastOpen();
@@ -143,9 +143,9 @@ public class SectionItemAdapter extends BaseAdapter {
 
     public String getCurrentItem() {
         if (isHasCheck) {
-            return sectionInfo.getItems().get(currentClickItem - 1).getName();
+            return processSection.getItems().get(currentClickItem - 1).getName();
         } else {
-            return sectionInfo.getItems().get(currentClickItem).getName();
+            return processSection.getItems().get(currentClickItem).getName();
         }
     }
 
@@ -234,15 +234,15 @@ public class SectionItemAdapter extends BaseAdapter {
             }
         }
 
-        final SectionItemInfo sectionItemInfo = list.get(position);
+        final ProcessSectionItem processSectionItem = list.get(position);
         switch (type) {
             case SECTION_ITME_VIEW:
-                LogTool.d(TAG, sectionItemInfo.getName());
+                LogTool.d(TAG, processSectionItem.getName());
                 viewHolder.closeNodeName.setText(MyApplication.getInstance()
-                        .getStringById(sectionItemInfo.getName()));
+                        .getStringById(processSectionItem.getName()));
                 viewHolder.openNodeName.setText(MyApplication.getInstance()
-                        .getStringById(sectionItemInfo.getName()));
-                switch (sectionItemInfo.getStatus()) {
+                        .getStringById(processSectionItem.getName()));
+                switch (processSectionItem.getStatus()) {
                     case Constant.FINISHED:
                         viewHolder.finishStatusIcon
                                 .setImageResource(R.mipmap.icon_home_finish);
@@ -289,7 +289,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 }
 
                 // 设置最新动态的时间
-                long date = sectionItemInfo.getDate();
+                long date = processSectionItem.getDate();
                 if (date != 0L) {
                     viewHolder.openUploadTime.setText(StringUtils
                             .covertLongToString(date));
@@ -308,7 +308,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 } else {
                     showImageUrlList.add(Constant.HOME_ADD_PIC);
                 }
-                int commentCount = sectionItemInfo.getComment_count();
+                int commentCount = processSectionItem.getComment_count();
                 if (commentCount > 0) {
                     viewHolder.openComment.setText(commentCount + "");
                     viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
@@ -325,7 +325,7 @@ public class SectionItemAdapter extends BaseAdapter {
 
                 // 未开工的点击无法展开
                 if (!section_status.equals(Constant.NO_START)) {
-                    if (sectionItemInfo.isOpen()) {
+                    if (processSectionItem.isOpen()) {
                         viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolder.smallcloseLayout.setVisibility(View.GONE);
                     } else {
@@ -365,8 +365,8 @@ public class SectionItemAdapter extends BaseAdapter {
 
                 break;
             case CHECK_VIEW:
-                viewHolderf.closeNodeName.setText(sectionItemInfo.getName());
-                viewHolderf.openNodeName.setText(sectionItemInfo.getName());
+                viewHolderf.closeNodeName.setText(processSectionItem.getName());
+                viewHolderf.openNodeName.setText(processSectionItem.getName());
                 if (section_status.equals(Constant.FINISHED)) {
                     viewHolderf.bigOpenLayout
                             .setBackgroundResource(R.mipmap.list_item_text_bg2);
@@ -379,7 +379,7 @@ public class SectionItemAdapter extends BaseAdapter {
                             .setBackgroundResource(R.mipmap.list_item_text_bg1);
                 }
                 if (!section_status.equals(Constant.NO_START)) {
-                    if (sectionItemInfo.isOpen()) {
+                    if (processSectionItem.isOpen()) {
                         viewHolderf.bigOpenLayout.setVisibility(View.VISIBLE);
                         viewHolderf.smallcloseLayout.setVisibility(View.GONE);
                     } else {
@@ -421,7 +421,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         break;
                     case Constant.YANQI_BE_DOING:
                         LogTool.d(TAG, "this section is yanqi_doing");
-                        RescheduleInfo rescheduleInfo = sectionInfo.getReschedule();
+                        RescheduleInfo rescheduleInfo = processSection.getReschedule();
                         if (null != rescheduleInfo) {
                             String role = rescheduleInfo.getRequest_role();
                             if (role.equals(Constant.IDENTITY_DESIGNER)) {

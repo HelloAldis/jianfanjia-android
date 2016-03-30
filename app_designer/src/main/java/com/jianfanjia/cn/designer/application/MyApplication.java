@@ -3,6 +3,9 @@ package com.jianfanjia.cn.designer.application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseApplication;
 import com.jianfanjia.cn.designer.cache.DataCleanManager;
@@ -10,9 +13,6 @@ import com.jianfanjia.cn.designer.http.OkHttpClientManager;
 import com.jianfanjia.cn.designer.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
-
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 
 /**
  * Description:此类是我的应用程序类
