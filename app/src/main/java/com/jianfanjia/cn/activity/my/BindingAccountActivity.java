@@ -13,7 +13,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.AuthUtil;
@@ -35,7 +35,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-05 11:51
  */
-public class BindingAccountActivity extends SwipeBackActivity {
+public class BindingAccountActivity extends BaseSwipeBackActivity {
     private static final String TAG = BindingAccountActivity.class.getName();
 
     @Bind(R.id.bindingaccount_head_layout)

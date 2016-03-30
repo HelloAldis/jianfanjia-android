@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.fragment.CollectDecorationImgFragment;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CollectActivity extends SwipeBackActivity {
+public class CollectActivity extends BaseSwipeBackActivity {
     private static final String TAG = CollectActivity.class.getName();
 
     @Bind(R.id.my_collect_head_layout)

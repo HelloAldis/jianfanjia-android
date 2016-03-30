@@ -17,7 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.SearchDecorationImgFragment;
 import com.jianfanjia.cn.fragment.SearchDesignerFragment;
@@ -33,7 +33,7 @@ import butterknife.OnClick;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-20 09:12
  */
-public class SearchActivity extends SwipeBackActivity{
+public class SearchActivity extends BaseSwipeBackActivity {
 
     public static final int DESIGNER = 0x00;
     public static final int PRODUCTCASE = 0x01;

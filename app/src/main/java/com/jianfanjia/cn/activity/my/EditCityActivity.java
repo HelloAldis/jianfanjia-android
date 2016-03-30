@@ -19,7 +19,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.CityFormatTool;
@@ -32,7 +32,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-11-09 13:06
  */
-public class EditCityActivity extends SwipeBackActivity {
+public class EditCityActivity extends BaseSwipeBackActivity {
     private static final String TAG = EditCityActivity.class.getName();
     public static final String PAGE = "page";
     public static final int EDIT_USER_ADRESS = 0;

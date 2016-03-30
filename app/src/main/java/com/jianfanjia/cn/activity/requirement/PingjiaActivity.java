@@ -17,7 +17,7 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.user.EvaluateDesignerRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -30,7 +30,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PingjiaActivity extends SwipeBackActivity {
+public class PingjiaActivity extends BaseSwipeBackActivity {
     private static final String TAG = PingjiaActivity.class.getName();
 
     @Bind(R.id.my_pingjia_head_layout)

@@ -15,7 +15,7 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
@@ -42,8 +42,8 @@ public class ProductAdapter extends BaseRecyclerViewAdapter<Product> {
         String decType = product.getDec_type();
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType)
-                + "，" + BusinessManager.convertHouseTypeToShow(houseType) + "，" + BusinessManager
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessCovertUtil.convertDectypeToShow(decType)
+                + "，" + BusinessCovertUtil.convertHouseTypeToShow(houseType) + "，" + BusinessCovertUtil
                 .convertDecStyleToShow(decStyle) + "风格");
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder
                 .itemProductView);

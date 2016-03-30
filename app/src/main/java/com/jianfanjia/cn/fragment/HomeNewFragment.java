@@ -20,14 +20,14 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DecorateLiveActivity;
-import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
-import com.jianfanjia.cn.activity.home.DesignerListActivity;
-import com.jianfanjia.cn.activity.home.SearchActivity;
-import com.jianfanjia.cn.activity.home.WebViewActivity;
-import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
-import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.home.DecorateLiveActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerCaseListActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerListActivityBase;
+import com.jianfanjia.cn.activity.home.SearchActivityBase;
+import com.jianfanjia.cn.activity.home.WebViewActivityBase;
+import com.jianfanjia.cn.activity.my.BindingPhoneActivityBase;
+import com.jianfanjia.cn.activity.requirement.PublishRequirementActivityBase;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
@@ -106,11 +106,11 @@ public class HomeNewFragment extends BaseFragment {
                 if (pos == 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
-                    startActivity(WebViewActivity.class, bundle);
+                    startActivity(WebViewActivityBase.class, bundle);
                 } else if (pos == 1) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
-                    startActivity(WebViewActivity.class, bundle);
+                    startActivity(WebViewActivityBase.class, bundle);
                 }
             }
         });
@@ -167,7 +167,7 @@ public class HomeNewFragment extends BaseFragment {
             LogTool.d(TAG, "productid:" + productid);
             Bundle productBundle = new Bundle();
             productBundle.putString(Global.PRODUCT_ID, productid);
-            startActivity(DesignerCaseInfoActivity.class, productBundle);
+            startActivity(DesignerCaseInfoActivityBase.class, productBundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
         }
     }
@@ -265,19 +265,19 @@ public class HomeNewFragment extends BaseFragment {
             case R.id.ltm_home_layout1:
                 Bundle bundle = new Bundle();
                 bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_DEC_STRATEGY);
-                startActivity(WebViewActivity.class, bundle);
+                startActivity(WebViewActivityBase.class, bundle);
                 break;
             case R.id.ltm_home_layout2:
-                startActivity(DecorateLiveActivity.class);
+                startActivity(DecorateLiveActivityBase.class);
                 break;
             case R.id.ltm_home_layout3:
-                startActivity(DesignerListActivity.class);
+                startActivity(DesignerListActivityBase.class);
                 break;
             case R.id.list_item_more_layout:
-                startActivity(DesignerCaseListActivity.class);
+                startActivity(DesignerCaseListActivityBase.class);
                 break;
             case R.id.home_search:
-                startActivity(SearchActivity.class);
+                startActivity(SearchActivityBase.class);
                 break;
             case R.id.content_intent_to:
                 intentToProduct();
@@ -289,11 +289,11 @@ public class HomeNewFragment extends BaseFragment {
 
     protected void publish_requirement() {
         if (dataManager.getAccount() != null) {
-            startActivity(PublishRequirementActivity.class);
+            startActivity(PublishRequirementActivityBase.class);
         } else {
             Bundle bundle = new Bundle();
             bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_REQUIREMENT);
-            startActivity(BindingPhoneActivity.class, bundle);
+            startActivity(BindingPhoneActivityBase.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }
     }

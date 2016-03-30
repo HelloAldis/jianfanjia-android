@@ -24,13 +24,13 @@ import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
-import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.DateFormatTool;
@@ -47,7 +47,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class NoticeDetailActivity extends SwipeBackActivity {
+public class NoticeDetailActivity extends BaseSwipeBackActivity {
     private static final String TAG = NoticeDetailActivity.class.getName();
 
     @Bind(R.id.my_notice_detail_head_layout)
@@ -277,7 +277,7 @@ public class NoticeDetailActivity extends SwipeBackActivity {
                         sectionName = noticeDetailInfo.getSection();
                         processInfo = noticeDetailInfo.getProcess();
                         LogTool.d(TAG, "sectionName=" + sectionName + "  processInfo=" + processInfo);
-                        sectionInfo = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+                        sectionInfo = BusinessCovertUtil.getSectionInfoByName(processInfo.getSections(), sectionName);
                         LogTool.d(TAG, "sectionInfo=" + sectionInfo);
                         typeText.setText(getResources().getString(R.string.check_str));
                         cellText.setText(noticeDetailInfo.getProcess().getCell());

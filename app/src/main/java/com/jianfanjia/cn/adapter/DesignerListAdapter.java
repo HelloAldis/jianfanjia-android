@@ -16,7 +16,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
@@ -61,9 +61,9 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         int service_attitude = (int) designerInfo.getService_attitude();
         holder.itemRatingBar.setRating((respond_speed + service_attitude) / 2);
         holder.itemAppointCountText.setText(designerInfo.getOrder_count() + "");
-        holder.itemDecTypeText.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
-        holder.itemDecStyleText.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
-        holder.itemDecFeeText.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
+        holder.itemDecTypeText.setText(BusinessCovertUtil.getHouseTypeStr(designerInfo.getDec_house_types()));
+        holder.itemDecStyleText.setText(BusinessCovertUtil.getDecStyleStr(designerInfo.getDec_styles()));
+        holder.itemDecFeeText.setText(BusinessCovertUtil.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

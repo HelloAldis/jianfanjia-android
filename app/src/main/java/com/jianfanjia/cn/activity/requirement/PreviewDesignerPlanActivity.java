@@ -23,11 +23,11 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -43,7 +43,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDesignerPlanActivity extends SwipeBackActivity{
+public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
 
     public static final String PLAN_INTENT_FLAG = "plan_intent_flag";//标识从哪个屏传过来的
 
@@ -136,7 +136,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity{
             }
             if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
                 houseTypeLayout.setVisibility(View.VISIBLE);
-                houseType.setText(BusinessManager.convertHouseTypeToShow(requirementInfo.getHouse_type()));
+                houseType.setText(BusinessCovertUtil.convertHouseTypeToShow(requirementInfo.getHouse_type()));
             }
             if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
                 houseAreaLayout.setVisibility(View.VISIBLE);
@@ -144,7 +144,7 @@ public class PreviewDesignerPlanActivity extends SwipeBackActivity{
             }
             if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
                 decorateTypeLayout.setVisibility(View.VISIBLE);
-                decorateType.setText(BusinessManager.getWorkType(requirementInfo.getWork_type()));
+                decorateType.setText(BusinessCovertUtil.getWorkType(requirementInfo.getWork_type()));
             }
             totalDate.setText(planDetailInfo.getDuration() + "天");
             price.setText(planDetailInfo.getTotal_price() + "元");

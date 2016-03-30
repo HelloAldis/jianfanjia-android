@@ -18,7 +18,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.WebViewActivity;
+import com.jianfanjia.cn.activity.home.WebViewActivityBase;
 import com.jianfanjia.cn.adapter.DecorateLiveAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -121,7 +121,7 @@ public class DecorateLiveFragment extends BaseFragment {
                         String pid = decorateLiveAdapter.getData().get(position).get_id();
                         Bundle bundle = new Bundle();
                         bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().DECORATE_LIVE_URL + pid);
-                        startActivity(WebViewActivity.class, bundle);
+                        startActivity(WebViewActivityBase.class, bundle);
                     }
                 });
         decorateLiveAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {

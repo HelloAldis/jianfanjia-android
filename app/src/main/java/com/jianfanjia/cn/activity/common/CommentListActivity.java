@@ -18,9 +18,9 @@ import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
@@ -42,7 +42,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 15:21
  */
-public class CommentListActivity extends SwipeBackActivity {
+public class CommentListActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.pullrefresh_recycleview)
     protected PullToRefreshRecycleView refreshRecycleView;

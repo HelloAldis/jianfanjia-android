@@ -17,8 +17,8 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivityBase;
 import com.jianfanjia.cn.adapter.SearchProductAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -86,7 +86,7 @@ public class SearchProductFragment extends BaseFragment {
                 LogTool.d(TAG, "productid:" + productid);
                 Bundle productBundle = new Bundle();
                 productBundle.putString(Global.PRODUCT_ID, productid);
-                startActivity(DesignerCaseInfoActivity.class, productBundle);
+                startActivity(DesignerCaseInfoActivityBase.class, productBundle);
             }
 
             @Override
@@ -96,7 +96,7 @@ public class SearchProductFragment extends BaseFragment {
                 LogTool.d(TAG, "designertid=" + designertid);
                 Bundle designerBundle = new Bundle();
                 designerBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivity.class, designerBundle);
+                startActivity(DesignerInfoActivityBase.class, designerBundle);
             }
         });
         productAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {

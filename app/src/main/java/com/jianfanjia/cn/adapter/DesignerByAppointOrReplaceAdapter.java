@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerListActivity;
+import com.jianfanjia.cn.activity.home.DesignerListActivityBase;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.config.Constant;
@@ -74,7 +74,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        IntentUtil.startActivity(context, DesignerListActivity.class);
+                        IntentUtil.startActivity(context, DesignerListActivityBase.class);
                     }
                 });
                 break;

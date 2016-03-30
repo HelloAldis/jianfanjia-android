@@ -16,7 +16,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -24,7 +24,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class EditOwnerInfoActivity extends SwipeBackActivity implements OnClickListener {
+public class EditOwnerInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = EditOwnerInfoActivity.class.getName();
 
     @Bind(R.id.edit_head_layout)

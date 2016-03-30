@@ -12,7 +12,7 @@ import com.jianfanjia.api.model.DecorateLive;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.StringUtils;
@@ -46,7 +46,7 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLive> {
         }
 
         String status = decorateLiveInfo.getProcess().get(decorateLiveInfo.getProcess().size() - 1).getName();
-        viewHolder.statusText.setText(BusinessManager.convertSectionNameToLiveShow(status));
+        viewHolder.statusText.setText(BusinessCovertUtil.convertSectionNameToLiveShow(status));
         if (decorateLiveInfo.getProgress().equals(Constant.DECORATE_LIVE_GOING)) {
             viewHolder.statusText.setBackgroundColor(context.getResources().getColor(R.color.orange_color));
         } else {
@@ -61,17 +61,17 @@ public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLive> {
         if (!TextUtils.isEmpty(decorateLiveInfo.getHouse_area())) {
             sb.append(decorateLiveInfo.getHouse_area() + "㎡ ");
         }
-        if (!TextUtils.isEmpty(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()))) {
-            sb.append(BusinessManager.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()) + " ");
+        if (!TextUtils.isEmpty(BusinessCovertUtil.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()))) {
+            sb.append(BusinessCovertUtil.convertHouseTypeToShow(decorateLiveInfo.getHouse_type()) + " ");
         }
-        if (!TextUtils.isEmpty(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()))) {
-            sb.append(BusinessManager.convertDecStyleToShow(decorateLiveInfo.getDec_style()) + " ");
+        if (!TextUtils.isEmpty(BusinessCovertUtil.convertDecStyleToShow(decorateLiveInfo.getDec_style()))) {
+            sb.append(BusinessCovertUtil.convertDecStyleToShow(decorateLiveInfo.getDec_style()) + " ");
         }
-        if (!TextUtils.isEmpty(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()))) {
-            sb.append(BusinessManager.convertDectypeToShow(decorateLiveInfo.getDec_type()) + " ");
+        if (!TextUtils.isEmpty(BusinessCovertUtil.convertDectypeToShow(decorateLiveInfo.getDec_type()))) {
+            sb.append(BusinessCovertUtil.convertDectypeToShow(decorateLiveInfo.getDec_type()) + " ");
         }
-        if (!TextUtils.isEmpty(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()))) {
-            sb.append(BusinessManager.getWorkType(decorateLiveInfo.getWork_type()));
+        if (!TextUtils.isEmpty(BusinessCovertUtil.getWorkType(decorateLiveInfo.getWork_type()))) {
+            sb.append(BusinessCovertUtil.getWorkType(decorateLiveInfo.getWork_type()));
         }
         viewHolder.descriptionText.setText(sb.toString());
 

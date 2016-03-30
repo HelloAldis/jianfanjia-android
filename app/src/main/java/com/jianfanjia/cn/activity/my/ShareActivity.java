@@ -12,12 +12,12 @@ import java.io.IOException;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 
-public class ShareActivity extends SwipeBackActivity implements OnLongClickListener {
+public class ShareActivity extends BaseSwipeBackActivity implements OnLongClickListener {
     private static final String TAG = ShareActivity.class.getName();
 
     @Bind(R.id.my_share_head_layout)

@@ -12,7 +12,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
@@ -27,7 +27,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-12-17 15:46
  */
-public class UpdateRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
+public class UpdateRequirementActivity extends BaseSwipeBackActivity implements NotifyActivityStatusChange {
 
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;

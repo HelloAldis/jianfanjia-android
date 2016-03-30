@@ -25,15 +25,15 @@ import com.jianfanjia.api.request.user.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.user.GetProcessInfoRequest;
 import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.my.NoticeActivity;
 import com.jianfanjia.cn.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.ViewPagerItem;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
@@ -68,7 +68,7 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-public class MyProcessDetailActivity extends SwipeBackActivity implements ItemClickCallBack, PopWindowCallBack {
+public class MyProcessDetailActivity extends BaseSwipeBackActivity implements ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -142,7 +142,7 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             loadCurrentProcess();
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
-            processInfo = BusinessManager.getDefaultProcessInfo(this);
+            processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
             initData();
         }
     }

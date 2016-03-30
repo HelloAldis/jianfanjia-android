@@ -15,7 +15,7 @@ import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
@@ -176,16 +176,16 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
                     companyLayout.setVisibility(View.VISIBLE);
                     teamCountLayout.setVisibility(View.VISIBLE);
                     designFeeLayout.setVisibility(View.VISIBLE);
-                    jiandanType.setText(BusinessManager.getDecTypeStr(designerInfo.getDec_types()));
-                    jiandanHouseType.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
-                    jiandanDistrict.setText(BusinessManager.getDecDistrictStr(designerInfo.getDec_districts()));
-                    designStyle.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
+                    jiandanType.setText(BusinessCovertUtil.getDecTypeStr(designerInfo.getDec_types()));
+                    jiandanHouseType.setText(BusinessCovertUtil.getHouseTypeStr(designerInfo.getDec_house_types()));
+                    jiandanDistrict.setText(BusinessCovertUtil.getDecDistrictStr(designerInfo.getDec_districts()));
+                    designStyle.setText(BusinessCovertUtil.getDecStyleStr(designerInfo.getDec_styles()));
                     designIdea.setText(designerInfo.getPhilosophy());
                     designAchievement.setText(designerInfo.getAchievement());
                     company.setText(designerInfo.getCompany());
                     teamCount.setText(designerInfo.getTeam_count() + "");
                     String designFeeRange = designerInfo.getDesign_fee_range();
-                    designFee.setText(BusinessManager.convertDesignFeeToShow(designFeeRange));
+                    designFee.setText(BusinessCovertUtil.convertDesignFeeToShow(designFeeRange));
                 }
             }
 

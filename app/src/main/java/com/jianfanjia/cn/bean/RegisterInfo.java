@@ -1,8 +1,8 @@
 package com.jianfanjia.cn.bean;
 
-import com.jianfanjia.common.tool.LogTool;
-
 import java.io.Serializable;
+
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author zhanghao

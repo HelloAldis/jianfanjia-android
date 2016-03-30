@@ -18,7 +18,7 @@ import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivityBase;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
@@ -93,7 +93,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
                 decorationBundle.putString(Global.SEARCH_TEXT, search);
-                startActivity(PreviewDecorationActivity.class, decorationBundle);
+                startActivity(PreviewDecorationActivityBase.class, decorationBundle);
             }
         });
         decorationAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {

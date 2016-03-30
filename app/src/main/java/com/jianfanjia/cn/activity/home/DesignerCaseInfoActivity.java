@@ -21,7 +21,7 @@ import com.jianfanjia.api.request.common.DeleteCollectionRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.api.Api;
@@ -44,7 +44,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseInfoActivity extends SwipeBackActivity implements OnClickListener {
+public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
     private static final int SCROLL_Y = 100;
     private int mScrollY = 0;

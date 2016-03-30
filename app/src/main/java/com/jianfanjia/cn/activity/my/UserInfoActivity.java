@@ -32,9 +32,9 @@ import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
@@ -56,7 +56,7 @@ import com.yalantis.ucrop.UCrop;
  * @Description:用户个人信息(业主)
  * @date 2015-8-18 下午12:11:49
  */
-public class UserInfoActivity extends SwipeBackActivity implements
+public class UserInfoActivity extends BaseSwipeBackActivity implements
         OnClickListener, PopWindowCallBack {
     private static final String TAG = UserInfoActivity.class.getName();
     @Bind(R.id.head_layout)

@@ -14,7 +14,7 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivityBase;
 import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -170,7 +170,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                                     LogTool.d(TAG, "productid:" + productid);
                                     Bundle productBundle = new Bundle();
                                     productBundle.putString(Global.PRODUCT_ID, productid);
-                                    startActivity(DesignerCaseInfoActivity.class, productBundle);
+                                    startActivity(DesignerCaseInfoActivityBase.class, productBundle);
                                 }
                             });
                             designer_works_listview.setAdapter(adapter);

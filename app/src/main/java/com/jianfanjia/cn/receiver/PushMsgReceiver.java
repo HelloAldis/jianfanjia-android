@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.MessageUtil;
 

@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.cache;
+package com.jianfanjia.cn.tools;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -15,11 +15,10 @@ import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
 
-public class BusinessManager {
+public class BusinessCovertUtil {
 
     /**
      * 分开装修美图keyword
@@ -285,7 +284,7 @@ public class BusinessManager {
         StringBuilder builder = new StringBuilder();
         for (String str : decHouseTypes) {
             LogTool.d("getHouseTypeStr()", "str:" + str);
-            builder.append(BusinessManager.convertHouseTypeToShow(str) + "  ");
+            builder.append(BusinessCovertUtil.convertHouseTypeToShow(str) + "  ");
         }
         return builder.toString();
     }
@@ -294,7 +293,7 @@ public class BusinessManager {
         StringBuilder builder = new StringBuilder();
         for (String str : decTypes) {
             LogTool.d("getDecTypeStr()", "str:" + str);
-            builder.append(BusinessManager.convertDectypeToShow(str) + "  ");
+            builder.append(BusinessCovertUtil.convertDectypeToShow(str) + "  ");
         }
         return builder.toString();
     }
@@ -303,7 +302,7 @@ public class BusinessManager {
         StringBuilder builder = new StringBuilder();
         for (String str : decStyles) {
             LogTool.d("getDecStyleStr()", "str:" + str);
-            builder.append(BusinessManager.convertDecStyleToShow(str) + "  ");
+            builder.append(BusinessCovertUtil.convertDecStyleToShow(str) + "  ");
         }
         return builder.toString();
     }

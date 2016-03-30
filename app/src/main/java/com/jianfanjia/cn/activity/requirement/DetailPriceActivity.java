@@ -15,7 +15,7 @@ import butterknife.OnClick;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Global;
@@ -29,7 +29,7 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DetailPriceActivity extends SwipeBackActivity{
+public class DetailPriceActivity extends BaseSwipeBackActivity {
     private static final String TAG = DetailPriceActivity.class.getName();
 
     @Bind(R.id.my_price_head_layout)

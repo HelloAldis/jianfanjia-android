@@ -6,13 +6,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
-import com.umeng.socialize.net.utils.Base64;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import com.umeng.socialize.net.utils.Base64;
 
 /**
  * Description:SharedPreferences操作类
@@ -31,6 +31,7 @@ public class SharedPrefer {
      * @param context
      */
     public SharedPrefer(Context context) {
+
         this(context, PreferenceManager.getDefaultSharedPreferences(context));
     }
 

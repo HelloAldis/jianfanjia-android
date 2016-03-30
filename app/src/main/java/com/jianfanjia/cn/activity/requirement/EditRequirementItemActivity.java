@@ -9,7 +9,7 @@ import android.widget.ListView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -21,7 +21,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class EditRequirementItemActivity extends SwipeBackActivity {
+public class EditRequirementItemActivity extends BaseSwipeBackActivity {
 
     //用来记录是展示那个列表
     private int requestCode;

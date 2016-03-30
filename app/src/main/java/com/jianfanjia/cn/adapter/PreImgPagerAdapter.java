@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageDetail;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
@@ -88,7 +88,7 @@ public class PreImgPagerAdapter extends PagerAdapter {
             imageShow.displayLocalImage(images.get(0).getImageid(), imageView);
         }
         pic_title.setText(TextUtils.isEmpty(info.getTitle()) ? "" : info.getTitle());
-        String keyDes = BusinessManager.spilteKeyWord(info.getKeywords());
+        String keyDes = BusinessCovertUtil.spilteKeyWord(info.getKeywords());
         if (!TextUtils.isEmpty(keyDes)) {
             pic_des.setText(keyDes);
         }

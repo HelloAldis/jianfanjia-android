@@ -15,7 +15,7 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
@@ -24,7 +24,7 @@ import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.DeletePicDialog;
 
-public class ShowProcessPicActivity extends SwipeBackActivity implements
+public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = ShowProcessPicActivity.class.getName();
 

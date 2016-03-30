@@ -19,7 +19,7 @@ import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -35,7 +35,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ContractActivity extends SwipeBackActivity implements
+public class ContractActivity extends BaseSwipeBackActivity implements
         View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     public static final String CONSTRACT_INTENT_FLAG = "contract_intent_flag";

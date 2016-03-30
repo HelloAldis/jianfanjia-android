@@ -16,7 +16,7 @@ import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
@@ -62,8 +62,8 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ProductImageInf
                 DesignerCaseInfoHeadHolder designerCaseInfoHeadHolder = (DesignerCaseInfoHeadHolder) viewHolder;
                 designerCaseInfoHeadHolder.cellNameText.setText(designerCaseInfo.getCell());
                 designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" +
-                        BusinessManager.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" + BusinessManager
-                        .convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessManager
+                        BusinessCovertUtil.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" + BusinessCovertUtil
+                        .convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" + BusinessCovertUtil
                         .convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(),
                         designerCaseInfoHeadHolder.designerinfo_head_img);

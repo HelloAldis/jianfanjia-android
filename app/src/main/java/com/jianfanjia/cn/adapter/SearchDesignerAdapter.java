@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
@@ -76,11 +76,11 @@ public class SearchDesignerAdapter extends BaseRecycleAdapter<Designer> {
             }
         });
         holder.productSumView.setText(designerInfo.getAuthed_product_count());
-        holder.designerFeeView.setText(BusinessManager.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
+        holder.designerFeeView.setText(BusinessCovertUtil.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
         holder.appointSumView.setText(designerInfo.getOrder_count() + "");
 
-        holder.decorateHouseStyleView.setText(BusinessManager.getHouseTypeStr(designerInfo.getDec_house_types()));
-        holder.goodAtStyleView.setText(BusinessManager.getDecStyleStr(designerInfo.getDec_styles()));
+        holder.decorateHouseStyleView.setText(BusinessCovertUtil.getHouseTypeStr(designerInfo.getDec_house_types()));
+        holder.goodAtStyleView.setText(BusinessCovertUtil.getDecStyleStr(designerInfo.getDec_styles()));
     }
 
     class SearchDesignerViewHolder extends RecyclerView.ViewHolder {
