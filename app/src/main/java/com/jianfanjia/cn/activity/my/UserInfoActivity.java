@@ -18,8 +18,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.UploadPicRequest;
@@ -29,11 +34,11 @@ import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -44,13 +49,6 @@ import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yalantis.ucrop.UCrop;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -198,10 +196,8 @@ public class UserInfoActivity extends SwipeBackActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        GeTuiManager.cancelBind(getApplicationContext(), dataManager.getUserId());
-                        dataManager.cleanData();
-                        ApiClient.clearCookie();
-//                        MyApplication.getInstance().clearAppCache();
+                        DataManagerNew.loginOut();
+
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(UserInfoActivity.this).deleteOauth(UserInfoActivity.this, SHARE_MEDIA
                                 .WEIXIN);
