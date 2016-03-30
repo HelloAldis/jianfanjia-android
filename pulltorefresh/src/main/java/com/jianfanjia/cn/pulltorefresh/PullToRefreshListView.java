@@ -203,6 +203,7 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
     }
 
     protected ListView createListView(Context context, AttributeSet attrs) {
+//        final ListView lv = (ListView) inflate(context, R.layout.common_listview, null);
         final ListView lv;
         if (VERSION.SDK_INT >= VERSION_CODES.GINGERBREAD) {
             lv = new InternalListViewSDK9(context, attrs);
@@ -215,7 +216,6 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
     @Override
     protected ListView createRefreshableView(Context context, AttributeSet attrs) {
         ListView lv = createListView(context, attrs);
-
         // Set it to this so it can be used in ListActivity/ListFragment
         lv.setId(android.R.id.list);
         return lv;
@@ -333,5 +333,4 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
         }
 
     }
-
 }
