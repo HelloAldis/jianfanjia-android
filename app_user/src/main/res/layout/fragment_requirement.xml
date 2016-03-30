@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frag_req_rootview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/req_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <FrameLayout
+        android:id="@+id/req_listview_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/req_pullfefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d" />
+
+        <include
+            android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/req_publish_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/font_white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/edit_requirement_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_requirement" />
+
+        <LinearLayout
+            android:id="@+id/req_publish_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/req_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/str_req_tip"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/small_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/req_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="@string/str_req_pubReq"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/middle_size" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

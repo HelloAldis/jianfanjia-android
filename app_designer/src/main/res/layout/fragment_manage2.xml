@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frag_req_rootview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.designer.view.MainHeadView
+        android:id="@+id/manage_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/manage_pullfefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="#344a5d" />
+
+    <include
+        android:id="@+id/empty_include"
+        layout="@layout/view_no_process_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/error_include"
+        layout="@layout/view_error_layout"
+        android:visibility="gone" />
+
+
+</LinearLayout>

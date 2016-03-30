@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/act_edit_req_lovastyle_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/space_8">
+
+        <GridView
+            android:id="@+id/act_edit_req_lovestyle_gridview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:clickable="false"
+            android:horizontalSpacing="2dp"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:verticalSpacing="2dp" />
+    </LinearLayout>
+</LinearLayout>

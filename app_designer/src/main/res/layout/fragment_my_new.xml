@@ -1,0 +1,317 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:fitsSystemWindows="true"
+    tools:context="com.jianfanjia.cn.fragment.MyFragment">
+
+    <com.jianfanjia.cn.designer.view.PullZoomScrollView
+        android:id="@+id/setting_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/head_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/bg_fragment_my" />
+
+                <RelativeLayout
+                    android:id="@+id/frag_my_info_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <com.jianfanjia.cn.designer.view.layout.CircleImageView
+                        android:id="@+id/user_head_img"
+                        android:layout_width="90dip"
+                        android:layout_height="90dip"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                        app:border_color="@color/white"
+                        app:border_width="2dip" />
+
+                    <TextView
+                        android:id="@+id/frag_my_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/user_head_img"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dip"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/middle_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/frag_my_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/frag_my_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dip"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/small_size" />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_10"
+                android:background="@color/font_white"
+                android:paddingBottom="@dimen/space_12"
+                android:paddingTop="@dimen/space_12">
+
+                <RelativeLayout
+                    android:id="@+id/notify_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:id="@+id/imageLayout0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true">
+
+                        <com.jianfanjia.cn.designer.view.layout.CircleImageView
+                            android:id="@+id/ltm_req_designer_head0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_notice" />
+
+                        <com.jianfanjia.cn.designer.view.layout.BadgeView
+                            android:id="@+id/notify_count_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/ltm_req_designer_name0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imageLayout0"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/my_notice"
+                        android:textColor="@color/light_black_color"
+                        android:textSize="@dimen/middle_size" />
+
+                </RelativeLayout>
+
+                <View style="@style/vertical_divier_line" />
+
+                <RelativeLayout
+                    android:id="@+id/comment_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:id="@+id/imageLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true">
+
+                        <com.jianfanjia.cn.designer.view.layout.CircleImageView
+                            android:id="@+id/ltm_req_designer_head2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_comment_big" />
+
+                        <com.jianfanjia.cn.designer.view.layout.BadgeView
+                            android:id="@+id/comment_count_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:textSize="@dimen/text_size_14" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/ltm_req_designer_name2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imageLayout2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/my_comment"
+                        android:textColor="@color/light_black_color"
+                        android:textSize="@dimen/middle_size" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/clear_cache_layout"
+                style="@style/my_list_item_layout_style"
+                >
+
+                <ImageView
+                    android:id="@+id/clear_cache_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_clean" />
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@+id/clear_cache_icon"
+                    android:text="@string/clear_cache"
+                    android:textColor="@color/light_black_color" />
+
+                <TextView
+                    android:id="@+id/cache_size"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_12"
+                    android:layout_toLeftOf="@+id/clear_cache_next"
+                    android:text="0M"
+                    android:textColor="@color/main_color_grey" />
+
+                <ImageView
+                    android:id="@+id/clear_cache_next"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/feedback_layout"
+                style="@style/my_list_item_layout_style">
+
+                <ImageView
+                    android:id="@+id/feedback_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_phone_number" />
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@+id/feedback_icon"
+                    android:text="@string/feedback"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/kefu_layout"
+                style="@style/my_list_item_layout_style">
+
+                <ImageView
+                    android:id="@+id/kefu_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_kefu" />
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@+id/kefu_icon"
+                    android:text="@string/online_kefu"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/setting_layout"
+                style="@style/my_list_item_layout_style"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/more_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_more" />
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@+id/more_icon"
+                    android:text="@string/more"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/call_layout"
+                style="@style/my_list_item_layout_style"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerInParent="true"
+                    android:text="@string/call_phone"
+                    android:textColor="@color/light_black_color" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </com.jianfanjia.cn.designer.view.PullZoomScrollView>
+</FrameLayout>

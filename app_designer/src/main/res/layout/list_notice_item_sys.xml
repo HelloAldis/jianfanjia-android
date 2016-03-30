@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/font_white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_16">
+
+        <TextView
+            android:id="@+id/list_item_sys_tip_title"
+            style="@style/listview_item_text_style_small"
+            android:text="系统公告"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/list_item_sys_tip_date"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignBottom="@id/list_item_sys_tip_title"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_10"
+            android:text="2015-09-22 23:05"
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_12"/>
+
+        <TextView
+            android:id="@+id/list_item_sys_tip_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/list_item_sys_tip_title"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_5"
+            android:text="感谢您使用我们产品，简繁家带您开启全新的app之旅。"
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_12"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        style="@style/my_item_layout_image_style"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/space_16"
+        android:contentDescription="@null"/>
+</RelativeLayout>

@@ -1,0 +1,20 @@
+[{
+	"id":0,
+	"account":"13476199441",
+	"name":"zhanghao",
+	"pwd":"123456",
+	"userIdentity":1
+},{
+	"id":1,
+	"account":"13972957965",
+	"name":"jame",
+	"pwd":"123456",
+	"userIdentity":0
+},{
+	"id":2,
+	"account":"15927163098",
+	"name":"jeff",
+	"pwd":"123456",
+	"userIdentity":1
+}
+]

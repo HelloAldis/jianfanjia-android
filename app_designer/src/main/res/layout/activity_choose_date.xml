@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:id="@+id/main_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_48">
+
+            <RelativeLayout
+                android:id="@+id/head_back_layout"
+                android:layout_width="@dimen/space_60"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_head_back_bg_selector">
+
+                <ImageView
+                    android:id="@+id/head_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:src="@mipmap/icon_delete" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/head_center_title"
+                style="@style/listview_item_text_style_big"
+                android:layout_centerInParent="true"
+                android:text="@string/setting_measure_date"
+                android:textColor="@color/light_black_color" />
+
+            <RelativeLayout
+                android:id="@+id/head_choose_layout"
+                android:layout_width="@dimen/space_60"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_head_back_bg_selector"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/head_choose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:src="@mipmap/icon_ok" />
+            </RelativeLayout>
+
+
+            <View
+                android:id="@+id/head_divier"
+                style="@style/divier_line"
+                android:layout_alignParentBottom="true"
+                android:background="@color/horzontal_line_color" />
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/phone_tip"
+                style="@style/listview_item_text_style_middle"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_16"
+                android:gravity="left"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
+                android:text="@string/phone_tip"
+                android:textColor="@color/light_black_color" />
+
+            <RelativeLayout
+                android:id="@+id/btn_phone_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_24"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
+                android:background="@drawable/btn_orange_white_bg">
+
+                <ImageView
+                    android:id="@+id/phone_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:padding="@dimen/space_8"
+                    android:src="@mipmap/icon_phone" />
+
+                <TextView
+                    android:id="@+id/phone_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/user_phone"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/big_size" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="@dimen/space_16"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/timeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
+                android:background="@drawable/btn_grey_white_bg"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/big_size"
+                android:layout_marginTop="@dimen/space_16"/>
+
+            <com.jianfanjia.cn.designer.view.DateTimePicker
+                android:id="@+id/datePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_gravity="center_horizontal"/>
+
+            <View style="@style/divier_line" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/button_login_style"
+                android:layout_height="@dimen/space_40"
+                android:layout_marginLeft="@dimen/space_48"
+                android:layout_marginRight="@dimen/space_48"
+                android:layout_marginTop="@dimen/space_48"
+                android:layout_marginBottom="@dimen/space_16"
+                android:text="@string/confirm" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

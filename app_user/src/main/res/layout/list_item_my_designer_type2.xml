@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ltm_req_layout"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:background="@color/font_white"
+    android:padding="@dimen/space_16">
+
+    <include
+        android:id="@+id/ltm_my_designer_left_layout"
+        layout="@layout/include_my_designer_item"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true" />
+
+    <RelativeLayout
+        android:id="@+id/ltm_my_designer_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_toRightOf="@+id/ltm_my_designer_left_layout">
+
+        <TextView
+            android:id="@+id/ltm_my_designer_textview1"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/space_4"
+            android:text="@string/measure_house_time"
+            android:textColor="@color/orange_color"/>
+
+        <TextView
+            android:id="@+id/ltm_my_designer_textview2"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/space_4"
+            android:textColor="@color/orange_color"/>
+
+        <TextView
+            android:id="@+id/ltm_my_designer_button3"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_white_selector"
+            android:padding="@dimen/space_4"
+            android:textColor="@color/orange_color"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

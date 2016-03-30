@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/font_white"
+    android:paddingBottom="8dip"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip"
+    android:paddingTop="8dip">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_centerVertical="true">
+
+            <com.jianfanjia.cn.designer.view.layout.CircleImageView
+                android:id="@+id/ltm_cominfo_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_head" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/ltm_cominfo_designer_middle_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/imageLayout">
+
+            <TextView
+                android:id="@+id/ltm_cominfo_designer_name"
+                style="@style/listview_item_text_style_middle"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color" />
+
+            <TextView
+                android:id="@+id/ltm_cominfo_designer_date"
+                style="@style/listview_item_text_style_small"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/ltm_cominfo_designer_name"
+                android:layout_marginTop="@dimen/space_8"
+                android:gravity="left"
+                android:text="@string/str_publish_time"
+                android:textColor="@color/grey_color" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/ltm_cominfo_response"
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_grey_white_bg"
+            android:paddingLeft="@dimen/space_8"
+            android:paddingRight="@dimen/space_8"
+            android:paddingTop="@dimen/space_4"
+            android:paddingBottom="@dimen/space_4"
+            android:text="@string/reply"
+            android:textColor="@color/grey_color" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ltm_cominfo_content"
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/space_8"
+        android:gravity="left"
+        android:textColor="@color/grey_color" />
+</LinearLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font_white">
+
+    <RelativeLayout
+        android:id="@+id/head_back_layout"
+        android:layout_width="@dimen/space_70"
+        android:layout_height="@dimen/space_48"
+        android:paddingLeft="@dimen/space_14">
+
+        <ImageView
+            android:id="@+id/head_back"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_register_back" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/forget_psw_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/head_back_layout"
+        android:paddingTop="@dimen/space_32"
+        >
+
+        <RelativeLayout
+            android:id="@+id/forget_psw_tip_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forget_psw_title"
+                style="@style/listview_item_text_style_big"
+                android:layout_centerHorizontal="true"
+                android:text="@string/verifica_phone"
+                android:textColor="@color/light_black_color" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/forget_psw_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_16"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:text="@string/verification_code_sended"
+                    android:textColor="@color/light_black_color" />
+
+                <TextView
+                    android:id="@+id/register_phone"
+                    style="@style/listview_item_text_style_middle"
+                    android:textColor="@color/orange_color" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/forget_psw_tip_layout"
+            android:layout_marginLeft="@dimen/space_48"
+            android:layout_marginRight="@dimen/space_48"
+            android:layout_marginTop="@dimen/space_24"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/et_verification"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint="@string/hint_verification"
+                android:maxLength="20"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingRight="@dimen/space_16"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/middle_size"
+                android:background = "@null"/>
+
+            <View
+                style="@style/divier_line"
+                />
+
+            <Button
+                android:id="@+id/btn_commit"
+                style="@style/button_login_style"
+                android:layout_marginTop="@dimen/space_48"
+                android:text="@string/commit" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

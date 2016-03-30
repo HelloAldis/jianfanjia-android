@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/my_share_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <ImageView
+        android:id="@+id/share_qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:src="@mipmap/icon_jianfanjia_qr" />
+
+    <TextView
+        android:id="@+id/share_tip"
+        style="@style/listview_item_text_style_middle"
+        android:layout_alignLeft="@+id/share_qr"
+        android:layout_alignRight="@+id/share_qr"
+        android:layout_below="@+id/share_qr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/share_tip"
+        android:textColor="@color/light_black_color" />
+
+</RelativeLayout>

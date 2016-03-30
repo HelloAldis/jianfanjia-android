@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- actionbar title color -->
+    <color name="line_color">#b5babb</color>
+    <color name="horzontal_line_color">#d5d5d5</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- site_manager -->
+    <color name="site_item_normal_bg">#999999</color>
+    <color name="site_item_selected_bg">#ff9800</color>
+
+    <!-- 字体色值 -->
+    <color name="font_white">#ffffff</color>
+    <color name="log_and_res_hint">#d8d8d8</color>
+    <color name="log_and_res_broder">#d8d8d8</color>
+    <color name="font_reg_color1">#f2f5f5</color>
+    <color name="font_reg_color2">#fe7003</color>
+    <color name="main_color_grey">#798489</color>
+    <color name="main_color_red">#dd4847</color>
+    <color name="font_green">#219d2b</color>
+    <color name="ower_color">#378fe4</color>
+    <color name="designer_color">#e3398c</color>
+    <color name="add_comment_bg">#f2f2f3</color>
+    <color name="btn_unenable">#aaaaaa</color>
+    <color name="btn_enable_unpress">#fe7003</color>
+    <color name="btn_enable_press">#ccfe7003</color>
+    <color name="error_bg">#f2f2f3</color>
+
+    <color name="head_layout_bg">#E5fbfbfb</color>
+    <color name="head_layout_bg_pressed">#fbfbfb</color>
+    <color name="main_layout_bg">#f2f2f3</color>
+    <color name="light_white_color">#d5d5d5</color>
+    <color name="orange_color">#fe7003</color>
+    <color name="light_black_color">#344a5c</color>
+    <color name="black_color">#000000</color>
+    <color name="grey_color">#7c8489</color>
+    <color name="middle_grey_color">#b5babb</color>
+    <color name="green_color">#12c161</color>
+    <color name="blue_color">#05b9fc</color>
+    <color name="going_blue_color">#04b9fe</color>
+    <color name="home_page_text_color">#344a5d</color>
+    <color name="designer_info_text_color">#aab1b6</color>
+    <color name="black_translucencen">#dd000000</color>
+    <color name="black_middle_transparent">#aa000000</color>
+    <color name="black_light_transparent">#33000000</color>
+    <color name="light_black_translucencen">#ff000000</color>
+    <color name="color_red">#FF4445</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="designer_info_text_color_bg">#7c8489</color>
+    <color name="layout_item_press">#47ffffff</color>
+    <color name="color_grey_bg">#b5b9bc</color>
+    <color name="black_p50">#7f000000</color>
+
+    <color name="__picker_pager_bg">#CA000000</color>
+    <color name="__picker_selected_bg">#44000000</color>
+    <color name="__picker_black_40">#282828</color>
+    <color name="__picker_common_primary">#f3f3f3</color>
+
+    <color name="__picker_text_40">#282828</color>
+    <color name="__picker_text_80">#505050</color>
+    <color name="__picker_text_120">#787878</color>
+    <color name="__picker_item_photo_border_selected">#ff99cc00</color>
+    <color name="__picker_item_photo_border_n">#33ffffff</color>
+</resources>

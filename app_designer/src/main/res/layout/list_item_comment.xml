@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_16">
+
+        <TextView
+            android:id="@+id/list_item_comment_pubtime"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignBaseline="@+id/list_item_comment_username"
+            android:layout_alignParentRight="true"
+            android:text="@string/list_item_comment_pubtime_example"
+            android:textColor="@color/main_color_grey" />
+
+        <TextView
+            android:id="@+id/list_item_comment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_item_comment_username"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_toRightOf="@+id/list_item_comment_userhead"
+            android:text="@string/my_site_villagename_example"
+            android:textColor="@color/main_color_grey"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/list_item_comment_userrole"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignBaseline="@+id/list_item_comment_username"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/list_item_comment_username"
+            android:text="@string/ower"
+            android:textColor="@color/ower_color" />
+
+        <TextView
+            android:id="@+id/list_item_comment_username"
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_toRightOf="@+id/list_item_comment_userhead"
+            android:maxWidth="@dimen/space_70"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@color/light_black_color" />
+
+        <com.jianfanjia.cn.designer.view.layout.CircleImageView
+            android:id="@+id/list_item_comment_userhead"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+
+</RelativeLayout>

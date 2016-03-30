@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pro">省份：</string>
+    <string name="city">城市：</string>
+    <string name="district">地区：</string>
+    <string-array name="site_procedure">
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+    </string-array>
+    <string-array name="live_site_procedure">
+        <item>量房</item>
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+    </string-array>
+    <string-array name="site_check_name">
+        <item>开工阶段验收</item>
+        <item>拆改阶段验收</item>
+        <item>水电阶段验收</item>
+        <item>泥木阶段验收</item>
+        <item>油漆阶段验收</item>
+        <item>安装阶段验收</item>
+        <item>竣工阶段验收</item>
+    </string-array>
+    <string-array name="site_procedure_check">
+        <item>shui_dian</item>
+        <item>ni_mu</item>
+        <item>you_qi</item>
+        <item>an_zhuang</item>
+        <item>jun_gong</item>
+    </string-array>
+    <string-array name="site_data">
+        <item>kai_gong</item>
+        <item>chai_gai</item>
+        <item>shui_dian</item>
+        <item>ni_mu</item>
+        <item>you_qi</item>
+        <item>an_zhuang</item>
+        <item>jun_gong</item>
+    </string-array>
+    <string-array name="process_status">
+        <item>未开工</item>
+        <item>进行中</item>
+        <item>已完成</item>
+        <item>业主申请延期中</item>
+        <item>设计师申请延期中</item>
+    </string-array>
+
+    <!-- 服务器返回工地英文解析 -->
+    <string name="kai_gong">开工</string>
+    <string name="xcjd">现场交底</string>
+    <string name="sgxcl">石膏线测量</string>
+    <string name="mdbcl">木地板测量</string>
+    <string name="cgdyccl">橱柜第一次测量</string>
+    <string name="qdzmjcl">墙地砖面积测量</string>
+    <string name="kgmbslcl">开关面板数量核算</string>
+    <string name="chai_gai">拆改</string>
+    <string name="cpbh">成品保护</string>
+    <string name="ztcg">主体拆改</string>
+    <string name="qpcc">墙皮铲除</string>
+    <string name="shui_dian">水电</string>
+    <string name="sdsg">水电施工</string>
+    <string name="ntsg">暖通施工</string>
+    <string name="ni_mu">泥木</string>
+    <string name="dmzp">地面找平</string>
+    <string name="ddsg">吊顶施工</string>
+    <string name="gtsg">柜体施工</string>
+    <string name="sgxaz">石膏线安装</string>
+    <string name="cwqfssg">厨卫全防水施工</string>
+    <string name="cwqdzsg">厨卫墙地砖施工</string>
+    <string name="ktytzsg">客厅阳台砖施工</string>
+    <string name="you_qi">油漆</string>
+    <string name="mqqsg">木器漆施工</string>
+    <string name="qmrjq">墙面乳胶漆</string>
+    <string name="an_zhuang">安装</string>
+    <string name="scaz">石材安装</string>
+    <string name="jjaz">洁具安装</string>
+    <string name="cwddaz">厨卫吊顶安装</string>
+    <string name="wjaz">五金安装</string>
+    <string name="cgscaz">橱柜、水槽安装开关</string>
+    <string name="yjzjaz">烟机灶具安装</string>
+    <string name="mdbmmaz">木地板、木门安装</string>
+    <string name="qzpt">墙纸铺贴</string>
+    <string name="snzl">室内整理</string>
+    <string name="mbdjaz">面板灯具安装</string>
+    <string name="jun_gong">竣工</string>
+    <!-- 服务器返回工地英文解析 -->
+    <!-- 水电阶段验收图片 -->
+    <string-array name="shui_dian">
+        <item>@mipmap/img_check_shui_dian1</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_shui_dian2</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_shui_dian3</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_shui_dian4</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_shui_dian5</item>
+        <item>@mipmap/pix_default</item>
+    </string-array>
+    <!-- 泥木阶段验收图片 -->
+    <string-array name="ni_mu">
+        <item>@mipmap/img_check_ni_mu1</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_ni_mu2</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_ni_mu3</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_ni_mu4</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_ni_mu5</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_ni_mu6</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_ni_mu7</item>
+        <item>@mipmap/pix_default</item>
+    </string-array>
+
+    <!-- 油漆阶段验收图片 -->
+    <string-array name="you_qi">
+        <item>@mipmap/img_check_you_qi1</item>
+        <item>@mipmap/pix_default</item>
+        <item>@mipmap/img_check_you_qi2</item>
+        <item>@mipmap/pix_default</item>
+    </string-array>
+
+    <!-- 安装阶段验收图片 -->
+    <string-array name="an_zhuang">
+        <item>@mipmap/img_check_an_zhuang1</item>
+        <item>@mipmap/pix_default</item>
+    </string-array>
+
+    <!-- 竣工阶段验收图片 -->
+    <string-array name="jun_gong">
+        <item>@mipmap/img_check_jun_gong1</item>
+        <item>@mipmap/pix_default</item>
+    </string-array>
+
+    <!-- 武汉市的区 -->
+    <string-array name="arr_district">
+        <item>江岸区</item>
+        <item>江汉区</item>
+        <item>硚口区</item>
+        <item>汉阳区</item>
+        <item>武昌区</item>
+        <item>洪山区</item>
+        <item>东西湖区</item>
+        <item>汉南区</item>
+        <item>蔡甸区</item>
+        <item>江夏区</item>
+        <item>黄陂区</item>
+        <item>新洲区</item>
+        <item>其他区</item>
+    </string-array>
+
+    <!-- 户型 -->
+    <string-array name="arr_housetype">
+        <item>一室</item>
+        <item>二室</item>
+        <item>三室</item>
+        <item>四室</item>
+        <item>复式</item>
+        <item>别墅</item>
+        <item>LOFT</item>
+        <item>其他</item>
+    </string-array>
+
+    <!-- 商装类型 -->
+    <string-array name="arr_busi_housetype">
+        <item>餐厅</item>
+        <item>服装店</item>
+        <item>酒吧</item>
+        <item>美容院</item>
+        <item>办公室</item>
+        <item>美发店</item>
+        <item>幼儿园</item>
+        <item>酒店</item>
+        <item>其他</item>
+    </string-array>
+
+    <!-- 几口人-->
+    <string-array name="arr_person">
+        <item>单身贵族</item>
+        <item>幸福小两口</item>
+        <item>三口之家</item>
+        <item>三代同堂</item>
+    </string-array>
+
+    <string-array name="arr_collect_person_pic">
+        <item>@mipmap/img_danshen</item>
+        <item>@mipmap/img_twopeople</item>
+        <item>@mipmap/img_threepeople</item>
+        <item>@mipmap/img_threegenerations</item>
+    </string-array>
+
+    <!-- 包工类型 -->
+    <string-array name="arr_worktype">
+        <item>半包</item>
+        <item>全包</item>
+        <item>纯设计</item>
+    </string-array>
+
+    <string-array name="arr_show_worktype">
+        <item>半包（包工包辅料，主料由您采购，用的最多的装修方式）</item>
+        <item>全包（一条龙服务，包工包主辅材，最省心的装修）</item>
+        <item>纯设计（我们不生产设计师，我们只是设计师的搬运工）</item>
+    </string-array>
+
+    <!-- 装修类型 -->
+    <string-array name="arr_dectype">
+        <item>家装</item>
+        <item>商装</item>
+        <item>软装</item>
+    </string-array>
+
+    <!-- 性别 -->
+    <string-array name="arr_desisex">
+        <item>男</item>
+        <item>女</item>
+        <item>不限</item>
+    </string-array>
+
+    <!-- 偏好设计师 -->
+    <string-array name="arr_love_designerstyle">
+        <item>不限</item>
+        <item>表达型</item>
+        <item>倾听型</item>
+    </string-array>
+
+    <string-array name="arr_decstyle">
+        <item>欧式</item>
+        <item>中式</item>
+        <item>现代</item>
+        <item>地中海</item>
+        <item>美式</item>
+        <item>东南亚</item>
+        <item>田园</item>
+    </string-array>
+
+    <string-array name="arr_fee">
+        <item>50-100</item>
+        <item>100-200</item>
+        <item>200-300</item>
+        <item>300以上</item>
+    </string-array>
+
+    <string-array name="arr_area">
+        <item>90㎡以下</item>
+        <item>90-120㎡</item>
+        <item>120-150㎡</item>
+        <item>150-200㎡</item>
+        <item>200㎡以上</item>
+    </string-array>
+
+    <string-array name="arr_lovestyle_pic">
+        <item>@mipmap/img_req_ou_shi</item>
+        <item>@mipmap/img_req_zhong_shi</item>
+        <item>@mipmap/img_req_xian_dai</item>
+        <item>@mipmap/img_req_di_zhonghai</item>
+        <item>@mipmap/img_req_mei_shi</item>
+        <item>@mipmap/img_req_dong_nanya</item>
+        <item>@mipmap/img_req_tian_yuan</item>
+    </string-array>
+
+    <string-array name="plan_status">
+        <item>已预约</item>
+        <item>已拒绝</item>
+        <item>已响应</item>
+        <item>有方案</item>
+        <item>未中标</item>
+        <item>已中标</item>
+        <item>已量房</item>
+        <item>未响应</item>
+        <item>未提交</item>
+    </string-array>
+
+    <string-array name="requirement_status">
+        <item>未预约</item>
+        <item>已预约</item>
+        <item>已响应</item>
+        <item>有方案</item>
+        <item>已选定</item>
+        <item>有工地</item>
+        <item>已量房</item>
+        <item>有合同</item>
+        <item>已竣工</item>
+    </string-array>
+
+    <string-array name="edit_requirement_item">
+        <item>city</item>
+        <item>street</item>
+        <item>cell</item>
+        <item>qi</item>
+        <item>dong</item>
+        <item>danyuan</item>
+        <item>shi</item>
+        <item>housearea</item>
+        <item>decorationarea</item>
+        <item>city</item>
+        <item>city</item>
+        <item>city</item>
+        <item>city</item>
+    </string-array>
+
+    <!--装修美图-->
+    <string-array name="arr_section">
+        <item>厨房</item>
+        <item>客厅</item>
+        <item>卫生间</item>
+        <item>卧室</item>
+        <item>餐厅</item>
+        <item>书房</item>
+        <item>玄关</item>
+        <item>阳台</item>
+        <item>儿童房</item>
+        <item>走廊</item>
+        <item>储物间</item>
+    </string-array>
+</resources>

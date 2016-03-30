@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_layout_bg">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/about_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg"/>
+
+    <LinearLayout
+        android:id="@+id/about_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_head_layout"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/space_32"
+        android:layout_marginTop="@dimen/space_32">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_16"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_launcher"/>
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/about_content"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            android:id="@+id/about_version"
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/about_version"
+            android:textColor="@color/light_black_color"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/about_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/about_layout"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/follow_weixin_layout"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_10"
+                android:text="@string/follow_weixin"
+                android:textColor="@color/light_black_color"/>
+
+
+            <ImageView
+                android:id="@+id/follow_weixin_next"
+                style="@style/my_item_layout_image_style"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"/>
+        </RelativeLayout>
+
+        <View style="@style/divier_line"/>
+
+        <RelativeLayout
+            android:id="@+id/follow_weibo_layout"
+            style="@style/my_list_item_layout_style">
+
+            <TextView
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_10"
+                android:text="@string/follow_weibo"
+                android:textColor="@color/light_black_color"/>
+
+            <ImageView
+                style="@style/my_item_layout_image_style"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"/>
+        </RelativeLayout>
+
+        <View style="@style/divier_line"/>
+
+        <RelativeLayout
+            android:id="@+id/share_layout"
+            style="@style/my_list_item_layout_style">
+
+            <TextView
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_10"
+                android:text="@string/share"
+                android:textColor="@color/light_black_color"/>
+
+            <ImageView
+                style="@style/my_item_layout_image_style"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/space_24"
+        android:layout_marginTop="@dimen/space_24"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/company"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="@string/compant_net"
+            android:textColor="@color/light_black_color"/>
+    </LinearLayout>
+
+</RelativeLayout>

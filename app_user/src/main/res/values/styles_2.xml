@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_listview_base">
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:listDivider">@android:color/transparent</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:fadingEdge">none</item>
+    </style>
+
+    <style name="my_rationgbar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+        <item name="android:minHeight">28dip</item>
+        <item name="android:maxHeight">28dip</item>
+    </style>
+
+    <style name="style_edit_req_title" parent="listview_item_text_style_middle">
+        <item name="android:textColor">@color/grey_color</item>
+    </style>
+
+    <style name="style_edit_req_content" parent="listview_item_text_style_middle">
+        <item name="android:textColor">@color/light_black_color</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
+    <style name="style_edit_req_edit">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingLeft">@dimen/space_16</item>
+        <item name="android:paddingRight">@dimen/space_16</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/middle_size</item>
+        <item name="android:textColor">@color/light_black_color</item>
+        <item name="android:hint">@string/must_input</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="list_item_ratingbar_style" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/list_item_rating_drawable_selector</item>
+        <item name="android:numStars">5</item>
+        <item name="android:minHeight">15dip</item>
+        <item name="android:maxHeight">15dip</item>
+    </style>
+
+    <style name="list_item_ratingbar_style_small" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/list_item_rating_drawable_selector</item>
+        <item name="android:numStars">5</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">10dip</item>
+    </style>
+
+    <style name="list_item_ratingbar_style_middle" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/list_item_rating_drawable_selector_1</item>
+        <item name="android:numStars">5</item>
+        <item name="android:minHeight">25dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/act_edit_req_item_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/head_layout_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/space_10">
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color" />
+
+        <ListView
+            android:id="@+id/act_edit_req_item_listview"
+            style="@style/style_listview_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:choiceMode="singleChoice"
+            android:divider="@color/horzontal_line_color" />
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color" />
+    </LinearLayout>
+</LinearLayout>
