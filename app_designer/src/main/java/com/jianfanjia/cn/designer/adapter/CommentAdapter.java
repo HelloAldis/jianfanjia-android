@@ -17,6 +17,9 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: CommentAdapter
  * User: fengliang
@@ -64,25 +67,21 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
         return new CommentViewHolder(view);
     }
 
-    private static class CommentViewHolder extends RecyclerViewHolderBase {
-        public TextView itemNameView;// 评论人名称
-        public TextView itemTimeView;// 评论时间
-        public TextView itemContentView;// 评论内容
-        public TextView itemIdentityView;// 评论人身份
-        public ImageView itemHeadView;// 评论人头像
+    static class CommentViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.list_item_comment_username)
+        TextView itemNameView;// 评论人名称
+        @Bind(R.id.list_item_comment_pubtime)
+        TextView itemTimeView;// 评论时间
+        @Bind(R.id.list_item_comment_content)
+        TextView itemContentView;// 评论内容
+        @Bind(R.id.list_item_comment_userrole)
+        TextView itemIdentityView;// 评论人身份
+        @Bind(R.id.list_item_comment_userhead)
+        ImageView itemHeadView;// 评论人头像
 
         public CommentViewHolder(View itemView) {
             super(itemView);
-            itemNameView = (TextView) itemView
-                    .findViewById(R.id.list_item_comment_username);
-            itemContentView = (TextView) itemView
-                    .findViewById(R.id.list_item_comment_content);
-            itemIdentityView = (TextView) itemView
-                    .findViewById(R.id.list_item_comment_userrole);
-            itemTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_comment_pubtime);
-            itemHeadView = (ImageView) itemView
-                    .findViewById(R.id.list_item_comment_userhead);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
