@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.Toolbar.Menu" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@drawable/photo_bg</item>
+    </style>
+
 
 </resources>

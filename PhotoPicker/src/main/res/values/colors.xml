@@ -13,5 +13,6 @@
   <color name="__picker_item_photo_border_n">#33ffffff</color>
 
   <color name="__picker_black_color">#000000</color>
+  <color name="white_color">#ffffff</color>
 
 </resources>
