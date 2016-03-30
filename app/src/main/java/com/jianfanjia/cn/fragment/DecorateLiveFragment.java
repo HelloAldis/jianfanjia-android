@@ -236,7 +236,6 @@ public class DecorateLiveFragment extends BaseFragment {
                     if (decorateLiveList != null) {
                         int total = decorateLiveList.getTotal();
                         if (total > 0) {
-                            decorateLiveAdapter.clear();
                             decorateLiveAdapter.addData(decorateLiveList.getShares());
                             LogTool.d(TAG, "total size =" + total);
                             LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +

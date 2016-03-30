@@ -14,13 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -47,7 +40,6 @@ import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.DateFormatTool;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -58,6 +50,15 @@ import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -102,11 +103,10 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         if (currentList == -1) {
             currentList = dataManager.getCurrentList();
         }
-
         initView();
     }
 
-    public void initView() {
+    private void initView() {
         initStringArray();
         initPullRefresh();
         initMainHead();
@@ -145,16 +145,12 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
             processInfo = BusinessManager.getDefaultProcessInfo(this);
             initData();
         }
-
     }
 
     private void loadCurrentProcess() {
         if (processId != null) {
-//            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, apiUiUpdateListener, this);
-
             GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
             getProcessInfoRequest.setProcessId(processId);
-
             Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
                 @Override
                 public void onPreLoad() {
@@ -498,7 +494,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         applyRescheduleRequest.setDesignerid(designerId);
         applyRescheduleRequest.setNew_date(DateFormatTool.covertStringToLong(newDate));
         applyRescheduleRequest.setSection(section);
-
         Api.applyReschedule(applyRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -531,7 +526,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     private void agreeReschedule(String processid) {
         AgreeRescheduleRequest agreeRescheduleRequest = new AgreeRescheduleRequest();
         agreeRescheduleRequest.setProcessid(processid);
-
         Api.agreeReschedule(agreeRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -564,7 +558,6 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
     private void refuseReschedule(String processid) {
         RefuseRescheduleRequest refuseRescheduleRequest = new RefuseRescheduleRequest();
         refuseRescheduleRequest.setProcessid(processid);
-
         Api.refuseReschedule(refuseRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -622,10 +615,9 @@ public class MyProcessDetailActivity extends SwipeBackActivity implements ItemCl
         }
     }
 
-    protected void upload_image(Bitmap bitmap) {
+    private void upload_image(Bitmap bitmap) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(ImageUtil.transformBitmapToBytes(bitmap));
-
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
