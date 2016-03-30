@@ -23,6 +23,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -33,6 +37,7 @@ import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.AuthUtil;
@@ -41,12 +46,6 @@ import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import java.util.Calendar;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -343,7 +342,7 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
                 weiXinRegisterRequest.setWechat_openid(data.get("openid").toString());
                 weiXinRegisterRequest.setWechat_unionid(data.get("unionid").toString());
 
-                Api.weiXinRegister(weiXinRegisterRequest, new ApiCallback<User>() {
+                Api.weiXinRegister(weiXinRegisterRequest, new ApiCallback<ApiResponse<User>>() {
                     @Override
                     public void onPreLoad() {
 
@@ -355,26 +354,23 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
                     }
 
                     @Override
-                    public void onSuccess(User apiResponse) {
-                        dataManager.setLogin(true);
-                        dataManager.savaLastLoginTime(Calendar.getInstance()
-                                .getTimeInMillis());
-                        User loginUserBean = apiResponse;
+                    public void onSuccess(ApiResponse<User> apiResponse) {
+
+                        User loginUserBean = apiResponse.getData();
                         loginUserBean.setWechat_openid(loginUserBean.getWechat_openid());
                         loginUserBean.setWechat_unionid(loginUserBean.getWechat_unionid());
-                        dataManager.saveLoginUserBean(loginUserBean);
+                        DataManagerNew.loginSuccess(loginUserBean);
 
                         if (dataManager.getWeixinFisrtLogin()) {
                             startActivity(NewUserCollectDecStageActivity.class);
                         } else {
                             startActivity(MainActivity.class);
                         }
-                        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                         appManager.finishActivity(LoginNewActivity.this);
                     }
 
                     @Override
-                    public void onFailed(User apiResponse) {
+                    public void onFailed(ApiResponse<User> apiResponse) {
 
                     }
 
@@ -544,9 +540,6 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
 
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
-                dataManager.setLogin(true);
-                dataManager.savaLastLoginTime(Calendar.getInstance()
-                        .getTimeInMillis());
                 User loginUserBean = apiResponse.getData();
                 loginUserBean.setPass(password);
                 dataManager.saveLoginUserBean(loginUserBean);

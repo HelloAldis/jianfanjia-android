@@ -105,7 +105,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().REGISTER_URL, request, apiCallback);
     }
 
-    public static void weiXinRegister(WeiXinRegisterRequest request, ApiCallback<User> apiCallback) {
+    public static void weiXinRegister(WeiXinRegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().WEIXIN_LOGIN_URL, request, apiCallback);
     }
 
