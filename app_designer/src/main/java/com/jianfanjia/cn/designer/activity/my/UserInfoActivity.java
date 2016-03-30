@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -35,14 +35,14 @@ import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.soundcloud.android.crop.Crop;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import butterknife.Bind;
 
 /**
  * @author fengliang
@@ -50,29 +50,27 @@ import java.io.InputStream;
  * @Description:用户个人信息(业主)
  * @date 2015-8-18 下午12:11:49
  */
-@EActivity(R.layout.activity_user_info)
-public class UserInfoActivity extends BaseAnnotationActivity implements
-        OnClickListener, PopWindowCallBack {
+public class UserInfoActivity extends BaseAnnotationActivity implements PopWindowCallBack {
     private static final String TAG = UserInfoActivity.class.getName();
-    @ViewById(R.id.head_layout)
+    @Bind(R.id.head_layout)
     protected RelativeLayout headLayout = null;
-    @ViewById(R.id.ownerinfoLayout)
+    @Bind(R.id.ownerinfoLayout)
     protected RelativeLayout ownerInfoLayout = null;
-    @ViewById(R.id.ownerinfo_scrollview)
+    @Bind(R.id.ownerinfo_scrollview)
     protected ScrollView scrollView = null;
-    @ViewById(R.id.nameText)
+    @Bind(R.id.nameText)
     protected TextView nameText = null;
-    @ViewById(R.id.sexText)
+    @Bind(R.id.sexText)
     protected TextView sexText = null;
-    @ViewById(R.id.phoneText)
+    @Bind(R.id.phoneText)
     protected TextView phoneText = null;
-    @ViewById(R.id.addressText)
+    @Bind(R.id.addressText)
     protected TextView addressText = null;
-    @ViewById(R.id.homeText)
+    @Bind(R.id.homeText)
     protected TextView homeText = null;
-    @ViewById(R.id.head_icon)
+    @Bind(R.id.head_icon)
     protected ImageView headImageView = null;
-    @ViewById(R.id.ownerinfo_head_layout)
+    @Bind(R.id.ownerinfo_head_layout)
     protected MainHeadView mainHeadView;
     @ViewById(R.id.error_include)
     protected RelativeLayout error_Layout;
@@ -84,9 +82,13 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     private File mTmpFile = null;
     private String imageId = null;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
 
-    @AfterViews
-    public void initAnnotationView() {
+    private void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.userinfo));
         initData();
     }
@@ -129,7 +131,8 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
                 : ownerInfo.getAddress());
     }
 
-    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout, R.id.name_layout, R.id.sex_layout, R.id.home_layout,R.id.phone_layout})
+    @Click({R.id.error_include, R.id.head_back_layout, R.id.head_layout, R.id.address_layout, R.id.name_layout, R.id
+            .sex_layout, R.id.home_layout, R.id.phone_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_include:
@@ -180,7 +183,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
     private void showTipDialog() {
         if (isUpdate) {
             setResult(RESULT_OK);
-        } else{
+        } else {
             setResult(RESULT_CANCELED);
         }
         appManager.finishActivity(this);
@@ -222,7 +225,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(ownerInfo.getSex() == null || !ownerInfo.getSex().equals(ownerUpdateInfo.getSex())){
+                        if (ownerInfo.getSex() == null || !ownerInfo.getSex().equals(ownerUpdateInfo.getSex())) {
                             updateSexInfo(ownerUpdateInfo);
                         }
                         dialog.dismiss();
@@ -234,9 +237,10 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     /**
      * 更新性别
+     *
      * @param ownerUpdateInfo
      */
-    protected void updateSexInfo(OwnerUpdateInfo ownerUpdateInfo){
+    protected void updateSexInfo(OwnerUpdateInfo ownerUpdateInfo) {
         JianFanJiaClient.put_OwnerInfo(this, ownerUpdateInfo, new ApiUiUpdateListener() {
             @Override
             public void preLoad() {
@@ -255,7 +259,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
             public void loadFailture(String error_msg) {
 
             }
-        },this);
+        }, this);
     }
 
     // 修改设计师头像
@@ -331,7 +335,8 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
 
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
-        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global.PIC_WIDTH_UPLOAD_WIDTH).start(this);
+        Crop.of(source, destination).asSquare().withMaxSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global
+                .PIC_WIDTH_UPLOAD_WIDTH).start(this);
     }
 
     private void handleCrop(int resultCode, Intent result) {
@@ -458,5 +463,8 @@ public class UserInfoActivity extends BaseAnnotationActivity implements
         }
     }
 
-
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_user_info;
+    }
 }
