@@ -11,8 +11,8 @@ public class Requirement extends BaseModel implements Serializable {
 
     private String _id;
     private String userid;
-    private String province = "湖北省";
-    private String city = "武汉市";
+    private String province;
+    private String city;
     private String district;
     private String street;
     private String cell_phase;
@@ -22,11 +22,11 @@ public class Requirement extends BaseModel implements Serializable {
     private String cell;
     private String house_area;
     private String house_type;
-    private String dec_style = "0";
-    private String dec_type = "0";
-    private String work_type = "0";
-    private String communication_type = "0";
-    private String prefer_sex = "2";
+    private String dec_style;
+    private String dec_type;
+    private String work_type;
+    private String communication_type;
+    private String prefer_sex;
     private String total_price;
     private String final_planid;
     private String final_designerid;

@@ -110,7 +110,7 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
         UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest();
         updateRequirementRequest.setRequirement(requirementInfo);
 
-        Api.updateRequirement(updateRequirementRequest, new ApiCallback<ApiResponse<String>>() {
+        Api.updateRequirement(updateRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -122,12 +122,12 @@ public class UpdateRequirementActivity extends SwipeBackActivity implements Noti
             }
 
             @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
+            public void onSuccess(ApiResponse<Object> apiResponse) {
                 appManager.finishActivity(UpdateRequirementActivity.this);
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onFailed(ApiResponse<Object> apiResponse) {
 
             }
 

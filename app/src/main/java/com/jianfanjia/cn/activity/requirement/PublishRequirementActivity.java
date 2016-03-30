@@ -172,7 +172,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         PublishRequirementRequest publishRequirementRequest = new PublishRequirementRequest();
         publishRequirementRequest.setRequirement(requirementInfo);
 
-        Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<String>>() {
+        Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -184,13 +184,13 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
             }
 
             @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
+            public void onSuccess(ApiResponse<Object> apiResponse) {
                 startActivity(MainActivity.class);
                 appManager.finishActivity(PublishRequirementActivity.this);
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onFailed(ApiResponse<Object> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
             }
 
