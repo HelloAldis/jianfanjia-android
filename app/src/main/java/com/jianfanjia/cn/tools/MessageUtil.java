@@ -11,8 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import static com.jianfanjia.common.tool.JsonParser.*;
-
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -23,7 +21,10 @@ import com.jianfanjia.cn.bean.NotifyMessage;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.common.tool.LogTool;
+
 import de.greenrobot.event.EventBus;
+
+import static com.jianfanjia.common.tool.JsonParser.jsonToBean;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -32,7 +33,7 @@ import de.greenrobot.event.EventBus;
  * Date:2016-03-10 15:15
  */
 public class MessageUtil {
-    private static final String TAG = "MessageUtil";
+    private static final String TAG = MessageUtil.class.getName();
 
     //解析推送透传消息
     public static void parseMessage(Context context, String jsonStr) {
@@ -47,7 +48,7 @@ public class MessageUtil {
         }
     }
 
-    public static void sendNotifycation(Context context, NotifyMessage message) {
+    private static void sendNotifycation(Context context, NotifyMessage message) {
         int notifyId = (int) System.currentTimeMillis();
         LogTool.d(TAG, "notifyId =" + notifyId);
         NotificationManager nManager = (NotificationManager) context
@@ -62,7 +63,7 @@ public class MessageUtil {
         Intent mainIntent = new Intent(context, MainActivity.class);
         Intent targetIntent = null;
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (message.getType().equals(Constant.TYPE_SECTION_COMMENT_MSG) || message.getType().equals(Constant
+        if (type.equals(Constant.TYPE_SECTION_COMMENT_MSG) || type.equals(Constant
                 .TYPE_PLAN_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity.class);
         } else {
