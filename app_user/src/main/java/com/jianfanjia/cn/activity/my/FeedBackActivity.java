@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -13,15 +12,15 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.view.MainHeadView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class FeedBackActivity extends BaseSwipeBackActivity implements OnClickListener {
+public class FeedBackActivity extends BaseSwipeBackActivity {
     private static final String TAG = FeedBackActivity.class.getName();
 
     @Bind(R.id.my_feedback_head_layout)
