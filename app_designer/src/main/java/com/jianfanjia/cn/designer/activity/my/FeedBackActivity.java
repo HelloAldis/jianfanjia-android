@@ -1,10 +1,10 @@
 package com.jianfanjia.cn.designer.activity.my;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -15,39 +15,48 @@ import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
-public class FeedBackActivity extends BaseActivity implements OnClickListener {
+import butterknife.Bind;
+import butterknife.OnClick;
+
+public class FeedBackActivity extends BaseActivity {
     private static final String TAG = FeedBackActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private EditText feedContentView = null;
-    private Button confirm = null;
+
+    @Bind(R.id.my_feedback_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.add_feedback)
+    EditText feedContentView;
+
+    @Bind(R.id.btn_commit)
+    Button confirm;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+        setListener();
+    }
+
+    private void initView() {
         initMainHeadView();
-        feedContentView = (EditText) findViewById(R.id.add_feedback);
-        confirm = (Button) findViewById(R.id.btn_commit);
         confirm.setEnabled(false);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_feedback_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.feedback));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
+    private void setListener() {
         feedContentView.addTextChangedListener(textWatcher);
-        confirm.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.btn_commit})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
-                finish();
+                appManager.finishActivity(this);
                 break;
             case R.id.btn_commit:
                 String content = feedContentView.getText().toString().trim();
