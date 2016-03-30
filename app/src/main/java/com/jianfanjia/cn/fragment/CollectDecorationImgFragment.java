@@ -18,7 +18,7 @@ import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivityBase;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
@@ -200,7 +200,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant
                                                         .COLLECT_BEAUTY_FRAGMENT);
-                                                startActivity(PreviewDecorationActivity.class, decorationBundle);
+                                                startActivity(PreviewDecorationActivityBase.class, decorationBundle);
                                             }
                                         });
                                 decoration_img_listview.setAdapter(decorationImgAdapter);

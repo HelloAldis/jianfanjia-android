@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class AboutActivity extends SwipeBackActivity implements OnClickListener {
+public class AboutActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = AboutActivity.class.getName();
 
     @Bind(R.id.about_head_layout)

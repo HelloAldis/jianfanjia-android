@@ -9,7 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JavaScriptObject;
@@ -33,7 +33,7 @@ import butterknife.OnClick;
  * Description:装修攻略
  * Author：Aldis.Zhan
  */
-public class WebViewActivity extends SwipeBackActivity {
+public class WebViewActivity extends BaseSwipeBackActivity {
 
     private static final String TAG = WebViewActivity.class.getName();
     private ShareUtil shareUtil = null;

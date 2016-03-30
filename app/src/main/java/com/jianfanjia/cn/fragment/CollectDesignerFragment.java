@@ -18,7 +18,7 @@ import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivityBase;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -184,7 +184,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                                             LogTool.d(TAG, "designerId:" + designerId);
                                             Bundle designerBundle = new Bundle();
                                             designerBundle.putString(Global.DESIGNER_ID, designerId);
-                                            startActivity(DesignerInfoActivity.class, designerBundle);
+                                            startActivity(DesignerInfoActivityBase.class, designerBundle);
                                         }
 
                                         @Override

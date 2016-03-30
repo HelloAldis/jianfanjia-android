@@ -9,7 +9,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.DecorateLiveFragmentPagerAdapter;
@@ -22,7 +22,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-08 17:49
  */
-public class DecorateLiveActivity extends SwipeBackActivity {
+public class DecorateLiveActivity extends BaseSwipeBackActivity {
 
     private static final String TAG = DecorateLiveActivity.class.getName();
     @Bind(R.id.decorate_live_head_layout)

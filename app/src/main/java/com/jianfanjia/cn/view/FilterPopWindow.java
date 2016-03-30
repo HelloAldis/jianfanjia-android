@@ -13,7 +13,7 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PopWindowAdapter;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.interf.GetItemCallback;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class FilterPopWindow extends PopupWindow {
             }
         });
         gridView = (GridView) popView.findViewById(R.id.popGridview);
-        final List<String> list = BusinessManager.getListByResource(activity, resId);
+        final List<String> list = BusinessCovertUtil.getListByResource(activity, resId);
         adapter = new PopWindowAdapter(activity, list);
         gridView.setAdapter(adapter);
         adapter.setSelectedPos(currentPosition);

@@ -18,10 +18,10 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.GetItemCallback;
@@ -47,7 +47,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase
+public class DesignerListActivity extends BaseSwipeBackActivity implements View.OnClickListener, PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerListActivity.class.getName();
     private static final int DEC_TYPE = 1;
@@ -381,7 +381,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
                 decType_item.setText(getResources().getString(R.string.dec_type_str));
             }
             FROM = 0;
-            decType = BusinessManager.getDecTypeByText(title);
+            decType = BusinessCovertUtil.getDecTypeByText(title);
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
@@ -413,7 +413,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             } else {
                 decHouseType_item.setText(getResources().getString(R.string.dec_house_type_str));
             }
-            decHouseStyle = BusinessManager.getHouseTypeByText(title);
+            decHouseStyle = BusinessCovertUtil.getHouseTypeByText(title);
             FROM = 0;
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
@@ -446,7 +446,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             } else {
                 decStyle_item.setText(getResources().getString(R.string.dec_style_str));
             }
-            decStyle = BusinessManager.getDecStyleByText(title);
+            decStyle = BusinessCovertUtil.getDecStyleByText(title);
             FROM = 0;
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {
@@ -479,7 +479,7 @@ public class DesignerListActivity extends SwipeBackActivity implements View.OnCl
             } else {
                 decFee_item.setText(getResources().getString(R.string.dec_fee_str));
             }
-            decFee = BusinessManager.getDecFeeByText(title);
+            decFee = BusinessCovertUtil.getDecFeeByText(title);
             FROM = 0;
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
             if (null != window) {

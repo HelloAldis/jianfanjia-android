@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.cache;
+package com.jianfanjia.common.tool;
 
 import java.io.File;
 import android.content.Context;
@@ -7,13 +7,13 @@ import android.util.Log;
 
 /**
  * 
- * @ClassName: DataCleanManager
+ * @ClassName: DataCleanTool
  * @Description: TODO
  * @author fengliang
  * @date 2015-9-11 下午6:03:26
  * 
  */
-public class DataCleanManager {
+public class DataCleanTool {
 
 	/**
 	 * 清理应用内所有的文件 (/data/data/com.xxx.xxx/cache)

@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivityBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
@@ -79,7 +79,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         headView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
+                clickCallBack.click(position, MyDesignerActivityBase.VIEW_DESIGNER);
             }
         });
         if (!TextUtils.isEmpty(imageid)) {
@@ -109,7 +109,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             button3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
+                    clickCallBack.click(position, MyDesignerActivityBase.CONFIRM_MEASURE_HOUSE);
                 }
             });
         } else {

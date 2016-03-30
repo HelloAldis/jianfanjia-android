@@ -140,7 +140,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".home.SearchActivity"
+            android:name=".home.SearchActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateVisible"/>
@@ -213,34 +213,34 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".my.AboutActivity"
+            android:name=".my.AboutActivityBase"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.ShareActivity"
+            android:name=".my.ShareActivityBase"
             android:label="@string/title_activity_share"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.CheckActivity"
+            android:name=".requirement.CheckActivityBase"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".common.CommentActivity"
+            android:name=".common.CommentActivityBase"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name=".my.EditOwnerInfoActivity"
+            android:name=".my.EditOwnerInfoActivityBase"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".my.FeedBackActivity"
+            android:name=".my.FeedBackActivityBase"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
@@ -251,7 +251,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".requirement.MyDesignerActivity"
+            android:name=".requirement.MyDesignerActivityBase"
             android:label="@string/title_activity_my_designer"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -261,22 +261,22 @@
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".common.ShowPicActivity"
+            android:name=".common.ShowPicActivityBase"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.ShowProcessPicActivity"
+            android:name=".requirement.ShowProcessPicActivityBase"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.UserInfoActivity"
+            android:name=".my.UserInfoActivityBase"
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.AboutWeiBoActivity"
+            android:name=".my.AboutWeiBoActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
@@ -290,17 +290,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".requirement.PreviewRequirementActivity"
+            android:name=".requirement.PreviewRequirementActivityBase"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.EditRequirementItemActivity"
+            android:name=".requirement.EditRequirementItemActivityBase"
             android:label="EditRequirementItemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.EditRequirementLovestyleActivity"
+            android:name=".requirement.EditRequirementLovestyleActivityBase"
             android:label="EditRequirementLovestyleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
@@ -308,66 +308,66 @@
         <service android:name="com.jianfanjia.cn.service.UpdateService"/>
 
         <activity
-            android:name=".home.DesignerInfoActivity"
+            android:name=".home.DesignerInfoActivityBase"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".home.DesignerCaseInfoActivity"
+            android:name=".home.DesignerCaseInfoActivityBase"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.AppointDesignerActivity"
+            android:name=".requirement.AppointDesignerActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.PingjiaActivity"
+            android:name=".requirement.PingjiaActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.ContractActivity"
+            android:name=".requirement.ContractActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.MyProcessDetailActivity"
+            android:name=".requirement.MyProcessDetailActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.DesignerPlanListActivity"
+            android:name=".requirement.DesignerPlanListActivityBase"
             android:label="@string/title_activity_designer_plan_list"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.PreviewDesignerPlanActivity"
+            android:name=".requirement.PreviewDesignerPlanActivityBase"
             android:label="@string/title_activity_preview_designer_plan"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.PingJiaInfoActivity"
+            android:name=".requirement.PingJiaInfoActivityBase"
             android:label="@string/title_activity_ping_jia_info"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.DetailPriceActivity"
+            android:name=".requirement.DetailPriceActivityBase"
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.ReplaceDesignerActivity"
+            android:name=".requirement.ReplaceDesignerActivityBase"
             android:label="@string/title_activity_replace_designer"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.EditCityActivity"
+            android:name=".my.EditCityActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.CollectActivity"
+            android:name=".my.CollectActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".beautifulpic.PreviewDecorationActivity"
+            android:name=".beautifulpic.PreviewDecorationActivityBase"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
@@ -381,23 +381,23 @@
             android:name=".NewUserCollectDecStageActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".requirement.PublishRequirementActivity"
+            android:name=".requirement.PublishRequirementActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.PreviewBusinessRequirementActivity"
+            android:name=".requirement.PreviewBusinessRequirementActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".requirement.UpdateRequirementActivity"
+            android:name=".requirement.UpdateRequirementActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.BindingPhoneActivity"
+            android:name=".my.BindingPhoneActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.BindingAccountActivity"
+            android:name=".my.BindingAccountActivityBase"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
 
@@ -437,43 +437,43 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <!-- 第三方分享以及登录 -->
         <activity
-            android:name=".my.CustomerServiceActivity"
+            android:name=".my.CustomerServiceActivityBase"
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".home.WebViewActivity"
+            android:name=".home.WebViewActivityBase"
             android:label="@string/title_activity_decorate_strategy"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".home.DesignerListActivity"
+            android:name=".home.DesignerListActivityBase"
             android:label="@string/title_activity_designer_list"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".home.DesignerCaseListActivity"
+            android:name=".home.DesignerCaseListActivityBase"
             android:label="@string/title_activity_designer_case_list"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".common.CommentListActivity"
+            android:name=".common.CommentListActivityBase"
             android:label="@string/title_activity_designer_case_list"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.NoticeActivity"
+            android:name=".my.NoticeActivityBase"
             android:label="@string/title_activity_notice"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".home.DecorateLiveActivity"
+            android:name=".home.DecorateLiveActivityBase"
             android:label="@string/title_activity_notice"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.NoticeDetailActivity"
+            android:name=".my.NoticeDetailActivityBase"
             android:label="@string/title_activity_notice_detail"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"></activity>

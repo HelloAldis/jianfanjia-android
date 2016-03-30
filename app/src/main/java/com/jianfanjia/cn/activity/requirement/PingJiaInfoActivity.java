@@ -13,7 +13,7 @@ import butterknife.OnClick;
 
 import com.jianfanjia.api.model.Evaluation;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.common.tool.LogTool;
@@ -25,7 +25,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PingJiaInfoActivity extends SwipeBackActivity {
+public class PingJiaInfoActivity extends BaseSwipeBackActivity {
     private static final String TAG = PingJiaInfoActivity.class.getName();
 
     @Bind(R.id.my_pingjia_head_layout)

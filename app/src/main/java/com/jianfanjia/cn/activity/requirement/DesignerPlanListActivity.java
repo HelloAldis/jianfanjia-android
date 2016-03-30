@@ -13,7 +13,7 @@ import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.api.Api;
@@ -38,7 +38,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends SwipeBackActivity implements ItemClickListener, PullToRefreshBase
+public class DesignerPlanListActivity extends BaseSwipeBackActivity implements ItemClickListener, PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
 

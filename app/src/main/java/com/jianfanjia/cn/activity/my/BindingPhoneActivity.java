@@ -14,7 +14,7 @@ import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.RegisterNewActivity;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * @Description: 绑定手机号
  * @date 2015-10-27 下午12:11:23
  */
-public class BindingPhoneActivity extends SwipeBackActivity {
+public class BindingPhoneActivity extends BaseSwipeBackActivity {
     private static final String TAG = BindingPhoneActivity.class.getName();
     @Bind(R.id.act_binding_input_phone)
     EditText mEtPhone;// 用户名输入框

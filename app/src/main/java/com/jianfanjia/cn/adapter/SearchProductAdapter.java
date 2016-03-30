@@ -11,7 +11,7 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
 import butterknife.Bind;
@@ -39,8 +39,8 @@ public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
         holder.itemXiaoQuText.setText(product.getCell());
         String houseType = product.getHouse_type();
         String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertHouseTypeToShow
-                (houseType) + "，" + BusinessManager.convertDecStyleToShow(decStyle));
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessCovertUtil.convertHouseTypeToShow
+                (houseType) + "，" + BusinessCovertUtil.convertDecStyleToShow(decStyle));
         imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder
                 .itemProductView);
         imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);

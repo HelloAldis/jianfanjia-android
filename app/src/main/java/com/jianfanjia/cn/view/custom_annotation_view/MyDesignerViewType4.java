@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.activity.requirement.MyDesignerActivityBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
@@ -71,7 +71,7 @@ public class MyDesignerViewType4 extends RecyclerView.ViewHolder {
         headView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
+                clickCallBack.click(position, MyDesignerActivityBase.VIEW_DESIGNER);
             }
         });
         if (!TextUtils.isEmpty(imageid)) {
@@ -95,7 +95,7 @@ public class MyDesignerViewType4 extends RecyclerView.ViewHolder {
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.COMMENT);
+                    clickCallBack.click(position, MyDesignerActivityBase.COMMENT);
                 }
             });
         } else {
@@ -103,7 +103,7 @@ public class MyDesignerViewType4 extends RecyclerView.ViewHolder {
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.VIEW_COMMENT);
+                    clickCallBack.click(position, MyDesignerActivityBase.VIEW_COMMENT);
                 }
             });
         }
@@ -111,7 +111,7 @@ public class MyDesignerViewType4 extends RecyclerView.ViewHolder {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
+                clickCallBack.click(position, MyDesignerActivityBase.VIEW_PLAN);
             }
         });
         statusView.setText(context.getResources().getString(R.string.not_choose));

@@ -3,7 +3,7 @@ package com.jianfanjia.cn.view.baseview;
 import android.content.Context;
 import android.widget.FrameLayout;
 
-import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 

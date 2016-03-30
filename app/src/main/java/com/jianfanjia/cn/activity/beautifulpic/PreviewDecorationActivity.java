@@ -19,7 +19,7 @@ import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
 
 import com.jianfanjia.cn.api.Api;
@@ -53,7 +53,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends SwipeBackActivity implements ViewPager
+public class PreviewDecorationActivity extends BaseSwipeBackActivity implements ViewPager
         .OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
 

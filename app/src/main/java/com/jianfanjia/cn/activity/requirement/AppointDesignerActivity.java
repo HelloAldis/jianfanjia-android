@@ -23,7 +23,7 @@ import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.api.Api;
@@ -41,7 +41,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class AppointDesignerActivity extends SwipeBackActivity {
+public class AppointDesignerActivity extends BaseSwipeBackActivity {
     private static final String TAG = AppointDesignerActivity.class.getName();
 
     @Bind(R.id.my_appoint_head_layout)

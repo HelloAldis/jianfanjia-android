@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
 
 import java.util.List;

@@ -24,7 +24,7 @@ import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.cache.DataManagerNew;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;

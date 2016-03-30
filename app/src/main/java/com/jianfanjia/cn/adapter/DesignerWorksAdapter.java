@@ -15,7 +15,7 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 /**
@@ -42,8 +42,8 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         String decType = product.getDec_type();
         String house_type = product.getHouse_type();
         String dec_style = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessManager.convertDectypeToShow(decType)
-                + "，" + BusinessManager.convertHouseTypeToShow(house_type) + "，" + BusinessManager
+        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessCovertUtil.convertDectypeToShow(decType)
+                + "，" + BusinessCovertUtil.convertHouseTypeToShow(house_type) + "，" + BusinessCovertUtil
                 .convertDecStyleToShow(dec_style) + "风格");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

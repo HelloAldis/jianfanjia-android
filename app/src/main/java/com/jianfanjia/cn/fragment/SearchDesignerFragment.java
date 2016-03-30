@@ -16,7 +16,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivityBase;
 import com.jianfanjia.cn.adapter.SearchDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -91,7 +91,7 @@ public class SearchDesignerFragment extends BaseFragment {
                         LogTool.d(TAG, "designerId:" + designerId);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerId);
-                        startActivity(DesignerInfoActivity.class, designerBundle);
+                        startActivity(DesignerInfoActivityBase.class, designerBundle);
                     }
                 });
         searchDesignerAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {

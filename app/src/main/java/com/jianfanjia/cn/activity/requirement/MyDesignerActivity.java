@@ -19,8 +19,8 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
 import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Global;
@@ -37,7 +37,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class MyDesignerActivity extends SwipeBackActivity {
+public class MyDesignerActivity extends BaseSwipeBackActivity {
     private static final String TAG = MyDesignerActivity.class.getName();
     public static final int CHANGE_DESIGNER = 0;//替换设计师
     public static final int VIEW_COMMENT = 1;//查看评价

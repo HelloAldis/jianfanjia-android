@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.activity;
+package com.jianfanjia.cn.base;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,13 +6,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.view.SwipeBackLayout;
 
 /**
  * Created by Eric on 15/3/3.
  */
-public abstract class SwipeBackActivity extends BaseActivity implements SwipeBackLayout.SwipeBackListener {
+public abstract class BaseSwipeBackActivity extends BaseActivity implements SwipeBackLayout.SwipeBackListener {
 
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;

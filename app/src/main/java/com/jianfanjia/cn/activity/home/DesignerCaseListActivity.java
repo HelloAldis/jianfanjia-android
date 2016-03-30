@@ -16,10 +16,10 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.ProductAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
@@ -46,7 +46,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerCaseListActivity extends SwipeBackActivity implements View.OnClickListener, PullToRefreshBase
+public class DesignerCaseListActivity extends BaseSwipeBackActivity implements View.OnClickListener, PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerCaseListActivity.class.getName();
     private static final int DEC_TYPE = 1;
@@ -380,7 +380,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 decType_item.setText(getResources().getString(R.string.dec_type_str));
             }
             FROM = 0;
-            decType = BusinessManager.getDecTypeByText(title);
+            decType = BusinessCovertUtil.getDecTypeByText(title);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
@@ -413,7 +413,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 designStyle_item.setText(getResources().getString(R.string.dec_style_str));
             }
             FROM = 0;
-            designStyle = BusinessManager.getDecStyleByText(title);
+            designStyle = BusinessCovertUtil.getDecStyleByText(title);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
@@ -446,7 +446,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 houseType_item.setText(getResources().getString(R.string.dec_house_type_str));
             }
             FROM = 0;
-            houseType = BusinessManager.getHouseTypeByText(title);
+            houseType = BusinessCovertUtil.getHouseTypeByText(title);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {
                 if (window.isShowing()) {
@@ -479,7 +479,7 @@ public class DesignerCaseListActivity extends SwipeBackActivity implements View.
                 decArea_item.setText(getResources().getString(R.string.dec_area_str));
             }
             FROM = 0;
-            decArea = BusinessManager.convertDecAreaValueByText(title);
+            decArea = BusinessCovertUtil.convertDecAreaValueByText(title);
             LogTool.d(TAG, "decArea=" + decArea);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
             if (null != window) {

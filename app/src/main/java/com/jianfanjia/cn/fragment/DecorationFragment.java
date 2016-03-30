@@ -20,12 +20,12 @@ import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivityBase;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.GetItemCallback;
@@ -262,7 +262,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                                 decorationBundle.putString(Global.DEC_STYLE, decStyle);
                                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
-                                                startActivity(PreviewDecorationActivity.class, decorationBundle);
+                                                startActivity(PreviewDecorationActivityBase.class, decorationBundle);
                                             }
                                         });
                                 decoration_listview.setAdapter(decorationAdapter);
@@ -404,7 +404,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
             } else {
                 houseType_item.setText(getResources().getString(R.string.dec_house_type_str));
             }
-            houseStyle = BusinessManager.getHouseTypeByText(title);
+            houseStyle = BusinessCovertUtil.getHouseTypeByText(title);
             FROM = 0;
             getDecorationImgInfo(pullDownListener);
             if (null != window) {
@@ -436,7 +436,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
             } else {
                 decStyle_item.setText(getResources().getString(R.string.dec_style_str));
             }
-            decStyle = BusinessManager.getDecStyleByText(title);
+            decStyle = BusinessCovertUtil.getDecStyleByText(title);
             FROM = 0;
             getDecorationImgInfo(pullDownListener);
             if (null != window) {

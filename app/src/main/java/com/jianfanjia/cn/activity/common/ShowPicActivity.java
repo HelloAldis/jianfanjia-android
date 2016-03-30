@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class ShowPicActivity extends SwipeBackActivity implements
+public class ShowPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener {
     private static final String TAG = ShowPicActivity.class.getName();
 

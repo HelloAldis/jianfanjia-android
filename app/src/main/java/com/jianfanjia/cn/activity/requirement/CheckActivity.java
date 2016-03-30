@@ -24,13 +24,13 @@ import com.jianfanjia.api.model.ProcessSectionYsImage;
 import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.bean.GridItem;
-import com.jianfanjia.cn.cache.BusinessManager;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.common.tool.LogTool;
@@ -46,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends SwipeBackActivity implements OnClickListener, ItemClickCallBack {
+public class CheckActivity extends BaseSwipeBackActivity implements OnClickListener, ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
     public static final String CHECK_INTENT_FLAG = "check_intent_flag";
     public static final int NOTICE_INTENT = 0;//通知进入的
@@ -132,7 +132,7 @@ public class CheckActivity extends SwipeBackActivity implements OnClickListener,
 
     private void setConfimStatus() {
         if (!sectionInfo.getStatus().equals(Constant.FINISHED)) {
-            if (currentUploadCount < BusinessManager
+            if (currentUploadCount < BusinessCovertUtil
                     .getCheckPicCountBySection(sectionInfo.getName())) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setEnabled(false);

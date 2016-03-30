@@ -26,7 +26,7 @@ import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.SelectItem;
@@ -45,7 +45,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends SwipeBackActivity implements OnClickListener, ViewPager
+public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnClickListener, ViewPager
         .OnPageChangeListener, ScrollableLayout.OnScrollListener {
     private static final String TAG = DesignerInfoActivity.class.getName();
 

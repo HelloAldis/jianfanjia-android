@@ -20,7 +20,7 @@ import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.SwipeBackActivity;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.SelectItem;
@@ -42,7 +42,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PublishRequirementActivity extends SwipeBackActivity implements NotifyActivityStatusChange {
+public class PublishRequirementActivity extends BaseSwipeBackActivity implements NotifyActivityStatusChange {
 
     private static final String TAG = PublishRequirementActivity.class.getName();
     @Bind(R.id.act_edit_req_head_layout)

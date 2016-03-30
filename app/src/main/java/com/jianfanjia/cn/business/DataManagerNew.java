@@ -1,6 +1,7 @@
-package com.jianfanjia.cn.cache;
+package com.jianfanjia.cn.business;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.util.Calendar;
 
@@ -12,13 +13,14 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.common.tool.LogTool;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();
     private static DataManagerNew instance;
     private Context context;
-    private SharedPrefer sharedPreferdata = null;
+    private SharedPrefer sharedPreferApp = null;
     private SharedPrefer sharedPreferuser = null;
 
     public static DataManagerNew getInstance() {
@@ -34,20 +36,20 @@ public class DataManagerNew {
 
     private DataManagerNew() {
         context = MyApplication.getInstance();
-        sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
+        sharedPreferApp = new SharedPrefer(context, Constant.SHARED_DATA);
         sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
     }
 
     public String getPicPath() {
-        return sharedPreferdata.getValue(Constant.TEMP_IMG, null);
+        return sharedPreferApp.getValue(Constant.TEMP_IMG, null);
     }
 
     public void setPicPath(String picPath) {
-        this.sharedPreferdata.setValue(Constant.TEMP_IMG, picPath);
+        this.sharedPreferApp.setValue(Constant.TEMP_IMG, picPath);
     }
 
     public void setOwnerInfo(User user) {
-        sharedPreferdata.setValue(user.get_id(), user);
+        sharedPreferApp.setValue(user.get_id(), user);
     }
 
     public boolean isLogin() {
@@ -86,27 +88,27 @@ public class DataManagerNew {
     }
 
     public boolean isFirst() {
-        return sharedPreferdata.getValue(Constant.ISFIRST, true);
+        return sharedPreferApp.getValue(Constant.ISFIRST, true);
     }
 
     public void setFisrt(boolean isFirst) {
-        sharedPreferdata.setValue(Constant.ISFIRST, isFirst);
+        sharedPreferApp.setValue(Constant.ISFIRST, isFirst);
     }
 
     public boolean isShowGuide() {
-        return sharedPreferdata.getValue(Constant.ISSHOWGUIDE, true);
+        return sharedPreferApp.getValue(Constant.ISSHOWGUIDE, true);
     }
 
     public void setShowGuide(boolean isShowGuide) {
-        sharedPreferdata.setValue(Constant.ISSHOWGUIDE, isShowGuide);
+        sharedPreferApp.setValue(Constant.ISSHOWGUIDE, isShowGuide);
     }
 
     public boolean isShowNext() {
-        return sharedPreferdata.getValue(Constant.ISSHOWNEXT, true);
+        return sharedPreferApp.getValue(Constant.ISSHOWNEXT, true);
     }
 
     public void setShowNext(boolean isShowNext) {
-        sharedPreferdata.setValue(Constant.ISSHOWNEXT, isShowNext);
+        sharedPreferApp.setValue(Constant.ISSHOWNEXT, isShowNext);
     }
 
     public void setUserImagePath(String imgId) {
@@ -122,7 +124,7 @@ public class DataManagerNew {
         sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
         sharedPreferuser.setValue(Constant.OPEN_ID, userBean.getWechat_openid());
         sharedPreferuser.setValue(Constant.UNION_ID, userBean.getWechat_unionid());
-        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, userBean.is_wechat_first_login());
+        sharedPreferuser.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, userBean.is_wechat_first_login());
     }
 
     public String getWechat_unionid() {
@@ -130,7 +132,7 @@ public class DataManagerNew {
     }
 
     public boolean getWeixinFisrtLogin() {
-        return sharedPreferdata.getValue(Constant.IS_WEIXIN_FIRST_LOGIN, false);
+        return sharedPreferuser.getValue(Constant.IS_WEIXIN_FIRST_LOGIN, false);
     }
 
     public void setUserName(String userName) {
@@ -151,14 +153,14 @@ public class DataManagerNew {
 
     public String getUserName() {
         String userName = sharedPreferuser.getValue(Constant.USERNAME, null);
-        if (userName == null) {
+        if (TextUtils.isEmpty(userName)) {
             return context.getString(R.string.ower);
         }
         return userName;
     }
 
     public String getUserImagePath() {
-        String userImagePath = null;
+        String userImagePath;
         String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
         if (imageId == null) {
             userImagePath = Constant.DEFALUT_OWNER_PIC;
@@ -170,11 +172,12 @@ public class DataManagerNew {
 
     public void cleanData() {
         sharedPreferuser.clear();
-        DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
+        DataCleanTool.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
     /**
      * 登录成功所做的基本操作
+     *
      * @param user
      */
     public static void loginSuccess(User user) {
@@ -188,7 +191,7 @@ public class DataManagerNew {
     /**
      * 登出所做的操作
      */
-    public static void loginOut(){
+    public static void loginOut() {
         GeTuiManager.cancelBind(MyApplication.getInstance(), getInstance().getUserId());
         getInstance().cleanData();
         ApiClient.clearCookie();

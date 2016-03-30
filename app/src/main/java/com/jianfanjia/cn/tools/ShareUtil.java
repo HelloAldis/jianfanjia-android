@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.cache.BusinessManager;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -22,9 +24,6 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -70,7 +69,7 @@ public class ShareUtil {
     public void shareImage(Activity activity, String title, String style, String tag, String imgId, SocializeListeners.SnsPostListener listener) {
         String desc = context.getString(R.string.share_image_des);
         if (!TextUtils.isEmpty(style) && !TextUtils.isEmpty(tag)) {
-            desc = String.format(desc, BusinessManager.convertDecStyleToShow(style), tag);
+            desc = String.format(desc, BusinessCovertUtil.convertDecStyleToShow(style), tag);
         }
         try {
             String urlTitle = URLEncoder.encode(title, "utf-8");
