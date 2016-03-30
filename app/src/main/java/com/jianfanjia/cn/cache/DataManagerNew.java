@@ -9,8 +9,9 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.db.DBHelper;
-import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.SharedPrefer;
+import com.jianfanjia.common.tool.LogTool;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();
@@ -36,6 +37,14 @@ public class DataManagerNew {
         sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
     }
 
+    public static void loginSuccess(User user) {
+        getInstance().setLogin(true);
+        getInstance().savaLastLoginTime(Calendar.getInstance()
+                .getTimeInMillis());
+        getInstance().saveLoginUserBean(user);
+        GeTuiManager.bindGeTui(MyApplication.getInstance(), getInstance().getUserId());
+    }
+
     public String getPicPath() {
         return sharedPreferdata.getValue(Constant.TEMP_IMG, null);
     }
@@ -46,16 +55,6 @@ public class DataManagerNew {
 
     public void setOwnerInfo(User user) {
         sharedPreferdata.setValue(user.get_id(), user);
-    }
-
-
-    public int getDefaultPro() {
-        if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-            return sharedPreferuser.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
-        } else if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-            return 0;
-        }
-        return 0;
     }
 
     public boolean isLogin() {

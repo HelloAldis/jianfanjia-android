@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Calendar;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
@@ -26,8 +24,8 @@ import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -156,13 +154,11 @@ public class RegisterNewActivity extends BaseActivity {
 
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
-                dataManager.setLogin(true);
-                dataManager.savaLastLoginTime(Calendar.getInstance()
-                        .getTimeInMillis());
+
                 User loginUserBean = apiResponse.getData();
                 loginUserBean.setPass(registerInfo.getPass());
-                dataManager.saveLoginUserBean(loginUserBean);
-                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+                DataManagerNew.loginSuccess(loginUserBean);
+
                 startActivity(NewUserCollectDecStageActivity.class);
                 appManager.finishActivity(RegisterNewActivity.this);
             }

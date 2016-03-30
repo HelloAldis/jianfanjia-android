@@ -44,6 +44,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        initView();
         logGeTuiAPPKey();
         first = dataManager.isFirst();
         LogTool.d(TAG, "first=" + first);
