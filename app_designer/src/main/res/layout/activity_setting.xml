@@ -26,24 +26,6 @@
             <View style="@style/divier_line" />
 
             <RelativeLayout
-                android:id="@+id/help_layout"
-                style="@style/my_list_item_layout_style"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/my_help"
-                    android:textColor="@color/light_black_color" />
-
-                <ImageView
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/about_layout"
                 style="@style/my_list_item_layout_style">
 
