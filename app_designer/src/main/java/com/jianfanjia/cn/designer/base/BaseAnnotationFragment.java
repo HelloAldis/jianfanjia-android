@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.designer.base;
 
-import android.view.View;
-
 /**
  * Description:Fragment基类
  * Author：fengliang
@@ -11,16 +9,8 @@ import android.view.View;
 public class BaseAnnotationFragment extends BaseFragment {
 
     @Override
-    public void setListener() {
-    }
-
-    @Override
     public int getLayoutId() {
         return -1;
     }
 
-    @Override
-    public void initView(View view) {
-
-    }
 }

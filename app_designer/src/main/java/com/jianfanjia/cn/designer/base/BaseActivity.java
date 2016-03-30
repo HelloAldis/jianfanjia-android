@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
@@ -18,7 +19,6 @@ import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.designer.http.OkHttpClientManager;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.interf.NetStateListener;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
 import com.jianfanjia.cn.designer.tools.DaoManager;
@@ -37,7 +37,7 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl, NetStateListener, PopWindowCallBack, ApiUiUpdateListener {
+        DialogControl,PopWindowCallBack, ApiUiUpdateListener {
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
@@ -54,13 +54,10 @@ public abstract class BaseActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogTool.d(this.getClass().getName(), "onCreate()");
-        if (getLayoutId() != 0) {
-            setContentView(getLayoutId());
-        }
+        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onCreate()");
+        setContentView(getLayoutId());
         init(savedInstanceState);
-        initView();
-        setListener();
+        ButterKnife.bind(this);
     }
 
     protected void init(Bundle savedInstanceState) {
@@ -72,31 +69,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();
         fragmentManager = this.getSupportFragmentManager();
-        netStateReceiver = new NetStateReceiver(this);
         imageShow = ImageShow.getImageShow();
         _isVisible = true;
     }
 
-    public int getLayoutId() {
-        return 0;
-    }
+    public abstract int getLayoutId();
 
-    public abstract void initView();
-
-    public void setListener() {
-    }
-
-    @Override
-    public void onConnect() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onDisConnect() {
-        // TODO Auto-generated method stub
-
-    }
 
 
     @Override

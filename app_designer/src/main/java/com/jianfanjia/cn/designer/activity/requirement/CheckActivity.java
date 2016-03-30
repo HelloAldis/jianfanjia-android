@@ -19,16 +19,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.ProcessSection;
-import com.jianfanjia.cn.designer.bean.ProcessSectionYsImage;
 import com.jianfanjia.cn.designer.bean.GridItem;
-import com.jianfanjia.api.model.Process;
+import com.jianfanjia.cn.designer.bean.ProcessInfo;
+import com.jianfanjia.cn.designer.bean.ProcessSection;
 import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
+import com.jianfanjia.cn.designer.bean.ProcessSectionYsImage;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -61,11 +62,16 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private int flagIntent = -1;
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
-    private MainHeadView mainHeadView = null;
-    private RelativeLayout checkLayout = null;
-    private RecyclerView gridView = null;
+    @Bind(R.id.check_head_layout)
+    protected MainHeadView mainHeadView;
+    @Bind(R.id.mygridview)
+    protected RecyclerView gridView;
+    @Bind(R.id.btn_confirm)
+    protected TextView btn_confirm;
+    @Bind(R.id.checkLayout)
+    protected RelativeLayout checkLayout;
+
     private GridLayoutManager gridLayoutManager = null;
-    private TextView btn_confirm = null;
     private CheckGridViewAdapter adapter = null;
     private List<GridItem> checkGridList = new ArrayList<>();//本页显示的griditem项
     private List<String> showSamplePic = new ArrayList<>();//示例照片
@@ -83,13 +89,29 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     private int uploadCount = 0;//要上传图片个数
     private int currentUploadCount = 0;//当前已上传图片个数
 
-
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
+        initView();
+        initData();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (null != bundle) {
+            sectionName = bundle.getString(Constant.SECTION);
+            processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
+            processInfoId = processInfo.get_id();
+            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
+                    processInfoId);
+            processSection = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+        }
+    }
+
     public void initView() {
         initMainHeadView();
-        checkLayout = (RelativeLayout) findViewById(R.id.checkLayout);
-        btn_confirm = (TextView) findViewById(R.id.btn_confirm);
-        gridView = (RecyclerView) findViewById(R.id.mygridview);
         gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -105,7 +127,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));
         currentState = FINISH_STATUS;
-        initData();
     }
 
     private void initMainHeadView() {
@@ -119,34 +140,26 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (null != bundle) {
-            sectionName = bundle.getString(Constant.SECTION);
-            processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
-            processInfoId = processInfo.get_id();
-            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" + processInfoId);
-            processSection = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
-            LogTool.d(TAG, "processSection:" + processSection.get_id());
-            mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(processSection.getName()) + "阶段验收");
-            checkGridList.clear();
-            checkGridList = getCheckedImageById(processSection.getName());
-            imageids = processSection.getYs().getImages();
-            LogTool.d(TAG, "imageids=" + imageids);
-            currentUploadCount = imageids.size();
-            LogTool.d(TAG, "currentUploadCount=======" + currentUploadCount);
-            for (int i = 0; imageids != null && i < imageids.size(); i++) {
-                String key = imageids.get(i).getKey();
-                LogTool.d(TAG, "key=" + key);
-                checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                        imageids.get(i).getImageid());
-            }
-            adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
-                    this, this);
-            gridView.setAdapter(adapter);
-            setConfimStatus();
-            initShowList();
+        LogTool.d(TAG, "processSection:" + processSection.get_id());
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(processSection.getName()) + "阶段验收");
+        checkGridList.clear();
+        checkGridList = getCheckedImageById(processSection.getName());
+        imageids = processSection.getYs().getImages();
+        LogTool.d(TAG, "imageids=" + imageids);
+        currentUploadCount = imageids.size();
+        LogTool.d(TAG, "currentUploadCount=======" + currentUploadCount);
+        for (int i = 0; imageids != null && i < imageids.size(); i++) {
+            String key = imageids.get(i).getKey();
+            LogTool.d(TAG, "key=" + key);
+            checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
+                    imageids.get(i).getImageid());
         }
+        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
+                this, this);
+        gridView.setAdapter(adapter);
+        setConfimStatus();
+        initShowList();
+
     }
 
     //初始化放大显示的list
@@ -238,11 +251,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
             }
         }
         return flag;
-
-    }
-
-    @Override
-    public void setListener() {
 
     }
 

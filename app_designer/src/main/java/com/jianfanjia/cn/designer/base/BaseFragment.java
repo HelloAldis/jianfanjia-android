@@ -12,11 +12,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.designer.http.OkHttpClientManager;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -39,40 +39,37 @@ public abstract class BaseFragment extends Fragment
     protected String mUserName = null;// 用户名
     protected String mAccount = null;// 账号
     protected String mUserImageId = null;// 头像
-    protected String mUserType = null;// 用户类型
-    protected String mImageId = null;
     private View view = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogTool.d(this.getClass().getName(), "onCreate");
+        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onCreate");
         init();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        LogTool.d(this.getClass().getName(), "onCreateView");
+        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onCreateView");
         this.inflater = inflater;
-        if (getLayoutId() != -1) {
+        if (getLayoutId() > 0) {
             view = inflateView(getLayoutId());
         }
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onActivityCreated");
         initUserInfo();
-        initView(view);
-        setListener();
     }
 
     private void init() {
         dataManager = DataManagerNew.getInstance();
         notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
-        // sharedPrefer = dataManager.sharedPreferdata;
         fragmentManager = getFragmentManager();
         imageShow = ImageShow.getImageShow();
     }
@@ -81,16 +78,11 @@ public abstract class BaseFragment extends Fragment
         mUserName = dataManager.getUserName();
         mAccount = dataManager.getAccount();
         mUserImageId = dataManager.getUserImagePath();
-        mUserType = dataManager.getUserType();
-        LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
+        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
                 + " mAccount:" + mAccount + " userImageId:" + mUserImageId);
     }
 
     public abstract int getLayoutId();
-
-    public abstract void initView(View view);
-
-    public abstract void setListener();
 
     protected View inflateView(int resId) {
         return this.inflater.inflate(resId, null);
@@ -99,7 +91,7 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        LogTool.d(this.getClass().getName(), "onResume");
+        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onResume");
         initUserInfo();
     }
 
@@ -112,7 +104,7 @@ public abstract class BaseFragment extends Fragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-        OkHttpClientManager.cancelTag(this);
+        ButterKnife.unbind(this);
         LogTool.d(this.getClass().getName(), "onDestroy");
     }
 

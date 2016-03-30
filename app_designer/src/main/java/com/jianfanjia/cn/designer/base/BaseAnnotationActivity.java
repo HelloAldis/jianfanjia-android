@@ -7,7 +7,5 @@ package com.jianfanjia.cn.designer.base;
  * Date:15-10-11 14:30
  */
 public abstract class BaseAnnotationActivity extends BaseActivity{
-    @Override
-    public void initView() {
-    }
+
 }
