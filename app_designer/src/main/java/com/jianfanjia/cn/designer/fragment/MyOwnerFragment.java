@@ -11,7 +11,7 @@ import org.androidannotations.annotations.ViewById;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.MyOwnerFragmentPagerAdapter;
-import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
@@ -21,7 +21,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  * Date:15-10-11 14:30
  */
 @EFragment(R.layout.fragment_my_owner)
-public class MyOwnerFragment extends BaseAnnotationFragment {
+public class MyOwnerFragment extends BaseFragment {
 
     @ViewById(R.id.viewpager)
     protected ViewPager viewPager;

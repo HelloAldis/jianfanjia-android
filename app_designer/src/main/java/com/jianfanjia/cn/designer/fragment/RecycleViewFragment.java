@@ -29,7 +29,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
-import com.jianfanjia.cn.designer.base.BaseAnnotationFragment;
+import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
@@ -54,7 +54,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-19 14:00
  */
-public class RecycleViewFragment extends BaseAnnotationFragment {
+public class RecycleViewFragment extends BaseFragment {
 
     private static final String TAG = "RecycleViewFragment";
 
