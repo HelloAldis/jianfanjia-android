@@ -16,7 +16,6 @@ public class Constant {
     public static final String CROP_PATH = FileUtil.IMAG_PATH + "/cropped.jpg";// 截图的图片路径
     public static final String TEMP_IMG = "current_camera_temp_path";//拍照的临时存储文件路径
 
-    public static final String EXTRA_BUNDLE = "launchBundle";
     public static final String KEY_WORD = "不限";
 
     public static final int HOME = 0;//首页
@@ -104,21 +103,6 @@ public class Constant {
     public static final String DATA = "data";// 获取成功的数据
     public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
     public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
-
-//    // 提醒消息id
-//    public static final int CAIGOU_NOTIFY_ID = 1;
-//    public final static int FUKUAN_NOTIFY_ID = 2;
-//    public final static int YANQI_NOTIFY_ID = 3;
-//    public final static int YANSHOU_NOTIFY_ID = 4;
-//    public final static int SYSTEM_NOTIFY_ID = 5;
-//    public final static int PLAN_COMMENT_NOTIFY_ID = 6;
-//    public final static int SECTION_COMMENT_NOTIFY_ID = 7;
-//    public final static int DESIGNER_RESPONSE_NOTIFY_ID = 8;
-//    public final static int DESIGNER_REJECT_NOTIFY_ID = 9;
-//    public final static int DESIGNER_UPLOAD_PLAN_NOTIFY_ID = 10;
-//    public final static int DESIGNER_CONFIG_CONTRACT_NOTIFY_ID = 11;
-//    public final static int DESIGNER_REJECT_DELAY_NOTIFY_ID = 12;
-//    public final static int DESIGNER_AGREE_DELAY_NOTIFY_ID = 13;
 
     // 业主消息提醒类型user_message_type
     public static final String TYPE_DELAY_MSG = "0";// 设计师提出改期提醒

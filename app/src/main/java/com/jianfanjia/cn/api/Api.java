@@ -211,12 +211,12 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().USER_CHANGE_ORDERD_DESIGNER, request, apiCallback);
     }
 
-    public static void updateRequirement(UpdateRequirementRequest request, ApiCallback<ApiResponse<String>>
+    public static void updateRequirement(UpdateRequirementRequest request, ApiCallback<ApiResponse<Object>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().REQUIREMENT_UPDATE, request, apiCallback);
     }
 
-    public static void publishRequirement(PublishRequirementRequest request, ApiCallback<ApiResponse<String>>
+    public static void publishRequirement(PublishRequirementRequest request, ApiCallback<ApiResponse<Object>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().POST_REQUIREMENT, request, apiCallback);
     }

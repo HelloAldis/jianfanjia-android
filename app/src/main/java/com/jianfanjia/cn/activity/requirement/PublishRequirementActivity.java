@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
-import com.jianfanjia.cn.tools.JsonParser;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.JsonParser;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:发布需求
@@ -172,7 +173,7 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         PublishRequirementRequest publishRequirementRequest = new PublishRequirementRequest();
         publishRequirementRequest.setRequirement(requirementInfo);
 
-        Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<String>>() {
+        Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
                 showWaitDialog();
@@ -184,13 +185,13 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
             }
 
             @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
+            public void onSuccess(ApiResponse<Object> apiResponse) {
                 startActivity(MainActivity.class);
                 appManager.finishActivity(PublishRequirementActivity.this);
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onFailed(ApiResponse<Object> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
             }
 
@@ -267,10 +268,10 @@ public class PublishRequirementActivity extends SwipeBackActivity implements Not
         }
         if (ownerInfo != null) {
             String family_des = ownerInfo.getFamily_description();
-            if (family_des != null) {
+            if (TextUtils.isEmpty(family_des)) {
                 requirement.setFamily_description(family_des);
             }
-            if (ownerInfo.getDec_styles().size() > 0) {
+            if (ownerInfo.getDec_styles() != null && ownerInfo.getDec_styles().size() > 0) {
                 String lovestyle = ownerInfo.getDec_styles().get(0);
                 if (lovestyle != null) {
                     requirement.setDec_style(lovestyle);
