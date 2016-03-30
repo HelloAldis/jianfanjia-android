@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-20 14:59
  */
-public class SearchDesignerAdapter extends BaseRecycleAdapter<Designer> {
+public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> {
 
     private RecyclerViewOnItemClickListener listener;
 

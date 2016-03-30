@@ -12,8 +12,8 @@ import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;

@@ -18,12 +18,12 @@ import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivityBase;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.OnItemClickListener;
@@ -93,10 +93,10 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
                 decorationBundle.putString(Global.SEARCH_TEXT, search);
-                startActivity(PreviewDecorationActivityBase.class, decorationBundle);
+                startActivity(PreviewDecorationActivity.class, decorationBundle);
             }
         });
-        decorationAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+        decorationAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
                 getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);
@@ -155,9 +155,9 @@ public class SearchDecorationImgFragment extends BaseFragment {
                             decorationAdapter.getData().size());
                     decorationAdapter.addData(BeautifulImageList.getBeautiful_images());
                     if (total > decorationAdapter.getData().size()) {
-                        decorationAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                        decorationAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                     } else {
-                        decorationAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                        decorationAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                     }
                     decorationAdapter.hideErrorAndEmptyView();
                 } else {
@@ -169,7 +169,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
         @Override
         public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
             decorationAdapter.setErrorViewShow();
-            decorationAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+            decorationAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }
 
         @Override

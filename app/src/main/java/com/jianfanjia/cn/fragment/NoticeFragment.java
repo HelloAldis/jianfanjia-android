@@ -17,7 +17,7 @@ import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.user.SearchUserMsgRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.NoticeDetailActivityBase;
+import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.adapter.NoticeAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -203,7 +203,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
                                     LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
                                     Bundle detailBundle = new Bundle();
                                     detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
-                                    startActivity(NoticeDetailActivityBase.class, detailBundle);
+                                    startActivity(NoticeDetailActivity.class, detailBundle);
                                 }
                             });
                             all_notice_listview.setAdapter(noticeAdapter);

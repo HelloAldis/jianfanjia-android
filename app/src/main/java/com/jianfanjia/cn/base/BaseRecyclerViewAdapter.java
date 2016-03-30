@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.adapter.base;
+package com.jianfanjia.cn.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

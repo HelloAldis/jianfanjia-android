@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Date: 2015-12-11
  * Time: 13:20
  */
-public class SearchProductAdapter extends BaseRecycleAdapter<Product> {
+public class SearchProductAdapter extends BaseLoadMoreRecycleAdapter<Product> {
     private static final String TAG = SearchProductAdapter.class.getName();
     private RecyclerViewOnItemClickListener listener;
 

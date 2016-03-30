@@ -15,8 +15,8 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageDetail;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.TDevice;
 
@@ -26,7 +26,7 @@ import com.jianfanjia.cn.tools.TDevice;
  * Date: 2015-12-07
  * Time: 10:33
  */
-public class SearchDecorationImgAdapter extends BaseRecycleAdapter<BeautifulImage> {
+public class SearchDecorationImgAdapter extends BaseLoadMoreRecycleAdapter<BeautifulImage> {
     private static final String TAG = SearchDecorationImgAdapter.class.getName();
     private OnItemClickListener listener;
 

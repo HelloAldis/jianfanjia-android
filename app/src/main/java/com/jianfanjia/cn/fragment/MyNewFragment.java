@@ -16,14 +16,14 @@ import android.widget.TextView;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.common.CommentListActivityBase;
-import com.jianfanjia.cn.activity.my.AboutActivityBase;
-import com.jianfanjia.cn.activity.my.BindingAccountActivityBase;
-import com.jianfanjia.cn.activity.my.CollectActivityBase;
-import com.jianfanjia.cn.activity.my.CustomerServiceActivityBase;
-import com.jianfanjia.cn.activity.my.FeedBackActivityBase;
-import com.jianfanjia.cn.activity.my.NoticeActivityBase;
-import com.jianfanjia.cn.activity.my.UserInfoActivityBase;
+import com.jianfanjia.cn.activity.common.CommentListActivity;
+import com.jianfanjia.cn.activity.my.AboutActivity;
+import com.jianfanjia.cn.activity.my.BindingAccountActivity;
+import com.jianfanjia.cn.activity.my.CollectActivity;
+import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
+import com.jianfanjia.cn.activity.my.FeedBackActivity;
+import com.jianfanjia.cn.activity.my.NoticeActivity;
+import com.jianfanjia.cn.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
@@ -138,22 +138,22 @@ public class MyNewFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.notify_layout:
-                startActivity(NoticeActivityBase.class);
+                startActivity(NoticeActivity.class);
                 break;
             case R.id.collect_layout:
-                startActivity(CollectActivityBase.class);
+                startActivity(CollectActivity.class);
                 break;
             case R.id.frag_my_info_layout:
-                startActivityForResult(UserInfoActivityBase.class, REQUESTCODE_USERINFO);
+                startActivityForResult(UserInfoActivity.class, REQUESTCODE_USERINFO);
                 break;
             case R.id.kefu_layout:
-                startActivity(CustomerServiceActivityBase.class);
+                startActivity(CustomerServiceActivity.class);
                 break;
             case R.id.setting_layout:
-                startActivity(AboutActivityBase.class);
+                startActivity(AboutActivity.class);
                 break;
             case R.id.feedback_layout:
-                startActivity(FeedBackActivityBase.class);
+                startActivity(FeedBackActivity.class);
                 break;
             case R.id.clear_cache_layout:
                 onClickCleanCache();
@@ -162,10 +162,10 @@ public class MyNewFragment extends BaseFragment {
                 UiHelper.callPhoneIntent(getContext(), getString(R.string.app_phone));
                 break;
             case R.id.comment_layout:
-                startActivity(CommentListActivityBase.class);
+                startActivity(CommentListActivity.class);
                 break;
             case R.id.binding_account_layout:
-                startActivity(BindingAccountActivityBase.class);
+                startActivity(BindingAccountActivity.class);
                 break;
             default:
                 break;

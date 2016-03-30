@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.adapter.base;
+package com.jianfanjia.cn.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.List;
+
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
-
-import java.util.List;
 
 /**
  * Description:adapter公共基类

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.DecorateLive;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-11 11:15
  */
-public class DecorateLiveAdapter extends BaseRecycleAdapter<DecorateLive> {
+public class DecorateLiveAdapter extends BaseLoadMoreRecycleAdapter<DecorateLive> {
 
     private OnItemClickListener onItemClickListener;
 

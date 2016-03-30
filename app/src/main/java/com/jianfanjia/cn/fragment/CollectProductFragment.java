@@ -18,7 +18,7 @@ import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.adapter.CollectProductAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
@@ -182,7 +182,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
                                     LogTool.d(TAG, "productid:" + productid);
                                     Bundle productBundle = new Bundle();
                                     productBundle.putString(Global.PRODUCT_ID, productid);
-                                    startActivity(DesignerCaseInfoActivityBase.class, productBundle);
+                                    startActivity(DesignerCaseInfoActivity.class, productBundle);
                                 }
 
                                 @Override

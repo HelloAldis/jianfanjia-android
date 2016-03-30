@@ -14,8 +14,8 @@ import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;

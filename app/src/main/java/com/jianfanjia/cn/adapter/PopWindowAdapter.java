@@ -9,7 +9,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.BaseListAdapter;
+import com.jianfanjia.cn.base.BaseListAdapter;
 
 /**
  * Name: PopWindowAdapter

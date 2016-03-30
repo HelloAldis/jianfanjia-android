@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.my.EditCityActivityBase;
-import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivityBase;
-import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivityBase;
+import com.jianfanjia.cn.activity.my.EditCityActivity;
+import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
+import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -228,42 +228,42 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 address.putString(Constant.EDIT_PROVICE, requirementInfo.getProvince());
                 address.putString(Constant.EDIT_CITY, requirementInfo.getCity());
                 address.putString(Constant.EDIT_DISTRICT, requirementInfo.getDistrict());
-                address.putInt(EditCityActivityBase.PAGE, EditCityActivityBase.EDIT_REQUIREMENT_ADRESS);
-                startActivityForResult(EditCityActivityBase.class, address, Constant.REQUIRECODE_CITY);
+                address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
+                startActivityForResult(EditCityActivity.class, address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
                 Bundle loveDesignerBundle = new Bundle();
                 loveDesignerBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(EditRequirementItemActivityBase.class, loveDesignerBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant
                         .REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(EditRequirementLovestyleActivityBase.class, loveStyleBundle, Constant
+                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant
                         .REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_persons:
                 Bundle personBundle = new Bundle();
                 personBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_PERSONS);
-                startActivityForResult(EditRequirementItemActivityBase.class, personBundle, Constant.REQUIRECODE_PERSONS);
+                startActivityForResult(EditRequirementItemActivity.class, personBundle, Constant.REQUIRECODE_PERSONS);
                 break;
             case R.id.act_edit_req_housetype:
                 Bundle houseTypeBundle = new Bundle();
                 houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
-                startActivityForResult(EditRequirementItemActivityBase.class, houseTypeBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, houseTypeBundle, Constant
                         .REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(EditRequirementItemActivityBase.class, workTypeBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
                 Bundle lovedesisexBundle = new Bundle();
                 lovedesisexBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(EditRequirementItemActivityBase.class, lovedesisexBundle, Constant
+                startActivityForResult(EditRequirementItemActivity.class, lovedesisexBundle, Constant
                         .REQUIRECODE_DESISEX);
                 break;
             default:

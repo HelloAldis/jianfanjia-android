@@ -18,11 +18,11 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.WebViewActivityBase;
+import com.jianfanjia.cn.activity.home.WebViewActivity;
 import com.jianfanjia.cn.adapter.DecorateLiveAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -121,10 +121,10 @@ public class DecorateLiveFragment extends BaseFragment {
                         String pid = decorateLiveAdapter.getData().get(position).get_id();
                         Bundle bundle = new Bundle();
                         bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().DECORATE_LIVE_URL + pid);
-                        startActivity(WebViewActivityBase.class, bundle);
+                        startActivity(WebViewActivity.class, bundle);
                     }
                 });
-        decorateLiveAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+        decorateLiveAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
                 searchShare(decorateLiveAdapter.getData().size(), mNum, loadmoreUpdateListener);
@@ -191,9 +191,9 @@ public class DecorateLiveFragment extends BaseFragment {
                             LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
                                     decorateLiveAdapter.getData().size());
                             if (total > decorateLiveAdapter.getData().size()) {
-                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                                decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                             } else {
-                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                                decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                             }
                             decorateLiveAdapter.hideErrorAndEmptyView();
                         } else {
@@ -207,7 +207,7 @@ public class DecorateLiveFragment extends BaseFragment {
                 public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
                     recyclerView.onRefreshComplete();
                     decorateLiveAdapter.setErrorViewShow();
-                    decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+                    decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
 
                 @Override
@@ -241,9 +241,9 @@ public class DecorateLiveFragment extends BaseFragment {
                             LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
                                     decorateLiveAdapter.getData().size());
                             if (total > decorateLiveAdapter.getData().size()) {
-                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                                decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                             } else {
-                                decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                                decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                             }
                             decorateLiveAdapter.hideErrorAndEmptyView();
                         } else {
@@ -255,7 +255,7 @@ public class DecorateLiveFragment extends BaseFragment {
                 @Override
                 public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
                     decorateLiveAdapter.setErrorViewShow();
-                    decorateLiveAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+                    decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
 
                 @Override

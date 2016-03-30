@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.RecyclerViewAdapterBase;
+import com.jianfanjia.cn.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -28,7 +28,7 @@ import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
 
 /**
- * Description: com.jianfanjia.cn.adapter.base
+ * Description: com.jianfanjia.cn.base.base
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 19:15

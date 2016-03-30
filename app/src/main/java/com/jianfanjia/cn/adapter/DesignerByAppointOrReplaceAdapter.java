@@ -9,21 +9,20 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerListActivityBase;
-import com.jianfanjia.cn.adapter.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.CheckListener;
-import com.jianfanjia.cn.tools.IntentUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.DesignerListActivity;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.CheckListener;
+import com.jianfanjia.cn.tools.IntentUtil;
 
 /**
  * Name: DesignerByAppointOrReplaceAdapter
@@ -74,7 +73,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 tagViewHolder.itemMoreText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        IntentUtil.startActivity(context, DesignerListActivityBase.class);
+                        IntentUtil.startActivity(context, DesignerListActivity.class);
                     }
                 });
                 break;

@@ -17,12 +17,12 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivityBase;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchProductAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
@@ -86,7 +86,7 @@ public class SearchProductFragment extends BaseFragment {
                 LogTool.d(TAG, "productid:" + productid);
                 Bundle productBundle = new Bundle();
                 productBundle.putString(Global.PRODUCT_ID, productid);
-                startActivity(DesignerCaseInfoActivityBase.class, productBundle);
+                startActivity(DesignerCaseInfoActivity.class, productBundle);
             }
 
             @Override
@@ -96,10 +96,10 @@ public class SearchProductFragment extends BaseFragment {
                 LogTool.d(TAG, "designertid=" + designertid);
                 Bundle designerBundle = new Bundle();
                 designerBundle.putString(Global.DESIGNER_ID, designertid);
-                startActivity(DesignerInfoActivityBase.class, designerBundle);
+                startActivity(DesignerInfoActivity.class, designerBundle);
             }
         });
-        productAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+        productAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
                 searchProduct(productAdapter.getData().size(), search, listener);
@@ -149,9 +149,9 @@ public class SearchProductFragment extends BaseFragment {
                             .getData().size());
                     productAdapter.addData(worksInfo.getProducts());
                     if (total > productAdapter.getData().size()) {
-                        productAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                        productAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                     } else {
-                        productAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                        productAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                     }
                     productAdapter.hideErrorAndEmptyView();
                 } else {
@@ -163,7 +163,7 @@ public class SearchProductFragment extends BaseFragment {
         @Override
         public void onFailed(ApiResponse<ProductList> apiResponse) {
             productAdapter.setErrorViewShow();
-            productAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+            productAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }
 
         @Override

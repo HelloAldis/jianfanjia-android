@@ -16,9 +16,9 @@ import java.util.List;
 
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -31,7 +31,7 @@ import com.jianfanjia.cn.tools.StringUtils;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 17:46
  */
-public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
+public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
 
     public static final int PLAN_TYPE = 0;//方案的评论
     public static final int NODE_TYPE = 1;//节点的评论

@@ -12,12 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.base
@@ -25,18 +25,18 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-29 14:37
  */
-public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int STATE_LOAD_MORE = 1;
-    public static final int STATE_NO_MORE = 2;
-    public static final int STATE_NO_DATA = 3;
-    public static final int STATE_INIT = 4;
-    public static final int STATE_NETWORK_ERROR = 5;
+    public static final int STATE_LOAD_MORE = 1;//正在加载状态
+    public static final int STATE_NO_MORE = 2;//没有更多数据加载
+    public static final int STATE_NO_DATA = 3;//没有任何数据，list为空
+    public static final int STATE_INIT = 4;//初始状态
+    public static final int STATE_NETWORK_ERROR = 5;//数据加载错误
 
     //正常条目
-    protected static final int TYPE_NORMAL_ITEM = 7;
+    protected static final int TYPE_NORMAL_ITEM = 6;//正常item
     //加载条目
-    protected static final int TYPE_LOADING_ITEM = 8;
+    protected static final int TYPE_LOADING_ITEM = 7;//加载item
 
     protected ArrayList<T> mDatas = new ArrayList<>();
 
@@ -63,11 +63,11 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     private RecyclerView recyclerView;
 
-    public BaseRecycleAdapter(Context context, RecyclerView recyclerView) {
+    public BaseLoadMoreRecycleAdapter(Context context, RecyclerView recyclerView) {
 
         this.recyclerView = recyclerView;
 
-        setSpanCount(recyclerView);
+        initFooterViewSpanSize(recyclerView);
 
         setScrollListener(recyclerView);
 
@@ -200,7 +200,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
      *
      * @param recyclerView recycleView
      */
-    private void setSpanCount(RecyclerView recyclerView) {
+    private void initFooterViewSpanSize(RecyclerView recyclerView) {
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;

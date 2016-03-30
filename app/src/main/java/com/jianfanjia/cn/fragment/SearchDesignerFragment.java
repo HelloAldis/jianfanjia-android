@@ -16,11 +16,11 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.DesignerInfoActivityBase;
+import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.SearchDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
@@ -91,10 +91,10 @@ public class SearchDesignerFragment extends BaseFragment {
                         LogTool.d(TAG, "designerId:" + designerId);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(Global.DESIGNER_ID, designerId);
-                        startActivity(DesignerInfoActivityBase.class, designerBundle);
+                        startActivity(DesignerInfoActivity.class, designerBundle);
                     }
                 });
-        searchDesignerAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+        searchDesignerAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
                 searchDesignerInfo(searchDesignerAdapter.getData().size(), search, listener);
@@ -143,9 +143,9 @@ public class SearchDesignerFragment extends BaseFragment {
                             searchDesignerAdapter.getData().size());
                     searchDesignerAdapter.addData(designer.getDesigners());
                     if (total > searchDesignerAdapter.getData().size()) {
-                        searchDesignerAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                        searchDesignerAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                     } else {
-                        searchDesignerAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                        searchDesignerAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                     }
                     searchDesignerAdapter.hideErrorAndEmptyView();
                 } else {
@@ -158,7 +158,7 @@ public class SearchDesignerFragment extends BaseFragment {
         @Override
         public void onFailed(ApiResponse<DesignerList> apiResponse) {
             searchDesignerAdapter.setErrorViewShow();
-            searchDesignerAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+            searchDesignerAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }
 
         @Override

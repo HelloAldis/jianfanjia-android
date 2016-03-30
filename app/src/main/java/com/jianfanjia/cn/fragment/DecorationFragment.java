@@ -20,7 +20,7 @@ import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivityBase;
+import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
@@ -262,7 +262,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                                 decorationBundle.putString(Global.DEC_STYLE, decStyle);
                                                 decorationBundle.putInt(Global.TOTAL_COUNT, total);
                                                 decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
-                                                startActivity(PreviewDecorationActivityBase.class, decorationBundle);
+                                                startActivity(PreviewDecorationActivity.class, decorationBundle);
                                             }
                                         });
                                 decoration_listview.setAdapter(decorationAdapter);

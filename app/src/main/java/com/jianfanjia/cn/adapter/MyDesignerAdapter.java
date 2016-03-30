@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.cn.adapter.base.RecyclerViewAdapterBase;
+import com.jianfanjia.cn.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType0;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType1;
@@ -18,7 +18,7 @@ import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType7;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType8;
 
 /**
- * Description: com.jianfanjia.cn.adapter.base
+ * Description: com.jianfanjia.cn.base.base
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 19:15

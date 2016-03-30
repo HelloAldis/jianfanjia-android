@@ -23,7 +23,7 @@ import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.common.tool.LogTool;
@@ -125,7 +125,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 }
             }
         });
-        myCommentInfoAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+        myCommentInfoAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
                 getMyCommentInfo(myCommentInfoAdapter.getData().size(), CommentListActivity.this.loadMoreCallback);
@@ -192,9 +192,9 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                     LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
                             myCommentInfoAdapter.getData().size());
                     if (total > myCommentInfoAdapter.getData().size()) {
-                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                        myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                     } else {
-                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                        myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                     }
                     myCommentInfoAdapter.hideErrorAndEmptyView();
                 } else {
@@ -209,7 +209,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
             makeTextShort(apiResponse.getErr_msg());
             refreshRecycleView.onRefreshComplete();
             myCommentInfoAdapter.setErrorViewShow();
-            myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+            myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }
 
         @Override
@@ -240,9 +240,9 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                     LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter
                             .getData().size());
                     if (total > myCommentInfoAdapter.getData().size()) {
-                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
+                        myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                     } else {
-                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                        myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                     }
                     myCommentInfoAdapter.hideErrorAndEmptyView();
                 } else {
@@ -256,7 +256,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
             makeTextShort(apiResponse.getErr_msg());
             refreshRecycleView.onRefreshComplete();
             myCommentInfoAdapter.setErrorViewShow();
-            myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
+            myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }
 
         @Override
