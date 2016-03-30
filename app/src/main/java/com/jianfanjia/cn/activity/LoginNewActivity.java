@@ -41,7 +41,6 @@ import com.jianfanjia.cn.cache.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
@@ -542,9 +541,8 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
             public void onSuccess(ApiResponse<User> apiResponse) {
                 User loginUserBean = apiResponse.getData();
                 loginUserBean.setPass(password);
-                dataManager.saveLoginUserBean(loginUserBean);
+                DataManagerNew.loginSuccess(loginUserBean);
 
-                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                 startActivity(MainActivity.class);
                 appManager.finishActivity(LoginNewActivity.this);
             }

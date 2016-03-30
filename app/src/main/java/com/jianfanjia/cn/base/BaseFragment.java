@@ -38,8 +38,6 @@ public abstract class BaseFragment extends Fragment {
     protected String mUserName = null;// 用户名
     protected String mAccount = null;// 账号
     protected String mUserImageId = null;// 头像
-    protected String mUserType = null;// 用户类型
-    protected String mImageId = null;
     private View view = null;
 
     @Override
@@ -79,7 +77,6 @@ public abstract class BaseFragment extends Fragment {
         mUserName = dataManager.getUserName();
         mAccount = dataManager.getAccount();
         mUserImageId = dataManager.getUserImagePath();
-        mUserType = dataManager.getUserType();
         LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
                 + " mAccount:" + mAccount + " userImageId:" + mUserImageId);
     }

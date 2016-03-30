@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.Calendar;
 
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -35,14 +36,6 @@ public class DataManagerNew {
         context = MyApplication.getInstance();
         sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
         sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
-    }
-
-    public static void loginSuccess(User user) {
-        getInstance().setLogin(true);
-        getInstance().savaLastLoginTime(Calendar.getInstance()
-                .getTimeInMillis());
-        getInstance().saveLoginUserBean(user);
-        GeTuiManager.bindGeTui(MyApplication.getInstance(), getInstance().getUserId());
     }
 
     public String getPicPath() {
@@ -152,11 +145,6 @@ public class DataManagerNew {
         return sharedPreferuser.getValue(Constant.ACCOUNT, null);
     }
 
-    public String getUserType() {
-        String userType = sharedPreferuser.getValue(Constant.USERTYPE, "1");
-        return userType;
-    }
-
     public String getUserId() {
         return sharedPreferuser.getValue(Constant.USER_ID, null);
     }
@@ -184,5 +172,27 @@ public class DataManagerNew {
         sharedPreferuser.clear();
         DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
+
+    /**
+     * 登录成功所做的基本操作
+     * @param user
+     */
+    public static void loginSuccess(User user) {
+        getInstance().setLogin(true);
+        getInstance().savaLastLoginTime(Calendar.getInstance()
+                .getTimeInMillis());
+        getInstance().saveLoginUserBean(user);
+        GeTuiManager.bindGeTui(MyApplication.getInstance(), getInstance().getUserId());
+    }
+
+    /**
+     * 登出所做的操作
+     */
+    public static void loginOut(){
+        GeTuiManager.cancelBind(MyApplication.getInstance(), getInstance().getUserId());
+        getInstance().cleanData();
+        ApiClient.clearCookie();
+    }
+
 
 }
