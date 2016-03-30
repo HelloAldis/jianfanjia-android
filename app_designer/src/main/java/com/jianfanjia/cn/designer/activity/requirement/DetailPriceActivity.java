@@ -7,8 +7,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.View.OnClickListener;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
@@ -19,36 +22,47 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 
-import java.util.List;
-
 /**
  * Description:方案详细报价
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DetailPriceActivity extends BaseActivity implements OnClickListener {
+public class DetailPriceActivity extends BaseActivity{
     private static final String TAG = DetailPriceActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private RecyclerView detail_price_listview = null;
+
+    @Bind(R.id.my_price_head_layout)
+    protected MainHeadView mainHeadView;
+    @Bind(R.id.detail_price_listview)
+    protected RecyclerView detail_price_listview;
     private PriceDetailAdapter adapter = null;
     private PlanInfo planInfo = null;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDataFromIntent();
+        initView();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
         planInfo = (PlanInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
         LogTool.d(TAG, "planInfo =" + planInfo);
+    }
+
+    public void initView() {
+
         initMainHeadView();
-        detail_price_listview = (RecyclerView) findViewById(R.id.detail_price_listview);
         detail_price_listview.setLayoutManager(new LinearLayoutManager(DetailPriceActivity.this));
         detail_price_listview.setItemAnimator(new DefaultItemAnimator());
         Paint paint = new Paint();
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
+                .showLastDivider().build());
         if (null != planInfo) {
             PriceDetail detail = new PriceDetail();
             detail.setItem(getResources().getString(R.string.project_text));
@@ -64,20 +78,14 @@ public class DetailPriceActivity extends BaseActivity implements OnClickListener
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_price_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.str_view_price));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
 
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:

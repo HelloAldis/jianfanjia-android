@@ -7,6 +7,10 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
@@ -14,18 +18,19 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.DeletePicPopWindow;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowProcessPicActivity extends BaseActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = ShowProcessPicActivity.class.getName();
-    private ViewPager viewPager;
+
+    @Bind(R.id.showpicPager)
+    ViewPager viewPager;
+
+    @Bind(R.id.pic_tip)
+    TextView tipView;
+
     private ShowPicPagerAdapter showPicPagerAdapter;
-    private TextView tipView;
     private List<String> imageList = new ArrayList<String>();
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
@@ -39,8 +44,13 @@ public class ShowProcessPicActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
+        this.getDataFromIntent();
+        initView();
+        initData();
+    }
 
+    private void getDataFromIntent(){
+        Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             processid = bundle.getString(Global.PROCESS_ID, null);
@@ -49,17 +59,24 @@ public class ShowProcessPicActivity extends BaseActivity implements
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
             for (String str : imageList) {
-                LogTool.d(this.getClass().getName(), " str:" + str);
+                com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), " str:" + str);
             }
             totalCount = imageList.size();
         }
+    }
+
+    private void initView(){
+        setTipText();
+        deletePicPopWindow = new DeletePicPopWindow(this, this);
+    }
+
+    private void initData(){
         showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
         showPicPagerAdapter.setOnLongClickListener(this);
         viewPager.setAdapter(showPicPagerAdapter);
         viewPager.setCurrentItem(currentPosition);
         viewPager.setOnPageChangeListener(this);
-        setTipText();
-        deletePicPopWindow = new DeletePicPopWindow(this, this);
+
     }
 
     private void setTipText() {
@@ -67,11 +84,6 @@ public class ShowProcessPicActivity extends BaseActivity implements
         tipView.setText(tipText);
     }
 
-    @Override
-    public void initView() {
-        viewPager = (ViewPager) findViewById(R.id.showpicPager);
-        tipView = (TextView) findViewById(R.id.pic_tip);
-    }
 
 
     @Override
@@ -103,10 +115,6 @@ public class ShowProcessPicActivity extends BaseActivity implements
         super.loadFailture(error_msg);
     }
 
-    @Override
-    public void setListener() {
-
-    }
 
     @Override
     public boolean onLongClick(View v) {

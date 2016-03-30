@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -46,7 +47,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends BaseSwipeBackActivity implements OnClickListener, ItemClickCallBack {
+public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
     public static final String CHECK_INTENT_FLAG = "check_intent_flag";
     public static final int NOTICE_INTENT = 0;//通知进入的
@@ -80,7 +81,6 @@ public class CheckActivity extends BaseSwipeBackActivity implements OnClickListe
     }
 
     public void initView() {
-        mainHeadView.setBackListener(this);
         gridLayoutManager = new GridLayoutManager(CheckActivity.this, 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -187,7 +187,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements OnClickListe
         return flag;
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout,R.id.btn_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:

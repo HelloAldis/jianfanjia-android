@@ -6,9 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
@@ -16,14 +20,6 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.DateTimePicker;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Calendar;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -32,16 +28,15 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-19 17:48
  */
-@EActivity(R.layout.activity_choose_date)
-public class SettingMeasureDateActivity extends BaseAnnotationActivity {
+public class SettingMeasureDateActivity extends BaseActivity {
 
-    @ViewById(R.id.datePicker)
+    @Bind(R.id.datePicker)
     protected DateTimePicker datePicker;
 
-    @ViewById(R.id.timeTitle)
+    @Bind(R.id.timeTitle)
     protected TextView timeTitleView;
 
-    @ViewById(R.id.phone_login)
+    @Bind(R.id.phone_login)
     protected TextView phoneLogin;
 
     private String phone;
@@ -53,6 +48,12 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.getDataFromIntent();
+        initView();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -62,8 +63,7 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
         }
     }
 
-    @AfterViews
-    protected void initAnnotationView() {
+    protected void initView() {
 //        updateTitle(chooseDate);
         datePicker.setOnDateTimeChangedListener(new DateTimePicker.OnDateTimeChangedListener() {
             @Override
@@ -89,7 +89,7 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
         timeTitleView.setText(StringUtils.covertLongToStringHasMiniAndChinese(calendar.getTimeInMillis()));
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_confirm, R.id.btn_phone_layout})
+    @OnClick({R.id.head_back_layout, R.id.btn_confirm, R.id.btn_phone_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -118,7 +118,7 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
             @Override
             public void loadSuccess(Object data) {
                 hideWaitDialog();
-                appManager.finishActivity(SettingMeasureDateActivity_.class);
+                appManager.finishActivity(SettingMeasureDateActivity.class);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }
 
@@ -130,4 +130,8 @@ public class SettingMeasureDateActivity extends BaseAnnotationActivity {
         }, requirementid, houseCheckTime, this);
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_choose_date;
+    }
 }

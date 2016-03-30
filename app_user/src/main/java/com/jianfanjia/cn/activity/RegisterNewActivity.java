@@ -60,14 +60,18 @@ public class RegisterNewActivity extends BaseActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        this.getDataFromIntent();
         initView();
     }
 
-    public void initView() {
+    private void getDataFromIntent(){
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
         requsetCode = intent.getIntExtra(Global.REGISTER, 0);
+    }
+
+    public void initView() {
+
         if (registerInfo != null) {
             mPhoneView.setText(registerInfo.getPhone());
         }

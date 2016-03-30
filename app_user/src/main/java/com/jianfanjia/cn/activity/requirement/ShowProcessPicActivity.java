@@ -48,6 +48,12 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
+        initView();
+        initData();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -61,14 +67,19 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
             }
             totalCount = imageList.size();
         }
-        initView();
+    }
+
+    private void initView(){
+        setTipText();
+        deletePicDialog = new DeletePicDialog(this, this);
+    }
+
+    private void initData(){
         showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
         showPicPagerAdapter.setOnLongClickListener(this);
         viewPager.setAdapter(showPicPagerAdapter);
         viewPager.setCurrentItem(currentPosition);
         viewPager.setOnPageChangeListener(this);
-        setTipText();
-        deletePicDialog = new DeletePicDialog(this, this);
     }
 
     private void setTipText() {
@@ -76,10 +87,6 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         tipView.setText(tipText);
     }
 
-    private void initView() {
-        viewPager = (ViewPager) findViewById(R.id.showpicPager);
-        tipView = (TextView) findViewById(R.id.pic_tip);
-    }
 
     @Override
     public void onClick(View v) {

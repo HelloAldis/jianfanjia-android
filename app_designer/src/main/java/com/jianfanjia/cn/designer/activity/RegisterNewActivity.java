@@ -1,29 +1,27 @@
 package com.jianfanjia.cn.designer.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -32,8 +30,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 注册
  * @date 2015-10-27 下午12:11:23
  */
-@EActivity(R.layout.activity_register_new)
-public class RegisterNewActivity extends BaseAnnotationActivity implements
+public class RegisterNewActivity extends BaseActivity implements
         ApiUiUpdateListener {
     private static final String TAG = RegisterNewActivity.class.getName();
 
@@ -41,11 +38,11 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     public static final int UPDATE_PSW_CODE = 1;
     public static final int BINDING_PHONE = 2;
 
-    @ViewById(R.id.et_verification)
+    @Bind(R.id.et_verification)
     EditText mEtVerification;// 用户名输入框
-    @ViewById(R.id.register_phone)
+    @Bind(R.id.register_phone)
     TextView mPhoneView;//手机号码
-    @ViewById(R.id.btn_commit)
+    @Bind(R.id.btn_commit)
     Button mBtnCommit;
 
     private String mVerification = null;// 密码
@@ -53,11 +50,24 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
 
     int requsetCode;
 
-    @AfterViews
-    public void initAnnotationView() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getDataFromIntent();
+        initView();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
         requsetCode = intent.getIntExtra(Global.REGISTER, 0);
+    }
+
+    public void initView() {
+
         if (registerInfo != null) {
             mPhoneView.setText(registerInfo.getPhone());
         }
@@ -87,7 +97,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
         });
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_commit})
+    @OnClick({R.id.head_back_layout, R.id.btn_commit})
     void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_commit:
@@ -147,7 +157,7 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
                 break;
             case UPDATE_PSW_CODE:
                 makeTextShort(getString(R.string.update_psw_success));
-                startActivity(LoginNewActivity_.class);
+                startActivity(LoginNewActivity.class);
                 appManager.finishActivity(this);
                 break;
             case BINDING_PHONE:
@@ -160,5 +170,10 @@ public class RegisterNewActivity extends BaseAnnotationActivity implements
     @Override
     public void loadFailture(String error_msg) {
         super.loadFailture(error_msg);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_register_new;
     }
 }

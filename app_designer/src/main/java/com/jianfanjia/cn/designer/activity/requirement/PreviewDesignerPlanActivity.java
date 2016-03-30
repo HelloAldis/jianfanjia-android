@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
@@ -24,64 +28,76 @@ import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Description:预览设计师方案
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDesignerPlanActivity extends BaseActivity implements OnClickListener {
+public class PreviewDesignerPlanActivity extends BaseActivity {
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private LinearLayout houseTypeLayout = null;
-    private LinearLayout houseAreaLayout = null;
-    private LinearLayout decorateTypeLayout = null;
-    private LinearLayout totalDateLayout = null;
-    private LinearLayout priceLayout = null;
-    private LinearLayout designTextLayout = null;
-    private ViewPager viewPager = null;
-    private LinearLayout indicatorGroup_lib = null;
-    private TextView cellName = null;
-    private TextView houseType = null;
-    private TextView houseArea = null;
-    private TextView decorateType = null;
-    private TextView totalDate = null;
-    private TextView price = null;
-    private TextView designText = null;
 
-    private Button btnDetail = null;
+    @Bind(R.id.my_prieview_head_layout)
+    protected MainHeadView mainHeadView = null;
+    @Bind(R.id.houseTypeLayout)
+    protected LinearLayout houseTypeLayout;
+    @Bind(R.id.houseAreaLayout)
+    protected LinearLayout houseAreaLayout;
+    @Bind(R.id.decorateTypeLayout)
+    protected LinearLayout decorateTypeLayout;
+    @Bind(R.id.totalDateLayout)
+    protected LinearLayout totalDateLayout;
+    @Bind(R.id.priceLayout)
+    protected LinearLayout priceLayout;
+    @Bind(R.id.designTextLayout)
+    protected LinearLayout designTextLayout;
+    @Bind(R.id.viewpager)
+    protected ViewPager viewPager;
+    @Bind(R.id.indicatorGroup_lib)
+    protected LinearLayout indicatorGroup_lib;
+    @Bind(R.id.cellName)
+    protected TextView cellName;
+    @Bind(R.id.houseType)
+    protected TextView houseType;
+    @Bind(R.id.houseArea)
+    protected TextView houseArea;
+    @Bind(R.id.decorateType)
+    protected TextView decorateType;
+    @Bind(R.id.totalDate)
+    protected TextView totalDate;
+    @Bind(R.id.price)
+    protected TextView price;
+    @Bind(R.id.designText)
+    protected TextView designText;
+    @Bind(R.id.btnDetail)
+    protected Button btnDetail;
+
     private PlanInfo plan = null;
     private RequirementInfo requirement = null;
     private String itemPosition;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDataFromIntent();
+        initView();
+        initData();
+    }
+
     public void initView() {
+        initMainHeadView();
+    }
+
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         plan = (PlanInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
         requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
-        itemPosition = plan.getName()  == null ? "null" : plan.getName();
+        itemPosition = plan.getName() == null ? "null" : plan.getName();
         LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement + " itemPosition=" + itemPosition);
-        initMainHeadView();
-        houseTypeLayout = (LinearLayout) findViewById(R.id.houseTypeLayout);
-        houseAreaLayout = (LinearLayout) findViewById(R.id.houseAreaLayout);
-        decorateTypeLayout = (LinearLayout) findViewById(R.id.decorateTypeLayout);
-        totalDateLayout = (LinearLayout) findViewById(R.id.totalDateLayout);
-        priceLayout = (LinearLayout) findViewById(R.id.priceLayout);
-        designTextLayout = (LinearLayout) findViewById(R.id.designTextLayout);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        indicatorGroup_lib = (LinearLayout) findViewById(R.id.indicatorGroup_lib);
-        cellName = (TextView) findViewById(R.id.cellName);
-        houseType = (TextView) findViewById(R.id.houseType);
-        houseArea = (TextView) findViewById(R.id.houseArea);
-        decorateType = (TextView) findViewById(R.id.decorateType);
-        totalDate = (TextView) findViewById(R.id.totalDate);
-        price = (TextView) findViewById(R.id.price);
-        designText = (TextView) findViewById(R.id.designText);
-        btnDetail = (Button) findViewById(R.id.btnDetail);
+    }
+
+    public void initData() {
         if (null != plan && null != requirement) {
             totalDateLayout.setVisibility(View.VISIBLE);
             priceLayout.setVisibility(View.VISIBLE);
@@ -111,10 +127,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_prieview_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
-        mainHeadView.setMianTitle(itemPosition == null ? getResources().getString(R.string.designerPlan) : itemPosition);
+        mainHeadView.setMianTitle(itemPosition == null ? getResources().getString(R.string.designerPlan) :
+                itemPosition);
         mainHeadView.setRightTitle(getResources().getString(R.string.detailPrice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -137,7 +151,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
             indicators[i].setLayoutParams(params);
             indicatorGroup_lib.addView(indicators[i]);
         }
-        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new ViewPagerClickListener() {
+        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new
+                ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
                 LogTool.d(TAG, "pos:" + pos);
@@ -177,12 +192,7 @@ public class PreviewDesignerPlanActivity extends BaseActivity implements OnClick
         });
     }
 
-    @Override
-    public void setListener() {
-        btnDetail.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.head_right_title, R.id.btnDetail})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

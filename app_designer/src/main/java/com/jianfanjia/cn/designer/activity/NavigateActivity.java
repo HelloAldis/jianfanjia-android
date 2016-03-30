@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +12,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
@@ -24,14 +24,20 @@ import com.jianfanjia.cn.designer.tools.LogTool;
  * @Description: 引导
  * @date 2015-8-28 下午3:23:37
  */
-public class NavigateActivity extends BaseActivity implements OnClickListener,
+public class NavigateActivity extends BaseActivity implements
         OnPageChangeListener {
-    private ViewPager viewPager = null;
-    private LinearLayout btnLayout = null;
+
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
+
+    @Bind(R.id.btnLayout)
+    LinearLayout btnLayout;
+
     private List<View> list = new ArrayList<View>();
     private ViewPageAdapter adapter = null;
     private int lastSelectorItem = 0;
     private int currentItem = 0; // 当前图片的索引号
+
     private RelativeLayout imageLayout;
 
     private int imgId[] = {R.mipmap.img_guide1, R.mipmap.img_guide2};
@@ -43,12 +49,11 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        initView();
     }
 
-    @Override
     public void initView() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
         // 导航测试资源
         for (int i = 0; i < imgId.length; i++) {
             imageLayout = (RelativeLayout)inflater.inflate(R.layout.viewpager_item_navigate,null,false);
@@ -63,15 +68,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         adapter = new ViewPageAdapter(NavigateActivity.this, list);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentItem);
-    }
-
-    @Override
-    public void setListener() {
         viewPager.setOnPageChangeListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
     }
 
     int currentState;
@@ -90,7 +87,7 @@ public class NavigateActivity extends BaseActivity implements OnClickListener,
         if (currentState == ViewPager.SCROLL_STATE_DRAGGING && arg0 == list.size() - 1 && arg1 == 0.0f) {
             if(!intentTo){
                 dataManager.setFisrt(false);
-                startActivity(LoginNewActivity_.class);
+                startActivity(LoginNewActivity.class);
                 appManager.finishActivity(this);
                 intentTo = true;
             }

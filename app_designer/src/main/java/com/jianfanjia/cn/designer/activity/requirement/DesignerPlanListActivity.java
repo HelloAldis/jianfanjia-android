@@ -6,11 +6,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
@@ -36,11 +37,17 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerPlanListActivity extends BaseActivity implements OnClickListener, ApiUiUpdateListener,
+public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdateListener,
         ItemClickListener, PullToRefreshBase.OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerPlanListActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private PullToRefreshRecycleView designer_plan_listview = null;
+
+    @Bind(R.id.my_plan_head_layout)
+    protected MainHeadView mainHeadView;
+
+    @Bind(R.id.designer_plan_listview)
+    protected PullToRefreshRecycleView designer_plan_listview;
+
+
     private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
     private String requirementid = null;
     //    private String designerid = null;
@@ -48,7 +55,13 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
     private int itemPosition = -1;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
+        initView();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
         requirementInfo = (RequirementInfo) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
@@ -56,18 +69,31 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
             requirementid = requirementInfo.get_id();
         }
         LogTool.d(TAG, "requirementid:" + requirementid);
+    }
+
+    public void initView() {
+
         initMainHeadView();
-        designer_plan_listview = (PullToRefreshRecycleView) findViewById(R.id.designer_plan_listview);
+        initRecycleView();
+
+
+    }
+
+    private void initRecycleView(){
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
         designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
+        designer_plan_listview.setOnRefreshListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getDesignerPlansList(requirementid, dataManager.getUserId());
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_plan_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView
                 .setMianTitle(getResources().getString(R.string.plan_list));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
@@ -75,12 +101,7 @@ public class DesignerPlanListActivity extends BaseActivity implements OnClickLis
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-        designer_plan_listview.setOnRefreshListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:

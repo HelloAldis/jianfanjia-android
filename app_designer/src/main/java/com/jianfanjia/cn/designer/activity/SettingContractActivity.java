@@ -8,9 +8,13 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.PlanInfo;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
@@ -19,14 +23,6 @@ import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Calendar;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -35,37 +31,36 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-21 14:43
  */
-@EActivity(R.layout.activity_config_contract)
-public class SettingContractActivity extends BaseAnnotationActivity {
+public class SettingContractActivity extends BaseActivity {
 
-    @ViewById(R.id.datePicker)
+    @Bind(R.id.datePicker)
     protected DatePicker datePicker;
 
-    @ViewById(R.id.workTypeContent)
+    @Bind(R.id.workTypeContent)
     protected TextView decTypeContent;
 
-    @ViewById(R.id.totalPriceContent)
+    @Bind(R.id.totalPriceContent)
     protected TextView totalPriceContent;
 
-    @ViewById(R.id.durationContent)
+    @Bind(R.id.durationContent)
     protected TextView durationContent;
 
-    @ViewById(R.id.startTimeContent)
+    @Bind(R.id.startTimeContent)
     protected TextView startTimeContent;
 
-    @ViewById(R.id.endTimeContent)
+    @Bind(R.id.endTimeContent)
     protected TextView endTimeContent;
 
-    @ViewById(R.id.timeTitle)
+    @Bind(R.id.timeTitle)
     protected TextView titleTimeView;
 
-    @ViewById(R.id.contractInfoLayout)
+    @Bind(R.id.contractInfoLayout)
     protected LinearLayout contractInfoLayout;
 
-    @ViewById(R.id.chooseDateLayout)
+    @Bind(R.id.chooseDateLayout)
     protected LinearLayout chooseDateLayout;
 
-    @ViewById(R.id.head_center_title)
+    @Bind(R.id.head_center_title)
     protected TextView titleHeadView;
 
     private RequirementInfo requirementInfo;
@@ -81,6 +76,11 @@ public class SettingContractActivity extends BaseAnnotationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
+       initView();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -98,8 +98,7 @@ public class SettingContractActivity extends BaseAnnotationActivity {
         }
     }
 
-    @AfterViews
-    protected void initAnnotationView() {
+    protected void initView() {
 
         decTypeContent.setText(String.format(getString(R.string.process_workType_cont),
                 BusinessManager.convertWorktypeToShow(workType)));
@@ -147,7 +146,7 @@ public class SettingContractActivity extends BaseAnnotationActivity {
         titleTimeView.setText(StringUtils.covertLongToStringHasChinese(calendar.getTimeInMillis()));
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_confirm})
+    @OnClick({R.id.head_back_layout, R.id.btn_confirm})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -171,7 +170,7 @@ public class SettingContractActivity extends BaseAnnotationActivity {
             @Override
             public void loadSuccess(Object data) {
                 hideWaitDialog();
-                appManager.finishActivity(SettingContractActivity_.class);
+                appManager.finishActivity(SettingContractActivity.class);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }
 
@@ -182,4 +181,8 @@ public class SettingContractActivity extends BaseAnnotationActivity {
         }, requirementid, statrAt, this);
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_config_contract;
+    }
 }

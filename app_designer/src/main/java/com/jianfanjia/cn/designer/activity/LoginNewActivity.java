@@ -15,6 +15,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,8 +23,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -37,68 +42,60 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
-import java.util.Map;
-
 /**
  * @author fengliang
  * @ClassName: LoginActivity
  * @Description: 登录
  * @date 2015-8-18 下午12:11:23
  */
-@EActivity(R.layout.activity_login_new)
-public class LoginNewActivity extends BaseAnnotationActivity implements
+public class LoginNewActivity extends BaseActivity implements
         ApiUiUpdateListener, GestureDetector.OnGestureListener {
     private static final String TAG = LoginNewActivity.class.getName();
     private static final int LOGIN = 0;
     private static final int REGISER = 1;
     private static final float Alpha1 = 0.5f;
     private static final float Alpha2 = 1.0f;
-    @ViewById(R.id.login_layout)
+    @Bind(R.id.login_layout)
     RelativeLayout loginLayout;
-    @ViewById(R.id.forget_psw_layout)
+    @Bind(R.id.forget_psw_layout)
     RelativeLayout registerLayout;
-    @ViewById(R.id.act_login)
+    @Bind(R.id.act_login)
     TextView loginTitle;
-    @ViewById(R.id.act_register)
+    @Bind(R.id.act_register)
     TextView registerTitle;
-    @ViewById(R.id.act_title_layout)
+    @Bind(R.id.act_title_layout)
     RelativeLayout titleLayout;
 
-    @ViewById(R.id.content_layout)
+    @Bind(R.id.content_layout)
     RelativeLayout contentLayout;
 
-    @ViewById(R.id.login_register_layout)
+    @Bind(R.id.login_register_layout)
     RelativeLayout loginRegisterLayout;
 
-    @ViewById(R.id.act_viewflipper)
+    @Bind(R.id.act_viewflipper)
     ViewFlipper viewFlipper;
 
-    @ViewById(R.id.act_forget_psw_input_phone)
+    @Bind(R.id.act_forget_psw_input_phone)
     EditText mEtRegisterUserName = null;// 注册用户名输入框
-    @ViewById(R.id.act_forget_psw_input_password)
+    @Bind(R.id.act_forget_psw_input_password)
     EditText mEtRegisterPassword = null;// 注册用户密码输入框
-    @ViewById(R.id.act_login_input_phone)
+    @Bind(R.id.act_login_input_phone)
     EditText mEtLoginUserName = null;// 用户名输入框
-    @ViewById(R.id.act_login_input_password)
+    @Bind(R.id.act_login_input_password)
     EditText mEtLoginPassword = null;// 用户密码输入框
-    @ViewById(R.id.btn_login)
+    @Bind(R.id.btn_login)
     Button mBtnLogin = null;// 登录按钮
-    @ViewById(R.id.btn_next)
+    @Bind(R.id.btn_next)
     Button mBtnNext = null;// 下一步
-    @ViewById(R.id.act_forget_password)
+    @Bind(R.id.act_forget_password)
     TextView mForgetPswView = null;//忘记密码
-    @ViewById(R.id.act_login_input_password_delete)
+    @Bind(R.id.act_login_input_password_delete)
     ImageView loginInputPasswordDelete;
-    @ViewById(R.id.act_login_input_phone_delete)
+    @Bind(R.id.act_login_input_phone_delete)
     ImageView loginInputPhoneDelete;
-    @ViewById(R.id.act_forget_psw_input_password_delete)
+    @Bind(R.id.act_forget_psw_input_password_delete)
     ImageView registerInputPasswordDelete;
-    @ViewById(R.id.act_forget_psw_input_phone_delete)
+    @Bind(R.id.act_forget_psw_input_phone_delete)
     ImageView registerInputPhoneDelete;
 
     private String mUserName = null;// 用户名
@@ -113,18 +110,14 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authUtil = AuthUtil.getInstance(this);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getDataFromIntent();
+        initView();
     }
 
-    @AfterViews
-    public void initAnnotationView() {
-        controlKeyboardLayout(contentLayout, mBtnLogin);
-
-        mGestureDetector = new GestureDetector(this, this);
-        registerTitle.setAlpha(Alpha1);
-        loginTitle.setAlpha(Alpha2);
-        registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-
+    private void getDataFromIntent(){
         Intent intent = getIntent();
         boolean flag = intent.getBooleanExtra(Global.ISREGIISTER, false);
         if (flag) {
@@ -138,6 +131,16 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         } else {
 //            mEtLoginUserName.requestFocus();
         }
+    }
+
+    public void initView() {
+        controlKeyboardLayout(contentLayout, mBtnLogin);
+
+        mGestureDetector = new GestureDetector(this, this);
+        registerTitle.setAlpha(Alpha1);
+        loginTitle.setAlpha(Alpha2);
+        registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
         mBtnLogin.setEnabled(false);
         mBtnNext.setEnabled(false);
@@ -275,7 +278,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         super.onResume();
     }
 
-    @Click({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id.btn_login_weixin_layout, R.id.btn_register_weixin_layout})
+    @OnClick({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id
+            .btn_login_weixin_layout, R.id.btn_register_weixin_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -293,7 +297,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 }
                 break;
             case R.id.act_forget_password:
-                startActivity(ForgetPswActivity_.class);
+                startActivity(ForgetPswActivity.class);
                 break;
             case R.id.act_login:
                 if (currentPage == REGISER) {
@@ -330,7 +334,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 weiXinRegisterInfo.setImage_url((String) data.get("headimgurl").toString());
                 String sex = null;
                 if ((sex = data.get("sex").toString()) != null) {
-                    weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);//系统的性别和微信的性别要转换
+                    weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);
+                    //系统的性别和微信的性别要转换
                 }
                 weiXinRegisterInfo.setWechat_openid(data.get("openid").toString());
                 weiXinRegisterInfo.setWechat_unionid(data.get("unionid").toString());
@@ -464,7 +469,7 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
                 Bundle registerBundle = new Bundle();
                 registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
                 registerBundle.putInt(Global.REGISTER, RegisterNewActivity.REGISTER_CODE);
-                startActivity(RegisterNewActivity_.class, registerBundle);
+                startActivity(RegisterNewActivity.class, registerBundle);
             }
 
             @Override
@@ -561,7 +566,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         float currentX = view.getX();
         float currentY = view.getY();
         LogTool.d("translateAnimationToLeft", "currentY = " + currentY);
-        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("x", currentX, currentX - TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
+        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("x", currentX, currentX - TypedValue.applyDimension
+                (TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()));
         PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("y", currentY, currentY);
         ObjectAnimator objectAnimator = ObjectAnimator
                 .ofPropertyValuesHolder(view, p1, p2)
@@ -599,7 +605,8 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
         float currentX = view.getTranslationX();
         LogTool.d("translateAnimationToRight", "currentX = " + currentX);
         ObjectAnimator objectAnimator = ObjectAnimator
-                .ofFloat(view, "x", currentX, currentX + TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124, getResources().getDisplayMetrics()))
+                .ofFloat(view, "x", currentX, currentX + TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 124,
+                        getResources().getDisplayMetrics()))
                 .setDuration(200);
         objectAnimator.start();
         objectAnimator.addListener(new Animator.AnimatorListener() {
@@ -628,6 +635,11 @@ public class LoginNewActivity extends BaseAnnotationActivity implements
 
             }
         });
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_login_new;
     }
 
     @Override

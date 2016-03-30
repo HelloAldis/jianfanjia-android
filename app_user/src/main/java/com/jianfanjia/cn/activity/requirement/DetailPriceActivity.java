@@ -90,6 +90,7 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
+
             default:
                 break;
         }

@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.Event.MessageCountEvent;
@@ -18,7 +20,6 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
-import com.jianfanjia.cn.designer.fragment.MyOwnerFragment_;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -33,10 +34,17 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
-    private ImageView badgeView = null;
-    private LinearLayout ownerLayout = null;
-    private LinearLayout siteLayout = null;
-    private LinearLayout myLayout = null;
+    @Bind(R.id.badgeView)
+    ImageView badgeView;
+
+    @Bind(R.id.owner_layout)
+    LinearLayout ownerLayout;
+
+    @Bind(R.id.site_layout)
+    LinearLayout siteLayout;
+
+    @Bind(R.id.my_layout)
+    LinearLayout myLayout;
     private MyOwnerFragment ownerFragment = null;
     private ManageFragment manageFragment = null;
     private MyNewFragment myFragment = null;
@@ -53,26 +61,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initView();
     }
 
-    @Override
     public void initView() {
-        badgeView = (ImageView) findViewById(R.id.badgeView);
         badgeView.setVisibility(View.GONE);
-        ownerLayout = (LinearLayout) findViewById(R.id.owner_layout);
-        siteLayout = (LinearLayout) findViewById(R.id.site_layout);
-        myLayout = (LinearLayout) findViewById(R.id.my_layout);
         setTabSelection(Constant.OWNER);
     }
 
-    @Override
-    public void setListener() {
-        ownerLayout.setOnClickListener(this);
-        siteLayout.setOnClickListener(this);
-        myLayout.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.owner_layout,R.id.site_layout,R.id.my_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.owner_layout:
@@ -117,7 +114,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (ownerFragment != null) {
                     transaction.show(ownerFragment);
                 } else {
-                    ownerFragment = MyOwnerFragment_.builder().build();
+                    ownerFragment = new MyOwnerFragment();
                     transaction.add(R.id.tablayout, ownerFragment);
                 }
                 break;

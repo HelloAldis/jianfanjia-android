@@ -9,6 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.ContractInfo;
@@ -28,21 +29,57 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  */
 public class ContractActivity extends BaseActivity implements OnClickListener, View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private WebView webView = null;
+
+    @Bind(R.id.my_contract_head_layout)
+    protected MainHeadView mainHeadView = null;
+    @Bind(R.id.webView)
+    protected WebView webView = null;
+
     private String requirementStatus = null;
     private String requirementid = null;
     private String final_planid = null;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
+        this.initView();
+    }
+
+    private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
         requirementStatus = contractBundle.getString(Global.REQUIREMENT_STATUS);
         requirementid = contractBundle.getString(Global.REQUIREMENT_ID);
         LogTool.d(TAG, "requirementStatus:" + requirementStatus + " requirementid:" + requirementid);
+    }
+
+    public void initView() {
+
         initMainHeadView();
-        webView = (WebView) findViewById(R.id.webView);
+
+        initWebView();
+
+        getContractInfo(requirementid);
+    }
+
+    private void initMainHeadView() {
+        mainHeadView.setBackListener(this);
+        mainHeadView.setRightTextListener(this);
+        mainHeadView
+                .setMianTitle(getResources().getString(R.string.contractText));
+        mainHeadView.setRightTitle(getResources().getString(R.string.comfirmText));
+        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
+        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setBackLayoutVisable(View.VISIBLE);
+        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
+            mainHeadView.setRigthTitleEnable(false);
+        } else {
+            mainHeadView.setRigthTitleEnable(true);
+        }
+    }
+
+    private void initWebView(){
         //支持javascript
         webView.getSettings().setJavaScriptEnabled(true);
         // 设置可以支持缩放
@@ -62,29 +99,6 @@ public class ContractActivity extends BaseActivity implements OnClickListener, V
                 return true;
             }
         });
-        getContractInfo(requirementid);
-    }
-
-    private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_contract_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.contractText));
-        mainHeadView.setRightTitle(getResources().getString(R.string.comfirmText));
-        mainHeadView.setLayoutBackground(R.color.head_layout_bg);
-        mainHeadView.setRightTitleVisable(View.VISIBLE);
-        mainHeadView.setBackLayoutVisable(View.VISIBLE);
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS5)) {
-            mainHeadView.setRigthTitleEnable(false);
-        } else {
-            mainHeadView.setRigthTitleEnable(true);
-        }
-    }
-
-
-    @Override
-    public void setListener() {
         webView.setOnKeyListener(this);
     }
 

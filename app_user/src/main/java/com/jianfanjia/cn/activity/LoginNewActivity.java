@@ -116,19 +116,11 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        this.getDataFromIntent();
         initView();
     }
 
-    public void initView() {
-        controlKeyboardLayout(contentLayout, mBtnLogin);
-
-        mGestureDetector = new GestureDetector(this, this);
-        registerTitle.setAlpha(Alpha1);
-        loginTitle.setAlpha(Alpha2);
-        registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-
+    private void getDataFromIntent() {
         Intent intent = getIntent();
         boolean flag = intent.getBooleanExtra(Global.ISREGIISTER, false);
         if (flag) {
@@ -142,6 +134,16 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
         } else {
 //            mEtLoginUserName.requestFocus();
         }
+    }
+
+    public void initView() {
+        controlKeyboardLayout(contentLayout, mBtnLogin);
+
+        mGestureDetector = new GestureDetector(this, this);
+        registerTitle.setAlpha(Alpha1);
+        loginTitle.setAlpha(Alpha2);
+        registerTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        loginTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
         mBtnLogin.setEnabled(false);
         mBtnNext.setEnabled(false);

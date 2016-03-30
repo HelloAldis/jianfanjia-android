@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
@@ -53,7 +54,7 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends BaseActivity implements OnClickListener,
+public class CheckActivity extends BaseActivity implements
         UploadListener, ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = CheckActivity.class.getName();
     public static final String CHECK_INTENT_FLAG = "check_intent_flag";
@@ -131,8 +132,6 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
 
     private void initMainHeadView() {
         mainHeadView = (MainHeadView) findViewById(R.id.check_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView.setRightTitle(getString(R.string.edit));
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
@@ -148,18 +147,21 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         LogTool.d(TAG, "imageids=" + imageids);
         currentUploadCount = imageids.size();
         LogTool.d(TAG, "currentUploadCount=======" + currentUploadCount);
+        initCheckGridList();
+        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
+                this, this);
+        gridView.setAdapter(adapter);
+        setConfimStatus();
+        initShowList();
+    }
+
+    private void initCheckGridList() {
         for (int i = 0; imageids != null && i < imageids.size(); i++) {
             String key = imageids.get(i).getKey();
             LogTool.d(TAG, "key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                     imageids.get(i).getImageid());
         }
-        adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
-                this, this);
-        gridView.setAdapter(adapter);
-        setConfimStatus();
-        initShowList();
-
     }
 
     //初始化放大显示的list
@@ -274,7 +276,7 @@ public class CheckActivity extends BaseActivity implements OnClickListener,
         setConfimStatus();
     }
 
-    @Override
+    @OnClick({R.id.head_back_layout,R.id.head_right_title,R.id.btn_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:

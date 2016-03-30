@@ -41,6 +41,8 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        initView();
         logGeTuiAPPKey();
         first = dataManager.isFirst();
         LogTool.d(TAG, "first=" + first);
@@ -158,17 +160,11 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         dialog.show();
     }
 
-    @Override
     public void initView() {
         LogTool.d(TAG, "initView");
         dialog = DialogHelper
                 .getPinterestDialog(this);
         GeTuiManager.initGeTui(getApplicationContext());
-    }
-
-    @Override
-    public void setListener() {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -184,7 +180,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     @Override
     public void loadFailture(String error_msg) {
-        startActivity(LoginNewActivity_.class);
+        startActivity(LoginNewActivity.class);
         appManager.finishActivity(WelcomeActivity.this);
     }
 
@@ -198,7 +194,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                 LogTool.d(TAG, "not first");
                 if (!isLogin) {
                     LogTool.d(TAG, "not login");
-                    startActivity(LoginNewActivity_.class);
+                    startActivity(LoginNewActivity.class);
                     appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份

@@ -15,17 +15,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.activity.common.PhotoPickerActivity;
@@ -33,7 +29,7 @@ import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.ProcessInfo;
 import com.jianfanjia.cn.designer.bean.ProcessSection;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
@@ -66,19 +62,20 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshListView;
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-@EActivity(R.layout.activity_my_process_detail)
-public class MyProcessDetailActivity extends BaseAnnotationActivity implements ItemClickCallBack {
+public class MyProcessDetailActivity extends BaseActivity implements ItemClickCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
-    @ViewById(R.id.process_viewpager)
+
+    @Bind(R.id.process_viewpager)
     ViewPager processViewPager;
-    @ViewById(R.id.process__listview)
+    @Bind(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
-    @ViewById(R.id.process_head_layout)
+    @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
-    @ViewById(R.id.head_notification_layout)
+
+    @Bind(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
-    @StringArrayRes(R.array.site_procedure)
+
     String[] proTitle = null;
 
     private SectionItemAdapter sectionItemAdapter = null;
@@ -101,15 +98,20 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         if (currentList == -1) {
             currentList = dataManager.getCurrentList();
         }
+        initView();
     }
 
-    @AfterViews
-    public void initAnnotationView() {
+    private void initView() {
+        initStringArray();
         initPullRefresh();
         initMainHead();
         initScrollLayout();
         initListView();
         initProcessInfo();
+    }
+
+    private void initStringArray() {
+        proTitle = getResources().getStringArray(R.array.site_procedure);
     }
 
     private void initPullRefresh() {
@@ -167,12 +169,12 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         mainHeadView.setRightTitleVisable(View.GONE);
     }
 
-    @Click(R.id.head_back_layout)
+    @OnClick(R.id.head_back_layout)
     public void comeback() {
         appManager.finishActivity(this);
     }
 
-    @Click(R.id.head_notification_layout)
+    @OnClick(R.id.head_notification_layout)
     protected void gotoNotifyActivity() {
         startActivity(NoticeActivity.class);
     }
@@ -700,4 +702,8 @@ public class MyProcessDetailActivity extends BaseAnnotationActivity implements I
         }, this);
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_my_process_detail;
+    }
 }
