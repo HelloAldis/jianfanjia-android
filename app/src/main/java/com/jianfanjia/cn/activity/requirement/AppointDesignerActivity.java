@@ -6,16 +6,21 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
-import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.SwipeBackActivity;
@@ -28,14 +33,6 @@ import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -138,12 +135,6 @@ public class AppointDesignerActivity extends SwipeBackActivity {
             map.put(Constant.KEY, designerCanOrderInfo);
             mylist.add(map);
         }
-    }
-
-    public void onEventMainThread(BindingPhoneEvent bindingPhoneEvent) {
-        if (TextUtils.isEmpty(bindingPhoneEvent.getPhone())) return;
-        LogTool.d(TAG, "event:" + bindingPhoneEvent.getPhone());
-        orderDesignerByUser(requestmentid, designerIds);
     }
 
     public void onEventMainThread(MessageEvent messageEvent) {
@@ -250,7 +241,7 @@ public class AppointDesignerActivity extends SwipeBackActivity {
     private void orderDesignerByUser(String requestmentid, List<String> designerids) {
         OrderDesignerRequest orderDesignerRequest = new OrderDesignerRequest();
         orderDesignerRequest.setRequirementid(requestmentid);
-        orderDesignerRequest.setDesignerids(designerIds);
+        orderDesignerRequest.setDesignerids(designerids);
 
         Api.orderDesigner(orderDesignerRequest, new ApiCallback<ApiResponse<String>>() {
             @Override

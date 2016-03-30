@@ -11,6 +11,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import static com.jianfanjia.common.tool.JsonParser.*;
+
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.activity.MainActivity;
@@ -35,7 +37,7 @@ public class MessageUtil {
     //解析推送透传消息
     public static void parseMessage(Context context, String jsonStr) {
         try {
-            NotifyMessage message = JsonParser.jsonToBean(jsonStr,
+            NotifyMessage message = jsonToBean(jsonStr,
                     NotifyMessage.class);
             Log.i(TAG, "message:" + message);
             sendNotifycation(context, message);
