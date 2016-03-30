@@ -140,7 +140,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         TextView itemCellView;
 
         @Bind(R.id.ltm_req_status)
-        public TextView itemNodeView;
+        TextView itemNodeView;
 
         @Bind(R.id.item_site_section_listview)
         RecyclerView item_process_listview;
