@@ -10,13 +10,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.CommentAdapter;
@@ -33,31 +28,63 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:评论留言
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CommentActivity extends BaseActivity implements OnClickListener {
+public class CommentActivity extends BaseActivity {
     private static final String TAG = CommentActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private RecyclerView commentListView = null;
-    private EditText commentEdit = null;
-    private Button btnSend = null;
-    private CommentAdapter commentAdapter = null;
 
+    @Bind(R.id.my_comment_head_layout)
+    protected MainHeadView mainHeadView = null;
+
+    @Bind(R.id.comment_listview)
+    protected RecyclerView commentListView = null;
+
+    @Bind(R.id.add_comment)
+    protected EditText commentEdit = null;
+
+    @Bind(R.id.btn_send)
+    protected Button btnSend = null;
+
+    private CommentAdapter commentAdapter = null;
     private String topicid = null;
     private String to = null;
     private String section = null;
     private String item = null;
     private String topictype = null;
-
     private List<CommentInfo> commentList = new ArrayList<>();
-
     private boolean isUpdate = false;//返回是否更新
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getDataFormIntent();
+        initView();
+        setListener();
+        initData();
+    }
+
+    private void getDataFormIntent() {
+        Intent intent = this.getIntent();
+        Bundle commentBundle = intent.getExtras();
+        topicid = commentBundle.getString(Global.TOPIC_ID);
+        to = commentBundle.getString(Global.TO);
+        section = commentBundle.getString(Global.SECTION);
+        item = commentBundle.getString(Global.ITEM);
+        topictype = commentBundle.getString(Global.TOPICTYPE);
+        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
+    }
+
     public void initView() {
         initMainHeadView();
         commentListView = (RecyclerView) findViewById(R.id.comment_listview);
@@ -68,38 +95,31 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
         paint.setStrokeWidth(1);
         paint.setColor(getResources().getColor(R.color.light_white_color));
         paint.setAntiAlias(true);
-        commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint).showLastDivider().build());
+        commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
+                .showLastDivider().build());
         commentEdit = (EditText) findViewById(R.id.add_comment);
         btnSend = (Button) findViewById(R.id.btn_send);
         btnSend.setEnabled(false);
-        Intent intent = this.getIntent();
-        Bundle commentBundle = intent.getExtras();
-        topicid = commentBundle.getString(Global.TOPIC_ID);
-        to = commentBundle.getString(Global.TO);
-        section = commentBundle.getString(Global.SECTION);
-        item = commentBundle.getString(Global.ITEM);
-        topictype = commentBundle.getString(Global.TOPICTYPE);
-        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
         getCommentList(topicid, 0, 10000, section, item);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_comment_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.commentText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.commentText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-    @Override
-    public void setListener() {
-        commentEdit.addTextChangedListener(textWatcher);
-        btnSend.setOnClickListener(this);
+    private void initData() {
+        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
+        getCommentList(topicid, 0, 10000, section, item);
     }
 
-    @Override
+    public void setListener() {
+        commentEdit.addTextChangedListener(textWatcher);
+    }
+
+    @OnClick({R.id.btn_send, R.id.head_back_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -143,7 +163,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
-        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item, getCommentListener, this);
+        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item,
+                getCommentListener, this);
     }
 
     private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
@@ -175,7 +196,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener {
 
     //添加评论
     private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
-        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to, addCommentListener, this);
+        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to,
+                addCommentListener, this);
     }
 
     private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {

@@ -71,7 +71,6 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.getDataFormIntent();
         this.initView();
         this.setListener();
@@ -94,14 +93,12 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
         commentListView.setLayoutManager(new LinearLayoutManager(this));
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
-        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1), MyApplication.dip2px(this, 10)));
-
+        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1),
+                MyApplication.dip2px(this, 10)));
         btnSend.setEnabled(false);
     }
 
-
     private void initMainHeadView() {
-//        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.commentText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
@@ -167,7 +164,6 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
         request.setLimit(limit);
         request.setSection(section);
         request.setItem(item);
-
         Api.getCommentList(request, this.getCommentCallback);
     }
 
@@ -214,7 +210,6 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
         request.setItem(item);
         request.setContent(content);
         request.setTo(to);
-
         Api.addComment(request, this.addCommentCallback);
     }
 
