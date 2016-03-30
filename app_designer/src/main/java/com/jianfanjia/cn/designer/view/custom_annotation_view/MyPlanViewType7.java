@@ -2,11 +2,14 @@ package com.jianfanjia.cn.designer.view.custom_annotation_view;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.bean.RequirementInfo;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
@@ -14,10 +17,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
-import com.jianfanjia.cn.designer.view.baseview.BaseAnnotationView;
 
-import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.ViewById;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -25,36 +25,41 @@ import org.androidannotations.annotations.ViewById;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-22 10:46
  */
-@EViewGroup(R.layout.list_item_plan_type7)
-public class MyPlanViewType7 extends BaseAnnotationView {
+public class MyPlanViewType7 extends MyPlanViewTypeBase {
 
-    @ViewById(R.id.ltm_req_owner_head)
+    @Bind(R.id.ltm_req_owner_head)
     protected ImageView headView;
 
-    @ViewById(R.id.ltm_req_username)
+    @Bind(R.id.ltm_req_username)
     protected TextView nameView;
 
-    @ViewById(R.id.ltm_req_status)
+    @Bind(R.id.ltm_req_status)
     protected TextView statusView;
 
-    @ViewById(R.id.ltm_req_cell)
+    @Bind(R.id.ltm_req_cell)
     protected TextView cellView;
 
-    @ViewById(R.id.ltm_req_time)
+    @Bind(R.id.ltm_req_time)
     protected TextView createTimeView;
 
-    @ViewById(R.id.ltm_req_info)
+    @Bind(R.id.ltm_req_info)
     protected TextView desciptionView;
 
-    @ViewById(R.id.ltm_req_info_layout)
+    @Bind(R.id.ltm_req_info_layout)
     protected RelativeLayout contentLayout;
 
-    @ViewById(R.id.ltm_req_sex)
+    @Bind(R.id.ltm_req_sex)
     protected ImageView sexView;
 
 
-    public MyPlanViewType7(Context context) {
-        super(context);
+    public MyPlanViewType7(View view) {
+        super(view);
+        ButterKnife.bind(this, view);
+    }
+
+    public static MyPlanViewType7 build(Context context){
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type7,null);
+        return new MyPlanViewType7(view);
     }
 
     public void bind(RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
@@ -95,7 +100,7 @@ public class MyPlanViewType7 extends BaseAnnotationView {
         if (!TextUtils.isEmpty(des)) {
             desciptionView.setText(des);
         }
-        contentLayout.setOnClickListener(new OnClickListener() {
+        contentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, RecycleViewFragment.PRIVIEW_REQUIREMENT_TYPE);
