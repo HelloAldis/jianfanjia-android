@@ -24,6 +24,9 @@ import com.jianfanjia.cn.designer.tools.StringUtils;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: MySiteAdapter
  * User: fengliang
@@ -126,30 +129,40 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         return new MySiteViewHolder(view);
     }
 
-    private static class MySiteViewHolder extends RecyclerViewHolderBase {
-        public RelativeLayout ltm_req_baseinfo_layout;
-        public ImageView itemHeadView;
-        public TextView itemCellView;
+    static class MySiteViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.ltm_req_baseinfo_layout)
+        RelativeLayout ltm_req_baseinfo_layout;
+
+        @Bind(R.id.ltm_req_owner_head)
+        ImageView itemHeadView;
+
+        @Bind(R.id.ltm_req_cell)
+        TextView itemCellView;
+
+        @Bind(R.id.ltm_req_status)
         public TextView itemNodeView;
-        public RecyclerView item_process_listview;
-        public TextView itemPubTimeView;
-        public TextView itemUpdateTimeView;
-        public RelativeLayout contractLayout;
-        public RelativeLayout planLayout;
-        public RelativeLayout gotoLayout;
+
+        @Bind(R.id.item_site_section_listview)
+        RecyclerView item_process_listview;
+
+        @Bind(R.id.ltm_req_starttime_cont)
+        TextView itemPubTimeView;
+
+        @Bind(R.id.ltm_req_updatetime_cont)
+        TextView itemUpdateTimeView;
+
+        @Bind(R.id.contractLayout)
+        RelativeLayout contractLayout;
+
+        @Bind(R.id.planLayout)
+        RelativeLayout planLayout;
+
+        @Bind(R.id.gotoLayout)
+        RelativeLayout gotoLayout;
 
         public MySiteViewHolder(View itemView) {
             super(itemView);
-            ltm_req_baseinfo_layout = (RelativeLayout) itemView.findViewById(R.id.ltm_req_baseinfo_layout);
-            itemHeadView = (ImageView) itemView.findViewById(R.id.ltm_req_owner_head);
-            itemCellView = (TextView) itemView.findViewById(R.id.ltm_req_cell);
-            itemNodeView = (TextView) itemView.findViewById(R.id.ltm_req_status);
-            item_process_listview = (RecyclerView) itemView.findViewById(R.id.item_site_section_listview);
-            itemPubTimeView = (TextView) itemView.findViewById(R.id.ltm_req_starttime_cont);
-            itemUpdateTimeView = (TextView) itemView.findViewById(R.id.ltm_req_updatetime_cont);
-            contractLayout = (RelativeLayout) itemView.findViewById(R.id.contractLayout);
-            planLayout = (RelativeLayout) itemView.findViewById(R.id.planLayout);
-            gotoLayout = (RelativeLayout) itemView.findViewById(R.id.gotoLayout);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
