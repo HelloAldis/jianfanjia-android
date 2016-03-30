@@ -56,7 +56,7 @@ public class CustomerServiceActivity extends SwipeBackActivity implements View.O
     }
 
     private void initMainHeadView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.kefuText));
+        mainHeadView.setMianTitle(getResources().getString(R.string.online_kefu));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
