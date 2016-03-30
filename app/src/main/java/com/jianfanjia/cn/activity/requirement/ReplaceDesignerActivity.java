@@ -8,13 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
@@ -30,9 +23,17 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.CheckListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -141,10 +142,8 @@ public class ReplaceDesignerActivity extends SwipeBackActivity {
 
     //获取自己可以预约的设计师
     private void getOrderDesignerList(String requestmentid) {
-
         GetCanOrderDesignerListRequest getCanOrderDesignerListRequest = new GetCanOrderDesignerListRequest();
-        getCanOrderDesignerListRequest.setRequirementis(requestmentid);
-
+        getCanOrderDesignerListRequest.setRequirementid(requestmentid);
         Api.getCanOrderDesigner(getCanOrderDesignerListRequest, new ApiCallback<ApiResponse<DesignerCanOrderList>>() {
 
 
