@@ -3,10 +3,10 @@ package com.jianfanjia.cn.designer.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.jianfanjia.cn.designer.bean.OwnerInfo;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.designer.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.cn.designer.http.request.AddCommentRequest;
@@ -235,7 +235,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void post_collect_ownerinfo(Context context, OwnerInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
+    public static void post_collect_ownerinfo(Context context, User ownerInfo, ApiUiUpdateListener listener, Object tag) {
         PostCollectOwnerInfoRequest postCollectOwnerInfoRequest = new PostCollectOwnerInfoRequest(context);
         LogTool.d(TAG, "post_collect_ownerinfo --" + postCollectOwnerInfoRequest.getUrl() + "--" + JsonParser.beanToJson(ownerInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postCollectOwnerInfoRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
@@ -340,7 +340,7 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void update_Requirement(Context context, RequirementInfo requirementInfo, ApiUiUpdateListener listener, Object tag) {
+    public static void update_Requirement(Context context, Requirement requirementInfo, ApiUiUpdateListener listener, Object tag) {
         UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest(context, requirementInfo);
         LogTool.d(TAG, "add_Requirement --" + updateRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
         OkHttpClientManager.getInstance().getPostDelegate().postAsyn(updateRequirementRequest, JsonParser.beanToJson(requirementInfo), listener, tag);

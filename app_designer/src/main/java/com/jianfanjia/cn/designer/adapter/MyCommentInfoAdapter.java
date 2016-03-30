@@ -18,7 +18,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.designer.bean.NoticeInfo;
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
@@ -31,7 +31,7 @@ import com.jianfanjia.cn.designer.tools.StringUtils;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 17:46
  */
-public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
+public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
 
     public static final int PLAN_TYPE = 0;//方案的评论
     public static final int NODE_TYPE = 1;//节点的评论
@@ -73,29 +73,29 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
 
     @Override
     public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        NoticeInfo noticeInfo = mDatas.get(position);
+        UserMessage userMessage = mDatas.get(position);
         switch (getItemViewType(position)) {
             case PLAN_TYPE:
                 PlanCommentViewHolder planHolder = (PlanCommentViewHolder) viewHolder;
-                onBindPlanCommentViewHolder(noticeInfo, planHolder);
+                onBindPlanCommentViewHolder(userMessage, planHolder);
                 break;
             case NODE_TYPE:
                 ProcessCommentViewHolder processHolder = (ProcessCommentViewHolder) viewHolder;
-                onBindProcessCommentViewHolder(noticeInfo, processHolder);
+                onBindProcessCommentViewHolder(userMessage, processHolder);
                 break;
         }
     }
 
-    private void onBindPlanCommentViewHolder(final NoticeInfo noticeInfo, PlanCommentViewHolder holder) {
+    private void onBindPlanCommentViewHolder(final UserMessage userMessage, PlanCommentViewHolder holder) {
 
         //设计师的名字
-        holder.nameView.setText(noticeInfo.getUser().getUsername());
+        holder.nameView.setText(userMessage.getUser().getUsername());
 
-        holder.cellText.setText(noticeInfo.getRequirement().getCell());
+        holder.cellText.setText(userMessage.getRequirement().getCell());
 
-        holder.numText.setText(noticeInfo.getPlan().getName());
+        holder.numText.setText(userMessage.getPlan().getName());
         //设计师的头像
-        String imageid = noticeInfo.getUser().getImageid();
+        String imageid = userMessage.getUser().getImageid();
         LogTool.d(this.getClass().getName(), "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
@@ -104,12 +104,12 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         }
 
         //评论时间
-        holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
+        holder.dateText.setText(StringUtils.covertLongToStringHasMini(userMessage.getCreate_at()));
         //评论内容
-        holder.contentText.setText(noticeInfo.getContent());
+        holder.contentText.setText(userMessage.getContent());
 
         //方案状态
-        String status = noticeInfo.getPlan().getStatus();
+        String status = userMessage.getPlan().getStatus();
         if (status.equals(Global.PLAN_STATUS3)) {
             holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
             holder.statusText.setText("沟通中");
@@ -126,13 +126,13 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
             @Override
             public void onClick(View v) {
                 if (onItemCallback != null) {
-                    onItemCallback.onResponse(noticeInfo, PLAN_TYPE);
+                    onItemCallback.onResponse(userMessage, PLAN_TYPE);
                 }
             }
         });
 
         //方案图片
-        List<String> imgList = noticeInfo.getPlan().getImages();
+        List<String> imgList = userMessage.getPlan().getImages();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
@@ -140,7 +140,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
             @Override
             public void onClickItem(int pos) {
                 if (onItemCallback != null) {
-                    onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
+                    onItemCallback.showDetail(userMessage, PLAN_TYPE);
                 }
             }
         });
@@ -150,15 +150,15 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
             @Override
             public void onClick(View v) {
                 if (onItemCallback != null) {
-                    onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
+                    onItemCallback.showDetail(userMessage, PLAN_TYPE);
                 }
             }
         });
 
     }
 
-    private void onBindProcessCommentViewHolder(final NoticeInfo noticeInfo, ProcessCommentViewHolder holder) {
-        String imageid = noticeInfo.getUser().getImageid();
+    private void onBindProcessCommentViewHolder(final UserMessage userMessage, ProcessCommentViewHolder holder) {
+        String imageid = userMessage.getUser().getImageid();
         LogTool.d(this.getClass().getName(), "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
@@ -167,27 +167,27 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
         }
 
         //设计师的名字
-        holder.nameView.setText(noticeInfo.getUser().getUsername());
+        holder.nameView.setText(userMessage.getUser().getUsername());
         //评论时间
-        holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
+        holder.dateText.setText(StringUtils.covertLongToStringHasMini(userMessage.getCreate_at()));
         //评论内容
-        holder.contentText.setText(noticeInfo.getContent());
+        holder.contentText.setText(userMessage.getContent());
 
         //回复
         holder.responseView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemCallback != null) {
-                    onItemCallback.onResponse(noticeInfo, NODE_TYPE);
+                    onItemCallback.onResponse(userMessage, NODE_TYPE);
                 }
             }
         });
 
-        holder.cellName.setText(noticeInfo.getProcess().getCell());
+        holder.cellName.setText(userMessage.getProcess().getCell());
         holder.nodeName.setText(MyApplication.getInstance()
-                .getStringById(noticeInfo.getItem()));
-        switch (noticeInfo.getProcess().getSectionInfoByName(noticeInfo.getSection()).
-                getSectionItemInfoByName(noticeInfo.getItem())
+                .getStringById(userMessage.getItem()));
+        switch (userMessage.getProcess().getSectionInfoByName(userMessage.getSection()).
+                getSectionItemInfoByName(userMessage.getItem())
                 .getStatus()) {
             case Constant.FINISHED:
                 holder.itemStatus
@@ -223,7 +223,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
             @Override
             public void onClick(View v) {
                 if (onItemCallback != null) {
-                    onItemCallback.showDetail(noticeInfo, NODE_TYPE);
+                    onItemCallback.showDetail(userMessage, NODE_TYPE);
                 }
             }
         });
@@ -290,9 +290,9 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<NoticeInfo> {
     }
 
     public interface OnItemCallback {
-        void onResponse(NoticeInfo noticeInfo, int viewType);
+        void onResponse(UserMessage userMessage, int viewType);
 
-        void showDetail(NoticeInfo noticeInfo, int viewType);
+        void showDetail(UserMessage userMessage, int viewType);
     }
 
 

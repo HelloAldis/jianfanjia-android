@@ -17,8 +17,8 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -48,10 +48,10 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     protected PullToRefreshRecycleView designer_plan_listview;
 
 
-    private List<PlanInfo> designerPlanList = new ArrayList<PlanInfo>();
+    private List<Plan> designerPlanList = new ArrayList<Plan>();
     private String requirementid = null;
     //    private String designerid = null;
-    private RequirementInfo requirementInfo = null;
+    private Requirement requirementInfo = null;
     private int itemPosition = -1;
 
     @Override
@@ -64,7 +64,7 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementInfo = (RequirementInfo) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
         }
@@ -136,7 +136,7 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     public void loadSuccess(Object data) {
         LogTool.d(TAG, "data:" + data);
         hideWaitDialog();
-        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<PlanInfo>>() {
+        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Plan>>() {
         }.getType());
         LogTool.d(TAG, "designerPlanList:" + designerPlanList);
         if (null != designerPlanList && designerPlanList.size() > 0) {
@@ -157,43 +157,43 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     public void onCallBack(int position, int pos) {
         LogTool.d(TAG, "position:" + position + "  pos:" + pos);
         itemPosition = position + 1;
-        PlanInfo planInfo = designerPlanList.get(position);
-        LogTool.d(TAG, "planInfo:" + planInfo);
-        String planid = planInfo.get_id();
+        Plan plan = designerPlanList.get(position);
+        LogTool.d(TAG, "plan:" + plan);
+        String planid = plan.get_id();
         LogTool.d(TAG, "planid:" + planid);
-        startToActivity(planInfo, requirementInfo);
+        startToActivity(plan, requirementInfo);
     }
 
     @Override
     public void onItemCallBack(int position, int itemType) {
         LogTool.d(TAG, "itemType:" + itemType);
         itemPosition = position + 1;
-        PlanInfo planInfo = designerPlanList.get(position);
-        LogTool.d(TAG, "planInfo:" + planInfo);
-        String planid = planInfo.get_id();
-        String designerid = planInfo.getDesignerid();
+        Plan plan = designerPlanList.get(position);
+        LogTool.d(TAG, "plan:" + plan);
+        String planid = plan.get_id();
+        String designerid = plan.getDesignerid();
         LogTool.d(TAG, "planid:" + planid + " designerid:" + designerid);
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
                 Intent commentIntent = new Intent(DesignerPlanListActivity.this, CommentActivity.class);
                 Bundle commentBundle = new Bundle();
                 commentBundle.putString(Global.TOPIC_ID, planid);
-                commentBundle.putString(Global.TO, planInfo.getUserid());
+                commentBundle.putString(Global.TO, plan.getUserid());
                 commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
                 commentIntent.putExtras(commentBundle);
                 startActivityForResult(commentIntent, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
-                startToActivity(planInfo, requirementInfo);
+                startToActivity(plan, requirementInfo);
                 break;
             default:
                 break;
         }
     }
 
-    private void startToActivity(PlanInfo planInfo, RequirementInfo requirement) {
+    private void startToActivity(Plan plan, Requirement requirement) {
         Bundle planBundle = new Bundle();
-        planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
+        planBundle.putSerializable(Global.PLAN_DETAIL, plan);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }

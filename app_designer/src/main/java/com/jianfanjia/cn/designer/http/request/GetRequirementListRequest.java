@@ -27,8 +27,8 @@ public class GetRequirementListRequest extends BaseRequest {
     @Override
     public void onSuccess(Object data) {
         if (data != null) {
-            /*RequirementInfo requirementInfo = JsonParser.jsonToBean((String) data,
-                    RequirementInfo.class);
+            /*Requirement requirementInfo = JsonParser.jsonToBean((String) data,
+                    Requirement.class);
             if (requirementInfo != null && requirementInfo.get_id() != null) {
                 requirementInfo.set_id(requirementInfo.get_id());
             }

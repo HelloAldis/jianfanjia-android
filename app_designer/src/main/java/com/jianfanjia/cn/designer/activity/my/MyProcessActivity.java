@@ -15,7 +15,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
 import com.jianfanjia.cn.designer.adapter.MyProcessInfoAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
@@ -34,7 +34,7 @@ public class MyProcessActivity extends BaseActivity implements
     private static final String TAG = MyProcessActivity.class.getName();
     private MainHeadView mainHeadView = null;
     private ListView siteListView = null;
-    private List<ProcessInfo> siteList;
+    private List<Process> siteList;
     private MyProcessInfoAdapter myProcessInfoAdapter = null;
 
     @Override
@@ -84,7 +84,7 @@ public class MyProcessActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        ProcessInfo processInfo= siteList.get(position);
+        Process processInfo= siteList.get(position);
         LogTool.d(TAG, "_id=" + processInfo.get_id());
         Bundle bundle = new Bundle();
         bundle.putSerializable(Global.PROCESS_INFO,processInfo);
@@ -96,7 +96,7 @@ public class MyProcessActivity extends BaseActivity implements
         super.loadSuccess(data);
         if (data != null) {
             siteList = JsonParser.jsonToList(data.toString(),
-                    new TypeToken<List<ProcessInfo>>() {
+                    new TypeToken<List<Process>>() {
                     }.getType());
             myProcessInfoAdapter.setList(siteList);
             myProcessInfoAdapter.notifyDataSetChanged();

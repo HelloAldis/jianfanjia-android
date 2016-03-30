@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
-import com.jianfanjia.cn.designer.bean.PriceDetail;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.PlanPriceDetail;
 
 import java.util.List;
 
@@ -23,17 +23,17 @@ import java.util.List;
  * Date: 2015-10-23
  * Time: 16:14
  */
-public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
+public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail> {
     private static final String TAG = PriceDetailAdapter.class.getName();
-    private PlanInfo planInfo;
+    private Plan plan;
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_ITEM = 1;
     private int viewType = -1;
     private boolean isDetail = false;
 
-    public PriceDetailAdapter(Context context, List<PriceDetail> list, PlanInfo planInfo) {
+    public PriceDetailAdapter(Context context, List<PlanPriceDetail> list, Plan plan) {
         super(context, list);
-        this.planInfo = planInfo;
+        this.plan = plan;
     }
 
     @Override
@@ -52,18 +52,18 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PriceDetail> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PriceDetail> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanPriceDetail> list) {
         switch (viewType) {
             case TYPE_HEAD:
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
                 priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-                priceDetailHeadHolder.project_total_price.setText("￥" + planInfo.getProject_price_before_discount());
-                priceDetailHeadHolder.project_price_after_discount.setText("￥" + planInfo.getProject_price_after_discount());
-                priceDetailHeadHolder.total_design_fee.setText("￥" + planInfo.getTotal_design_fee());
-                priceDetailHeadHolder.project_price_before_discount.setText("￥" + planInfo.getTotal_price());
+                priceDetailHeadHolder.project_total_price.setText("￥" + plan.getProject_price_before_discount());
+                priceDetailHeadHolder.project_price_after_discount.setText("￥" + plan.getProject_price_after_discount());
+                priceDetailHeadHolder.total_design_fee.setText("￥" + plan.getTotal_design_fee());
+                priceDetailHeadHolder.project_price_before_discount.setText("￥" + plan.getTotal_price());
                 break;
             case TYPE_ITEM:
-                final PriceDetail detail = list.get(position - 1);
+                final PlanPriceDetail detail = list.get(position - 1);
                 final PriceDetailViewHolder priceDetailViewHolder = (PriceDetailViewHolder) viewHolder;
                 priceDetailViewHolder.itemTitle.setText(detail.getItem());
                 priceDetailViewHolder.itemContent.setText(detail.getPrice());

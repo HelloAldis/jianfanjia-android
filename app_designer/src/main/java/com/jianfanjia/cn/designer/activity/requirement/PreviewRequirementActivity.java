@@ -10,7 +10,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
@@ -59,7 +59,7 @@ public class PreviewRequirementActivity extends BaseActivity {
     protected String[] arr_worktype;
     protected String[] arr_desisex;
 
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {
@@ -97,7 +97,7 @@ public class PreviewRequirementActivity extends BaseActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                     requirementInfo.getDistrict());

@@ -23,7 +23,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivi
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.bean.Process;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;

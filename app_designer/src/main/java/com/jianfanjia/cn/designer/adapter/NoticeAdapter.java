@@ -9,7 +9,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.NoticeInfo;
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
@@ -23,7 +23,7 @@ import java.util.List;
  * Date: 2016-03-07
  * Time: 09:25
  */
-public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
+public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
     private static final String TAG = NoticeAdapter.class.getName();
     private static final int ITEM_TYPE0 = 0;
     private static final int ITEM_TYPE1 = 1;
@@ -51,15 +51,15 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     private RecyclerItemCallBack callback;
     private int viewType = -1;
 
-    public NoticeAdapter(Context context, List<NoticeInfo> list, RecyclerItemCallBack callback) {
+    public NoticeAdapter(Context context, List<UserMessage> list, RecyclerItemCallBack callback) {
         super(context, list);
         this.callback = callback;
     }
 
     @Override
     public int getItemViewType(int position) {
-        NoticeInfo noticeInfo = list.get(position);
-        String msgType = noticeInfo.getMessage_type();
+        UserMessage userMessage = list.get(position);
+        String msgType = userMessage.getMessage_type();
         LogTool.d(TAG, "msgType:" + msgType);
         if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
             viewType = ITEM_TYPE0;
@@ -110,8 +110,8 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<NoticeInfo> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<NoticeInfo> list) {
-        final NoticeInfo info = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<UserMessage> list) {
+        final UserMessage info = list.get(position);
         switch (viewType) {
             case ITEM_TYPE0:
             case ITEM_TYPE1:

@@ -32,8 +32,8 @@ public class GetProcessInfoRequest extends BaseRequest {
 	public void onSuccess(Object data) {
 		super.onSuccess(data);
 		if(data != null){
-			ProcessInfo processInfo = JsonParser
-					.jsonToBean((String)data, ProcessInfo.class);
+			Process processInfo = JsonParser
+					.jsonToBean((String)data, Process.class);
 			if(processInfo != null){
 				dataManager.setCurrentProcessInfo(processInfo);
 				dataManager.saveProcessInfo(processInfo);

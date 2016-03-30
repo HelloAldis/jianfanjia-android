@@ -12,7 +12,7 @@ import android.webkit.WebViewClient;
 import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.ContractInfo;
+import com.jianfanjia.api.model.ContractInfo;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;

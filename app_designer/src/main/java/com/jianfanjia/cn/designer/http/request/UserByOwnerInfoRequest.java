@@ -3,7 +3,7 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.OwnerInfo;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 
 public class UserByOwnerInfoRequest extends BaseRequest {
@@ -30,7 +30,7 @@ public class UserByOwnerInfoRequest extends BaseRequest {
 	public void onSuccess(Object data) {
 		super.onSuccess(data);
 		if (data != null) {
-			OwnerInfo ownerInfo = JsonParser.jsonToBean((String)data, OwnerInfo.class);
+			User ownerInfo = JsonParser.jsonToBean((String)data, User.class);
 			if(ownerInfo != null){
 				dataManager.setOwnerInfo(ownerInfo);
 			}

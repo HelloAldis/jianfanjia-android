@@ -27,10 +27,10 @@ import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.GridItem;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.ProcessSection;
-import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
-import com.jianfanjia.cn.designer.bean.ProcessSectionYsImage;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.ProcessSectionYsImage;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -79,7 +79,7 @@ public class CheckActivity extends BaseActivity implements
     private List<String> showProcessPic = new ArrayList<>();//工地验收照片
     private List<ProcessSectionYsImage> imageids = new ArrayList<>();
     private String processInfoId = null;// 工地id
-    private ProcessInfo processInfo = null;
+    private Process processInfo = null;
     private String sectionName = null;//工序名称
     private ProcessSection processSection = null;
     private int key = -1;
@@ -103,7 +103,7 @@ public class CheckActivity extends BaseActivity implements
         Bundle bundle = intent.getExtras();
         if (null != bundle) {
             sectionName = bundle.getString(Constant.SECTION);
-            processInfo = (ProcessInfo) bundle.getSerializable(Constant.PROCESS_INFO);
+            processInfo = (Process) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId);

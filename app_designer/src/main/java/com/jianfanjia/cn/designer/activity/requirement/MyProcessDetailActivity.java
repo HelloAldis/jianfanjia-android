@@ -30,8 +30,8 @@ import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.ProcessSection;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -83,7 +83,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
     private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
     private List<ProcessSection> processSections;
     private ProcessSection processSection = null;
-    private ProcessInfo processInfo = null;
+    private Process processInfo = null;
     private String processId = null;// 默认的工地id
 
     private int currentPro = -1;// 当前进行工序
@@ -129,7 +129,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
                     public void loadSuccess(Object data) {
                         detailNodeListView.onRefreshComplete();
                         if (data != null) {
-                            processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
+                            processInfo = JsonParser.jsonToBean(data.toString(), Process.class);
                             initData();
                         }
                     }
@@ -374,7 +374,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
     public void loadSuccess(Object data) {
         hideWaitDialog();
         if (data != null) {
-            processInfo = JsonParser.jsonToBean(data.toString(), ProcessInfo.class);
+            processInfo = JsonParser.jsonToBean(data.toString(), Process.class);
             initData();
         }
     }

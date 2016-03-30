@@ -15,8 +15,8 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
-import com.jianfanjia.cn.designer.bean.PriceDetail;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -36,7 +36,7 @@ public class DetailPriceActivity extends BaseActivity{
     @Bind(R.id.detail_price_listview)
     protected RecyclerView detail_price_listview;
     private PriceDetailAdapter adapter = null;
-    private PlanInfo planInfo = null;
+    private Plan plan = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class DetailPriceActivity extends BaseActivity{
     private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
-        planInfo = (PlanInfo) priceBundle.getSerializable(Global.PLAN_DETAIL);
-        LogTool.d(TAG, "planInfo =" + planInfo);
+        plan = (Plan) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        LogTool.d(TAG, "plan =" + plan);
     }
 
     public void initView() {
@@ -63,16 +63,16 @@ public class DetailPriceActivity extends BaseActivity{
         paint.setAntiAlias(true);
         detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
-        if (null != planInfo) {
-            PriceDetail detail = new PriceDetail();
+        if (null != plan) {
+            PlanPriceDetail detail = new PlanPriceDetail();
             detail.setItem(getResources().getString(R.string.project_text));
             detail.setPrice(getResources().getString(R.string.project_price_text));
             detail.setDescription(getResources().getString(R.string.des_text));
-            List<PriceDetail> details = planInfo.getPrice_detail();
+            List<PlanPriceDetail> details = plan.getPrice_detail();
             if (null != details && details.size() > 0) {
                 details.add(0, detail);
             }
-            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, details, planInfo);
+            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, details, plan);
             detail_price_listview.setAdapter(adapter);
         }
     }

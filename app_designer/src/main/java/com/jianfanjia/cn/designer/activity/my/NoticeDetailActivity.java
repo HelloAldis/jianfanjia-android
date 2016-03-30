@@ -20,10 +20,10 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivi
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.NoticeDetailInfo;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -66,9 +66,9 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private String messageid = null;
     private String processid = null;
     private String sectionName = null;
-    private ProcessInfo processInfo = null;
-    private PlanInfo planInfo = null;
-    private RequirementInfo requirement = null;
+    private Process processInfo = null;
+    private Plan plan = null;
+    private Requirement requirement = null;
 
     private CommonDialog refuseDialog = null;
     private String refuseMsg = null;
@@ -147,7 +147,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.btnPlan:
                 Bundle planBundle = new Bundle();
-                planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
+                planBundle.putSerializable(Global.PLAN_DETAIL, plan);
                 planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
                 startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
@@ -198,7 +198,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
             public void loadSuccess(Object data) {
                 LogTool.d(TAG, "data:" + data.toString());
                 hideWaitDialog();
-                NoticeDetailInfo noticeDetailInfo = JsonParser.jsonToBean(data.toString(), NoticeDetailInfo.class);
+                UserMessage noticeDetailInfo = JsonParser.jsonToBean(data.toString(), UserMessage.class);
                 if (null != noticeDetailInfo) {
                     String msgType = noticeDetailInfo.getMessage_type();
                     LogTool.d(TAG, "msgType:" + msgType);
@@ -285,9 +285,9 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                     } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant
                             .TYPE_PLAN_NOT_CHOOSED_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
-                        planInfo = noticeDetailInfo.getPlan();
+                        plan = noticeDetailInfo.getPlan();
                         requirement = noticeDetailInfo.getRequirement();
-                        LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
+                        LogTool.d(TAG, "requirement==" + requirement + "   plan==" + plan);
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);

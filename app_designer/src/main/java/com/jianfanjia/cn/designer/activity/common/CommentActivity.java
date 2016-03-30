@@ -13,12 +13,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import com.jianfanjia.api.model.Comment;
+import com.jianfanjia.api.model.CommentList;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.CommentAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.Comment;
-import com.jianfanjia.cn.designer.bean.CommentInfo;
-import com.jianfanjia.cn.designer.bean.User;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -27,13 +33,6 @@ import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:评论留言
@@ -62,7 +61,7 @@ public class CommentActivity extends BaseActivity {
     private String section = null;
     private String item = null;
     private String topictype = null;
-    private List<CommentInfo> commentList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
     private boolean isUpdate = false;//返回是否更新
 
     @Override
@@ -177,12 +176,12 @@ public class CommentActivity extends BaseActivity {
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            Comment comment = JsonParser.jsonToBean(data.toString(), Comment.class);
-            LogTool.d(TAG, "comment:" + comment);
-            if (null != comment) {
-                commentList = comment.getComments();
-                LogTool.d(TAG, "commentList=" + commentList);
-                commentAdapter = new CommentAdapter(CommentActivity.this, commentList);
+            CommentList commentList = JsonParser.jsonToBean(data.toString(), CommentList.class);
+            LogTool.d(TAG, "commentList:" + commentList);
+            if (null != commentList) {
+                CommentActivity.this.commentList = commentList.getComments();
+                LogTool.d(TAG, "commentList=" + CommentActivity.this.commentList);
+                commentAdapter = new CommentAdapter(CommentActivity.this, CommentActivity.this.commentList);
                 commentListView.setAdapter(commentAdapter);
             }
         }
@@ -210,8 +209,8 @@ public class CommentActivity extends BaseActivity {
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
-            CommentInfo commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
-            commentList.add(0, commentInfo);
+            Comment comment = createCommentInfo(commentEdit.getEditableText().toString());
+            commentList.add(0, comment);
             commentAdapter.notifyItemInserted(0);
             commentListView.scrollToPosition(0);
             commentEdit.setText("");
@@ -225,19 +224,19 @@ public class CommentActivity extends BaseActivity {
         }
     };
 
-    protected CommentInfo createCommentInfo(String content) {
-        CommentInfo commentInfo = new CommentInfo();
-        commentInfo.setTo(to);
-        commentInfo.setTopicid(topicid);
-        commentInfo.setTopictype(topictype);
-        commentInfo.setDate(Calendar.getInstance().getTimeInMillis());
-        commentInfo.setContent(content);
-        commentInfo.setUsertype(Constant.IDENTITY_DESIGNER);
+    protected Comment createCommentInfo(String content) {
+        Comment comment = new Comment();
+        comment.setTo(to);
+        comment.setTopicid(topicid);
+        comment.setTopictype(topictype);
+        comment.setDate(Calendar.getInstance().getTimeInMillis());
+        comment.setContent(content);
+        comment.setUsertype(Constant.IDENTITY_DESIGNER);
         User user = new User();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());
-        commentInfo.setByUser(user);
-        return commentInfo;
+        comment.setByUser(user);
+        return comment;
     }
 
     protected void back() {

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
@@ -25,17 +25,17 @@ import java.util.List;
  * Date: 2015-10-22
  * Time: 17:54
  */
-public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<PlanInfo> {
+public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
     private ItemClickListener itemClickListener;
 
-    public DesignerPlanAdapter(Context context, List<PlanInfo> list, ItemClickListener itemClickListener) {
+    public DesignerPlanAdapter(Context context, List<Plan> list, ItemClickListener itemClickListener) {
         super(context, list);
         this.itemClickListener = itemClickListener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanInfo> list) {
-        PlanInfo info = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Plan> list) {
+        Plan info = list.get(position);
         DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
         holder.numText.setText("方案" + (position + 1));
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));

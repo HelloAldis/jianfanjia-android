@@ -15,8 +15,8 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -63,8 +63,8 @@ public class SettingContractActivity extends BaseActivity {
     @Bind(R.id.head_center_title)
     protected TextView titleHeadView;
 
-    private RequirementInfo requirementInfo;
-    private PlanInfo planInfo;
+    private Requirement requirementInfo;
+    private Plan plan;
     private String requirementid;
     private int totalDuration;
     private float totalBudget;
@@ -84,12 +84,12 @@ public class SettingContractActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            requirementInfo = (RequirementInfo) bundle.getSerializable(Global.REQUIREMENT_INFO);
-            planInfo = (PlanInfo) bundle.getSerializable(Global.PLAN_DETAIL);
+            requirementInfo = (Requirement) bundle.getSerializable(Global.REQUIREMENT_INFO);
+            plan = (Plan) bundle.getSerializable(Global.PLAN_DETAIL);
             if (requirementInfo != null) {
                 requirementid = requirementInfo.get_id();
-                totalDuration = planInfo.getDuration();
-                totalBudget = planInfo.getTotal_price();
+                totalDuration = plan.getDuration();
+                totalBudget = plan.getTotal_price();
                 workType = requirementInfo.getWork_type();
                 LogTool.d(this.getClass().getName(), " requirementid = " + requirementid +
                         " totalDuration =" + totalDuration + " totalBudget=" + totalBudget

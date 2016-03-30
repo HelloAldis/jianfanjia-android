@@ -11,9 +11,9 @@ import java.util.List;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.ProcessSection;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -67,15 +67,15 @@ public class BusinessManager {
     }
 
     // 拿到所有的模拟工地数据
-    public static ProcessInfo getDefaultProcessInfo(Context context) {
-        ProcessInfo processInfo = null;
+    public static Process getDefaultProcessInfo(Context context) {
+        Process processInfo = null;
         try {
             InputStream is = context.getAssets()
                     .open("default_processinfo.txt");
             String jsonString = StringUtils.toConvertString(is);
             LogTool.d("getDefault",
                     jsonString);
-            processInfo = JsonParser.jsonToBean(jsonString, ProcessInfo.class);
+            processInfo = JsonParser.jsonToBean(jsonString, Process.class);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -196,7 +196,7 @@ public class BusinessManager {
      * @param target
      * @return
      */
-    public static boolean isRequirementChange(RequirementInfo src, RequirementInfo target) {
+    public static boolean isRequirementChange(Requirement src, Requirement target) {
         LogTool.d("isRequirementChange", "isRequirementChange");
         try {
             Class clazz = src.getClass();

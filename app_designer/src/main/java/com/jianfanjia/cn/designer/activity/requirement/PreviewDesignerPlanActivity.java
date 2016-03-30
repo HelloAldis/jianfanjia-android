@@ -19,8 +19,8 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -72,8 +72,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity {
     @Bind(R.id.btnDetail)
     protected Button btnDetail;
 
-    private PlanInfo plan = null;
-    private RequirementInfo requirement = null;
+    private Plan plan = null;
+    private Requirement requirement = null;
     private String itemPosition;
 
     @Override
@@ -91,8 +91,8 @@ public class PreviewDesignerPlanActivity extends BaseActivity {
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        plan = (PlanInfo) planBundle.getSerializable(Global.PLAN_DETAIL);
-        requirement = (RequirementInfo) planBundle.getSerializable(Global.REQUIREMENT_INFO);
+        plan = (Plan) planBundle.getSerializable(Global.PLAN_DETAIL);
+        requirement = (Requirement) planBundle.getSerializable(Global.REQUIREMENT_INFO);
         itemPosition = plan.getName() == null ? "null" : plan.getName();
         LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement + " itemPosition=" + itemPosition);
     }
@@ -209,9 +209,9 @@ public class PreviewDesignerPlanActivity extends BaseActivity {
         }
     }
 
-    private void startToActivity(PlanInfo planInfo) {
+    private void startToActivity(Plan plan) {
         Bundle priceBundle = new Bundle();
-        priceBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
+        priceBundle.putSerializable(Global.PLAN_DETAIL, plan);
         startActivity(DetailPriceActivity.class, priceBundle);
     }
 

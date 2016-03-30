@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.ProcessSection;
-import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
-import com.jianfanjia.cn.designer.bean.RescheduleInfo;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.Reschedule;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -421,9 +421,9 @@ public class SectionItemAdapter extends BaseAdapter {
                         break;
                     case Constant.YANQI_BE_DOING:
                         LogTool.d(TAG, "this section is yanqi_doing");
-                        RescheduleInfo rescheduleInfo = processSection.getReschedule();
-                        if (null != rescheduleInfo) {
-                            String role = rescheduleInfo.getRequest_role();
+                        Reschedule reschedule = processSection.getReschedule();
+                        if (null != reschedule) {
+                            String role = reschedule.getRequest_role();
                             if (role.equals(Constant.IDENTITY_DESIGNER)) {
                                 viewHolderf.site_list_head_delay_layout.setVisibility(View.GONE);
                                 viewHolderf.site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);

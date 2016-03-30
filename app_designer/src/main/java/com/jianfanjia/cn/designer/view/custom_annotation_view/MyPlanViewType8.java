@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
@@ -60,7 +60,7 @@ public class MyPlanViewType8 extends MyPlanViewTypeBase {
         return new MyPlanViewType8(view);
     }
 
-    public void bind(RequirementInfo requirementInfo, final ClickCallBack clickCallBack, final int position) {
+    public void bind(Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
         cellView.setText(requirementInfo.getCell());
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
         if (lastUpdateTime != 0l) {

@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
-import com.jianfanjia.cn.designer.bean.OwnerInfo;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.designer.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -74,7 +74,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements PopWindo
     protected MainHeadView mainHeadView;
     @ViewById(R.id.error_include)
     protected RelativeLayout error_Layout;
-    private OwnerInfo ownerInfo = null;
+    private User ownerInfo = null;
     private String sex = null;
 
     private boolean isUpdate = false;//是否更新，只有，更新了用户名或者头像才更新
@@ -291,7 +291,7 @@ public class UserInfoActivity extends BaseAnnotationActivity implements PopWindo
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
         if (data.toString() != null) {
-            ownerInfo = JsonParser.jsonToBean(data.toString(), OwnerInfo.class);
+            ownerInfo = JsonParser.jsonToBean(data.toString(), User.class);
             setData();
             error_Layout.setVisibility(View.GONE);
         } else {

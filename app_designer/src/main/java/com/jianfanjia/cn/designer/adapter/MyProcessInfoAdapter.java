@@ -10,8 +10,8 @@ import java.util.List;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.User;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 
@@ -20,16 +20,16 @@ import com.jianfanjia.cn.designer.config.Constant;
  * @class MyProcessInfoAdapter
  * @date 2015-8-26 下午20:05
  */
-public class MyProcessInfoAdapter extends BaseListAdapter<ProcessInfo> {
+public class MyProcessInfoAdapter extends BaseListAdapter<Process> {
 
-    public MyProcessInfoAdapter(Context context, List<ProcessInfo> caigouList) {
+    public MyProcessInfoAdapter(Context context, List<Process> caigouList) {
         super(context, caigouList);
     }
 
     @Override
     public View initView(int position, View convertView) {
         ViewHolder viewHolder = null;
-        ProcessInfo designerSiteInfo = list.get(position);
+        Process designerSiteInfo = list.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(
                     R.layout.list_item_my_process, null);

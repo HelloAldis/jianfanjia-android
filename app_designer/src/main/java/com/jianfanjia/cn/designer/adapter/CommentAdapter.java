@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.CommentInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.LogTool;

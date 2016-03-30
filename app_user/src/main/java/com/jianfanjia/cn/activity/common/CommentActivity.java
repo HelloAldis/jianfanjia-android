@@ -15,8 +15,8 @@ import android.widget.EditText;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.model.Comment;
-import com.jianfanjia.api.model.CommentList;
+import com.jianfanjia.cn.designer.bean.Comment;
+import com.jianfanjia.cn.designer.bean.Comment;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;

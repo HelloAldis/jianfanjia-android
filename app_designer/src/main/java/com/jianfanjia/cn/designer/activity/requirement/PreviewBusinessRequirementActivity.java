@@ -10,7 +10,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
@@ -52,7 +52,7 @@ public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
     protected String[] arr_busihousetype;
     protected String[] arr_desisex;
 
-    private RequirementInfo requirementInfo;
+    private Requirement requirementInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,7 @@ public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        requirementInfo = (RequirementInfo) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
             act_edit_req_street_content.setText(TextUtils.isEmpty(requirementInfo.getStreet()) ? "" : requirementInfo.getStreet());

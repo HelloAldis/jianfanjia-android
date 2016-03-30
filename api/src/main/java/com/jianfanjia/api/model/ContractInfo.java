@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.bean;
+package com.jianfanjia.api.model;
 
 import java.io.Serializable;
 import java.util.List;

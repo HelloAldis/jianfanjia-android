@@ -39,7 +39,7 @@ public class AddPicToSectionItemRequest extends BaseRequest {
 	@Override
 	public void onSuccess(Object data) {
 		if (data != null) {
-//			ProcessInfo processInfo = dataManager.getDefaultProcessInfo();
+//			Process processInfo = dataManager.getDefaultProcessInfo();
 //			if(processInfo != null){
 //				LogTool.d(this.getClass().getName(), "processInfo != null");
 //				processInfo.addImageToItem(section, item, imageId);

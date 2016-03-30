@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.Process;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 
 import java.util.List;

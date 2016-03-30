@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewAdapterBase;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType0;
@@ -26,7 +26,7 @@ import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType8;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-19 19:15
  */
-public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<RequirementInfo> {
+public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Requirement> {
     public static final int PLAN_TYPE0 = 0;
     public static final int PLAN_TYPE1 = 1;
     public static final int PLAN_TYPE2 = 2;
@@ -54,7 +54,7 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
 
     @Override
     public int getItemViewType(int position) {
-        RequirementInfo requirementInfo = items.get(position);
+        Requirement requirementInfo = items.get(position);
         String status = requirementInfo.getPlan().getStatus();
         return Integer.parseInt(status);
     }
@@ -86,7 +86,7 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        RequirementInfo requirementInfo = items.get(position);
+        Requirement requirementInfo = items.get(position);
         switch (getItemViewType(position)) {
             case PLAN_TYPE0:
                 MyPlanViewType0 view0 = (MyPlanViewType0) viewHolder;

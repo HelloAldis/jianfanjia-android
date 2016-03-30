@@ -11,12 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.designer.adapter.NoticeAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.bean.NoticeInfo;
-import com.jianfanjia.cn.designer.bean.NoticeListInfo;
+import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -28,14 +35,6 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -58,7 +57,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
     RelativeLayout errorLayout;
 
     private NoticeAdapter noticeAdapter = null;
-    private List<NoticeInfo> noticeList = new ArrayList<>();
+    private List<UserMessage> noticeList = new ArrayList<>();
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = true;
@@ -183,19 +182,19 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
             hideWaitDialog();
             mHasLoadedOnce = true;
             all_notice_listview.onRefreshComplete();
-            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
-            LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
-            if (null != noticeListInfo) {
+            UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
+            LogTool.d(TAG, "userMessageList:" + userMessageList);
+            if (null != userMessageList) {
                 noticeList.clear();
-                noticeList.addAll(noticeListInfo.getList());
+                noticeList.addAll(userMessageList.getList());
                 if (null != noticeList && noticeList.size() > 0) {
                     noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
                         @Override
                         public void onClick(int position, Object obj) {
-                            NoticeInfo noticeInfo = (NoticeInfo) obj;
-                            LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
+                            UserMessage userMessage = (UserMessage) obj;
+                            LogTool.d(TAG, "position=" + position + " userMessage:" + userMessage.getContent());
                             Bundle detailBundle = new Bundle();
-                            detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
+                            detailBundle.putString(Global.MSG_ID, userMessage.get_id());
                             startActivity(NoticeDetailActivity.class, detailBundle);
                         }
                     });
@@ -234,10 +233,10 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         public void loadSuccess(Object data) {
             LogTool.d(TAG, "data:" + data.toString());
             all_notice_listview.onRefreshComplete();
-            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
-            LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
-            if (null != noticeListInfo) {
-                List<NoticeInfo> noticeLists = noticeListInfo.getList();
+            UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
+            LogTool.d(TAG, "userMessageList:" + userMessageList);
+            if (null != userMessageList) {
+                List<UserMessage> noticeLists = userMessageList.getList();
                 if (null != noticeLists && noticeLists.size() > 0) {
                     noticeAdapter.add(FROM, noticeLists);
                     FROM += Constant.HOME_PAGE_LIMIT;

@@ -22,11 +22,11 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivi
 import com.jianfanjia.cn.designer.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.designer.bean.NoticeInfo;
-import com.jianfanjia.cn.designer.bean.NoticeListInfo;
-import com.jianfanjia.cn.designer.bean.PlanInfo;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -84,18 +84,18 @@ public class CommentListActivity extends BaseAnnotationActivity {
 
         myCommentInfoAdapter = new MyCommentInfoAdapter(this, refreshRecycleView.getRefreshableView(), new MyCommentInfoAdapter.OnItemCallback() {
             @Override
-            public void onResponse(NoticeInfo noticeInfo, int viewType) {
+            public void onResponse(UserMessage userMessage, int viewType) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString(Global.TOPIC_ID, noticeInfo.getTopicid());
+                bundle.putString(Global.TOPIC_ID, userMessage.getTopicid());
                 bundle.putString(Global.TOPICTYPE, viewType + "");
-                bundle.putString(Global.TO, noticeInfo.getUserid());
+                bundle.putString(Global.TO, userMessage.getUserid());
                 switch (viewType) {
                     case MyCommentInfoAdapter.PLAN_TYPE:
                         break;
                     case MyCommentInfoAdapter.NODE_TYPE:
-                        bundle.putString(Global.SECTION, noticeInfo.getSection());
-                        bundle.putString(Global.ITEM, noticeInfo.getItem());
+                        bundle.putString(Global.SECTION, userMessage.getSection());
+                        bundle.putString(Global.ITEM, userMessage.getItem());
                         break;
                 }
                 startActivity(CommentActivity.class, bundle);
@@ -103,13 +103,13 @@ public class CommentListActivity extends BaseAnnotationActivity {
             }
 
             @Override
-            public void showDetail(NoticeInfo noticeInfo, int viewType) {
+            public void showDetail(UserMessage userMessage, int viewType) {
                 switch (viewType) {
                     case MyCommentInfoAdapter.PLAN_TYPE:
-                        startPlanInfoActivity(noticeInfo.getPlan(), noticeInfo.getRequirement());
+                        startPlanInfoActivity(userMessage.getPlan(), userMessage.getRequirement());
                         break;
                     case MyCommentInfoAdapter.NODE_TYPE:
-                        startProcessInfoDetailActivity(noticeInfo.getProcessInfo());
+                        startProcessInfoDetailActivity(userMessage.getProcessInfo());
                         break;
                 }
             }
@@ -134,14 +134,14 @@ public class CommentListActivity extends BaseAnnotationActivity {
         getMyCommentInfo(Constant.FROM_START, pullDownListener);
     }
 
-    private void startPlanInfoActivity(PlanInfo plandetailInfo, RequirementInfo requirementInfo) {
+    private void startPlanInfoActivity(Plan plandetailInfo, Requirement requirementInfo) {
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(Global.PLAN_DETAIL, plandetailInfo);
         planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
-    private void startProcessDetailActivity(ProcessInfo processInfo) {
+    private void startProcessDetailActivity(Process processInfo) {
         Bundle processBundle = new Bundle();
         processBundle.putSerializable(Global.PROCESS_INFO, processInfo);
         startActivity(MyProcessDetailActivity_.class, processBundle);
@@ -167,12 +167,12 @@ public class CommentListActivity extends BaseAnnotationActivity {
         public void loadSuccess(Object data) {
             hideWaitDialog();
             refreshRecycleView.onRefreshComplete();
-            NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
-            if (noticeListInfo != null) {
-                int total = noticeListInfo.getTotal();
+            UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
+            if (userMessageList != null) {
+                int total = userMessageList.getTotal();
                 if (total > 0) {
                     myCommentInfoAdapter.clear();
-                    myCommentInfoAdapter.addData(noticeListInfo.getList());
+                    myCommentInfoAdapter.addData(userMessageList.getList());
                     LogTool.d(this.getClass().getName(), "total size =" + total);
                     LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter.getData().size());
                     if (total > myCommentInfoAdapter.getData().size()) {
@@ -205,11 +205,11 @@ public class CommentListActivity extends BaseAnnotationActivity {
     @Override
     public void loadSuccess(Object data) {
         super.loadSuccess(data);
-        NoticeListInfo noticeListInfo = JsonParser.jsonToBean(data.toString(), NoticeListInfo.class);
-        if (noticeListInfo != null) {
-            int total = noticeListInfo.getTotal();
+        UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
+        if (userMessageList != null) {
+            int total = userMessageList.getTotal();
             if (total > 0) {
-                myCommentInfoAdapter.addData(noticeListInfo.getList());
+                myCommentInfoAdapter.addData(userMessageList.getList());
                 LogTool.d(this.getClass().getName(), "total size =" + total);
                 LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter.getData().size());
                 if (total > myCommentInfoAdapter.getData().size()) {

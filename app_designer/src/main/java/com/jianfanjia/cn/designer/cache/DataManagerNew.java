@@ -8,9 +8,9 @@ import java.util.List;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.bean.LoginUserBean;
-import com.jianfanjia.cn.designer.bean.OwnerInfo;
-import com.jianfanjia.cn.designer.bean.ProcessInfo;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.db.DBHelper;
 import com.jianfanjia.cn.designer.tools.LogTool;
@@ -23,8 +23,8 @@ public class DataManagerNew {
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
     private List<Process> processLists;
-    private RequirementInfo requirementInfo;// 需求信息
-    private ProcessInfo currentProcessInfo;// 当前工地信息p
+    private Requirement requirementInfo;// 需求信息
+    private Process currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
 
     public static DataManagerNew getInstance() {
@@ -56,27 +56,27 @@ public class DataManagerNew {
         this.currentUploadImageId = currentUploadImageId;
     }
 
-    public RequirementInfo getRequirementInfo() {
+    public Requirement getRequirementInfo() {
         return requirementInfo;
     }
 
-    public void setRequirementInfo(RequirementInfo requirementInfo) {
+    public void setRequirementInfo(Requirement requirementInfo) {
         this.requirementInfo = requirementInfo;
     }
 
-    public OwnerInfo getOwnerInfoById(String ownerId) {
-        return (OwnerInfo) sharedPreferdata.getValue(ownerId);
+    public User getOwnerInfoById(String ownerId) {
+        return (User) sharedPreferdata.getValue(ownerId);
     }
 
-    public void setOwnerInfo(OwnerInfo ownerInfo) {
+    public void setOwnerInfo(User ownerInfo) {
         sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
     }
 
-    public void setCurrentProcessInfo(ProcessInfo currentProcessInfo) {
+    public void setCurrentProcessInfo(Process currentProcessInfo) {
         this.currentProcessInfo = currentProcessInfo;
     }
 
-    public ProcessInfo getDefaultProcessInfo() {
+    public Process getDefaultProcessInfo() {
         return currentProcessInfo;
     }
 
@@ -112,11 +112,11 @@ public class DataManagerNew {
      * @param processId
      * @return
      */
-    public ProcessInfo getProcessInfoById(String processId) {
-        return (ProcessInfo) sharedPreferdata.getValue(processId);
+    public Process getProcessInfoById(String processId) {
+        return (Process) sharedPreferdata.getValue(processId);
     }
 
-    public void saveProcessInfo(ProcessInfo processInfo) {
+    public void saveProcessInfo(Process processInfo) {
         sharedPreferdata.setValue(processInfo.get_id(), processInfo);
     }
 

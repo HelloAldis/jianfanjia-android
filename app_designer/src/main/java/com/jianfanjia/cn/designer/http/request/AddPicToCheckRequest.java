@@ -41,7 +41,7 @@ public class AddPicToCheckRequest extends BaseRequest {
     @Override
     public void onSuccess(Object data) {
         if (data.toString() != null) {
-            ProcessInfo processInfo = dataManager.getProcessInfoById(processId);
+            Process processInfo = dataManager.getProcessInfoById(processId);
             if (processInfo != null) {
                 LogTool.d(this.getClass().getName(), "processInfo != null");
                 processInfo.addImageToCheck(section, key, imageId);

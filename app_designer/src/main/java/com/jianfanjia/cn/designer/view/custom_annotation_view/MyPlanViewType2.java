@@ -13,7 +13,7 @@ import java.util.Calendar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
@@ -74,7 +74,7 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
         return new MyPlanViewType2(view);
     }
 
-    public void bind(RequirementInfo requirementInfo,final ClickCallBack clickCallBack,final int position) {
+    public void bind(Requirement requirementInfo,final ClickCallBack clickCallBack,final int position) {
         cellView.setText(requirementInfo.getCell());
         statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
         statusView.setTextColor(getResources().getColor(R.color.orange_color));

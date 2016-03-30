@@ -30,7 +30,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequiremen
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.bean.RequirementInfo;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -98,9 +98,9 @@ public class RecycleViewFragment extends BaseFragment {
      */
     private boolean mHasLoadedOnce;
 
-    private List<RequirementInfo> requirementInfos;
+    private List<Requirement> requirementInfos;
 
-    private List<RequirementInfo> currentRequirementInfo;
+    private List<Requirement> currentRequirementInfo;
 
     private RequirementList requirementList;
 
@@ -215,7 +215,7 @@ public class RecycleViewFragment extends BaseFragment {
         myHandledRequirementAdapter = new MyHandledRequirementAdapter(getActivity(), new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-                RequirementInfo requirementInfo = currentRequirementInfo.get(position);
+                Requirement requirementInfo = currentRequirementInfo.get(position);
                 if (requirementInfo.getDec_style() == null) {//此处是对老的可能没有家装类型的数据进行初始化，防止异常
                     requirementInfo.setDec_style(Global.DEC_TYPE_HOME);
                 }
@@ -283,7 +283,7 @@ public class RecycleViewFragment extends BaseFragment {
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
-    private void notifyOwnerConfirmHouse(RequirementInfo requirementInfo) {
+    private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
         Map<String, Object> param = new HashMap<>();
         param.put(Global.PLAN_ID, requirementInfo.getPlan().get_id());
         param.put(Global.USER_ID, requirementInfo.getUserid());
@@ -416,7 +416,7 @@ public class RecycleViewFragment extends BaseFragment {
                 emptyPullRefresh.onRefreshComplete();
                 LogTool.d(this.getClass().getName(), data.toString());
                 mHasLoadedOnce = true;
-                requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<RequirementInfo>>() {
+                requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<Requirement>>() {
                 }.getType());
                 requirementList = new RequirementList(requirementInfos);
                 errorLayout.setVisibility(View.GONE);
