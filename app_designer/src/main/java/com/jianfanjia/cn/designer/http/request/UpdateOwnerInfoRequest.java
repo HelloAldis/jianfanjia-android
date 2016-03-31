@@ -3,7 +3,6 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.OwnerUpdateInfo;
 
 public class UpdateOwnerInfoRequest extends BaseRequest{
 	

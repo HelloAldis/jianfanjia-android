@@ -45,9 +45,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UiHelper {
 
@@ -60,7 +58,6 @@ public class UiHelper {
     public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback,
                                              String[]... selectLists) {
         GetUnReadMsgRequest getUnReadMsgRequest = new GetUnReadMsgRequest();
-        Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {
             contain.add(temp);
