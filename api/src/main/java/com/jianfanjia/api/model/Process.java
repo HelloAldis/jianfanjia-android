@@ -22,6 +22,7 @@ public class Process extends BaseModel implements Serializable {
     private String work_type;
     private String total_price;
     private long start_at;
+    private long lastupdate;
     private String duration;
 
     private String userid;
@@ -202,6 +203,14 @@ public class Process extends BaseModel implements Serializable {
 
     public void setPlan(Plan plan) {
         this.plan = plan;
+    }
+
+    public long getLastupdate() {
+        return lastupdate;
+    }
+
+    public void setLastupdate(long lastupdate) {
+        this.lastupdate = lastupdate;
     }
 
     public ProcessSection getSectionInfoByName(String sectionName) {

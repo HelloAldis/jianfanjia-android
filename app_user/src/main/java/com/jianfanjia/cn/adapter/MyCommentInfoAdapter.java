@@ -12,18 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -136,14 +139,15 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                if (onItemCallback != null) {
-                    onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
-                }
-            }
-        });
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new
+                ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        if (onItemCallback != null) {
+                            onItemCallback.showDetail(noticeInfo, PLAN_TYPE);
+                        }
+                    }
+                });
         holder.item_plan_listview.setAdapter(adapter);
 
         holder.contentLayout.setOnClickListener(new View.OnClickListener() {
@@ -229,63 +233,62 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         });
     }
 
-    private static class PlanCommentViewHolder extends RecyclerViewHolderBase {
-
+    static class PlanCommentViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.content_layout)
         public LinearLayout contentLayout;
+        @Bind(R.id.ltm_cominfo_head)
         public ImageView itemHeadView;
+        @Bind(R.id.ltm_cominfo_designer_name)
         public TextView nameView;
+        @Bind(R.id.ltm_cominfo_response)
         public TextView responseView;
+        @Bind(R.id.ltm_cominfo_designer_date)
         public TextView dateText;
+        @Bind(R.id.ltm_cominfo_content)
         public TextView contentText;
+        @Bind(R.id.cell_name)
         public TextView cellText;
+        @Bind(R.id.numText)
         public TextView numText;
+        @Bind(R.id.statusText)
         public TextView statusText;
+        @Bind(R.id.item_plan_listview)
         public RecyclerView item_plan_listview;
 
         public PlanCommentViewHolder(View itemView) {
             super(itemView);
-            this.itemHeadView = (ImageView) itemView.findViewById(R.id.ltm_cominfo_head);
-            this.nameView = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_name);
-            this.dateText = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_date);
-            this.responseView = (TextView) itemView.findViewById(R.id.ltm_cominfo_response);
-            this.contentText = (TextView) itemView.findViewById(R.id.ltm_cominfo_content);
-            this.cellText = (TextView) itemView.findViewById(R.id.cell_name);
-            this.numText = (TextView) itemView.findViewById(R.id.numText);
-            this.statusText = (TextView) itemView.findViewById(R.id.statusText);
-            this.item_plan_listview = (RecyclerView) itemView.findViewById(R.id.item_plan_listview);
-            this.contentLayout = (LinearLayout) itemView.findViewById(R.id.content_layout);
+            ButterKnife.bind(this, itemView);
         }
 
     }
 
-    private static class ProcessCommentViewHolder extends RecyclerViewHolderBase {
-
+    static class ProcessCommentViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.ltm_cominfo_head)
         public ImageView itemHeadView;
+        @Bind(R.id.ltm_cominfo_designer_name)
         public TextView nameView;
+        @Bind(R.id.ltm_cominfo_designer_date)
         public TextView dateText;
+        @Bind(R.id.ltm_cominfo_response)
         public TextView responseView;
+        @Bind(R.id.ltm_cominfo_content)
         public TextView contentText;
+        @Bind(R.id.node_name)
         public TextView nodeName;
+        @Bind(R.id.node_status)
         public TextView nodeStatus;
+        @Bind(R.id.cell_name)
         public TextView cellName;
+        @Bind(R.id.item_status)
         public ImageView itemStatus;
+        @Bind(R.id.node_layout)
         public RelativeLayout itemBackground;
+        @Bind(R.id.item_layout)
         public RelativeLayout itemLayout;
 
         public ProcessCommentViewHolder(View itemView) {
             super(itemView);
-            this.itemHeadView = (ImageView) itemView.findViewById(R.id.ltm_cominfo_head);
-            this.nameView = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_name);
-            this.dateText = (TextView) itemView.findViewById(R.id.ltm_cominfo_designer_date);
-            this.responseView = (TextView) itemView.findViewById(R.id.ltm_cominfo_response);
-            this.contentText = (TextView) itemView.findViewById(R.id.ltm_cominfo_content);
-            this.cellName = (TextView) itemView.findViewById(R.id.cell_name);
-            this.nodeStatus = (TextView) itemView.findViewById(R.id.node_status);
-            this.nodeName = (TextView) itemView.findViewById(R.id.node_name);
-            this.itemBackground = (RelativeLayout) itemView.findViewById(R.id.node_layout);
-            this.itemStatus = (ImageView) itemView.findViewById(R.id.item_status);
-            this.itemLayout = (RelativeLayout) itemView.findViewById(R.id.item_layout);
-
+            ButterKnife.bind(this, itemView);
         }
     }
 
