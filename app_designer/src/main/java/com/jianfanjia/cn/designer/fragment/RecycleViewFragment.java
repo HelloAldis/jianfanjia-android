@@ -135,6 +135,7 @@ public class RecycleViewFragment extends BaseFragment {
             view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
             isPrepared = true;
+            lazyLoad();
         }
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null) {
