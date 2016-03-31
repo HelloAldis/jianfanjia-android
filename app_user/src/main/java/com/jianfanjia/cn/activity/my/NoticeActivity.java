@@ -45,8 +45,6 @@ public class NoticeActivity extends BaseSwipeBackActivity {
 
     private void initView() {
         initMainHeadView();
-        tabLayout = (TabLayout) findViewById(R.id.tabLyout);
-        mPager = (ViewPager) findViewById(R.id.viewpager);
         mPager.setOffscreenPageLimit(1);
         setupViewPager(mPager);
         tabLayout.setupWithViewPager(mPager);
