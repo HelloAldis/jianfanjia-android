@@ -3,7 +3,7 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.cn.designer.bean.LoginUserBean;
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
@@ -41,9 +41,9 @@ public class LoginRequest extends BaseRequest {
             dataManager.setLogin(true);
             dataManager.savaLastLoginTime(Calendar.getInstance()
                     .getTimeInMillis());
-            LoginUserBean loginUserBean = JsonParser.jsonToBean(data.toString(),LoginUserBean.class);
-            loginUserBean.setPass(password);
-            dataManager.saveLoginUserBean(loginUserBean);
+            Designer designer = JsonParser.jsonToBean(data.toString(),Designer.class);
+            designer.setPass(password);
+            dataManager.saveLoginUserBean(designer);
         }
     }
 

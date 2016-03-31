@@ -26,6 +26,8 @@ public class Designer extends BaseModel implements Serializable {
     private String username;
     private String imageid;
     private String province;
+    private String pass;
+    private String usertype;
     private String agreee_license;
     private String auth_type;
     private String uid_auth_type;
@@ -70,6 +72,22 @@ public class Designer extends BaseModel implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
     public String getPhilosophy() {

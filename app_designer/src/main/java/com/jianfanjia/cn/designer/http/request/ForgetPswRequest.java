@@ -21,7 +21,7 @@ public class ForgetPswRequest extends BaseRequest{
     public void onSuccess(Object data) {
         super.onSuccess(data);
        /* if (data != null) {
-            LoginUserBean loginUserBean = JsonParser.jsonToBean((String) data, LoginUserBean.class);
+            Designer loginUserBean = JsonParser.jsonToBean((String) data, Designer.class);
             loginUserBean.setPass(password);
             dataManager.saveLoginUserInfo(loginUserBean);
             dataManager.setLogin(true);

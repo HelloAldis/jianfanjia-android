@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.bean.LoginUserBean;
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Designer;;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -167,16 +167,14 @@ public class DataManagerNew {
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, imgId);
     }
 
-    public void saveLoginUserBean(LoginUserBean userBean) {
+    public void saveLoginUserBean(Designer userBean) {
         sharedPreferuser.setValue(Constant.ACCOUNT, userBean.getPhone());
         sharedPreferuser.setValue(Constant.USERTYPE, userBean.getUsertype());
         sharedPreferuser.setValue(Constant.USERNAME, userBean.getUsername());
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
         sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
         sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
-        sharedPreferuser.setValue(Constant.OPEN_ID, userBean.getWechat_openid());
-        sharedPreferuser.setValue(Constant.UNION_ID, userBean.getWechat_unionid());
-        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, userBean.is_wechat_first_login());
+
     }
 
     public String getWechat_unionid() {
