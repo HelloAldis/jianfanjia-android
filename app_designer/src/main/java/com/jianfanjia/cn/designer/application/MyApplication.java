@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseApplication;
 import com.jianfanjia.cn.designer.cache.DataCleanManager;
 import com.jianfanjia.cn.designer.http.cookie.PersistentCookieStore;
+import com.jianfanjia.common.base.application.BaseApplication;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
 
