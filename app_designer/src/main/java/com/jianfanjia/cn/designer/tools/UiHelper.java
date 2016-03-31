@@ -25,9 +25,16 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
+import com.jianfanjia.cn.designer.activity.LoginNewActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -38,13 +45,6 @@ import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class UiHelper {
 
@@ -101,7 +101,7 @@ public class UiHelper {
      * 跳转到登录界面
      */
     public static void forbiddenToLogin() {
-        Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity_.class);
+        Intent intent = new Intent(MyApplication.getInstance(), LoginNewActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MyApplication.getInstance().startActivity(intent);
         AppManager.getAppManager().finishAllActivity();

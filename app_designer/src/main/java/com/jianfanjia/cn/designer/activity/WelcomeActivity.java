@@ -7,15 +7,19 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.common.CheckVersionRequest;
+import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
@@ -75,39 +79,45 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
 
     // 检查版本
     private void checkVersion() {
-        UiHelper.checkNewVersion(this, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                    }
+        Api.checkVesion(new CheckVersionRequest(), new ApiCallback<ApiResponse<UpdateVersion>>() {
+            @Override
+            public void onPreLoad() {
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        if (data != null) {
-                            updateVersion = JsonParser
-                                    .jsonToBean(data.toString(),
-                                            UpdateVersion.class);
-                            LogTool.d(TAG, "updateVersion:" + updateVersion);
-                            if (updateVersion != null) {
-                                if (Integer.parseInt(updateVersion
-                                        .getVersion_code()) > MyApplication
-                                        .getInstance().getVersionCode()) {
-                                    showNewVersionDialog(
-                                            String.format(getString(R.string.new_version_message),
-                                                    updateVersion.getVersion_name()),
-                                            updateVersion);
-                                } else {
-                                    handler.postDelayed(runnable, 1500);
-                                }
-                            }
-                        }
-                    }
+            }
 
-                    @Override
-                    public void loadFailture(String error_msg) {
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<UpdateVersion> apiResponse) {
+                updateVersion = apiResponse.getData();
+                if (updateVersion != null) {
+                    if (Integer.parseInt(updateVersion
+                            .getVersion_code()) > MyApplication
+                            .getInstance().getVersionCode()) {
+                        showNewVersionDialog(
+                                String.format(getString(R.string.new_version_message),
+                                        updateVersion.getVersion_name()),
+                                updateVersion);
+                    } else {
                         handler.postDelayed(runnable, 1500);
                     }
                 }
-        );
+            }
+
+            @Override
+            public void onFailed(ApiResponse<UpdateVersion> apiResponse) {
+                handler.postDelayed(runnable, 1500);
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                handler.postDelayed(runnable, 1500);
+            }
+        });
+
     }
 
     /**
@@ -167,23 +177,6 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
         GeTuiManager.initGeTui(getApplicationContext());
     }
 
-    @Override
-    public void preLoad() {
-
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        startActivity(MainActivity.class);
-        appManager.finishActivity(WelcomeActivity.this);
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        startActivity(LoginNewActivity.class);
-        appManager.finishActivity(WelcomeActivity.this);
-    }
-
     private Runnable runnable = new Runnable() {
 
         @Override
@@ -205,10 +198,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                     } else {
                         LogTool.d(TAG, "expire");
                         MyApplication.getInstance().clearCookie();
-                        JianFanJiaClient.refreshSession(WelcomeActivity.this, dataManager.getUserId(),
-                                WelcomeActivity.this, WelcomeActivity.this);
-//                        JianFanJiaClient.login(WelcomeActivity.this, dataManager.getAccount(), dataManager
-// .getPassword(), WelcomeActivity.this, WelcomeActivity.this);
+                        refreshSession();
                     }
                 }
             } else {
@@ -218,6 +208,40 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
             }
         }
     };
+
+    private void refreshSession() {
+        RefreshSessionRequest refreshSessionRequest = new RefreshSessionRequest();
+        refreshSessionRequest.set_id(dataManager.getUserId());
+        Api.refreshSession(refreshSessionRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+                startActivity(MainActivity.class);
+                appManager.finishActivity(WelcomeActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+                startActivity(LoginNewActivity.class);
+                appManager.finishActivity(WelcomeActivity.this);
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                startActivity(LoginNewActivity.class);
+                appManager.finishActivity(WelcomeActivity.this);
+            }
+        });
+    }
 
     @Override
     public void onDestroy() {

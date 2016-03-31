@@ -4,12 +4,15 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.common.CheckVersionRequest;
+import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
+import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
 
 /**
@@ -44,6 +47,14 @@ public class Api {
 
     public static void updatePassword(UpdatePasswordRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().UPDATE_PASS_URL, request, apiCallback);
+    }
+
+    public static void refreshSession(RefreshSessionRequest request, ApiCallback<ApiResponse<Designer>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().REFRESH_SESSION, request, apiCallback);
+    }
+
+    public static void checkVesion(CheckVersionRequest request, ApiCallback<ApiResponse<UpdateVersion>> apiCallback) {
+        ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback);
     }
 
 }
