@@ -16,19 +16,19 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentListActivity;
-import com.jianfanjia.cn.designer.activity.my.AboutActivity;
 import com.jianfanjia.cn.designer.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.designer.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
+import com.jianfanjia.cn.designer.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.layout.BadgeView;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 
 import java.util.List;
 
@@ -142,7 +142,7 @@ public class MyNewFragment extends BaseFragment {
                 startActivity(CustomerServiceActivity.class);
                 break;
             case R.id.setting_layout:
-                startActivity(AboutActivity.class);
+                startActivity(SettingActivity.class);
                 break;
             case R.id.feedback_layout:
                 startActivity(FeedBackActivity.class);
