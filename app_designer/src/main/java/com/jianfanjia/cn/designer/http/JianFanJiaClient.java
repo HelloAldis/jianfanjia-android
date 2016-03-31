@@ -3,10 +3,9 @@ package com.jianfanjia.cn.designer.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.jianfanjia.api.model.Designer;;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
-import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.bean.WeiXinRegisterInfo;
 import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.cn.designer.http.request.AddCommentRequest;
@@ -39,7 +38,6 @@ import com.jianfanjia.cn.designer.http.request.LogoutRequest;
 import com.jianfanjia.cn.designer.http.request.NotifyOwnerCheckRequest;
 import com.jianfanjia.cn.designer.http.request.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.cn.designer.http.request.OwnerFinishCheckRequest;
-import com.jianfanjia.cn.designer.http.request.PostCollectOwnerInfoRequest;
 import com.jianfanjia.cn.designer.http.request.PostProcessRequest;
 import com.jianfanjia.cn.designer.http.request.PostRescheduleRequest;
 import com.jianfanjia.cn.designer.http.request.PostSectionFinishRequest;
@@ -67,6 +65,8 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+;
+
 /**
  * @author zhanghao
  * @ClassName: JianFanJiaApi
@@ -89,7 +89,8 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("cid", clientId);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadRegisterIdRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadRegisterIdRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -109,7 +110,8 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("phone", phone);
             LogTool.d(TAG, "verifyPhone --" + verifyPhoneRequest.getUrl() + "---" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(verifyPhoneRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(verifyPhoneRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -131,16 +133,20 @@ public class JianFanJiaClient {
             jsonParams.put("phone", username);
             jsonParams.put("pass", password);
             LogTool.d(TAG, "login --" + loginRequest.getUrl() + "---" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(loginRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(loginRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public static void weixinLogin(Context context, WeiXinRegisterInfo weiXinRegisterInfo, ApiUiUpdateListener listener, Object tag) {
+    public static void weixinLogin(Context context, WeiXinRegisterInfo weiXinRegisterInfo, ApiUiUpdateListener
+            listener, Object tag) {
         WeiXinLoginRequest weiXinLoginRequest = new WeiXinLoginRequest(context, weiXinRegisterInfo);
-        LogTool.d(TAG, "weixinLogin --" + weiXinLoginRequest.getUrl() + "---" + JsonParser.beanToJson(weiXinRegisterInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(weiXinLoginRequest, JsonParser.beanToJson(weiXinRegisterInfo), listener, tag);
+        LogTool.d(TAG, "weixinLogin --" + weiXinLoginRequest.getUrl() + "---" + JsonParser.beanToJson
+                (weiXinRegisterInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(weiXinLoginRequest, JsonParser.beanToJson
+                (weiXinRegisterInfo), listener, tag);
     }
 
     /**
@@ -164,10 +170,12 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void update_psw(Context context, RegisterInfo registerInfo, ApiUiUpdateListener listener, Object tag) {
+    public static void update_psw(Context context, RegisterInfo registerInfo, ApiUiUpdateListener listener, Object
+            tag) {
         ForgetPswRequest forgetPswRequest = new ForgetPswRequest(context);
         LogTool.d(TAG, "update_psw --" + forgetPswRequest.getUrl() + "---" + JsonParser.beanToJson(registerInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(forgetPswRequest, JsonParser.beanToJson(registerInfo), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(forgetPswRequest, JsonParser.beanToJson
+                (registerInfo), listener, tag);
     }
 
 
@@ -201,7 +209,8 @@ public class JianFanJiaClient {
             jsonParams.put("content", content);
             jsonParams.put("version", version);
             jsonParams.put("platform", platform);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(feedBackRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(feedBackRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -221,24 +230,11 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("phone", phone);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(sendVerificationRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(sendVerificationRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 收集新用户的个人偏好
-     *
-     * @param context
-     * @param ownerInfo
-     * @param listener
-     * @param tag
-     */
-    public static void post_collect_ownerinfo(Context context, User ownerInfo, ApiUiUpdateListener listener, Object tag) {
-        PostCollectOwnerInfoRequest postCollectOwnerInfoRequest = new PostCollectOwnerInfoRequest(context);
-        LogTool.d(TAG, "post_collect_ownerinfo --" + postCollectOwnerInfoRequest.getUrl() + "--" + JsonParser.beanToJson(ownerInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postCollectOwnerInfoRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
     }
 
     /**
@@ -273,14 +269,16 @@ public class JianFanJiaClient {
      * @param msg
      * @param tag
      */
-    public static void refuseRequirement(Context context, ApiUiUpdateListener listener, String requirementId, String msg, Object tag) {
+    public static void refuseRequirement(Context context, ApiUiUpdateListener listener, String requirementId, String
+            msg, Object tag) {
         RefuseRequirementRequest refuseRequirementRequest = new RefuseRequirementRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementId);
             jsonParams.put("reject_respond_msg", msg);
             LogTool.d(TAG, "refuseRequirement --" + refuseRequirementRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refuseRequirementRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refuseRequirementRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -295,7 +293,8 @@ public class JianFanJiaClient {
      * @param houseCheckTime
      * @param tag
      */
-    public static void responseRequirement(Context context, ApiUiUpdateListener listener, String requirementId, long houseCheckTime, Object tag) {
+    public static void responseRequirement(Context context, ApiUiUpdateListener listener, String requirementId, long
+            houseCheckTime, Object tag) {
         ResponseRequirementRequest responseRequirementRequest = new ResponseRequirementRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -303,8 +302,10 @@ public class JianFanJiaClient {
             if (houseCheckTime != 0L) {//houseCheckTime不传为纯粹响应，传就是设置量房时间
                 jsonParams.put("house_check_time", houseCheckTime);
             }
-            LogTool.d(TAG, "responseRequirement --" + responseRequirementRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(responseRequirementRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "responseRequirement --" + responseRequirementRequest.getUrl() + "----" + jsonParams
+                    .toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(responseRequirementRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -319,14 +320,17 @@ public class JianFanJiaClient {
      * @param startAt
      * @param tag
      */
-    public static void configContract(Context context, ApiUiUpdateListener listener, String requirementId, long startAt, Object tag) {
+    public static void configContract(Context context, ApiUiUpdateListener listener, String requirementId, long
+            startAt, Object tag) {
         ConfigContractRequest configContractRequest = new ConfigContractRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementId);
             jsonParams.put("start_at", startAt);
-            LogTool.d(TAG, "configContractRequest --" + configContractRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(configContractRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "configContractRequest --" + configContractRequest.getUrl() + "----" + jsonParams.toString
+                    ());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(configContractRequest, jsonParams.toString()
+                    , listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -340,10 +344,13 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void update_Requirement(Context context, Requirement requirementInfo, ApiUiUpdateListener listener, Object tag) {
+    public static void update_Requirement(Context context, Requirement requirementInfo, ApiUiUpdateListener listener,
+                                          Object tag) {
         UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest(context, requirementInfo);
-        LogTool.d(TAG, "add_Requirement --" + updateRequirementRequest.getUrl() + "--" + JsonParser.beanToJson(requirementInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(updateRequirementRequest, JsonParser.beanToJson(requirementInfo), listener, tag);
+        LogTool.d(TAG, "add_Requirement --" + updateRequirementRequest.getUrl() + "--" + JsonParser.beanToJson
+                (requirementInfo));
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(updateRequirementRequest, JsonParser.beanToJson
+                (requirementInfo), listener, tag);
     }
 
 
@@ -353,13 +360,15 @@ public class JianFanJiaClient {
      * @decription 业主提交装修流程 配置工地
      */
     public static void post_Owner_Process(Context context,
-                                          String requirementid, String final_planid, ApiUiUpdateListener listener, Object tag) {
+                                          String requirementid, String final_planid, ApiUiUpdateListener listener,
+                                          Object tag) {
         PostProcessRequest postProcessRequest = new PostProcessRequest(context, requirementid, final_planid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementid);
             jsonParams.put("final_planid", final_planid);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postProcessRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postProcessRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -376,7 +385,8 @@ public class JianFanJiaClient {
                                 ApiUiUpdateListener listener, Object tag) {
         RegisterRequest registerRequest = new RegisterRequest(context, registerInfo);
         LogTool.d(TAG, "register  " + registerRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson(registerInfo), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(registerRequest, JsonParser.beanToJson
+                (registerInfo), listener, tag);
     }
 
     /**
@@ -399,7 +409,8 @@ public class JianFanJiaClient {
             jsonParams.put("section", section);
             jsonParams.put("key", key);
             LogTool.d(TAG, "deleteYanshouImgByDesigner -" + deletePicRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -426,7 +437,8 @@ public class JianFanJiaClient {
             jsonParams.put("key", key);
             jsonParams.put("imageid", imageId);
             LogTool.d(TAG, "submitYanShouImage -" + addPicToCheckRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addPicToCheckRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addPicToCheckRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -444,7 +456,8 @@ public class JianFanJiaClient {
                                     ApiUiUpdateListener listener, Object tag) {
         BindingPhoneRequest bindingPhoneRequest = new BindingPhoneRequest(context, registerInfo.getPhone());
         LogTool.d(TAG, "register  " + bindingPhoneRequest.getUrl() + "--" + JsonParser.beanToJson(registerInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson(registerInfo), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingPhoneRequest, JsonParser.beanToJson
+                (registerInfo), listener, tag);
     }
 
     /**
@@ -462,7 +475,8 @@ public class JianFanJiaClient {
             jsonParams.put("wechat_openid", openid);
             jsonParams.put("wechat_unionid", unionid);
             LogTool.d(TAG, "bindingWeixin  " + bindingWeiXinRequest.getUrl() + "--" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingWeiXinRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(bindingWeiXinRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -482,7 +496,8 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("_id", uid);
             LogTool.d(TAG, "refreshSession  " + refreshSessionRequest.getUrl() + "--" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refreshSessionRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refreshSessionRequest, jsonParams.toString()
+                    , listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -538,7 +553,8 @@ public class JianFanJiaClient {
             jsonParams.put("new_date",
                     DateFormatTool.covertStringToLong(newDate));
             LogTool.d("JianFanJiaApiClient", "jsonParams：" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postRescheduleRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postRescheduleRequest, jsonParams.toString()
+                    , listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -558,7 +574,8 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("processid", processid);
             LogTool.d("JianFanJiaApiClient", "jsonParams：" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(agreeRescheduleRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(agreeRescheduleRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -578,7 +595,8 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("processid", processid);
             LogTool.d("JianFanJiaApiClient", "jsonParams：" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refuseRescheduleRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(refuseRescheduleRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -605,7 +623,8 @@ public class JianFanJiaClient {
     public static void uploadImage(Context context, Bitmap bitmap,
                                    ApiUiUpdateListener listener, Object tag) {
         UploadPicRequestNew uploadPicRequest = new UploadPicRequestNew(context);
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadPicRequest, ImageUtil.transformBitmapToBytes(bitmap), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(uploadPicRequest, ImageUtil
+                .transformBitmapToBytes(bitmap), listener, tag);
     }
 
     /**
@@ -621,15 +640,18 @@ public class JianFanJiaClient {
     public static void submitImageToProcess(Context context, String siteId,
                                             String section, String item, String imageId,
                                             ApiUiUpdateListener listener, Object tag) {
-        AddPicToSectionItemRequest addPicToSectionItemRequest = new AddPicToSectionItemRequest(context, siteId, section, item, imageId);
+        AddPicToSectionItemRequest addPicToSectionItemRequest = new AddPicToSectionItemRequest(context, siteId,
+                section, item, imageId);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", siteId);
             jsonParams.put("section", section);
             jsonParams.put("item", item);
             jsonParams.put("imageid", imageId);
-            LogTool.d(TAG, "submitImageToProcess -" + addPicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addPicToSectionItemRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "submitImageToProcess -" + addPicToSectionItemRequest.getUrl() + "----" + jsonParams
+                    .toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addPicToSectionItemRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -647,7 +669,8 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int index, ApiUiUpdateListener listener, Object tag) {
+    public static final void deleteImageToProcess(Context context, String imageid, String section, String item, int
+            index, ApiUiUpdateListener listener, Object tag) {
         DeletePicToSectionItemRequest deletePicToSectionItemRequest = new DeletePicToSectionItemRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -655,8 +678,10 @@ public class JianFanJiaClient {
             jsonParams.put("section", section);
             jsonParams.put("item", item);
             jsonParams.put("index", index);
-            LogTool.d(TAG, "deleteImageToProcess -" + deletePicToSectionItemRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicToSectionItemRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "deleteImageToProcess -" + deletePicToSectionItemRequest.getUrl() + "----" + jsonParams
+                    .toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(deletePicToSectionItemRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -671,15 +696,18 @@ public class JianFanJiaClient {
      * @param listener
      */
     public static void confirm_canCheckBydesigner(Context context,
-                                                  String processid, String section, ApiUiUpdateListener listener, Object tag) {
+                                                  String processid, String section, ApiUiUpdateListener listener,
+                                                  Object tag) {
         NotifyOwnerCheckRequest notifyOwnerCheckRequest = new NotifyOwnerCheckRequest(context);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", processid);
             jsonParams.put("section", section);
-            LogTool.d(TAG, "confirm_canCheckBydesigner -" + notifyOwnerCheckRequest.getUrl() + "----" + jsonParams.toString());
+            LogTool.d(TAG, "confirm_canCheckBydesigner -" + notifyOwnerCheckRequest.getUrl() + "----" + jsonParams
+                    .toString());
 
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(notifyOwnerCheckRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(notifyOwnerCheckRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -703,7 +731,8 @@ public class JianFanJiaClient {
             jsonParams.put("section", section);
             jsonParams.put("item", item);
             LogTool.d(TAG, "processItemDone -" + postSectionFinishRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postSectionFinishRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(postSectionFinishRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -737,7 +766,8 @@ public class JianFanJiaClient {
                                      OwnerUpdateInfo ownerInfo, ApiUiUpdateListener listener, Object tag) {
         UpdateOwnerInfoRequest userByOwnerInfoUpdateRequest = new UpdateOwnerInfoRequest(context, ownerInfo);
         LogTool.d(TAG, "put_OwnerInfo -" + userByOwnerInfoUpdateRequest.getUrl() + JsonParser.beanToJson(ownerInfo));
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(userByOwnerInfoUpdateRequest, JsonParser.beanToJson(ownerInfo), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(userByOwnerInfoUpdateRequest, JsonParser
+                .beanToJson(ownerInfo), listener, tag);
     }
 
     /**
@@ -755,8 +785,10 @@ public class JianFanJiaClient {
         try {
             jsonParams.put("_id", processid);
             jsonParams.put("section", section);
-            LogTool.d(TAG, "confirm_CheckDoneByOwner -" + ownerFinishCheckRequest.getUrl() + "----" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(ownerFinishCheckRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "confirm_CheckDoneByOwner -" + ownerFinishCheckRequest.getUrl() + "----" + jsonParams
+                    .toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(ownerFinishCheckRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -771,14 +803,17 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getDesignerPlansByUser(Context context, String requirementid, String designerid, ApiUiUpdateListener listener, Object tag) {
-        GetDesignerPlansByUserRequest getDesignerPlansByUserRequest = new GetDesignerPlansByUserRequest(context, requirementid, designerid);
+    public static void getDesignerPlansByUser(Context context, String requirementid, String designerid,
+                                              ApiUiUpdateListener listener, Object tag) {
+        GetDesignerPlansByUserRequest getDesignerPlansByUserRequest = new GetDesignerPlansByUserRequest(context,
+                requirementid, designerid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementid);
             jsonParams.put("designerid", designerid);
             LogTool.d(TAG, "jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDesignerPlansByUserRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getDesignerPlansByUserRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -793,14 +828,18 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void confirmMeasureHouse(Context context, String requirementid, String designerid, ApiUiUpdateListener listener, Object tag) {
-        ConformMeasureHouseRequest conformMeasureHouseRequest = new ConformMeasureHouseRequest(context, requirementid, designerid);
+    public static void confirmMeasureHouse(Context context, String requirementid, String designerid,
+                                           ApiUiUpdateListener listener, Object tag) {
+        ConformMeasureHouseRequest conformMeasureHouseRequest = new ConformMeasureHouseRequest(context,
+                requirementid, designerid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementid);
             jsonParams.put("designerid", designerid);
-            LogTool.d(TAG, "confirmMeasureHouse" + " -- " + conformMeasureHouseRequest.getUrl() + "--jsonParams:" + jsonParams.toString());
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(conformMeasureHouseRequest, jsonParams.toString(), listener, tag);
+            LogTool.d(TAG, "confirmMeasureHouse" + " -- " + conformMeasureHouseRequest.getUrl() + "--jsonParams:" +
+                    jsonParams.toString());
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(conformMeasureHouseRequest, jsonParams
+                    .toString(), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -819,7 +858,8 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("_id", planid);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getPlanInfoRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getPlanInfoRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -838,8 +878,11 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void evaluateDesignerByUser(Context context, String requirementid, String designerid, int service_attitude, int respond_speed, String comment, String is_anonymous, ApiUiUpdateListener listener, Object tag) {
-        EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest(context, requirementid, designerid, service_attitude, respond_speed, comment, is_anonymous);
+    public static void evaluateDesignerByUser(Context context, String requirementid, String designerid, int
+            service_attitude, int respond_speed, String comment, String is_anonymous, ApiUiUpdateListener listener,
+                                              Object tag) {
+        EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest(context, requirementid,
+                designerid, service_attitude, respond_speed, comment, is_anonymous);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("designerid", designerid);
@@ -848,7 +891,8 @@ public class JianFanJiaClient {
             jsonParams.put("respond_speed", respond_speed);
             jsonParams.put("comment", comment);
             jsonParams.put("is_anonymous", is_anonymous);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(evaluateDesignerRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(evaluateDesignerRequest, jsonParams.toString
+                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -862,12 +906,14 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getContractInfo(Context context, String requirementid, ApiUiUpdateListener listener, Object tag) {
+    public static void getContractInfo(Context context, String requirementid, ApiUiUpdateListener listener, Object
+            tag) {
         GetContractRequest getContractRequest = new GetContractRequest(context, requirementid);
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("requirementid", requirementid);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getContractRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getContractRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -884,7 +930,8 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void addComment(Context context, String topicid, String topictype, String section, String item, String content, String to, ApiUiUpdateListener listener, Object tag) {
+    public static void addComment(Context context, String topicid, String topictype, String section, String item,
+                                  String content, String to, ApiUiUpdateListener listener, Object tag) {
         AddCommentRequest addCommentRequest = new AddCommentRequest(context, topicid, topictype, content, to);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -894,7 +941,8 @@ public class JianFanJiaClient {
             jsonParams.put("section", section);
             jsonParams.put("item", item);
             jsonParams.put("to", to);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCommentRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(addCommentRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -910,7 +958,8 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getCommentList(Context context, String topicid, int from, int limit, String section, String item, ApiUiUpdateListener listener, Object tag) {
+    public static void getCommentList(Context context, String topicid, int from, int limit, String section, String
+            item, ApiUiUpdateListener listener, Object tag) {
         GetCommentsRequest getCommentsRequest = new GetCommentsRequest(context, topicid, from, limit);
         JSONObject jsonParams = new JSONObject();
         try {
@@ -919,7 +968,8 @@ public class JianFanJiaClient {
             jsonParams.put("limit", limit);
             jsonParams.put("section", section);
             jsonParams.put("item", item);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCommentsRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getCommentsRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -932,9 +982,11 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void getUnReadUserMsg(GetUnReadMsgRequest getUnReadMsgRequest, ApiUiUpdateListener listener, Object tag) {
+    public static void getUnReadUserMsg(GetUnReadMsgRequest getUnReadMsgRequest, ApiUiUpdateListener listener, Object
+            tag) {
         LogTool.d(TAG, "jsonParams:" + getUnReadMsgRequest.getParam());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getUnReadMsgRequest, getUnReadMsgRequest.getParam(), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getUnReadMsgRequest, getUnReadMsgRequest
+                .getParam(), listener, tag);
     }
 
     /**
@@ -944,9 +996,11 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchUserMsg(SearchUserMsgRequest searchUserMsgRequest, ApiUiUpdateListener listener, Object tag) {
+    public static void searchUserMsg(SearchUserMsgRequest searchUserMsgRequest, ApiUiUpdateListener listener, Object
+            tag) {
         LogTool.d(TAG, "jsonParams:" + searchUserMsgRequest.getParam());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserMsgRequest, searchUserMsgRequest.getParam(), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserMsgRequest, searchUserMsgRequest
+                .getParam(), listener, tag);
     }
 
     /**
@@ -956,20 +1010,25 @@ public class JianFanJiaClient {
      * @param listener
      * @param tag
      */
-    public static void searchUserComment(SearchUserCommentRequest searchUserCommentRequest, ApiUiUpdateListener listener, Object tag) {
+    public static void searchUserComment(SearchUserCommentRequest searchUserCommentRequest, ApiUiUpdateListener
+            listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + searchUserCommentRequest.getParam());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserCommentRequest, searchUserCommentRequest.getParam(), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(searchUserCommentRequest,
+                searchUserCommentRequest.getParam(), listener, tag);
     }
 
     /**
      * 提醒业主确认量房
+     *
      * @param notifyOwnerMeasureHouseRequest
      * @param listener
      * @param tag
      */
-    public static void notifyOwnerConfirmHouse(NotifyOwnerMeasureHouseRequest notifyOwnerMeasureHouseRequest, ApiUiUpdateListener listener, Object tag) {
+    public static void notifyOwnerConfirmHouse(NotifyOwnerMeasureHouseRequest notifyOwnerMeasureHouseRequest,
+                                               ApiUiUpdateListener listener, Object tag) {
         LogTool.d(TAG, "jsonParams:" + notifyOwnerMeasureHouseRequest.getParam());
-        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(notifyOwnerMeasureHouseRequest, notifyOwnerMeasureHouseRequest.getParam(), listener, tag);
+        OkHttpClientManager.getInstance().getPostDelegate().postAsyn(notifyOwnerMeasureHouseRequest,
+                notifyOwnerMeasureHouseRequest.getParam(), listener, tag);
     }
 
     /**
@@ -985,7 +1044,8 @@ public class JianFanJiaClient {
         JSONObject jsonParams = new JSONObject();
         try {
             jsonParams.put("messageid", messageid);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getMsgDetailRequest, jsonParams.toString(), listener, tag);
+            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getMsgDetailRequest, jsonParams.toString(),
+                    listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

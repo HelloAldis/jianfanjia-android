@@ -6,13 +6,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -20,7 +21,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
+public class PreviewBusinessRequirementActivity extends BaseActivity {
 
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
@@ -57,7 +58,6 @@ public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initData();
     }
@@ -65,7 +65,6 @@ public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_req));
         mainHeadView.setRightTitleVisable(View.GONE);
-
         initStringArray();
     }
 
@@ -94,16 +93,25 @@ public class PreviewBusinessRequirementActivity extends BaseAnnotationActivity {
         Intent intent = getIntent();
         requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
         if (requirementInfo != null) {
-            act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() + requirementInfo.getDistrict());
-            act_edit_req_street_content.setText(TextUtils.isEmpty(requirementInfo.getStreet()) ? "" : requirementInfo.getStreet());
+            act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
+                    requirementInfo.getDistrict());
+            act_edit_req_street_content.setText(TextUtils.isEmpty(requirementInfo.getStreet()) ? "" : requirementInfo
+                    .getStreet());
             act_edit_req_cell_content.setText(requirementInfo.getCell());
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
-            act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type())? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) > (arr_busihousetype.length -1) ?  (arr_busihousetype.length -1) : Integer.parseInt(requirementInfo.getBusiness_house_type())]);
-            act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" : arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
-            act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
-            act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" : arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
-            act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" : arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
+            act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ?
+                    "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) >
+                    (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt
+                    (requirementInfo.getBusiness_house_type())]);
+            act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
+                    arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
+            act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type()) ?
+                    "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+            act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
+                    arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
+            act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
+                    arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
         }
     }
 
