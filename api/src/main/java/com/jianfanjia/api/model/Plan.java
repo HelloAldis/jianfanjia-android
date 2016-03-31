@@ -34,6 +34,7 @@ public class Plan extends BaseModel implements Serializable {
     private Designer designer;
     private User user;
     private Requirement requirement;
+    private String reject_respond_msg;
 
     public String get_id() {
         return _id;
@@ -209,5 +210,13 @@ public class Plan extends BaseModel implements Serializable {
 
     public void setRequirement(Requirement requirement) {
         this.requirement = requirement;
+    }
+
+    public String getReject_respond_msg() {
+        return reject_respond_msg;
+    }
+
+    public void setReject_respond_msg(String reject_respond_msg) {
+        this.reject_respond_msg = reject_respond_msg;
     }
 }
