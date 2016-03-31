@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.designer.api;
 
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -47,6 +45,8 @@ import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
+
+import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.api
@@ -163,7 +163,7 @@ public class Api {
 
     public static void getProcessList(GetProcessListRequest request, ApiCallback<ApiResponse<List<Process>>>
             apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_PROCESS_LIST, request, apiCallback);
+        ApiClient.okGet(Url_New.getInstance().GET_PROCESS_LIST, request, apiCallback);
     }
 
     public static void notifyOwnerConfirmHouse(NotifyOwnerMeasureHouseRequest request,

@@ -17,7 +17,6 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
-import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity;
@@ -28,22 +27,20 @@ import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
-import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 
 /**
  * Description:工地管理
@@ -89,7 +86,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -115,6 +111,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
         manage_pullfefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
         manage_pullfefresh.setOnRefreshListener(this);
+        getProcessList();
     }
 
     private void initMainHeadView() {
@@ -140,28 +137,17 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         }
     }
 
-    public void onEventMainThread(MessageEvent event) {
-        LogTool.d(TAG, "event:" + event.getEventType());
-        switch (event.getEventType()) {
-            case Constant.UPDATE_MANAAGE_FRAGMENT:
-
-                break;
-            default:
-                break;
-        }
-    }
-
     private void getProcessList() {
         GetProcessListRequest getProcessListRequest = new GetProcessListRequest();
         Api.getProcessList(getProcessListRequest, new ApiCallback<ApiResponse<List<Process>>>() {
             @Override
             public void onPreLoad() {
-
+                showWaitDialog();
             }
 
             @Override
             public void onHttpDone() {
-
+                hideWaitDialog();
             }
 
             @Override
@@ -301,7 +287,6 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
