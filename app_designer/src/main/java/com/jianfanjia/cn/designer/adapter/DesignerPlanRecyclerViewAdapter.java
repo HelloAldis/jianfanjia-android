@@ -6,13 +6,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.TDevice;
-
-import java.util.List;
 
 /**
  * Name: DesignerPlanRecyclerViewAdapter
@@ -60,13 +62,13 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
         return new DesignerPlanViewHolder(view);
     }
 
-    private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+    static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.list_item_plan_img)
         public ImageView itemImgView;
 
         public DesignerPlanViewHolder(View itemView) {
             super(itemView);
-            itemImgView = (ImageView) itemView
-                    .findViewById(R.id.list_item_plan_img);
+            ButterKnife.bind(this,itemView);
         }
     }
 

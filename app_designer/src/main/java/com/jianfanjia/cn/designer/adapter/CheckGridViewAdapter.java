@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
@@ -157,26 +159,27 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
         return null;
     }
 
-    private static class CheckHeadHolder extends RecyclerViewHolderBase {
+    static class CheckHeadHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.text_title_show_pic)
         public TextView text_title_show_pic;
+        @Bind(R.id.text_title_upload_pic)
         public TextView text_title_upload_pic;
 
         public CheckHeadHolder(View itemView) {
             super(itemView);
-            text_title_show_pic = (TextView) itemView.findViewById(R.id.text_title_show_pic);
-            text_title_upload_pic = (TextView) itemView.findViewById(R.id.text_title_upload_pic);
+            ButterKnife.bind(this,itemView);
         }
     }
 
-    private static class CheckItemViewHolder extends RecyclerViewHolderBase {
+    static class CheckItemViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.img)
         public ImageView img = null;
+        @Bind(R.id.delete)
         public ImageView delete = null;
-        public TextView name_tv = null;
 
         public CheckItemViewHolder(View itemView) {
             super(itemView);
-            img = (ImageView) itemView.findViewById(R.id.img);
-            delete = (ImageView) itemView.findViewById(R.id.delete);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

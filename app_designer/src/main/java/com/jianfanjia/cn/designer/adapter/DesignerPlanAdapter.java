@@ -7,17 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
-
-import java.util.List;
 
 /**
  * Name: DesignerPlanAdapter
@@ -94,22 +96,23 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
         return new DesignerPlanViewHolder(view);
     }
 
-    private static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+    static class DesignerPlanViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.numText)
         public TextView numText;
+        @Bind(R.id.statusText)
         public TextView statusText;
+        @Bind(R.id.item_plan_listview)
         public RecyclerView item_plan_listview;
+        @Bind(R.id.dateText)
         public TextView dateText;
+        @Bind(R.id.previewText)
         public TextView commentText;
+        @Bind(R.id.commentText)
         public TextView previewText;
 
         public DesignerPlanViewHolder(View itemView) {
             super(itemView);
-            numText = (TextView) itemView.findViewById(R.id.numText);
-            statusText = (TextView) itemView.findViewById(R.id.statusText);
-            item_plan_listview = (RecyclerView) itemView.findViewById(R.id.item_plan_listview);
-            dateText = (TextView) itemView.findViewById(R.id.dateText);
-            previewText = (TextView) itemView.findViewById(R.id.previewText);
-            commentText = (TextView) itemView.findViewById(R.id.commentText);
+            ButterKnife.bind(this,itemView);
         }
     }
 }
