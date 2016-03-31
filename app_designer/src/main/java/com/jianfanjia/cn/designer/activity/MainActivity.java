@@ -12,6 +12,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.R;
@@ -172,49 +174,61 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        UiHelper.getUnReadMessageCount(this, getMessageCountListener, this, Constant.searchMsgCountType1,
-                Constant.searchMsgCountType2);
+        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
+                .searchMsgCountType2);
     }
 
-    private ApiUiUpdateListener getMessageCountListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
+    private ApiCallback<ApiResponse<List<Integer>>> getMessageCountListener = new
+            ApiCallback<ApiResponse<List<Integer>>>() {
 
-        }
 
-        @Override
-        public void loadSuccess(Object data) {
-            List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
-            }.getType());
-            if (countList != null) {
-                if (countList.get(0) > 0 || countList.get(1) > 0) {
-                    badgeView.setVisibility(View.VISIBLE);
-                } else {
-                    badgeView.setVisibility(View.GONE);
+                @Override
+                public void onPreLoad() {
+
                 }
-                if (myFragment != null) {
-                    if (countList.get(0) > 0) {
-                        myFragment.noticeCountView.setVisibility(View.VISIBLE);
-                        myFragment.noticeCountView.setText(countList.get(0) + "");
-                    } else {
-                        myFragment.noticeCountView.setVisibility(View.GONE);
-                    }
-                    if (countList.get(1) > 0) {
-                        myFragment.commentCountView.setVisibility(View.VISIBLE);
-                        myFragment.commentCountView.setText(countList.get(1) + "");
-                    } else {
-                        myFragment.commentCountView.setVisibility(View.GONE);
-                        myFragment.commentCountView.setText("");
+
+                @Override
+                public void onHttpDone() {
+
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<List<Integer>> apiResponse) {
+                    List<Integer> countList = apiResponse.getData();
+                    if (countList != null) {
+                        if (countList.get(0) > 0 || countList.get(1) > 0) {
+                            badgeView.setVisibility(View.VISIBLE);
+                        } else {
+                            badgeView.setVisibility(View.GONE);
+                        }
+                        if (myFragment != null) {
+                            if (countList.get(0) > 0) {
+                                myFragment.noticeCountView.setVisibility(View.VISIBLE);
+                                myFragment.noticeCountView.setText(countList.get(0) + "");
+                            } else {
+                                myFragment.noticeCountView.setVisibility(View.GONE);
+                            }
+                            if (countList.get(1) > 0) {
+                                myFragment.commentCountView.setVisibility(View.VISIBLE);
+                                myFragment.commentCountView.setText(countList.get(1) + "");
+                            } else {
+                                myFragment.commentCountView.setVisibility(View.GONE);
+                                myFragment.commentCountView.setText("");
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
+                @Override
+                public void onFailed(ApiResponse<List<Integer>> apiResponse) {
 
-        }
-    };
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
 
     @Override
     protected void onStop() {
