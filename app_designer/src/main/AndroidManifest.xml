@@ -258,9 +258,6 @@
         <service android:name=".service.UpdateService"/>
 
         <activity
-            android:name=".activity.requirement.PingjiaActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.requirement.ContractActivity"
             android:screenOrientation="portrait"/>
         <activity

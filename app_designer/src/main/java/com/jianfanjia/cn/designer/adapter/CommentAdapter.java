@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
@@ -25,16 +26,16 @@ import butterknife.ButterKnife;
  * Date: 2015-10-28
  * Time: 17:10
  */
-public class CommentAdapter extends BaseRecyclerViewAdapter<CommentInfo> {
+public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
     private static final String TAG = CommentAdapter.class.getName();
 
-    public CommentAdapter(Context context, List<CommentInfo> list) {
+    public CommentAdapter(Context context, List<Comment> list) {
         super(context, list);
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<CommentInfo> list) {
-        CommentInfo commentInfo = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
+        Comment commentInfo = list.get(position);
         CommentViewHolder holder = (CommentViewHolder) viewHolder;
         holder.itemNameView.setText(commentInfo.getByUser().getUsername());
         holder.itemContentView.setText(commentInfo.getContent());

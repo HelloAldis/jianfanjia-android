@@ -15,12 +15,19 @@ import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 public class ShowPicActivity extends BaseActivity implements
         ViewPagerClickListener, OnPageChangeListener {
     private static final String TAG = ShowPicActivity.class.getName();
-    private ViewPager viewPager;
+
+    @Bind(R.id.showpicPager)
+    ViewPager viewPager;
+
+    @Bind(R.id.pic_tip)
+    TextView tipView;
+
     private ShowPicPagerAdapter showPicPagerAdapter;
-    private TextView tipView;
     private List<String> imageList = new ArrayList<String>();
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
@@ -49,23 +56,6 @@ public class ShowPicActivity extends BaseActivity implements
     }
 
     @Override
-    public void initView() {
-        viewPager = (ViewPager) findViewById(R.id.showpicPager);
-        tipView = (TextView) findViewById(R.id.pic_tip);
-    }
-
-    @Override
-    public void setListener() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_showpic;
-    }
-
-    @Override
     public void onClickItem(int potition) {
         appManager.finishActivity(this);
     }
@@ -88,4 +78,8 @@ public class ShowPicActivity extends BaseActivity implements
         setTipText();
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_showpic;
+    }
 }
