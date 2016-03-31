@@ -25,6 +25,13 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
@@ -36,17 +43,18 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+=======
+>>>>>>> dcc5bcd602d7b074e1b0defcae2d6b9522e2d7f1
 public class UiHelper {
 
     /**
@@ -254,15 +262,7 @@ public class UiHelper {
         rotaAnimator.start();
     }
 
-    /**
-     * 检查新版本
-     *
-     * @param context
-     * @param listener
-     */
-    public static void checkNewVersion(Context context, ApiUiUpdateListener listener) {
-        JianFanJiaClient.checkVersion(context, listener, context);
-    }
+
 
 
     /**

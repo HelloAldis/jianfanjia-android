@@ -5,10 +5,10 @@ import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
-import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
@@ -23,14 +23,15 @@ import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
+import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
 import com.jianfanjia.api.request.designer.ConfigContractRequest;
 import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
+import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
-import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
@@ -201,4 +202,10 @@ public class Api {
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().DELETE_PROCESS_PIC, request, apiCallback);
     }
+
+    public static void submitImageToProcess(SubmitImageToProcessRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().POST_PROCESS_IMAGE, request, apiCallback);
+    }
+
 }

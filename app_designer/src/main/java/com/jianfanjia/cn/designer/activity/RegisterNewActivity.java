@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
@@ -24,9 +22,11 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author zhanghao
@@ -128,12 +128,10 @@ public class RegisterNewActivity extends BaseActivity implements
     private void actionCommit(RegisterInfo registerInfo) {
         switch (requsetCode) {
             case REGISTER_CODE:
-                JianFanJiaClient.register(this, registerInfo, this, this);
                 register(registerInfo);
                 break;
             case UPDATE_PSW_CODE:
                 updatePassword(registerInfo);
-                JianFanJiaClient.update_psw(this, registerInfo, this, this);
                 break;
         }
     }
