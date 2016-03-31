@@ -11,19 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.designer.adapter.NoticeAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.http.request.SearchUserMsgRequest;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.RecyclerItemCallBack;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
@@ -144,16 +144,16 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         load();
     }
 
-    private void getNoticeList(String[] typeStr, ApiUiUpdateListener listener) {
+    private void getNoticeList(String[] typeStr, ApiCallback<ApiResponse<UserMessageList>> listener) {
+        SearchUserMsgRequest request = new SearchUserMsgRequest();
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
         Map<String, Object> conditionParam = new HashMap<>();
         conditionParam.put("message_type", params);
-        Map<String, Object> param = new HashMap<>();
-        param.put("query", conditionParam);
-        param.put("from", FROM);
-        param.put("limit", Constant.HOME_PAGE_LIMIT);
-        JianFanJiaClient.searchUserMsg(new SearchUserMsgRequest(getContext(), param), listener, this);
+        request.setQuery(conditionParam);
+        request.setFrom(FROM);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchUserMsg(request, listener);
     }
 
     @Override
@@ -168,75 +168,88 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         getNoticeList(typeArray, pullUpListener);
     }
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            if (mHasLoadedOnce) {
-                showWaitDialog();
-            }
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            hideWaitDialog();
-            mHasLoadedOnce = true;
-            all_notice_listview.onRefreshComplete();
-            UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
-            LogTool.d(TAG, "userMessageList:" + userMessageList);
-            if (null != userMessageList) {
-                noticeList.clear();
-                noticeList.addAll(userMessageList.getList());
-                if (null != noticeList && noticeList.size() > 0) {
-                    noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
-                        @Override
-                        public void onClick(int position, Object obj) {
-                            UserMessage userMessage = (UserMessage) obj;
-                            LogTool.d(TAG, "position=" + position + " userMessage:" + userMessage.getContent());
-                            Bundle detailBundle = new Bundle();
-                            detailBundle.putString(Global.MSG_ID, userMessage.get_id());
-                            startActivity(NoticeDetailActivity.class, detailBundle);
-                        }
-                    });
-                    all_notice_listview.setAdapter(noticeAdapter);
-                    all_notice_listview.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
-                } else {
-                    all_notice_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                    errorLayout.setVisibility(View.GONE);
+    private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new
+            ApiCallback<ApiResponse<UserMessageList>>() {
+                @Override
+                public void onPreLoad() {
+                    if (mHasLoadedOnce) {
+                        showWaitDialog();
+                    }
                 }
-                FROM = noticeList.size();
-                LogTool.d(TAG, "FROM:" + FROM);
-            }
+
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
+                    mHasLoadedOnce = true;
+                    all_notice_listview.onRefreshComplete();
+                    UserMessageList noticeListInfo = apiResponse.getData();
+                    LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
+                    if (null != noticeListInfo) {
+                        noticeList.clear();
+                        noticeList.addAll(noticeListInfo.getList());
+                        if (null != noticeList && noticeList.size() > 0) {
+                            noticeAdapter = new NoticeAdapter(getActivity(), noticeList, new RecyclerItemCallBack() {
+                                @Override
+                                public void onClick(int position, Object obj) {
+                                    UserMessage noticeInfo = (UserMessage) obj;
+                                    LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
+                                    Bundle detailBundle = new Bundle();
+                                    detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
+                                    startActivity(NoticeDetailActivity.class, detailBundle);
+                                }
+                            });
+                            all_notice_listview.setAdapter(noticeAdapter);
+                            all_notice_listview.setVisibility(View.VISIBLE);
+                            emptyLayout.setVisibility(View.GONE);
+                            errorLayout.setVisibility(View.GONE);
+                        } else {
+                            all_notice_listview.setVisibility(View.GONE);
+                            emptyLayout.setVisibility(View.VISIBLE);
+                            errorLayout.setVisibility(View.GONE);
+                        }
+                        FROM = noticeList.size();
+                        LogTool.d(TAG, "FROM:" + FROM);
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<UserMessageList> apiResponse) {
+                    all_notice_listview.onRefreshComplete();
+                    all_notice_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
+
+    private ApiCallback<ApiResponse<UserMessageList>> pullUpListener = new ApiCallback<ApiResponse<UserMessageList>>() {
+
+
+        @Override
+        public void onPreLoad() {
+
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextShort(error_msg);
-            hideWaitDialog();
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
             all_notice_listview.onRefreshComplete();
-            all_notice_listview.setVisibility(View.GONE);
-            emptyLayout.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
-        }
-    };
-
-    private ApiUiUpdateListener pullUpListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data.toString());
-            all_notice_listview.onRefreshComplete();
-            UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
-            LogTool.d(TAG, "userMessageList:" + userMessageList);
-            if (null != userMessageList) {
-                List<UserMessage> noticeLists = userMessageList.getList();
+            UserMessageList noticeListInfo = apiResponse.getData();
+            LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
+            if (null != noticeListInfo) {
+                List<UserMessage> noticeLists = noticeListInfo.getList();
                 if (null != noticeLists && noticeLists.size() > 0) {
                     noticeAdapter.add(FROM, noticeLists);
                     FROM += Constant.HOME_PAGE_LIMIT;
@@ -247,9 +260,13 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
+        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
             all_notice_listview.onRefreshComplete();
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 

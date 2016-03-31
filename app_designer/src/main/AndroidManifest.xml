@@ -278,12 +278,6 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.my.BindingPhoneActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.my.BindingAccountActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.SettingMeasureDateActivity"
             android:screenOrientation="portrait"/>
         <activity

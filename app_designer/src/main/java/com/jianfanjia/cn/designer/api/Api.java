@@ -3,15 +3,26 @@ package com.jianfanjia.cn.designer.api;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
+import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
+import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
+import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
+import com.jianfanjia.api.request.common.SearchUserCommentRequest;
+import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
 import com.jianfanjia.api.request.designer.ConfigContractRequest;
 import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
+import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
@@ -19,6 +30,8 @@ import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
+
+import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.api
@@ -34,6 +47,11 @@ public class Api {
 
     public static void login(LoginRequest request, ApiCallback<ApiResponse<Designer>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().LOGIN_URL, request, apiCallback);
+    }
+
+    //游客反馈
+    public static void feedBack(FeedBackRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().FEEDBACK_URL, request, apiCallback);
     }
 
     //游客验证手机是否注册
@@ -62,6 +80,7 @@ public class Api {
         ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback);
     }
 
+<<<<<<< HEAD
     public static void configContract(ConfigContractRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().DESIGNER_CONFIG_CONTRACT, request, apiCallback);
     }
@@ -82,4 +101,38 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().CONFIRM_CHECK_BY_DESIGNER, request, apiCallback);
     }
 
+    public static void getCommentList(GetCommentsRequest request, ApiCallback<ApiResponse<CommentList>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_COMMENT, request, apiCallback);
+    }
+
+    public static void addComment(AddCommentRequest request, ApiCallback<ApiResponse<Object>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_COMMENT, request, apiCallback);
+    }
+
+    public static void searchUserComment(SearchUserCommentRequest request, ApiCallback<ApiResponse<UserMessageList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_COMMENT, request, apiCallback);
+    }
+
+    public static void applyReschedule(ApplyRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().POST_RESCHDULE, request, apiCallback);
+    }
+
+    public static void agreeReschedule(AgreeRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().AGREE_RESCHDULE, request, apiCallback);
+    }
+
+    public static void refuseReschedule(RefuseRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().REFUSE_RESCHDULE, request, apiCallback);
+    }
+
+    public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<UserMessageList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
+    }
+
+    public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
+    }
 }

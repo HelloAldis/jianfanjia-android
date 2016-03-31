@@ -8,31 +8,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.adapter.MyCommentInfoAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.http.request.SearchUserCommentRequest;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -70,7 +68,7 @@ public class CommentListActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        getMyCommentInfo(Constant.FROM_START, pullDownListener);
+        getMyCommentInfo(Constant.FROM_START, pullDownCallback);
     }
 
     private void initView() {
@@ -116,13 +114,13 @@ public class CommentListActivity extends BaseActivity {
         myCommentInfoAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-                getMyCommentInfo(myCommentInfoAdapter.getData().size(), CommentListActivity.this);
+                getMyCommentInfo(myCommentInfoAdapter.getData().size(), loadMoreCallback);
             }
         });
         refreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getMyCommentInfo(Constant.FROM_START, pullDownListener);
+                getMyCommentInfo(Constant.FROM_START, pullDownCallback);
             }
         });
         refreshRecycleView.setAdapter(myCommentInfoAdapter);
@@ -130,7 +128,7 @@ public class CommentListActivity extends BaseActivity {
         myCommentInfoAdapter.setEmptyView(emptyView);
         myCommentInfoAdapter.setErrorView(errorView);
 
-        getMyCommentInfo(Constant.FROM_START, pullDownListener);
+        getMyCommentInfo(Constant.FROM_START, pullDownCallback);
     }
 
     private void startPlanInfoActivity(Plan plandetailInfo, Requirement requirementInfo) {
@@ -146,91 +144,115 @@ public class CommentListActivity extends BaseActivity {
         startActivity(MyProcessDetailActivity.class, processBundle);
     }
 
-    private void getMyCommentInfo(int from, ApiUiUpdateListener apiUiUpdateListener) {
-        Map<String, Object> param = new HashMap<>();
-        param.put(Constant.FROM, from);
-        param.put(Constant.LIMIT, Constant.HOME_PAGE_LIMIT);
-
-        JianFanJiaClient.searchUserComment(new SearchUserCommentRequest(this, param), apiUiUpdateListener, this);
+    private void getMyCommentInfo(int from, ApiCallback<ApiResponse<UserMessageList>> apiCallback) {
+        SearchUserCommentRequest request = new SearchUserCommentRequest();
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        Api.searchUserComment(request, apiCallback);
     }
 
-    private ApiUiUpdateListener pullDownListener = new ApiUiUpdateListener() {
-        @Override
-        public void preLoad() {
-            if (!mHasLoadOnce) {
-                showWaitDialog();
-            }
-        }
-
-        @Override
-        public void loadSuccess(Object data) {
-            hideWaitDialog();
-            refreshRecycleView.onRefreshComplete();
-            UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
-            if (userMessageList != null) {
-                int total = userMessageList.getTotal();
-                if (total > 0) {
-                    myCommentInfoAdapter.clear();
-                    myCommentInfoAdapter.addData(userMessageList.getList());
-                    LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
-                            myCommentInfoAdapter.getData().size());
-                    if (total > myCommentInfoAdapter.getData().size()) {
-                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
-                    } else {
-                        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+    private ApiCallback<ApiResponse<UserMessageList>> pullDownCallback = new
+            ApiCallback<ApiResponse<UserMessageList>>() {
+                @Override
+                public void onPreLoad() {
+                    if (!mHasLoadOnce) {
+                        showWaitDialog();
                     }
-                    myCommentInfoAdapter.hideErrorAndEmptyView();
-                } else {
-                    myCommentInfoAdapter.setEmptyViewShow();
                 }
-                mHasLoadOnce = true;
-            }
-        }
 
-        @Override
-        public void loadFailture(String error_msg) {
-            hideWaitDialog();
-            makeTextShort(error_msg);
-            refreshRecycleView.onRefreshComplete();
-            myCommentInfoAdapter.setErrorViewShow();
-            myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-        }
-    };
-
-    @Override
-    public void preLoad() {
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        UserMessageList userMessageList = JsonParser.jsonToBean(data.toString(), UserMessageList.class);
-        if (userMessageList != null) {
-            int total = userMessageList.getTotal();
-            if (total > 0) {
-                myCommentInfoAdapter.addData(userMessageList.getList());
-                LogTool.d(this.getClass().getName(), "total size =" + total);
-                LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" + myCommentInfoAdapter
-                        .getData().size());
-                if (total > myCommentInfoAdapter.getData().size()) {
-                    myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_LOAD_MORE);
-                } else {
-                    myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NO_MORE);
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
                 }
-                myCommentInfoAdapter.hideErrorAndEmptyView();
-            } else {
-                myCommentInfoAdapter.setEmptyViewShow();
-            }
-        }
-    }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
-        myCommentInfoAdapter.setErrorViewShow();
-        myCommentInfoAdapter.setState(BaseRecycleAdapter.STATE_NETWORK_ERROR);
-    }
+                @Override
+                public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
+                    refreshRecycleView.onRefreshComplete();
+                    UserMessageList noticeListInfo = apiResponse.getData();
+                    if (noticeListInfo != null) {
+                        int total = noticeListInfo.getTotal();
+                        if (total > 0) {
+                            myCommentInfoAdapter.clear();
+                            myCommentInfoAdapter.addData(noticeListInfo.getList());
+                            LogTool.d(this.getClass().getName(), "total size =" + total);
+                            LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                                    myCommentInfoAdapter.getData().size());
+                            if (total > myCommentInfoAdapter.getData().size()) {
+                                myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
+                            } else {
+                                myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
+                            }
+                            myCommentInfoAdapter.hideErrorAndEmptyView();
+                        } else {
+                            myCommentInfoAdapter.setEmptyViewShow();
+                        }
+                        mHasLoadOnce = true;
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<UserMessageList> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
+                    refreshRecycleView.onRefreshComplete();
+                    myCommentInfoAdapter.setErrorViewShow();
+                    myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
+
+    private ApiCallback<ApiResponse<UserMessageList>> loadMoreCallback = new
+            ApiCallback<ApiResponse<UserMessageList>>() {
+                @Override
+                public void onPreLoad() {
+
+                }
+
+                @Override
+                public void onHttpDone() {
+
+                }
+
+                @Override
+                public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
+                    UserMessageList noticeListInfo = apiResponse.getData();
+                    if (noticeListInfo != null) {
+                        int total = noticeListInfo.getTotal();
+                        if (total > 0) {
+                            myCommentInfoAdapter.addData(noticeListInfo.getList());
+                            LogTool.d(this.getClass().getName(), "total size =" + total);
+                            LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                                    myCommentInfoAdapter
+                                            .getData().size());
+                            if (total > myCommentInfoAdapter.getData().size()) {
+                                myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
+                            } else {
+                                myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
+                            }
+                            myCommentInfoAdapter.hideErrorAndEmptyView();
+                        } else {
+                            myCommentInfoAdapter.setEmptyViewShow();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailed(ApiResponse<UserMessageList> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
+                    refreshRecycleView.onRefreshComplete();
+                    myCommentInfoAdapter.setErrorViewShow();
+                    myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                }
+
+                @Override
+                public void onNetworkError(int code) {
+
+                }
+            };
+
 
     @OnClick({R.id.head_back_layout, R.id.img_error})
     protected void click(View view) {
@@ -239,7 +261,7 @@ public class CommentListActivity extends BaseActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.img_error:
-                getMyCommentInfo(Constant.FROM_START, pullDownListener);
+                getMyCommentInfo(Constant.FROM_START, pullDownCallback);
                 break;
         }
     }

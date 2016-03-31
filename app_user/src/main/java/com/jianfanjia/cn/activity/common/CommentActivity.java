@@ -9,16 +9,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Comment;
@@ -37,13 +30,20 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:评论留言
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CommentActivity extends BaseSwipeBackActivity implements OnClickListener {
+public class CommentActivity extends BaseSwipeBackActivity {
     private static final String TAG = CommentActivity.class.getName();
 
     @Bind(R.id.my_comment_head_layout)

@@ -1,4 +1,4 @@
-package com.jianfanjia.api.request.user;
+package com.jianfanjia.api.request.common;
 
 import com.jianfanjia.api.request.BaseRequest;
 

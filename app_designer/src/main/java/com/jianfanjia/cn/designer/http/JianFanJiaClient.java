@@ -19,7 +19,6 @@ import com.jianfanjia.cn.designer.http.request.ConfigContractRequest;
 import com.jianfanjia.cn.designer.http.request.ConformMeasureHouseRequest;
 import com.jianfanjia.cn.designer.http.request.DeletePicRequest;
 import com.jianfanjia.cn.designer.http.request.DeletePicToSectionItemRequest;
-import com.jianfanjia.cn.designer.http.request.EvaluateDesignerRequest;
 import com.jianfanjia.cn.designer.http.request.FeedBackRequest;
 import com.jianfanjia.cn.designer.http.request.ForgetPswRequest;
 import com.jianfanjia.cn.designer.http.request.GetAllRequirementListRequest;
@@ -860,39 +859,6 @@ public class JianFanJiaClient {
             jsonParams.put("_id", planid);
             OkHttpClientManager.getInstance().getPostDelegate().postAsyn(getPlanInfoRequest, jsonParams.toString(),
                     listener, tag);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 业主评价设计师
-     *
-     * @param context
-     * @param requirementid
-     * @param designerid
-     * @param service_attitude
-     * @param respond_speed
-     * @param comment
-     * @param is_anonymous
-     * @param listener
-     * @param tag
-     */
-    public static void evaluateDesignerByUser(Context context, String requirementid, String designerid, int
-            service_attitude, int respond_speed, String comment, String is_anonymous, ApiUiUpdateListener listener,
-                                              Object tag) {
-        EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest(context, requirementid,
-                designerid, service_attitude, respond_speed, comment, is_anonymous);
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("designerid", designerid);
-            jsonParams.put("requirementid", requirementid);
-            jsonParams.put("service_attitude", service_attitude);
-            jsonParams.put("respond_speed", respond_speed);
-            jsonParams.put("comment", comment);
-            jsonParams.put("is_anonymous", is_anonymous);
-            OkHttpClientManager.getInstance().getPostDelegate().postAsyn(evaluateDesignerRequest, jsonParams.toString
-                    (), listener, tag);
         } catch (JSONException e) {
             e.printStackTrace();
         }

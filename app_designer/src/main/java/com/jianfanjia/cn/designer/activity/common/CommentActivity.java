@@ -13,26 +13,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Comment;
+import com.jianfanjia.api.model.CommentList;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.adapter.CommentAdapter;
+import com.jianfanjia.cn.designer.api.Api;
+import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.api.model.Comment;
-import com.jianfanjia.api.model.CommentList;
-import com.jianfanjia.api.model.User;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.CommentAdapter;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.tools.JsonParser;
-import com.jianfanjia.cn.designer.tools.LogTool;
-import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 
 /**
  * Description:评论留言
@@ -159,21 +162,30 @@ public class CommentActivity extends BaseActivity {
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
-        JianFanJiaClient.getCommentList(CommentActivity.this, topicid, from, limit, section, item,
-                getCommentListener, this);
+        GetCommentsRequest request = new GetCommentsRequest();
+        request.setTopicid(topicid);
+        request.setFrom(from);
+        request.setLimit(limit);
+        request.setSection(section);
+        request.setItem(item);
+        Api.getCommentList(request, getCommentCallback);
     }
 
-    private ApiUiUpdateListener getCommentListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
+
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             showWaitDialog(R.string.loading);
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+        public void onHttpDone() {
             hideWaitDialog();
-            CommentList commentList = JsonParser.jsonToBean(data.toString(), CommentList.class);
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<CommentList> apiResponse) {
+            CommentList commentList = apiResponse.getData();
             LogTool.d(TAG, "commentList:" + commentList);
             if (null != commentList) {
                 comments = commentList.getComments();
@@ -184,30 +196,43 @@ public class CommentActivity extends BaseActivity {
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
+        public void onFailed(ApiResponse<CommentList> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
     //添加评论
     private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
-        JianFanJiaClient.addComment(CommentActivity.this, topicid, topictype, section, item, content, to,
-                addCommentListener, this);
+        AddCommentRequest request = new AddCommentRequest();
+        request.setTopicid(topicid);
+        request.setTopictype(topictype);
+        request.setSection(section);
+        request.setItem(item);
+        request.setContent(content);
+        request.setTo(to);
+        Api.addComment(request, this.addCommentCallback);
     }
 
-    private ApiUiUpdateListener addCommentListener = new ApiUiUpdateListener() {
+    private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
-        public void preLoad() {
+        public void onPreLoad() {
             showWaitDialog(R.string.loading);
         }
 
         @Override
-        public void loadSuccess(Object data) {
-            LogTool.d(TAG, "data:" + data);
+        public void onHttpDone() {
             hideWaitDialog();
-            Comment comment = createCommentInfo(commentEdit.getEditableText().toString());
-            comments.add(0, comment);
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<Object> apiResponse) {
+            Comment commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
+            comments.add(0, commentInfo);
             commentAdapter.notifyItemInserted(0);
             commentListView.scrollToPosition(0);
             commentEdit.setText("");
@@ -215,9 +240,13 @@ public class CommentActivity extends BaseActivity {
         }
 
         @Override
-        public void loadFailture(String error_msg) {
-            makeTextLong(error_msg);
-            hideWaitDialog();
+        public void onFailed(ApiResponse<Object> apiResponse) {
+            makeTextLong(apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
         }
     };
 
