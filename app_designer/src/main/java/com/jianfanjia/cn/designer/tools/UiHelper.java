@@ -55,7 +55,8 @@ public class UiHelper {
      * @param apiUiUpdateListener
      * @param selectLists
      */
-    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag, String[]... selectLists) {
+    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag,
+                                             String[]... selectLists) {
         Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {
@@ -168,7 +169,8 @@ public class UiHelper {
      * 调整numberpicker大小
      */
     public static void resizeNumberPicker(NumberPicker np) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 0, 10, 0);
         np.setLayoutParams(params);
 

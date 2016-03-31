@@ -15,7 +15,7 @@ import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.MainActivity;
-import com.jianfanjia.cn.designer.activity.common.CommentListActivity_;
+import com.jianfanjia.cn.designer.activity.common.CommentListActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -62,7 +62,7 @@ public class MessageUtil {
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (type.equals(Constant.TYPE_SECTION_COMMENT_MSG) || type.equals(Constant
                 .TYPE_PLAN_COMMENT_MSG)) {
-            targetIntent = new Intent(context, CommentListActivity_.class);
+            targetIntent = new Intent(context, CommentListActivity.class);
         } else {
             targetIntent = new Intent(context, NoticeDetailActivity.class);
             Bundle bundle = new Bundle();
