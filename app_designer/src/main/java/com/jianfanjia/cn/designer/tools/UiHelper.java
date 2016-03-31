@@ -25,6 +25,23 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
+import com.jianfanjia.cn.designer.AppManager;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.LoginNewActivity;
+import com.jianfanjia.cn.designer.api.Api;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.cache.DataManagerNew;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.http.JianFanJiaClient;
+import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.cn.designer.service.UpdateService;
+import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,38 +49,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jianfanjia.cn.designer.AppManager;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.LoginNewActivity;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.cache.DataManagerNew;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.http.request.GetUnReadMsgRequest;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.service.UpdateService;
-import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 public class UiHelper {
 
     /**
      * 拿到未读消息个数
      *
-     * @param context
-     * @param apiUiUpdateListener
+     * @param callback
      * @param selectLists
      */
-    public static void getUnReadMessageCount(Context context, ApiUiUpdateListener apiUiUpdateListener, Object tag,
+    public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback,
                                              String[]... selectLists) {
+        GetUnReadMsgRequest getUnReadMsgRequest = new GetUnReadMsgRequest();
         Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {
             contain.add(temp);
         }
-        param.put("query_array", contain);
-        JianFanJiaClient.getUnReadUserMsg(new GetUnReadMsgRequest(context, param), apiUiUpdateListener, tag);
+        getUnReadMsgRequest.setQuery_array(contain);
+        Api.getUnReadMsg(getUnReadMsgRequest, callback);
     }
 
     /**

@@ -22,13 +22,21 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
+import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
+import com.jianfanjia.api.request.common.GetProcessInfoRequest;
+import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
+import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
@@ -42,7 +50,6 @@ import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.FileUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtil;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -119,29 +126,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
         detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadCurrentProcess(new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        detailNodeListView.onRefreshComplete();
-                        if (data != null) {
-                            processInfo = JsonParser.jsonToBean(data.toString(), Process.class);
-                            initData();
-                        }
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        detailNodeListView.onRefreshComplete();
-                        if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
-                            makeTextShort(error_msg);
-                        }
-                    }
-                });
+                loadCurrentProcess();
             }
         });
     }
@@ -151,7 +136,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
         processId = intent.getStringExtra(Global.PROCESS_ID);
         LogTool.d(TAG, "processId :" + processId);
         if (processId != null) {
-            loadCurrentProcess(this);
+            loadCurrentProcess();
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
             processInfo = BusinessManager.getDefaultProcessInfo(this);
@@ -159,10 +144,39 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
         }
     }
 
-    private void loadCurrentProcess(ApiUiUpdateListener apiUiUpdateListener) {
-        if (processId != null) {
-            JianFanJiaClient.get_ProcessInfo_By_Id(this, processId, apiUiUpdateListener, this);
-        }
+    private void loadCurrentProcess() {
+            if (processId != null) {
+                GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
+                getProcessInfoRequest.setProcessId(processId);
+                Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
+                    @Override
+                    public void onPreLoad() {
+                        showWaitDialog();
+                    }
+
+                    @Override
+                    public void onHttpDone() {
+                        hideWaitDialog();
+                        detailNodeListView.onRefreshComplete();
+                    }
+
+                    @Override
+                    public void onSuccess(ApiResponse<Process> apiResponse) {
+                        processInfo = apiResponse.getData();
+                        initData();
+                    }
+
+                    @Override
+                    public void onFailed(ApiResponse<Process> apiResponse) {
+                        makeTextShort(apiResponse.getErr_msg());
+                    }
+
+                    @Override
+                    public void onNetworkError(int code) {
+
+                    }
+                });
+            }
     }
 
     private void initMainHead() {
@@ -366,26 +380,6 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
     }
 
     @Override
-    public void preLoad() {
-        super.preLoad();
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        hideWaitDialog();
-        if (data != null) {
-            processInfo = JsonParser.jsonToBean(data.toString(), Process.class);
-            initData();
-        }
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        hideWaitDialog();
-        makeTextShort(error_msg);
-    }
-
-    @Override
     public void click(int position, int itemType, List<String> imageUrlList) {
         switch (itemType) {
             case Constant.IMG_ITEM:
@@ -512,46 +506,108 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
         dialog.show();
     }
 
+    // 提交改期
+    private void postReschedule(String processId, String userId,
+                                String designerId, String section, String newDate) {
+        com.jianfanjia.common.tool.LogTool.d(TAG, "processId:" + processId + " userId:" + userId
+                + " designerId:" + designerId + " section:" + section
+                + " newDate:" + newDate);
+        ApplyRescheduleRequest applyRescheduleRequest = new ApplyRescheduleRequest();
+        applyRescheduleRequest.setProcessid(processId);
+        applyRescheduleRequest.setUserid(userId);
+        applyRescheduleRequest.setDesignerid(designerId);
+        applyRescheduleRequest.setNew_date(DateFormatTool.covertStringToLong(newDate));
+        applyRescheduleRequest.setSection(section);
+        Api.applyReschedule(applyRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
     //同意改期
     private void agreeReschedule(String processid) {
-        JianFanJiaClient.agreeReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+        AgreeRescheduleRequest agreeRescheduleRequest = new AgreeRescheduleRequest();
+        agreeRescheduleRequest.setProcessid(processid);
+        Api.agreeReschedule(agreeRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
+            public void onHttpDone() {
+
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
             }
-        }, this);
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     // 拒绝改期
     private void refuseReschedule(String processid) {
-        JianFanJiaClient.refuseReschedule(MyProcessDetailActivity.this, processid, new ApiUiUpdateListener() {
+        RefuseRescheduleRequest refuseRescheduleRequest = new RefuseRescheduleRequest();
+        refuseRescheduleRequest.setProcessid(processid);
+        Api.refuseReschedule(refuseRescheduleRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
-                loadCurrentProcess(MyProcessDetailActivity.this);
+            public void onHttpDone() {
+
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
             }
-        }, this);
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
 
@@ -559,48 +615,37 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
     private void confirmProcessItemDone(String siteId, String section,
                                         String item) {
         LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:" + item);
-        JianFanJiaClient.processItemDone(this, siteId, section,
-                item, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
+        FinishSectionItemRequest finishSectionItemRequest = new FinishSectionItemRequest();
+        finishSectionItemRequest.set_id(siteId);
+        finishSectionItemRequest.setSection(section);
+        finishSectionItemRequest.setItem(item);
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        loadCurrentProcess(MyProcessDetailActivity.this);
-                    }
+        Api.finishSectionItem(finishSectionItemRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        makeTextShort(errorMsg);
-                        hideWaitDialog();
-                    }
-                }, this);
-    }
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
 
-    // 提交改期
-    private void postReschedule(String processId, String userId,
-                                String designerId, String section, String newDate) {
-        LogTool.d(TAG, "processId:" + processId + " userId:" + userId + " designerId:" + designerId + " section:" +
-                section + " newDate:" + newDate);
-        JianFanJiaClient.postReschedule(this, processId, userId,
-                designerId, section, newDate, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess();
+            }
 
-                    }
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        loadCurrentProcess(MyProcessDetailActivity.this);
-                    }
+            @Override
+            public void onNetworkError(int code) {
 
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        makeTextShort(error_msg);
-                    }
-                }, this);
+            }
+        });
     }
 
     @Override
@@ -648,7 +693,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
             case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
-                loadCurrentProcess(this);
+                loadCurrentProcess();
                 break;
             default:
                 break;
@@ -678,7 +723,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
                             @Override
                             public void loadSuccess(Object data) {
-                                loadCurrentProcess(MyProcessDetailActivity.this);
+                                loadCurrentProcess();
                                 if (mTmpFile != null
                                         && mTmpFile
                                         .exists()) {
