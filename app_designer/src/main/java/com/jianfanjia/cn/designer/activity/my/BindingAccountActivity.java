@@ -26,7 +26,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
-;
 
 /**
  * Description: com.jianfanjia.cn.activity.my
