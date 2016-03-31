@@ -197,10 +197,6 @@
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.my.ShareActivity"
-            android:label="@string/title_activity_share"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.requirement.CheckActivity"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait"/>
