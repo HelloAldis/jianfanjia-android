@@ -36,8 +36,6 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -45,9 +43,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UiHelper {
 
@@ -60,7 +56,6 @@ public class UiHelper {
     public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback,
                                              String[]... selectLists) {
         GetUnReadMsgRequest getUnReadMsgRequest = new GetUnReadMsgRequest();
-        Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {
             contain.add(temp);
@@ -255,16 +250,6 @@ public class UiHelper {
             rotaAnimator.addListener(listener);
         }
         rotaAnimator.start();
-    }
-
-    /**
-     * 检查新版本
-     *
-     * @param context
-     * @param listener
-     */
-    public static void checkNewVersion(Context context, ApiUiUpdateListener listener) {
-        JianFanJiaClient.checkVersion(context, listener, context);
     }
 
 

@@ -3,16 +3,15 @@ package com.jianfanjia.cn.designer.application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseApplication;
 import com.jianfanjia.cn.designer.cache.DataCleanManager;
-import com.jianfanjia.cn.designer.http.OkHttpClientManager;
 import com.jianfanjia.cn.designer.http.cookie.PersistentCookieStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.OkHttpClient;
+
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 
 /**
  * Description:此类是我的应用程序类
@@ -32,7 +31,7 @@ public class MyApplication extends BaseApplication {
         instance = this;
 //        saveDefaultProcess();// 加载默认的工地信息
         cookieStore = new PersistentCookieStore(this);// 记录cookie
-        saveCookie(OkHttpClientManager.getInstance().client());
+//        saveCookie(OkHttpClientManager.getInstance().client());
 
 //        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
 //        PlatformConfig.setSinaWeibo("10611350", "4a5b93b71687ec9af1ee91cfdfb361d3");
@@ -66,7 +65,7 @@ public class MyApplication extends BaseApplication {
         try {
             int StringId = getResources().getIdentifier(name, "string",
                     getPackageName());
-           str = getResources().getString(StringId);
+            str = getResources().getString(StringId);
             return str;
         } catch (Exception ex) {
             ex.printStackTrace();

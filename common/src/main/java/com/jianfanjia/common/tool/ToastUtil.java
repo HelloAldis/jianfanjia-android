@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.tools;
+package com.jianfanjia.common.tool;
 
 import android.content.Context;
 import android.widget.Toast;

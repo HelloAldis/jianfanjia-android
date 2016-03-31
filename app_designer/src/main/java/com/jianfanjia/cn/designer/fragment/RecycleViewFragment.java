@@ -204,7 +204,7 @@ public class RecycleViewFragment extends BaseFragment {
                         settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
                         startActivity(settingHouseTimeIntent);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-                        responseRequirement(requirementInfo.get_id(), 0);
+                        responseRequirement(requirementInfo.get_id());
                         break;
                     case PRIVIEW_REQUIREMENT_TYPE:
                         Intent gotoPriviewRequirement = null;
@@ -370,12 +370,9 @@ public class RecycleViewFragment extends BaseFragment {
         refuseDialog.show();
     }
 
-    private void responseRequirement(String requirementid, long houseCheckTime) {
+    private void responseRequirement(String requirementid) {
         ResponseRequirementRequest request = new ResponseRequirementRequest();
         request.setRequirementid(requirementid);
-        if (houseCheckTime != 0L) {//houseCheckTime不传为纯粹响应，传就是设置量房时间
-            request.setHouse_check_time(houseCheckTime);
-        }
         Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
