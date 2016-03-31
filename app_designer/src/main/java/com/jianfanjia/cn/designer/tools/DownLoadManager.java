@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.designer.tools;
 
-import com.jianfanjia.cn.designer.http.OkHttpClientManager;
-import com.jianfanjia.cn.designer.http.coreprogress.listener.impl.UIProgressListener;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.DownloadClient;
+import com.jianfanjia.api.progress.UIProgressListener;
+import com.jianfanjia.api.request.guest.DownloadRequest;
 
 /**
  * Name: DownLoadManager
@@ -20,7 +22,13 @@ public class DownLoadManager {
         return instance;
     }
 
-    public void download(String url, final String filePath, String fileName, ApiUiUpdateListener listener, UIProgressListener progressListener) {
-        OkHttpClientManager.getDownloadDelegate().downloadAsyn(url, fileName, filePath, listener, progressListener, this);
+    public void download(String url, final String filePath, String fileName, ApiCallback<ApiResponse<String>>
+            apiCallback, UIProgressListener progressListener) {
+        DownloadRequest downloadRequest = new DownloadRequest();
+        downloadRequest.setUrl(url);
+        downloadRequest.setDestDirName(filePath);
+        downloadRequest.setDestFileName(fileName);
+
+        DownloadClient.download(downloadRequest, apiCallback, progressListener);
     }
 }  

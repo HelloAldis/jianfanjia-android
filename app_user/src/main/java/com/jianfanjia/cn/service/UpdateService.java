@@ -18,7 +18,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DownLoadManager;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.tools.ToastUtil;
+import com.jianfanjia.common.tool.ToastUtil;
 
 /**
  * Description:版本更新服务

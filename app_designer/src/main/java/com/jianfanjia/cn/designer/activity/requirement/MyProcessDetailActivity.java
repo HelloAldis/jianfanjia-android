@@ -30,6 +30,8 @@ import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
+import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
+import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
@@ -43,8 +45,6 @@ import com.jianfanjia.cn.designer.bean.ViewPagerItem;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
@@ -700,51 +700,73 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
         }
     }
 
-    protected void upload_image(Bitmap bitmap) {
-        JianFanJiaClient.uploadImage(this, bitmap, new ApiUiUpdateListener() {
+    private void upload_image(Bitmap bitmap) {
+        UploadPicRequest uploadPicRequest = new UploadPicRequest();
+        uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
+        Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
-                showWaitDialog();
+            public void onPreLoad() {
+
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 String itemName = sectionItemAdapter
                         .getCurrentItem();
-                JianFanJiaClient.submitImageToProcess(MyProcessDetailActivity.this,
-                        processInfo.get_id(),
-                        processSection.getName(),
-                        itemName,
-                        data.toString(), new ApiUiUpdateListener() {
-                            @Override
-                            public void preLoad() {
+                SubmitImageToProcessRequest submitImageToProcessRequest = new SubmitImageToProcessRequest();
+                submitImageToProcessRequest.set_id(processId);
+                submitImageToProcessRequest.setSection(processSection.getName());
+                submitImageToProcessRequest.setItem(itemName);
+                submitImageToProcessRequest.setImageid(apiResponse.getData());
 
-                            }
+                Api.submitImageToProcess(submitImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
+                    @Override
+                    public void onPreLoad() {
 
-                            @Override
-                            public void loadSuccess(Object data) {
-                                loadCurrentProcess();
-                                if (mTmpFile != null
-                                        && mTmpFile
-                                        .exists()) {
-                                    mTmpFile.delete();
-                                }
-                            }
+                    }
 
-                            @Override
-                            public void loadFailture(String error_msg) {
-                                makeTextShort(error_msg);
-                                hideWaitDialog();
-                            }
-                        }, this);
+                    @Override
+                    public void onHttpDone() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ApiResponse<String> apiResponse) {
+                        loadCurrentProcess();
+                        if (mTmpFile != null
+                                && mTmpFile
+                                .exists()) {
+                            mTmpFile.delete();
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(ApiResponse<String> apiResponse) {
+                        makeTextShort(apiResponse.getErr_msg());
+                    }
+
+                    @Override
+                    public void onNetworkError(int code) {
+
+                    }
+                });
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-                hideWaitDialog();
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

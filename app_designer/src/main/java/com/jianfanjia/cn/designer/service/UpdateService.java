@@ -10,12 +10,15 @@ import android.support.v4.app.NotificationCompat;
 
 import java.io.File;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.progress.UIProgressListener;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.http.coreprogress.listener.impl.UIProgressListener;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.DownLoadManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.ToastUtil;
 
 /**
  * Description:版本更新服务
@@ -32,6 +35,43 @@ public class UpdateService extends Service implements ApiUiUpdateListener {
     private NotificationManager nManager;
     private static final int NotificationID = 1;
     private NotificationCompat.Builder builder;
+
+    private ApiCallback<ApiResponse<String>> downloadCallback = new ApiCallback<ApiResponse<String>>() {
+        @Override
+        public void onPreLoad() {
+            builder = new NotificationCompat.Builder(
+                    getApplicationContext());
+            builder.setSmallIcon(R.mipmap.icon_notify_small);
+            builder.setTicker("正在下载新版本");
+            builder.setContentTitle("简繁家");
+            builder.setContentText("正在下载,请稍后...");
+            builder.setNumber(0);
+            builder.setAutoCancel(true);
+            nManager.notify(NotificationID, builder.build());
+        }
+
+        @Override
+        public void onHttpDone() {
+            nManager.cancel(NotificationID);
+            stopSelf();
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<String> apiResponse) {
+            File apkFile = new File(apiResponse.getData());
+            installApk(apkFile);
+        }
+
+        @Override
+        public void onFailed(ApiResponse<String> apiResponse) {
+            ToastUtil.showShortTost(UpdateService.this, apiResponse.getErr_msg());
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+    };
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -56,7 +96,7 @@ public class UpdateService extends Service implements ApiUiUpdateListener {
                 int startPos = download_url.lastIndexOf("/");
                 if(startPos != -1){
                     String fileName = download_url.substring(startPos);
-                    downLoadManager.download(download_url, Constant.APK_PATH, fileName, this, uiProgressListener);
+                    downLoadManager.download(download_url, Constant.APK_PATH, fileName, downloadCallback, uiProgressListener);
                 }
             }
         }
