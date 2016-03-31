@@ -3,9 +3,14 @@ package com.jianfanjia.cn.designer.api;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.UserMessageList;
+import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
+import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
+import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -55,6 +60,19 @@ public class Api {
 
     public static void checkVesion(CheckVersionRequest request, ApiCallback<ApiResponse<UpdateVersion>> apiCallback) {
         ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback);
+    }
+
+    public static void getCommentList(GetCommentsRequest request, ApiCallback<ApiResponse<CommentList>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_COMMENT, request, apiCallback);
+    }
+
+    public static void addComment(AddCommentRequest request, ApiCallback<ApiResponse<Object>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_COMMENT, request, apiCallback);
+    }
+
+    public static void searchUserComment(SearchUserCommentRequest request, ApiCallback<ApiResponse<UserMessageList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_COMMENT, request, apiCallback);
     }
 
 }
