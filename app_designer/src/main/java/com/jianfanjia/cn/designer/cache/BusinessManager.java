@@ -3,21 +3,21 @@ package com.jianfanjia.cn.designer.cache;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.JsonParser;
+import com.jianfanjia.common.tool.LogTool;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.api.model.Process;
-import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.tools.JsonParser;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.designer.tools.StringUtils;
 
 public class BusinessManager {
 
