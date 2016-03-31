@@ -5,17 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: NoticeAdapter
@@ -280,52 +283,51 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
         return null;
     }
 
-    private static class SysViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemDate;
-        public TextView itemContent;
+    static class SysViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.list_item_sys_tip_title)
+        TextView itemTitle;
+        @Bind(R.id.list_item_sys_tip_date)
+        TextView itemDate;
+        @Bind(R.id.list_item_sys_tip_content)
+        TextView itemContent;
 
         public SysViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_sys_tip_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_sys_tip_date);
-            itemContent = (TextView) itemView.findViewById(R.id.list_item_sys_tip_content);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    private static class ReqViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitleView;
-        public TextView itemCellView;
-        public TextView itemContentView;
-        public TextView itemPubTimeView;
+    static class ReqViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.list_item_tip_req_title)
+        TextView itemTitleView;
+        @Bind(R.id.list_item_tip_req_cell)
+        TextView itemCellView;
+        @Bind(R.id.list_item_tip_req_content)
+        TextView itemContentView;
+        @Bind(R.id.list_item_tip_req_time)
+        TextView itemPubTimeView;
 
         public ReqViewHolder(View itemView) {
             super(itemView);
-            itemTitleView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_title);
-            itemContentView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_content);
-            itemCellView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_cell);
-            itemPubTimeView = (TextView) itemView
-                    .findViewById(R.id.list_item_tip_req_time);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    private static class SiteViewHolder extends RecyclerViewHolderBase {
-        public TextView itemTitle;
-        public TextView itemDate;
-        public TextView itemCell;
-        public TextView itemSection;
-        public TextView itemContent;
+    static class SiteViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.list_item_tip_site_title)
+        TextView itemTitle;
+        @Bind(R.id.list_item_tip_site_time)
+        TextView itemDate;
+        @Bind(R.id.list_item_tip_site_cell)
+        TextView itemCell;
+        @Bind(R.id.list_item_tip_site_node)
+        TextView itemSection;
+        @Bind(R.id.list_item_tip_site_content)
+        TextView itemContent;
 
         public SiteViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_item_tip_site_title);
-            itemDate = (TextView) itemView.findViewById(R.id.list_item_tip_site_time);
-            itemCell = (TextView) itemView.findViewById(R.id.list_item_tip_site_cell);
-            itemSection = (TextView) itemView.findViewById(R.id.list_item_tip_site_node);
-            itemContent = (TextView) itemView.findViewById(R.id.list_item_tip_site_content);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

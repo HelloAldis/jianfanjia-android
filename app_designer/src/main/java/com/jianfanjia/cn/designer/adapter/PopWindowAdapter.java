@@ -9,6 +9,9 @@ import com.jianfanjia.cn.designer.adapter.base.BaseListAdapter;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: PopWindowAdapter
  * User: fengliang
@@ -28,8 +31,7 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.gird_item_pop_item, null);
-            holder = new ViewHolder();
-            holder.mName = (TextView) convertView.findViewById(R.id.title_item);
+            holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -50,7 +52,12 @@ public class PopWindowAdapter extends BaseListAdapter<String> {
         notifyDataSetChanged();
     }
 
-    private static class ViewHolder {
-        public TextView mName = null;
+    static class ViewHolder {
+        @Bind(R.id.title_item)
+        TextView mName;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }  

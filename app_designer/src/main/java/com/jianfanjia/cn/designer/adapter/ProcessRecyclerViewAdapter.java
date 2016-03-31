@@ -14,6 +14,9 @@ import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Name: ProcessRecyclerViewAdapter
  * User: fengliang
@@ -29,7 +32,8 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
     public static final int LAST = 1;
     public static final int NORMAL = 2;
 
-    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex, OnItemClickListener listener) {
+    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex,
+                                      OnItemClickListener listener) {
         super(context, list);
         this.processIndex = processIndex;
         this.listener = listener;
@@ -41,11 +45,6 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
         holder.itemImgView.setImageResource(item.getRes());
         holder.itemTitleView.setText(item.getTitle());
-      /*  if (position == list.size() - 1) {
-            holder.LeftLineView.setVisibility(View.GONE);
-        } else {
-            holder.LeftLineView.setVisibility(View.VISIBLE);
-        }*/
         if (position == 0) {
             holder.LeftLineView.setVisibility(View.INVISIBLE);
             holder.rightLineView.setVisibility(View.VISIBLE);
@@ -87,21 +86,19 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
         return new ProcessViewHolder(view);
     }
 
-    private static class ProcessViewHolder extends RecyclerViewHolderBase {
+    static class ProcessViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.list_item_process_img)
         public ImageView itemImgView;
+        @Bind(R.id.list_item_process_text)
         public TextView itemTitleView;
+        @Bind(R.id.left_line)
         public View LeftLineView;
+        @Bind(R.id.right_line)
         public View rightLineView;
 
         public ProcessViewHolder(View itemView) {
             super(itemView);
-            itemImgView = (ImageView) itemView
-                    .findViewById(R.id.list_item_process_img);
-            itemTitleView = (TextView) itemView
-                    .findViewById(R.id.list_item_process_text);
-            LeftLineView = itemView
-                    .findViewById(R.id.left_line);
-            rightLineView = itemView.findViewById(R.id.right_line);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

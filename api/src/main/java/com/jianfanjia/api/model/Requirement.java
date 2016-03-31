@@ -43,6 +43,7 @@ public class Requirement extends BaseModel implements Serializable {
     private Plan plan;
     private Designer designer;
     private User user;
+    private Evaluation evaluation;
 
     public String get_id() {
         return _id;
@@ -314,5 +315,13 @@ public class Requirement extends BaseModel implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Evaluation getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
     }
 }
