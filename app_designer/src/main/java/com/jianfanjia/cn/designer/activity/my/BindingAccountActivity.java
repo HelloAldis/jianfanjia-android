@@ -162,6 +162,12 @@ public class BindingAccountActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_binding_account;
     }
