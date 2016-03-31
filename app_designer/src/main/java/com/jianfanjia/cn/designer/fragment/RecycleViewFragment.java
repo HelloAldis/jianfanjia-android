@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,22 +14,18 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.SettingContractActivity_;
-import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
+import com.jianfanjia.cn.designer.activity.SettingContractActivity;
+import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
 import com.jianfanjia.cn.designer.activity.requirement.DesignerPlanListActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -46,6 +41,13 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -55,8 +57,7 @@ import de.greenrobot.event.EventBus;
  * Date:2016-01-19 14:00
  */
 public class RecycleViewFragment extends BaseFragment {
-
-    private static final String TAG = "RecycleViewFragment";
+    private static final String TAG = RecycleViewFragment.class.getName();
 
     public static final int REFUSE_TYPE = 0x04;
     public static final int RESPONDE_TYPE = 0x05;
@@ -74,14 +75,20 @@ public class RecycleViewFragment extends BaseFragment {
 
     private int mNum;
 
-    protected PullToRefreshRecycleView pullrefresh;
-    protected PullToRefreshScrollView emptyPullRefresh;
+    @Bind(R.id.pull_refresh_recycle_view)
+    PullToRefreshRecycleView pullrefresh;
 
-    protected RelativeLayout emptyLayout;
+    @Bind(R.id.emptyPullRefreshScrollView)
+    PullToRefreshScrollView emptyPullRefresh;
 
-    protected RelativeLayout errorLayout;
+    @Bind(R.id.empty_include)
+    RelativeLayout emptyLayout;
 
-    private RelativeLayout rootLayout;
+    @Bind(R.id.error_include)
+    RelativeLayout errorLayout;
+
+    @Bind(R.id.root_layout)
+    RelativeLayout rootLayout;
 
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
@@ -106,43 +113,29 @@ public class RecycleViewFragment extends BaseFragment {
 
     private Context _context;
 
-
-    /**
-     * Create a new instance of CountingFragment, providing "num"
-     * as an argument.
-     */
     public static RecycleViewFragment newInstance(int num) {
         RecycleViewFragment f = new RecycleViewFragment();
-
-        // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putInt("num", num);
         f.setArguments(args);
-
         return f;
     }
 
-    /**
-     * When creating, retrieve this instance's number from its arguments.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
-
         LogTool.d(this.getClass().getName(), "num =" + mNum);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogTool.d(TAG, "onCreateView");
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_recycleview, container, false);
-            initRecycleView();
+            view = super.onCreateView(inflater, container, savedInstanceState);
+            initView();
             isPrepared = true;
-            lazyLoad();
         }
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null) {
@@ -150,22 +143,6 @@ public class RecycleViewFragment extends BaseFragment {
         }
         return view;
     }
-
-    /**
-     * 可见
-     */
-    protected void onVisible() {
-        lazyLoad();
-    }
-
-
-    /**
-     * 不可见
-     */
-    protected void onInvisible() {
-
-    }
-
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -179,6 +156,14 @@ public class RecycleViewFragment extends BaseFragment {
         }
     }
 
+    private void onVisible() {
+        lazyLoad();
+    }
+
+    private void onInvisible() {
+
+    }
+
     private void lazyLoad() {
         if (!isPrepared || !isVisiable) {
             return;
@@ -186,24 +171,13 @@ public class RecycleViewFragment extends BaseFragment {
         initData();
     }
 
-    protected void initRecycleView() {
-        emptyLayout = (RelativeLayout) view.findViewById(R.id.empty_include);
-        errorLayout = (RelativeLayout) view.findViewById(R.id.error_include);
-        errorLayout.findViewById(R.id.img_error).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initData();
-            }
-        });
-        rootLayout = (RelativeLayout) view.findViewById(R.id.root_layout);
-        emptyPullRefresh = (PullToRefreshScrollView) view.findViewById(R.id.emptyPullRefreshScrollView);
+    private void initView() {
         emptyPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 initData();
             }
         });
-        pullrefresh = (PullToRefreshRecycleView) view.findViewById(R.id.pull_refresh_recycle_view);
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
@@ -224,7 +198,7 @@ public class RecycleViewFragment extends BaseFragment {
                         showRefuseDialog(requirementInfo.get_id());
                         break;
                     case RESPONDE_TYPE:
-                        Intent settingHouseTimeIntent = new Intent(_context, SettingMeasureDateActivity_.class);
+                        Intent settingHouseTimeIntent = new Intent(_context, SettingMeasureDateActivity.class);
                         Bundle settingHouseTimeBundle = new Bundle();
                         settingHouseTimeBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
                         settingHouseTimeBundle.putString(Global.PHONE, requirementInfo.getUser().getPhone());
@@ -236,10 +210,10 @@ public class RecycleViewFragment extends BaseFragment {
                     case PRIVIEW_REQUIREMENT_TYPE:
                         Intent gotoPriviewRequirement = null;
                         if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
-                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity_
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity
                                     .class);
                         } else {
-                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity_.class);
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity.class);
                         }
                         gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
                         getActivity().startActivity(gotoPriviewRequirement);
@@ -257,7 +231,7 @@ public class RecycleViewFragment extends BaseFragment {
                         break;
                     case PREVIEW_CONTRACT_TYPE:
                     case SETTING_STARTAT_TYPE:
-                        Intent settingStartAt = new Intent(_context, SettingContractActivity_.class);
+                        Intent settingStartAt = new Intent(_context, SettingContractActivity.class);
                         Bundle settingStartAtBundle = new Bundle();
                         settingStartAtBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
                         settingStartAtBundle.putSerializable(Global.PLAN_DETAIL, requirementInfo.getPlan());
@@ -289,27 +263,27 @@ public class RecycleViewFragment extends BaseFragment {
         param.put(Global.USER_ID, requirementInfo.getUserid());
         JianFanJiaClient.notifyOwnerConfirmHouse(new NotifyOwnerMeasureHouseRequest(getContext(), param), new
                 ApiUiUpdateListener() {
-            @Override
-            public void preLoad() {
+                    @Override
+                    public void preLoad() {
 
-            }
+                    }
 
-            @Override
-            public void loadSuccess(Object data) {
-                makeTextShort(getString(R.string.notify_success));
-            }
+                    @Override
+                    public void loadSuccess(Object data) {
+                        makeTextShort(getString(R.string.notify_success));
+                    }
 
-            @Override
-            public void loadFailture(String error_msg) {
-                //一天只能提醒一次
-                if (!error_msg.equals(OkHttpClientManager.NOT_NET_ERROR) || error_msg.equals(OkHttpClientManager
-                        .SERVER_ERROR)) {
-                    makeTextShort(getString(R.string.notify_not_more_once_everyday));
-                } else {
-                    makeTextShort(error_msg);
-                }
-            }
-        }, this);
+                    @Override
+                    public void loadFailture(String error_msg) {
+                        //一天只能提醒一次
+                        if (!error_msg.equals(OkHttpClientManager.NOT_NET_ERROR) || error_msg.equals(OkHttpClientManager
+                                .SERVER_ERROR)) {
+                            makeTextShort(getString(R.string.notify_not_more_once_everyday));
+                        } else {
+                            makeTextShort(error_msg);
+                        }
+                    }
+                }, this);
     }
 
     private void refuseRequirement(String requirementid, String msg) {
@@ -466,14 +440,23 @@ public class RecycleViewFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogTool.d(this.getClass().getName(),"onAttach");
+        LogTool.d(this.getClass().getName(), "onAttach");
         _context = context.getApplicationContext();
     }
 
+    @OnClick(R.id.error_include)
+    public void onClick() {
+        initData();
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_recycleview;
     }
 }

@@ -11,19 +11,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.designer.adapter.NoticeAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.api.model.UserMessageList;
-import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -35,6 +28,14 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -63,7 +64,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
     private boolean mHasLoadedOnce = true;
     private int FROM = 0;
     private String[] typeArray = null;
-
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
