@@ -7,10 +7,15 @@ import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
+import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
+import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
+import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -19,6 +24,8 @@ import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
+
+import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.api
@@ -75,4 +82,25 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().SEARCH_USER_COMMENT, request, apiCallback);
     }
 
+    public static void applyReschedule(ApplyRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().POST_RESCHDULE, request, apiCallback);
+    }
+
+    public static void agreeReschedule(AgreeRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().AGREE_RESCHDULE, request, apiCallback);
+    }
+
+    public static void refuseReschedule(RefuseRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().REFUSE_RESCHDULE, request, apiCallback);
+    }
+
+    public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<UserMessageList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
+    }
+
+    public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
+    }
 }
