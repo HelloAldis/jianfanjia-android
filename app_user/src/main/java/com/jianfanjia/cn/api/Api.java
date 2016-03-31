@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.api;
 
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -22,6 +20,8 @@ import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
+import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteCollectionRequest;
@@ -32,6 +32,7 @@ import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
+import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
@@ -48,8 +49,6 @@ import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
-import com.jianfanjia.api.request.user.AgreeRescheduleRequest;
-import com.jianfanjia.api.request.user.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.user.BindPhoneRequest;
 import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
@@ -68,7 +67,6 @@ import com.jianfanjia.api.request.user.GetProcessInfoRequest;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
 import com.jianfanjia.api.request.user.PublishRequirementRequest;
-import com.jianfanjia.api.request.user.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.api.request.user.SearchUserCommentRequest;
 import com.jianfanjia.api.request.user.SearchUserMsgRequest;
@@ -77,6 +75,8 @@ import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 
 /**

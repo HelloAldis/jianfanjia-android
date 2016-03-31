@@ -1,4 +1,4 @@
-package com.jianfanjia.api.request.user;
+package com.jianfanjia.api.request.common;
 
 import com.jianfanjia.api.request.BaseRequest;
 
@@ -6,9 +6,9 @@ import com.jianfanjia.api.request.BaseRequest;
  * Description: com.jianfanjia.api.request.user
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
- * Date:2016-03-28 15:40
+ * Date:2016-03-28 15:44
  */
-public class AgreeRescheduleRequest extends BaseRequest {
+public class RefuseRescheduleRequest extends BaseRequest {
 
     private String processid;
 
