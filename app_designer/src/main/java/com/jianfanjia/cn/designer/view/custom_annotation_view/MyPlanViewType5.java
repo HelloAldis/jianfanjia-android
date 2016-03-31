@@ -17,7 +17,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
 

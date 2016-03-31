@@ -56,6 +56,22 @@ public class ImageUtil {
     public static final int OPTIONS_RECYCLE_INPUT = 0x2;
     static int mBorderThickness = 2;
 
+    public static String getImagePath(Uri uri, Context context) {
+
+        String[] projection = {MediaStore.MediaColumns.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, projection,
+                null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            String ImagePath = cursor.getString(columIndex);
+            cursor.close();
+            return ImagePath;
+        }
+
+        return uri.toString();
+    }
+
     /**
      * 写图片文件到app缓存路径 在Android系统中，文件保存在 /data/data/PACKAGE_NAME/files 目录
      *

@@ -14,7 +14,7 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.db.DBHelper;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
 
 public class DataManagerNew {

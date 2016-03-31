@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;
@@ -19,8 +22,6 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -140,7 +141,7 @@ public class AuthUtil {
                 if (status != StatusCode.ST_CODE_SUCCESSED) {
                     showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
                 }
-                LogTool.d(this.getClass().getName(),showText);
+                LogTool.d(this.getClass().getName(), showText);
 //                Toast.makeText(activity, showText, Toast.LENGTH_SHORT).show();
             }
         });

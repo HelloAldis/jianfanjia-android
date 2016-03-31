@@ -13,7 +13,7 @@ import com.jianfanjia.cn.designer.activity.LoginNewActivity;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.ShareUtil;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;

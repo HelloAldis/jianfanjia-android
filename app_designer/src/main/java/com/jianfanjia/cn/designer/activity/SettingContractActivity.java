@@ -23,7 +23,7 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import de.greenrobot.event.EventBus;
 

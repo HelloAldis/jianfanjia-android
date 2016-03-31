@@ -44,14 +44,13 @@ import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
 import com.jianfanjia.cn.designer.tools.FileUtil;
-import com.jianfanjia.cn.designer.tools.ImageUtil;
-import com.jianfanjia.cn.designer.tools.ImageUtils;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.ImageUtil;
 
 /**
  * @author fengliang
@@ -400,7 +399,7 @@ public class CheckActivity extends BaseActivity implements
                     Uri uri = data.getData();
                     LogTool.d(TAG, "uri:" + uri);
                     if (null != uri) {
-                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtils
+                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
                                 .getImagePath(uri, this));
                         if (null != imageBitmap) {
                             uploadImage(imageBitmap);

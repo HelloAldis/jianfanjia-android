@@ -28,9 +28,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -45,6 +43,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {

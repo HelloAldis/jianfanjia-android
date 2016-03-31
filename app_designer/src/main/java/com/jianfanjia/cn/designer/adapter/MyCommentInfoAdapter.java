@@ -20,7 +20,7 @@ import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
 import java.util.List;
