@@ -10,12 +10,14 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -109,25 +111,38 @@ public class SettingMeasureDateActivity extends BaseActivity {
     }
 
     private void setHouseTime(String requirementid, long houseCheckTime) {
-        JianFanJiaClient.responseRequirement(this, new ApiUiUpdateListener() {
+        ConfigMeaHouseTimeRequest configMeaHouseTimeRequest = new ConfigMeaHouseTimeRequest();
+        configMeaHouseTimeRequest.setRequirementid(requirementid);
+        configMeaHouseTimeRequest.setHouse_check_time(houseCheckTime);
+
+        Api.configMeaHouse(configMeaHouseTimeRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 showWaitDialog();
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 hideWaitDialog();
                 appManager.finishActivity(SettingMeasureDateActivity.class);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-                hideWaitDialog();
+            public void onFailed(ApiResponse<String> apiResponse) {
+
             }
-        }, requirementid, houseCheckTime, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

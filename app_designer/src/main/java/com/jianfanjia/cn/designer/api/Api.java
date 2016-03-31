@@ -7,6 +7,11 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
+import com.jianfanjia.api.request.designer.ConfigContractRequest;
+import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
+import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
+import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
@@ -55,6 +60,26 @@ public class Api {
 
     public static void checkVesion(CheckVersionRequest request, ApiCallback<ApiResponse<UpdateVersion>> apiCallback) {
         ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback);
+    }
+
+    public static void configContract(ConfigContractRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_CONFIG_CONTRACT, request, apiCallback);
+    }
+
+    public static void configMeaHouse(ConfigMeaHouseTimeRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOUSE_CHECKED, request, apiCallback);
+    }
+
+    public static void deleteCheckImg(DeleteCheckImgRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_YANSHOU_IMG_BY_DESIGNER, request, apiCallback);
+    }
+
+    public static void addImageToCheck(AddImageToCheckRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SUBMIT_YAHSHOU_IMAGE, request, apiCallback);
+    }
+
+    public static void notifyOwnerCheck(NotifyOwnerCheckRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().CONFIRM_CHECK_BY_DESIGNER, request, apiCallback);
     }
 
 }
