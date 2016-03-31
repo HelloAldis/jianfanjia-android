@@ -17,9 +17,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.Click;
+import org.androidannotatimons.annotations.ViewById;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
-import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.designer.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -34,15 +41,6 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.soundcloud.android.crop.Crop;
-
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.ViewById;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import butterknife.Bind;
 
 /**
  * @author fengliang

@@ -29,6 +29,7 @@ public class UserMessage extends BaseModel implements Serializable {
     private Designer designer;
     private Plan plan;
     private Process process;
+    private User user;
     private Reschedule reschedule;
 
     public String get_id() {
@@ -205,5 +206,13 @@ public class UserMessage extends BaseModel implements Serializable {
 
     public void setHtml(String html) {
         this.html = html;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -11,7 +11,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.api.model.Process;
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;;
 import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 

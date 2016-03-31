@@ -3,7 +3,7 @@ package com.jianfanjia.cn.designer.http;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;;
 import com.jianfanjia.cn.designer.bean.OwnerUpdateInfo;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.api.model.Requirement;

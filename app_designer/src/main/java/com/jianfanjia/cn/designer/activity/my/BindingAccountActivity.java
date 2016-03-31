@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.designer.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.AuthUtil;

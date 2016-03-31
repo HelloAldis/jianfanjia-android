@@ -21,7 +21,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.api.model.CommentList;
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.CommentAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;

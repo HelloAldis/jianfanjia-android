@@ -3,7 +3,7 @@ package com.jianfanjia.cn.designer.http.request;
 import android.content.Context;
 
 import com.jianfanjia.cn.designer.base.BaseRequest;
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 
 public class UserByOwnerInfoRequest extends BaseRequest {
