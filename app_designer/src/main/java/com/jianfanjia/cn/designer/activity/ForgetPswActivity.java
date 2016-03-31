@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
@@ -22,6 +20,9 @@ import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 public class ForgetPswActivity extends BaseActivity {
     private static final String TAG = ForgetPswActivity.class.getClass()

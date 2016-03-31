@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.designer.AppManager;
@@ -23,6 +19,11 @@ import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**

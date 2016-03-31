@@ -20,12 +20,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
@@ -41,6 +35,10 @@ import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
@@ -66,7 +64,6 @@ public class UiHelper {
     public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback,
                                              String[]... selectLists) {
         GetUnReadMsgRequest getUnReadMsgRequest = new GetUnReadMsgRequest();
-        Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {
             contain.add(temp);

@@ -47,6 +47,14 @@ import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+<<<<<<< HEAD
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
+=======
+>>>>>>> dcc5bcd602d7b074e1b0defcae2d6b9522e2d7f1
 public class UiHelper {
 
     /**
@@ -58,7 +66,6 @@ public class UiHelper {
     public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback,
                                              String[]... selectLists) {
         GetUnReadMsgRequest getUnReadMsgRequest = new GetUnReadMsgRequest();
-        Map<String, Object> param = new HashMap<>();
         List<String[]> contain = new ArrayList<>();
         for (String[] temp : selectLists) {
             contain.add(temp);
