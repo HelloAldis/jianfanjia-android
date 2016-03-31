@@ -21,20 +21,25 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.bean.GridItem;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.ProcessSectionYsImage;
+import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
+import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
+import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.designer.adapter.CheckGridViewAdapter;
+import com.jianfanjia.cn.designer.api.Api;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.bean.GridItem;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
@@ -308,28 +313,46 @@ public class CheckActivity extends BaseActivity implements
         LogTool.d(TAG, "position:" + position);
         key = position;
         LogTool.d(TAG, "key:" + key);
-        JianFanJiaClient.deleteYanshouImgByDesigner(this,
-                processInfoId, sectionName, key + "", new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                        showWaitDialog();
-                    }
 
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        updateList(Constant.HOME_ADD_PIC);
-                        currentUploadCount--;
-                        LogTool.d(TAG, "currentUploadCount--" + currentUploadCount);
-                        changeEditStatus();
-                    }
+        deleteCheckImage(key + "");
+    }
 
-                    @Override
-                    public void loadFailture(String errorMsg) {
-                        hideWaitDialog();
-                        makeTextShort(errorMsg);
-                    }
-                }, this);
+    private void deleteCheckImage(String key) {
+        DeleteCheckImgRequest deleteCheckImgRequest = new DeleteCheckImgRequest();
+        deleteCheckImgRequest.set_id(processInfoId);
+        deleteCheckImgRequest.setSection(sectionName);
+        deleteCheckImgRequest.setKey(key);
+
+        Api.deleteCheckImg(deleteCheckImgRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                updateList(Constant.HOME_ADD_PIC);
+                currentUploadCount--;
+                LogTool.d(TAG, "currentUploadCount--" + currentUploadCount);
+                changeEditStatus();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @Override
@@ -391,50 +414,75 @@ public class CheckActivity extends BaseActivity implements
     }
 
     private void uploadImage(Bitmap imageBitmap) {
-        if (null != imageBitmap) {
-            JianFanJiaClient.uploadImage(this, imageBitmap, new ApiUiUpdateListener() {
+        if(imageBitmap == null) return;
+        UploadPicRequest uploadPicRequest = new UploadPicRequest();
+        uploadPicRequest.setBytes(ImageUtil.transformBitmapToBytes(imageBitmap));
 
-                @Override
-                public void preLoad() {
-                    showWaitDialog();
-                }
+        Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-                @Override
-                public void loadSuccess(Object data) {
-                    JianFanJiaClient.submitYanShouImage(CheckActivity.this, processInfoId, sectionName,
-                            key + "", dataManager.getCurrentUploadImageId(), new ApiUiUpdateListener() {
+            @Override
+            public void onHttpDone() {
 
-                                @Override
-                                public void preLoad() {
-                                    // TODO Auto-generated
-                                    // method stub
-                                }
+            }
 
-                                @Override
-                                public void loadSuccess(Object data) {
-                                    LogTool.d(TAG, "submitYanShouImage  data:" + data.toString());
-                                    hideWaitDialog();
-                                    updateList(dataManager.getCurrentUploadImageId());
-                                    currentUploadCount++;
-                                    LogTool.d(TAG, "currentUploadCount:" + currentUploadCount);
-                                    setConfimStatus();
-                                }
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                addImageToCheck(apiResponse.getData());
+            }
 
-                                @Override
-                                public void loadFailture(String errorMsg) {
-                                    hideWaitDialog();
-                                    makeTextShort(errorMsg);
-                                }
-                            }, this);
-                }
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                hideWaitDialog();
+                makeTextShort(apiResponse.getErr_msg());
+            }
 
-                @Override
-                public void loadFailture(String errorMsg) {
-                    hideWaitDialog();
-                    makeTextShort(errorMsg);
-                }
-            }, this);
-        }
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void addImageToCheck(final String imageid){
+        final AddImageToCheckRequest addImageToCheckRequest = new AddImageToCheckRequest();
+        addImageToCheckRequest.set_id(processInfoId);
+        addImageToCheckRequest.setSection(sectionName);
+        addImageToCheckRequest.setKey(key + "");
+        addImageToCheckRequest.setImageid(imageid);
+
+        Api.addImageToCheck(addImageToCheckRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                updateList(imageid);
+                currentUploadCount++;
+                LogTool.d(TAG, "currentUploadCount:" + currentUploadCount);
+                setConfimStatus();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void updateList(String imgid) {
@@ -464,24 +512,36 @@ public class CheckActivity extends BaseActivity implements
 
     // 设计师确认可以开始验收
     private void confirmCanCheckByDesigner(String processid, String section) {
-        JianFanJiaClient.confirm_canCheckBydesigner(this, processid, section, new ApiUiUpdateListener() {
+        NotifyOwnerCheckRequest notifyOwnerCheckRequest = new NotifyOwnerCheckRequest();
+        notifyOwnerCheckRequest.set_id(processid);
+        notifyOwnerCheckRequest.setSection(section);
+
+        Api.notifyOwnerCheck(notifyOwnerCheckRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data:" + data.toString());
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 btn_confirm.setEnabled(false);
             }
 
             @Override
-            public void loadFailture(String errorMsg) {
-                LogTool.d(TAG, "errorMsg:" + errorMsg);
-                btn_confirm.setEnabled(false);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     /**

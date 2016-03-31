@@ -12,15 +12,17 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.designer.Event.UpdateEvent;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.designer.ConfigContractRequest;
+import com.jianfanjia.cn.designer.Event.UpdateEvent;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import de.greenrobot.event.EventBus;
@@ -77,7 +79,7 @@ public class SettingContractActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getDataFromIntent();
-       initView();
+        initView();
     }
 
     private void getDataFromIntent(){
@@ -161,24 +163,38 @@ public class SettingContractActivity extends BaseActivity {
     }
 
     private void configStartTime(String requirementid, long statrAt) {
-        JianFanJiaClient.configContract(this, new ApiUiUpdateListener() {
+        ConfigContractRequest configContractRequest = new ConfigContractRequest();
+        configContractRequest.setRequirementid(requirementid);
+        configContractRequest.setStart_at(statrAt);
+
+        Api.configContract(configContractRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 hideWaitDialog();
                 appManager.finishActivity(SettingContractActivity.class);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }
 
             @Override
-            public void loadFailture(String error_msg) {
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
 
             }
-        }, requirementid, statrAt, this);
+        });
     }
 
     @Override

@@ -7,20 +7,30 @@ import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.api.request.common.GetMsgDetailRequest;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
+import com.jianfanjia.api.request.designer.ConfigContractRequest;
+import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
+import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
+import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
+import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
+import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
+import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -79,6 +89,26 @@ public class Api {
         ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback);
     }
 
+    public static void configContract(ConfigContractRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_CONFIG_CONTRACT, request, apiCallback);
+    }
+
+    public static void configMeaHouse(ConfigMeaHouseTimeRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOUSE_CHECKED, request, apiCallback);
+    }
+
+    public static void deleteCheckImg(DeleteCheckImgRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_YANSHOU_IMG_BY_DESIGNER, request, apiCallback);
+    }
+
+    public static void addImageToCheck(AddImageToCheckRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SUBMIT_YAHSHOU_IMAGE, request, apiCallback);
+    }
+
+    public static void notifyOwnerCheck(NotifyOwnerCheckRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().CONFIRM_CHECK_BY_DESIGNER, request, apiCallback);
+    }
+
     public static void getCommentList(GetCommentsRequest request, ApiCallback<ApiResponse<CommentList>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_COMMENT, request, apiCallback);
     }
@@ -114,6 +144,11 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
     }
 
+    public static void getUserMsgDetail(GetMsgDetailRequest request, ApiCallback<ApiResponse<UserMessage>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_USER_MSG_DETAIL, request, apiCallback);
+    }
+
     public static void getAllRequirementList(GetRequirementListRequest request,
                                              ApiCallback<ApiResponse<List<Requirement>>>
                                                      apiCallback) {
@@ -123,5 +158,21 @@ public class Api {
     public static void getProcessList(GetProcessListRequest request, ApiCallback<ApiResponse<List<Process>>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_PROCESS_LIST, request, apiCallback);
+    }
+
+    public static void notifyOwnerConfirmHouse(NotifyOwnerMeasureHouseRequest request,
+                                               ApiCallback<ApiResponse<String>>
+                                                       apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().NOTIFY_OWNER_MEASURE_HOUSE, request, apiCallback);
+    }
+
+    public static void refuseRequirement(RefuseRequirementRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().REFUSE_REQUIREMENT, request, apiCallback);
+    }
+
+    public static void responseRequirement(ResponseRequirementRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().RESPONSE_REQUIREMENT, request, apiCallback);
     }
 }

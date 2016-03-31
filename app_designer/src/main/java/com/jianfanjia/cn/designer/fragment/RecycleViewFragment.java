@@ -18,6 +18,9 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
+import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
+import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
+import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
@@ -31,10 +34,6 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.http.OkHttpClientManager;
-import com.jianfanjia.cn.designer.http.request.NotifyOwnerMeasureHouseRequest;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -44,9 +43,7 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -260,43 +257,54 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
-        Map<String, Object> param = new HashMap<>();
-        param.put(Global.PLAN_ID, requirementInfo.getPlan().get_id());
-        param.put(Global.USER_ID, requirementInfo.getUserid());
-        JianFanJiaClient.notifyOwnerConfirmHouse(new NotifyOwnerMeasureHouseRequest(getContext(), param), new
-                ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        makeTextShort(getString(R.string.notify_success));
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        //一天只能提醒一次
-                        if (!error_msg.equals(OkHttpClientManager.NOT_NET_ERROR) || error_msg.equals(OkHttpClientManager
-                                .SERVER_ERROR)) {
-                            makeTextShort(getString(R.string.notify_not_more_once_everyday));
-                        } else {
-                            makeTextShort(error_msg);
-                        }
-                    }
-                }, this);
-    }
-
-    private void refuseRequirement(String requirementid, String msg) {
-        JianFanJiaClient.refuseRequirement(getActivity(), new ApiUiUpdateListener() {
+        NotifyOwnerMeasureHouseRequest request = new NotifyOwnerMeasureHouseRequest();
+        request.set_id(requirementInfo.getPlan().get_id());
+        request.setUserid(requirementInfo.getUserid());
+        Api.notifyOwnerConfirmHouse(request, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
+            @Override
+            public void onHttpDone() {
 
-            public void loadSuccess(Object data) {
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.notify_success));
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.notify_not_more_once_everyday));
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void refuseRequirement(String requirementid, String msg) {
+        RefuseRequirementRequest request = new RefuseRequirementRequest();
+        request.setRequirementid(requirementid);
+        request.setReject_respond_msg(msg);
+        Api.refuseRequirement(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
@@ -304,10 +312,15 @@ public class RecycleViewFragment extends BaseFragment {
             }
 
             @Override
-            public void loadFailture(String error_msg) {
+            public void onFailed(ApiResponse<String> apiResponse) {
 
             }
-        }, requirementid, msg, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     public void onEventMainThread(UpdateEvent event) {
@@ -358,22 +371,37 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     private void responseRequirement(String requirementid, long houseCheckTime) {
-        JianFanJiaClient.responseRequirement(getActivity(), new ApiUiUpdateListener() {
+        ResponseRequirementRequest request = new ResponseRequirementRequest();
+        request.setRequirementid(requirementid);
+        if (houseCheckTime != 0L) {//houseCheckTime不传为纯粹响应，传就是设置量房时间
+            request.setHouse_check_time(houseCheckTime);
+        }
+        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 initData();
             }
 
             @Override
-            public void loadFailture(String error_msg) {
+            public void onFailed(ApiResponse<String> apiResponse) {
 
             }
-        }, requirementid, houseCheckTime, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void initData() {
@@ -418,7 +446,6 @@ public class RecycleViewFragment extends BaseFragment {
             }
         });
     }
-
 
     private void disposeData(RequirementList requirementList) {
         switch (mNum) {
