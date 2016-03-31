@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.designer.api;
 
+import java.util.List;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -45,8 +47,6 @@ import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.designer.bean.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.api
@@ -187,10 +187,10 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().USER_REQUIREMENT_PLANS, request, apiCallback);
     }
 
-    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<com.jianfanjia.api
-            .model
-            .Process>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_PROCESSINFO_BYID, request, apiCallback);
+    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<Process>> apiCallback) {
+        String getProcessUrl = Url_New.getInstance().GET_PROCESSINFO_BYID.replace(Url_New.ID,
+                request.getProcessId());
+        ApiClient.okGet(getProcessUrl, request, apiCallback);
     }
 
     public static void finishSectionItem(FinishSectionItemRequest request, ApiCallback<ApiResponse<String>>

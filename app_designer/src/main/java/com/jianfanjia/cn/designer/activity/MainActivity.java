@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.designer.AppManager;
@@ -17,13 +21,8 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -66,7 +65,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void initView() {
         badgeView.setVisibility(View.GONE);
-        setTabSelection(Constant.OWNER);
+        switchTab(Constant.OWNER);
     }
 
     @OnClick({R.id.owner_layout, R.id.site_layout, R.id.my_layout})

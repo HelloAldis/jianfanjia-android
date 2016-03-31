@@ -105,9 +105,9 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
         public RecyclerView item_plan_listview;
         @Bind(R.id.dateText)
         public TextView dateText;
-        @Bind(R.id.previewText)
-        public TextView commentText;
         @Bind(R.id.commentText)
+        public TextView commentText;
+        @Bind(R.id.previewText)
         public TextView previewText;
 
         public DesignerPlanViewHolder(View itemView) {
