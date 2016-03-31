@@ -551,7 +551,7 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
 
             @Override
             public void onFailed(ApiResponse<User> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override

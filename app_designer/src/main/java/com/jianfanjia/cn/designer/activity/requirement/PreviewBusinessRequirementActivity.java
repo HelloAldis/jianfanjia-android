@@ -6,14 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity

@@ -179,12 +179,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.LoginNewActivity_"
+            android:name=".activity.LoginNewActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name=".activity.RegisterNewActivity_"
+            android:name=".activity.RegisterNewActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
@@ -215,7 +215,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".activity.ForgetPswActivity_"
+            android:name=".activity.ForgetPswActivity"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
@@ -232,10 +232,6 @@
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.my.UserInfoActivity_"
-            android:label="@string/title_activity_user_info"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -246,7 +242,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.requirement.PreviewRequirementActivity_"
+            android:name=".activity.requirement.PreviewRequirementActivity"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"/>
 
@@ -256,7 +252,7 @@
             android:name=".activity.requirement.ContractActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.requirement.MyProcessDetailActivity_"
+            android:name=".activity.requirement.MyProcessDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.DesignerPlanListActivity"
@@ -275,29 +271,26 @@
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.my.EditCityActivity_"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.requirement.PreviewBusinessRequirementActivity_"
+            android:name=".activity.requirement.PreviewBusinessRequirementActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.my.BindingPhoneActivity_"
+            android:name=".activity.my.BindingPhoneActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.my.BindingAccountActivity_"
+            android:name=".activity.my.BindingAccountActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.SettingMeasureDateActivity_"
+            android:name=".activity.SettingMeasureDateActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.SettingContractActivity_"
+            android:name=".activity.SettingContractActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.common.CommentListActivity_"
+            android:name=".activity.common.CommentListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
