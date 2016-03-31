@@ -2,10 +2,10 @@ package com.jianfanjia.cn.designer;
 
 import android.app.Activity;
 
-import com.jianfanjia.cn.designer.tools.LogTool;
-
 import java.util.Iterator;
 import java.util.Stack;
+
+import com.jianfanjia.cn.designer.tools.LogTool;
 
 /**
  * activity堆栈式管理

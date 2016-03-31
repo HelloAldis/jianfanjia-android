@@ -13,30 +13,29 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.cn.designer.bean.Comment;
-import com.jianfanjia.cn.designer.bean.Comment;
-import com.jianfanjia.api.model.User;
-import com.jianfanjia.api.request.common.AddCommentRequest;
-import com.jianfanjia.api.request.common.GetCommentsRequest;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.adapter.CommentAdapter;
-import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Comment;
+import com.jianfanjia.api.model.CommentList;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.CommentAdapter;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:评论留言
