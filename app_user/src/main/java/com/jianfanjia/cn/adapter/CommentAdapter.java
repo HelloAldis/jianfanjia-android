@@ -7,18 +7,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
-import com.jianfanjia.cn.designer.bean.Comment;
+import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: CommentAdapter

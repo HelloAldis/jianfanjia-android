@@ -1,12 +1,10 @@
 package com.jianfanjia.cn.api;
 
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImageList;
-import com.jianfanjia.cn.designer.bean.Comment;
+import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
@@ -77,6 +75,8 @@ import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
+
+import java.util.List;
 
 
 /**

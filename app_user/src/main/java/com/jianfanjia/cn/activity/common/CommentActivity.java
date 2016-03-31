@@ -15,21 +15,21 @@ import android.widget.EditText;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.cn.designer.bean.Comment;
-import com.jianfanjia.cn.designer.bean.Comment;
+import com.jianfanjia.api.model.Comment;
+import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +65,7 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
     private String section = null;
     private String item = null;
     private String topictype = null;
-    private List<Comment> commentList = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
     private boolean isUpdate = false;//返回是否更新
 
     @Override
@@ -164,7 +164,7 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
         request.setLimit(limit);
         request.setSection(section);
         request.setItem(item);
-        Api.getCommentList(request, this.getCommentCallback);
+        Api.getCommentList(request, getCommentCallback);
     }
 
     private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
@@ -183,9 +183,9 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
             CommentList commentList = apiResponse.getData();
             LogTool.d(TAG, "commentList:" + commentList);
             if (null != commentList) {
-                CommentActivity.this.commentList = commentList.getComments();
-                LogTool.d(TAG, "commentList=" + CommentActivity.this.commentList);
-                commentAdapter = new CommentAdapter(CommentActivity.this, CommentActivity.this.commentList);
+                comments = commentList.getComments();
+                LogTool.d(TAG, "comments=" + comments);
+                commentAdapter = new CommentAdapter(CommentActivity.this, comments);
                 commentListView.setAdapter(commentAdapter);
             }
         }
@@ -227,7 +227,7 @@ public class CommentActivity extends BaseSwipeBackActivity implements OnClickLis
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
             Comment commentInfo = createCommentInfo(commentEdit.getEditableText().toString());
-            commentList.add(0, commentInfo);
+            comments.add(0, commentInfo);
             commentAdapter.notifyItemInserted(0);
             commentListView.scrollToPosition(0);
             commentEdit.setText("");

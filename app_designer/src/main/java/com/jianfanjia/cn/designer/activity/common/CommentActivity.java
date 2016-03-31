@@ -87,7 +87,6 @@ public class CommentActivity extends BaseActivity {
 
     public void initView() {
         initMainHeadView();
-        commentListView = (RecyclerView) findViewById(R.id.comment_listview);
         commentListView.setLayoutManager(new LinearLayoutManager(this));
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
@@ -97,8 +96,6 @@ public class CommentActivity extends BaseActivity {
         paint.setAntiAlias(true);
         commentListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
-        commentEdit = (EditText) findViewById(R.id.add_comment);
-        btnSend = (Button) findViewById(R.id.btn_send);
         btnSend.setEnabled(false);
         getCommentList(topicid, 0, 10000, section, item);
     }
