@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.LoginNewActivity;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
@@ -17,9 +19,6 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:设置
@@ -88,12 +87,11 @@ public class SettingActivity extends BaseActivity {
                         dialog.dismiss();
                         GeTuiManager.cancelBind(getApplicationContext(), dataManager.getUserId());
                         dataManager.cleanData();
-                        MyApplication.getInstance().clearCookie();
+                        ApiClient.clearCookie();
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this, SHARE_MEDIA
                                 .WEIXIN);
                         startActivity(LoginNewActivity.class);
-                        finish();
                     }
                 });
         dialog.setNegativeButton(R.string.no, null);

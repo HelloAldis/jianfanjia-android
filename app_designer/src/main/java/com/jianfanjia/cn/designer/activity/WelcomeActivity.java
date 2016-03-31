@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
@@ -197,7 +198,7 @@ public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener
                         appManager.finishActivity(WelcomeActivity.this);
                     } else {
                         LogTool.d(TAG, "expire");
-                        MyApplication.getInstance().clearCookie();
+                        ApiClient.clearCookie();
                         refreshSession();
                     }
                 }

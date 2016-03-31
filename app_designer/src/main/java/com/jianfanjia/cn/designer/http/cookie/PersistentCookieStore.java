@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jianfanjia.cn.designer.tools.LogTool;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,6 +20,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.jianfanjia.cn.designer.tools.LogTool;
 
 /**
  * Created by Administrator on 2015/10/13.

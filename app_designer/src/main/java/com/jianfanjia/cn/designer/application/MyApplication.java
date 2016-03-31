@@ -2,16 +2,23 @@ package com.jianfanjia.cn.designer.application;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.StrictMode;
 
-import java.net.CookieManager;
-import java.net.CookiePolicy;
+import java.net.CookieStore;
 
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseApplication;
+import com.jianfanjia.cn.designer.api.BaseApiCallbackImpl;
 import com.jianfanjia.cn.designer.cache.DataCleanManager;
+import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.cookie.PersistentCookieStore;
+import com.jianfanjia.common.base.application.BaseApplication;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.squareup.okhttp.OkHttpClient;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 /**
  * Description:此类是我的应用程序类
@@ -20,29 +27,52 @@ import com.squareup.okhttp.OkHttpClient;
  * Date:15-10-11 16:19
  */
 public class MyApplication extends BaseApplication {
-    private static MyApplication instance;
-    private PersistentCookieStore cookieStore;// cookie实例化
 
 //    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-//        saveDefaultProcess();// 加载默认的工地信息
-        cookieStore = new PersistentCookieStore(this);// 记录cookie
-//        saveCookie(OkHttpClientManager.getInstance().client());
 
-//        PlatformConfig.setWeixin("wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
-//        PlatformConfig.setSinaWeibo("10611350", "4a5b93b71687ec9af1ee91cfdfb361d3");
-//        PlatformConfig.setQQZone("1104973048", "FuDs7s4vJGAEzCrz");
+        if (Constant.Config.DEVELOPER_MODE
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectAll().penaltyDialog().build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectAll().penaltyDeath().build());
+        }
 
+        initImageLoader(this);
+        initApiClient();
 
-        /*
-         * Thread.setDefaultUncaughtExceptionHandler(AppException
-		 * .getAppExceptionHandler(this));
-		 */
 //        refWatcher = LeakCanary.install(this);
+    }
+
+    private void initApiClient() {
+        CookieStore store = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());
+        ApiClient.init(store, new BaseApiCallbackImpl());
+    }
+
+    public static void initImageLoader(Context context) {
+        // This configuration tuning is custom. You can tune every option, you
+        // may tune some of them,
+        // or you can create default configuration by
+        // ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(
+                context);
+        config.memoryCacheExtraOptions(480, 800);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.threadPoolSize(3);
+        config.memoryCache(new WeakMemoryCache());
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.memoryCacheSize(2 * 1024 * 1024);
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs(); // Remove for release app
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config.build());
     }
 
     /*public static RefWatcher getRefWatcher(Context context) {
@@ -52,7 +82,7 @@ public class MyApplication extends BaseApplication {
 */
 
     public static MyApplication getInstance() {
-        return instance;
+        return (MyApplication) baseApplication;
     }
 
     /**
@@ -65,7 +95,7 @@ public class MyApplication extends BaseApplication {
         try {
             int StringId = getResources().getIdentifier(name, "string",
                     getPackageName());
-           str = getResources().getString(StringId);
+            str = getResources().getString(StringId);
             return str;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -158,14 +188,5 @@ public class MyApplication extends BaseApplication {
         if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
             DataCleanManager.cleanCustomCache(getExternalCacheDir());
         }
-    }
-
-    public void saveCookie(OkHttpClient client) {
-        client.setCookieHandler(new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL));
-    }
-
-
-    public void clearCookie() {
-        cookieStore.removeAll();
     }
 }
