@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
 import butterknife.Bind;
@@ -68,27 +70,38 @@ public class FeedBackActivity extends BaseActivity {
     }
 
     private void feedBack(String content, String version, String platform) {
-        JianFanJiaClient.feedBack(this, content, version, platform, new ApiUiUpdateListener() {
+        FeedBackRequest request = new FeedBackRequest();
+        request.setContent(content);
+        request.setVersion(version);
+        request.setPlatform(platform);
+        Api.feedBack(request, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 showWaitDialog();
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
                 hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 feedContentView.setText("");
                 appManager.finishActivity(FeedBackActivity.this);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                hideWaitDialog();
-                makeTextShort(error_msg);
-            }
-        }, this);
-    }
+            public void onFailed(ApiResponse<String> apiResponse) {
 
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
 
     private TextWatcher textWatcher = new TextWatcher() {
 

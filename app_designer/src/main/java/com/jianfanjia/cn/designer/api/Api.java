@@ -17,6 +17,7 @@ import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
@@ -41,6 +42,11 @@ public class Api {
 
     public static void login(LoginRequest request, ApiCallback<ApiResponse<Designer>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().LOGIN_URL, request, apiCallback);
+    }
+
+    //游客反馈
+    public static void feedBack(FeedBackRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().FEEDBACK_URL, request, apiCallback);
     }
 
     //游客验证手机是否注册
