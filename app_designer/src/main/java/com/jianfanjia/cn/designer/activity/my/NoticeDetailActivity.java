@@ -12,18 +12,18 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.Event.UpdateEvent;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity_;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.cn.designer.Event.UpdateEvent;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
@@ -35,6 +35,8 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -45,23 +47,56 @@ import de.greenrobot.event.EventBus;
  */
 public class NoticeDetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = NoticeDetailActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private TextView typeText = null;
-    private TextView cellText = null;
-    private TextView sectionText = null;
-    private TextView dateText = null;
-    private WebView contentView = null;
-    private LinearLayout doubleBtnLayout = null;
-    private LinearLayout singleBtnLayout = null;
-    private LinearLayout appointBtnLayout = null;
-    private Button btnAgree = null;
-    private Button btnReject = null;
-    private Button btnCheck = null;
-    private Button btnPlan = null;
-    private Button btnContract = null;
-    private Button btnRefuse = null;
-    private Button btnRespond = null;
-    private Button btnConfirm = null;
+    @Bind(R.id.my_notice_detail_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.typeText)
+    TextView typeText;
+
+    @Bind(R.id.cellText)
+    TextView cellText;
+
+    @Bind(R.id.sectionText)
+    TextView sectionText;
+
+    @Bind(R.id.dateText)
+    TextView dateText;
+
+    @Bind(R.id.contentView)
+    WebView contentView;
+
+    @Bind(R.id.doubleBtnLayout)
+    LinearLayout doubleBtnLayout;
+
+    @Bind(R.id.singleBtnLayout)
+    LinearLayout singleBtnLayout;
+
+    @Bind(R.id.appointBtnLayout)
+    LinearLayout appointBtnLayout;
+
+    @Bind(R.id.btnAgree)
+    Button btnAgree;
+
+    @Bind(R.id.btnReject)
+    Button btnReject;
+
+    @Bind(R.id.btnCheck)
+    Button btnCheck;
+
+    @Bind(R.id.btnPlan)
+    Button btnPlan;
+
+    @Bind(R.id.btnContract)
+    Button btnContract;
+
+    @Bind(R.id.btnRefuse)
+    Button btnRefuse;
+
+    @Bind(R.id.btnRespond)
+    Button btnRespond;
+
+    @Bind(R.id.btnConfirm)
+    Button btnConfirm;
 
     private String messageid = null;
     private String processid = null;
@@ -78,60 +113,30 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        initView();
     }
 
-    @Override
-    public void initView() {
+    private void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         messageid = planBundle.getString(Global.MSG_ID);
         LogTool.d(TAG, "messageid=" + messageid);
         initMainHeadView();
-        typeText = (TextView) findViewById(R.id.typeText);
-        cellText = (TextView) findViewById(R.id.cellText);
-        sectionText = (TextView) findViewById(R.id.sectionText);
-        dateText = (TextView) findViewById(R.id.dateText);
-        contentView = (WebView) findViewById(R.id.contentView);
         contentView.getSettings().setJavaScriptEnabled(true);
         contentView.setBackgroundColor(0); // 设置背景色
         contentView.setWebChromeClient(new WebChromeClient());
-        doubleBtnLayout = (LinearLayout) findViewById(R.id.doubleBtnLayout);
-        singleBtnLayout = (LinearLayout) findViewById(R.id.singleBtnLayout);
-        appointBtnLayout = (LinearLayout) findViewById(R.id.appointBtnLayout);
-        btnAgree = (Button) findViewById(R.id.btnAgree);
-        btnReject = (Button) findViewById(R.id.btnReject);
-        btnCheck = (Button) findViewById(R.id.btnCheck);
-        btnPlan = (Button) findViewById(R.id.btnPlan);
-        btnContract = (Button) findViewById(R.id.btnContract);
-        btnRefuse = (Button) findViewById(R.id.btnRefuse);
-        btnRespond = (Button) findViewById(R.id.btnRespond);
-        btnConfirm = (Button) findViewById(R.id.btnConfirm);
         getNoticeDetailInfo(messageid);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_notice_detail_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_notice_detail));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitle(getResources().getString(R.string.checkRequire));
         mainHeadView.setRightTitleVisable(View.GONE);
     }
 
-    @Override
-    public void setListener() {
-        btnAgree.setOnClickListener(this);
-        btnReject.setOnClickListener(this);
-        btnConfirm.setOnClickListener(this);
-        btnCheck.setOnClickListener(this);
-        btnPlan.setOnClickListener(this);
-        btnContract.setOnClickListener(this);
-        btnRefuse.setOnClickListener(this);
-        btnRespond.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.head_back_layout, R.id.btnAgree, R.id.btnReject, R.id.btnCheck, R.id.btnPlan, R.id.btnContract, R
+            .id.btnRefuse, R.id.btnRespond, R.id.btnConfirm, R.id.head_right_title})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
@@ -158,7 +163,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.btnRespond:
                 Intent settingHouseTimeIntent = new Intent(NoticeDetailActivity.this
-                        , SettingMeasureDateActivity_.class);
+                        , SettingMeasureDateActivity.class);
                 Bundle settingHouseTimeBundle = new Bundle();
                 settingHouseTimeBundle.putString(Global.REQUIREMENT_ID, requirement.get_id());
                 settingHouseTimeBundle.putString(Global.PHONE, phone);
@@ -173,10 +178,10 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.head_right_title:
                 Intent gotoPriviewRequirement = null;
                 if (requirement.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
-                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewBusinessRequirementActivity_
+                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewBusinessRequirementActivity
                             .class);
                 } else {
-                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewRequirementActivity_.class);
+                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewRequirementActivity.class);
                 }
                 gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirement);
                 startActivity(gotoPriviewRequirement);

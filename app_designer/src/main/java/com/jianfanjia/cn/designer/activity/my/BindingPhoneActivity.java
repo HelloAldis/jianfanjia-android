@@ -10,18 +10,15 @@ import android.widget.EditText;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.RegisterNewActivity;
-import com.jianfanjia.cn.designer.activity.RegisterNewActivity_;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.LogTool;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author zhanghao
@@ -29,21 +26,27 @@ import org.androidannotations.annotations.ViewById;
  * @Description: 绑定手机号
  * @date 2015-10-27 下午12:11:23
  */
-@EActivity(R.layout.activity_binding_phone)
-public class BindingPhoneActivity extends BaseAnnotationActivity implements
+public class BindingPhoneActivity extends BaseActivity implements
         ApiUiUpdateListener {
     private static final String TAG = BindingPhoneActivity.class.getName();
-    @ViewById(R.id.act_binding_input_phone)
+
+    @Bind(R.id.act_binding_input_phone)
     EditText mEtPhone;// 用户名输入框
-    @ViewById(R.id.btn_commit)
+
+    @Bind(R.id.btn_commit)
     Button mBtnCommit;
 
     private String phone = null;// 密码
 
-    @AfterViews
-    public void initAnnotationView() {
-        mBtnCommit.setEnabled(false);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
 
+
+    private void initView() {
+        mBtnCommit.setEnabled(false);
         mEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -68,8 +71,8 @@ public class BindingPhoneActivity extends BaseAnnotationActivity implements
         });
     }
 
-    @Click({R.id.head_back_layout, R.id.btn_commit})
-    void OnClick(View view) {
+    @OnClick({R.id.head_back_layout, R.id.btn_commit})
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_commit:
                 phone = mEtPhone.getText().toString().trim();
@@ -113,7 +116,6 @@ public class BindingPhoneActivity extends BaseAnnotationActivity implements
      * 发送验证码
      *
      * @param name
-     *
      */
     private void sendVerification(final String name) {
         JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
@@ -129,7 +131,7 @@ public class BindingPhoneActivity extends BaseAnnotationActivity implements
                 Bundle registerBundle = new Bundle();
                 registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
                 registerBundle.putInt(Global.REGISTER, RegisterNewActivity.BINDING_PHONE);
-                startActivity(RegisterNewActivity_.class, registerBundle);
+                startActivity(RegisterNewActivity.class, registerBundle);
                 appManager.finishActivity(BindingPhoneActivity.this);
             }
 
@@ -138,5 +140,10 @@ public class BindingPhoneActivity extends BaseAnnotationActivity implements
                 makeTextLong(error_msg);
             }
         }, this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_binding_phone;
     }
 }

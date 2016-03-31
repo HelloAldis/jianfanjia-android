@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.activity.my;
 
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -11,21 +12,32 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:客服
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CustomerServiceActivity extends BaseActivity implements View.OnClickListener, View.OnKeyListener {
+public class CustomerServiceActivity extends BaseActivity implements View.OnKeyListener {
     private static final String TAG = CustomerServiceActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private WebView webView = null;
+
+    @Bind(R.id.my_contract_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.webView)
+    WebView webView;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
+    private void initView() {
         initMainHeadView();
-        webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
@@ -40,33 +52,19 @@ public class CustomerServiceActivity extends BaseActivity implements View.OnClic
                 return true;
             }
         });
+        webView.setOnKeyListener(this);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.my_contract_head_layout);
-        mainHeadView.setBackListener(this);
-        mainHeadView.setRightTextListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.kefuText));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
     }
 
-
-    @Override
-    public void setListener() {
-        webView.setOnKeyListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.head_back_layout:
-                appManager.finishActivity(this);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.head_back_layout)
+    public void onClick() {
+        appManager.finishActivity(this);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.activity.my;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -15,6 +16,9 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 
 /**
  * Description:通知
@@ -22,46 +26,40 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class NoticeActivity extends BaseActivity implements View.OnClickListener {
+public class NoticeActivity extends BaseActivity {
     private static final String TAG = NoticeActivity.class.getName();
-    private MainHeadView mainHeadView = null;
-    private TabLayout tabLayout = null;
-    private MyFragmentPagerAdapter adapter = null;
-    private ViewPager mPager = null;
+
+    @Bind(R.id.my_notice_head_layout)
+    MainHeadView mainHeadView;
+
+    @Bind(R.id.tabLyout)
+    TabLayout tabLayout;
+
+    @Bind(R.id.viewpager)
+    ViewPager mPager;
 
     @Override
-    public void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
+    private void initView() {
         initMainHeadView();
-        tabLayout = (TabLayout) findViewById(R.id.tabLyout);
-        mPager = (ViewPager) findViewById(R.id.viewpager);
         mPager.setOffscreenPageLimit(1);
         setupViewPager(mPager);
         tabLayout.setupWithViewPager(mPager);
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.
-                my_notice_head_layout);
-        mainHeadView.setBackListener(this);
         mainHeadView.setMianTitle(getResources().getString(R.string.my_notice));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.GONE);
     }
 
-    @Override
-    public void setListener() {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.head_back_layout:
-                appManager.finishActivity(this);
-                break;
-            default:
-                break;
-        }
+    @OnClick(R.id.head_back_layout)
+    public void onClick() {
+        appManager.finishActivity(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {

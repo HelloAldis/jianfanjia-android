@@ -31,8 +31,10 @@ import butterknife.OnClick;
  */
 public class BindingPhoneActivity extends BaseSwipeBackActivity {
     private static final String TAG = BindingPhoneActivity.class.getName();
+
     @Bind(R.id.act_binding_input_phone)
     EditText mEtPhone;// 用户名输入框
+
     @Bind(R.id.btn_commit)
     Button mBtnCommit;
 

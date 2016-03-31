@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.LoginNewActivity_;
+import com.jianfanjia.cn.designer.activity.LoginNewActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
@@ -18,9 +18,8 @@ import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import org.androidannotations.annotations.Click;
-
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:设置
@@ -31,7 +30,7 @@ import butterknife.Bind;
 public class SettingActivity extends BaseActivity {
     private static final String TAG = SettingActivity.class.getName();
 
-    @Bind(R.id.help_layout)
+    @Bind(R.id.about_layout)
     RelativeLayout aboutFragment;
 
     @Bind(R.id.logout_layout)
@@ -59,7 +58,7 @@ public class SettingActivity extends BaseActivity {
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    @Click({R.id.about_layout, R.id.logout_layout, R.id.head_back_layout})
+    @OnClick({R.id.about_layout, R.id.logout_layout, R.id.head_back_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.about_layout:
@@ -93,7 +92,7 @@ public class SettingActivity extends BaseActivity {
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(SettingActivity.this).deleteOauth(SettingActivity.this, SHARE_MEDIA
                                 .WEIXIN);
-                        startActivity(LoginNewActivity_.class);
+                        startActivity(LoginNewActivity.class);
                         finish();
                     }
                 });

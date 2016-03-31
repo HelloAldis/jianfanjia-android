@@ -210,11 +210,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name=".activity.my.EditOwnerInfoActivity"
-            android:label="@string/title_activity_edit_info"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity
             android:name=".activity.my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
@@ -259,9 +254,6 @@
 
         <activity
             android:name=".activity.requirement.ContractActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.my.MyProcessActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.requirement.MyProcessDetailActivity_"
