@@ -17,6 +17,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.DownLoadManager;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.ToastUtil;
 
@@ -96,7 +97,7 @@ public class UpdateService extends Service implements ApiUiUpdateListener {
                 int startPos = download_url.lastIndexOf("/");
                 if(startPos != -1){
                     String fileName = download_url.substring(startPos);
-                    downLoadManager.download(download_url, Constant.APK_PATH, fileName, downloadCallback, uiProgressListener);
+                    downLoadManager.download(download_url, FileUtil.APK_PATH, fileName, downloadCallback, uiProgressListener);
                 }
             }
         }

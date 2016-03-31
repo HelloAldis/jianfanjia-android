@@ -42,9 +42,22 @@
 -keep class com.j256.ormlite.field.** { *; }
 -keep class com.j256.ormlite.stmt.** { *; }
 
+#butterknife混淆
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
 #okio混淆
 -dontwarn com.squareup.okhttp.**
 -keep class com.squareup.okhttp.** { *;}
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *;}
 -dontwarn okio.**
 
 #androidannotations混淆

@@ -13,8 +13,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 
 public class ShareActivity extends BaseActivity implements OnLongClickListener {
@@ -57,7 +57,7 @@ public class ShareActivity extends BaseActivity implements OnLongClickListener {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.mipmap.icon_jianfanjia_qr);
         try {
-            ImageUtil.saveImageToSD(ShareActivity.this, Constant.IMAG_PATH
+            ImageUtil.saveImageToSD(ShareActivity.this, FileUtil.IMAG_PATH
                     + "myqr.jpg", bitmap, 100);
             makeTextShort(getResources().getString(R.string.save_image_success));
         } catch (IOException e) {
