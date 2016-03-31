@@ -17,7 +17,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 
 import java.util.List;

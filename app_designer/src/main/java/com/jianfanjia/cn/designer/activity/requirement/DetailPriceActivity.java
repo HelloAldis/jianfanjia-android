@@ -18,7 +18,7 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 

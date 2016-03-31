@@ -13,7 +13,7 @@ import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.List;
 

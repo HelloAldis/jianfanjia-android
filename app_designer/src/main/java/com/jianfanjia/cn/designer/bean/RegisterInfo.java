@@ -1,6 +1,6 @@
 package com.jianfanjia.cn.designer.bean;
 
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.io.Serializable;
 

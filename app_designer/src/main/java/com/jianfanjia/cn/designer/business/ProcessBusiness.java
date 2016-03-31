@@ -7,7 +7,7 @@ import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.ProcessSectionYs;
 import com.jianfanjia.api.model.ProcessSectionYsImage;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.designer.business

@@ -1,9 +1,10 @@
 package com.jianfanjia.cn.designer.tools;
 
-import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 /**
  * Description:json解析类

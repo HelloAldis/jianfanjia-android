@@ -19,7 +19,7 @@ import com.jianfanjia.cn.designer.bean.SiteProcessItem;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.interf.OnItemClickListener;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
 import java.util.List;

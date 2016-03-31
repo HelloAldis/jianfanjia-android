@@ -20,7 +20,7 @@ import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-
+import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
 /**

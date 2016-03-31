@@ -7,16 +7,15 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.tools.ImageUtil;
-import com.jianfanjia.cn.designer.view.MainHeadView;
-
 import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.common.tool.ImageUtil;
 
 public class ShareActivity extends BaseActivity implements OnLongClickListener {
     private static final String TAG = ShareActivity.class.getName();

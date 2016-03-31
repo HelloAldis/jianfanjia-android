@@ -5,7 +5,7 @@ import android.content.Context;
 import com.j256.ormlite.dao.Dao;
 import com.jianfanjia.cn.designer.dao.BaseDao;
 import com.jianfanjia.cn.designer.db.DBHelper;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.sql.SQLException;
 import java.util.List;

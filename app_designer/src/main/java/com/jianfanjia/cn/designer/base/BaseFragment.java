@@ -19,7 +19,7 @@ import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
 

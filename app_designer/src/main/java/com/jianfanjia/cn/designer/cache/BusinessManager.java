@@ -16,7 +16,7 @@ import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.JsonParser;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
 public class BusinessManager {

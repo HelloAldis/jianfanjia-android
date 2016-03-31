@@ -22,7 +22,7 @@ import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;

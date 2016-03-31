@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewAdapterBase;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType0;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType1;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType2;

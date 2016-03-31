@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.wheel.NumericWheelAdapter;
 import com.jianfanjia.cn.designer.view.wheel.OnWheelChangedListener;
 import com.jianfanjia.cn.designer.view.wheel.WheelView;

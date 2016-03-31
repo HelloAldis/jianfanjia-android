@@ -27,7 +27,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 
 public class SectionItemAdapter extends BaseAdapter {

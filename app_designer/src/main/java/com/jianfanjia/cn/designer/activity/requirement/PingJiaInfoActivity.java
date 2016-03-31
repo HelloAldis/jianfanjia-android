@@ -16,7 +16,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Evaluation;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.LogTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**

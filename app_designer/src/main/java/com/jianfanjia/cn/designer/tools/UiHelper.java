@@ -43,6 +43,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
