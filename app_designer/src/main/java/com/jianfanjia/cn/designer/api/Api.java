@@ -7,12 +7,15 @@ import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
+import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
+import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
@@ -23,6 +26,8 @@ import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
 import com.jianfanjia.api.request.designer.ConfigContractRequest;
 import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
+import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
+import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
@@ -133,5 +138,25 @@ public class Api {
     public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
+    }
+
+    public static void getRequirementPlanList(GetRequirementPlanListRequest request,
+                                              ApiCallback<ApiResponse<List<Plan>>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().USER_REQUIREMENT_PLANS, request, apiCallback);
+    }
+
+    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<com.jianfanjia.api
+            .model
+            .Process>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_PROCESSINFO_BYID, request, apiCallback);
+    }
+
+    public static void finishSectionItem(FinishSectionItemRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().POST_PROCESS_DONE_ITEM, request, apiCallback);
+    }
+
+    public static void deleteImageToProcess(DeleteImageToProcessRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_PROCESS_PIC, request, apiCallback);
     }
 }

@@ -249,9 +249,6 @@
         <service android:name=".service.UpdateService"/>
 
         <activity
-            android:name=".activity.requirement.ContractActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.requirement.MyProcessDetailActivity"
             android:screenOrientation="portrait"/>
         <activity

@@ -14,16 +14,23 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
+import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
-import com.jianfanjia.api.request.user.GetProcessInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.activity.my.NoticeActivity;
@@ -51,14 +58,6 @@ import com.jianfanjia.cn.view.library.PullToRefreshListView;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 

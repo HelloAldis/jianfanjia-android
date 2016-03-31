@@ -12,19 +12,20 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.adapter.DesignerPlanAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -52,7 +53,6 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     private String requirementid = null;
     //    private String designerid = null;
     private Requirement requirementInfo = null;
-    private int itemPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
         requirementInfo = (Requirement) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
@@ -76,10 +76,9 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
         initMainHeadView();
         initRecycleView();
 
-
     }
 
-    private void initRecycleView(){
+    private void initRecycleView() {
         designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
         designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
@@ -124,39 +123,50 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
 
     //业主获取我的方案
     private void getDesignerPlansList(String requestmentid, String designerid) {
-        JianFanJiaClient.getDesignerPlansByUser(DesignerPlanListActivity.this, requestmentid, designerid, this, this);
-    }
+        GetRequirementPlanListRequest getRequirementPlanListRequest = new GetRequirementPlanListRequest();
+        getRequirementPlanListRequest.setRequirementid(requestmentid);
+        getRequirementPlanListRequest.setDesignerid(designerid);
 
-    @Override
-    public void preLoad() {
-        showWaitDialog(R.string.loading);
-    }
+        Api.getRequirementPlanList(getRequirementPlanListRequest, new ApiCallback<ApiResponse<List<Plan>>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-    @Override
-    public void loadSuccess(Object data) {
-        LogTool.d(TAG, "data:" + data);
-        hideWaitDialog();
-        designerPlanList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Plan>>() {
-        }.getType());
-        LogTool.d(TAG, "designerPlanList:" + designerPlanList);
-        if (null != designerPlanList && designerPlanList.size() > 0) {
-            DesignerPlanAdapter adapter = new DesignerPlanAdapter(this, designerPlanList, this);
-            designer_plan_listview.setAdapter(adapter);
-        }
-        designer_plan_listview.onRefreshComplete();
-    }
+            @Override
+            public void onHttpDone() {
+                designer_plan_listview.onRefreshComplete();
+                hideWaitDialog();
+            }
 
-    @Override
-    public void loadFailture(String error_msg) {
-        makeTextShort(error_msg);
-        hideWaitDialog();
-        designer_plan_listview.onRefreshComplete();
+            @Override
+            public void onSuccess(ApiResponse<List<Plan>> apiResponse) {
+                designerPlanList = apiResponse.getData();
+                LogTool.d(TAG, "designerPlanList:" + designerPlanList);
+                if (null != designerPlanList && designerPlanList.size() > 0) {
+                    DesignerPlanAdapter adapter = new DesignerPlanAdapter(DesignerPlanListActivity.this,
+                            designerPlanList,
+                            DesignerPlanListActivity.this);
+                    designer_plan_listview.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<Plan>> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
     }
 
     @Override
     public void onCallBack(int position, int pos) {
         LogTool.d(TAG, "position:" + position + "  pos:" + pos);
-        itemPosition = position + 1;
         Plan plan = designerPlanList.get(position);
         LogTool.d(TAG, "plan:" + plan);
         String planid = plan.get_id();
@@ -167,7 +177,6 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     @Override
     public void onItemCallBack(int position, int itemType) {
         LogTool.d(TAG, "itemType:" + itemType);
-        itemPosition = position + 1;
         Plan plan = designerPlanList.get(position);
         LogTool.d(TAG, "plan:" + plan);
         String planid = plan.get_id();

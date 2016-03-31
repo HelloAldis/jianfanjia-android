@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.api;
 
+import java.util.List;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -65,7 +67,7 @@ import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
 import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
-import com.jianfanjia.api.request.user.GetProcessInfoRequest;
+import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
 import com.jianfanjia.api.request.user.PublishRequirementRequest;
@@ -75,8 +77,6 @@ import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.bean.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
-
-import java.util.List;
 
 
 /**
