@@ -218,11 +218,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".my.ShareActivity"
-            android:label="@string/title_activity_share"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
-        <activity
             android:name=".requirement.CheckActivity"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait"
