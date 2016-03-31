@@ -12,7 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentListActivity;
 import com.jianfanjia.cn.designer.activity.my.AboutActivity;
@@ -22,8 +23,6 @@ import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.TDevice;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -181,16 +180,20 @@ public class MyNewFragment extends BaseFragment {
     }
 
     private void getUnReadMessageCount(String[]... selectLists) {
-        UiHelper.getUnReadMessageCount(getContext(), new ApiUiUpdateListener() {
+        UiHelper.getUnReadMessageCount(new ApiCallback<ApiResponse<List<Integer>>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                List<Integer> countList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Integer>>() {
-                }.getType());
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<Integer>> apiResponse) {
+                List<Integer> countList = apiResponse.getData();
                 if (countList != null) {
                     if (countList.get(0) > 0) {
                         noticeCountView.setVisibility(View.VISIBLE);
@@ -209,10 +212,15 @@ public class MyNewFragment extends BaseFragment {
             }
 
             @Override
-            public void loadFailture(String error_msg) {
+            public void onFailed(ApiResponse<List<Integer>> apiResponse) {
 
             }
-        }, this, selectLists);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        }, selectLists);
     }
 
     /**
