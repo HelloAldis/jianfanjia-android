@@ -64,7 +64,6 @@ public abstract class BaseFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onActivityCreated");
-        initUserInfo();
     }
 
     private void init() {
