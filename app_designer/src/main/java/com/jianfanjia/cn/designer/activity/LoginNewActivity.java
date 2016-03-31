@@ -23,24 +23,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import java.util.Map;
-
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.guest.LoginRequest;
+import com.jianfanjia.api.request.guest.SendVerificationRequest;
+import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
-import com.jianfanjia.cn.designer.bean.WeiXinRegisterInfo;
-import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.tools.AuthUtil;
-import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.controller.listener.SocializeListeners;
-import com.umeng.socialize.sso.UMSsoHandler;
 
 /**
  * @author fengliang
@@ -104,12 +102,10 @@ public class LoginNewActivity extends BaseActivity implements
     private GestureDetector mGestureDetector;
     private int currentPage = LOGIN;
 
-    private AuthUtil authUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authUtil = AuthUtil.getInstance(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -278,8 +274,7 @@ public class LoginNewActivity extends BaseActivity implements
         super.onResume();
     }
 
-    @OnClick({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register, R.id
-            .btn_login_weixin_layout, R.id.btn_register_weixin_layout})
+    @OnClick({R.id.btn_login, R.id.btn_next, R.id.act_forget_password, R.id.act_login, R.id.act_register})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -309,68 +304,10 @@ public class LoginNewActivity extends BaseActivity implements
                     showRegister();
                 }
                 break;
-            case R.id.btn_login_weixin_layout:
-            case R.id.btn_register_weixin_layout:
-                SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
-                authUtil.doOauthVerify(this, platform, umDataListener);
-                break;
             default:
                 break;
         }
     }
-
-    private SocializeListeners.UMDataListener umDataListener = new SocializeListeners.UMDataListener() {
-        @Override
-        public void onStart() {
-
-        }
-
-        @Override
-        public void onComplete(int i, Map<String, Object> data) {
-            if (i == 200 && data != null) {
-                LogTool.d(this.getClass().getName(), data.toString());
-                WeiXinRegisterInfo weiXinRegisterInfo = new WeiXinRegisterInfo();
-                weiXinRegisterInfo.setUsername(data.get("nickname").toString());
-                weiXinRegisterInfo.setImage_url((String) data.get("headimgurl").toString());
-                String sex = null;
-                if ((sex = data.get("sex").toString()) != null) {
-                    weiXinRegisterInfo.setSex(sex.equals(Constant.SEX_MAN) ? Constant.SEX_WOMEN : Constant.SEX_MAN);
-                    //系统的性别和微信的性别要转换
-                }
-                weiXinRegisterInfo.setWechat_openid(data.get("openid").toString());
-                weiXinRegisterInfo.setWechat_unionid(data.get("unionid").toString());
-
-                JianFanJiaClient.weixinLogin(LoginNewActivity.this, weiXinRegisterInfo, new ApiUiUpdateListener() {
-                    @Override
-                    public void preLoad() {
-                    }
-
-                    @Override
-                    public void loadSuccess(Object data) {
-                        hideWaitDialog();
-                        if (data != null) {
-                            if (dataManager.getWeixinFisrtLogin()) {
-//                                startActivity(NewUserCollectDecStageActivity_.class);
-                            } else {
-                                startActivity(MainActivity.class);
-                            }
-                            appManager.finishActivity(LoginNewActivity.this);
-                            GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                        }
-                    }
-
-                    @Override
-                    public void loadFailture(String error_msg) {
-                        hideWaitDialog();
-                        makeTextShort(error_msg);
-                    }
-                }, LoginNewActivity.this);
-            } else {
-                hideWaitDialog();
-                makeTextShort(getString(R.string.authorize_fail));
-            }
-        }
-    };
 
     @Override
     protected void onRestart() {
@@ -430,22 +367,34 @@ public class LoginNewActivity extends BaseActivity implements
     }
 
     private void verifyPhone(final String phone) {
-        JianFanJiaClient.verifyPhone(this, phone, new ApiUiUpdateListener() {
+        VerifyPhoneRequest verifyPhoneRequest = new VerifyPhoneRequest();
+        verifyPhoneRequest.setPhone(phone);
+        Api.verifyPhone(verifyPhoneRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 sendVerification(mUserName, mPassword);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     /**
@@ -455,14 +404,21 @@ public class LoginNewActivity extends BaseActivity implements
      * @param password
      */
     private void sendVerification(final String name, final String password) {
-        JianFanJiaClient.send_verification(this, name, new ApiUiUpdateListener() {
+        SendVerificationRequest sendVerificationRequest = new SendVerificationRequest();
+        sendVerificationRequest.setPhone(name);
+        Api.sendVerification(sendVerificationRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
                 RegisterInfo registerInfo = new RegisterInfo();
                 registerInfo.setPass(password);
                 registerInfo.setPhone(name);
@@ -473,10 +429,15 @@ public class LoginNewActivity extends BaseActivity implements
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextLong(error_msg);
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     /**
@@ -485,26 +446,47 @@ public class LoginNewActivity extends BaseActivity implements
      * @param name
      * @param password
      */
-    private void login(String name, String password) {
-        JianFanJiaClient.login(this, name, password, this, this);
-    }
+    private void login(String name, final String password) {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setPhone(name);
+        loginRequest.setPass(password);
+        Api.login(loginRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
 
-    @Override
-    public void loadSuccess(Object data) {
-        super.loadSuccess(data);
-        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-        startActivity(MainActivity.class);
-        appManager.finishActivity(this);
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+
+                Designer designer = apiResponse.getData();
+                designer.setPass(password);
+                DataManagerNew.loginSuccess(designer);
+
+                startActivity(MainActivity.class);
+                appManager.finishActivity(LoginNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         appManager.finishAllActivity();
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
     }
 
     void showRegister() {
@@ -642,12 +624,4 @@ public class LoginNewActivity extends BaseActivity implements
         return R.layout.activity_login_new;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMSsoHandler ssoHandler = authUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
-        if (ssoHandler != null) {
-            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
 }

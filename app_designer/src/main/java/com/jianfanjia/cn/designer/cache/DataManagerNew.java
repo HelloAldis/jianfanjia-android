@@ -5,13 +5,15 @@ import android.content.Context;
 import java.util.Calendar;
 import java.util.List;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.db.DBHelper;
+import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
 
@@ -247,5 +249,28 @@ public class DataManagerNew {
         currentProcessInfo = null;
         DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
+
+    /**
+     * 登录成功所做的基本操作
+     *
+     * @param designer
+     */
+    public static void loginSuccess(Designer designer) {
+        getInstance().setLogin(true);
+        getInstance().savaLastLoginTime(Calendar.getInstance()
+                .getTimeInMillis());
+        getInstance().saveLoginUserBean(designer);
+        GeTuiManager.bindGeTui(MyApplication.getInstance(), getInstance().getUserId());
+    }
+
+    /**
+     * 登出所做的操作
+     */
+    public static void loginOut() {
+        GeTuiManager.cancelBind(MyApplication.getInstance(), getInstance().getUserId());
+        getInstance().cleanData();
+        ApiClient.clearCookie();
+    }
+
 
 }

@@ -13,16 +13,20 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.designer.Event.BindingPhoneEvent;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.guest.RegisterRequest;
+import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
+import com.jianfanjia.cn.designer.cache.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
-import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.LogTool;
-import de.greenrobot.event.EventBus;
 
 /**
  * @author zhanghao
@@ -104,7 +108,7 @@ public class RegisterNewActivity extends BaseActivity implements
                 mVerification = mEtVerification.getText().toString().trim();
                 if (checkInput(mVerification)) {
                     registerInfo.setCode(mVerification);
-                    register(registerInfo);
+                    actionCommit(registerInfo);
                 }
                 break;
             case R.id.head_back_layout:
@@ -121,19 +125,94 @@ public class RegisterNewActivity extends BaseActivity implements
      *
      * @param registerInfo
      */
-    private void register(RegisterInfo registerInfo) {
+    private void actionCommit(RegisterInfo registerInfo) {
         switch (requsetCode) {
             case REGISTER_CODE:
                 JianFanJiaClient.register(this, registerInfo, this, this);
+                register(registerInfo);
                 break;
             case UPDATE_PSW_CODE:
+                updatePassword(registerInfo);
                 JianFanJiaClient.update_psw(this, registerInfo, this, this);
-                break;
-            case BINDING_PHONE:
-                JianFanJiaClient.bindingPhone(this, registerInfo, this, this);
                 break;
         }
     }
+
+    private void register(final RegisterInfo registerInfo) {
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setPass(registerInfo.getPass());
+        registerRequest.setPhone(registerInfo.getPhone());
+        registerRequest.setCode(registerInfo.getCode());
+
+        Api.register(registerRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+
+                Designer designer = apiResponse.getData();
+                designer.setPass(registerInfo.getPass());
+                DataManagerNew.loginSuccess(designer);
+
+                startActivity(MainActivity.class);
+                appManager.finishActivity(RegisterNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void updatePassword(RegisterInfo registerInfo) {
+        UpdatePasswordRequest updatePasswordRequest = new UpdatePasswordRequest();
+        updatePasswordRequest.setCode(registerInfo.getCode());
+        updatePasswordRequest.setPhone(registerInfo.getPhone());
+        updatePasswordRequest.setPass(registerInfo.getPass());
+
+        Api.updatePassword(updatePasswordRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                startActivity(LoginNewActivity.class);
+                appManager.finishActivity(RegisterNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
 
     private boolean checkInput(String verification) {
         if (TextUtils.isEmpty(verification)) {
@@ -143,33 +222,6 @@ public class RegisterNewActivity extends BaseActivity implements
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        //登录成功，加载首页
-        super.loadSuccess(data);
-        switch (requsetCode) {
-            case REGISTER_CODE:
-                startActivity(MainActivity.class);
-                appManager.finishActivity(this);
-                GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                break;
-            case UPDATE_PSW_CODE:
-                makeTextShort(getString(R.string.update_psw_success));
-                startActivity(LoginNewActivity.class);
-                appManager.finishActivity(this);
-                break;
-            case BINDING_PHONE:
-                EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
-                appManager.finishActivity(this);
-                break;
-        }
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        super.loadFailture(error_msg);
     }
 
     @Override
