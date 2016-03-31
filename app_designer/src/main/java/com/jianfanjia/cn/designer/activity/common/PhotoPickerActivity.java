@@ -9,19 +9,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.Photo;
 import com.jianfanjia.cn.designer.fragment.ImagePagerFragment;
 import com.jianfanjia.cn.designer.fragment.PhotoPickerFragment;
 import com.jianfanjia.cn.designer.interf.OnItemCheckListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.widget.Toast.LENGTH_LONG;
 
-public class PhotoPickerActivity extends BaseAnnotationActivity {
+public class PhotoPickerActivity extends BaseActivity {
 
     private PhotoPickerFragment pickerFragment;
     private ImagePagerFragment imagePagerFragment;
@@ -55,8 +55,6 @@ public class PhotoPickerActivity extends BaseAnnotationActivity {
         boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
         boolean showGif = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
         setShowGif(showGif);
-
-        setContentView(R.layout.activity_photo_picker);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -129,7 +127,7 @@ public class PhotoPickerActivity extends BaseAnnotationActivity {
                 }
             });
         } else {*/
-            super.onBackPressed();
+        super.onBackPressed();
 //        }
     }
 
@@ -145,7 +143,7 @@ public class PhotoPickerActivity extends BaseAnnotationActivity {
     public void showImagePagerFragment(List<String> photos, int index) {
         Intent intent = new Intent(this, PhotoPagerActivity.class);
         intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, index);
-        intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, (ArrayList)photos);
+        intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, (ArrayList) photos);
         intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false);
         startActivity(intent);
     }
@@ -192,5 +190,10 @@ public class PhotoPickerActivity extends BaseAnnotationActivity {
 
     public void setShowGif(boolean showGif) {
         this.showGif = showGif;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_photo_picker;
     }
 }

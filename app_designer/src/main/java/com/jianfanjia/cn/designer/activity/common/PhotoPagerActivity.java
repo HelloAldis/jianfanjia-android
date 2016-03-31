@@ -12,17 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.List;
-
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.fragment.ImagePagerFragment;
+
+import java.util.List;
 
 
 /**
  * Created by donglua on 15/6/24.
  */
-public class PhotoPagerActivity extends BaseAnnotationActivity {
+public class PhotoPagerActivity extends BaseActivity {
 
     private ImagePagerFragment pagerFragment;
 
@@ -36,8 +36,6 @@ public class PhotoPagerActivity extends BaseAnnotationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_photo_pager);
 
         int currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
         List<String> paths = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
@@ -151,5 +149,10 @@ public class PhotoPagerActivity extends BaseAnnotationActivity {
         actionBar.setTitle(
                 getString(R.string.__picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
                         pagerFragment.getPaths().size()));
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_photo_pager;
     }
 }

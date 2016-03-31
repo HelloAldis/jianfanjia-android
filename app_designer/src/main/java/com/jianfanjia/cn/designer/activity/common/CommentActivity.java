@@ -13,12 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.User;
@@ -34,6 +28,13 @@ import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:评论留言
  * Author：fengliang
@@ -44,16 +45,16 @@ public class CommentActivity extends BaseActivity {
     private static final String TAG = CommentActivity.class.getName();
 
     @Bind(R.id.my_comment_head_layout)
-    protected MainHeadView mainHeadView = null;
+    MainHeadView mainHeadView;
 
     @Bind(R.id.comment_listview)
-    protected RecyclerView commentListView = null;
+    RecyclerView commentListView;
 
     @Bind(R.id.add_comment)
-    protected EditText commentEdit = null;
+    EditText commentEdit;
 
     @Bind(R.id.btn_send)
-    protected Button btnSend = null;
+    Button btnSend;
 
     private CommentAdapter commentAdapter = null;
     private String topicid = null;
@@ -61,7 +62,7 @@ public class CommentActivity extends BaseActivity {
     private String section = null;
     private String item = null;
     private String topictype = null;
-    private List<Comment> commentList = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
     private boolean isUpdate = false;//返回是否更新
 
     @Override
@@ -179,9 +180,9 @@ public class CommentActivity extends BaseActivity {
             CommentList commentList = JsonParser.jsonToBean(data.toString(), CommentList.class);
             LogTool.d(TAG, "commentList:" + commentList);
             if (null != commentList) {
-                CommentActivity.this.commentList = commentList.getComments();
-                LogTool.d(TAG, "commentList=" + CommentActivity.this.commentList);
-                commentAdapter = new CommentAdapter(CommentActivity.this, CommentActivity.this.commentList);
+                comments = commentList.getComments();
+                LogTool.d(TAG, "comments=" + comments);
+                commentAdapter = new CommentAdapter(CommentActivity.this, comments);
                 commentListView.setAdapter(commentAdapter);
             }
         }
@@ -210,7 +211,7 @@ public class CommentActivity extends BaseActivity {
             LogTool.d(TAG, "data:" + data);
             hideWaitDialog();
             Comment comment = createCommentInfo(commentEdit.getEditableText().toString());
-            commentList.add(0, comment);
+            comments.add(0, comment);
             commentAdapter.notifyItemInserted(0);
             commentListView.scrollToPosition(0);
             commentEdit.setText("");
