@@ -15,18 +15,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.Reschedule;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -81,7 +83,7 @@ public class SectionItemAdapter extends BaseAdapter {
                     R.array.site_check_name)[MyApplication.getInstance()
                     .getPositionByItemName(processSection.getName())]);
             processSectionItem.setDate(processSection.getYs().getDate());
-            processSectionItem.setOpen(false);
+            processSectionItem.setIsOpen(false);
             processSectionItem.setStatus(processSection.getStatus() + "");//验收的状态就是工序的状态
             list.add(processSectionItem);
         } else {
@@ -89,7 +91,7 @@ public class SectionItemAdapter extends BaseAdapter {
         }
 
         for (ProcessSectionItem processSectionItem : processSection.getItems()) {
-            processSectionItem.setOpen(false);
+            processSectionItem.setIsOpen(false);
             list.add(processSectionItem);
         }
 
@@ -111,15 +113,15 @@ public class SectionItemAdapter extends BaseAdapter {
         this.currentClickItem = position;
         if (currentClickItem != lastClickItem) {
             if (lastClickItem != -1) {
-                list.get(lastClickItem).setOpen(false);
+                list.get(lastClickItem).setIsOpen(false);
             }
-            list.get(currentClickItem).setOpen(true);
+            list.get(currentClickItem).setIsOpen(true);
             lastClickItem = currentClickItem;
         } else {
             if (list.get(currentClickItem).isOpen()) {
-                list.get(currentClickItem).setOpen(false);
+                list.get(currentClickItem).setIsOpen(false);
             } else {
-                list.get(currentClickItem).setOpen(true);
+                list.get(currentClickItem).setIsOpen(true);
             }
         }
         notifyDataSetChanged();
@@ -163,59 +165,13 @@ public class SectionItemAdapter extends BaseAdapter {
                 case CHECK_VIEW:
                     convertView = layoutInflater.inflate(
                             R.layout.list_item_process_head, null);
-                    viewHolderf = new ViewHolder2();
-                    viewHolderf.finishStatusIcon = (ImageView) convertView
-                            .findViewById(R.id.site_listview_item_status);
-                    viewHolderf.smallcloseLayout = (RelativeLayout) convertView
-                            .findViewById(R.id.site_listview_item_content_small);
-                    viewHolderf.bigOpenLayout = (RelativeLayout) convertView
-                            .findViewById(R.id.site_listview_item_content_expand);
-                    viewHolderf.site_list_head_checkbutton_layout = (LinearLayout) convertView
-                            .findViewById(R.id.site_list_head_checkbutton_layout);
-                    viewHolderf.site_list_head_delay_layout = (LinearLayout) convertView
-                            .findViewById(R.id.site_list_head_delay_layout);
-                    viewHolderf.site_list_head_delay_text = (TextView) convertView
-                            .findViewById(R.id.site_list_head_delay_text);
-                    viewHolderf.closeNodeName = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_small_node_name);
-                    viewHolderf.openNodeName = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_name);
-                    viewHolderf.openDelay = (TextView) convertView
-                            .findViewById(R.id.site_list_head_delay);
-                    viewHolderf.openCheck = (TextView) convertView
-                            .findViewById(R.id.site_list_head_check);
-                    viewHolderf.openTip = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_more);
-                    viewHolderf.closeTip = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_small_node_more);
+                    viewHolderf = new ViewHolder2(convertView);
                     convertView.setTag(viewHolderf);
                     break;
                 case SECTION_ITME_VIEW:
                     convertView = layoutInflater.inflate(
                             R.layout.list_item_process_item, null);
-                    viewHolder = new ViewHolder();
-                    viewHolder.smallcloseLayout = (RelativeLayout) convertView
-                            .findViewById(R.id.site_listview_item_content_small);
-                    viewHolder.bigOpenLayout = (RelativeLayout) convertView
-                            .findViewById(R.id.site_listview_item_content_expand);
-                    viewHolder.closeNodeName = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_small_node_name);
-                    viewHolder.openNodeName = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_name);
-                    viewHolder.finishTime = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_small_node_finishtime);
-                    viewHolder.openUploadTime = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_time);
-                    viewHolder.openComment = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_assess);
-                    viewHolder.openFinishStatus = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_finish_status);
-                    viewHolder.confirmFinishStatus = (TextView) convertView
-                            .findViewById(R.id.site_list_item_content_expand_node_confirm_finish);
-                    viewHolder.finishStatusIcon = (ImageView) convertView
-                            .findViewById(R.id.site_listview_item_status);
-                    viewHolder.gridView = (GridView) convertView
-                            .findViewById(R.id.site_list_item_gridview);
+                    viewHolder = new ViewHolder(convertView);
                     convertView.setTag(viewHolder);
                     break;
                 default:
@@ -316,7 +272,7 @@ public class SectionItemAdapter extends BaseAdapter {
                                     R.mipmap.btn_icon_comment_pressed), null,
                             null, null);
                 } else {
-                    viewHolder.openComment.setText(R.string.comment);
+                    viewHolder.openComment.setText(R.string.commentText);
                     viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                             context.getResources().getDrawable(
                                     R.mipmap.btn_icon_comment_normal), null,
@@ -486,34 +442,64 @@ public class SectionItemAdapter extends BaseAdapter {
         });
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
+        @Bind(R.id.site_listview_item_content_small)
         RelativeLayout smallcloseLayout;
+        @Bind(R.id.site_listview_item_content_expand)
         RelativeLayout bigOpenLayout;
+        @Bind(R.id.site_list_item_content_small_node_name)
         TextView closeNodeName;
+        @Bind(R.id.site_list_item_content_expand_node_name)
         TextView openNodeName;
-        TextView openUploadPic;
+        @Bind(R.id.site_list_item_content_expand_node_assess)
         TextView openComment;
+        @Bind(R.id.site_list_item_content_expand_node_time)
         TextView openUploadTime;
+        @Bind(R.id.site_list_item_content_small_node_finishtime)
         TextView finishTime;
+        @Bind(R.id.site_list_item_content_expand_node_finish_status)
         TextView openFinishStatus;
-        TextView confirmFinishStatus;
+        @Bind(R.id.site_listview_item_status)
         ImageView finishStatusIcon;
+        @Bind(R.id.site_list_item_gridview)
         GridView gridView;
+        @Bind(R.id.site_list_item_content_expand_node_confirm_finish)
+        TextView confirmFinishStatus;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
-    private static class ViewHolder2 {
+    static class ViewHolder2 {
+        @Bind(R.id.site_listview_item_content_small)
         RelativeLayout smallcloseLayout;
+        @Bind(R.id.site_listview_item_content_expand)
         RelativeLayout bigOpenLayout;
+        @Bind(R.id.site_list_head_checkbutton_layout)
         LinearLayout site_list_head_checkbutton_layout;
+        @Bind(R.id.site_list_head_delay_layout)
         LinearLayout site_list_head_delay_layout;
+        @Bind(R.id.site_list_head_delay_text)
         TextView site_list_head_delay_text;
+        @Bind(R.id.site_list_item_content_small_node_name)
         TextView closeNodeName;
+        @Bind(R.id.site_list_item_content_expand_node_name)
         TextView openNodeName;
+        @Bind(R.id.site_list_head_delay)
         TextView openDelay;
+        @Bind(R.id.site_list_head_check)
         TextView openCheck;
+        @Bind(R.id.site_list_item_content_expand_node_more)
         TextView openTip;
+        @Bind(R.id.site_list_item_content_small_node_more)
         TextView closeTip;
+        @Bind(R.id.site_listview_item_status)
         ImageView finishStatusIcon;
+
+        public ViewHolder2(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
     @Override

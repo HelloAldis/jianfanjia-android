@@ -3,15 +3,16 @@ package com.jianfanjia.cn.designer.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseListAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-
-import java.util.List;
 
 public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
 
@@ -25,8 +26,7 @@ public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.grid_item_check_pic, null);
-            holder = new ViewHolder();
-            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -44,9 +44,13 @@ public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
         return convertView;
     }
 
-    private static class ViewHolder {
+    static class ViewHolder {
+        @Bind(R.id.img)
         public ImageView img = null;
-        public TextView name_tv = null;
+
+        public ViewHolder(View itemView){
+            ButterKnife.bind(this,itemView);
+        }
     }
 
 }

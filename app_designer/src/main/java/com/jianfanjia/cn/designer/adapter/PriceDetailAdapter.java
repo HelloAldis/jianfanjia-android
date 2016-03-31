@@ -9,13 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
-import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.PlanPriceDetail;
-
-import java.util.List;
 
 /**
  * Name: PriceDetailAdapter
@@ -58,7 +60,8 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
                 priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
                 priceDetailHeadHolder.project_total_price.setText("￥" + plan.getProject_price_before_discount());
-                priceDetailHeadHolder.project_price_after_discount.setText("￥" + plan.getProject_price_after_discount());
+                priceDetailHeadHolder.project_price_after_discount.setText("￥" + plan.getProject_price_after_discount
+                        ());
                 priceDetailHeadHolder.total_design_fee.setText("￥" + plan.getTotal_design_fee());
                 priceDetailHeadHolder.project_price_before_discount.setText("￥" + plan.getTotal_price());
                 break;
@@ -124,41 +127,39 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
         return null;
     }
 
-    private static class PriceDetailHeadHolder extends RecyclerViewHolderBase {
+    static class PriceDetailHeadHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.project_total_price)
         public TextView project_total_price;
+        @Bind(R.id.project_price_after_discount)
         public TextView project_price_after_discount;
+        @Bind(R.id.total_design_fee)
         public TextView total_design_fee;
+        @Bind(R.id.project_price_before_discount)
         public TextView project_price_before_discount;
 
         public PriceDetailHeadHolder(View itemView) {
             super(itemView);
-            project_total_price = (TextView) itemView.findViewById(R.id.project_total_price);
-            project_price_after_discount = (TextView) itemView.findViewById(R.id.project_price_after_discount);
-            total_design_fee = (TextView) itemView
-                    .findViewById(R.id.total_design_fee);
-            project_price_before_discount = (TextView) itemView
-                    .findViewById(R.id.project_price_before_discount);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    private static class PriceDetailViewHolder extends RecyclerViewHolderBase {
+    static class PriceDetailViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.titleText)
         public TextView itemTitle;
+        @Bind(R.id.desText)
         public TextView itemContent;
+        @Bind(R.id.contentText)
         public TextView itemDes;
-        public TextView itemDetail;
+        @Bind(R.id.detailLayout)
         public RelativeLayout detailLayout;
+        @Bind(R.id.itemDetailLayout)
         public LinearLayout itemDetailLayout;
+        @Bind(R.id.itemDetailText)
         public TextView itemDetailText;
 
         public PriceDetailViewHolder(View itemView) {
             super(itemView);
-            itemTitle = (TextView) itemView.findViewById(R.id.titleText);
-            itemDes = (TextView) itemView.findViewById(R.id.desText);
-            itemContent = (TextView) itemView.findViewById(R.id.contentText);
-            itemDetail = (TextView) itemView.findViewById(R.id.detailText);
-            detailLayout = (RelativeLayout) itemView.findViewById(R.id.detailLayout);
-            itemDetailLayout = (LinearLayout) itemView.findViewById(R.id.itemDetailLayout);
-            itemDetailText = (TextView) itemView.findViewById(R.id.itemDetailText);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
