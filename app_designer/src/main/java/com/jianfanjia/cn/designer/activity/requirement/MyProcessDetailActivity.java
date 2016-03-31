@@ -22,16 +22,15 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
-import com.jianfanjia.cn.designer.activity.common.PhotoPickerActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.api.model.Process;
-import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -45,7 +44,6 @@ import com.jianfanjia.cn.designer.tools.FileUtil;
 import com.jianfanjia.cn.designer.tools.ImageUtil;
 import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
-import com.jianfanjia.cn.designer.tools.PhotoPickerIntent;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -54,6 +52,8 @@ import com.jianfanjia.cn.designer.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshListView;
+import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 
 /**

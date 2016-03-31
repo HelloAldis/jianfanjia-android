@@ -1,8 +1,6 @@
 package com.jianfanjia.cn.designer.interf;
 
 
-import com.jianfanjia.cn.designer.bean.Photo;
-
 /**
  * Created by donglua on 15/6/20.
  */

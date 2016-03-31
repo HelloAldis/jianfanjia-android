@@ -315,12 +315,6 @@
         <activity
             android:name=".activity.my.NoticeDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.common.PhotoPickerActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.common.PhotoPagerActivity"
-            android:screenOrientation="portrait"/>
         <!-- 第三方分享以及登录 -->
         <activity
             android:name="com.jianfanjia.cn.designer.activity.wxapi.WXEntryActivity"
