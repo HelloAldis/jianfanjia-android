@@ -84,11 +84,7 @@ public class SectionViewPageAdapter extends PagerAdapter {
             rightLineView.setVisibility(View.VISIBLE);
             leftLineView.setVisibility(View.VISIBLE);
         }
-        /*if (position < list.size() - 4) {
-            leftLineView.setVisibility(View.VISIBLE);
-        } else {
-            leftLineView.setVisibility(View.INVISIBLE);
-        }*/
+
         imageView.setImageResource(list.get(position).getResId());
         titleView.setText(list.get(position).getTitle());
         dateView.setText(list.get(position).getDate());
