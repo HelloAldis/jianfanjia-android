@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseAnnotationActivity;
-import com.jianfanjia.api.model.Designer;;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.http.JianFanJiaClient;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
@@ -21,14 +20,13 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+
+;
 
 /**
  * Description: com.jianfanjia.cn.activity.my
@@ -36,33 +34,30 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-05 11:51
  */
-@EActivity(R.layout.activity_binding_account)
-public class BindingAccountActivity extends BaseAnnotationActivity {
+public class BindingAccountActivity extends BaseActivity {
 
-    @ViewById(R.id.bindingaccount_head_layout)
+    @Bind(R.id.bindingaccount_head_layout)
     MainHeadView mainHeadView;
 
-    @ViewById(R.id.bindingaccount_weixin_layout)
+    @Bind(R.id.bindingaccount_weixin_layout)
     RelativeLayout bindingaccount_weixin_layout;
 
-    @ViewById(R.id.bindingaccount_phone_layout)
+    @Bind(R.id.bindingaccount_phone_layout)
     RelativeLayout bindingaccount_phone_layout;
 
-    @ViewById(R.id.bindingaccount_phone_content)
+    @Bind(R.id.bindingaccount_phone_content)
     TextView bindingaccount_phoneText;
 
-    @ViewById(R.id.bindingaccount_weixin_content)
+    @Bind(R.id.bindingaccount_weixin_content)
     TextView bindingaccount_wexinText;
 
-    @ViewById(R.id.bindingaccount_phone_goto)
+    @Bind(R.id.bindingaccount_phone_goto)
     ImageView bindingaccount_phone_goto;
 
-    @ViewById(R.id.bindingaccount_weixin_goto)
+    @Bind(R.id.bindingaccount_weixin_goto)
     ImageView bindingaccount_weixin_goto;
 
     private String phone;
-
-    private User ownerInfo;
 
     private AuthUtil authUtil;
 
@@ -71,12 +66,11 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         authUtil = AuthUtil.getInstance(this);
+        initView();
     }
 
-    @AfterViews
-    protected void afterView() {
+    private void initView() {
         mainHeadView.setMianTitle(getString(R.string.account_binding));
-
         phone = dataManager.getAccount();
         if (phone != null) {
             bindingaccount_phone_layout.setEnabled(false);
@@ -99,7 +93,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
         }
     }
 
-    @Click({R.id.head_back_layout, R.id.bindingaccount_phone_layout, R.id.bindingaccount_weixin_layout})
+    @OnClick({R.id.head_back_layout, R.id.bindingaccount_phone_layout, R.id.bindingaccount_weixin_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.bindingaccount_weixin_layout:
@@ -107,7 +101,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
                 authUtil.doOauthVerify(this, platform, umDataListener);
                 break;
             case R.id.bindingaccount_phone_layout:
-                startActivity(BindingPhoneActivity_.class);
+                startActivity(BindingPhoneActivity.class);
                 overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 break;
             case R.id.head_back_layout:
@@ -132,7 +126,8 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
         @Override
         public void onComplete(int i, Map<String, Object> data) {
             if (i == 200 && data != null) {
-                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this,data.get("openid").toString(),data.get("unionid").toString(), new ApiUiUpdateListener() {
+                JianFanJiaClient.bindingWeixin(BindingAccountActivity.this, data.get("openid").toString(), data.get
+                        ("unionid").toString(), new ApiUiUpdateListener() {
                     @Override
                     public void preLoad() {
                     }
@@ -151,7 +146,7 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
                         makeTextShort(error_msg);
                     }
                 }, BindingAccountActivity.this);
-            }else{
+            } else {
                 hideWaitDialog();
                 makeTextShort(getString(R.string.authorize_fail));
             }
@@ -165,5 +160,10 @@ public class BindingAccountActivity extends BaseAnnotationActivity {
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_binding_account;
     }
 }
