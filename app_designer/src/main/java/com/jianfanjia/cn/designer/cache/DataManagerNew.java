@@ -8,7 +8,6 @@ import java.util.List;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.api.model.Designer;;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -64,11 +63,11 @@ public class DataManagerNew {
         this.requirementInfo = requirementInfo;
     }
 
-    public User getOwnerInfoById(String ownerId) {
-        return (User) sharedPreferdata.getValue(ownerId);
+    public Designer getOwnerInfoById(String ownerId) {
+        return (Designer) sharedPreferdata.getValue(ownerId);
     }
 
-    public void setOwnerInfo(User ownerInfo) {
+    public void setOwnerInfo(Designer ownerInfo) {
         sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
     }
 
