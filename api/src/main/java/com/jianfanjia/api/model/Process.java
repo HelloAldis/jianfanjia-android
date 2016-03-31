@@ -32,6 +32,10 @@ public class Process extends BaseModel implements Serializable {
 
     private ArrayList<ProcessSection> sections;
 
+    private Requirement requirement;
+
+    private Plan plan;
+
     public String get_id() {
         return _id;
     }
@@ -182,6 +186,22 @@ public class Process extends BaseModel implements Serializable {
 
     public void setSections(ArrayList<ProcessSection> sections) {
         this.sections = sections;
+    }
+
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(Requirement requirement) {
+        this.requirement = requirement;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 
     public ProcessSection getSectionInfoByName(String sectionName) {

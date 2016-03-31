@@ -14,16 +14,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.SettingContractActivity_;
-import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity_;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity_;
+import com.jianfanjia.cn.designer.activity.SettingContractActivity;
+import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity_;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -131,7 +131,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 getProcessList();
                 break;
             case R.id.process_tip_text:
-                Intent gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity_.class);
+                Intent gotoMyProcess = new Intent(getActivity(), MyProcessDetailActivity.class);
                 gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
                 startActivity(gotoMyProcess);
                 break;
@@ -178,10 +178,10 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                             if (process.getRequirement().getDec_type().equals(Global
                                                     .DEC_TYPE_BUSINESS)) {
                                                 gotoPriviewRequirement = new Intent(getActivity(),
-                                                        PreviewBusinessRequirementActivity_.class);
+                                                        PreviewBusinessRequirementActivity.class);
                                             } else {
                                                 gotoPriviewRequirement = new Intent(getActivity(),
-                                                        PreviewRequirementActivity_.class);
+                                                        PreviewRequirementActivity.class);
                                             }
                                             gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process
                                                     .getRequirement());
@@ -189,7 +189,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                             break;
                                         case ITEM_CONTRACT:
                                             Intent viewContractIntent = new Intent(getActivity(),
-                                                    SettingContractActivity_
+                                                    SettingContractActivity
                                                             .class);
                                             Bundle contractBundle = new Bundle();
                                             contractBundle.putSerializable(Global.REQUIREMENT_INFO, process
@@ -211,7 +211,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                             break;
                                         case ITEM_GOTOO_SITE:
                                             Intent gotoMyProcess = new Intent(getActivity(),
-                                                    MyProcessDetailActivity_
+                                                    MyProcessDetailActivity
                                                             .class);
                                             gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
                                             startActivity(gotoMyProcess);
