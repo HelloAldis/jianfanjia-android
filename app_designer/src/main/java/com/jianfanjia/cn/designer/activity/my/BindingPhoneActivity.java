@@ -44,7 +44,6 @@ public class BindingPhoneActivity extends BaseActivity implements
         initView();
     }
 
-
     private void initView() {
         mBtnCommit.setEnabled(false);
         mEtPhone.addTextChangedListener(new TextWatcher() {
