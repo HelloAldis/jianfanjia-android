@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.tools;
+package com.jianfanjia.common.tool;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.application.MyApplication;
-
 import java.util.List;
+
+import com.jianfanjia.common.base.application.BaseApplication;
 
 public class TDevice {
 
@@ -39,7 +39,7 @@ public class TDevice {
 
     public static DisplayMetrics getDisplayMetrics() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager) MyApplication.getInstance().getSystemService(
+        ((WindowManager) BaseApplication.getInstance().getSystemService(
                 Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(
                 displaymetrics);
         return displaymetrics;

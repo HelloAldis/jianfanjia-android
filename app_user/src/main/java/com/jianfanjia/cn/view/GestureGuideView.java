@@ -14,7 +14,7 @@ import android.view.View;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.view

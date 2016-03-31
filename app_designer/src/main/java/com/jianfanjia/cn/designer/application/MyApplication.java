@@ -10,7 +10,7 @@ import java.net.CookieStore;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.BaseApiCallbackImpl;
-import com.jianfanjia.cn.designer.cache.DataCleanManager;
+import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.cookie.PersistentCookieStore;
 import com.jianfanjia.common.base.application.BaseApplication;
@@ -178,15 +178,15 @@ public class MyApplication extends BaseApplication {
      * 清除app缓存
      */
     public void clearAppCache() {
-        DataCleanManager.cleanDatabases(this);
+        DataCleanTool.cleanDatabases(this);
         // 清除数据缓存
-        DataCleanManager.cleanInternalCache(this);
+        DataCleanTool.cleanInternalCache(this);
         ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().clearMemoryCache();
         //
         // 2.2版本才有将应用缓存转移到sd卡的功能
         if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
-            DataCleanManager.cleanCustomCache(getExternalCacheDir());
+            DataCleanTool.cleanCustomCache(getExternalCacheDir());
         }
     }
 }

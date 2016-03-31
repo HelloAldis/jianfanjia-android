@@ -17,7 +17,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Name: DecorationImgAdapter

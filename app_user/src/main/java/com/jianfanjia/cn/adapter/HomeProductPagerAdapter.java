@@ -14,7 +14,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

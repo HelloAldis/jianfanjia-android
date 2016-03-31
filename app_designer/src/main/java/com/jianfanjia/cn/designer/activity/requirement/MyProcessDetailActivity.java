@@ -15,6 +15,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -41,9 +48,7 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.DateFormatTool;
-import com.jianfanjia.cn.designer.tools.FileUtil;
-import com.jianfanjia.common.tool.ImageUtil;
-import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -52,14 +57,8 @@ import com.jianfanjia.cn.designer.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshListView;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -414,7 +413,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
     @Override
     public void firstItemClick() {
-        mTmpFile = FileUtil.createTmpFile(this);
+        mTmpFile = FileUtil.createTimeStampTmpFile();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if (cameraIntent != null) {

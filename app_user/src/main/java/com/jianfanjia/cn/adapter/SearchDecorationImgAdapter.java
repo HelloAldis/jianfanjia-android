@@ -18,7 +18,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Name: DecorationAdapter

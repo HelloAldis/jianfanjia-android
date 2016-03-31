@@ -15,6 +15,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.db.DBHelper;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
 
 public class DataManagerNew {
@@ -247,7 +248,7 @@ public class DataManagerNew {
         processLists = null;
         requirementInfo = null;
         currentProcessInfo = null;
-        DataCleanManager.cleanDatabaseByName(context, DBHelper.DBNAME);
+        DataCleanTool.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
     /**

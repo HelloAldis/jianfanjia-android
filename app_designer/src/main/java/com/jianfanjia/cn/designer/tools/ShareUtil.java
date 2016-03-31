@@ -25,6 +25,7 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.tools

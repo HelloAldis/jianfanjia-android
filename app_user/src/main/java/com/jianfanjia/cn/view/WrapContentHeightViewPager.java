@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Name: 自定义ViewPager

@@ -31,7 +31,7 @@ import com.jianfanjia.cn.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;

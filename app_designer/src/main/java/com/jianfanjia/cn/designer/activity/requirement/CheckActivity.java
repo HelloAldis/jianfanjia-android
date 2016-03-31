@@ -43,7 +43,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
-import com.jianfanjia.cn.designer.tools.FileUtil;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -356,7 +356,7 @@ public class CheckActivity extends BaseActivity implements
 
     @Override
     public void firstItemClick() {
-        mTmpFile = FileUtil.createTmpFile(this);
+        mTmpFile = FileUtil.createTimeStampTmpFile();
         if (mTmpFile != null) {
             Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
             if (cameraIntent != null) {

@@ -1,12 +1,7 @@
 package com.jianfanjia.cn.designer.config;
 
 
-import android.os.Environment;
-
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.tools.FileUtil;
-import com.jianfanjia.cn.designer.tools.SDCardHelper;
 
 /**
  * Description:常量类
@@ -18,24 +13,9 @@ public class Constant {
     public static final String SHARED_DATA = "jianfanjia_data";
     public static final String SHARED_USER = "jianfanjia_user";
 
-    public static final String LOG_FILE_DIR = "/MyLog";
-    public static final String APK_FILE_DIR = "/Apk";
-    public static final String PIC_FILE_DIR = "/pic";
-    public static final String IMG_FILE_DIR = "/BeautyImg";
+    public static final String CROP_PATH = com.jianfanjia.common.tool.FileUtil.IMAG_PATH + "/cropped.jpg";// 截图的图片路径
+    public static final String TEMP_IMG = "current_camera_temp_path";//拍照的临时存储文件路径
 
-    public static final String LOG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), LOG_FILE_DIR);// log存放路径
-    public static final String APK_PATH = FileUtil.getAppCache(MyApplication.getInstance(), APK_FILE_DIR);// 下载apk存放路径
-    public static final String IMAG_PATH = FileUtil.getAppCache(MyApplication.getInstance(), PIC_FILE_DIR);// 保存照片
-    public static final String BEAUTY_IMAG_PATH = SDCardHelper.getSDCardPublicDir(Environment.DIRECTORY_PICTURES);//
-    // 保存美图,这个是对外公开的，所以保持在公共目录
-
-    public static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
-    public static final String ERROR_LOG_FILE = LOG_PATH + "/errorLog.txt";// errorlog文件
-
-    public static final String CROP_PATH = IMAG_PATH + "/cropped.jpg";// 截图的图片路径
-    public static final String TEMP_IMG = IMAG_PATH + "/current_camera_temp_path";//拍照的临时存储文件路径
-
-    public static final String EXTRA_BUNDLE = "launchBundle";
     public static final String KEY_WORD = "不限";
 
     public static final int OWNER = 0;//首页

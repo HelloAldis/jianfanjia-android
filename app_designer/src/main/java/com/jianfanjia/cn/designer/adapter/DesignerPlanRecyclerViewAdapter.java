@@ -14,7 +14,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Name: DesignerPlanRecyclerViewAdapter

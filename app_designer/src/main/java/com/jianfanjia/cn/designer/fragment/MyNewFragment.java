@@ -24,7 +24,7 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.designer.tools.TDevice;
+import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;

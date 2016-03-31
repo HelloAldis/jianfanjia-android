@@ -8,6 +8,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
