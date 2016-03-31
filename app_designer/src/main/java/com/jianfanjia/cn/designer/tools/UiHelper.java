@@ -254,9 +254,6 @@ public class UiHelper {
         rotaAnimator.start();
     }
 
-
-
-
     /**
      * 开启更新服务
      *

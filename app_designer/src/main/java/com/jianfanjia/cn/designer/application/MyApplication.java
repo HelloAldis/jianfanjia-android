@@ -5,8 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
 
-import java.net.CookieStore;
-
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.BaseApiCallbackImpl;
@@ -19,6 +17,8 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import java.net.CookieStore;
 
 /**
  * Description:此类是我的应用程序类
@@ -33,7 +33,6 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
         if (Constant.Config.DEVELOPER_MODE
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -52,6 +51,13 @@ public class MyApplication extends BaseApplication {
         CookieStore store = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());
         ApiClient.init(store, new BaseApiCallbackImpl());
     }
+
+
+    /*public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+*/
 
     public static void initImageLoader(Context context) {
         // This configuration tuning is custom. You can tune every option, you
@@ -75,11 +81,6 @@ public class MyApplication extends BaseApplication {
         ImageLoader.getInstance().init(config.build());
     }
 
-    /*public static RefWatcher getRefWatcher(Context context) {
-        MyApplication application = (MyApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
-*/
 
     public static MyApplication getInstance() {
         return (MyApplication) baseApplication;
@@ -189,4 +190,5 @@ public class MyApplication extends BaseApplication {
             DataCleanTool.cleanCustomCache(getExternalCacheDir());
         }
     }
+
 }

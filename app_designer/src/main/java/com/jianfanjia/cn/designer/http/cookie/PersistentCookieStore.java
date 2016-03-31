@@ -45,15 +45,15 @@ public class PersistentCookieStore implements CookieStore {
         cookies = new HashMap<>();
         // Load any previously stored cookies into the store
         Map<String, ?> prefsMap = cookiePrefs.getAll();
-        for(Map.Entry<String, ?> entry : prefsMap.entrySet()) {
-            if ((entry.getValue()) != null && !((String)entry.getValue()).startsWith(COOKIE_NAME_PREFIX)) {
+        for (Map.Entry<String, ?> entry : prefsMap.entrySet()) {
+            if ((entry.getValue()) != null && !((String) entry.getValue()).startsWith(COOKIE_NAME_PREFIX)) {
                 String[] cookieNames = TextUtils.split((String) entry.getValue(), ",");
                 for (String name : cookieNames) {
                     String encodedCookie = cookiePrefs.getString(COOKIE_NAME_PREFIX + name, null);
                     if (encodedCookie != null) {
                         HttpCookie decodedCookie = decodeCookie(encodedCookie);
                         if (decodedCookie != null) {
-                            if(!cookies.containsKey(entry.getKey()))
+                            if (!cookies.containsKey(entry.getKey()))
                                 cookies.put(entry.getKey(), new ConcurrentHashMap<String, HttpCookie>());
                             cookies.get(entry.getKey()).put(name, decodedCookie);
                             LogTool.d(this.getClass().getName(), name + " --" + cookies.get(entry.getKey()).get(name));
@@ -70,16 +70,18 @@ public class PersistentCookieStore implements CookieStore {
         String name = getCookieToken(uri, cookie);
         // Save cookie into local store, or remove if expired
         if (!cookie.hasExpired()) {
-            if(!cookies.containsKey(uri.getHost())) {
+            if (!cookies.containsKey(uri.getHost())) {
                 cookies.put(uri.getHost(), new ConcurrentHashMap<String, HttpCookie>());
                 LogTool.d(this.getClass().getName(), "cookies.put uri.getHost =" + uri.getHost());
             }
-            LogTool.d(this.getClass().getName(), "not expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+            LogTool.d(this.getClass().getName(), "not expired : " + "uri =" + uri + "--name =" + name + "--value =" +
+                    cookie.getValue() + "--age=" + cookie.getMaxAge());
             cookies.get(uri.getHost()).put(name, cookie);
         } else {
-            LogTool.d(this.getClass().getName(), "expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
-            if(cookies.containsKey(uri.getHost())){
-                LogTool.d(this.getClass().getName(),"cookies.containsKey =" + uri.getHost());
+            LogTool.d(this.getClass().getName(), "expired : " + "uri =" + uri + "--name =" + name + "--value =" +
+                    cookie.getValue() + "--age=" + cookie.getMaxAge());
+            if (cookies.containsKey(uri.getHost())) {
+                LogTool.d(this.getClass().getName(), "cookies.containsKey =" + uri.getHost());
                 cookies.get(uri.getHost()).remove(name);
             }
         }
@@ -96,12 +98,13 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> get(URI uri) {
-        LogTool.d(this.getClass().getName(),"get(Uri uri) =" + uri.toString());
+        LogTool.d(this.getClass().getName(), "get(Uri uri) =" + uri.toString());
         ArrayList<HttpCookie> ret = new ArrayList<>();
-        if(cookies.containsKey(uri.getHost())){
+        if (cookies.containsKey(uri.getHost())) {
             /*for(String keyName : cookies.get(uri.getHost()).keySet()){
                 HttpCookie httpCookie = cookies.get(uri.getHost()).get(keyName);
-                LogTool.d(this.getClass().getName(), "get(Uri uri): " + "uri =" + uri + "--value =" + httpCookie.getValue() + "--age=" + httpCookie.getMaxAge());
+                LogTool.d(this.getClass().getName(), "get(Uri uri): " + "uri =" + uri + "--value =" + httpCookie
+                .getValue() + "--age=" + httpCookie.getMaxAge());
                 if(httpCookie.hasExpired()){
                     LogTool.d(this.getClass().getName(),"remove expires cookie");
                     cookies.get(uri.getHost()).remove(keyName);
@@ -126,11 +129,11 @@ public class PersistentCookieStore implements CookieStore {
     public boolean remove(URI uri, HttpCookie cookie) {
         String name = getCookieToken(uri, cookie);
 
-        if(cookies.containsKey(uri.getHost()) && cookies.get(uri.getHost()).containsKey(name)) {
+        if (cookies.containsKey(uri.getHost()) && cookies.get(uri.getHost()).containsKey(name)) {
             cookies.get(uri.getHost()).remove(name);
 
             SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
-            if(cookiePrefs.contains(COOKIE_NAME_PREFIX + name)) {
+            if (cookiePrefs.contains(COOKIE_NAME_PREFIX + name)) {
                 prefsWriter.remove(COOKIE_NAME_PREFIX + name);
             }
             prefsWriter.putString(uri.getHost(), TextUtils.join(",", cookies.get(uri.getHost()).keySet()));
@@ -144,9 +147,9 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> getCookies() {
-        LogTool.d(this.getClass().getName(),"getCookies");
+        LogTool.d(this.getClass().getName(), "getCookies");
         ArrayList<HttpCookie> ret = new ArrayList<>();
-        for (String key : cookies.keySet()){
+        for (String key : cookies.keySet()) {
            /* for(String keyName : cookies.get(key).keySet()){
                 HttpCookie httpCookie = cookies.get(key).get(keyName);
                 if(httpCookie.hasExpired()){
@@ -244,7 +247,8 @@ public class PersistentCookieStore implements CookieStore {
         int len = hexString.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt(i + 1), 16));
+            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt
+                    (i + 1), 16));
         }
         return data;
     }
