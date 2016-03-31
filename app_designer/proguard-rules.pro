@@ -19,7 +19,10 @@
 -keepattributes EnclosingMethod
 
 -keep class com.jianfanjia.cn.designer.bean.** { * ;}
+-keep class com.jianfanjia.api.** { * ;}
 -keep class com.jianfanjia.cn.designer.http.** { * ;}
+-keep class com.jianfanjia.cn.designer.api.** {* ;}
+-keep class me.iwf.photopicker.** {*;}
 
 #个推混淆
 -dontwarn com.igexin.**
