@@ -5,6 +5,8 @@ import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
@@ -17,6 +19,8 @@ import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.designer.GetProcessListRequest;
+import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -108,5 +112,16 @@ public class Api {
     public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
+    }
+
+    public static void getAllRequirementList(GetRequirementListRequest request,
+                                             ApiCallback<ApiResponse<List<Requirement>>>
+                                                     apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_ALL_REQUIREMENT_LIST, request, apiCallback);
+    }
+
+    public static void getProcessList(GetProcessListRequest request, ApiCallback<ApiResponse<List<Process>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_PROCESS_LIST, request, apiCallback);
     }
 }

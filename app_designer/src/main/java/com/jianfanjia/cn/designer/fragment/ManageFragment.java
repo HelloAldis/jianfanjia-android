@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.cn.designer.Event.MessageEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
@@ -23,14 +25,12 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequiremen
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.http.JianFanJiaClient;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -152,17 +152,21 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     }
 
     private void getProcessList() {
-        JianFanJiaClient.get_Process_List(getActivity(), new ApiUiUpdateListener() {
+        GetProcessListRequest getProcessListRequest = new GetProcessListRequest();
+        Api.getProcessList(getProcessListRequest, new ApiCallback<ApiResponse<List<Process>>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
 
             }
 
             @Override
-            public void loadSuccess(Object data) {
-                LogTool.d(TAG, "data=" + data);
-                processList = JsonParser.jsonToList(data.toString(), new TypeToken<List<Process>>() {
-                }.getType());
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<Process>> apiResponse) {
+                processList = apiResponse.getData();
                 LogTool.d(TAG, "processList:" + processList);
                 if (null != processList && processList.size() > 0) {
                     adapter = new MySiteAdapter(getActivity(), processList, siteProcessList, new
@@ -238,8 +242,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
+            public void onFailed(ApiResponse<List<Process>> apiResponse) {
                 manage_pullfefresh.onRefreshComplete();
                 emptyPullRefresh.onRefreshComplete();
                 if (null != adapter) {
@@ -252,7 +255,12 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                     errorLayout.setVisibility(View.VISIBLE);
                 }
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void setProcessList() {

@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
@@ -25,6 +27,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
@@ -33,7 +36,6 @@ import com.jianfanjia.cn.designer.http.OkHttpClientManager;
 import com.jianfanjia.cn.designer.http.request.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.JsonParser;
 import com.jianfanjia.cn.designer.tools.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
@@ -375,32 +377,33 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     private void initData() {
-        JianFanJiaClient.getAllRequirementList(getActivity(), new ApiUiUpdateListener() {
+        GetRequirementListRequest request = new GetRequirementListRequest();
+        Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
             @Override
-            public void preLoad() {
+            public void onPreLoad() {
                 if (!mHasLoadedOnce) {
                     showWaitDialog();
                 }
             }
 
             @Override
-            public void loadSuccess(Object data) {
+            public void onHttpDone() {
                 hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
                 pullrefresh.onRefreshComplete();
                 emptyPullRefresh.onRefreshComplete();
-                LogTool.d(this.getClass().getName(), data.toString());
                 mHasLoadedOnce = true;
-                requirementInfos = JsonParser.jsonToList(data.toString(), new TypeToken<List<Requirement>>() {
-                }.getType());
+                requirementInfos = apiResponse.getData();
                 requirementList = new RequirementList(requirementInfos);
                 errorLayout.setVisibility(View.GONE);
                 disposeData(requirementList);
             }
 
             @Override
-            public void loadFailture(String error_msg) {
-                makeTextShort(error_msg);
-                hideWaitDialog();
+            public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
                 pullrefresh.onRefreshComplete();
                 emptyPullRefresh.onRefreshComplete();
                 if (!mHasLoadedOnce) {
@@ -408,7 +411,12 @@ public class RecycleViewFragment extends BaseFragment {
                     emptyLayout.setVisibility(View.GONE);
                 }
             }
-        }, this);
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
 
