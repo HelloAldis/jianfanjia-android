@@ -139,7 +139,7 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
         EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest();
         evaluateDesignerRequest.setRequirementid(requirementid);
         evaluateDesignerRequest.setDesignerid(designerid);
-        evaluateDesignerRequest.setResponse_speed(respond_speed);
+        evaluateDesignerRequest.setRespond_speed(respond_speed);
         evaluateDesignerRequest.setService_attitude(service_attitude);
         evaluateDesignerRequest.setIs_anonymous(is_anonymous);
         evaluateDesignerRequest.setComment(comment);
