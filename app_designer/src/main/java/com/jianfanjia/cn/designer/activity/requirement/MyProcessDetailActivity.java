@@ -621,16 +621,15 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
         finishSectionItemRequest.set_id(siteId);
         finishSectionItemRequest.setSection(section);
         finishSectionItemRequest.setItem(item);
-
         Api.finishSectionItem(finishSectionItemRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                
             }
 
             @Override
