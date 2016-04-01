@@ -14,6 +14,7 @@ public class ProcessSection extends BaseModel implements Serializable {
     private long end_at;
     private String name;
     private String status;
+    private String label;
     private List<ProcessSectionItem> items;
     private ProcessSectionYs ys;
     private Reschedule reschedule;
@@ -24,6 +25,14 @@ public class ProcessSection extends BaseModel implements Serializable {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public long getStart_at() {

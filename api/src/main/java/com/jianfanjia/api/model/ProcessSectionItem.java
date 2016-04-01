@@ -14,6 +14,7 @@ public class ProcessSectionItem extends BaseModel implements Serializable {
     private String _id;
     private String name;
     private String status;
+    private String label;
     private long date;
     private int comment_count;
     private List<String> images;
@@ -32,6 +33,14 @@ public class ProcessSectionItem extends BaseModel implements Serializable {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getName() {
