@@ -22,7 +22,6 @@ import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.GetMsgDetailRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
-import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
@@ -34,11 +33,11 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.DateFormatTool;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.DateFormatTool;
+import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -175,7 +174,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
                 startActivity(settingHouseTimeIntent);
                 overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-                responseRequirement(requirement.get_id());
                 break;
             case R.id.btnConfirm:
                 appManager.finishActivity(this);
@@ -478,37 +476,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 btnRefuse.setEnabled(false);
                 btnRespond.setVisibility(View.GONE);
                 btnRefuse.setText(getResources().getString(R.string.reject_str));
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void responseRequirement(String requirementid) {
-        ResponseRequirementRequest request = new ResponseRequirementRequest();
-        request.setRequirementid(requirementid);
-        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                getNoticeDetailInfo(messageid);
             }
 
             @Override

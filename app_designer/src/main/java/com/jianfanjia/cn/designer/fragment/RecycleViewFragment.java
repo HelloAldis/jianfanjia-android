@@ -20,7 +20,6 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
-import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
@@ -210,7 +209,6 @@ public class RecycleViewFragment extends BaseFragment {
                         settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
                         startActivity(settingHouseTimeIntent);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-                        responseRequirement(requirementInfo.get_id());
                         break;
                     case PRIVIEW_REQUIREMENT_TYPE:
                         Intent gotoPriviewRequirement = null;
@@ -397,37 +395,6 @@ public class RecycleViewFragment extends BaseFragment {
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
                 makeTextShort(getString(R.string.notify_not_more_once_everyday));
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void responseRequirement(String requirementid) {
-        ResponseRequirementRequest request = new ResponseRequirementRequest();
-        request.setRequirementid(requirementid);
-        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                initData();
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-
             }
 
             @Override
