@@ -11,27 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.model.Product;
-import com.jianfanjia.api.model.ProductList;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.adapter.ProductAdapter;
-import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
-import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
-import com.jianfanjia.cn.interf.GetItemCallback;
-import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.view.FilterPopWindow;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +18,27 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.model.ProductList;
+import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.ProductAdapter;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
+import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.view.FilterPopWindow;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:全部作品案例
@@ -259,7 +259,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                                         String productid = product.get_id();
                                         LogTool.d(TAG, "productid:" + productid);
                                         Bundle productBundle = new Bundle();
-                                        productBundle.putString(Global.PRODUCT_ID, productid);
+                                        productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                                         startActivity(DesignerCaseInfoActivity.class, productBundle);
                                     }
 
@@ -269,7 +269,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                                         String designertid = product.getDesignerid();
                                         LogTool.d(TAG, "designertid=" + designertid);
                                         Bundle designerBundle = new Bundle();
-                                        designerBundle.putString(Global.DESIGNER_ID, designertid);
+                                        designerBundle.putString(IntentConstant.DESIGNER_ID, designertid);
                                         startActivity(DesignerInfoActivity.class, designerBundle);
                                     }
                                 });

@@ -40,6 +40,7 @@ import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -122,7 +123,7 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
 
     private void getDataFromIntent() {
         Intent intent = getIntent();
-        boolean flag = intent.getBooleanExtra(Global.ISREGIISTER, false);
+        boolean flag = intent.getBooleanExtra(IntentConstant.ISREGIISTER, false);
         if (flag) {
             LogTool.d(TAG, "showregister");
             new Handler().postDelayed(new Runnable() {
@@ -501,8 +502,8 @@ public class LoginNewActivity extends BaseActivity implements GestureDetector.On
                 registerInfo.setPass(password);
                 registerInfo.setPhone(name);
                 Bundle registerBundle = new Bundle();
-                registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
-                registerBundle.putInt(Global.REGISTER, RegisterNewActivity.REGISTER_CODE);
+                registerBundle.putSerializable(IntentConstant.REGISTER_INFO, registerInfo);
+                registerBundle.putInt(IntentConstant.REGISTER, RegisterNewActivity.REGISTER_CODE);
                 startActivity(RegisterNewActivity.class, registerBundle);
             }
 

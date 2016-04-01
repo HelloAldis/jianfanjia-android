@@ -18,6 +18,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
@@ -160,9 +161,9 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
                 RegisterInfo registerInfo = new RegisterInfo();
                 registerInfo.setPhone(name);
                 Bundle registerBundle = new Bundle();
-                registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
-                registerBundle.putInt(Global.REGISTER, RegisterNewActivity.BINDING_PHONE);
-                registerBundle.putInt(Global.BINDING_PHONE_INTENT, getIntent().getExtras().getInt(Global
+                registerBundle.putSerializable(IntentConstant.REGISTER_INFO, registerInfo);
+                registerBundle.putInt(IntentConstant.REGISTER, RegisterNewActivity.BINDING_PHONE);
+                registerBundle.putInt(IntentConstant.BINDING_PHONE_INTENT, getIntent().getExtras().getInt(IntentConstant
                         .BINDING_PHONE_INTENT));
                 startActivity(RegisterNewActivity.class, registerBundle);
                 appManager.finishActivity(BindingPhoneActivity.this);

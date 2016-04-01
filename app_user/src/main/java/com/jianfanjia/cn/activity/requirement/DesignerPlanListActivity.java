@@ -7,6 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -20,18 +25,13 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:设计师方案列表
@@ -65,10 +65,10 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle designerBundle = intent.getExtras();
-        requirementInfo = (Requirement) designerBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) designerBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
-        designerid = designerBundle.getString(Global.DESIGNER_ID);
-        designerName = designerBundle.getString(Global.DESIGNER_NAME);
+        designerid = designerBundle.getString(IntentConstant.DESIGNER_ID);
+        designerName = designerBundle.getString(IntentConstant.DESIGNER_NAME);
         LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" +
                 designerName);
     }
@@ -181,9 +181,9 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
                 Bundle commentBundle = new Bundle();
-                commentBundle.putString(Global.TOPIC_ID, planid);
-                commentBundle.putString(Global.TO, designerid);
-                commentBundle.putString(Global.TOPICTYPE, Global.TOPIC_PLAN);
+                commentBundle.putString(IntentConstant.TOPIC_ID, planid);
+                commentBundle.putString(IntentConstant.TO, designerid);
+                commentBundle.putString(IntentConstant.TOPICTYPE, Global.TOPIC_PLAN);
                 startActivityForResult(CommentActivity.class, commentBundle, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.PLAN_PREVIEW_ITEM:
@@ -196,8 +196,8 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
 
     private void startToActivity(Plan planInfo) {
         Bundle planBundle = new Bundle();
-        planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
-        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+        planBundle.putSerializable(IntentConstant.PLAN_DETAIL, planInfo);
+        planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
 //        planBundle.putString(Global.POSITION, planInfo.getName());
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }

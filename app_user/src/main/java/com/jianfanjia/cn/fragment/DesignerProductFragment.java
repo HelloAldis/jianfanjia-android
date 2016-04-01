@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -19,20 +25,13 @@ import com.jianfanjia.cn.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author fengliang
@@ -71,7 +70,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
     public static DesignerProductFragment newInstance(String info) {
         Bundle args = new Bundle();
         DesignerProductFragment productFragment = new DesignerProductFragment();
-        args.putString(Global.DESIGNER_ID, info);
+        args.putString(IntentConstant.DESIGNER_ID, info);
         productFragment.setArguments(args);
         return productFragment;
     }
@@ -80,7 +79,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        designerid = bundle.getString(Global.DESIGNER_ID);
+        designerid = bundle.getString(IntentConstant.DESIGNER_ID);
         LogTool.d(TAG, "designerid:" + designerid);
     }
 
@@ -169,7 +168,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                                     String productid = product.get_id();
                                     LogTool.d(TAG, "productid:" + productid);
                                     Bundle productBundle = new Bundle();
-                                    productBundle.putString(Global.PRODUCT_ID, productid);
+                                    productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                                     startActivity(DesignerCaseInfoActivity.class, productBundle);
                                 }
                             });

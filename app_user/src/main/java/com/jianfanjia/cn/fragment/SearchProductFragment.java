@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -24,12 +26,9 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -61,7 +60,7 @@ public class SearchProductFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        search = getArguments().getString(Global.SEARCH_TEXT);
+        search = getArguments().getString(IntentConstant.SEARCH_TEXT);
         LogTool.d(TAG, "search=" + search);
     }
 
@@ -85,7 +84,7 @@ public class SearchProductFragment extends BaseFragment {
                 String productid = product.get_id();
                 LogTool.d(TAG, "productid:" + productid);
                 Bundle productBundle = new Bundle();
-                productBundle.putString(Global.PRODUCT_ID, productid);
+                productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                 startActivity(DesignerCaseInfoActivity.class, productBundle);
             }
 
@@ -95,7 +94,7 @@ public class SearchProductFragment extends BaseFragment {
                 String designertid = product.getDesignerid();
                 LogTool.d(TAG, "designertid=" + designertid);
                 Bundle designerBundle = new Bundle();
-                designerBundle.putString(Global.DESIGNER_ID, designertid);
+                designerBundle.putString(IntentConstant.DESIGNER_ID, designertid);
                 startActivity(DesignerInfoActivity.class, designerBundle);
             }
         });

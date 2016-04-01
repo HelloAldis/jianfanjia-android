@@ -10,14 +10,13 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.api.model.Evaluation;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:查看评价信息
@@ -59,11 +58,11 @@ public class PingJiaInfoActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle viewBundle = intent.getExtras();
-        imageid = viewBundle.getString(Global.IMAGE_ID);
-        designer_name = viewBundle.getString(Global.DESIGNER_NAME);
-        respond_speed = viewBundle.getFloat(Global.RESPOND_SPEED);
-        service_attitude = viewBundle.getFloat(Global.SERVICE_ATTITUDE);
-        evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
+        imageid = viewBundle.getString(IntentConstant.IMAGE_ID);
+        designer_name = viewBundle.getString(IntentConstant.DESIGNER_NAME);
+        respond_speed = viewBundle.getFloat(IntentConstant.RESPOND_SPEED);
+        service_attitude = viewBundle.getFloat(IntentConstant.SERVICE_ATTITUDE);
+        evaluation = (Evaluation) viewBundle.getSerializable(IntentConstant.EVALUATION);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " respond_speed:" + respond_speed +
                 " service_attitude:" + service_attitude + " evaluation:"
                 + evaluation);

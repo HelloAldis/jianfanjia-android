@@ -22,6 +22,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -65,7 +66,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
     protected void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
-        requirement = (Requirement) contractBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirement = (Requirement) contractBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
         flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
         LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
     }

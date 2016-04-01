@@ -38,6 +38,7 @@ import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.view.GestureGuideView;
 import com.jianfanjia.cn.view.MainScrollView;
@@ -164,7 +165,7 @@ public class HomeNewFragment extends BaseFragment {
             String productid = product.get_id();
             LogTool.d(TAG, "productid:" + productid);
             Bundle productBundle = new Bundle();
-            productBundle.putString(Global.PRODUCT_ID, productid);
+            productBundle.putString(IntentConstant.PRODUCT_ID, productid);
             startActivity(DesignerCaseInfoActivity.class, productBundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
         }
@@ -290,7 +291,7 @@ public class HomeNewFragment extends BaseFragment {
             startActivity(PublishRequirementActivity.class);
         } else {
             Bundle bundle = new Bundle();
-            bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_REQUIREMENT);
+            bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
             startActivity(BindingPhoneActivity.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
         }

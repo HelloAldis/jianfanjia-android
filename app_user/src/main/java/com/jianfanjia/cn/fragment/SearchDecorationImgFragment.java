@@ -26,7 +26,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
@@ -63,7 +63,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        search = getArguments().getString(Global.SEARCH_TEXT);
+        search = getArguments().getString(IntentConstant.SEARCH_TEXT);
         LogTool.d(TAG, "search=" + search);
     }
 
@@ -86,12 +86,12 @@ public class SearchDecorationImgFragment extends BaseFragment {
                 BeautifulImage beautyImgInfo = decorationAdapter.getData().get(position);
                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                 Bundle decorationBundle = new Bundle();
-                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id());
-                decorationBundle.putInt(Global.POSITION, position);
-                decorationBundle.putSerializable(Global.IMG_LIST, decorationAdapter.getData());
-                decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                decorationBundle.putInt(Global.VIEW_TYPE, Constant.SEARCH_BEAUTY_FRAGMENT);
-                decorationBundle.putString(Global.SEARCH_TEXT, search);
+                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID, beautyImgInfo.get_id());
+                decorationBundle.putInt(IntentConstant.POSITION, position);
+                decorationBundle.putSerializable(IntentConstant.IMG_LIST, decorationAdapter.getData());
+                decorationBundle.putInt(IntentConstant.TOTAL_COUNT, total);
+                decorationBundle.putInt(IntentConstant.VIEW_TYPE, IntentConstant.SEARCH_BEAUTY_FRAGMENT);
+                decorationBundle.putString(IntentConstant.SEARCH_TEXT, search);
                 startActivity(PreviewDecorationActivity.class, decorationBundle);
             }
         });

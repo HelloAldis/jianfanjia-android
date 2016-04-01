@@ -14,6 +14,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -36,6 +43,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.ViewPagerItem;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
@@ -52,14 +60,6 @@ import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -136,7 +136,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
     private void initProcessInfo() {
         Intent intent = getIntent();
-        processInfo = (Process) intent.getSerializableExtra(Global.PROCESS_INFO);
+        processInfo = (Process) intent.getSerializableExtra(IntentConstant.PROCESS_INFO);
         if (processInfo != null) {
             LogTool.d(TAG, "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
@@ -352,11 +352,11 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 break;
             case Constant.COMMENT_ITEM:
                 Bundle bundle = new Bundle();
-                bundle.putString(Global.TOPIC_ID, processId);
-                bundle.putString(Global.TO, processInfo.getFinal_designerid());
-                bundle.putString(Global.SECTION, sectionInfo.getName());
-                bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
-                bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
+                bundle.putString(IntentConstant.TOPIC_ID, processId);
+                bundle.putString(IntentConstant.TO, processInfo.getFinal_designerid());
+                bundle.putString(IntentConstant.SECTION, sectionInfo.getName());
+                bundle.putString(IntentConstant.ITEM, sectionInfo.getItems().get(position).getName());
+                bundle.putString(IntentConstant.TOPICTYPE, Global.TOPIC_NODE);
                 startActivityForResult(CommentActivity.class, bundle, Constant.REQUESTCODE_GOTO_COMMENT);
                 break;
             case Constant.DELAY_ITEM:
@@ -386,9 +386,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 bundle.putStringArrayList(Constant.IMAGE_LIST,
                         (ArrayList<String>) imageUrlList);
                 bundle.putInt(Constant.CURRENT_POSITION, position);
-                bundle.putString(Global.PROCESS_ID, processId);
-                bundle.putString(Global.SECTION, sectionInfo.getName());
-                bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
+                bundle.putString(IntentConstant.PROCESS_ID, processId);
+                bundle.putString(IntentConstant.SECTION, sectionInfo.getName());
+                bundle.putString(IntentConstant.ITEM, sectionItemAdapter.getCurrentItem());
                 startActivityForResult(ShowProcessPicActivity.class, bundle, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
                 break;
             case Constant.ADD_ITEM:

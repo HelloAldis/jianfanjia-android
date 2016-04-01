@@ -26,12 +26,12 @@ import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.fragment.DesignerProductFragment;
 import com.jianfanjia.cn.tools.ScrollableHelper;
@@ -119,7 +119,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
     private void getDataFromIntent(Intent intent) {
         Bundle designerBundle = intent.getExtras();
-        designerid = designerBundle.getString(Global.DESIGNER_ID);
+        designerid = designerBundle.getString(IntentConstant.DESIGNER_ID);
         LogTool.d(TAG,"designerid =" + designerid);
         getDesignerPageInfo(designerid);
     }

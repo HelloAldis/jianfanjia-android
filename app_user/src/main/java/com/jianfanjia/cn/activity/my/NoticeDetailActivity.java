@@ -34,6 +34,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.business.ProcessBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.DateFormatTool;
@@ -114,7 +115,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
     private void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        messageid = planBundle.getString(Global.MSG_ID);
+        messageid = planBundle.getString(IntentConstant.MSG_ID);
         LogTool.d(TAG, "messageid=" + messageid);
         initMainHeadView();
         contentView.getSettings().setJavaScriptEnabled(true);
@@ -155,15 +156,15 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.btnPlan:
                 Bundle planBundle = new Bundle();
-                planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
-                planBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
+                planBundle.putSerializable(IntentConstant.PLAN_DETAIL, planInfo);
+                planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirement);
                 planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG, PreviewDesignerPlanActivity
                         .NOTICE_INTENT);
                 startActivity(PreviewDesignerPlanActivity.class, planBundle);
                 break;
             case R.id.btnContract:
                 Bundle contractBundle = new Bundle();
-                contractBundle.putSerializable(Global.REQUIREMENT_INFO, requirement);
+                contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirement);
                 contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity.NOTICE_INTENT);
                 startActivity(ContractActivity.class, contractBundle);
                 break;

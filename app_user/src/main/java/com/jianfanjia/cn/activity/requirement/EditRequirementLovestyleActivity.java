@@ -9,9 +9,9 @@ import android.widget.GridView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemLoveStyleAdapter;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -43,7 +43,7 @@ public class EditRequirementLovestyleActivity extends BaseSwipeBackActivity {
     public void initView() {
         mainHeadView.setMianTitle(getString(R.string.style));
         Intent data = getIntent();
-        requestCode = data.getIntExtra(Global.REQUIRE_DATA, 0);
+        requestCode = data.getIntExtra(IntentConstant.REQUIRE_DATA, 0);
 
         requirementItemLoveStyleAdapter = new RequirementItemLoveStyleAdapter(this);
         gridView.setAdapter(requirementItemLoveStyleAdapter);
@@ -51,7 +51,7 @@ public class EditRequirementLovestyleActivity extends BaseSwipeBackActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent data = new Intent(EditRequirementLovestyleActivity.this, UpdateRequirementActivity.class);
-                data.putExtra(Global.RESPONSE_DATA, requirementItemLoveStyleAdapter.getItemMaps().get(position));
+                data.putExtra(IntentConstant.RESPONSE_DATA, requirementItemLoveStyleAdapter.getItemMaps().get(position));
                 setResult(RESULT_OK, data);
                 appManager.finishActivity(EditRequirementLovestyleActivity.this);
             }

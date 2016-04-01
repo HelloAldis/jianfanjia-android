@@ -8,25 +8,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.cn.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -112,7 +111,7 @@ public class BindingAccountActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.bindingaccount_phone_layout:
                 Bundle bundle = new Bundle();
-                bundle.putInt(Global.BINDING_PHONE_INTENT, Global.BINDING_PHONE_USERINFO);
+                bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_USERINFO);
                 startActivity(BindingPhoneActivity.class, bundle);
                 overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 break;

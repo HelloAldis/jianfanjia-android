@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
@@ -18,14 +21,10 @@ import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -170,31 +169,31 @@ public class EditBussinessRequirementFragment extends BaseFragment {
                 break;
             case R.id.act_edit_req_lovedesistyle:
                 Bundle loveDesignerBundle = new Bundle();
-                loveDesignerBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
+                loveDesignerBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
                 startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant
                         .REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
                 Bundle loveStyleBundle = new Bundle();
-                loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
+                loveStyleBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
                 startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant
                         .REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
                 Bundle decorateTypeBundle = new Bundle();
-                decorateTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                decorateTypeBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
                 startActivityForResult(EditRequirementItemActivity.class, decorateTypeBundle, Constant
                         .REQUIRECODE_BUSI_DECORATETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
-                workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
+                workTypeBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
                 startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
                 Bundle loveDesiSexBundle = new Bundle();
-                loveDesiSexBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
+                loveDesiSexBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
                 startActivityForResult(EditRequirementItemActivity.class, loveDesiSexBundle, Constant
                         .REQUIRECODE_DESISEX);
                 break;
@@ -205,8 +204,8 @@ public class EditBussinessRequirementFragment extends BaseFragment {
 
     private void initData() {
         LogTool.d(this.getClass().getName(), "initData");
-        requirementInfo = (Requirement) getArguments().getSerializable(Global.REQUIREMENT_INFO);
-        actionType = getArguments().getInt(Global.REQUIREMENG_ACTION_TYPE, 0);
+        requirementInfo = (Requirement) getArguments().getSerializable(IntentConstant.REQUIREMENT_INFO);
+        actionType = getArguments().getInt(IntentConstant.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {
             case XuQiuFragment.REQUESTCODE_EDIT_REQUIREMENT:
             case XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT:
@@ -255,7 +254,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
             return;
         }
         if (data != null) {
-            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global
+            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(IntentConstant
                     .RESPONSE_DATA);
             switch (requestCode) {
                 case Constant.REQUIRECODE_CITY:

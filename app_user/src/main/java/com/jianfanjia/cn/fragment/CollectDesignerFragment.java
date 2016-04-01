@@ -24,6 +24,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -183,7 +184,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                                             String designerId = designers.get(currentPos).get_id();
                                             LogTool.d(TAG, "designerId:" + designerId);
                                             Bundle designerBundle = new Bundle();
-                                            designerBundle.putString(Global.DESIGNER_ID, designerId);
+                                            designerBundle.putString(IntentConstant.DESIGNER_ID, designerId);
                                             startActivity(DesignerInfoActivity.class, designerBundle);
                                         }
 

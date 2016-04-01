@@ -10,15 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.adapter.ViewPageAdapter;
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.config.Global;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.adapter.ViewPageAdapter;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
 
 /**
  * @author fengliang
@@ -82,7 +81,7 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
         switch (v.getId()) {
             case R.id.btnRegister:
                 Bundle bundle = new Bundle();
-                bundle.putBoolean(Global.ISREGIISTER, true);
+                bundle.putBoolean(IntentConstant.ISREGIISTER, true);
                 startActivity(LoginNewActivity.class, bundle);
                 appManager.finishActivity(this);
                 break;

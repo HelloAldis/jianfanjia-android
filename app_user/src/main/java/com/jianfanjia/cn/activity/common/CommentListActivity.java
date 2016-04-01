@@ -26,6 +26,7 @@ import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -96,15 +97,15 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                     public void onResponse(UserMessage noticeInfo, int viewType) {
 
                         Bundle bundle = new Bundle();
-                        bundle.putString(Global.TOPIC_ID, noticeInfo.getTopicid());
-                        bundle.putString(Global.TOPICTYPE, viewType + "");
-                        bundle.putString(Global.TO, noticeInfo.getDesignerid());
+                        bundle.putString(IntentConstant.TOPIC_ID, noticeInfo.getTopicid());
+                        bundle.putString(IntentConstant.TOPICTYPE, viewType + "");
+                        bundle.putString(IntentConstant.TO, noticeInfo.getDesignerid());
                         switch (viewType) {
                             case MyCommentInfoAdapter.PLAN_TYPE:
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
-                                bundle.putString(Global.SECTION, noticeInfo.getSection());
-                                bundle.putString(Global.ITEM, noticeInfo.getItem());
+                                bundle.putString(IntentConstant.SECTION, noticeInfo.getSection());
+                                bundle.putString(IntentConstant.ITEM, noticeInfo.getItem());
                                 break;
                         }
                         startActivity(CommentActivity.class, bundle);
@@ -146,15 +147,15 @@ public class CommentListActivity extends BaseSwipeBackActivity {
 
     private void startPlanInfoActivity(Plan planInfo, Requirement requirementInfo) {
         Bundle planBundle = new Bundle();
-        planBundle.putSerializable(Global.PLAN_DETAIL, planInfo);
-        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+        planBundle.putSerializable(IntentConstant.PLAN_DETAIL, planInfo);
+        planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
         planBundle.putInt(PreviewDesignerPlanActivity.PLAN_INTENT_FLAG, PreviewDesignerPlanActivity.COMMENT_INTENT);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
     private void startProcessDetailActivity(Process processInfo) {
         Bundle processBundle = new Bundle();
-        processBundle.putSerializable(Global.PROCESS_INFO, processInfo);
+        processBundle.putSerializable(IntentConstant.PROCESS_INFO, processInfo);
         startActivity(MyProcessDetailActivity.class, processBundle);
     }
 

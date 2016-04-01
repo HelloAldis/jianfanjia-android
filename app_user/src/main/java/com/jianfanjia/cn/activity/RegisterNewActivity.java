@@ -25,7 +25,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.business.DataManagerNew;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -66,8 +66,8 @@ public class RegisterNewActivity extends BaseActivity {
 
     private void getDataFromIntent(){
         Intent intent = getIntent();
-        registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
-        requsetCode = intent.getIntExtra(Global.REGISTER, 0);
+        registerInfo = (RegisterInfo) intent.getSerializableExtra(IntentConstant.REGISTER_INFO);
+        requsetCode = intent.getIntExtra(IntentConstant.REGISTER, 0);
     }
 
     public void initView() {
@@ -233,7 +233,7 @@ public class RegisterNewActivity extends BaseActivity {
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 dataManager.setAccount(registerInfo.getPhone());
-                if (getIntent().getExtras().getInt(Global.BINDING_PHONE_INTENT) == Global.BINDING_PHONE_REQUIREMENT)
+                if (getIntent().getExtras().getInt(IntentConstant.BINDING_PHONE_INTENT) == IntentConstant.BINDING_PHONE_REQUIREMENT)
                 {//发布需求就导向发布需求
                     startActivity(PublishRequirementActivity.class);
                 } else {

@@ -11,6 +11,8 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -19,12 +21,9 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:评价设计师
@@ -72,12 +71,12 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
-        imageid = commentBundle.getString(Global.IMAGE_ID);
-        designer_name = commentBundle.getString(Global.DESIGNER_NAME);
-        requirementid = commentBundle.getString(Global.REQUIREMENT_ID);
-        designerid = commentBundle.getString(Global.DESIGNER_ID);
-        speed = commentBundle.getFloat(Global.SPEED);
-        attitude = commentBundle.getFloat(Global.ATTITUDE);
+        imageid = commentBundle.getString(IntentConstant.IMAGE_ID);
+        designer_name = commentBundle.getString(IntentConstant.DESIGNER_NAME);
+        requirementid = commentBundle.getString(IntentConstant.REQUIREMENT_ID);
+        designerid = commentBundle.getString(IntentConstant.DESIGNER_ID);
+        speed = commentBundle.getFloat(IntentConstant.SPEED);
+        attitude = commentBundle.getFloat(IntentConstant.ATTITUDE);
         LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid +
                 " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
     }

@@ -12,27 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.api.model.DesignerList;
-import com.jianfanjia.api.request.guest.SearchDesignerRequest;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.adapter.DesignerListAdapter;
-import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.interf.GetItemCallback;
-import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.FilterPopWindow;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +19,27 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.DesignerList;
+import com.jianfanjia.api.request.guest.SearchDesignerRequest;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.DesignerListAdapter;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.FilterPopWindow;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:海量设计师列表
@@ -265,7 +265,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                                                 DesignerInfoActivity
                                                         .class);
                                         Bundle designerBundle = new Bundle();
-                                        designerBundle.putString(Global.DESIGNER_ID, designerId);
+                                        designerBundle.putString(IntentConstant.DESIGNER_ID, designerId);
                                         designerIntent.putExtras(designerBundle);
                                         startActivity(designerIntent);
                                     }

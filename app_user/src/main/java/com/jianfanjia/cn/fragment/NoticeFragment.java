@@ -11,6 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.UserMessage;
@@ -22,20 +29,12 @@ import com.jianfanjia.cn.adapter.NoticeAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -202,7 +201,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
                                     UserMessage noticeInfo = (UserMessage) obj;
                                     LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
                                     Bundle detailBundle = new Bundle();
-                                    detailBundle.putString(Global.MSG_ID, noticeInfo.get_id());
+                                    detailBundle.putString(IntentConstant.MSG_ID, noticeInfo.get_id());
                                     startActivity(NoticeDetailActivity.class, detailBundle);
                                 }
                             });

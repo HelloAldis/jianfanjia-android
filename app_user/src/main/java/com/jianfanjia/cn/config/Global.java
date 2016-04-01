@@ -8,54 +8,6 @@ package com.jianfanjia.cn.config;
  */
 public class Global {
 
-    public static final String ISREGIISTER = "isregister";//是否是注册
-
-    public static final String REGISTER_INFO = "register_info";
-    public static final String REGISTER = "register";
-
-    public static final String BINDING_PHONE_INTENT = "binding_phone_intent";
-    public static final int BINDING_PHONE_REQUIREMENT = 0;
-    public static final int BINDING_PHONE_USERINFO = 1;
-
-    public static final String REQUIREMENT_INFO = "requirement_info";
-    public static final String REQUIREMENT_ID = "requirement_id";
-    public static final String REQUIREMENT_STATUS = "requirement_status";
-    public static final String IS_PUBLISHREQUIREMENT = "is_publishrequirement";
-    public static final String REQUIREMENT_DESIGNER_NUM = "requirement_designer_num";
-    public static final String OWNERINFO = "ownerinfo";
-    public static final String REQUIREMENG_ACTION_TYPE = "requirement_action_type";
-
-    public static final String PROCESS_INFO = "process_info";
-    public static final String PROCESS_ID = "process_id";
-
-    public static final String DESIGNER_ID = "designer_id";
-    public static final String PRODUCT_ID = "product_id";
-    public static final String EVALUATION = "evaluation";
-    public static final String RESPOND_SPEED = "respond_speed";
-    public static final String SERVICE_ATTITUDE = "service_attitude";
-    public static final String PLAN_ID = "plan_id";
-    public static final String PLAN_DETAIL = "plan_datail";
-    public static final String IMAGE_ID = "image_id";
-    public static final String DESIGNER_NAME = "designer_name";
-    public static final String TOPIC_ID = "topic_id";
-    public static final String TO = "to";
-    public static final String SECTION = "section";
-    public static final String ITEM = "item";
-    public static final String TOPICTYPE = "topictype";
-    public static final String SPEED = "speed";
-    public static final String ATTITUDE = "attitude";
-    public static final String DECORATION_ID = "decoration_id";
-    public static final String POSITION = "position";
-    public static final String IMG_LIST = "img_list";
-    public static final String TOTAL_COUNT = "total";
-    public static final String HOUSE_SECTION = "section";
-    public static final String HOUSE_STYLE = "houseStyle";
-    public static final String DEC_STYLE = "decStyle";
-    public static final String MSG_ID = "msg_id";
-
-    public static final String SEARCH_TEXT = "search_text";
-    public static final String VIEW_TYPE = "type";
-
     public static final String WEB_VIEW_URL = "web_view_url";
     public static final String WEB_VIEW_URL_DEC_STRATEGY = "/view/article/";
     public static final String WEB_VIEW_URL_SAFEGUARD = "/view/zt/safeguard/";
@@ -88,7 +40,6 @@ public class Global {
     public static final String DEC_TYPE_HOME = "0";//家装
     public static final String DEC_TYPE_BUSINESS = "1";//商装
 
-
     public static final String DEC_PROGRESS0 = "0";//我想看一看
     public static final String DEC_PROGRESS1 = "1";//正在做准备
     public static final String DEC_PROGRESS2 = "2";//已经开始装修
@@ -105,9 +56,6 @@ public class Global {
     public static final String ACTION_UPDATE = "com.jianfanjia.action.update";
     public static final String FORCE_UPDATE = "1";
     public static final String REC_UPDATE = "0";
-
-    public static final String REQUIRE_DATA = "require_data";
-    public static final String RESPONSE_DATA = "response_data";
 
     public static int SECTION_POSITION = 0;
     public static int HOUSE_TYPE_POSITION = 0;

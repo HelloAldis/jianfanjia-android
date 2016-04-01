@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import butterknife.Bind;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
@@ -15,12 +16,10 @@ import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ScrollableHelper;
-
-import butterknife.Bind;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author fengliang
@@ -110,7 +109,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
     public static DesignerInfoFragment newInstance(String info) {
         Bundle args = new Bundle();
         DesignerInfoFragment infoFragment = new DesignerInfoFragment();
-        args.putString(Global.DESIGNER_ID, info);
+        args.putString(IntentConstant.DESIGNER_ID, info);
         infoFragment.setArguments(args);
         return infoFragment;
     }
@@ -119,7 +118,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        designerid = bundle.getString(Global.DESIGNER_ID);
+        designerid = bundle.getString(IntentConstant.DESIGNER_ID);
         LogTool.d(TAG, "designerid=" + designerid);
     }
 
