@@ -454,7 +454,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onHttpDone() {
-                
+
             }
 
             @Override
