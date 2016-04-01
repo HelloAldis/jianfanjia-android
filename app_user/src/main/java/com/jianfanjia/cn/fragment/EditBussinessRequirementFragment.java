@@ -67,7 +67,6 @@ public class EditBussinessRequirementFragment extends BaseFragment {
     protected String[] arr_desisex;
 
     private Requirement requirementInfo;
-    private Requirement sourceRequirement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -114,30 +113,6 @@ public class EditBussinessRequirementFragment extends BaseFragment {
         requirementInfo.setTotal_price(charSequence.toString());
         isAllInput();
     }
-
-
-   /* @OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_street_content, R.id
-            .act_edit_req_housearea_content, R.id.act_edit_req_decoratebudget_content})
-    protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
-        int viewId = tv.getId();
-        String textContent = text.toString();
-        LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
-        switch (viewId) {
-            case R.id.act_edit_req_street_content:
-                requirementInfo.setStreet(textContent);
-                break;
-            case R.id.act_edit_req_housearea_content:
-                requirementInfo.setHouse_area(textContent);
-                break;
-            case R.id.act_edit_req_decoratebudget_content:
-                requirementInfo.setTotal_price(textContent);
-                break;
-            case R.id.act_edit_req_cell_content:
-                requirementInfo.setCell(textContent);
-                break;
-        }
-        isAllInput();
-    }*/
 
     @Override
     public void onAttach(Context context) {

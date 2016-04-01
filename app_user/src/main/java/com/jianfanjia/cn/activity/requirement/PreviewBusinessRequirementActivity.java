@@ -69,7 +69,6 @@ public class PreviewBusinessRequirementActivity extends BaseSwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initData();
     }
@@ -77,7 +76,6 @@ public class PreviewBusinessRequirementActivity extends BaseSwipeBackActivity {
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_req));
         mainHeadView.setRightTitleVisable(View.GONE);
-
         initStringArray();
     }
 

@@ -1,13 +1,13 @@
 package com.jianfanjia.cn.business;
 
-import java.util.List;
-
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.ProcessSectionYs;
 import com.jianfanjia.api.model.ProcessSectionYsImage;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.business
@@ -29,6 +29,9 @@ public class ProcessBusiness {
     }
 
     public static ProcessSection getSectionInfoByName(Process process, String sectionName) {
+        if (null == sectionName) {
+            return null;
+        }
         LogTool.d("SectionInfo", sectionName);
         List<ProcessSection> sections = process.getSections();
         if (sections != null) {
