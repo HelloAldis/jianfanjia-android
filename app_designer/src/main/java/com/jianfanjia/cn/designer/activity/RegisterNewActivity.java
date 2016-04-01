@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
@@ -64,7 +65,7 @@ public class RegisterNewActivity extends BaseActivity implements
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(Global.REGISTER_INFO);
         requsetCode = intent.getIntExtra(Global.REGISTER, 0);
@@ -141,7 +142,6 @@ public class RegisterNewActivity extends BaseActivity implements
         registerRequest.setPass(registerInfo.getPass());
         registerRequest.setPhone(registerInfo.getPhone());
         registerRequest.setCode(registerInfo.getCode());
-
         Api.register(registerRequest, new ApiCallback<ApiResponse<Designer>>() {
             @Override
             public void onPreLoad() {
@@ -171,7 +171,7 @@ public class RegisterNewActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -181,7 +181,6 @@ public class RegisterNewActivity extends BaseActivity implements
         updatePasswordRequest.setCode(registerInfo.getCode());
         updatePasswordRequest.setPhone(registerInfo.getPhone());
         updatePasswordRequest.setPass(registerInfo.getPass());
-
         Api.updatePassword(updatePasswordRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -206,7 +205,7 @@ public class RegisterNewActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

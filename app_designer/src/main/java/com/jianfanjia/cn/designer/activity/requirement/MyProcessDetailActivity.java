@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
@@ -174,7 +175,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
             });
         }
@@ -542,7 +543,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -574,7 +575,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -606,7 +607,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -644,7 +645,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -753,7 +754,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
                     @Override
                     public void onNetworkError(int code) {
-
+                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
                 });
             }
@@ -765,7 +766,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
@@ -26,11 +27,11 @@ import com.jianfanjia.cn.designer.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -163,11 +164,11 @@ public class CommentListActivity extends BaseActivity {
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    refreshRecycleView.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
-                    refreshRecycleView.onRefreshComplete();
                     UserMessageList noticeListInfo = apiResponse.getData();
                     if (noticeListInfo != null) {
                         int total = noticeListInfo.getTotal();
@@ -193,14 +194,13 @@ public class CommentListActivity extends BaseActivity {
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    refreshRecycleView.onRefreshComplete();
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
             };
 
@@ -213,7 +213,7 @@ public class CommentListActivity extends BaseActivity {
 
                 @Override
                 public void onHttpDone() {
-
+                    refreshRecycleView.onRefreshComplete();
                 }
 
                 @Override
@@ -242,14 +242,13 @@ public class CommentListActivity extends BaseActivity {
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    refreshRecycleView.onRefreshComplete();
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
             };
 

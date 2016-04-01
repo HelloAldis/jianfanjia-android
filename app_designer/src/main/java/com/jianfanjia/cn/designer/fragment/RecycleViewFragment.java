@@ -14,17 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
-import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
@@ -46,6 +42,11 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -94,13 +95,8 @@ public class RecycleViewFragment extends BaseFragment {
 
     private View view = null;
 
-    /**
-     * 标志位，标志已经初始化完成
-     */
     private boolean isPrepared;
-    /**
-     * 是否已被加载过一次，第二次就不再去请求数据了
-     */
+
     private boolean mHasLoadedOnce;
 
     private List<Requirement> requirementInfos;
@@ -111,12 +107,22 @@ public class RecycleViewFragment extends BaseFragment {
 
     private Context _context;
 
+    private String refuseMsg;
+    private CommonDialog refuseDialog;
+
     public static RecycleViewFragment newInstance(int num) {
         RecycleViewFragment f = new RecycleViewFragment();
         Bundle args = new Bundle();
         args.putInt("num", num);
         f.setArguments(args);
         return f;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LogTool.d(this.getClass().getName(), "onAttach");
+        _context = context.getApplicationContext();
     }
 
     @Override
@@ -129,7 +135,7 @@ public class RecycleViewFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "onCreateView");
+        LogTool.d(TAG, "onCreateView()");
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
@@ -204,7 +210,6 @@ public class RecycleViewFragment extends BaseFragment {
                         settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
                         startActivity(settingHouseTimeIntent);
                         getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-                        responseRequirement(requirementInfo.get_id());
                         break;
                     case PRIVIEW_REQUIREMENT_TYPE:
                         Intent gotoPriviewRequirement = null;
@@ -256,80 +261,76 @@ public class RecycleViewFragment extends BaseFragment {
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
-    private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
-        NotifyOwnerMeasureHouseRequest request = new NotifyOwnerMeasureHouseRequest();
-        request.set_id(requirementInfo.getPlan().get_id());
-        request.setUserid(requirementInfo.getUserid());
-        Api.notifyOwnerConfirmHouse(request, new ApiCallback<ApiResponse<String>>() {
+    private void initData() {
+        GetRequirementListRequest request = new GetRequirementListRequest();
+        Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
             @Override
             public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                makeTextShort(getString(R.string.notify_success));
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-                makeTextShort(getString(R.string.notify_not_more_once_everyday));
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void refuseRequirement(String requirementid, String msg) {
-        RefuseRequirementRequest request = new RefuseRequirementRequest();
-        request.setRequirementid(requirementid);
-        request.setReject_respond_msg(msg);
-        Api.refuseRequirement(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                if (refuseDialog != null) {
-                    refuseDialog.dismiss();
+                if (!mHasLoadedOnce) {
+                    showWaitDialog();
                 }
-                initData();
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onHttpDone() {
+                hideWaitDialog();
+                pullrefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
+            }
 
+            @Override
+            public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
+                mHasLoadedOnce = true;
+                requirementInfos = apiResponse.getData();
+                requirementList = new RequirementList(requirementInfos);
+                errorLayout.setVisibility(View.GONE);
+                disposeData(requirementList);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
+                if (!mHasLoadedOnce) {
+                    errorLayout.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
 
-    public void onEventMainThread(UpdateEvent event) {
-//        LogTool.d(TAG, "event:" + event.getEventType());
+    private void disposeData(RequirementList requirementList) {
+        switch (mNum) {
+            case FIRST_FRAGMENT:
+                currentRequirementInfo = requirementList.getUnHandleRequirementInfoList();
+                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_no_unhandle));
+                break;
+            case SECOND_FRAGMENT:
+                currentRequirementInfo = requirementList.getCommunicationRequirementInfoList();
+                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_handled));
+                break;
+            case THIRD_FRAGMENT:
+                currentRequirementInfo = requirementList.getOverRequirementInfoLists();
+                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_already_handle));
+                break;
+        }
+        myHandledRequirementAdapter.addItem(currentRequirementInfo);
+        if (currentRequirementInfo.size() == 0) {
+            emptyLayout.setVisibility(View.VISIBLE);
+            emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(
+                    new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight()));
+        } else {
+            emptyLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.error_include)
+    public void onClick() {
         initData();
     }
-
-    String refuseMsg;
-    CommonDialog refuseDialog;
 
     private void showRefuseDialog(final String requirementid) {
         refuseDialog = DialogHelper
@@ -370,10 +371,11 @@ public class RecycleViewFragment extends BaseFragment {
         refuseDialog.show();
     }
 
-    private void responseRequirement(String requirementid) {
-        ResponseRequirementRequest request = new ResponseRequirementRequest();
-        request.setRequirementid(requirementid);
-        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
+    private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
+        NotifyOwnerMeasureHouseRequest request = new NotifyOwnerMeasureHouseRequest();
+        request.setPlanid(requirementInfo.getPlan().get_id());
+        request.setUserid(requirementInfo.getUserid());
+        Api.notifyOwnerConfirmHouse(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
 
@@ -386,98 +388,57 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.notify_success));
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.notify_not_more_once_everyday));
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    private void refuseRequirement(String requirementid, String msg) {
+        RefuseRequirementRequest request = new RefuseRequirementRequest();
+        request.setRequirementid(requirementid);
+        request.setReject_respond_msg(msg);
+        Api.refuseRequirement(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                if (refuseDialog != null) {
+                    refuseDialog.dismiss();
+                }
                 initData();
             }
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
 
-    private void initData() {
-        GetRequirementListRequest request = new GetRequirementListRequest();
-        Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
-            @Override
-            public void onPreLoad() {
-                if (!mHasLoadedOnce) {
-                    showWaitDialog();
-                }
-            }
-
-            @Override
-            public void onHttpDone() {
-                hideWaitDialog();
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
-                pullrefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
-                mHasLoadedOnce = true;
-                requirementInfos = apiResponse.getData();
-                requirementList = new RequirementList(requirementInfos);
-                errorLayout.setVisibility(View.GONE);
-                disposeData(requirementList);
-            }
-
-            @Override
-            public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
-                pullrefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
-                if (!mHasLoadedOnce) {
-                    errorLayout.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void disposeData(RequirementList requirementList) {
-        switch (mNum) {
-            case FIRST_FRAGMENT:
-                currentRequirementInfo = requirementList.getUnHandleRequirementInfoList();
-                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_no_unhandle));
-                break;
-            case SECOND_FRAGMENT:
-                currentRequirementInfo = requirementList.getCommunicationRequirementInfoList();
-                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_handled));
-                break;
-            case THIRD_FRAGMENT:
-                currentRequirementInfo = requirementList.getOverRequirementInfoLists();
-                ((TextView) emptyLayout.findViewById(R.id.tipContent)).setText(getString(R.string.tip_already_handle));
-                break;
-        }
-        myHandledRequirementAdapter.addItem(currentRequirementInfo);
-        if (currentRequirementInfo.size() == 0) {
-            emptyLayout.setVisibility(View.VISIBLE);
-            emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(
-                    new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight()));
-        } else {
-            emptyLayout.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        LogTool.d(this.getClass().getName(), "onAttach");
-        _context = context.getApplicationContext();
-    }
-
-    @OnClick(R.id.error_include)
-    public void onClick() {
+    public void onEventMainThread(UpdateEvent event) {
         initData();
     }
 

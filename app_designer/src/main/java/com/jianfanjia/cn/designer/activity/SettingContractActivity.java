@@ -8,12 +8,9 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.ConfigContractRequest;
@@ -23,8 +20,13 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -82,7 +84,7 @@ public class SettingContractActivity extends BaseActivity {
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -101,7 +103,6 @@ public class SettingContractActivity extends BaseActivity {
     }
 
     protected void initView() {
-
         decTypeContent.setText(String.format(getString(R.string.process_workType_cont),
                 BusinessCovertUtil.convertWorktypeToShow(workType)));
         totalPriceContent.setText(String.format(getString(R.string.process_totalprice_cont),
@@ -114,7 +115,7 @@ public class SettingContractActivity extends BaseActivity {
 
             startTimeContent.setText(String.format(getString(R.string.process_startTime_cont), "__", "__", "__"));
             endTimeContent.setText(String.format(getString(R.string.process_endTime_cont), "__", "__", "__"));
-            startCalendar.add(Calendar.DAY_OF_MONTH,1);//开工日期必须从第二天开始算起
+            startCalendar.add(Calendar.DAY_OF_MONTH, 1);//开工日期必须从第二天开始算起
             datePicker.setMinDate(startCalendar.getTimeInMillis());
             datePicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
             datePicker.init(startCalendar.get(Calendar.YEAR), startCalendar.get(Calendar.MONTH),
@@ -166,7 +167,6 @@ public class SettingContractActivity extends BaseActivity {
         ConfigContractRequest configContractRequest = new ConfigContractRequest();
         configContractRequest.setRequirementid(requirementid);
         configContractRequest.setStart_at(statrAt);
-
         Api.configContract(configContractRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -192,7 +192,7 @@ public class SettingContractActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

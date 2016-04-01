@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
@@ -24,10 +25,10 @@ import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.RecyclerItemCallBack;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -180,12 +181,12 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    all_notice_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
                     mHasLoadedOnce = true;
-                    all_notice_listview.onRefreshComplete();
                     UserMessageList noticeListInfo = apiResponse.getData();
                     LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
                     if (null != noticeListInfo) {
@@ -218,7 +219,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-                    all_notice_listview.onRefreshComplete();
                     all_notice_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
@@ -226,7 +226,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
             };
 
@@ -240,12 +240,11 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
         @Override
         public void onHttpDone() {
-
+            all_notice_listview.onRefreshComplete();
         }
 
         @Override
         public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
-            all_notice_listview.onRefreshComplete();
             UserMessageList noticeListInfo = apiResponse.getData();
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
@@ -261,12 +260,12 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
         @Override
         public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-            all_notice_listview.onRefreshComplete();
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 

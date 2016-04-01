@@ -186,7 +186,6 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         mainHeadView.setRigthTitleEnable(false);
     }
 
-
     private void initViewPager(ViewPager viewPager, LinearLayout indicatorGroup_lib, final List<String> imgList) {
         final View[] indicators = new View[imgList.size()];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -288,12 +287,10 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     //选的方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
-
         ChooseDesignerPlanRequest chooseDesignerPlanRequest = new ChooseDesignerPlanRequest();
         chooseDesignerPlanRequest.setRequiremendid(requirementid);
         chooseDesignerPlanRequest.setDesignerid(designerid);
         chooseDesignerPlanRequest.setPlanid(planid);
-
         Api.chooseDesignerPlan(chooseDesignerPlanRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {

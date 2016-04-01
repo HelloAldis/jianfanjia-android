@@ -16,6 +16,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
@@ -25,7 +26,6 @@ import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.GetMsgDetailRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
-import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
@@ -175,7 +175,6 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
                 startActivity(settingHouseTimeIntent);
                 overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-                responseRequirement(requirement.get_id());
                 break;
             case R.id.btnConfirm:
                 appManager.finishActivity(this);
@@ -340,12 +339,12 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailed(ApiResponse<UserMessage> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -379,7 +378,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -413,7 +412,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -485,43 +484,12 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void responseRequirement(String requirementid) {
-        ResponseRequirementRequest request = new ResponseRequirementRequest();
-        request.setRequirementid(requirementid);
-        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                getNoticeDetailInfo(messageid);
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

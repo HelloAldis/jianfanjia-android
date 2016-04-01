@@ -23,6 +23,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
@@ -342,7 +343,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
 
@@ -410,7 +411,6 @@ public class CheckActivity extends BaseActivity implements
         if (imageBitmap == null) return;
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(ImageUtil.transformBitmapToBytes(imageBitmap));
-
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -419,7 +419,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onHttpDone() {
-
+                hideWaitDialog();
             }
 
             @Override
@@ -429,13 +429,12 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-                hideWaitDialog();
                 makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -446,7 +445,6 @@ public class CheckActivity extends BaseActivity implements
         addImageToCheckRequest.setSection(sectionName);
         addImageToCheckRequest.setKey(key + "");
         addImageToCheckRequest.setImageid(imageid);
-
         Api.addImageToCheck(addImageToCheckRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -455,7 +453,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+
             }
 
             @Override
@@ -473,7 +471,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -531,7 +529,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
