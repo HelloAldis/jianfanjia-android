@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.designer.api;
 
-import java.util.List;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -10,6 +8,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddCommentRequest;
@@ -45,8 +44,9 @@ import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
-import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
+
+import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.api
@@ -100,7 +100,7 @@ public class Api {
     }
 
     public static void configMeaHouse(ConfigMeaHouseTimeRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOUSE_CHECKED, request, apiCallback);
+        ApiClient.okPost(Url_New.getInstance().RESPONSE_REQUIREMENT, request, apiCallback);
     }
 
     public static void deleteCheckImg(DeleteCheckImgRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
@@ -187,7 +187,8 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().USER_REQUIREMENT_PLANS, request, apiCallback);
     }
 
-    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<Process>> apiCallback) {
+    public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<Process>>
+            apiCallback) {
         String getProcessUrl = Url_New.getInstance().GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 request.getProcessId());
         ApiClient.okGet(getProcessUrl, request, apiCallback);
