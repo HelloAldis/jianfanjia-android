@@ -1,1 +1,1 @@
-include ':app_user', ':hud', ':api', ':photopicker', ':common', ':pulltorefresh',':app_designer'
+include ':app_user', ':hud', ':api', ':photopicker', ':common', ':pulltorefresh', ':app_designer', ':imageshow'

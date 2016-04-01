@@ -50,7 +50,8 @@ public class Url_New {
     public static String ID = "id";
 
     //屏幕宽高
-    public static String WIDTH = "400";
+    public static final String WIDTH = "width";
+    public static final String HEIGHT = "height";
 
     // 登录
     public String LOGIN_URL = HTTPROOT + "designer_login";
@@ -131,6 +132,8 @@ public class Url_New {
     public String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
+    //获取缩略图,通过指定宽高
+    public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/" + HEIGHT + "/";
 
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"

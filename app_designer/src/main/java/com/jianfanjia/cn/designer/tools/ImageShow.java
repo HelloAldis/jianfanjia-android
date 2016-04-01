@@ -8,7 +8,7 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.jianfanjia.imageshow.ImageDisplay;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
@@ -20,49 +20,59 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 public class ImageShow {
     public static final String TAG = "ImageShow";
     private static ImageShow imageShow;
-    protected ImageLoader imageLoader;
+    protected ImageDisplay imageDisplay;
     protected Url_New url_new;
 
-    public ImageShow() {
-        imageLoader = ImageLoader.getInstance();
+    private ImageShow() {
+        imageDisplay = ImageDisplay.getInstance();
         url_new = Url_New.getInstance();
     }
 
     public static ImageShow getImageShow() {
         if (imageShow == null) {
-            imageShow = new ImageShow();
+            synchronized (ImageShow.class) {
+                if (imageShow == null) {
+                    imageShow = new ImageShow();
+                }
+            }
         }
         return imageShow;
     }
 
     /**
-     * 显示原图
-     *
-     * @param imageid
-     * @param imageView
-     */
-    public void displayImage(String imageid, ImageView imageView) {
-        imageLoader.displayImage(url_new.GET_IMAGE + imageid, imageView, DisplayImageOptionsWrap
-                .getDisplayImageOptionsIsMemoryCache(true));
-    }
-
-    /**
-     * 显示缩略图
+     * 加载缩略图
      *
      * @param imageView
      * @param imageid
      * @param width
      */
     public void displayThumbnailImage(String imageid, ImageView imageView, int width) {
-        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
-                (true));
+        displayThumbnailImage(imageid, imageView, width, true);
     }
 
-    public void displayThumbnailImage(String imageid, ImageView imageView, int width, ImageLoadingListener listener) {
+    public void displayThumbnailImage(String imageid, ImageView imageView, int width, boolean isCacheInMemory) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
-                (true), listener);
+        imageDisplay.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
+                (isCacheInMemory));
+    }
+
+    /**
+     * 加载宽高缩略图
+     * @param imageid
+     * @param imageView
+     * @param width
+     * @param height
+     */
+    public void displayThumbnailImageByHeightAndWidth(String imageid, ImageView imageView, int width, int height) {
+        displayThumbnailImageByHeightAndWidth(imageid, imageView, width, height, false);
+    }
+
+    public void displayThumbnailImageByHeightAndWidth(String imageid, ImageView imageView, int width, int height,
+                                                      boolean isCacheInMemory) {
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "").replace(Url_New.HEIGHT,
+                height + "") + imageid;
+        imageDisplay.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
+                (isCacheInMemory));
     }
 
     /**
@@ -76,7 +86,7 @@ public class ImageShow {
             LogTool.d(TAG, "this is not local iamge");
             return;
         }
-        imageLoader.displayImage(imgPath, imageView);
+        imageDisplay.displayImage(imgPath, imageView);
     }
 
     /**
@@ -87,21 +97,11 @@ public class ImageShow {
      * @param imageid
      */
     public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth());
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth(), false);
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2);
-    }
-
-    public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView,
-                                                ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth(), listener);
-    }
-
-    public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView,
-                                                    ImageLoadingListener listener) {
-        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2, listener);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2, false);
     }
 
     /**
@@ -113,14 +113,12 @@ public class ImageShow {
      */
     public void displayImageHeadWidthThumnailImage(Context context, String imageid, ImageView imageView) {
         int width = TDevice.dip2px(context, Global.PIC_WIDTH_SHOW_WIDTH);
-        String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
-        imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache
-                (true));
+        displayThumbnailImage(imageid, imageView, width, true);
     }
 
     public void loadImage(String imageid, ImageLoadingListener listener) {
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, TDevice.getScreenWidth() + "") + imageid;
-        imageLoader.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
+        imageDisplay.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
     }
 
 

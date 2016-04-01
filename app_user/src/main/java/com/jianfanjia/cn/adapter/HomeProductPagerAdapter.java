@@ -8,16 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.List;
+
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 
 /**
@@ -31,17 +30,18 @@ public class HomeProductPagerAdapter extends PagerAdapter {
     private int width;
     private int height;
 
-    public HomeProductPagerAdapter(Context context, List<Product> products, ViewPagerClickListener viewPagerClickListener, int width, int height) {
+    public HomeProductPagerAdapter(Context context, List<Product> products, ViewPagerClickListener
+            viewPagerClickListener, int width, int height) {
         this.mContext = context;
         this.productList = products;
         mLayoutInflater = LayoutInflater.from(mContext);
         this.viewPagerClickListener = viewPagerClickListener;
         this.width = width;
         this.height = height;
-        LogTool.d(this.getClass().getName()," statusBar height =" + TDevice.getStatusBarHeight(context));
-        LogTool.d(this.getClass().getName()," NavigationBar height =" + TDevice.getNavigationBarHeight(context));
-        LogTool.d(this.getClass().getName(),"width =" + width + "height =" + height);
-        LogTool.d(this.getClass().getName(),"TDevide height =" + TDevice.getScreenHeight());
+        LogTool.d(this.getClass().getName(), " statusBar height =" + TDevice.getStatusBarHeight(context));
+        LogTool.d(this.getClass().getName(), " NavigationBar height =" + TDevice.getNavigationBarHeight(context));
+        LogTool.d(this.getClass().getName(), "width =" + width + "height =" + height);
+        LogTool.d(this.getClass().getName(), "TDevide height =" + TDevice.getScreenHeight());
     }
 
     public void setProductList(List<Product> productList) {
@@ -56,12 +56,15 @@ public class HomeProductPagerAdapter extends PagerAdapter {
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
         Product productNew = productList.get(position);
         ProductImageInfo imageInfo = productNew.getImages().get(0);
-        String uri = Url_New.getInstance().GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "") + height + "/" + imageInfo.getImageid();
-        LogTool.d(this.getClass().getName(), " uri =" + uri);
-        Picasso.with(mContext).load(uri).resize(width, height)
-                .placeholder(R.mipmap.icon_default_pic)
-                .error(R.mipmap.icon_default_pic)
-                .into(imageView);
+//        String uri = Url_New.getInstance().GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "") + height + "/" +
+// imageInfo.getImageid();
+//        LogTool.d(this.getClass().getName(), " uri =" + uri);
+        ImageShow.getImageShow().displayThumbnailImageByHeightAndWidth(imageInfo.getImageid(), imageView, width,
+                height);
+//        Picasso.with(mContext).load(uri).resize(width, height)
+//                .placeholder(R.mipmap.icon_default_pic)
+//                .error(R.mipmap.icon_default_pic)
+//                .into(imageView);
 
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override

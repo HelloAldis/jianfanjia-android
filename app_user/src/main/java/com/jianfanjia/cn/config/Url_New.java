@@ -64,7 +64,8 @@ public class Url_New {
     public static String ID = "id";
 
     //屏幕宽高
-    public static String WIDTH = "400";
+    public static final String WIDTH = "width";
+    public static final String HEIGHT = "height";
 
     public String BIND_URL = HTTPROOT + "device/bind";
     // 登录
@@ -171,13 +172,13 @@ public class Url_New {
     // 用户获取我的改期提醒
     public String GET_RESCHDULE_ALL = HTTPROOT
             + "process/reschedule/all";
-    // 获取图片
-    public String GET_IMAGE = HTTPROOT + "image/";
+//     获取图片
+//    public String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
 
-    //获取缩略图
-    public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/";
+    //获取缩略图,通过指定宽高
+    public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/" + HEIGHT + "/";
 
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/" + ID;
