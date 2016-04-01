@@ -8,15 +8,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -65,18 +66,19 @@ public class MyPlanViewType3 extends MyPlanViewTypeBase {
         ButterKnife.bind(this, view);
     }
 
-    public static MyPlanViewType3 build(Context context){
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type3,null);
+    public static MyPlanViewType3 build(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type3, null);
         return new MyPlanViewType3(view);
     }
 
     public void bind(Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
-        cellView.setText(requirementInfo.getCell());
+        cellView.setText(requirementInfo.getBasic_address());
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
         if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
-        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
+        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo
+                .getPlan().getStatus())]);
         statusView.setTextColor(getResources().getColor(R.color.orange_color));
         String imageId = requirementInfo.getUser().getImageid();
         if (!TextUtils.isEmpty(imageId)) {

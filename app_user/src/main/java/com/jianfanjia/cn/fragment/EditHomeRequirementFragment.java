@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jianfanjia.api.model.Requirement;
@@ -40,32 +41,36 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     @Bind(R.id.act_edit_req_city_content)
     protected TextView act_edit_req_city_content;//所在城市
+
+    @Bind(R.id.act_edit_req_cell_content)
+    protected EditText act_edit_req_cell_content;//小区
+
+    @Bind(R.id.act_edit_req_dong_content)
+    protected EditText act_edit_req_dong_content;//门牌号
+
     @Bind(R.id.act_edit_req_housetype_content)
     protected TextView act_edit_req_housetype_content;//户型
+
     @Bind(R.id.act_edit_req_persons_content)
     protected TextView act_edit_req_persons_content;//计划常住人口
+
     @Bind(R.id.act_edit_req_lovestyle_content)
     protected TextView act_edit_req_lovestyle_content;//风格喜好
+
     @Bind(R.id.act_edit_req_lovedesistyle_content)
     protected TextView act_edit_req_lovedesistyle_content;//偏好设计师类型
+
     @Bind(R.id.act_edit_req_work_type_content)
     protected TextView act_edit_req_work_type_content;//包工类型
+
     @Bind(R.id.act_edit_req_lovedesisex_content)
     protected TextView act_edit_req_lovedesisex_content;//偏好设计师性别
+
     @Bind(R.id.act_edit_req_housearea_content)
-    protected TextView act_edit_req_housearea_content;//装修面积
+    protected EditText act_edit_req_housearea_content;//装修面积
+
     @Bind(R.id.act_edit_req_decoratebudget_content)
-    protected TextView act_edit_req_decoratebudget_content;//装修预算
-    @Bind(R.id.act_edit_req_cell_content)
-    protected TextView act_edit_req_cell_content;//小区
-    @Bind(R.id.act_edit_req_qi_content)
-    protected TextView act_edit_req_qi_content;//期
-    @Bind(R.id.act_edit_req_danyuan_content)
-    protected TextView act_edit_req_danyuan_content;//单元
-    @Bind(R.id.act_edit_req_dong_content)
-    protected TextView act_edit_req_dong_content;//栋
-    @Bind(R.id.act_edit_req_shi_content)
-    protected TextView act_edit_req_shi_content;//室
+    protected EditText act_edit_req_decoratebudget_content;//装修预算
 
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
@@ -98,31 +103,13 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     @OnTextChanged(value = R.id.act_edit_req_cell_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void cellAfterChanged(CharSequence charSequence) {
-        requirementInfo.setCell(charSequence.toString());
-        isAllInput();
-    }
-
-    @OnTextChanged(value = R.id.act_edit_req_qi_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    protected void qiAfterChanged(CharSequence charSequence) {
-        requirementInfo.setCell_phase(charSequence.toString());
-        isAllInput();
-    }
-
-    @OnTextChanged(value = R.id.act_edit_req_danyuan_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    protected void danyuanAfterChanged(CharSequence charSequence) {
-        requirementInfo.setCell_unit(charSequence.toString());
+        requirementInfo.setBasic_address(charSequence.toString());
         isAllInput();
     }
 
     @OnTextChanged(value = R.id.act_edit_req_dong_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void dongAfterChanged(CharSequence charSequence) {
-        requirementInfo.setCell_building(charSequence.toString());
-        isAllInput();
-    }
-
-    @OnTextChanged(value = R.id.act_edit_req_shi_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    protected void shiAfterChanged(CharSequence charSequence) {
-        requirementInfo.setCell_detail_number(charSequence.toString());
+        requirementInfo.setDetail_address(charSequence.toString());
         isAllInput();
     }
 
@@ -194,7 +181,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
     public void isAllInput() {
         if (act_edit_req_city_content.length() > 0
                 && act_edit_req_cell_content.length() > 0
-                && act_edit_req_danyuan_content.length() > 0
                 && act_edit_req_decoratebudget_content.length() > 0
                 && act_edit_req_dong_content.length() > 0
                 && act_edit_req_housearea_content.length() > 0
@@ -202,8 +188,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 && act_edit_req_lovedesisex_content.length() > 0
                 && act_edit_req_lovestyle_content.length() > 0
                 && act_edit_req_persons_content.length() > 0
-                && act_edit_req_qi_content.length() > 0
-                && act_edit_req_shi_content.length() > 0
                 && act_edit_req_dong_content.length() > 0
                 && act_edit_req_work_type_content.length() > 0) {
             isFinish = true;
@@ -271,7 +255,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
         }
     }
 
-
     private void initData() {
         LogTool.d(this.getClass().getName(), "initData");
         requirementInfo = (Requirement) getArguments().getSerializable(Global.REQUIREMENT_INFO);
@@ -284,20 +267,11 @@ public class EditHomeRequirementFragment extends BaseFragment {
                     act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                             requirementInfo.getDistrict());
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getCell())) {
-                    act_edit_req_cell_content.setText(requirementInfo.getCell());
+                if (!TextUtils.isEmpty(requirementInfo.getBasic_address())) {
+                    act_edit_req_cell_content.setText(requirementInfo.getBasic_address());
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getCell_phase())) {
-                    act_edit_req_qi_content.setText(requirementInfo.getCell_phase());
-                }
-                if (!TextUtils.isEmpty(requirementInfo.getCell_unit())) {
-                    act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
-                }
-                if (!TextUtils.isEmpty(requirementInfo.getCell_building())) {
-                    act_edit_req_dong_content.setText(requirementInfo.getCell_building());
-                }
-                if (!TextUtils.isEmpty(requirementInfo.getCell_detail_number())) {
-                    act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
+                if (!TextUtils.isEmpty(requirementInfo.getDetail_address())) {
+                    act_edit_req_dong_content.setText(requirementInfo.getDetail_address());
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
                     act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());

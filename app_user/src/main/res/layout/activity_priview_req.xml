@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_layout_bg"
-    android:focusable="false"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:focusable="false"
+              android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/act_edit_req_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/head_layout_bg" />
+        android:background="@color/head_layout_bg"/>
 
     <com.jianfanjia.cn.view.ReboundScrollView
         android:id="@+id/scrollView"
@@ -28,7 +28,7 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_city"
@@ -39,7 +39,7 @@
                 android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/act_edit_req_street_content">
 
-                <requestFocus />
+                <requestFocus/>
 
                 <TextView
                     android:id="@+id/act_edit_req_city_title"
@@ -47,7 +47,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_city" />
+                    android:text="@string/str_city"/>
 
 
                 <TextView
@@ -60,7 +60,7 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <LinearLayout
                 android:id="@+id/act_edit_req_cell"
@@ -74,13 +74,13 @@
                 <TextView
                     android:id="@+id/act_edit_req_cell_title"
                     style="@style/style_edit_req_title"
-                    android:text="@string/str_cell" />
+                    android:text="@string/str_cell"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_cell_content"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -89,32 +89,12 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_qi_title"
-                    style="@style/style_edit_req_title"
-                    android:text="@string/str_qi" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_qi_content"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="right|center_vertical"
-                    android:maxLength="10"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_4"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
+                    android:textSize="@dimen/middle_size"/>
             </LinearLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <LinearLayout
                 android:id="@+id/act_edit_req_adressdetail"
@@ -128,7 +108,7 @@
                 <TextView
                     android:id="@+id/act_edit_req_dong_title"
                     style="@style/style_edit_req_title"
-                    android:text="@string/str_dong" />
+                    android:text="@string/house_number_text"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_dong_content"
@@ -143,58 +123,17 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_danyuan_title"
-                    style="@style/style_edit_req_title"
-                    android:text="@string/str_danyuan" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_danyuan_content"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLength="10"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_16"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_shi_title"
-                    style="@style/style_edit_req_title"
-                    android:text="@string/str_shi" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_shi_content"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="right|center_vertical"
-                    android:maxLength="10"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_4"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size"
-                    android:textStyle="normal" />
+                    android:textSize="@dimen/middle_size"/>
             </LinearLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="@dimen/space_8"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_housearea"
@@ -208,7 +147,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_decoratearea" />
+                    android:text="@string/str_decoratearea"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_content"
@@ -225,19 +164,19 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
+                    android:textSize="@dimen/middle_size"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_unit"
                     style="@style/style_edit_req_title"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_sq_unit" />
+                    android:text="@string/str_sq_unit"/>
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_decoratebudget"
@@ -251,7 +190,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_decoratebudget" />
+                    android:text="@string/str_decoratebudget"/>
 
 
                 <TextView
@@ -269,19 +208,19 @@
                     android:paddingRight="@dimen/space_16"
                     android:singleLine="true"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
+                    android:textSize="@dimen/middle_size"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_unit"
                     style="@style/style_edit_req_title"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/unit_million" />
+                    android:text="@string/unit_million"/>
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_housetype"
@@ -295,19 +234,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_housetype" />
+                    android:text="@string/str_housetype"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_housetype_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                     />
+                    />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_work_type"
@@ -321,7 +260,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_work_type" />
+                    android:text="@string/str_work_type"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_work_type_content"
@@ -333,12 +272,12 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="@dimen/space_8"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_persons"
@@ -352,7 +291,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_persons" />
+                    android:text="@string/str_persons"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_persons_content"
@@ -364,7 +303,7 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovestyle"
@@ -378,7 +317,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_lovestyle" />
+                    android:text="@string/str_lovestyle"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_lovestyle_content"
@@ -390,7 +329,7 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovedesistyle"
@@ -404,19 +343,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_lovedesistyle" />
+                    android:text="@string/str_lovedesistyle"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_lovedesistyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                     />
+                    />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovedesisex"
@@ -430,7 +369,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_lovedesisex" />
+                    android:text="@string/str_lovedesisex"/>
 
                 <TextView
                     android:id="@+id/act_edit_req_lovedesisex_content"
@@ -442,7 +381,7 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
+                android:background="@color/horzontal_line_color"/>
         </LinearLayout>
     </com.jianfanjia.cn.view.ReboundScrollView>
 

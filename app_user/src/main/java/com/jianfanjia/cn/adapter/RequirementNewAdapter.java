@@ -10,11 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -26,6 +21,11 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -53,7 +53,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RequirementView requirementView = (RequirementView) holder;
-        requirementView.bind(context,items.get(position), clickCallBack, position);
+        requirementView.bind(context, items.get(position), clickCallBack, position);
     }
 
     public static class RequirementView extends RecyclerView.ViewHolder {
@@ -106,12 +106,11 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
         @Bind(R.id.ltm_req_designer_status2)
         protected TextView ltm_req_designer_status2;
 
-        public void bind(Context context,Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
-            String cellPhase = requirementInfo.getCell_phase();
+        public void bind(Context context, Requirement requirementInfo, final ClickCallBack clickCallBack, final int
+                position) {
+            String cellPhase = requirementInfo.getBasic_address();
             if (!TextUtils.isEmpty(cellPhase)) {
-                ltm_req_cell.setText(requirementInfo.getCell() + cellPhase + context.getString(R.string.str_qi));
-            } else {
-                ltm_req_cell.setText(requirementInfo.getCell());
+                ltm_req_cell.setText(cellPhase);
             }
             ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
             ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time

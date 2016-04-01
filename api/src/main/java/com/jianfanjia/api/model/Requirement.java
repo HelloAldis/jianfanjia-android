@@ -14,12 +14,8 @@ public class Requirement extends BaseModel implements Serializable {
     private String province;
     private String city;
     private String district;
-    private String street;
-    private String cell_phase;
-    private String cell_building;
-    private String cell_unit;
-    private String cell_detail_number;
-    private String cell;
+    private String basic_address;
+    private String detail_address;
     private String house_area;
     private String house_type;
     private String dec_style;
@@ -84,54 +80,6 @@ public class Requirement extends BaseModel implements Serializable {
 
     public void setDistrict(String district) {
         this.district = district;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCell_phase() {
-        return cell_phase;
-    }
-
-    public void setCell_phase(String cell_phase) {
-        this.cell_phase = cell_phase;
-    }
-
-    public String getCell_building() {
-        return cell_building;
-    }
-
-    public void setCell_building(String cell_building) {
-        this.cell_building = cell_building;
-    }
-
-    public String getCell_unit() {
-        return cell_unit;
-    }
-
-    public void setCell_unit(String cell_unit) {
-        this.cell_unit = cell_unit;
-    }
-
-    public String getCell_detail_number() {
-        return cell_detail_number;
-    }
-
-    public void setCell_detail_number(String cell_detail_number) {
-        this.cell_detail_number = cell_detail_number;
-    }
-
-    public String getCell() {
-        return cell;
-    }
-
-    public void setCell(String cell) {
-        this.cell = cell;
     }
 
     public String getHouse_area() {
@@ -332,5 +280,21 @@ public class Requirement extends BaseModel implements Serializable {
 
     public void setStart_at(long start_at) {
         this.start_at = start_at;
+    }
+
+    public String getBasic_address() {
+        return basic_address;
+    }
+
+    public void setBasic_address(String basic_address) {
+        this.basic_address = basic_address;
+    }
+
+    public String getDetail_address() {
+        return detail_address;
+    }
+
+    public void setDetail_address(String detail_address) {
+        this.detail_address = detail_address;
     }
 }

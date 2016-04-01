@@ -224,7 +224,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         doubleBtnLayout.setVisibility(View.VISIBLE);
                         singleBtnLayout.setVisibility(View.GONE);
                         typeText.setText(getResources().getString(R.string.delay_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -247,7 +247,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.delay_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -257,7 +257,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.caigou_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -267,7 +267,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.check_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -281,7 +281,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         appointBtnLayout.setVisibility(View.VISIBLE);
                         mainHeadView.setRightTitleVisable(View.VISIBLE);
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                         if (noticeDetailInfo.getPlan().getStatus().equals(Global.PLAN_STATUS0)) {
                             btnRefuse.setEnabled(true);
@@ -307,7 +307,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnPlan.setVisibility(View.VISIBLE);
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)
                             || msgType.equals(Constant.TYPE_AUTH_TYPE_AGRAEE)
@@ -327,7 +327,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.req_str));
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     }
                     dateText.setText(DateFormatTool.getHumReadDateString(noticeDetailInfo.getCreate_at()));

@@ -8,17 +8,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
+
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -69,34 +70,35 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
         ButterKnife.bind(this, view);
     }
 
-    public static MyPlanViewType2 build(Context context){
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type2,null);
+    public static MyPlanViewType2 build(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type2, null);
         return new MyPlanViewType2(view);
     }
 
-    public void bind(Requirement requirementInfo,final ClickCallBack clickCallBack,final int position) {
-        cellView.setText(requirementInfo.getCell());
-        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo.getPlan().getStatus())]);
+    public void bind(Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
+        cellView.setText(requirementInfo.getBasic_address());
+        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo
+                .getPlan().getStatus())]);
         statusView.setTextColor(getResources().getColor(R.color.orange_color));
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
-        if(lastUpdateTime != 0l){
+        if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
         long measureTime = requirementInfo.getPlan().getHouse_check_time();
-        if(Calendar.getInstance().getTimeInMillis() > measureTime){
+        if (Calendar.getInstance().getTimeInMillis() > measureTime) {
             measureLayout.setVisibility(View.GONE);
             notifyLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             measureLayout.setVisibility(View.VISIBLE);
             notifyLayout.setVisibility(View.GONE);
-            if(measureTime != 0l){
+            if (measureTime != 0l) {
                 measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
             }
         }
         String imageId = requirementInfo.getUser().getImageid();
         if (!TextUtils.isEmpty(imageId)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);
-        }else{
+        } else {
             headView.setImageResource(R.mipmap.icon_default_head);
         }
         String username = requirementInfo.getUser().getUsername();
@@ -106,9 +108,9 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
             nameView.setText(getResources().getString(R.string.ower));
         }
         String sex = requirementInfo.getUser().getSex();
-        if(!TextUtils.isEmpty(sex)){
+        if (!TextUtils.isEmpty(sex)) {
             sexView.setVisibility(View.VISIBLE);
-            switch (sex){
+            switch (sex) {
                 case Constant.SEX_MAN:
                     sexView.setImageResource(R.mipmap.icon_designer_user_man);
                     break;
@@ -116,7 +118,7 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
                     sexView.setImageResource(R.mipmap.icon_designer_user_woman);
                     break;
             }
-        }else {
+        } else {
             sexView.setVisibility(View.GONE);
         }
         String des = BusinessManager.getDesc(requirementInfo.getHouse_type(), requirementInfo.getHouse_area(),

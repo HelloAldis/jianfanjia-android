@@ -6,13 +6,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -94,9 +95,10 @@ public class PreviewBusinessRequirementActivity extends BaseActivity {
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                     requirementInfo.getDistrict());
-            act_edit_req_street_content.setText(TextUtils.isEmpty(requirementInfo.getStreet()) ? "" : requirementInfo
-                    .getStreet());
-            act_edit_req_cell_content.setText(requirementInfo.getCell());
+            act_edit_req_street_content.setText(TextUtils.isEmpty(requirementInfo.getBasic_address()) ? "" :
+                    requirementInfo
+                            .getBasic_address());
+            act_edit_req_cell_content.setText(requirementInfo.getDetail_address());
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
             act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ?

@@ -8,15 +8,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -61,13 +62,13 @@ public class MyPlanViewType0 extends MyPlanViewTypeBase {
         ButterKnife.bind(this, view);
     }
 
-    public static MyPlanViewType0 build(Context context){
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type0,null);
+    public static MyPlanViewType0 build(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type0, null);
         return new MyPlanViewType0(view);
     }
 
     public void bind(Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
-        cellView.setText(requirementInfo.getCell());
+        cellView.setText(requirementInfo.getBasic_address());
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
         if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));

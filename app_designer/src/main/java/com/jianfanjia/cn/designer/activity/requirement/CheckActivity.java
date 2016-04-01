@@ -15,12 +15,6 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -43,15 +37,22 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
-import com.jianfanjia.common.tool.FileUtil;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -145,7 +146,8 @@ public class CheckActivity extends BaseActivity implements
 
     private void initData() {
         LogTool.d(TAG, "processSection:" + processSection.get_id());
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(processSection.getName()) + "阶段验收");
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(processSection.getName()) + getResources()
+                .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(processSection.getName());
         imageids = processSection.getYs().getImages();
@@ -281,7 +283,7 @@ public class CheckActivity extends BaseActivity implements
         setConfimStatus();
     }
 
-    @OnClick({R.id.head_back_layout,R.id.head_right_title,R.id.btn_confirm})
+    @OnClick({R.id.head_back_layout, R.id.head_right_title, R.id.btn_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
@@ -414,7 +416,7 @@ public class CheckActivity extends BaseActivity implements
     }
 
     private void uploadImage(Bitmap imageBitmap) {
-        if(imageBitmap == null) return;
+        if (imageBitmap == null) return;
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(ImageUtil.transformBitmapToBytes(imageBitmap));
 
@@ -447,7 +449,7 @@ public class CheckActivity extends BaseActivity implements
         });
     }
 
-    private void addImageToCheck(final String imageid){
+    private void addImageToCheck(final String imageid) {
         final AddImageToCheckRequest addImageToCheckRequest = new AddImageToCheckRequest();
         addImageToCheckRequest.set_id(processInfoId);
         addImageToCheckRequest.setSection(sectionName);

@@ -222,7 +222,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         doubleBtnLayout.setVisibility(View.VISIBLE);
                         singleBtnLayout.setVisibility(View.GONE);
                         typeText.setText(getResources().getString(R.string.delay_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -245,7 +245,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.delay_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -255,7 +255,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.caigou_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -265,7 +265,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.pay_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -280,7 +280,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         sectionInfo = BusinessCovertUtil.getSectionInfoByName(processInfo.getSections(), sectionName);
                         LogTool.d(TAG, "sectionInfo=" + sectionInfo);
                         typeText.setText(getResources().getString(R.string.check_str));
-                        cellText.setText(noticeDetailInfo.getProcess().getCell());
+                        cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
                         sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
                                 + "阶段");
@@ -296,7 +296,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnPlan.setVisibility(View.VISIBLE);
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
@@ -306,7 +306,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnContract.setVisibility(View.VISIBLE);
-                        cellText.setText(requirement.getCell());
+                        cellText.setText(requirement.getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
@@ -319,7 +319,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnCheckHouse.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.req_str));
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                         if (planInfo.getStatus().equals(Global.PLAN_STATUS2)) {
                             btnCheckHouse.setText(getResources().getString(R.string.confirm_measure_house));
@@ -334,7 +334,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.req_str));
-                        cellText.setText(noticeDetailInfo.getRequirement().getCell());
+                        cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     }
                     dateText.setText(DateFormatTool.getHumReadDateString(noticeDetailInfo.getCreate_at()));

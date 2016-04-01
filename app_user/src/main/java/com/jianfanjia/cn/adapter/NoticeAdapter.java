@@ -5,20 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: NoticeAdapter
@@ -113,7 +113,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
                 }
                 siteViewHolder.itemTitle.setText(info.getTitle());
                 siteViewHolder.itemDate.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
-                siteViewHolder.itemCell.setText(info.getProcess().getCell());
+                siteViewHolder.itemCell.setText(info.getProcess().getBasic_address());
                 siteViewHolder.itemContent.setText(info.getContent());
                 siteViewHolder.itemSection.setText(MyApplication.getInstance().getStringById(info.getSection()) + "阶段");
                 siteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +170,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
                 }
                 reqViewHolder.itemTitleView.setText(info.getTitle());
                 reqViewHolder.itemContentView.setText(info.getContent());
-                reqViewHolder.itemCellView.setText(info.getRequirement().getCell());
+                reqViewHolder.itemCellView.setText(info.getRequirement().getBasic_address());
                 reqViewHolder.itemPubTimeView.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
                 reqViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

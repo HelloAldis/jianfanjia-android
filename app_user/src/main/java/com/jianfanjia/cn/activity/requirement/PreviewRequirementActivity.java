@@ -6,14 +6,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -45,14 +45,8 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
     protected TextView act_edit_req_decoratebudget_content;//装修预算
     @Bind(R.id.act_edit_req_cell_content)
     protected TextView act_edit_req_cell_content;//小区
-    @Bind(R.id.act_edit_req_qi_content)
-    protected TextView act_edit_req_qi_content;//期
-    @Bind(R.id.act_edit_req_danyuan_content)
-    protected TextView act_edit_req_danyuan_content;//单元
     @Bind(R.id.act_edit_req_dong_content)
-    protected TextView act_edit_req_dong_content;//栋
-    @Bind(R.id.act_edit_req_shi_content)
-    protected TextView act_edit_req_shi_content;//室
+    protected TextView act_edit_req_dong_content;//期
 
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
@@ -84,7 +78,6 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_req));
         mainHeadView.setRightTitleVisable(View.GONE);
-
         initStringArray();
     }
 
@@ -102,11 +95,8 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                     requirementInfo.getDistrict());
-            act_edit_req_cell_content.setText(requirementInfo.getCell());
-            act_edit_req_qi_content.setText(requirementInfo.getCell_phase());
-            act_edit_req_danyuan_content.setText(requirementInfo.getCell_unit());
-            act_edit_req_dong_content.setText(requirementInfo.getCell_building());
-            act_edit_req_shi_content.setText(requirementInfo.getCell_detail_number());
+            act_edit_req_cell_content.setText(requirementInfo.getBasic_address());
+            act_edit_req_dong_content.setText(requirementInfo.getDetail_address());
             act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
             act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" :
                     arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);

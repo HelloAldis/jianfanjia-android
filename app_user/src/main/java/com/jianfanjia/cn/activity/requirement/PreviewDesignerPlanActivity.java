@@ -11,11 +11,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Plan;
@@ -24,17 +19,23 @@ import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
 import com.jianfanjia.cn.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreviewAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -69,30 +70,30 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     @Bind(R.id.viewpager)
     protected ViewPager viewPager;
     @Bind(R.id.indicatorGroup_lib)
-    protected LinearLayout indicatorGroup_lib ;
+    protected LinearLayout indicatorGroup_lib;
     @Bind(R.id.cellName)
-    protected TextView cellName ;
+    protected TextView cellName;
     @Bind(R.id.houseType)
-    protected TextView houseType ;
+    protected TextView houseType;
     @Bind(R.id.houseArea)
-    protected TextView houseArea ;
+    protected TextView houseArea;
     @Bind(R.id.decorateType)
-    protected TextView decorateType ;
+    protected TextView decorateType;
     @Bind(R.id.totalDate)
-    protected TextView totalDate ;
+    protected TextView totalDate;
     @Bind(R.id.price)
-    protected TextView price ;
+    protected TextView price;
     @Bind(R.id.designText)
-    protected TextView designText ;
+    protected TextView designText;
     @Bind(R.id.btnDetail)
-    protected Button btnDetail ;
+    protected Button btnDetail;
     @Bind(R.id.btn_choose)
-    protected Button btn_choose ;
+    protected Button btn_choose;
 
     protected Plan planDetailInfo = null;
     private String designerid = null;
     private String planid = null;
-    private String requirementid ;
+    private String requirementid;
     private Requirement requirementInfo = null;
     private String itemPosition;
     private int flagIntent = -1;
@@ -130,9 +131,9 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             designerid = planDetailInfo.getDesignerid();
             LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" +
                     requirementInfo);
-            if (!TextUtils.isEmpty(requirementInfo.getCell())) {
+            if (!TextUtils.isEmpty(requirementInfo.getBasic_address())) {
                 cellName.setVisibility(View.VISIBLE);
-                cellName.setText(requirementInfo.getCell());
+                cellName.setText(requirementInfo.getBasic_address());
             }
             if (!TextUtils.isEmpty(requirementInfo.getHouse_type())) {
                 houseTypeLayout.setVisibility(View.VISIBLE);

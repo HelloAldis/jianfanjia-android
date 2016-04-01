@@ -138,7 +138,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
                 siteViewHolder.itemTitle.setText(info.getTitle());
                 siteViewHolder.itemDate.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
                 siteViewHolder.itemContent.setText(info.getContent());
-                siteViewHolder.itemCell.setText(info.getProcess().getCell());
+                siteViewHolder.itemCell.setText(info.getProcess().getBasic_address());
                 siteViewHolder.itemSection.setText(MyApplication.getInstance()
                         .getStringById(info.getSection()) + "阶段");
                 siteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +203,7 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
                 }
                 reqHolder.itemTitleView.setText(info.getTitle());
                 reqHolder.itemContentView.setText(info.getContent());
-                reqHolder.itemCellView.setText(info.getRequirement().getCell());
+                reqHolder.itemCellView.setText(info.getRequirement().getBasic_address());
                 reqHolder.itemPubTimeView.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
                 reqHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

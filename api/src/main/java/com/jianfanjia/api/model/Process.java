@@ -15,7 +15,8 @@ public class Process extends BaseModel implements Serializable {
     private String province;
     private String city;
     private String district;
-    private String cell;
+    private String basic_address;
+    private String detail_address;
     private String house_type;
     private String house_area;
     private String dec_style;
@@ -91,14 +92,6 @@ public class Process extends BaseModel implements Serializable {
 
     public void setDistrict(String district) {
         this.district = district;
-    }
-
-    public String getCell() {
-        return cell;
-    }
-
-    public void setCell(String cell) {
-        this.cell = cell;
     }
 
     public String getHouse_type() {
@@ -211,6 +204,22 @@ public class Process extends BaseModel implements Serializable {
 
     public void setLastupdate(long lastupdate) {
         this.lastupdate = lastupdate;
+    }
+
+    public String getBasic_address() {
+        return basic_address;
+    }
+
+    public void setBasic_address(String basic_address) {
+        this.basic_address = basic_address;
+    }
+
+    public String getDetail_address() {
+        return detail_address;
+    }
+
+    public void setDetail_address(String detail_address) {
+        this.detail_address = detail_address;
     }
 
     public ProcessSection getSectionInfoByName(String sectionName) {

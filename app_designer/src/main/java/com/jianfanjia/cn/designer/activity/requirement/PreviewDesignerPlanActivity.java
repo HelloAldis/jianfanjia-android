@@ -10,23 +10,24 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
+import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.common.tool.LogTool;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
  * Description:预览设计师方案
@@ -105,9 +106,9 @@ public class PreviewDesignerPlanActivity extends BaseActivity {
             mainHeadView.setRigthTitleEnable(true);
             String dec_type = requirement.getDec_type();
             LogTool.d(TAG, "dec_type=" + dec_type + "    requirement.getHouse_type()=" + requirement.getHouse_type());
-            if (!TextUtils.isEmpty(requirement.getCell())) {
+            if (!TextUtils.isEmpty(requirement.getBasic_address())) {
                 cellName.setVisibility(View.VISIBLE);
-                cellName.setText(requirement.getCell());
+                cellName.setText(requirement.getBasic_address());
             }
             if (!TextUtils.isEmpty(requirement.getHouse_type()) && dec_type.equals(Global.DEC_TYPE_HOME)) {
                 houseTypeLayout.setVisibility(View.VISIBLE);
@@ -153,18 +154,18 @@ public class PreviewDesignerPlanActivity extends BaseActivity {
         }
         PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new
                 ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                LogTool.d(TAG, "pos:" + pos);
-                Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
-                Bundle showPicBundle = new Bundle();
-                showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
-                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                        (ArrayList<String>) imgList);
-                showPicIntent.putExtras(showPicBundle);
-                startActivity(showPicIntent);
-            }
-        });
+                    @Override
+                    public void onClickItem(int pos) {
+                        LogTool.d(TAG, "pos:" + pos);
+                        Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) imgList);
+                        showPicIntent.putExtras(showPicBundle);
+                        startActivity(showPicIntent);
+                    }
+                });
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
