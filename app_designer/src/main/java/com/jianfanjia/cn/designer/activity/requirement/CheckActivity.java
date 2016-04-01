@@ -63,10 +63,6 @@ import butterknife.OnClick;
 public class CheckActivity extends BaseActivity implements
         UploadListener, ItemClickCallBack, PopWindowCallBack {
     private static final String TAG = CheckActivity.class.getName();
-    public static final String CHECK_INTENT_FLAG = "check_intent_flag";
-    public static final int NOTICE_INTENT = 0;//通知进入的
-    public static final int PROCESS_LIST_INTENT = 1;//工地
-    private int flagIntent = -1;
     public static final int EDIT_STATUS = 0;
     public static final int FINISH_STATUS = 1;
     @Bind(R.id.check_head_layout)
@@ -137,7 +133,6 @@ public class CheckActivity extends BaseActivity implements
     }
 
     private void initMainHeadView() {
-        mainHeadView = (MainHeadView) findViewById(R.id.check_head_layout);
         mainHeadView.setRightTitle(getString(R.string.edit));
         mainHeadView.setRightTitleVisable(View.VISIBLE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
@@ -260,10 +255,9 @@ public class CheckActivity extends BaseActivity implements
             }
         }
         return flag;
-
     }
 
-    public void changeEditStatus() {
+    private void changeEditStatus() {
         if (!processSection.getStatus().equals(Constant.FINISHED)) {
             if (currentState == FINISH_STATUS) {
                 mainHeadView.setRightTitle(getString(R.string.finish));
@@ -315,7 +309,6 @@ public class CheckActivity extends BaseActivity implements
         LogTool.d(TAG, "position:" + position);
         key = position;
         LogTool.d(TAG, "key:" + key);
-
         deleteCheckImage(key + "");
     }
 
@@ -324,7 +317,6 @@ public class CheckActivity extends BaseActivity implements
         deleteCheckImgRequest.set_id(processInfoId);
         deleteCheckImgRequest.setSection(sectionName);
         deleteCheckImgRequest.setKey(key);
-
         Api.deleteCheckImg(deleteCheckImgRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -517,7 +509,6 @@ public class CheckActivity extends BaseActivity implements
         NotifyOwnerCheckRequest notifyOwnerCheckRequest = new NotifyOwnerCheckRequest();
         notifyOwnerCheckRequest.set_id(processid);
         notifyOwnerCheckRequest.setSection(section);
-
         Api.notifyOwnerCheck(notifyOwnerCheckRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -600,6 +591,12 @@ public class CheckActivity extends BaseActivity implements
     @Override
     public void click(int position, int itemType, List<String> imageUrlList) {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        appManager.finishActivity(this);
     }
 
     @Override
