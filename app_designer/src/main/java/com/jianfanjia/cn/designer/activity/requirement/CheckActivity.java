@@ -344,7 +344,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
 
@@ -412,7 +412,6 @@ public class CheckActivity extends BaseActivity implements
         if (imageBitmap == null) return;
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(ImageUtil.transformBitmapToBytes(imageBitmap));
-
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -421,7 +420,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onHttpDone() {
-
+                hideWaitDialog();
             }
 
             @Override
@@ -431,7 +430,6 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-                hideWaitDialog();
                 makeTextShort(apiResponse.getErr_msg());
             }
 
@@ -456,7 +454,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                
             }
 
             @Override
