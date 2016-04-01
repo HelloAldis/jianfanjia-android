@@ -14,10 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
@@ -46,6 +42,11 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -94,13 +95,8 @@ public class RecycleViewFragment extends BaseFragment {
 
     private View view = null;
 
-    /**
-     * 标志位，标志已经初始化完成
-     */
     private boolean isPrepared;
-    /**
-     * 是否已被加载过一次，第二次就不再去请求数据了
-     */
+
     private boolean mHasLoadedOnce;
 
     private List<Requirement> requirementInfos;
@@ -111,12 +107,22 @@ public class RecycleViewFragment extends BaseFragment {
 
     private Context _context;
 
+    private String refuseMsg;
+    private CommonDialog refuseDialog;
+
     public static RecycleViewFragment newInstance(int num) {
         RecycleViewFragment f = new RecycleViewFragment();
         Bundle args = new Bundle();
         args.putInt("num", num);
         f.setArguments(args);
         return f;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LogTool.d(this.getClass().getName(), "onAttach");
+        _context = context.getApplicationContext();
     }
 
     @Override
@@ -129,7 +135,7 @@ public class RecycleViewFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "onCreateView");
+        LogTool.d(TAG, "onCreateView()");
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
@@ -256,151 +262,6 @@ public class RecycleViewFragment extends BaseFragment {
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
-    private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
-        NotifyOwnerMeasureHouseRequest request = new NotifyOwnerMeasureHouseRequest();
-        request.set_id(requirementInfo.getPlan().get_id());
-        request.setUserid(requirementInfo.getUserid());
-        Api.notifyOwnerConfirmHouse(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                makeTextShort(getString(R.string.notify_success));
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-                makeTextShort(getString(R.string.notify_not_more_once_everyday));
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void refuseRequirement(String requirementid, String msg) {
-        RefuseRequirementRequest request = new RefuseRequirementRequest();
-        request.setRequirementid(requirementid);
-        request.setReject_respond_msg(msg);
-        Api.refuseRequirement(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                if (refuseDialog != null) {
-                    refuseDialog.dismiss();
-                }
-                initData();
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    public void onEventMainThread(UpdateEvent event) {
-//        LogTool.d(TAG, "event:" + event.getEventType());
-        initData();
-    }
-
-    String refuseMsg;
-    CommonDialog refuseDialog;
-
-    private void showRefuseDialog(final String requirementid) {
-        refuseDialog = DialogHelper
-                .getPinterestDialogCancelable(getActivity());
-        refuseDialog.setTitle(getString(R.string.refuse_reason));
-        View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
-        RadioGroup radioGroup = (RadioGroup) contentView
-                .findViewById(R.id.refuse_radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (group.getCheckedRadioButtonId() == R.id.refuse_radio0) {
-                    refuseMsg = getString(R.string.refuse_msg0);
-                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio1) {
-                    refuseMsg = getString(R.string.refuse_msg1);
-                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio2) {
-                    refuseMsg = getString(R.string.refuse_msg2);
-                } else {
-                    refuseMsg = getString(R.string.refuse_msg3);
-                }
-            }
-        });
-        refuseDialog.setContent(contentView);
-        refuseDialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (refuseMsg != null) {
-                            refuseRequirement(requirementid, refuseMsg);
-                            dialog.dismiss();
-                        } else {
-                            makeTextShort(getString(R.string.tip_choose_refuse_reason));
-                        }
-                    }
-                });
-        refuseDialog.setNegativeButton(R.string.no, null);
-        refuseDialog.show();
-    }
-
-    private void responseRequirement(String requirementid) {
-        ResponseRequirementRequest request = new ResponseRequirementRequest();
-        request.setRequirementid(requirementid);
-        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                initData();
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
     private void initData() {
         GetRequirementListRequest request = new GetRequirementListRequest();
         Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
@@ -469,15 +330,149 @@ public class RecycleViewFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        LogTool.d(this.getClass().getName(), "onAttach");
-        _context = context.getApplicationContext();
-    }
-
     @OnClick(R.id.error_include)
     public void onClick() {
+        initData();
+    }
+
+    private void showRefuseDialog(final String requirementid) {
+        refuseDialog = DialogHelper
+                .getPinterestDialogCancelable(getActivity());
+        refuseDialog.setTitle(getString(R.string.refuse_reason));
+        View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
+        RadioGroup radioGroup = (RadioGroup) contentView
+                .findViewById(R.id.refuse_radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (group.getCheckedRadioButtonId() == R.id.refuse_radio0) {
+                    refuseMsg = getString(R.string.refuse_msg0);
+                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio1) {
+                    refuseMsg = getString(R.string.refuse_msg1);
+                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio2) {
+                    refuseMsg = getString(R.string.refuse_msg2);
+                } else {
+                    refuseMsg = getString(R.string.refuse_msg3);
+                }
+            }
+        });
+        refuseDialog.setContent(contentView);
+        refuseDialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (refuseMsg != null) {
+                            refuseRequirement(requirementid, refuseMsg);
+                            dialog.dismiss();
+                        } else {
+                            makeTextShort(getString(R.string.tip_choose_refuse_reason));
+                        }
+                    }
+                });
+        refuseDialog.setNegativeButton(R.string.no, null);
+        refuseDialog.show();
+    }
+
+    private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
+        NotifyOwnerMeasureHouseRequest request = new NotifyOwnerMeasureHouseRequest();
+        request.set_id(requirementInfo.getPlan().get_id());
+        request.setUserid(requirementInfo.getUserid());
+        Api.notifyOwnerConfirmHouse(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.notify_success));
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.notify_not_more_once_everyday));
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void responseRequirement(String requirementid) {
+        ResponseRequirementRequest request = new ResponseRequirementRequest();
+        request.setRequirementid(requirementid);
+        Api.responseRequirement(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                initData();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void refuseRequirement(String requirementid, String msg) {
+        RefuseRequirementRequest request = new RefuseRequirementRequest();
+        request.setRequirementid(requirementid);
+        request.setReject_respond_msg(msg);
+        Api.refuseRequirement(request, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                if (refuseDialog != null) {
+                    refuseDialog.dismiss();
+                }
+                initData();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    public void onEventMainThread(UpdateEvent event) {
         initData();
     }
 
