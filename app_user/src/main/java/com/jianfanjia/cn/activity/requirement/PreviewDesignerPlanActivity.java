@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
@@ -284,11 +285,11 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         startActivity(DetailPriceActivity.class, priceBundle);
     }
 
-    //选的方案
+    //选定方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
         LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
         ChooseDesignerPlanRequest chooseDesignerPlanRequest = new ChooseDesignerPlanRequest();
-        chooseDesignerPlanRequest.setRequiremendid(requirementid);
+        chooseDesignerPlanRequest.setRequirementid(requirementid);
         chooseDesignerPlanRequest.setDesignerid(designerid);
         chooseDesignerPlanRequest.setPlanid(planid);
         Api.chooseDesignerPlan(chooseDesignerPlanRequest, new ApiCallback<ApiResponse<String>>() {
@@ -314,7 +315,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
