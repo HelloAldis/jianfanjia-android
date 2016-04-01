@@ -258,9 +258,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
                         arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
                 break;
-
         }
-
     }
 
     public Requirement getRequirementInfo() {
