@@ -55,7 +55,7 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
         } else {
             holder.itemHeadView.setImageResource(R.mipmap.icon_default_head);
         }
-        holder.itemCellView.setText(process.getCell());
+        holder.itemCellView.setText(process.getBasic_address());
         LogTool.d(TAG, "process.getGoing_on()=" + process.getGoing_on());
         String itemNode = null;
         if (process.getGoing_on().equals("done")) {

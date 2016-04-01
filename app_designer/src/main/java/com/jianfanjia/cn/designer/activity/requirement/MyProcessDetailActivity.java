@@ -15,13 +15,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -47,8 +40,6 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.DateFormatTool;
-import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -57,8 +48,18 @@ import com.jianfanjia.cn.designer.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshListView;
+import com.jianfanjia.common.tool.DateFormatTool;
+import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -145,38 +146,38 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
     }
 
     private void loadCurrentProcess() {
-            if (processId != null) {
-                GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
-                getProcessInfoRequest.setProcessId(processId);
-                Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
-                    @Override
-                    public void onPreLoad() {
-                        showWaitDialog();
-                    }
+        if (processId != null) {
+            GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
+            getProcessInfoRequest.setProcessId(processId);
+            Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
+                @Override
+                public void onPreLoad() {
+                    showWaitDialog();
+                }
 
-                    @Override
-                    public void onHttpDone() {
-                        hideWaitDialog();
-                        detailNodeListView.onRefreshComplete();
-                    }
+                @Override
+                public void onHttpDone() {
+                    hideWaitDialog();
+                    detailNodeListView.onRefreshComplete();
+                }
 
-                    @Override
-                    public void onSuccess(ApiResponse<Process> apiResponse) {
-                        processInfo = apiResponse.getData();
-                        initData();
-                    }
+                @Override
+                public void onSuccess(ApiResponse<Process> apiResponse) {
+                    processInfo = apiResponse.getData();
+                    initData();
+                }
 
-                    @Override
-                    public void onFailed(ApiResponse<Process> apiResponse) {
-                        makeTextShort(apiResponse.getErr_msg());
-                    }
+                @Override
+                public void onFailed(ApiResponse<Process> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
+                }
 
-                    @Override
-                    public void onNetworkError(int code) {
+                @Override
+                public void onNetworkError(int code) {
 
-                    }
-                });
-            }
+                }
+            });
+        }
     }
 
     private void initMainHead() {
@@ -196,8 +197,8 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
     // 初始化数据
     private void initData() {
         if (processInfo != null) {
-            mainHeadView.setMianTitle(processInfo.getCell() == null ? getString(R.string.process_example)
-                    : processInfo.getCell());// 设置标题头
+            mainHeadView.setMianTitle(processInfo.getBasic_address() == null ? getString(R.string.process_example)
+                    : processInfo.getBasic_address());// 设置标题头
             currentPro = MyApplication.getInstance().getPositionByItemName(
                     processInfo.getGoing_on());
             if (currentList == -1 || lastPro != currentPro) {

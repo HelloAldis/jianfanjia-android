@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jianfanjia.api.model.Requirement;
@@ -51,13 +52,13 @@ public class EditBussinessRequirementFragment extends BaseFragment {
     @Bind(R.id.act_edit_req_lovedesisex_content)
     protected TextView act_edit_req_lovedesisex_content;//偏好设计师性别
     @Bind(R.id.act_edit_req_street_content)
-    protected TextView act_edit_req_street_content;//所在街道
+    protected EditText act_edit_req_street_content;//所在街道
     @Bind(R.id.act_edit_req_housearea_content)
-    protected TextView act_edit_req_housearea_content;//装修面积
+    protected EditText act_edit_req_housearea_content;//装修面积
     @Bind(R.id.act_edit_req_decoratebudget_content)
-    protected TextView act_edit_req_decoratebudget_content;//装修预算
+    protected EditText act_edit_req_decoratebudget_content;//装修预算
     @Bind(R.id.act_edit_req_cell_content)
-    protected TextView act_edit_req_cell_content;//小区
+    protected EditText act_edit_req_cell_content;//小区
 
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
@@ -92,13 +93,13 @@ public class EditBussinessRequirementFragment extends BaseFragment {
 
     @OnTextChanged(value = R.id.act_edit_req_cell_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void cellAfterChanged(CharSequence charSequence) {
-        requirementInfo.setCell(charSequence.toString());
+        requirementInfo.setBasic_address(charSequence.toString());
         isAllInput();
     }
 
     @OnTextChanged(value = R.id.act_edit_req_street_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void streetAfterChanged(CharSequence charSequence) {
-        requirementInfo.setStreet(charSequence.toString());
+        requirementInfo.setDetail_address(charSequence.toString());
         isAllInput();
     }
 
@@ -108,7 +109,8 @@ public class EditBussinessRequirementFragment extends BaseFragment {
         isAllInput();
     }
 
-    @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
+            .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
         requirementInfo.setTotal_price(charSequence.toString());
         isAllInput();
@@ -238,11 +240,11 @@ public class EditBussinessRequirementFragment extends BaseFragment {
                     act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                             requirementInfo.getDistrict());
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getStreet())) {
-                    act_edit_req_street_content.setText(requirementInfo.getStreet());
+                if (!TextUtils.isEmpty(requirementInfo.getDetail_address())) {
+                    act_edit_req_street_content.setText(requirementInfo.getDetail_address());
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getCell())) {
-                    act_edit_req_cell_content.setText(requirementInfo.getCell());
+                if (!TextUtils.isEmpty(requirementInfo.getBasic_address())) {
+                    act_edit_req_cell_content.setText(requirementInfo.getBasic_address());
                 }
                 if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
                     act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());

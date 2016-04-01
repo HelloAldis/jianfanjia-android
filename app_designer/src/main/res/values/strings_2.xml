@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="str_cell">小区</string>
+    <string name="str_cell">小区名称</string>
+    <string name="house_number_text">楼号-门牌号</string>
     <string name="str_update_time">更新时间：</string>
     <string name="str_req_tip">您还没有发布需求，当前需求列表为空</string>
     <string name="str_marched_tip">为您匹配的设计师</string>

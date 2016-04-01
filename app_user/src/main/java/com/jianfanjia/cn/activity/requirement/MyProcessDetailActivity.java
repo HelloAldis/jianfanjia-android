@@ -14,13 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -46,7 +39,6 @@ import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -55,9 +47,18 @@ import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshListView;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -198,8 +199,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     // 初始化数据
     private void initData() {
         if (processInfo != null) {
-            mainHeadView.setMianTitle(processInfo.getCell() == null ? getString(R.string.process_example)
-                    : processInfo.getCell());// 设置标题头
+            mainHeadView.setMianTitle(processInfo.getBasic_address() == null ? getString(R.string.process_example)
+                    : processInfo.getBasic_address());// 设置标题头
             currentPro = MyApplication.getInstance().getPositionByItemName(
                     processInfo.getGoing_on());
             if (currentList == -1 || lastPro != currentPro) {

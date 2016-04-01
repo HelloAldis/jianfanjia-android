@@ -94,7 +94,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
         //设计师的名字
         holder.nameView.setText(userMessage.getUser().getUsername());
 
-        holder.cellText.setText(userMessage.getRequirement().getCell());
+        holder.cellText.setText(userMessage.getRequirement().getBasic_address());
 
         holder.numText.setText(userMessage.getPlan().getName());
         //设计师的头像
@@ -187,7 +187,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
             }
         });
 
-        holder.cellName.setText(userMessage.getProcess().getCell());
+        holder.cellName.setText(userMessage.getProcess().getBasic_address());
         holder.nodeName.setText(MyApplication.getInstance()
                 .getStringById(userMessage.getItem()));
         switch (userMessage.getProcess().getSectionInfoByName(userMessage.getSection()).
