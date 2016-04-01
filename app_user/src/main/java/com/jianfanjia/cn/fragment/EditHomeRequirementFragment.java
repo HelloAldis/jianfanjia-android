@@ -126,40 +126,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
         isAllInput();
     }
 
-    /*@OnTextChanged({R.id.act_edit_req_cell_content, R.id.act_edit_req_qi_content, R.id.act_edit_req_danyuan_content,
-            R.id.act_edit_req_dong_content,
-            R.id.act_edit_req_shi_content, R.id.act_edit_req_housearea_content, R.id
-            .act_edit_req_decoratebudget_content})
-    protected void afterTextChangedOnSomeTextViews(TextView tv, Editable text) {
-        int viewId = tv.getId();
-        String textContent = text.toString();
-        LogTool.d(getClass().getName() + "afterchange ", viewId + text.toString());
-        switch (viewId) {
-            case R.id.act_edit_req_cell_content:
-                requirementInfo.setCell(textContent);
-                break;
-            case R.id.act_edit_req_qi_content:
-                requirementInfo.setCell_phase(textContent);
-                break;
-            case R.id.act_edit_req_danyuan_content:
-                requirementInfo.setCell_unit(textContent);
-                break;
-            case R.id.act_edit_req_dong_content:
-                requirementInfo.setCell_building(textContent);
-                break;
-            case R.id.act_edit_req_shi_content:
-                requirementInfo.setCell_detail_number(textContent);
-                break;
-            case R.id.act_edit_req_housearea_content:
-                requirementInfo.setHouse_area(textContent);
-                break;
-            case R.id.act_edit_req_decoratebudget_content:
-                requirementInfo.setTotal_price(textContent);
-                break;
-        }
-        isAllInput();
-    }
-*/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -312,9 +278,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
                     .RESPONSE_DATA);
             switch (requestCode) {
                 case Constant.REQUIRECODE_CITY:
-//                    act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
-// itemMap.value);
-//                    requirementInfo.setDistrict(itemMap.value);
                     String provice = data.getStringExtra(Constant.EDIT_PROVICE);
                     String city = data.getStringExtra(Constant.EDIT_CITY);
                     String district = data.getStringExtra(Constant.EDIT_DISTRICT);
