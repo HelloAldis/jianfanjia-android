@@ -374,7 +374,7 @@ public class RecycleViewFragment extends BaseFragment {
 
     private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
         NotifyOwnerMeasureHouseRequest request = new NotifyOwnerMeasureHouseRequest();
-        request.set_id(requirementInfo.getPlan().get_id());
+        request.setPlanid(requirementInfo.getPlan().get_id());
         request.setUserid(requirementInfo.getUserid());
         Api.notifyOwnerConfirmHouse(request, new ApiCallback<ApiResponse<String>>() {
             @Override

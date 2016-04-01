@@ -10,7 +10,7 @@ import com.jianfanjia.api.request.BaseRequest;
  */
 public class NotifyOwnerMeasureHouseRequest extends BaseRequest {
 
-    private String _id;
+    private String planid;
 
     private String userid;
 
@@ -22,11 +22,11 @@ public class NotifyOwnerMeasureHouseRequest extends BaseRequest {
         this.userid = userid;
     }
 
-    public String get_id() {
-        return _id;
+    public String getPlanid() {
+        return planid;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setPlanid(String planid) {
+        this.planid = planid;
     }
 }
