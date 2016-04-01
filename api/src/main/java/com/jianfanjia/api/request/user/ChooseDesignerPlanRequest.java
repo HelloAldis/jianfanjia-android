@@ -10,18 +10,18 @@ import com.jianfanjia.api.request.BaseRequest;
  */
 public class ChooseDesignerPlanRequest extends BaseRequest {
 
-    private String requiremendid;
+    private String requirementid;
 
     private String designerid;
 
     private String planid;
 
-    public String getRequiremendid() {
-        return requiremendid;
+    public String getRequirementid() {
+        return requirementid;
     }
 
-    public void setRequiremendid(String requiremendid) {
-        this.requiremendid = requiremendid;
+    public void setRequirementid(String requirementid) {
+        this.requirementid = requirementid;
     }
 
     public String getDesignerid() {
