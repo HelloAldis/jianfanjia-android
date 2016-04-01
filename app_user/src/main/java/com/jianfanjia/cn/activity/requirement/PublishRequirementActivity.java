@@ -7,22 +7,18 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
@@ -35,6 +31,12 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:发布需求
@@ -167,12 +169,9 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
     }
 
     protected void confirm() {
-//        JianFanJiaClient.add_Requirement(this, requirementInfo, this, this);
-//
         Requirement requirementInfo = getConfirmRequirement();
         PublishRequirementRequest publishRequirementRequest = new PublishRequirementRequest();
         publishRequirementRequest.setRequirement(requirementInfo);
-
         Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
@@ -197,7 +196,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

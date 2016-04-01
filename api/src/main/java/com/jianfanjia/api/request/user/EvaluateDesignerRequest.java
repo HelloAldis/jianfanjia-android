@@ -16,7 +16,7 @@ public class EvaluateDesignerRequest extends BaseRequest {
 
     private int service_attitude;
 
-    private int response_speed;
+    private int respond_speed;
 
     private String comment;
 
@@ -46,12 +46,12 @@ public class EvaluateDesignerRequest extends BaseRequest {
         this.service_attitude = service_attitude;
     }
 
-    public int getResponse_speed() {
-        return response_speed;
+    public int getRespond_speed() {
+        return respond_speed;
     }
 
-    public void setResponse_speed(int response_speed) {
-        this.response_speed = response_speed;
+    public void setRespond_speed(int respond_speed) {
+        this.respond_speed = respond_speed;
     }
 
     public String getComment() {

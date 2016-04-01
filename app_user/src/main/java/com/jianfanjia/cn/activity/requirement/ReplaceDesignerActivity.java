@@ -10,16 +10,17 @@ import android.view.View;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.CheckListener;
@@ -202,7 +203,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -213,7 +214,6 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
         replaceOrderedDesignerRequest.setRequirementid(requirementid);
         replaceOrderedDesignerRequest.setOld_designserid(old_designerid);
         replaceOrderedDesignerRequest.setNew_designerid(new_designerid);
-
         Api.replaceOrderedDesigner(replaceOrderedDesignerRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -237,7 +237,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

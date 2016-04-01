@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.request.user.EvaluateDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -138,7 +139,7 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
         EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest();
         evaluateDesignerRequest.setRequirementid(requirementid);
         evaluateDesignerRequest.setDesignerid(designerid);
-        evaluateDesignerRequest.setResponse_speed(respond_speed);
+        evaluateDesignerRequest.setRespond_speed(respond_speed);
         evaluateDesignerRequest.setService_attitude(service_attitude);
         evaluateDesignerRequest.setIs_anonymous(is_anonymous);
         evaluateDesignerRequest.setComment(comment);
@@ -165,7 +166,7 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
