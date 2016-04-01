@@ -12,10 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
@@ -30,18 +33,15 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequiremen
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.business.ProcessBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.DateFormatTool;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.DateFormatTool;
+import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -216,6 +216,9 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                 UserMessage noticeDetailInfo = apiResponse.getData();
                 if (null != noticeDetailInfo) {
                     String msgType = noticeDetailInfo.getMessage_type();
+                    ProcessSection processSection = ProcessBusiness.getSectionInfoByName(noticeDetailInfo
+                                    .getProcess(),
+                            noticeDetailInfo.getSection());
                     LogTool.d(TAG, "msgType:" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -226,7 +229,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                         if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_AGREE)) {
                             btnAgree.setText(getResources().getString(R.string.agree_str));
@@ -249,7 +252,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -259,7 +262,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         typeText.setText(getResources().getString(R.string.caigou_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -269,7 +272,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                         typeText.setText(getResources().getString(R.string.check_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_USER_APPOINT_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);

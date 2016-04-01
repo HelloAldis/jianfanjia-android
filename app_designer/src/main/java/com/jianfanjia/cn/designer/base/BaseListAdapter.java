@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-import com.jianfanjia.cn.designer.cache.DataManagerNew;
+import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 
 /**

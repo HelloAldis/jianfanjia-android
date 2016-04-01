@@ -91,7 +91,7 @@ public class MyApplication extends BaseApplication {
      * @return
      * @description 根据英文的name, 拿到中文的name
      */
-    public String getStringById(String name) {
+   /* public String getStringById(String name) {
         String str = null;
         try {
             int StringId = getResources().getIdentifier(name, "string",
@@ -103,7 +103,7 @@ public class MyApplication extends BaseApplication {
         }
         return null;
     }
-
+*/
     /**
      * @param name
      * @return 默认返回0，当前工序为第一个工序

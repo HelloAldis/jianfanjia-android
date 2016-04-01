@@ -13,7 +13,7 @@ import android.widget.PopupWindow;
 
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.PopWindowAdapter;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.interf.GetItemCallback;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class DecorationPopWindow extends PopupWindow {
         super(activity);
         popView = LayoutInflater.from(activity).inflate(R.layout.gird_item_pop, null);
         gridView = (GridView) popView.findViewById(R.id.popGridview);
-        final List<String> list = BusinessManager.getListByResource(activity, resId);
+        final List<String> list = BusinessCovertUtil.getListByResource(activity, resId);
         adapter = new PopWindowAdapter(activity, list);
         gridView.setAdapter(adapter);
         adapter.setSelectedPos(currentPosition);

@@ -15,12 +15,6 @@ import com.jianfanjia.common.base.application.BaseApplication;
  */
 public class RequirementBusiness {
 
-    private String dec_style = "0";
-    private String dec_type = "0";
-    private String work_type = "0";
-    private String communication_type = "0";
-    private String prefer_sex = "2";
-
     public static void initHomeRequirement(Requirement requirement) {
         requirement.setDec_type("0");
         requirement.setDec_style("0");

@@ -12,21 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.ProcessBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -188,8 +188,9 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         });
 
         holder.cellName.setText(noticeInfo.getProcess().getBasic_address());
-        holder.nodeName.setText(MyApplication.getInstance()
-                .getStringById(noticeInfo.getItem()));
+        ProcessSectionItem processSectionItem = ProcessBusiness.getSectionItemByName(noticeInfo.getProcess(),
+                noticeInfo.getSection(), noticeInfo.getItem());
+        holder.nodeName.setText(processSectionItem.getLabel());
         switch (noticeInfo.getProcess().getSectionInfoByName(noticeInfo.getSection()).
                 getSectionItemInfoByName(noticeInfo.getItem())
                 .getStatus()) {

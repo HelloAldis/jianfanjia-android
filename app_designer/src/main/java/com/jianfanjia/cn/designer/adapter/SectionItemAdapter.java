@@ -194,10 +194,8 @@ public class SectionItemAdapter extends BaseAdapter {
         switch (type) {
             case SECTION_ITME_VIEW:
                 LogTool.d(TAG, processSectionItem.getName());
-                viewHolder.closeNodeName.setText(MyApplication.getInstance()
-                        .getStringById(processSectionItem.getName()));
-                viewHolder.openNodeName.setText(MyApplication.getInstance()
-                        .getStringById(processSectionItem.getName()));
+                viewHolder.closeNodeName.setText(processSectionItem.getLabel());
+                viewHolder.openNodeName.setText(processSectionItem.getLabel());
                 switch (processSectionItem.getStatus()) {
                     case Constant.FINISHED:
                         viewHolder.finishStatusIcon

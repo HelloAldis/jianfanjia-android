@@ -17,6 +17,17 @@ import com.jianfanjia.common.tool.LogTool;
  */
 public class ProcessBusiness {
 
+    public static ProcessSectionItem getSectionItemByName(Process process, String section, String item) {
+        ProcessSection processSection = getSectionInfoByName(process, section);
+        for (ProcessSectionItem sectionItemInfo : processSection.getItems()) {
+            if (sectionItemInfo.getName().equals(item)) {
+                LogTool.d("SectionItem", item);
+                return sectionItemInfo;
+            }
+        }
+        return null;
+    }
+
     public static ProcessSection getSectionInfoByName(com.jianfanjia.api.model.Process process, String sectionName) {
         LogTool.d("SectionInfo", sectionName);
         List<ProcessSection> sections = process.getSections();
@@ -31,12 +42,9 @@ public class ProcessBusiness {
     }
 
     public static void addImageToItem(Process process, String section, String item, String imageId) {
-        ProcessSection processSection = getSectionInfoByName(process, section);
-        for (ProcessSectionItem sectionItemInfo : processSection.getItems()) {
-            if (sectionItemInfo.getName().equals(item)) {
-                LogTool.d("SectionItem", item);
-                addImageToItem(sectionItemInfo, imageId);
-            }
+        ProcessSectionItem processSectionItem = getSectionItemByName(process, section, item);
+        if (processSectionItem != null) {
+            addImageToItem(processSectionItem, imageId);
         }
     }
 

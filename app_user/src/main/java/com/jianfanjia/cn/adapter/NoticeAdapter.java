@@ -5,20 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.UserMessage;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.RecyclerItemCallBack;
-import com.jianfanjia.common.tool.DateFormatTool;
-import com.jianfanjia.common.tool.LogTool;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.ProcessBusiness;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.RecyclerItemCallBack;
+import com.jianfanjia.common.tool.DateFormatTool;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Name: NoticeAdapter
@@ -115,7 +115,9 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
                 siteViewHolder.itemDate.setText(DateFormatTool.getHumReadDateString(info.getCreate_at()));
                 siteViewHolder.itemCell.setText(info.getProcess().getBasic_address());
                 siteViewHolder.itemContent.setText(info.getContent());
-                siteViewHolder.itemSection.setText(MyApplication.getInstance().getStringById(info.getSection()) + "阶段");
+                ProcessSection processSection = ProcessBusiness.getSectionInfoByName(info
+                        .getProcess(), info.getSection());
+                siteViewHolder.itemSection.setText(processSection.getLabel() + "阶段");
                 siteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

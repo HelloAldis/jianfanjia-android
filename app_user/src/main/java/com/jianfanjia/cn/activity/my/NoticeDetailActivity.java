@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Plan;
@@ -28,17 +30,14 @@ import com.jianfanjia.cn.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.business.ProcessBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -214,6 +213,9 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                 LogTool.d(TAG, "noticeDetailInfo=" + noticeDetailInfo);
                 if (null != noticeDetailInfo) {
                     String msgType = noticeDetailInfo.getMessage_type();
+                    ProcessSection processSection = ProcessBusiness.getSectionInfoByName(noticeDetailInfo
+                                    .getProcess(),
+                            noticeDetailInfo.getSection());
                     LogTool.d(TAG, "msgType==================" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -224,7 +226,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                         if (noticeDetailInfo.getReschedule().getStatus().equals(Constant.YANQI_AGREE)) {
                             btnAgree.setText(getResources().getString(R.string.agree_str));
@@ -247,7 +249,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.delay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -257,7 +259,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.caigou_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_PAY_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -267,7 +269,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.pay_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
@@ -282,7 +284,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.check_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
-                        sectionText.setText(MyApplication.getInstance().getStringById(noticeDetailInfo.getSection())
+                        sectionText.setText(processSection.getLabel()
                                 + "阶段");
                     } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
                         typeText.setBackgroundResource(R.drawable.sys_detail_text_bg_border);

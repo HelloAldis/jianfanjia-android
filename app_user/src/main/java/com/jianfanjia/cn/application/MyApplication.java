@@ -90,11 +90,11 @@ public class MyApplication extends BaseApplication {
      * @return
      * @description 根据英文的name, 拿到中文的name
      */
-    public String getStringById(String name) {
+ /*   public String getStringById(String name) {
         int StringId = getResources().getIdentifier(name, "string",
                 getPackageName());
         return getResources().getString(StringId);
-    }
+    }*/
 
     /**
      * @param name
