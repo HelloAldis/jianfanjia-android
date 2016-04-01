@@ -10,23 +10,25 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -165,7 +167,6 @@ public class ContractActivity extends BaseSwipeBackActivity implements
     private void getContractInfo(String requirementid) {
         GetContractInfoRequest getContractInfoRequest = new GetContractInfoRequest();
         getContractInfoRequest.setRequirementid(requirementid);
-
         Api.getContractInfo(getContractInfoRequest, new ApiCallback<ApiResponse<Requirement>>() {
             @Override
             public void onPreLoad() {
@@ -189,12 +190,12 @@ public class ContractActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onFailed(ApiResponse<Requirement> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -207,7 +208,6 @@ public class ContractActivity extends BaseSwipeBackActivity implements
         ConfirmContractRequest confirmContractRequest = new ConfirmContractRequest();
         confirmContractRequest.setRequirementid(requirementid);
         confirmContractRequest.setFinal_planid(final_planid);
-
         Api.confirmContract(confirmContractRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -233,7 +233,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

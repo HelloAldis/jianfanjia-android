@@ -9,22 +9,23 @@ import android.view.View;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.common.CommentActivity;
 import com.jianfanjia.cn.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,12 +123,9 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
 
     //业主获取我的方案
     private void getDesignerPlansList(String requestmentid, String designerid) {
-//        JianFanJiaClient.getDesignerPlansByUser(DesignerPlanListActivity.this, requestmentid, designerid, this, this);
-
         GetDesignerPlanListRequest getDesignerPlanListRequest = new GetDesignerPlanListRequest();
         getDesignerPlanListRequest.setRequirementid(requestmentid);
         getDesignerPlanListRequest.setDesignerid(designerid);
-
         Api.getDesignerPlanList(getDesignerPlanListRequest, new ApiCallback<ApiResponse<List<Plan>>>() {
             @Override
             public void onPreLoad() {
@@ -148,7 +146,6 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
                             designerPlanList, DesignerPlanListActivity.this);
                     designer_plan_listview.setAdapter(adapter);
                 }
-                designer_plan_listview.onRefreshComplete();
             }
 
             @Override
@@ -158,7 +155,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

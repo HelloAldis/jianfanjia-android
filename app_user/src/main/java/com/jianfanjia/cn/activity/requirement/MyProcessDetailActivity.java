@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
@@ -176,7 +177,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
             });
         }
@@ -517,7 +518,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -549,7 +550,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -581,7 +582,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -638,7 +639,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 submitImageToProcessRequest.setSection(sectionInfo.getName());
                 submitImageToProcessRequest.setItem(itemName);
                 submitImageToProcessRequest.setImageid(apiResponse.getData());
-
                 Api.submitImageToProcess(submitImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
                     @Override
                     public void onPreLoad() {
@@ -667,7 +667,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
                     @Override
                     public void onNetworkError(int code) {
-
+                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
                 });
             }
@@ -679,7 +679,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

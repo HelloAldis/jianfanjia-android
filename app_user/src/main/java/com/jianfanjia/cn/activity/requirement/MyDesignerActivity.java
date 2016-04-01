@@ -7,22 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
 import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -30,6 +26,12 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:我的设计师
@@ -68,7 +70,6 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
     }
 
@@ -167,12 +168,10 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         initdata();
     }
 
-
     protected void confirmMeasureHouse(String designerid) {
         ConfirmMeasureHouseRequest confirmMeasureHouseRequest = new ConfirmMeasureHouseRequest();
         confirmMeasureHouseRequest.setRequirementid(requirementid);
         confirmMeasureHouseRequest.setDesignerid(designerid);
-
         Api.confirmMeasureHouse(confirmMeasureHouseRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -196,7 +195,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -210,7 +209,6 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         LogTool.d(this.getClass().getName(), "initdata");
         GetOrderedDesignerListRequest getOrderedDesignerListRequest = new GetOrderedDesignerListRequest();
         getOrderedDesignerListRequest.setRequirementid(requirementid);
-
         Api.getOrderedDesignerList(getOrderedDesignerListRequest, new ApiCallback<ApiResponse<List<Designer>>>() {
             @Override
             public void onPreLoad() {
@@ -246,7 +244,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

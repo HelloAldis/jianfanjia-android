@@ -5,21 +5,23 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -105,11 +107,8 @@ public class UpdateRequirementActivity extends BaseSwipeBackActivity implements 
                 requirementInfo = editBussinessRequirementFragment_.getRequirementInfo();
                 break;
         }
-//        JianFanJiaClient.update_Requirement(this, requirementInfo, this, this);
-
         UpdateRequirementRequest updateRequirementRequest = new UpdateRequirementRequest();
         updateRequirementRequest.setRequirement(requirementInfo);
-
         Api.updateRequirement(updateRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
@@ -128,12 +127,12 @@ public class UpdateRequirementActivity extends BaseSwipeBackActivity implements 
 
             @Override
             public void onFailed(ApiResponse<Object> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
 

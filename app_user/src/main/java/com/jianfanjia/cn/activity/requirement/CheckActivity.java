@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
@@ -242,7 +243,6 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
         ConfirmCheckRequest confirmCheckRequest = new ConfirmCheckRequest();
         confirmCheckRequest.set_id(processid);
         confirmCheckRequest.setSection(section);
-
         Api.confirmSectionCheck(confirmCheckRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -262,12 +262,12 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
