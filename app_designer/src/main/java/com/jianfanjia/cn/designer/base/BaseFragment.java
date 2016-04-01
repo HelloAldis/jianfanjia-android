@@ -15,7 +15,7 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.cache.DataManagerNew;
+import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;

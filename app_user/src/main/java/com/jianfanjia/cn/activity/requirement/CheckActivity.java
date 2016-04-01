@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -36,12 +41,6 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -114,7 +113,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
 
     private void initData() {
         LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + getResources()
+        mainHeadView.setMianTitle(sectionInfo.getLabel() + getResources()
                 .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(sectionInfo.getName());

@@ -10,22 +10,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.api.model.Process;
-import com.jianfanjia.cn.designer.bean.SiteProcessItem;
-import com.jianfanjia.cn.designer.fragment.ManageFragment;
-import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.interf.OnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.designer.tools.StringUtils;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.fragment.ManageFragment;
+import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.interf.OnItemClickListener;
+import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Name: MySiteAdapter
@@ -62,10 +61,11 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
             holder.itemNodeView.setText(context.getResources().getText(R.string.all_finish));
             processIndex = 7;
         } else {
-            itemNode = MyApplication.getInstance()
-                    .getStringById(process.getGoing_on());
-            holder.itemNodeView.setText(itemNode + "阶段");
             processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
+            LogTool.d(TAG,"processIndex =" + processIndex);
+            itemNode = process.getSections().get(processIndex).getLabel();
+            holder.itemNodeView.setText(itemNode + "阶段");
+
         }
         holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
         holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));

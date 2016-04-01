@@ -1,17 +1,7 @@
-package com.jianfanjia.cn.designer.cache;
+package com.jianfanjia.cn.designer.tools;
 
 import android.content.Context;
 import android.text.TextUtils;
-
-import com.jianfanjia.api.model.Process;
-import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.tools.StringUtils;
-import com.jianfanjia.common.tool.JsonParser;
-import com.jianfanjia.common.tool.LogTool;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +9,16 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusinessManager {
+import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.common.tool.JsonParser;
+import com.jianfanjia.common.tool.LogTool;
+
+public class BusinessCovertUtil {
 
     /**
      * 分开装修美图keyword

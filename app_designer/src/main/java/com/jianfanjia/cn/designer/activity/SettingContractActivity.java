@@ -18,7 +18,7 @@ import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
@@ -104,7 +104,7 @@ public class SettingContractActivity extends BaseActivity {
 
     protected void initView() {
         decTypeContent.setText(String.format(getString(R.string.process_workType_cont),
-                BusinessManager.convertWorktypeToShow(workType)));
+                BusinessCovertUtil.convertWorktypeToShow(workType)));
         totalPriceContent.setText(String.format(getString(R.string.process_totalprice_cont),
                 StringUtils.digitUppercase(totalBudget), (int) totalBudget));
         durationContent.setText(String.format(getString(R.string.process_duration_cont),

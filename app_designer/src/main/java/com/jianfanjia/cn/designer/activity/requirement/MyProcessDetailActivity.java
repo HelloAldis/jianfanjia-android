@@ -36,7 +36,7 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
@@ -141,7 +141,7 @@ public class MyProcessDetailActivity extends BaseActivity implements ItemClickCa
             loadCurrentProcess();
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
-            processInfo = BusinessManager.getDefaultProcessInfo(this);
+            processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
             initData();
         }
     }

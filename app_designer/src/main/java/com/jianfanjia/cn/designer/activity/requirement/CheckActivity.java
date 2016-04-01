@@ -15,6 +15,12 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -33,7 +39,7 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.GridItem;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
@@ -47,13 +53,6 @@ import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -110,7 +109,7 @@ public class CheckActivity extends BaseActivity implements
             processInfoId = processInfo.get_id();
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId);
-            processSection = BusinessManager.getSectionInfoByName(processInfo.getSections(), sectionName);
+            processSection = BusinessCovertUtil.getSectionInfoByName(processInfo.getSections(), sectionName);
         }
     }
 
@@ -142,7 +141,7 @@ public class CheckActivity extends BaseActivity implements
 
     private void initData() {
         LogTool.d(TAG, "processSection:" + processSection.get_id());
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(processSection.getName()) + getResources()
+        mainHeadView.setMianTitle(processSection.getLabel() + getResources()
                 .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(processSection.getName());
@@ -185,7 +184,7 @@ public class CheckActivity extends BaseActivity implements
         if (!processSection.getStatus().equals(Constant.FINISHED)) {
             mainHeadView.setRightTitleVisable(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
-            if (currentUploadCount < BusinessManager
+            if (currentUploadCount < BusinessCovertUtil
                     .getCheckPicCountBySection(processSection.getName())) {
                 //设计师图片没上传完，不能验收
                 btn_confirm.setText(this.getResources().getString(

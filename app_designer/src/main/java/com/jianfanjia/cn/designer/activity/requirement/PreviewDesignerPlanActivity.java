@@ -16,7 +16,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
@@ -112,13 +112,13 @@ public class PreviewDesignerPlanActivity extends BaseActivity {
             }
             if (!TextUtils.isEmpty(requirement.getHouse_type()) && dec_type.equals(Global.DEC_TYPE_HOME)) {
                 houseTypeLayout.setVisibility(View.VISIBLE);
-                houseType.setText(BusinessManager.convertHouseTypeToShow(requirement.getHouse_type()));
+                houseType.setText(BusinessCovertUtil.convertHouseTypeToShow(requirement.getHouse_type()));
             }
             houseAreaLayout.setVisibility(View.VISIBLE);
             houseArea.setText(requirement.getHouse_area() + getString(R.string.str_sq_unit));
             if (!TextUtils.isEmpty(requirement.getWork_type())) {
                 decorateTypeLayout.setVisibility(View.VISIBLE);
-                decorateType.setText(BusinessManager.getWorkType(requirement.getWork_type()));
+                decorateType.setText(BusinessCovertUtil.getWorkType(requirement.getWork_type()));
             }
             totalDate.setText(plan.getDuration() + "天");
             price.setText(plan.getTotal_price() + "元");

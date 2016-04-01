@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
 import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -73,7 +72,7 @@ public class ShareUtil {
     public void shareImage(Activity activity, String title, String style, String tag, String imgId, SocializeListeners.SnsPostListener listener) {
         String desc = context.getString(R.string.share_image_des);
         if (!TextUtils.isEmpty(style) && !TextUtils.isEmpty(tag)) {
-            desc = String.format(desc, BusinessManager.convertDecStyleToShow(style), tag);
+            desc = String.format(desc, BusinessCovertUtil.convertDecStyleToShow(style), tag);
         }
         try {
             String urlTitle = URLEncoder.encode(title, "utf-8");

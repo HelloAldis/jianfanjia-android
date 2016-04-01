@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.cache.BusinessManager;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
@@ -112,7 +112,7 @@ public class MyPlanViewType5 extends MyPlanViewTypeBase {
         } else {
             sexView.setVisibility(View.GONE);
         }
-        String des = BusinessManager.getDesc(requirementInfo.getHouse_type(), requirementInfo.getHouse_area(),
+        String des = BusinessCovertUtil.getDesc(requirementInfo.getHouse_type(), requirementInfo.getHouse_area(),
                 requirementInfo.getDec_style(), requirementInfo.getTotal_price());
         if (!TextUtils.isEmpty(des)) {
             desciptionView.setText(des);

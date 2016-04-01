@@ -6,8 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.cache.DataManagerNew;
+import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 
 import java.util.List;

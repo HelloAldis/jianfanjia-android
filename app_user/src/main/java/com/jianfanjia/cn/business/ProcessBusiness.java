@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.business;
+package com.jianfanjia.cn.business;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class ProcessBusiness {
         return null;
     }
 
-    public static ProcessSection getSectionInfoByName(com.jianfanjia.api.model.Process process, String sectionName) {
+    public static ProcessSection getSectionInfoByName(Process process, String sectionName) {
         LogTool.d("SectionInfo", sectionName);
         List<ProcessSection> sections = process.getSections();
         if (sections != null) {

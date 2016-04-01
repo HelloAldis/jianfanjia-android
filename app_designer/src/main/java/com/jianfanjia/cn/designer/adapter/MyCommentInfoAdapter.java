@@ -12,21 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.UserMessage;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.cn.designer.tools.StringUtils;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.UserMessage;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.business.ProcessBusiness;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -188,11 +188,10 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
         });
 
         holder.cellName.setText(userMessage.getProcess().getBasic_address());
-        holder.nodeName.setText(MyApplication.getInstance()
-                .getStringById(userMessage.getItem()));
-        switch (userMessage.getProcess().getSectionInfoByName(userMessage.getSection()).
-                getSectionItemInfoByName(userMessage.getItem())
-                .getStatus()) {
+        ProcessSectionItem processSectionItem = ProcessBusiness.getSectionItemByName(userMessage.getProcess(),
+                userMessage.getSection(), userMessage.getItem());
+        holder.nodeName.setText(processSectionItem.getLabel());
+        switch (processSectionItem.getStatus()) {
             case Constant.FINISHED:
                 holder.itemStatus
                         .setImageResource(R.mipmap.icon_home_finish);
