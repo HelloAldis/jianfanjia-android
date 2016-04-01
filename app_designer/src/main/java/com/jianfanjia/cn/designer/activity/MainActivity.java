@@ -7,12 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.R;
@@ -23,6 +20,11 @@ import com.jianfanjia.cn.designer.fragment.MyNewFragment;
 import com.jianfanjia.cn.designer.fragment.MyOwnerFragment;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -218,12 +220,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 @Override
                 public void onFailed(ApiResponse<List<Integer>> apiResponse) {
-
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
             };
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
@@ -335,12 +336,12 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailed(ApiResponse<UserMessage> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -374,7 +375,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -408,7 +409,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -480,12 +481,12 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

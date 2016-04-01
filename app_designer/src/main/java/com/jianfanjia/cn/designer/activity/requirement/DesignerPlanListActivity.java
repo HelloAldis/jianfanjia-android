@@ -7,13 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
@@ -26,11 +22,17 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:设计师方案列表
@@ -72,10 +74,8 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     }
 
     public void initView() {
-
         initMainHeadView();
         initRecycleView();
-
     }
 
     private void initRecycleView() {
@@ -93,8 +93,7 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
     }
 
     private void initMainHeadView() {
-        mainHeadView
-                .setMianTitle(getResources().getString(R.string.plan_list));
+        mainHeadView.setMianTitle(getResources().getString(R.string.plan_list));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.VISIBLE);
@@ -158,7 +157,7 @@ public class DesignerPlanListActivity extends BaseActivity implements ApiUiUpdat
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
 

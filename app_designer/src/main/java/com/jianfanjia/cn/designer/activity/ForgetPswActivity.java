@@ -12,14 +12,15 @@ import android.widget.RelativeLayout;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -187,7 +188,7 @@ public class ForgetPswActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

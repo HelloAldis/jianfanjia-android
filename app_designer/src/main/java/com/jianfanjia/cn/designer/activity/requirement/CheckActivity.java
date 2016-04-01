@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
@@ -436,7 +437,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -447,7 +448,6 @@ public class CheckActivity extends BaseActivity implements
         addImageToCheckRequest.setSection(sectionName);
         addImageToCheckRequest.setKey(key + "");
         addImageToCheckRequest.setImageid(imageid);
-
         Api.addImageToCheck(addImageToCheckRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -474,7 +474,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -532,7 +532,7 @@ public class CheckActivity extends BaseActivity implements
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

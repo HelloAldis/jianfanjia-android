@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.cn.designer.R;
@@ -148,6 +149,8 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
             @Override
             public void onHttpDone() {
                 hideWaitDialog();
+                manage_pullfefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
             }
 
             @Override
@@ -223,14 +226,10 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                     mainHeadView.getHeight()));
                     errorLayout.setVisibility(View.GONE);
                 }
-                manage_pullfefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
             }
 
             @Override
             public void onFailed(ApiResponse<List<Process>> apiResponse) {
-                manage_pullfefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
                 if (null != adapter) {
                     manage_pullfefresh.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -244,7 +243,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

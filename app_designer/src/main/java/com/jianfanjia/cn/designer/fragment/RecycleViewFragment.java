@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
@@ -273,12 +274,12 @@ public class RecycleViewFragment extends BaseFragment {
             @Override
             public void onHttpDone() {
                 hideWaitDialog();
+                pullrefresh.onRefreshComplete();
+                emptyPullRefresh.onRefreshComplete();
             }
 
             @Override
             public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
-                pullrefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
                 mHasLoadedOnce = true;
                 requirementInfos = apiResponse.getData();
                 requirementList = new RequirementList(requirementInfos);
@@ -288,8 +289,6 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
-                pullrefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
                 if (!mHasLoadedOnce) {
                     errorLayout.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -298,7 +297,7 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -399,7 +398,7 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -429,12 +428,12 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
