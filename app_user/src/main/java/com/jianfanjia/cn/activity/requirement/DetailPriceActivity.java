@@ -11,17 +11,16 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
-import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description:方案详细报价
@@ -62,7 +61,7 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
     private void initRecycleView(){
         detail_price_listview.setLayoutManager(new LinearLayoutManager(DetailPriceActivity.this));
         detail_price_listview.setItemAnimator(new DefaultItemAnimator());
-        detail_price_listview.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1)));
+        detail_price_listview.addItemDecoration(new HorizontalDividerDecoration(TDevice.dip2px(this, 1)));
         if (null != detailInfo) {
             PlanPriceDetail detail = new PlanPriceDetail();
             detail.setItem(getResources().getString(R.string.project_text));

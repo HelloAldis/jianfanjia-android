@@ -17,7 +17,7 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerItemCallBack;
-import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
 /**

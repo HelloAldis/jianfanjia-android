@@ -13,13 +13,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.DateFormatTool;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 /**
  * Name: DesignerPlanAdapter

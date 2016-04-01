@@ -10,9 +10,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseListAdapter;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.common.tool.TDevice;
 
 public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
 
@@ -35,7 +35,7 @@ public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
         if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
             holder.img.setImageResource(R.mipmap.btn_icon_home_add);
         } else {
-            imageShow.displayThumbnailImage(imgUrl, holder.img, MyApplication.dip2px(context, Global.PIC_WIDTH_NODE));
+            imageShow.displayThumbnailImage(imgUrl, holder.img, TDevice.dip2px(context, Global.PIC_WIDTH_NODE));
         }
 
         return convertView;

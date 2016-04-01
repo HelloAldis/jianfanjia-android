@@ -51,6 +51,7 @@ import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * @author fengliang
@@ -127,7 +128,7 @@ public class CheckActivity extends BaseActivity implements
         gridView.setLayoutManager(gridLayoutManager);
         gridView.setHasFixedSize(true);
         gridView.setItemAnimator(new DefaultItemAnimator());
-        ItemSpaceDecoration decoration = new ItemSpaceDecoration(MyApplication.dip2px(getApplicationContext(), 5));
+        ItemSpaceDecoration decoration = new ItemSpaceDecoration(TDevice.dip2px(getApplicationContext(), 5));
         gridView.addItemDecoration(decoration);
         btn_confirm.setText(this.getResources().getString(
                 R.string.confirm_upload));

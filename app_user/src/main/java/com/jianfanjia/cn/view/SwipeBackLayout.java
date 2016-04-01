@@ -31,8 +31,8 @@ import android.widget.AbsListView;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Swipe or Pull to finish a Activity.
@@ -264,7 +264,7 @@ public class SwipeBackLayout extends ViewGroup {
                 case BOTTOM:
                     break;
                 case LEFT:
-                    handled = (startX < MyApplication.dip2px(getContext(), 50));//只能从边缘拉动回退，防止误操作
+                    handled = (startX < TDevice.dip2px(getContext(), 50));//只能从边缘拉动回退，防止误操作
                     LogTool.d(this.getClass().getName(), "startX =" + startX);
                     LogTool.d(this.getClass().getName(), "handled =" + handled);
                     break;

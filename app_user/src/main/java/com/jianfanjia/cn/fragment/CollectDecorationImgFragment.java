@@ -11,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImage;
@@ -21,21 +26,15 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -108,7 +107,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 .VERTICAL));
         decoration_img_listview.setHasFixedSize(true);
         decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
-        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
+        SpacesItemDecoration decoration = new SpacesItemDecoration(TDevice.dip2px(getContext()
                 .getApplicationContext(), 5));
         decoration_img_listview.addItemDecoration(decoration);
         decoration_img_listview.setOnRefreshListener(this);

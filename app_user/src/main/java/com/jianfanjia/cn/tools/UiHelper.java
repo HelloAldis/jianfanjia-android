@@ -20,6 +20,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
@@ -34,11 +38,8 @@ import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
@@ -108,7 +109,7 @@ public class UiHelper {
      * @return
      */
     public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
-        return new HorizontalDividerDecoration(MyApplication.dip2px(context, 10));
+        return new HorizontalDividerDecoration(TDevice.dip2px(context, 10));
     }
 
     /**

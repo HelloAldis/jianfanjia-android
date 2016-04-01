@@ -21,7 +21,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 /**
  * Name: DesignerPlanAdapter

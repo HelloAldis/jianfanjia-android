@@ -45,7 +45,7 @@ import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
-import com.jianfanjia.cn.designer.bean.UpdateVersion;
+import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Url_New;
 
 /**

@@ -5,20 +5,20 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.StrictMode;
 
+import java.net.CookieStore;
+
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.BaseApiCallbackImpl;
-import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.http.cookie.PersistentCookieStore;
 import com.jianfanjia.common.base.application.BaseApplication;
+import com.jianfanjia.common.tool.DataCleanTool;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-
-import java.net.CookieStore;
 
 /**
  * Description:此类是我的应用程序类
@@ -146,22 +146,6 @@ public class MyApplication extends BaseApplication {
             name = "";
         }
         return name;
-    }
-
-    /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
     }
 
     /**

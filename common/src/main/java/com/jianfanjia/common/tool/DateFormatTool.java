@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.tools;
+package com.jianfanjia.common.tool;
 
 import java.text.DateFormat;
 import java.text.ParseException;

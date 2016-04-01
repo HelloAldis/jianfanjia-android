@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.config.Constant;

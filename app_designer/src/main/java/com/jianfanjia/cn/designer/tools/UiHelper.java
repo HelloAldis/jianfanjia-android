@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
@@ -43,8 +42,9 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.FileUtil;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
@@ -73,7 +73,7 @@ public class UiHelper {
      * @return
      */
     public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
-        return new HorizontalDividerDecoration(MyApplication.dip2px(context, 10));
+        return new HorizontalDividerDecoration(TDevice.dip2px(context, 10));
     }
 
     /**
@@ -117,15 +117,6 @@ public class UiHelper {
      */
     public static void showShortToast(String text) {
         Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
-    }
-
-
-    public static Paint paintFactory() {
-        Paint paint = new Paint();
-        paint.setStrokeWidth(MyApplication.dip2px(MyApplication.getInstance(), 10));
-        paint.setColor(MyApplication.getInstance().getResources().getColor(R.color.transparent));
-        paint.setAntiAlias(true);
-        return paint;
     }
 
     /**

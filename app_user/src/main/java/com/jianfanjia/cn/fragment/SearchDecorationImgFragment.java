@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImage;
@@ -21,17 +23,14 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.SearchDecorationImgAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * @author fengliang
@@ -107,11 +106,11 @@ public class SearchDecorationImgFragment extends BaseFragment {
         recyclerView.setAdapter(decorationAdapter);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                 .LayoutParams.MATCH_PARENT);
-        lp.leftMargin = MyApplication.dip2px(getContext().getApplicationContext(), 5);
+        lp.leftMargin = TDevice.dip2px(getContext().getApplicationContext(), 5);
         lp.rightMargin = lp.leftMargin;
         recyclerView.setLayoutParams(lp);
 
-        SpacesItemDecoration decoration = new SpacesItemDecoration(MyApplication.dip2px(getContext()
+        SpacesItemDecoration decoration = new SpacesItemDecoration(TDevice.dip2px(getContext()
                 .getApplicationContext(), 5));
         recyclerView.addItemDecoration(decoration);
         getDecorationImgInfo(decorationAdapter.getData().size(), search, listener);

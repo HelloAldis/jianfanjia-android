@@ -33,7 +33,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.tools.DateFormatTool;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 

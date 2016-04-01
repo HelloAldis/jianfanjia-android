@@ -75,7 +75,7 @@ import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.bean.UpdateVersion;
+import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.cn.config.Url_New;
 
 

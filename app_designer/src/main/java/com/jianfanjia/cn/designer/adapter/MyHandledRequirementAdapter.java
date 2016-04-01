@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.designer.adapter.base.RecyclerViewAdapterBase;
+import com.jianfanjia.cn.designer.base.RecyclerViewAdapterBase;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.common.tool.LogTool;

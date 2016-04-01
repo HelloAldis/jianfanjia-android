@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.adapter.base;
+package com.jianfanjia.cn.designer.base;
 
 import android.support.v7.widget.RecyclerView;
 

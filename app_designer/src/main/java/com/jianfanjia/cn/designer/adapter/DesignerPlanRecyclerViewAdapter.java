@@ -11,8 +11,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.TDevice;
 

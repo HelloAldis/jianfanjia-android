@@ -19,6 +19,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -26,13 +28,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.view.library.internal.EmptyViewMethodAccessor;
 import com.jianfanjia.cn.designer.view.library.internal.LoadingLayout;
+import com.jianfanjia.common.tool.TDevice;
 
 public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView> {
 
@@ -220,7 +220,7 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
         ListView lv = createListView(context, attrs);
         // Set it to this so it can be used in ListActivity/ListFragment
         lv.setId(android.R.id.list);
-        lv.setPadding(0, MyApplication.dip2px(context, 10),0,0);
+        lv.setPadding(0, TDevice.dip2px(context, 10),0,0);
         return lv;
     }
 

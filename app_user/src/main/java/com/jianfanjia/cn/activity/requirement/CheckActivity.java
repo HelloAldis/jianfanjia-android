@@ -39,6 +39,7 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -91,7 +92,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
         gridView.setLayoutManager(gridLayoutManager);
         gridView.setHasFixedSize(true);
         gridView.setItemAnimator(new DefaultItemAnimator());
-        ItemSpaceDecoration decoration = new ItemSpaceDecoration(MyApplication.dip2px(getApplicationContext(), 5));
+        ItemSpaceDecoration decoration = new ItemSpaceDecoration(TDevice.dip2px(getApplicationContext(), 5));
         gridView.addItemDecoration(decoration);
     }
 

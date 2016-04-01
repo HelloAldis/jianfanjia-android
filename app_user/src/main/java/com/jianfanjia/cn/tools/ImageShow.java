@@ -3,7 +3,6 @@ package com.jianfanjia.cn.tools;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -112,7 +111,7 @@ public class ImageShow {
      * @param imageid
      */
     public void displayImageHeadWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        int width = MyApplication.dip2px(context, Global.PIC_WIDTH_SHOW_WIDTH);
+        int width = TDevice.dip2px(context, Global.PIC_WIDTH_SHOW_WIDTH);
         String imageUrl = url_new.GET_THUMBNAIL_IMAGE.replace(Url_New.WIDTH, width + "") + imageid;
         imageLoader.displayImage(imageUrl, imageView, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
     }

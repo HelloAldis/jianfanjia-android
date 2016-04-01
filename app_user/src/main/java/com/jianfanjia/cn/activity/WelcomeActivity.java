@@ -16,7 +16,7 @@ import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.UpdateVersion;
+import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.UiHelper;

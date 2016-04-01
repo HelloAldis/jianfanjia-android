@@ -36,17 +36,16 @@ import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.cn.view.GestureGuideView;
 import com.jianfanjia.cn.view.MainScrollView;
 import com.jianfanjia.cn.view.auto_view_pager.AutoScrollViewPager;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -315,9 +314,9 @@ public class HomeNewFragment extends BaseFragment {
         }
         final View[] indicators = new View[bannerList.size()];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                new ViewGroup.LayoutParams(MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(),
+                new ViewGroup.LayoutParams(TDevice.dip2px(getContext(), 8), TDevice.dip2px(getContext(),
                         8)));
-        params.setMargins(0, 0, MyApplication.dip2px(getContext(), 8), MyApplication.dip2px(getContext(), 8));
+        params.setMargins(0, 0, TDevice.dip2px(getContext(), 8), TDevice.dip2px(getContext(), 8));
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new View(getActivity().getApplicationContext());
             if (i == 0) {

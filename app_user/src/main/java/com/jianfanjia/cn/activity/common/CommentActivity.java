@@ -12,6 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Comment;
@@ -22,20 +28,13 @@ import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description:评论留言
@@ -92,8 +91,8 @@ public class CommentActivity extends BaseSwipeBackActivity {
         commentListView.setLayoutManager(new LinearLayoutManager(this));
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
-        commentListView.addItemDecoration(new HorizontalDividerDecoration(MyApplication.dip2px(this, 1),
-                MyApplication.dip2px(this, 10)));
+        commentListView.addItemDecoration(new HorizontalDividerDecoration(TDevice.dip2px(this, 1),
+                TDevice.dip2px(this, 10)));
         btnSend.setEnabled(false);
     }
 

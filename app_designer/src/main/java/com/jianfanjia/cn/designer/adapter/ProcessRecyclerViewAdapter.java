@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.designer.adapter.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.bean.SiteProcessItem;
 import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 
