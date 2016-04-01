@@ -6,10 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
@@ -18,10 +14,15 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.DateTimePicker;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -31,6 +32,7 @@ import de.greenrobot.event.EventBus;
  * Date:2016-01-19 17:48
  */
 public class SettingMeasureDateActivity extends BaseActivity {
+    private static final String TAG = SettingMeasureDateActivity.class.getName();
 
     @Bind(R.id.datePicker)
     protected DateTimePicker datePicker;
@@ -55,13 +57,13 @@ public class SettingMeasureDateActivity extends BaseActivity {
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             phone = bundle.getString(Global.PHONE);
             requirementid = bundle.getString(Global.REQUIREMENT_ID);
-            LogTool.d(this.getClass().getName(), "phone =" + phone + " requirementid = " + requirementid);
+            LogTool.d(TAG, "phone =" + phone + " requirementid = " + requirementid);
         }
     }
 
@@ -73,7 +75,8 @@ public class SettingMeasureDateActivity extends BaseActivity {
                                           int year, int month, int day, int hour, int minute) {
                 chooseDate.set(year, month, day, hour, minute, 0);
 
-                LogTool.d(this.getClass().getName(),"month =" + month + " day =" + day + " hour =" + hour +" minite =" + minute);
+                LogTool.d(TAG, "month =" + month + " day =" + day + " hour =" + hour + " minite" +
+                        " =" + minute);
 
                 /**
                  * 更新日期
@@ -99,7 +102,7 @@ public class SettingMeasureDateActivity extends BaseActivity {
                 break;
             case R.id.btn_confirm:
                 long houseCheckTime = chooseDate.getTimeInMillis();
-                LogTool.d(this.getClass().getName(), StringUtils.covertLongToStringHasMini(houseCheckTime));
+                LogTool.d(TAG, "houseCheckTime=" + StringUtils.covertLongToStringHasMini(houseCheckTime));
                 setHouseTime(requirementid, houseCheckTime);
                 break;
             case R.id.btn_phone_layout:
@@ -114,7 +117,6 @@ public class SettingMeasureDateActivity extends BaseActivity {
         ConfigMeaHouseTimeRequest configMeaHouseTimeRequest = new ConfigMeaHouseTimeRequest();
         configMeaHouseTimeRequest.setRequirementid(requirementid);
         configMeaHouseTimeRequest.setHouse_check_time(houseCheckTime);
-
         Api.configMeaHouse(configMeaHouseTimeRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
