@@ -17,7 +17,7 @@ import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.adapter.CollectLoveStyleViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 /**
@@ -72,7 +72,7 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
         decstyles = getResources().getStringArray(R.array.arr_decstyle);
 
         Intent intent = getIntent();
-        ownerInfo = (User)intent.getSerializableExtra(Global.OWNERINFO);
+        ownerInfo = (User)intent.getSerializableExtra(IntentConstant.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_lovestyle_title));
         contentView.setText(getString(R.string.collect_lovestyle_content));
@@ -140,7 +140,7 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
         }
         ownerInfo.setDec_styles(lovestyleNumber);
         Bundle ownerBundle = new Bundle();
-        ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
+        ownerBundle.putSerializable(IntentConstant.OWNERINFO, ownerInfo);
         startActivity(NewUserCollectPersonActivity.class, ownerBundle);
     }
 

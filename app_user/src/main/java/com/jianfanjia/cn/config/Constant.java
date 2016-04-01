@@ -202,10 +202,7 @@ public class Constant {
     public static final int DELETE_ORDER_DESIGNER_ACTIVITY = 90;
     public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 100;
 
-    //view类型
-    public static final int BEAUTY_FRAGMENT = 1;//装修美图
-    public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
-    public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
+
 
     //通知搜索类型
     public static final String[] ALL = {TYPE_DELAY_MSG, TYPE_CAIGOU_MSG, TYPE_PAY_MSG, TYPE_CONFIRM_CHECK_MSG,

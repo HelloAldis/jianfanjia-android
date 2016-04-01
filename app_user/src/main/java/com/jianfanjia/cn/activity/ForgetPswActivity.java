@@ -18,6 +18,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
@@ -172,8 +173,8 @@ public class ForgetPswActivity extends BaseActivity {
                 registerInfo.setPass(password);
                 registerInfo.setPhone(name);
                 Bundle registerBundle = new Bundle();
-                registerBundle.putSerializable(Global.REGISTER_INFO, registerInfo);
-                registerBundle.putInt(Global.REGISTER, RegisterNewActivity.UPDATE_PSW_CODE);
+                registerBundle.putSerializable(IntentConstant.REGISTER_INFO, registerInfo);
+                registerBundle.putInt(IntentConstant.REGISTER, RegisterNewActivity.UPDATE_PSW_CODE);
                 startActivity(RegisterNewActivity.class, registerBundle);
             }
 

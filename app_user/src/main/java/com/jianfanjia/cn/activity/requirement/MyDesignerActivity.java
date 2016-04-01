@@ -7,6 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -19,19 +24,13 @@ import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:我的设计师
@@ -80,7 +79,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         mainHeadView.setRightTitleVisable(View.GONE);
 
         Intent intent = getIntent();
-        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(IntentConstant.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
         }
@@ -109,41 +108,41 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                 switch (itemType) {
                     case VIEW_COMMENT:
                         Bundle viewBundle = new Bundle();
-                        viewBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
-                        viewBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
-                        viewBundle.putFloat(Global.RESPOND_SPEED, orderDesignerInfo.getRespond_speed());
-                        viewBundle.putFloat(Global.SERVICE_ATTITUDE, orderDesignerInfo.getService_attitude());
-                        viewBundle.putSerializable(Global.EVALUATION, orderDesignerInfo.getEvaluation());
+                        viewBundle.putString(IntentConstant.IMAGE_ID, orderDesignerInfo.getImageid());
+                        viewBundle.putString(IntentConstant.DESIGNER_NAME, orderDesignerInfo.getUsername());
+                        viewBundle.putFloat(IntentConstant.RESPOND_SPEED, orderDesignerInfo.getRespond_speed());
+                        viewBundle.putFloat(IntentConstant.SERVICE_ATTITUDE, orderDesignerInfo.getService_attitude());
+                        viewBundle.putSerializable(IntentConstant.EVALUATION, orderDesignerInfo.getEvaluation());
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
                         Bundle commentBundle = new Bundle();
-                        commentBundle.putString(Global.IMAGE_ID, orderDesignerInfo.getImageid());
-                        commentBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
-                        commentBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        commentBundle.putFloat(Global.SPEED, orderDesignerInfo.getRespond_speed());
-                        commentBundle.putFloat(Global.ATTITUDE, orderDesignerInfo.getService_attitude());
-                        commentBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        commentBundle.putString(IntentConstant.IMAGE_ID, orderDesignerInfo.getImageid());
+                        commentBundle.putString(IntentConstant.DESIGNER_NAME, orderDesignerInfo.getUsername());
+                        commentBundle.putString(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
+                        commentBundle.putFloat(IntentConstant.SPEED, orderDesignerInfo.getRespond_speed());
+                        commentBundle.putFloat(IntentConstant.ATTITUDE, orderDesignerInfo.getService_attitude());
+                        commentBundle.putString(IntentConstant.REQUIREMENT_ID, requirementid);
                         startActivity(PingjiaActivity.class, commentBundle);
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
-                        contractBundle.putSerializable(Global.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
+                        contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
                         contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
                                 .DESIGNER_LIST_INTENT);
                         startActivity(ContractActivity.class, contractBundle);
                         break;
                     case VIEW_PLAN:
                         Bundle planBundle = new Bundle();
-                        planBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        planBundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
-                        planBundle.putString(Global.DESIGNER_NAME, orderDesignerInfo.getUsername());
+                        planBundle.putString(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
+                        planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
+                        planBundle.putString(IntentConstant.DESIGNER_NAME, orderDesignerInfo.getUsername());
                         startActivity(DesignerPlanListActivity.class, planBundle);
                         break;
                     case CHANGE_DESIGNER:
                         Bundle changeBundle = new Bundle();
-                        changeBundle.putString(Global.DESIGNER_ID, orderDesignerInfo.get_id());
-                        changeBundle.putString(Global.REQUIREMENT_ID, requirementid);
+                        changeBundle.putString(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
+                        changeBundle.putString(IntentConstant.REQUIREMENT_ID, requirementid);
                         startActivity(ReplaceDesignerActivity.class, changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
@@ -151,7 +150,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         break;
                     case VIEW_DESIGNER:
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable(Global.DESIGNER_ID, orderDesignerInfo.get_id());
+                        bundle.putSerializable(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
                         startActivity(DesignerInfoActivity.class, bundle);
                         break;
                     default:

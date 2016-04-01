@@ -33,6 +33,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
@@ -250,17 +251,17 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                                 BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
-                                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id
+                                                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID, beautyImgInfo.get_id
                                                         ());
-                                                decorationBundle.putInt(Global.POSITION, position);
-                                                decorationBundle.putSerializable(Global.IMG_LIST,
+                                                decorationBundle.putInt(IntentConstant.POSITION, position);
+                                                decorationBundle.putSerializable(IntentConstant.IMG_LIST,
                                                         (ArrayList<BeautifulImage>)
                                                                 beautyImgList);
-                                                decorationBundle.putString(Global.HOUSE_SECTION, section);
-                                                decorationBundle.putString(Global.HOUSE_STYLE, houseStyle);
-                                                decorationBundle.putString(Global.DEC_STYLE, decStyle);
-                                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                                                decorationBundle.putInt(Global.VIEW_TYPE, Constant.BEAUTY_FRAGMENT);
+                                                decorationBundle.putString(IntentConstant.HOUSE_SECTION, section);
+                                                decorationBundle.putString(IntentConstant.HOUSE_STYLE, houseStyle);
+                                                decorationBundle.putString(IntentConstant.DEC_STYLE, decStyle);
+                                                decorationBundle.putInt(IntentConstant.TOTAL_COUNT, total);
+                                                decorationBundle.putInt(IntentConstant.VIEW_TYPE, IntentConstant.BEAUTY_FRAGMENT);
                                                 startActivity(PreviewDecorationActivity.class, decorationBundle);
                                             }
                                         });

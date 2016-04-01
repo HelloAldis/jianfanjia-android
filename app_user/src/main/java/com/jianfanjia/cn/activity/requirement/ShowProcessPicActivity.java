@@ -15,14 +15,14 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.DeletePicDialog;
+import com.jianfanjia.common.tool.LogTool;
 
 public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
@@ -57,9 +57,9 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            processid = bundle.getString(Global.PROCESS_ID, null);
-            section = bundle.getString(Global.SECTION, null);
-            item = bundle.getString(Global.ITEM, null);
+            processid = bundle.getString(IntentConstant.PROCESS_ID, null);
+            section = bundle.getString(IntentConstant.SECTION, null);
+            item = bundle.getString(IntentConstant.ITEM, null);
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
             for (String str : imageList) {

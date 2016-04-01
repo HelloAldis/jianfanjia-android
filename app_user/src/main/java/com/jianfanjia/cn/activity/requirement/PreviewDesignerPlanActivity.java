@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -25,18 +30,13 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -114,10 +114,10 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        planDetailInfo = (Plan) planBundle.getSerializable(Global.PLAN_DETAIL);
+        planDetailInfo = (Plan) planBundle.getSerializable(IntentConstant.PLAN_DETAIL);
         planid = planDetailInfo.get_id();
         itemPosition = planDetailInfo.getName();
-        requirementInfo = (Requirement) planBundle.getSerializable(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) planBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
         flagIntent = planBundle.getInt(PLAN_INTENT_FLAG);
         LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
@@ -281,7 +281,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
 
     private void startToActivity(Plan detailInfo) {
         Bundle priceBundle = new Bundle();
-        priceBundle.putSerializable(Global.PLAN_DETAIL, detailInfo);
+        priceBundle.putSerializable(IntentConstant.PLAN_DETAIL, detailInfo);
         startActivity(DetailPriceActivity.class, priceBundle);
     }
 

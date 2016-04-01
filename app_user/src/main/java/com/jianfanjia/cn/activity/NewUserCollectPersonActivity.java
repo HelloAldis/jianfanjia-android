@@ -20,7 +20,7 @@ import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.adapter.CollectPersonViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 
 /**
@@ -75,7 +75,7 @@ public class NewUserCollectPersonActivity extends BaseActivity {
         persons = getResources().getStringArray(R.array.arr_person);
 
         Intent intent = getIntent();
-        ownerInfo = (User) intent.getSerializableExtra(Global.OWNERINFO);
+        ownerInfo = (User) intent.getSerializableExtra(IntentConstant.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_person_title));
         contentView.setText(getString(R.string.collect_person_content));

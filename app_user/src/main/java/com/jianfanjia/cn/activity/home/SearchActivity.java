@@ -16,16 +16,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.fragment.SearchDecorationImgFragment;
 import com.jianfanjia.cn.fragment.SearchDesignerFragment;
 import com.jianfanjia.cn.fragment.SearchProductFragment;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity.home
@@ -202,7 +201,7 @@ public class SearchActivity extends BaseSwipeBackActivity {
 
     protected Bundle getSearchBundle(String search){
         Bundle bundle = new Bundle();
-        bundle.putString(Global.SEARCH_TEXT,search);
+        bundle.putString(IntentConstant.SEARCH_TEXT,search);
         return bundle;
     }
 

@@ -12,6 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -21,21 +26,15 @@ import com.jianfanjia.api.request.common.DeleteCollectionRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -100,7 +99,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
     private void getDataFromIntent(Intent intent) {
         Bundle productBundle = intent.getExtras();
-        productid = productBundle.getString(Global.PRODUCT_ID);
+        productid = productBundle.getString(IntentConstant.PRODUCT_ID);
         LogTool.d(TAG, "productid=" + productid);
         getProductHomePageInfo(productid);
     }
@@ -154,7 +153,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
     private void startDesignerInfoActivity(String designertid) {
         Bundle designerInfoBundle = new Bundle();
-        designerInfoBundle.putString(Global.DESIGNER_ID, designertid);
+        designerInfoBundle.putString(IntentConstant.DESIGNER_ID, designertid);
         startActivity(DesignerInfoActivity.class, designerInfoBundle);
     }
 

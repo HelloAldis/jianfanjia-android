@@ -9,6 +9,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImage;
@@ -19,32 +26,23 @@ import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
-
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.ImageUtil;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshViewPager;
+import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -125,17 +123,17 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
 
     private void getDataFromIntent(Intent intent) {
         Bundle decorationBundle = intent.getExtras();
-        viewType = decorationBundle.getInt(Global.VIEW_TYPE, 0);
+        viewType = decorationBundle.getInt(IntentConstant.VIEW_TYPE, 0);
         LogTool.d(TAG, "viewType==" + viewType);
-        search = decorationBundle.getString(Global.SEARCH_TEXT);
+        search = decorationBundle.getString(IntentConstant.SEARCH_TEXT);
         LogTool.d(TAG, "search==" + search);
-        decorationId = decorationBundle.getString(Global.DECORATION_ID);
-        currentPosition = decorationBundle.getInt(Global.POSITION, 0);
-        totalCount = decorationBundle.getInt(Global.TOTAL_COUNT, 0);
-        beautiful_images = (List<BeautifulImage>) decorationBundle.getSerializable(Global.IMG_LIST);
-        section = decorationBundle.getString(Global.HOUSE_SECTION);
-        houseStyle = decorationBundle.getString(Global.HOUSE_STYLE);
-        decStyle = decorationBundle.getString(Global.DEC_STYLE);
+        decorationId = decorationBundle.getString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID);
+        currentPosition = decorationBundle.getInt(IntentConstant.POSITION, 0);
+        totalCount = decorationBundle.getInt(IntentConstant.TOTAL_COUNT, 0);
+        beautiful_images = (List<BeautifulImage>) decorationBundle.getSerializable(IntentConstant.IMG_LIST);
+        section = decorationBundle.getString(IntentConstant.HOUSE_SECTION);
+        houseStyle = decorationBundle.getString(IntentConstant.HOUSE_STYLE);
+        decStyle = decorationBundle.getString(IntentConstant.DEC_STYLE);
         LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
         LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" +
                 totalCount + "  beautiful_images.size()=" + beautiful_images.size());
@@ -195,13 +193,13 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
     public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
         isFirst = false;
         switch (viewType) {
-            case Constant.BEAUTY_FRAGMENT:
+            case IntentConstant.BEAUTY_FRAGMENT:
                 getDecorationImgInfo(FROM);
                 break;
-            case Constant.COLLECT_BEAUTY_FRAGMENT:
+            case IntentConstant.COLLECT_BEAUTY_FRAGMENT:
                 getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
                 break;
-            case Constant.SEARCH_BEAUTY_FRAGMENT:
+            case IntentConstant.SEARCH_BEAUTY_FRAGMENT:
                 getDecorationImgInfo(FROM);
                 break;
             default:

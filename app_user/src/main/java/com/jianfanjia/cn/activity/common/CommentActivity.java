@@ -30,7 +30,7 @@ import com.jianfanjia.cn.adapter.CommentAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
@@ -78,11 +78,11 @@ public class CommentActivity extends BaseSwipeBackActivity {
     private void getDataFormIntent() {
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
-        topicid = commentBundle.getString(Global.TOPIC_ID);
-        to = commentBundle.getString(Global.TO);
-        section = commentBundle.getString(Global.SECTION);
-        item = commentBundle.getString(Global.ITEM);
-        topictype = commentBundle.getString(Global.TOPICTYPE);
+        topicid = commentBundle.getString(IntentConstant.TOPIC_ID);
+        to = commentBundle.getString(IntentConstant.TO);
+        section = commentBundle.getString(IntentConstant.SECTION);
+        item = commentBundle.getString(IntentConstant.ITEM);
+        topictype = commentBundle.getString(IntentConstant.TOPICTYPE);
     }
 
 

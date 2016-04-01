@@ -6,14 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -93,7 +92,7 @@ public class PreviewBusinessRequirementActivity extends BaseSwipeBackActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        requirementInfo = (Requirement) intent.getSerializableExtra(Global.REQUIREMENT_INFO);
+        requirementInfo = (Requirement) intent.getSerializableExtra(IntentConstant.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             act_edit_req_city_content.setText(requirementInfo.getProvince() + requirementInfo.getCity() +
                     requirementInfo.getDistrict());

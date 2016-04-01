@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.DesignerList;
@@ -22,13 +24,10 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author fengliang
@@ -61,7 +60,7 @@ public class SearchDesignerFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        search = getArguments().getString(Global.SEARCH_TEXT);
+        search = getArguments().getString(IntentConstant.SEARCH_TEXT);
         LogTool.d(TAG, "search=" + search);
     }
 
@@ -90,7 +89,7 @@ public class SearchDesignerFragment extends BaseFragment {
                         String designerId = searchDesignerAdapter.getData().get(position).get_id();
                         LogTool.d(TAG, "designerId:" + designerId);
                         Bundle designerBundle = new Bundle();
-                        designerBundle.putString(Global.DESIGNER_ID, designerId);
+                        designerBundle.putString(IntentConstant.DESIGNER_ID, designerId);
                         startActivity(DesignerInfoActivity.class, designerBundle);
                     }
                 });

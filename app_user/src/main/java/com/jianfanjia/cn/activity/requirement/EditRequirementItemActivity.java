@@ -9,10 +9,10 @@ import android.widget.ListView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.RequirementItemAdapter;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -42,7 +42,7 @@ public class EditRequirementItemActivity extends BaseSwipeBackActivity {
 
     public void initView() {
         Intent data = getIntent();
-        requestCode = data.getIntExtra(Global.REQUIRE_DATA, 0);
+        requestCode = data.getIntExtra(IntentConstant.REQUIRE_DATA, 0);
         showHead(requestCode);
 
         requirementItemAdapter = new RequirementItemAdapter(this);
@@ -51,7 +51,7 @@ public class EditRequirementItemActivity extends BaseSwipeBackActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent data = new Intent(EditRequirementItemActivity.this, UpdateRequirementActivity.class);
-                data.putExtra(Global.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
+                data.putExtra(IntentConstant.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
                 setResult(RESULT_OK, data);
                 appManager.finishActivity(EditRequirementItemActivity.this);
             }

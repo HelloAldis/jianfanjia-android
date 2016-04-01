@@ -8,6 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -22,19 +29,11 @@ import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -83,8 +82,8 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
         replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
         Intent intent = this.getIntent();
-        requestmentid = intent.getStringExtra(Global.REQUIREMENT_ID);
-        designerid = intent.getStringExtra(Global.DESIGNER_ID);
+        requestmentid = intent.getStringExtra(IntentConstant.REQUIREMENT_ID);
+        designerid = intent.getStringExtra(IntentConstant.DESIGNER_ID);
         LogTool.d(TAG, "requestmentid:" + requestmentid + " designerid:" + designerid);
         getOrderDesignerList(requestmentid);
     }
@@ -173,7 +172,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
                             LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
                             currentPos = position;
                             Bundle designerBundle = new Bundle();
-                            designerBundle.putString(Global.DESIGNER_ID, designerid);
+                            designerBundle.putString(IntentConstant.DESIGNER_ID, designerid);
                             startActivity(DesignerInfoActivity.class, designerBundle);
                         }
 

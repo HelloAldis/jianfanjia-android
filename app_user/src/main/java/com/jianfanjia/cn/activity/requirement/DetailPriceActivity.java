@@ -16,7 +16,7 @@ import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
@@ -49,7 +49,7 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent(){
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
-        detailInfo = (Plan) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        detailInfo = (Plan) priceBundle.getSerializable(IntentConstant.PLAN_DETAIL);
         LogTool.d(TAG, "detailInfo =" + detailInfo);
     }
 

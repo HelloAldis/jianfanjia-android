@@ -28,7 +28,7 @@ import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
@@ -190,14 +190,14 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                                 BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
-                                                decorationBundle.putString(Global.DECORATION_ID, beautyImgInfo.get_id
+                                                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID, beautyImgInfo.get_id
                                                         ());
-                                                decorationBundle.putInt(Global.POSITION, position);
-                                                decorationBundle.putSerializable(Global.IMG_LIST,
+                                                decorationBundle.putInt(IntentConstant.POSITION, position);
+                                                decorationBundle.putSerializable(IntentConstant.IMG_LIST,
                                                         (ArrayList<BeautifulImage>)
                                                                 beautyImgList);
-                                                decorationBundle.putInt(Global.TOTAL_COUNT, total);
-                                                decorationBundle.putInt(Global.VIEW_TYPE, Constant
+                                                decorationBundle.putInt(IntentConstant.TOTAL_COUNT, total);
+                                                decorationBundle.putInt(IntentConstant.VIEW_TYPE, IntentConstant
                                                         .COLLECT_BEAUTY_FRAGMENT);
                                                 startActivity(PreviewDecorationActivity.class, decorationBundle);
                                             }

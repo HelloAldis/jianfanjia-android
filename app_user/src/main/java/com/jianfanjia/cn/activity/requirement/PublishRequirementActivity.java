@@ -7,6 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -22,6 +27,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
@@ -31,12 +37,6 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:发布需求
@@ -239,9 +239,9 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
     protected Bundle getBundleByType(String type) {
         Bundle bundle = new Bundle();
         Requirement requirementInfo = getSourceRequirement(type);
-        bundle.putSerializable(Global.REQUIREMENT_INFO, requirementInfo);
+        bundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
         LogTool.d(TAG, "requirmentInfo =" + JsonParser.beanToJson(requirementInfo));
-        bundle.putInt(Global.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
+        bundle.putInt(IntentConstant.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         return bundle;
     }
 

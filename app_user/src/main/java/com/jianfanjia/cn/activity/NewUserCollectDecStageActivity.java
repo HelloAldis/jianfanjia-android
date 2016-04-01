@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -85,7 +86,7 @@ public class NewUserCollectDecStageActivity extends BaseActivity {
         User ownerInfo = new User();
         ownerInfo.setDec_progress(stage);
         Bundle ownerBundle = new Bundle();
-        ownerBundle.putSerializable(Global.OWNERINFO, ownerInfo);
+        ownerBundle.putSerializable(IntentConstant.OWNERINFO, ownerInfo);
         startActivity(NewUserCollectLoveStyleActivity.class, ownerBundle);
     }
 
