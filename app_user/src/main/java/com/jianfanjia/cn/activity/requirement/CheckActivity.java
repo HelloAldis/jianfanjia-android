@@ -11,11 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Process;
@@ -26,20 +21,26 @@ import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.cn.Event.CheckEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.GridItem;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -112,7 +113,8 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
 
     private void initData() {
         LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
-        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + "阶段验收");
+        mainHeadView.setMianTitle(MyApplication.getInstance().getStringById(sectionInfo.getName()) + getResources()
+                .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(sectionInfo.getName());
         imageids = sectionInfo.getYs().getImages();
@@ -188,7 +190,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
         return flag;
     }
 
-    @OnClick({R.id.head_back_layout,R.id.btn_confirm})
+    @OnClick({R.id.head_back_layout, R.id.btn_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_back_layout:
