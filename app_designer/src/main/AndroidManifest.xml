@@ -242,6 +242,15 @@
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:screenOrientation="portrait"
+            />
+
         <service android:name=".service.UpdateService"/>
 
         <activity
