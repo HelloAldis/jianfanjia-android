@@ -82,12 +82,12 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         Api.getUserInfo(new UserByOwnerInfoRequest(), new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
-
+                showWaitDialog();
             }
 
             @Override
             public void onHttpDone() {
-
+                hideWaitDialog();
             }
 
             @Override
