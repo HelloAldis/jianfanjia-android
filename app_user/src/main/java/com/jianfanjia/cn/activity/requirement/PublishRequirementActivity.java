@@ -45,7 +45,6 @@ import butterknife.OnClick;
  * Date:15-10-11 14:30
  */
 public class PublishRequirementActivity extends BaseSwipeBackActivity implements NotifyActivityStatusChange {
-
     private static final String TAG = PublishRequirementActivity.class.getName();
     @Bind(R.id.act_edit_req_head_layout)
     protected MainHeadView mainHeadView = null;
@@ -66,7 +65,6 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initData();
     }
@@ -129,7 +127,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        LogTool.d(this.getClass().getName(), "setupViewPager");
+        LogTool.d(TAG, "setupViewPager");
         List<SelectItem> listViews = new ArrayList<>();
         editBussinessRequirementFragment_ = new EditBussinessRequirementFragment();
         editBussinessRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_BUSINESS));
@@ -148,10 +146,10 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         switch (status) {
             case Global.DEC_TYPE_HOME:
                 if (editHomeRequirementFragment_ != null) {
-                    LogTool.d(this.getClass().getName(), "editHomeRequirementFragment_ is not null");
+                    LogTool.d(TAG, "editHomeRequirementFragment_ is not null");
                     mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
                 } else {
-                    LogTool.d(this.getClass().getName(), "editHomeRequirementFragment_ is null");
+                    LogTool.d(TAG, "editHomeRequirementFragment_ is null");
                 }
                 break;
             case Global.DEC_TYPE_BUSINESS:
@@ -247,10 +245,10 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
 
     protected void back() {
         if (isHomeTypeChange() || isBusinessTypeChange()) {
-            LogTool.d(this.getClass().getName(), "有改变");
+            LogTool.d(TAG, "有改变");
             showTipDialog();
         } else {
-            LogTool.d(this.getClass().getName(), "没有改变");
+            LogTool.d(TAG, "没有改变");
             appManager.finishActivity(this);
         }
     }
