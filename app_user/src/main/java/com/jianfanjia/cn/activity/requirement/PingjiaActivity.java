@@ -11,18 +11,19 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.user.EvaluateDesignerRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:评价设计师
@@ -82,7 +83,6 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
 
     public void initView() {
         initMainHeadView();
-
         bar.setRating((int) (speed + attitude) / 2);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);
@@ -90,7 +90,6 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designer_head_img);
         }
         designerName.setText(designer_name);
-
         speedBar.setOnRatingBarChangeListener(speedListener);
         attudeBar.setOnRatingBarChangeListener(attitudeListener);
     }
@@ -136,7 +135,6 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
     //评价设计师
     private void evaluateDesignerByUser(String requirementid, String designerid, int service_attitude, int
             respond_speed, String comment, String is_anonymous) {
-
         EvaluateDesignerRequest evaluateDesignerRequest = new EvaluateDesignerRequest();
         evaluateDesignerRequest.setRequirementid(requirementid);
         evaluateDesignerRequest.setDesignerid(designerid);
@@ -144,7 +142,6 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
         evaluateDesignerRequest.setService_attitude(service_attitude);
         evaluateDesignerRequest.setIs_anonymous(is_anonymous);
         evaluateDesignerRequest.setComment(comment);
-
         Api.evaluateDesigner(evaluateDesignerRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
