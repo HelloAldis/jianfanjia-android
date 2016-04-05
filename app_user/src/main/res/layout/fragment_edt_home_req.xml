@@ -269,6 +269,8 @@
                 android:text="@string/unit_million"/>
         </RelativeLayout>
 
+
+
         <View
             style="@style/divier_line"
             android:background="@color/horzontal_line_color"/>
