@@ -6,13 +6,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
@@ -22,8 +19,13 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.common.tool.LogTool;
+
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -33,20 +35,38 @@ import com.jianfanjia.cn.tools.StringUtils;
  */
 public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
 
+    @Bind(R.id.ltm_my_designer_left_layout)
+    protected RelativeLayout ltm_my_designer_left_layout;
+
     @Bind(R.id.ltm_my_designer_head)
     protected ImageView headView;
 
     @Bind(R.id.ltm_my_designer_name)
     protected TextView nameView;
 
+    @Bind(R.id.ltm_my_identity_auth)
+    protected ImageView identityAuthView;
+
+    @Bind(R.id.ltm_my_info_auth)
+    protected ImageView infoAuthView;
+
+    @Bind(R.id.ltm_my_ratingBar)
+    protected RatingBar ratingBarView;
+
     @Bind(R.id.ltm_my_designer_status)
     protected TextView statusView;
 
     @Bind(R.id.ltm_my_designer_content)
-    protected RelativeLayout contentLayout;
+    protected LinearLayout contentLayout;
 
-    @Bind(R.id.ltm_my_designer_middle_layout)
-    protected RelativeLayout middleLayout;
+    @Bind(R.id.merger_button1_layout)
+    protected RelativeLayout merger_button1_layout;
+
+    @Bind(R.id.merger_button2_layout)
+    protected RelativeLayout merger_button2_layout;
+
+    @Bind(R.id.merger_button3_layout)
+    protected RelativeLayout merger_button3_layout;
 
     @Bind(R.id.ltm_my_designer_textview1)
     protected TextView textView1;
@@ -54,11 +74,8 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     @Bind(R.id.ltm_my_designer_textview2)
     protected TextView textView2;
 
-    @Bind(R.id.ltm_my_designer_button3)
-    protected TextView button3;
-
-    @Bind(R.id.designerinfo_auth)
-    ImageView authView;
+    @Bind(R.id.ltm_my_designer_textview3)
+    protected TextView textView3;
 
     private Context context;
 
@@ -76,7 +93,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
-        headView.setOnClickListener(new View.OnClickListener() {
+        ltm_my_designer_left_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
@@ -93,29 +110,37 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             nameView.setText(context.getResources().getString(R.string.designer));
         }
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            authView.setVisibility(View.VISIBLE);
+            infoAuthView.setVisibility(View.VISIBLE);
         } else {
-            authView.setVisibility(View.GONE);
+            infoAuthView.setVisibility(View.GONE);
         }
-
+        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            identityAuthView.setVisibility(View.VISIBLE);
+        } else {
+            identityAuthView.setVisibility(View.GONE);
+        }
+        int respond_speed = (int) designerInfo.getRespond_speed();
+        int service_attitude = (int) designerInfo.getService_attitude();
+        ratingBarView.setRating((respond_speed + service_attitude) / 2);
         statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
         statusView.setText(context.getResources().getString(R.string.already_repsonse));
-        LogTool.d(this.getClass().getName(),"当前时间 ="+ Calendar.getInstance().getTimeInMillis()+ "  量房时间 =" + designerInfo.getPlan().getHouse_check_time());
+        LogTool.d(this.getClass().getName(), "当前时间 =" + Calendar.getInstance().getTimeInMillis() + "  量房时间 =" +
+                designerInfo.getPlan().getHouse_check_time());
         if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
-            textView1.setVisibility(View.GONE);
-            textView2.setVisibility(View.GONE);
-            button3.setVisibility(View.VISIBLE);
-            button3.setText(context.getResources().getString(R.string.confirm_measure_house));
-            button3.setOnClickListener(new View.OnClickListener() {
+            merger_button1_layout.setVisibility(View.GONE);
+            merger_button2_layout.setVisibility(View.GONE);
+            merger_button3_layout.setVisibility(View.VISIBLE);
+            textView3.setText(context.getResources().getString(R.string.confirm_measure_house));
+            merger_button3_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
                 }
             });
         } else {
-            textView1.setVisibility(View.VISIBLE);
-            textView2.setVisibility(View.VISIBLE);
-            button3.setVisibility(View.GONE);
+            merger_button1_layout.setVisibility(View.VISIBLE);
+            merger_button2_layout.setVisibility(View.VISIBLE);
+            merger_button3_layout.setVisibility(View.GONE);
             textView1.setText(context.getResources().getString(R.string.measure_house_time));
             textView2.setText(StringUtils.covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
@@ -123,13 +148,13 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         Requirement requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
-                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global.REQUIREMENT_STATUS8) ) {
-            button3.setEnabled(false);
-            button3.setTextColor(context.getResources().getColor(R.color.grey_color));
+                || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global
+                .REQUIREMENT_STATUS8)) {
+            merger_button3_layout.setEnabled(false);
+            textView3.setTextColor(context.getResources().getColor(R.color.grey_color));
         } else {
-            button3.setEnabled(true);
-            button3.setTextColor(context.getResources().getColor(R.color.orange_color));
+            merger_button3_layout.setEnabled(true);
+            textView3.setTextColor(context.getResources().getColor(R.color.orange_color));
         }
-
     }
 }

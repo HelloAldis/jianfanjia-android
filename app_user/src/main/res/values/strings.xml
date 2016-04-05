@@ -45,6 +45,9 @@
 
     <!-- login_activity -->
     <string name="login">登录</string>
+    <string name="weixin_login_text">微信登录</string>
+    <string name="register_login_text">登录注册</string>
+    <string name="enterText">立即体验</string>
     <string name="enter">欢迎使用</string>
     <string name="no">取     消</string>
     <string name="ok">确     定</string>

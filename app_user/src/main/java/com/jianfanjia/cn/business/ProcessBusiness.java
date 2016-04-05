@@ -32,8 +32,9 @@ public class ProcessBusiness {
         if (null == sectionName) {
             return null;
         }
-        LogTool.d("SectionInfo", sectionName);
+        LogTool.d("SectionInfo", "sectionName=" + sectionName);
         List<ProcessSection> sections = process.getSections();
+        LogTool.d("SectionInfo", "sections=" + sections);
         if (sections != null) {
             for (ProcessSection sectionInfo : sections) {
                 if (sectionInfo.getName().equals(sectionName)) {

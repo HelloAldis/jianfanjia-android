@@ -1,57 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-    <FrameLayout
-        android:id="@+id/imageLayout"
+    <com.jianfanjia.cn.view.layout.CircleImageView
+        android:id="@+id/ltm_my_designer_head"
         android:layout_width="60dip"
         android:layout_height="60dip"
-        android:layout_centerVertical="true">
-
-        <com.jianfanjia.cn.view.layout.CircleImageView
-            android:id="@+id/ltm_my_designer_head"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/icon_default_head" />
-
-        <ImageView
-            android:id="@+id/designerinfo_auth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@mipmap/icon_auth" />
-    </FrameLayout>
+        android:layout_centerVertical="true"
+        android:layout_margin="15dip"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_default_head"/>
 
     <RelativeLayout
         android:id="@+id/ltm_my_designer_middle_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/space_8"
-        android:layout_toRightOf="@+id/imageLayout">
+        android:layout_toRightOf="@id/ltm_my_designer_head">
 
-        <TextView
-            android:id="@+id/ltm_my_designer_name"
-            style="@style/listview_item_text_style_middle"
-            android:gravity="left"
-            android:maxWidth="@dimen/space_70"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:textColor="@color/light_black_color" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ltm_my_designer_info_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ltm_my_designer_name"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_gravity="center_vertical"
+                    android:text="张三"
+                    android:textColor="@color/light_black_color"/>
+
+                <ImageView
+                    android:id="@+id/ltm_my_identity_auth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:src="@mipmap/icon_identity_auth"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/ltm_my_info_auth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:src="@mipmap/icon_info_auth"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <RatingBar
+                android:id="@+id/ltm_my_ratingBar"
+                style="@style/list_item_ratingbar_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="0"/>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/ltm_my_designer_status"
             style="@style/listview_item_text_style_small"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/ltm_my_designer_name"
-            android:layout_marginTop="@dimen/space_16"
-            android:gravity="left"
-            android:maxWidth="@dimen/space_70"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_10"
             android:singleLine="true"
-            android:ellipsize="end"
-            android:text="@string/str_publish_time"
-            android:textColor="@color/grey_color" />
+            android:text="已响应"
+            android:textColor="@color/grey_color"/>
     </RelativeLayout>
+
+
 </RelativeLayout>
