@@ -191,7 +191,7 @@ public class WelcomeActivity extends BaseActivity {
                 LogTool.d(TAG, "not first");
                 if (!isLogin) {
                     LogTool.d(TAG, "not login");
-                    startActivity(LoginNewActivity.class);
+                    startActivity(NavigateActivity.class);
                     appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份

@@ -23,10 +23,10 @@ import com.jianfanjia.cn.view.ViewPagerIndicator;
  * @Description: 登录
  * @date 2015-8-18 下午12:11:23
  */
-public class LoginNewActivity extends BaseActivity{
+public class LoginNewActivity extends BaseActivity {
     private static final String TAG = LoginNewActivity.class.getName();
     private static final String[] tabTitles = new String[]{
-            "登录","注册"
+            "登录", "注册"
     };
 
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -47,15 +47,15 @@ public class LoginNewActivity extends BaseActivity{
     }
 
     @OnClick({R.id.head_back_layout})
-    private void onClick(View view){
-        switch (view.getId()){
+    void onClick(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
         }
     }
 
-    private void initView(){
+    private void initView() {
         viewPagerIndicator.setTabItemTitles(Arrays.asList(tabTitles));
 
         fragmentList.add(new LoginFragment());
@@ -63,7 +63,7 @@ public class LoginNewActivity extends BaseActivity{
 
     }
 
-    private void initData(){
+    private void initData() {
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -84,7 +84,7 @@ public class LoginNewActivity extends BaseActivity{
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_login_025;
+        return R.layout.activity_login_new;
     }
 
 }
