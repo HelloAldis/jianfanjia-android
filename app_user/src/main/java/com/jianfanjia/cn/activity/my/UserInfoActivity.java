@@ -18,13 +18,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.activity.LoginNewActivity;
+import com.jianfanjia.cn.activity.NavigateActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
@@ -43,13 +49,6 @@ import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yalantis.ucrop.UCrop;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -202,7 +201,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
                         appManager.finishAllActivity();
                         AuthUtil.getInstance(UserInfoActivity.this).deleteOauth(UserInfoActivity.this, SHARE_MEDIA
                                 .WEIXIN);
-                        startActivity(LoginNewActivity.class);
+                        startActivity(NavigateActivity.class);
                         finish();
                     }
                 });
