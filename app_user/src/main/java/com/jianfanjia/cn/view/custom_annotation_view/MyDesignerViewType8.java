@@ -6,11 +6,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
@@ -19,13 +18,19 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Description: com.jianfanjia.cn.view.baseview
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-22 10:46
  */
-public class MyDesignerViewType8 extends RecyclerView.ViewHolder{
+public class MyDesignerViewType8 extends RecyclerView.ViewHolder {
+
+    @Bind(R.id.ltm_my_designer_left_layout)
+    protected RelativeLayout ltm_my_designer_left_layout;
 
     @Bind(R.id.ltm_my_designer_head)
     protected ImageView headView;
@@ -33,23 +38,32 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder{
     @Bind(R.id.ltm_my_designer_name)
     protected TextView nameView;
 
+    @Bind(R.id.ltm_my_identity_auth)
+    protected ImageView identityAuthView;
+
+    @Bind(R.id.ltm_my_info_auth)
+    protected ImageView infoAuthView;
+
+    @Bind(R.id.ltm_my_ratingBar)
+    protected RatingBar ratingBarView;
+
     @Bind(R.id.ltm_my_designer_status)
     protected TextView statusView;
 
     @Bind(R.id.ltm_my_designer_content)
-    protected RelativeLayout contentLayout;
+    protected LinearLayout contentLayout;
 
-    @Bind(R.id.ltm_my_designer_middle_layout)
-    protected RelativeLayout middleLayout;
+    @Bind(R.id.merger_button1_layout)
+    protected RelativeLayout merger_button1_layout;
+
+    @Bind(R.id.merger_button2_layout)
+    protected RelativeLayout merger_button2_layout;
 
     @Bind(R.id.merger_button1)
     protected TextView button1;
 
     @Bind(R.id.merger_button2)
     protected TextView button2;
-
-    @Bind(R.id.designerinfo_auth)
-    ImageView authView;
 
     private Context context;
 
@@ -68,7 +82,7 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder{
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
-        headView.setOnClickListener(new View.OnClickListener() {
+        ltm_my_designer_left_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
@@ -85,22 +99,28 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder{
             nameView.setText(context.getResources().getString(R.string.designer));
         }
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            authView.setVisibility(View.VISIBLE);
+            infoAuthView.setVisibility(View.VISIBLE);
         } else {
-            authView.setVisibility(View.GONE);
+            infoAuthView.setVisibility(View.GONE);
         }
-
+        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            identityAuthView.setVisibility(View.VISIBLE);
+        } else {
+            identityAuthView.setVisibility(View.GONE);
+        }
+        int respond_speed = (int) designerInfo.getRespond_speed();
+        int service_attitude = (int) designerInfo.getService_attitude();
+        ratingBarView.setRating((respond_speed + service_attitude) / 2);
+        button1.setText(context.getResources().getString(R.string.str_check_comment));
         if (designerInfo.getEvaluation() == null) {
-            button1.setText(context.getResources().getString(R.string.str_comment));
-            button1.setOnClickListener(new View.OnClickListener() {
+            merger_button1_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, MyDesignerActivity.COMMENT);
                 }
             });
         } else {
-            button1.setText(context.getResources().getString(R.string.str_already_comment));
-            button1.setOnClickListener(new View.OnClickListener() {
+            merger_button1_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, MyDesignerActivity.VIEW_COMMENT);
@@ -108,10 +128,9 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder{
             });
         }
         button2.setText(context.getResources().getString(R.string.str_view_plan));
-        button2.setEnabled(false);
+        merger_button2_layout.setEnabled(false);
         button2.setTextColor(context.getResources().getColor(R.color.grey_color));
         statusView.setText(context.getResources().getString(R.string.not_commit));
         statusView.setTextColor(context.getResources().getColor(R.color.grey_color));
-
     }
 }

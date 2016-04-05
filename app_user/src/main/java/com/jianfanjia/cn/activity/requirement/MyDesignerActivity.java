@@ -7,11 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -30,7 +25,12 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:我的设计师
@@ -72,12 +72,10 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         initView();
     }
 
-    public void initView() {
-        LogTool.d(this.getClass().getName(), "initMainHeadView");
+    private void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.my_designer));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setRightTitleVisable(View.GONE);
-
         Intent intent = getIntent();
         requirementInfo = (Requirement) intent.getSerializableExtra(IntentConstant.REQUIREMENT_INFO);
         if (requirementInfo != null) {
@@ -127,7 +125,8 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
-                        contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, orderDesignerInfo.getRequirement());
+                        contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, orderDesignerInfo
+                                .getRequirement());
                         contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
                                 .DESIGNER_LIST_INTENT);
                         startActivity(ContractActivity.class, contractBundle);
@@ -204,8 +203,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         appManager.finishActivity(this);
     }
 
-    protected void initdata() {
-        LogTool.d(this.getClass().getName(), "initdata");
+    private void initdata() {
         GetOrderedDesignerListRequest getOrderedDesignerListRequest = new GetOrderedDesignerListRequest();
         getOrderedDesignerListRequest.setRequirementid(requirementid);
         Api.getOrderedDesignerList(getOrderedDesignerListRequest, new ApiCallback<ApiResponse<List<Designer>>>() {

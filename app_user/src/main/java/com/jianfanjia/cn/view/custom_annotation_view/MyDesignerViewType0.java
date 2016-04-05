@@ -6,11 +6,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
@@ -20,6 +18,9 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Description: com.jianfanjia.cn.view.baseview
  * Author: zhanghao
@@ -28,11 +29,23 @@ import com.jianfanjia.cn.tools.ImageShow;
  */
 public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
 
+    @Bind(R.id.ltm_my_designer_left_layout)
+    protected RelativeLayout ltm_my_designer_left_layout;
+
     @Bind(R.id.ltm_my_designer_head)
     protected ImageView headView;
 
     @Bind(R.id.ltm_my_designer_name)
     protected TextView nameView;
+
+    @Bind(R.id.ltm_my_identity_auth)
+    protected ImageView identityAuthView;
+
+    @Bind(R.id.ltm_my_info_auth)
+    protected ImageView infoAuthView;
+
+    @Bind(R.id.ltm_my_ratingBar)
+    protected RatingBar ratingBarView;
 
     @Bind(R.id.ltm_my_designer_status)
     protected TextView statusView;
@@ -40,14 +53,8 @@ public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
     @Bind(R.id.ltm_my_designer_content)
     protected RelativeLayout contentLayout;
 
-    @Bind(R.id.ltm_my_designer_middle_layout)
-    protected RelativeLayout middleLayout;
-
     @Bind(R.id.ltm_my_designer_textview3)
     protected TextView textView3;
-
-    @Bind(R.id.designerinfo_auth)
-    ImageView authView;
 
     private Context context;
 
@@ -66,7 +73,7 @@ public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
         String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
-        headView.setOnClickListener(new View.OnClickListener() {
+        ltm_my_designer_left_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_DESIGNER);
@@ -78,15 +85,23 @@ public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
             headView.setImageResource(R.mipmap.icon_default_head);
         }
         if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            authView.setVisibility(View.VISIBLE);
+            infoAuthView.setVisibility(View.VISIBLE);
         } else {
-            authView.setVisibility(View.GONE);
+            infoAuthView.setVisibility(View.GONE);
+        }
+        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            identityAuthView.setVisibility(View.VISIBLE);
+        } else {
+            identityAuthView.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);
         } else {
             nameView.setText(context.getResources().getString(R.string.designer));
         }
+        int respond_speed = (int) designerInfo.getRespond_speed();
+        int service_attitude = (int) designerInfo.getService_attitude();
+        ratingBarView.setRating((respond_speed + service_attitude) / 2);
         switch (status) {
             case Global.PLAN_STATUS0:
                 textView3.setText(context.getResources().getString(R.string.wait_response));
