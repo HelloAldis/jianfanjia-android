@@ -13,13 +13,9 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
@@ -37,6 +33,12 @@ import com.jianfanjia.cn.fragment.DesignerProductFragment;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -120,7 +122,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     private void getDataFromIntent(Intent intent) {
         Bundle designerBundle = intent.getExtras();
         designerid = designerBundle.getString(IntentConstant.DESIGNER_ID);
-        LogTool.d(TAG,"designerid =" + designerid);
+        LogTool.d(TAG, "designerid =" + designerid);
         getDesignerPageInfo(designerid);
     }
 
@@ -230,12 +232,12 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     private ApiCallback<ApiResponse<Designer>> designerHomePageCallback = new ApiCallback<ApiResponse<Designer>>() {
         @Override
         public void onPreLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void onHttpDone() {
-
+            hideWaitDialog();
         }
 
         @Override
@@ -281,7 +283,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
@@ -310,7 +312,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
@@ -341,7 +343,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
