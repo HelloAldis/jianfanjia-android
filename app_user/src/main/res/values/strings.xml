@@ -376,4 +376,5 @@
     <string name="scan">浏览</string>
     <string name="default_provice">湖北省</string>
     <string name="default_city">武汉市</string>
+    <string name="the_third_login">第三方登录</string>
 </resources>
