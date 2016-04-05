@@ -1,21 +1,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/font_white"
-    android:orientation="vertical">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/font_white"
+             android:orientation="vertical">
 
     <com.jianfanjia.cn.view.WrapContentHeightViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/space_72"/>
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/dot_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/space_36"
+        android:layout_marginBottom="@dimen/space_120"
         android:orientation="horizontal">
 
         <ImageView
@@ -23,72 +22,106 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_selector" />
+            android:src="@mipmap/icon_dot_selector"/>
 
         <ImageView
             android:layout_width="@dimen/space_4"
             android:layout_height="@dimen/space_4"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"/>
 
         <ImageView
             android:id="@+id/welcome_dot1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal" />
+            android:src="@mipmap/icon_dot_normal"/>
 
         <ImageView
             android:layout_width="@dimen/space_4"
             android:layout_height="@dimen/space_4"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"/>
 
         <ImageView
             android:id="@+id/welcome_dot2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal" />
+            android:src="@mipmap/icon_dot_normal"/>
 
         <ImageView
             android:layout_width="@dimen/space_4"
             android:layout_height="@dimen/space_4"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"/>
 
         <ImageView
             android:id="@+id/welcome_dot3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal" />
+            android:src="@mipmap/icon_dot_normal"/>
 
     </LinearLayout>
-
 
     <LinearLayout
-        android:id="@+id/btnLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/space_250"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/space_120"
-        android:visibility="gone">
+        android:layout_marginBottom="@dimen/space_25"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnLogin"
-            style="@style/dialog_button_1"
-            android:layout_width="@dimen/space_140"
-            android:text="@string/login" />
+        <RelativeLayout
+            android:id="@+id/btnWeixinLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:layout_marginTop="@dimen/space_15"
+            android:background="@drawable/btn_orange_oval_bg"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/space_14"
-            android:layout_height="@dimen/space_4"
-            android:background="@color/transparent" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
 
-        <Button
-            android:id="@+id/btnRegister"
-            style="@style/dialog_button_2"
-            android:layout_width="@dimen/space_140"
-            android:text="@string/new_user" />
+                <ImageView
+                    android:id="@+id/icon_weixin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_weixin_login_bg"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@id/icon_weixin"
+                    android:text="@string/weixin_login_text"
+                    android:textColor="@color/font_white"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_15">
+
+            <TextView
+                android:id="@+id/register_login_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/register_login_text"
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_16"/>
+
+            <TextView
+                android:id="@+id/enterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/enterText"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/text_size_16"/>
+        </RelativeLayout>
     </LinearLayout>
-
 </FrameLayout>
