@@ -15,6 +15,7 @@ public class Process extends BaseModel implements Serializable {
     private String province;
     private String city;
     private String district;
+    private String dec_type;
     private String basic_address;
     private String detail_address;
     private String house_type;
@@ -220,6 +221,14 @@ public class Process extends BaseModel implements Serializable {
 
     public void setDetail_address(String detail_address) {
         this.detail_address = detail_address;
+    }
+
+    public String getDec_type() {
+        return dec_type;
+    }
+
+    public void setDec_type(String dec_type) {
+        this.dec_type = dec_type;
     }
 
     public ProcessSection getSectionInfoByName(String sectionName) {
