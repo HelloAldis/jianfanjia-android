@@ -21,7 +21,7 @@ import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.ForgetPswActivity;
-import com.jianfanjia.cn.activity.LoginNew025Activity;
+import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.NewUserCollectDecStageActivity;
 import com.jianfanjia.cn.activity.R;
@@ -131,7 +131,7 @@ public class LoginFragment extends BaseFragment {
                 break;
             case R.id.btn_login_weixin_layout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
-                authUtil.doOauthVerify((LoginNew025Activity) getActivity(), platform, umDataListener);
+                authUtil.doOauthVerify((LoginNewActivity) getActivity(), platform, umDataListener);
                 break;
             default:
                 break;
@@ -274,6 +274,6 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.viewpager_item_login;
+        return R.layout.fragment_login;
     }
 }

@@ -219,6 +219,6 @@ public class RegisterFragment extends BaseFragment{
 
     @Override
     public int getLayoutId() {
-        return R.layout.viewpager_item_register;
+        return R.layout.fragment_register;
     }
 }

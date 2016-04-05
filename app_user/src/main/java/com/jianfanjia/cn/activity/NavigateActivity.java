@@ -9,6 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -23,13 +29,6 @@ import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -92,13 +91,11 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
 
     @OnClick({R.id.register_login_text, R.id.enterText, R.id.btnWeixinLayout})
     public void onClick(View v) {
-        dataManager.setFisrt(false);
         switch (v.getId()) {
             case R.id.register_login_text:
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(IntentConstant.ISREGIISTER, true);
                 startActivity(LoginNewActivity.class, bundle);
-                appManager.finishActivity(this);
                 break;
             case R.id.enterText:
                 break;
