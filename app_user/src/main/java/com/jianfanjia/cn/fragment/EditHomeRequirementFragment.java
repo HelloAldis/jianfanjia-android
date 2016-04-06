@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -20,6 +23,7 @@ import com.jianfanjia.cn.activity.my.EditCityActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementItemActivity;
 import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
@@ -37,6 +41,9 @@ public class EditHomeRequirementFragment extends BaseFragment {
     private NotifyActivityStatusChange hostActivity;
     private boolean isFinish = false;//是否所有字段都填了
     private int actionType = -1;//创建需求or修改需求
+
+    @Bind(R.id.scrollView)
+    protected ScrollView rootScrollView;
 
     @Bind(R.id.act_edit_req_city_content)
     protected TextView act_edit_req_city_content;//所在城市
@@ -71,6 +78,34 @@ public class EditHomeRequirementFragment extends BaseFragment {
     @Bind(R.id.act_edit_req_decoratebudget_content)
     protected EditText act_edit_req_decoratebudget_content;//装修预算
 
+
+    @Bind(R.id.act_edit_req_decoratebudget_365)
+    protected LinearLayout budget365Layout;
+
+    @Bind(R.id.decoratebudget_365_basic_price)
+    protected TextView budget365BasicPriceView;
+
+    @Bind(R.id.decoratebudget_365_individuation_price_layout)
+    protected LinearLayout budget365IndividuatiuonPriceLayout;
+
+    @Bind(R.id.decoratebudget_365_individuation_error)
+    protected ImageView budget365IndividuatiuonErrorView;
+
+    @Bind(R.id.decoratebudget_365_individuation_price)
+    protected TextView budget365IndividuationPriceView;
+
+    @Bind(R.id.decoratebudget_365_total_price_layout)
+    protected LinearLayout budget365TotalPriceLayout;
+
+    @Bind(R.id.decoratebudget_365_total_error)
+    protected ImageView budget365TotalErrorView;
+
+    @Bind(R.id.decoratebudget_365_total_price)
+    protected TextView budget365TotalPriceView;
+
+    @Bind(R.id.act_edit_req_decoratebudget_365_alert)
+    protected TextView budget365AlertView;
+
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
     protected String[] arr_love_designerstyle;
@@ -79,6 +114,8 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
 
     private Requirement requirementInfo;
+    private boolean isShowBudget365;//是否显示365包
+    private boolean isTotalBudegetCorrect = false;//总预算是否正确
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +127,11 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     public void initView() {
         initStringArray();
+
+        isShowBudget365 = false;
+        budget365Layout.setVisibility(View.GONE);
+        budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
+        budget365TotalPriceLayout.setVisibility(View.GONE);
     }
 
     private void initStringArray() {
@@ -115,13 +157,74 @@ public class EditHomeRequirementFragment extends BaseFragment {
     @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void houseareaAfterChanged(CharSequence charSequence) {
         requirementInfo.setHouse_area(charSequence.toString());
+        showOrHide365Layout(charSequence);
         isAllInput();
+    }
+
+    private void showOrHide365Layout(CharSequence charSequence) {
+        if (!TextUtils.isEmpty(charSequence.toString())) {
+            int area = Integer.parseInt(charSequence.toString());
+            if (RequirementBusiness.isAreaBelong365(area)) {
+                budget365Layout.setVisibility(View.VISIBLE);
+                isShowBudget365 = true;
+
+                //设置基础价格
+                float basicPrice = (float) area * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
+                        .TEN_THOUSAND;
+                budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
+
+                settingTotalBudget(act_edit_req_decoratebudget_content.getEditableText().toString(), basicPrice);
+            } else {
+                budget365Layout.setVisibility(View.GONE);
+                isShowBudget365 = false;
+            }
+        } else {
+            budget365Layout.setVisibility(View.GONE);
+            isShowBudget365 = false;
+        }
+    }
+
+    private void settingTotalBudget(CharSequence charSequence, float basicPrice) {
+        if (!TextUtils.isEmpty(charSequence.toString())) {
+            float total = Float.parseFloat(charSequence.toString());
+            String totalText = RequirementBusiness.covertPriceToShow(total);
+            String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
+            LogTool.d(this.getClass().getName(), "tatoal =" + totalText + "  basicPrice =" + basicPrice);
+            if (total >= basicPrice) {
+                budget365AlertView.setVisibility(View.GONE);
+                isTotalBudegetCorrect = true;
+
+                budget365IndividuatiuonPriceLayout.setVisibility(View.VISIBLE);
+                budget365TotalPriceLayout.setVisibility(View.VISIBLE);
+                budget365TotalPriceView.setText(totalText);
+                budget365IndividuationPriceView.setText(individuationText);
+
+                budget365IndividuatiuonErrorView.setVisibility(View.GONE);
+                budget365TotalErrorView.setVisibility(View.GONE);
+            } else {
+                budget365AlertView.setVisibility(View.VISIBLE);
+                isTotalBudegetCorrect = false;
+
+                budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
+                budget365TotalPriceLayout.setVisibility(View.GONE);
+                budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
+                budget365TotalErrorView.setVisibility(View.VISIBLE);
+            }
+        } else {
+
+            isTotalBudegetCorrect = false;
+            budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
+            budget365TotalPriceLayout.setVisibility(View.GONE);
+
+        }
+
     }
 
     @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
         requirementInfo.setTotal_price(charSequence.toString());
+        showOrHide365Layout(act_edit_req_housearea_content.getEditableText().toString());
         isAllInput();
     }
 
@@ -146,16 +249,27 @@ public class EditHomeRequirementFragment extends BaseFragment {
     public void isAllInput() {
         if (act_edit_req_city_content.length() > 0
                 && act_edit_req_cell_content.length() > 0
-                && act_edit_req_decoratebudget_content.length() > 0
                 && act_edit_req_dong_content.length() > 0
-                && act_edit_req_housearea_content.length() > 0
                 && act_edit_req_housetype_content.length() > 0
                 && act_edit_req_lovedesisex_content.length() > 0
                 && act_edit_req_lovestyle_content.length() > 0
                 && act_edit_req_persons_content.length() > 0
                 && act_edit_req_dong_content.length() > 0
                 && act_edit_req_work_type_content.length() > 0) {
-            isFinish = true;
+            if (isShowBudget365) {//如果符合365基础包，就按照365基础包方式判断
+                if (!isTotalBudegetCorrect) {
+                    isFinish = false;
+                }else {
+                    isFinish = true;
+                }
+            } else {//不符合365基础包，简单判断一下
+                if (act_edit_req_decoratebudget_content.length() > 0
+                        && act_edit_req_housearea_content.length() > 0) {
+                    isFinish = true;
+                } else {
+                    isFinish = false;
+                }
+            }
         } else {
             isFinish = false;
         }

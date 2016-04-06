@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -11,6 +12,7 @@ import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -46,6 +48,18 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
     protected TextView act_edit_req_cell_content;//小区
     @Bind(R.id.act_edit_req_dong_content)
     protected TextView act_edit_req_dong_content;//期
+
+    @Bind(R.id.act_edit_req_decoratebudget_365)
+    protected LinearLayout budget365Layout;
+
+    @Bind(R.id.decoratebudget_365_basic_price)
+    protected TextView budget365BasicPriceView;
+
+    @Bind(R.id.decoratebudget_365_individuation_price)
+    protected TextView budget365IndividuationPriceView;
+
+    @Bind(R.id.decoratebudget_365_total_price)
+    protected TextView budget365TotalPriceView;
 
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
@@ -111,7 +125,19 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
                     arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
             act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
                     arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
+
+            initBudget365Layout();
         }
+    }
+
+    private void initBudget365Layout(){
+        int houseArea = Integer.parseInt(requirementInfo.getHouse_area());
+        if(RequirementBusiness.isAreaBelong365(houseArea)){
+
+        }else{
+
+        }
+
     }
 
     @Override

@@ -14,7 +14,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/space_10"
+        android:paddingBottom="@dimen/space_100"
         android:paddingTop="@dimen/space_10">
 
         <View
@@ -161,43 +161,6 @@
             style="@style/divier_line"
             android:background="@color/horzontal_line_color"/>
 
-        <RelativeLayout
-            android:id="@+id/act_edit_req_housearea"
-            style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <TextView
-                android:id="@+id/act_edit_req_housearea_title"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:text="@string/str_decoratearea"/>
-
-            <EditText
-                android:id="@+id/act_edit_req_housearea_content"
-                style="@style/style_edit_req_edit"
-                android:layout_toLeftOf="@+id/act_edit_req_housearea_unit"
-                android:layout_toRightOf="@+id/act_edit_req_housearea_title"
-                android:gravity="center_vertical|right"
-                android:inputType="number"
-                android:maxLength="4"
-                android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
-                android:numeric="integer"/>
-
-            <TextView
-                android:id="@+id/act_edit_req_housearea_unit"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="@string/str_sq_unit"/>
-        </RelativeLayout>
-
-
-        <View
-            style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
 
         <RelativeLayout
             android:id="@+id/act_edit_req_work_type"
@@ -237,6 +200,38 @@
             android:background="@color/horzontal_line_color"/>
 
         <RelativeLayout
+            android:id="@+id/act_edit_req_housearea"
+            style="@style/my_list_item_layout_style"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/act_edit_req_housearea_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_coveredarea"/>
+
+            <EditText
+                android:id="@+id/act_edit_req_housearea_content"
+                style="@style/style_edit_req_edit"
+                android:layout_toRightOf="@+id/act_edit_req_housearea_title"
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:maxLength="4"
+                android:layout_alignParentRight="true"
+                android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
+                android:numeric="integer"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
             android:id="@+id/act_edit_req_decoratebudget"
             style="@style/my_list_item_layout_style"
             android:layout_width="match_parent"
@@ -248,28 +243,261 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_decoratebudget"/>
+                android:text="@string/str_decoratebudget_with_unit"/>
 
             <EditText
                 android:id="@+id/act_edit_req_decoratebudget_content"
                 style="@style/style_edit_req_edit"
                 android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
-                android:layout_toRightOf="@+id/act_edit_req_decoratebudget_title"
                 android:gravity="center_vertical|right"
                 android:inputType="number"
-                android:maxLength="4"
+                android:layout_alignParentRight="true"
+                android:maxLength="3"
                 android:minWidth="@dimen/space_48"
                 android:numeric="integer"/>
 
-            <TextView
-                android:id="@+id/act_edit_req_decoratebudget_unit"
-                style="@style/style_edit_req_title"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="@string/unit_million"/>
         </RelativeLayout>
 
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
 
+        <LinearLayout
+            android:id="@+id/act_edit_req_decoratebudget_365"
+            style="@style/my_list_item_layout_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_8"
+            android:paddingTop="@dimen/space_8"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/act_edit_req_decoratebudget_365_alert"
+                style="@style/listview_item_text_style_small"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/decoratebudget_365_alert"
+                android:textColor="@color/color_red"
+                android:layout_marginBottom="@dimen/space_8"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_decoratebudget_365_title"
+                style="@style/listview_item_text_style_small"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/decoratebudget_365_title"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/bg_req_budget"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <LinearLayout
+                            android:id="@+id/decoratebudget_365_basic_price_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                android:id="@+id/decoratebudget_365_basic_price"
+                                style="@style/style_edit_req_title"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:maxLength="5"
+                                android:singleLine="true"
+                                android:textSize="@dimen/big_size"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:id="@+id/decoratebudget_365_basic_unit"
+                                style="@style/style_edit_req_title"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/unit_million"/>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/decoratebudget_365_basic"
+                        style="@style/listview_item_text_style_small"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_2"
+                        android:text="@string/decoratebudget_365_basic"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/space_8"
+                    android:src="@mipmap/icon_plus"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/bg_req_budget"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <LinearLayout
+                            android:id="@+id/decoratebudget_365_individuation_price_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/decoratebudget_365_individuation_price"
+                                style="@style/style_edit_req_title"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:maxLength="5"
+                                android:singleLine="true"
+                                android:textSize="@dimen/big_size"
+                                android:textStyle="bold"
+                                />
+
+                            <TextView
+                                android:id="@+id/decoratebudget_365_individuation_unit"
+                                style="@style/style_edit_req_title"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/unit_million"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/decoratebudget_365_individuation_error"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/icon_error"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/decoratebudget_365_individuation"
+                        style="@style/listview_item_text_style_small"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_2"
+                        android:text="@string/decoratebudget_365_individuation"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/space_8"
+                    android:src="@mipmap/icon_equal"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/bg_req_budget"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <LinearLayout
+                            android:id="@+id/decoratebudget_365_total_price_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/decoratebudget_365_total_price"
+                                style="@style/style_edit_req_title"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:maxLength="5"
+                                android:singleLine="true"
+                                android:textSize="@dimen/big_size"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:id="@+id/decoratebudget_365_total_unit"
+                                style="@style/style_edit_req_title"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/unit_million"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/decoratebudget_365_total_error"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/icon_error"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/decoratebudget_365_total"
+                        style="@style/listview_item_text_style_small"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_2"
+                        android:text="@string/decoratebudget_365_total"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/act_edit_req_decoratebudget_365_detail"
+                style="@style/listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@mipmap/icon_warning"
+                android:drawablePadding="@dimen/space_2"
+                android:paddingBottom="@dimen/space_8"
+                android:paddingTop="@dimen/space_8"
+                android:text="@string/decoratebudget_365_detail"
+                android:textColor="@color/orange_color"/>
+
+        </LinearLayout>
 
         <View
             style="@style/divier_line"

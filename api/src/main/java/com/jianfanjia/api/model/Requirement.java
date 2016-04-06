@@ -22,6 +22,7 @@ public class Requirement extends BaseModel implements Serializable {
     private String dec_type;
     private String work_type;
     private String communication_type;
+    private String package_type;
     private String prefer_sex;
     private String total_price;
     private String final_planid;
@@ -56,6 +57,14 @@ public class Requirement extends BaseModel implements Serializable {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+    public String getPackage_type() {
+        return package_type;
+    }
+
+    public void setPackage_type(String package_type) {
+        this.package_type = package_type;
     }
 
     public String getProvince() {

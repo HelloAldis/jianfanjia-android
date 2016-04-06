@@ -4,8 +4,8 @@ import java.lang.reflect.Field;
 
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.base.application.BaseApplication;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.business
@@ -14,6 +14,21 @@ import com.jianfanjia.common.base.application.BaseApplication;
  * Date:2016-03-29 10:35
  */
 public class RequirementBusiness {
+
+    public static final int TEN_THOUSAND = 10000;
+
+    public static final int PRICE_EVERY_UNIT_365 = 365;//每平方米365元
+    public static final int PRICE_EVERY_UNIT_365_MIN_AREA = 80;//365基础包最小80平方米
+    public static final int PRICE_EVERY_UNIT_365_MAX_AREA = 120;//365基础包最大面积120平方米
+
+    //装修面积是否属于365基础包
+    public static boolean isAreaBelong365(int houseArea){
+        return (houseArea >= PRICE_EVERY_UNIT_365_MIN_AREA && houseArea <= PRICE_EVERY_UNIT_365_MAX_AREA);
+    }
+
+    public static String covertPriceToShow(float price) {
+        return String.format("%.2f", price);
+    }
 
     public static void initHomeRequirement(Requirement requirement) {
         requirement.setDec_type("0");

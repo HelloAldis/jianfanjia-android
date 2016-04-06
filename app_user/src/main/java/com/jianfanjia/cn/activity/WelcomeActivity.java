@@ -185,31 +185,26 @@ public class WelcomeActivity extends BaseActivity {
 
         @Override
         public void run() {
-            if (!first) {
-                isLogin = dataManager.isLogin();
-                isLoginExpire = dataManager.isLoginExpire();
-                LogTool.d(TAG, "not first");
-                if (!isLogin) {
-                    LogTool.d(TAG, "not login");
-                    startActivity(NavigateActivity.class);
-                    appManager.finishActivity(WelcomeActivity.this);
-                } else {
-                    if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-                        LogTool.d(TAG, "not expire");
-                        GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                        startActivity(MainActivity.class);
-                        appManager.finishActivity(WelcomeActivity.this);
-                    } else {
-                        LogTool.d(TAG, "expire");
-                        ApiClient.clearCookie();
-                        refreshSession();
-                    }
-                }
-            } else {
-                LogTool.d(TAG, "启动导航");
+            isLogin = dataManager.isLogin();
+            isLoginExpire = dataManager.isLoginExpire();
+            LogTool.d(TAG, "not first");
+            if (!isLogin) {
+                LogTool.d(TAG, "not login");
                 startActivity(NavigateActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
+            } else {
+                if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
+                    LogTool.d(TAG, "not expire");
+                    GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
+                    startActivity(MainActivity.class);
+                    appManager.finishActivity(WelcomeActivity.this);
+                } else {
+                    LogTool.d(TAG, "expire");
+                    ApiClient.clearCookie();
+                    refreshSession();
+                }
             }
+
         }
     };
 
