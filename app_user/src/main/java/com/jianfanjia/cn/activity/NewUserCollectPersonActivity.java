@@ -8,11 +8,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -22,6 +17,12 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -71,7 +72,7 @@ public class NewUserCollectPersonActivity extends BaseActivity {
         initView();
     }
 
-    public void initView() {
+    private void initView() {
         persons = getResources().getStringArray(R.array.arr_person);
 
         Intent intent = getIntent();
@@ -91,42 +92,44 @@ public class NewUserCollectPersonActivity extends BaseActivity {
 
         collectPersonViewPageAdapter = new CollectPersonViewPageAdapter(this, loveStyleItemInfoList, new
                 OnItemClickListener() {
-            @Override
-            public void OnItemClick(int position) {
-                currentSelcetorPos = position;
-                CollectPersonViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = loveStyleItemInfoList.get(position);
-                if (lastSelectorPos != -1) {//已经选择了一项
-                    if (lastSelectorPos != currentSelcetorPos) {//现在选择的是另外一项
-                        loveStyleItemInfo.setIsSelector(true);
-                        loveStyleItemInfoList.get(lastSelectorPos).setIsSelector(false);
-                        personList.remove(persons[lastSelectorPos]);
-                        buttonNext.setEnabled(true);
-                        personList.add(persons[position]);
-                        contentView.setText(personList.toString().substring(1, personList.toString().length() - 1));
-                        contentView.setTextColor(getResources().getColor(R.color.orange_color));
+                    @Override
+                    public void OnItemClick(int position) {
+                        currentSelcetorPos = position;
+                        CollectPersonViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = loveStyleItemInfoList.get
+                                (position);
+                        if (lastSelectorPos != -1) {//已经选择了一项
+                            if (lastSelectorPos != currentSelcetorPos) {//现在选择的是另外一项
+                                loveStyleItemInfo.setIsSelector(true);
+                                loveStyleItemInfoList.get(lastSelectorPos).setIsSelector(false);
+                                personList.remove(persons[lastSelectorPos]);
+                                buttonNext.setEnabled(true);
+                                personList.add(persons[position]);
+                                contentView.setText(personList.toString().substring(1, personList.toString().length()
+                                        - 1));
+                                contentView.setTextColor(getResources().getColor(R.color.orange_color));
 
-                        lastSelectorPos = currentSelcetorPos;
-                    } else {
-                        //现在选择的是同一项，取消选中
-                        loveStyleItemInfo.setIsSelector(false);
-                        buttonNext.setEnabled(false);
-                        contentView.setText(getString(R.string.collect_person_content));
-                        personList.remove(persons[position]);
-                        contentView.setTextColor(getResources().getColor(R.color.light_black_color));
+                                lastSelectorPos = currentSelcetorPos;
+                            } else {
+                                //现在选择的是同一项，取消选中
+                                loveStyleItemInfo.setIsSelector(false);
+                                buttonNext.setEnabled(false);
+                                contentView.setText(getString(R.string.collect_person_content));
+                                personList.remove(persons[position]);
+                                contentView.setTextColor(getResources().getColor(R.color.light_black_color));
 
-                        currentSelcetorPos = lastSelectorPos = -1;
+                                currentSelcetorPos = lastSelectorPos = -1;
+                            }
+                        } else {//还没有选择任何项
+                            loveStyleItemInfo.setIsSelector(true);
+                            buttonNext.setEnabled(true);
+                            personList.add(persons[position]);
+                            contentView.setText(personList.toString().substring(1, personList.toString().length() - 1));
+                            contentView.setTextColor(getResources().getColor(R.color.orange_color));
+                            lastSelectorPos = position;
+                        }
+                        collectPersonViewPageAdapter.notifyDataSetChanged();
                     }
-                } else {//还没有选择任何项
-                    loveStyleItemInfo.setIsSelector(true);
-                    buttonNext.setEnabled(true);
-                    personList.add(persons[position]);
-                    contentView.setText(personList.toString().substring(1, personList.toString().length() - 1));
-                    contentView.setTextColor(getResources().getColor(R.color.orange_color));
-                    lastSelectorPos = position;
-                }
-                collectPersonViewPageAdapter.notifyDataSetChanged();
-            }
-        });
+                });
         loveStyleViewPager.setAdapter(collectPersonViewPageAdapter);
     }
 
@@ -144,7 +147,7 @@ public class NewUserCollectPersonActivity extends BaseActivity {
         }
     }
 
-    protected void postCollectOwnerInfo() {
+    private void postCollectOwnerInfo() {
         if (ownerInfo == null) {
             ownerInfo = new User();
         }
@@ -152,7 +155,6 @@ public class NewUserCollectPersonActivity extends BaseActivity {
 
         UpdateOwnerInfoRequest updateOwnerInfoRequest = new UpdateOwnerInfoRequest();
         updateOwnerInfoRequest.setUser(ownerInfo);
-
         Api.updateUserInfo(updateOwnerInfoRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {

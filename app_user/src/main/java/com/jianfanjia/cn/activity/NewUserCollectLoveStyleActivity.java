@@ -8,17 +8,18 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.adapter.CollectLoveStyleViewPageAdapter;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -61,61 +62,61 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         initView();
     }
 
-    public void initView() {
+    private void initView() {
         decstyles = getResources().getStringArray(R.array.arr_decstyle);
-
         Intent intent = getIntent();
-        ownerInfo = (User)intent.getSerializableExtra(IntentConstant.OWNERINFO);
+        ownerInfo = (User) intent.getSerializableExtra(IntentConstant.OWNERINFO);
 
         titleView.setText(getString(R.string.collect_lovestyle_title));
         contentView.setText(getString(R.string.collect_lovestyle_content));
         notifyViewRefresh();
 
         for (int imageid : loveStyleImageIds) {
-            CollectLoveStyleViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = new CollectLoveStyleViewPageAdapter.LoveStyleItemInfo();
+            CollectLoveStyleViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = new CollectLoveStyleViewPageAdapter
+                    .LoveStyleItemInfo();
             loveStyleItemInfo.setImageid(imageid);
             loveStyleItemInfoList.add(loveStyleItemInfo);
         }
 
-        collectLoveStyleViewPageAdapter = new CollectLoveStyleViewPageAdapter(this, loveStyleItemInfoList, new OnItemClickListener() {
-            @Override
-            public void OnItemClick(int position) {
-                CollectLoveStyleViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = loveStyleItemInfoList.get(position);
-                if (loveStyleItemInfo.isSelector()) {
-                    loveStyleItemInfo.setIsSelector(false);
-                    lovestyleList.remove(decstyles[position]);
-                    lovestyleNumber.remove(position + "");
-                } else {
-                    if (lovestyleList.size() < Constant.LOVE_STYLE_TOTAL) {
-                        loveStyleItemInfo.setIsSelector(true);
-                        lovestyleList.add(decstyles[position]);
-                        lovestyleNumber.add(position + "");
-                    } else {
-                        makeTextShort(getString(R.string.collect_lovestyle_tip));
-                        return;
-                    }
-                }
-                notifyViewRefresh();
+        collectLoveStyleViewPageAdapter = new CollectLoveStyleViewPageAdapter(this, loveStyleItemInfoList, new
+                OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int position) {
+                        CollectLoveStyleViewPageAdapter.LoveStyleItemInfo loveStyleItemInfo = loveStyleItemInfoList.get
+                                (position);
+                        if (loveStyleItemInfo.isSelector()) {
+                            loveStyleItemInfo.setIsSelector(false);
+                            lovestyleList.remove(decstyles[position]);
+                            lovestyleNumber.remove(position + "");
+                        } else {
+                            if (lovestyleList.size() < Constant.LOVE_STYLE_TOTAL) {
+                                loveStyleItemInfo.setIsSelector(true);
+                                lovestyleList.add(decstyles[position]);
+                                lovestyleNumber.add(position + "");
+                            } else {
+                                makeTextShort(getString(R.string.collect_lovestyle_tip));
+                                return;
+                            }
+                        }
+                        notifyViewRefresh();
 //                loveStyleItemInfoList.get(position).setIsSelector(true);
-                collectLoveStyleViewPageAdapter.notifyDataSetChanged();
-            }
-        });
+                        collectLoveStyleViewPageAdapter.notifyDataSetChanged();
+                    }
+                });
         loveStyleViewPager.setAdapter(collectLoveStyleViewPageAdapter);
     }
 
-    protected void notifyViewRefresh(){
-        if(lovestyleList.size() > 0){
+    private void notifyViewRefresh() {
+        if (lovestyleList.size() > 0) {
             buttonNext.setEnabled(true);
             contentView.setText(lovestyleList.toString().substring(1, lovestyleList.toString().length() - 1));
             contentView.setTextColor(getResources().getColor(R.color.orange_color));
-        }else{
+        } else {
             buttonNext.setEnabled(false);
             contentView.setText(getString(R.string.collect_lovestyle_content));
             contentView.setTextColor(getResources().getColor(R.color.light_black_color));
@@ -134,8 +135,8 @@ public class NewUserCollectLoveStyleActivity extends BaseActivity {
         }
     }
 
-    protected void intentToCollectPerson() {
-        if(ownerInfo == null){
+    private void intentToCollectPerson() {
+        if (ownerInfo == null) {
             ownerInfo = new User();
         }
         ownerInfo.setDec_styles(lovestyleNumber);

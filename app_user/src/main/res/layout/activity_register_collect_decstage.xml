@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <ImageView
         android:id="@+id/act_res_guide_head"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/bg_register_guide"
         android:contentDescription="@null"
-        />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_register_guide"/>
 
     <TextView
-        android:layout_marginTop="@dimen/space_24"
+        style="@style/listview_item_text_style_big"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_24"
         android:text="@string/dec_stage"
-        android:textColor="@color/light_black_color"
-        style="@style/listview_item_text_style_big"/>
+        android:textColor="@color/light_black_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,30 +27,30 @@
 
         <TextView
             android:id="@+id/dec_stage0"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/dec_stage_scan"
-            android:textColor="@color/light_black_color"
-            android:layout_marginTop="@dimen/space_24"
             style="@style/listview_item_text_style_middle"
-            android:background="@drawable/btn_grey_white_oval_bg"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@drawable/btn_grey_white_oval_bg"
+            android:text="@string/dec_stage_scan"
+            android:textColor="@color/light_black_color"/>
 
         <TextView
             android:id="@+id/dec_stage1"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/dec_stage_prepare"
-            android:textColor="@color/light_black_color"
-            android:layout_marginTop="@dimen/space_16"
             style="@style/listview_item_text_style_middle"
-            android:background="@drawable/btn_grey_white_oval_bg"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_16"
+            android:background="@drawable/btn_grey_white_oval_bg"
+            android:text="@string/dec_stage_prepare"
+            android:textColor="@color/light_black_color"/>
 
         <TextView
             android:id="@+id/dec_stage2"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/dec_stage_working"
-            android:textColor="@color/light_black_color"
-            android:layout_marginTop="@dimen/space_16"
             style="@style/listview_item_text_style_middle"
-            android:background="@drawable/btn_grey_white_oval_bg"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_16"
+            android:background="@drawable/btn_grey_white_oval_bg"
+            android:text="@string/dec_stage_working"
+            android:textColor="@color/light_black_color"/>
     </LinearLayout>
 
 </LinearLayout>
