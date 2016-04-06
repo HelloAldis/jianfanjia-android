@@ -91,7 +91,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<>();
-    private List<ProcessSection> sectionInfos = new ArrayList<>();
+    private List<ProcessSection> sectionInfos;
     private ProcessSection sectionInfo = null;
     private Process processInfo = null;
     private String processId = null;// 默认的工地id
