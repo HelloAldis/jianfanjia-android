@@ -10,6 +10,10 @@ android {
     versionCode 13
     versionName "0.3.0-preview"
   }
+
+  lintOptions {
+    abortOnError false
+  }
 }
 
 dependencies {
