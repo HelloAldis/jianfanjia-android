@@ -209,6 +209,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     : processInfo.getBasic_address());// 设置标题头
             currentPro = MyApplication.getInstance().getPositionByItemName(
                     processInfo.getGoing_on());
+            LogTool.d(TAG, "currentPro===" + currentPro);
             if (currentList == -1 || lastPro != currentPro) {
                 currentList = currentPro;
                 lastPro = currentPro;
@@ -216,7 +217,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             sectionInfos = processInfo.getSections();
             sectionInfo = sectionInfos.get(currentList);
             setScrollHeadTime();
-            LogTool.d(TAG, sectionInfos.size() + "--sectionInfos.size()");
             sectionItemAdapter.setSectionInfoList(sectionInfos, currentList);
             processViewPager.setVisibility(View.VISIBLE);
             processViewPager.setCurrentItem(currentList);

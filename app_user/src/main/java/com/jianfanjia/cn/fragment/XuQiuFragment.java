@@ -26,7 +26,7 @@ import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity;
-import com.jianfanjia.cn.activity.requirement.PreviewRequirementActivity;
+import com.jianfanjia.cn.activity.requirement.PreviewHomeRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
@@ -127,7 +127,7 @@ public class XuQiuFragment extends BaseFragment {
                         if (requirementInfo.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
                             startActivity(PreviewBusinessRequirementActivity.class, gotoPriviewRequirementBundle);
                         } else {
-                            startActivity(PreviewRequirementActivity.class, gotoPriviewRequirementBundle);
+                            startActivity(PreviewHomeRequirementActivity.class, gotoPriviewRequirementBundle);
                         }
                         break;
                     case ITEM_EDIT:

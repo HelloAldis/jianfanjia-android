@@ -20,7 +20,6 @@
         android:name="android.hardware.camera"
         android:required="true"/>
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -285,7 +284,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".requirement.PreviewRequirementActivity"
+            android:name=".requirement.PreviewHomeRequirementActivity"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

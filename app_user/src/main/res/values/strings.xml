@@ -380,4 +380,12 @@
     <string name="default_provice">湖北省</string>
     <string name="default_city">武汉市</string>
     <string name="the_third_login">第三方登录</string>
+    <string name="decoratebudget_365_title">为了让您的装修预算更准确，特为您提供以下公式</string>
+    <string name="decoratebudget_365_alert">提示：您的装修总预算不能低于基础费用</string>
+    <string name="decoratebudget_365_detail">点击此处了解更多关于‘简繁家365基础包’</string>
+    <string name="decoratebudget_365_basic">基础费用</string>
+    <string name="decoratebudget_365_individuation">个性化费用</string>
+    <string name="decoratebudget_365_total">装修总预算</string>
+    <string name="str_coveredarea">建筑面积（㎡）</string>
+    <string name="str_decoratebudget_with_unit">装修预算（万元）</string>
 </resources>

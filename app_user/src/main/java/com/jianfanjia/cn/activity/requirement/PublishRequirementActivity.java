@@ -260,7 +260,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
                 RequirementBusiness.initHomeRequirement(requirement);
                 break;
             case Global.DEC_TYPE_BUSINESS:
-                RequirementBusiness.initHomeRequirement(requirement);
+                RequirementBusiness.initBussinessRequirement(requirement);
                 break;
         }
         if (ownerInfo != null) {
