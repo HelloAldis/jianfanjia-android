@@ -19,6 +19,7 @@ public class Process extends BaseModel implements Serializable {
     private String basic_address;
     private String detail_address;
     private String house_type;
+    private String business_house_type;
     private String house_area;
     private String dec_style;
     private String work_type;
@@ -229,6 +230,14 @@ public class Process extends BaseModel implements Serializable {
 
     public void setDec_type(String dec_type) {
         this.dec_type = dec_type;
+    }
+
+    public String getBusiness_house_type() {
+        return business_house_type;
+    }
+
+    public void setBusiness_house_type(String business_house_type) {
+        this.business_house_type = business_house_type;
     }
 
     public ProcessSection getSectionInfoByName(String sectionName) {
