@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,22 +56,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     protected TextView statusView;
 
     @Bind(R.id.ltm_my_designer_content)
-    protected LinearLayout contentLayout;
-
-    @Bind(R.id.merger_button1_layout)
-    protected RelativeLayout merger_button1_layout;
-
-    @Bind(R.id.merger_button2_layout)
-    protected RelativeLayout merger_button2_layout;
-
-    @Bind(R.id.merger_button3_layout)
-    protected RelativeLayout merger_button3_layout;
-
-    @Bind(R.id.ltm_my_designer_textview1)
-    protected TextView textView1;
-
-    @Bind(R.id.ltm_my_designer_textview2)
-    protected TextView textView2;
+    protected RelativeLayout contentLayout;
 
     @Bind(R.id.ltm_my_designer_textview3)
     protected TextView textView3;
@@ -86,7 +70,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     }
 
     public static MyDesignerViewType2 build(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_my_designer_type2, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_my_designer_type3, null);
         return new MyDesignerViewType2(view, context);
     }
 
@@ -127,22 +111,16 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         LogTool.d(this.getClass().getName(), "当前时间 =" + Calendar.getInstance().getTimeInMillis() + "  量房时间 =" +
                 designerInfo.getPlan().getHouse_check_time());
         if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
-            merger_button1_layout.setVisibility(View.GONE);
-            merger_button2_layout.setVisibility(View.GONE);
-            merger_button3_layout.setVisibility(View.VISIBLE);
             textView3.setText(context.getResources().getString(R.string.confirm_measure_house));
-            merger_button3_layout.setOnClickListener(new View.OnClickListener() {
+            contentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
                 }
             });
         } else {
-            merger_button1_layout.setVisibility(View.VISIBLE);
-            merger_button2_layout.setVisibility(View.VISIBLE);
-            merger_button3_layout.setVisibility(View.GONE);
-            textView1.setText(context.getResources().getString(R.string.measure_house_time));
-            textView2.setText(StringUtils.covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
+            textView3.setText(context.getResources().getString(R.string.measure_house_time) + "：" + StringUtils
+                    .covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
 
         Requirement requirementInfo = designerInfo.getRequirement();
@@ -150,10 +128,10 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
                 || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global
                 .REQUIREMENT_STATUS8)) {
-            merger_button3_layout.setEnabled(false);
+            contentLayout.setEnabled(false);
             textView3.setTextColor(context.getResources().getColor(R.color.grey_color));
         } else {
-            merger_button3_layout.setEnabled(true);
+            contentLayout.setEnabled(true);
             textView3.setTextColor(context.getResources().getColor(R.color.orange_color));
         }
     }
