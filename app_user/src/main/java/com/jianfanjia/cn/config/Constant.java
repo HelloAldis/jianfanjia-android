@@ -100,10 +100,6 @@ public class Constant {
     public static final String DESIGNER_PROCESS_LIST = "designer_process_list";// 设计师工地列表
     public static final String DEFAULT_PROCESSINFO_ID = "1";
 
-    public static final String DATA = "data";// 获取成功的数据
-    public static final String ERROR_MSG = "err_msg";// 获取数据失败的返回信息
-    public static final String SUCCESS_MSG = "msg";// 获取数据成功的返回信息
-
     // 业主消息提醒类型user_message_type
     public static final String TYPE_DELAY_MSG = "0";// 设计师提出改期提醒
     public static final String TYPE_CAIGOU_MSG = "1";// 采购提醒
@@ -201,7 +197,6 @@ public class Constant {
     public static final int UPDATE_ORDER_DESIGNER_ACTIVITY = 80;
     public static final int DELETE_ORDER_DESIGNER_ACTIVITY = 90;
     public static final int UPDATE_BEAUTY_IMG_FRAGMENT = 100;
-
 
 
     //通知搜索类型

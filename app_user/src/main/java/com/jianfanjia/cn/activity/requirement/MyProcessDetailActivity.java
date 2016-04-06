@@ -14,13 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -60,6 +53,14 @@ import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -75,18 +76,21 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
     @Bind(R.id.process_viewpager)
     ViewPager processViewPager;
+
     @Bind(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
+
     @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
 
     @Bind(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
+
     String[] proTitle = null;
 
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
-    private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
+    private List<ViewPagerItem> processList = new ArrayList<>();
     private List<ProcessSection> sectionInfos;
     private ProcessSection sectionInfo = null;
     private Process processInfo = null;
@@ -137,8 +141,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     private void initProcessInfo() {
         Intent intent = getIntent();
         processInfo = (Process) intent.getSerializableExtra(IntentConstant.PROCESS_INFO);
+        LogTool.d(TAG, "processInfo:" + processInfo);
         if (processInfo != null) {
-            LogTool.d(TAG, "processInfo:" + processInfo.get_id());
             processId = processInfo.get_id();
             loadCurrentProcess();
         } else {
@@ -146,6 +150,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
             initData();
         }
+        LogTool.d(TAG, "processId==" + processId);
     }
 
     private void loadCurrentProcess() {
@@ -204,6 +209,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     : processInfo.getBasic_address());// 设置标题头
             currentPro = MyApplication.getInstance().getPositionByItemName(
                     processInfo.getGoing_on());
+            LogTool.d(TAG, "currentPro===" + currentPro);
             if (currentList == -1 || lastPro != currentPro) {
                 currentList = currentPro;
                 lastPro = currentPro;
@@ -211,7 +217,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             sectionInfos = processInfo.getSections();
             sectionInfo = sectionInfos.get(currentList);
             setScrollHeadTime();
-            LogTool.d(TAG, sectionInfos.size() + "--sectionInfos.size()");
             sectionItemAdapter.setSectionInfoList(sectionInfos, currentList);
             processViewPager.setVisibility(View.VISIBLE);
             processViewPager.setCurrentItem(currentList);

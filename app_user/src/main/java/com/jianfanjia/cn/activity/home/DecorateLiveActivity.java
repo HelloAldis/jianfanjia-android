@@ -6,8 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
@@ -16,6 +14,9 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description: com.jianfanjia.cn.activity.home
  * Author: zhanghao
@@ -23,7 +24,6 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Date:2016-03-08 17:49
  */
 public class DecorateLiveActivity extends BaseSwipeBackActivity {
-
     private static final String TAG = DecorateLiveActivity.class.getName();
     @Bind(R.id.decorate_live_head_layout)
     protected MainHeadView mainHeadView = null;
@@ -31,7 +31,6 @@ public class DecorateLiveActivity extends BaseSwipeBackActivity {
     protected TabLayout tabLayout = null;
     @Bind(R.id.viewpager)
     protected ViewPager viewPager = null;
-
     @Bind(R.id.btn_create_process)
     protected TextView createProcess;
 
@@ -41,26 +40,21 @@ public class DecorateLiveActivity extends BaseSwipeBackActivity {
         this.initView();
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_decorate_live;
-    }
-
-
-    public void initView(){
+    private void initView() {
         mainHeadView.setMianTitle(getString(R.string.decoration_live));
+        mainHeadView.setDividerVisable(View.GONE);
         initViewPagerAndTab();
     }
 
-    protected void initViewPagerAndTab() {
+    private void initViewPagerAndTab() {
         viewPager.setAdapter(new DecorateLiveFragmentPagerAdapter(getSupportFragmentManager()));
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @OnClick({R.id.head_back_layout,R.id.btn_create_process})
-    protected void click(View view){
-        switch (view.getId()){
+    @OnClick({R.id.head_back_layout, R.id.btn_create_process})
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
@@ -69,11 +63,17 @@ public class DecorateLiveActivity extends BaseSwipeBackActivity {
                     startActivity(PublishRequirementActivity.class);
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(IntentConstant.BINDING_PHONE_INTENT,IntentConstant.BINDING_PHONE_REQUIREMENT);
-                    startActivity(BindingPhoneActivity.class,bundle);
+                    bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
+                    startActivity(BindingPhoneActivity.class, bundle);
                     overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
                 }
                 break;
         }
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_decorate_live;
+    }
+
 }
