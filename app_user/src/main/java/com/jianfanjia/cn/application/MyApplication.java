@@ -50,7 +50,7 @@ public class MyApplication extends BaseApplication {
 
     private void initApiClient() {
         CookieStore store = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());
-        ApiClient.init(store, new BaseApiCallbackImpl());
+        ApiClient.init(store, new BaseApiCallbackImpl(), "jua"+this.getVersionName());
     }
 
 //    public static RefWatcher getRefWatcher(Context context) {

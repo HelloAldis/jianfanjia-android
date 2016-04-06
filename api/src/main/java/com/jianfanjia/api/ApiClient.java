@@ -57,6 +57,7 @@ public class ApiClient {
     private static  ApiCallback BASE_API_CALLBACK = null;
     private static CookieStore COOKIE_STORE = null;
     private static OkHttpClient CLIENT = null;
+    private static String USER_AGENT = null;
 
     private static Handler mDelivery = new Handler(Looper.getMainLooper());
 
@@ -209,7 +210,7 @@ public class ApiClient {
      * @param apiCallback
      */
     public static void okGet(String url, BaseRequest baseRequest, ApiCallback apiCallback) {
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url(url).header("User-Agent", ApiClient.USER_AGENT).build();
         api(request, baseRequest, apiCallback);
     }
 
@@ -225,7 +226,7 @@ public class ApiClient {
         String json = JsonParser.beanToJson(baseRequest);
         logRequestBody(json);
         RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, json);
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = new Request.Builder().url(url).header("User-Agent", ApiClient.USER_AGENT).post(body).build();
         api(request, baseRequest, apiCallback);
     }
 
@@ -239,7 +240,7 @@ public class ApiClient {
      */
     public static void okUpload(String url, BaseRequest baseRequest, byte[] bytes, ApiCallback apiCallback) {
         RequestBody body = RequestBody.create(IMAGE_MEDIA_TYPE, bytes);
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = new Request.Builder().url(url).header("User-Agent", ApiClient.USER_AGENT).post(body).build();
         api(request, baseRequest, apiCallback);
     }
 
@@ -251,9 +252,10 @@ public class ApiClient {
         ApiClient.COOKIE_STORE.removeAll();
     }
 
-    public static void init(CookieStore store, ApiCallback apiCallback) {
+    public static void init(CookieStore store, ApiCallback apiCallback, String userAgent) {
         ApiClient.COOKIE_STORE = store;
         ApiClient.BASE_API_CALLBACK = apiCallback;
+        ApiClient.USER_AGENT = userAgent;
         ApiClient.CLIENT = new OkHttpClient.Builder()
                 .cookieJar(new JavaNetCookieJar(new CookieManager(ApiClient.COOKIE_STORE, CookiePolicy.ACCEPT_ALL)))
                 .addInterceptor(new LoggingInterceptor()).build();
