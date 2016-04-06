@@ -21,6 +21,9 @@ public class RequirementBusiness {
     public static final int PRICE_EVERY_UNIT_365_MIN_AREA = 80;//365基础包最小80平方米
     public static final int PRICE_EVERY_UNIT_365_MAX_AREA = 120;//365基础包最大面积120平方米
 
+    public static final String PACKGET_DEFAULT = "0";//默认装修包
+    public static final String PACKGET_365 = "1";//365基础包
+
     //装修面积是否属于365基础包
     public static boolean isAreaBelong365(int houseArea){
         return (houseArea >= PRICE_EVERY_UNIT_365_MIN_AREA && houseArea <= PRICE_EVERY_UNIT_365_MAX_AREA);

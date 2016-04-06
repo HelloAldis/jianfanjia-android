@@ -186,9 +186,11 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     private void settingTotalBudget(CharSequence charSequence, float basicPrice) {
         if (!TextUtils.isEmpty(charSequence.toString())) {
+
             float total = Float.parseFloat(charSequence.toString());
             String totalText = RequirementBusiness.covertPriceToShow(total);
             String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
+
             LogTool.d(this.getClass().getName(), "tatoal =" + totalText + "  basicPrice =" + basicPrice);
             if (total >= basicPrice) {
                 budget365AlertView.setVisibility(View.GONE);
@@ -215,6 +217,8 @@ public class EditHomeRequirementFragment extends BaseFragment {
             isTotalBudegetCorrect = false;
             budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
             budget365TotalPriceLayout.setVisibility(View.GONE);
+            budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
+            budget365TotalErrorView.setVisibility(View.VISIBLE);
 
         }
 
@@ -259,13 +263,15 @@ public class EditHomeRequirementFragment extends BaseFragment {
             if (isShowBudget365) {//如果符合365基础包，就按照365基础包方式判断
                 if (!isTotalBudegetCorrect) {
                     isFinish = false;
-                }else {
+                } else {
                     isFinish = true;
+                    requirementInfo.setPackage_type(RequirementBusiness.PACKGET_365);
                 }
             } else {//不符合365基础包，简单判断一下
                 if (act_edit_req_decoratebudget_content.length() > 0
                         && act_edit_req_housearea_content.length() > 0) {
                     isFinish = true;
+                    requirementInfo.setPackage_type(RequirementBusiness.PACKGET_DEFAULT);
                 } else {
                     isFinish = false;
                 }

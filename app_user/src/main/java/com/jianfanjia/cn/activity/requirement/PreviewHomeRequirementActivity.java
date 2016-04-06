@@ -22,7 +22,7 @@ import com.jianfanjia.cn.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class PreviewRequirementActivity extends BaseSwipeBackActivity {
+public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
@@ -91,6 +91,8 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_req));
         mainHeadView.setRightTitleVisable(View.GONE);
+        budget365Layout.setVisibility(View.GONE);
+
         initStringArray();
     }
 
@@ -130,12 +132,22 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
         }
     }
 
-    private void initBudget365Layout(){
+    private void initBudget365Layout() {
         int houseArea = Integer.parseInt(requirementInfo.getHouse_area());
-        if(RequirementBusiness.isAreaBelong365(houseArea)){
+        if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_DEFAULT)) {
+            budget365Layout.setVisibility(View.GONE);
 
-        }else{
+        } else {
+            budget365Layout.setVisibility(View.VISIBLE);
 
+            float basicPrice = (float) houseArea * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
+                    .TEN_THOUSAND;
+            float totalPrice = Float.parseFloat(requirementInfo.getTotal_price());
+            float individuationPrice = totalPrice - basicPrice;
+
+            budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
+            budget365TotalPriceView.setText(RequirementBusiness.covertPriceToShow(totalPrice));
+            budget365IndividuationPriceView.setText(RequirementBusiness.covertPriceToShow(individuationPrice));
         }
 
     }
