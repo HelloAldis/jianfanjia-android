@@ -20,7 +20,7 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.adapter.PreviewAdapter;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
@@ -34,7 +34,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDesignerPlanActivity extends BaseActivity {
+public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     private static final String TAG = PreviewDesignerPlanActivity.class.getName();
 
     @Bind(R.id.my_prieview_head_layout)

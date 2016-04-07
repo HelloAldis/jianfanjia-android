@@ -11,20 +11,19 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * @author fengliang
@@ -32,7 +31,7 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
  * @Description: 欢迎
  * @date 2015-8-29 上午9:30:21
  */
-public class WelcomeActivity extends BaseActivity implements ApiUiUpdateListener {
+public class WelcomeActivity extends BaseActivity{
     private static final String TAG = WelcomeActivity.class.getName();
     private Handler handler = new Handler();
     private boolean first;// 用于判断导航界面是否显示

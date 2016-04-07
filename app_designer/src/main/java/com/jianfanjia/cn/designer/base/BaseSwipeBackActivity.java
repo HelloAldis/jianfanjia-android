@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.base;
+package com.jianfanjia.cn.designer.base;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,8 +6,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.view.SwipeBackLayout;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.view.SwipeBackLayout;
+
 
 /**
  * Created by Eric on 15/3/3.

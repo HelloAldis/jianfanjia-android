@@ -6,14 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.view.MainHeadView;
-
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -21,7 +20,7 @@ import butterknife.OnClick;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class PreviewBusinessRequirementActivity extends BaseActivity {
+public class PreviewBusinessRequirementActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;

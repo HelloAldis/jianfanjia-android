@@ -6,18 +6,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.ShowPicPagerAdapter;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.adapter.ShowPicPagerAdapter;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 
-public class ShowPicActivity extends BaseActivity implements
+public class ShowPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener {
     private static final String TAG = ShowPicActivity.class.getName();
 

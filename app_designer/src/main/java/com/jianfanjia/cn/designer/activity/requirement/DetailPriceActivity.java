@@ -14,7 +14,7 @@ import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
@@ -26,7 +26,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DetailPriceActivity extends BaseActivity {
+public class DetailPriceActivity extends BaseSwipeBackActivity {
     private static final String TAG = DetailPriceActivity.class.getName();
 
     @Bind(R.id.my_price_head_layout)

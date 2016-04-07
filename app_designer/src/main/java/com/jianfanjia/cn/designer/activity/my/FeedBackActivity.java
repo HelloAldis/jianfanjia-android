@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -15,13 +17,10 @@ import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
-public class FeedBackActivity extends BaseActivity {
+public class FeedBackActivity extends BaseSwipeBackActivity {
     private static final String TAG = FeedBackActivity.class.getName();
 
     @Bind(R.id.my_feedback_head_layout)

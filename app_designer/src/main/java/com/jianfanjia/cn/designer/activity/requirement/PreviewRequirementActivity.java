@@ -11,7 +11,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.business.RequirementBusiness;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -22,7 +22,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class PreviewRequirementActivity extends BaseActivity {
+public class PreviewRequirementActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;

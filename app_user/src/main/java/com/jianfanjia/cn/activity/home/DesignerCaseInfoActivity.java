@@ -34,6 +34,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -83,6 +84,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
         this.initView();
         this.getDataFromIntent(this.getIntent());
         this.setListener();
@@ -134,6 +136,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                overridePendingTransition(0,R.anim.slide_out_to_bottom);
                 break;
             case R.id.toolbar_collect_layout:
                 UiHelper.imageButtonAnim(toolbar_collect, null);

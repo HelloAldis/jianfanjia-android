@@ -38,25 +38,6 @@
                 android:text="@string/contract_profile"
                 android:textColor="@color/light_black_color" />
 
-            <RelativeLayout
-                android:id="@+id/head_choose_layout"
-                android:layout_width="@dimen/space_60"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/common_head_back_bg_selector"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/head_choose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_20"
-                    android:src="@mipmap/icon_ok" />
-            </RelativeLayout>
-
-
             <View
                 android:id="@+id/head_divier"
                 style="@style/divier_line"
@@ -69,7 +50,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:background="@color/main_layout_bg">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -17,13 +17,13 @@ import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.view.DeletePicPopWindow;
 
-public class ShowProcessPicActivity extends BaseActivity implements
+public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = ShowProcessPicActivity.class.getName();
 

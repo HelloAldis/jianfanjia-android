@@ -6,6 +6,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -13,17 +17,13 @@ import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.DateTimePicker;
+import com.jianfanjia.cn.designer.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -32,7 +32,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-19 17:48
  */
-public class SettingMeasureDateActivity extends BaseActivity {
+public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
     private static final String TAG = SettingMeasureDateActivity.class.getName();
 
     @Bind(R.id.datePicker)
@@ -53,7 +53,7 @@ public class SettingMeasureDateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
         this.getDataFromIntent();
         initView();
     }
@@ -100,6 +100,7 @@ public class SettingMeasureDateActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                overridePendingTransition(0, R.anim.slide_out_to_bottom);
                 break;
             case R.id.btn_confirm:
                 long houseCheckTime = chooseDate.getTimeInMillis();
@@ -133,6 +134,7 @@ public class SettingMeasureDateActivity extends BaseActivity {
             public void onSuccess(ApiResponse<String> apiResponse) {
                 hideWaitDialog();
                 appManager.finishActivity(SettingMeasureDateActivity.class);
+                overridePendingTransition(0, R.anim.slide_out_to_bottom);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }
 

@@ -3,12 +3,13 @@
     android:id="@+id/ltm_req_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_layout_bg">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_10"
+        android:layout_marginBottom="@dimen/space_10"
         android:background="@color/font_white">
 
         <View

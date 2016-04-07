@@ -19,6 +19,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;
@@ -44,6 +45,7 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
         initView();
     }
 
@@ -84,6 +86,7 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                overridePendingTransition(0, R.anim.slide_out_to_bottom);
                 break;
             default:
                 break;

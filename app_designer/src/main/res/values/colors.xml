@@ -52,5 +52,7 @@
     <color name="layout_item_press">#47ffffff</color>
     <color name="color_grey_bg">#b5b9bc</color>
 
+    <color name="black_p50">#7f000000</color>
+
 
 </resources>

@@ -17,16 +17,15 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -36,7 +35,7 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl,PopWindowCallBack, ApiUiUpdateListener {
+        DialogControl,PopWindowCallBack{
     protected DownloadManager downloadManager = null;
     protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
@@ -169,24 +168,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     public void secondItemClick() {
         // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public void preLoad() {
-        if (_waitDialog == null) {
-            showWaitDialog();
-        }
-    }
-
-    @Override
-    public void loadSuccess(Object data) {
-        hideWaitDialog();
-    }
-
-    @Override
-    public void loadFailture(String error_msg) {
-        hideWaitDialog();
-        makeTextLong(error_msg);
     }
 
     @Override

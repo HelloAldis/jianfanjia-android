@@ -33,7 +33,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequiremen
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.business.ProcessBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -50,7 +50,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class NoticeDetailActivity extends BaseActivity implements View.OnClickListener {
+public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.OnClickListener {
     private static final String TAG = NoticeDetailActivity.class.getName();
     @Bind(R.id.my_notice_detail_head_layout)
     MainHeadView mainHeadView;

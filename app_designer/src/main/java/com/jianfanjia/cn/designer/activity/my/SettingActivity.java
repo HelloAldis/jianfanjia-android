@@ -10,14 +10,14 @@ import butterknife.OnClick;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.LoginNewActivity;
-import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.tools.ShareUtil;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
@@ -26,7 +26,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseSwipeBackActivity {
     private static final String TAG = SettingActivity.class.getName();
 
     @Bind(R.id.about_layout)

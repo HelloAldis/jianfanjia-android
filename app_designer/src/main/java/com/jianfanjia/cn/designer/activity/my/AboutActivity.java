@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.view.MainHeadView;
-
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
  * Description:关于
@@ -18,7 +17,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends BaseSwipeBackActivity {
     private static final String TAG = AboutActivity.class.getName();
 
     @Bind(R.id.about_head_layout)

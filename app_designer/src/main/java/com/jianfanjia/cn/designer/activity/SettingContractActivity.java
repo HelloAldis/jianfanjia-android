@@ -8,6 +8,10 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -17,16 +21,12 @@ import com.jianfanjia.api.request.designer.ConfigContractRequest;
 import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.cn.designer.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -35,7 +35,7 @@ import de.greenrobot.event.EventBus;
  * Email: jame.zhang@myjyz.com
  * Date:2016-01-21 14:43
  */
-public class SettingContractActivity extends BaseActivity {
+public class SettingContractActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.datePicker)
     protected DatePicker datePicker;
@@ -80,6 +80,7 @@ public class SettingContractActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
         this.getDataFromIntent();
         initView();
     }
@@ -154,6 +155,7 @@ public class SettingContractActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                overridePendingTransition(0,R.anim.slide_out_to_bottom);
                 break;
             case R.id.btn_confirm:
                 long startTime = chooseCalendar.getTimeInMillis();
@@ -181,6 +183,7 @@ public class SettingContractActivity extends BaseActivity {
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 hideWaitDialog();
+                overridePendingTransition(0,R.anim.slide_out_to_bottom);
                 appManager.finishActivity(SettingContractActivity.class);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }

@@ -7,13 +7,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.view.MainHeadView;
-
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
  * Description:客服
@@ -21,7 +20,7 @@ import butterknife.OnClick;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class CustomerServiceActivity extends BaseActivity implements View.OnKeyListener {
+public class CustomerServiceActivity extends BaseSwipeBackActivity implements View.OnKeyListener {
     private static final String TAG = CustomerServiceActivity.class.getName();
 
     @Bind(R.id.my_contract_head_layout)

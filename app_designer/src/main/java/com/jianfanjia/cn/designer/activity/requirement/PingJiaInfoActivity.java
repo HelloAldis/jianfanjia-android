@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Evaluation;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:查看评价信息
@@ -25,7 +25,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PingJiaInfoActivity extends BaseActivity{
+public class PingJiaInfoActivity extends BaseSwipeBackActivity{
     private static final String TAG = PingJiaInfoActivity.class.getName();
 
     @Bind(R.id.my_pingjia_head_layout)

@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -36,11 +38,7 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.interf.ApiUiUpdateListener;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -48,8 +46,7 @@ import butterknife.OnClick;
  * @Description: 登录
  * @date 2015-8-18 下午12:11:23
  */
-public class LoginNewActivity extends BaseActivity implements
-        ApiUiUpdateListener, GestureDetector.OnGestureListener {
+public class LoginNewActivity extends BaseActivity implements GestureDetector.OnGestureListener {
     private static final String TAG = LoginNewActivity.class.getName();
     private static final int LOGIN = 0;
     private static final int REGISER = 1;

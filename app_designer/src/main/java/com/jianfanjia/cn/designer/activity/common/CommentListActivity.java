@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -22,9 +24,9 @@ import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -33,16 +35,13 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * Description: com.jianfanjia.cn.activity.common
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-07 15:21
  */
-public class CommentListActivity extends BaseActivity {
+public class CommentListActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.pullrefresh_recycleview)
     protected PullToRefreshRecycleView refreshRecycleView;
