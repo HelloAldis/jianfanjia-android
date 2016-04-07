@@ -229,7 +229,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     }
 
-    private void adjustLayoutToInput(){
+    private void adjustLayoutToInput() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -238,11 +238,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 LogTool.d(this.getClass().getName(), "contentLayout.getHeight() =" + contentLayout.getMeasuredHeight
                         () + "  " +
                         "rootScrollView.getHeight() =" + rootScrollView.getHeight() + " scrollY=" + scrollY);
-
-//        ObjectAnimator colorizer =
-//                ObjectAnimator.ofFloat(rootScrollView, "mScrollY", -scrollY);
-//        colorizer.setDuration(100);
-//        colorizer.start();
                 rootScrollView.smoothScrollTo(0, scrollY);
             }
         }, 30);

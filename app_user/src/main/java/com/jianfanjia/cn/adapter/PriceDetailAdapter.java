@@ -13,12 +13,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.RequirementBusiness;
 
 
 /**
@@ -30,20 +30,51 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail> {
     private static final String TAG = PriceDetailAdapter.class.getName();
     private Plan detailInfo;
-    private static final int TYPE_HEAD = 0;
-    private static final int TYPE_ITEM = 1;
+    private static final int TYPE_HEAD_DEFAULT = 0;
+    private static final int TYPE_HEAD_365 = 1;
+    private static final int TYPE_ITEM = 2;
     private int viewType = -1;
     private boolean isDetail = false;
 
-    public PriceDetailAdapter(Context context, List<PlanPriceDetail> list, Plan detailInfo) {
+    private String packageType;
+    private String basicPrice;//365包基础报价
+    private String individurationPrice;//365包个性化报价
+
+    public PriceDetailAdapter(Context context, List<PlanPriceDetail> list, Plan detailInfo, String packageType) {
         super(context, list);
         this.detailInfo = detailInfo;
+        this.packageType = packageType;
+        init365PackgetInfo();
+        setItemHeadTitle();
+    }
+
+    private void init365PackgetInfo() {
+        PlanPriceDetail planPriceDetail = RequirementBusiness.getPackget365PriceDetail(list);
+        if (planPriceDetail != null) {
+            basicPrice = planPriceDetail.getPrice();
+            individurationPrice = RequirementBusiness.getIndividurationPrice(detailInfo.getTotal_price() + "",
+                    basicPrice);
+        }
+    }
+
+    private void setItemHeadTitle() {
+        PlanPriceDetail detail = new PlanPriceDetail();
+        detail.setItem(context.getResources().getString(R.string.project_text));
+        detail.setPrice(context.getResources().getString(R.string.project_price_text));
+        detail.setDescription(context.getResources().getString(R.string.des_text));
+        if (null != list && list.size() > 0) {
+            list.add(0, detail);
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            viewType = TYPE_HEAD;
+            if (packageType.equals(RequirementBusiness.PACKGET_365)) {
+                viewType = TYPE_HEAD_365;
+            } else {
+                viewType = TYPE_HEAD_DEFAULT;
+            }
         } else {
             viewType = TYPE_ITEM;
         }
@@ -52,25 +83,52 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
 
     @Override
     public int getItemCount() {
-        return list.size() + 1;
+        return list != null ? list.size() + 1 : 1;
     }
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanPriceDetail> list) {
         switch (viewType) {
-            case TYPE_HEAD:
+            case TYPE_HEAD_365:
+                PriceDetailHead365Holder priceDetailHead365Holder = (PriceDetailHead365Holder) viewHolder;
+                priceDetailHead365Holder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
+                priceDetailHead365Holder.project_total_price.setText(context.getString(R.string.money_alias) +
+                        detailInfo
+                        .getProject_price_before_discount());
+                priceDetailHead365Holder.project_price_after_discount.setText(context.getString(R.string.money_alias)
+                        + detailInfo
+                        .getProject_price_after_discount());
+                priceDetailHead365Holder.total_design_fee.setText(context.getString(R.string.money_alias) +
+                        detailInfo.getTotal_design_fee());
+                priceDetailHead365Holder.project_price_before_discount.setText(context.getString(R.string
+                        .money_alias) + detailInfo.getTotal_price());
+                priceDetailHead365Holder.project_individutation_price.setText(context.getString(R.string.money_alias)
+                        + (TextUtils.isEmpty(individurationPrice) ? 0 : individurationPrice));
+                priceDetailHead365Holder.project_basic_price.setText(context.getString(R.string.money_alias) +
+                        (TextUtils.isEmpty(basicPrice) ? 0 : individurationPrice));
+                break;
+            case TYPE_HEAD_DEFAULT:
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
                 priceDetailHeadHolder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-                priceDetailHeadHolder.project_total_price.setText("￥" + detailInfo.getProject_price_before_discount());
-                priceDetailHeadHolder.project_price_after_discount.setText("￥" + detailInfo
+                priceDetailHeadHolder.project_total_price.setText(context.getString(R.string.money_alias) +
+                        detailInfo.getProject_price_before_discount());
+                priceDetailHeadHolder.project_price_after_discount.setText(context.getString(R.string.money_alias) +
+                        detailInfo
                         .getProject_price_after_discount());
-                priceDetailHeadHolder.total_design_fee.setText("￥" + detailInfo.getTotal_design_fee());
-                priceDetailHeadHolder.project_price_before_discount.setText("￥" + detailInfo.getTotal_price());
+                priceDetailHeadHolder.total_design_fee.setText(context.getString(R.string.money_alias) + detailInfo
+                        .getTotal_design_fee());
+                priceDetailHeadHolder.project_price_before_discount.setText(context.getString(R.string.money_alias) +
+                        detailInfo.getTotal_price());
                 break;
             case TYPE_ITEM:
                 final PlanPriceDetail detail = list.get(position - 1);
                 final PriceDetailViewHolder priceDetailViewHolder = (PriceDetailViewHolder) viewHolder;
                 priceDetailViewHolder.itemTitle.setText(detail.getItem());
+                if(detail.getItem().equals(RequirementBusiness.PACKGET_365_ITEM)){
+                    priceDetailViewHolder.itemLayout.setBackgroundResource(R.color.transparent_background);
+                }else {
+                    priceDetailViewHolder.itemLayout.setBackgroundResource(R.color.font_white);
+                }
                 priceDetailViewHolder.itemContent.setText(detail.getPrice());
                 priceDetailViewHolder.itemDetailText.setText(detail.getDescription());
                 if (position != 1) {
@@ -108,9 +166,12 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
     @Override
     public View createView(ViewGroup viewGroup, int viewType) {
         switch (viewType) {
-            case TYPE_HEAD:
-                View headView = layoutInflater.inflate(R.layout.detail_price_head_layout, null);
-                return headView;
+            case TYPE_HEAD_DEFAULT:
+                View headDefaultView = layoutInflater.inflate(R.layout.detail_price_head_layout, null);
+                return headDefaultView;
+            case TYPE_HEAD_365:
+                View head365View = layoutInflater.inflate(R.layout.detail_price_head_365_layout, null);
+                return head365View;
             case TYPE_ITEM:
                 View itemView = layoutInflater.inflate(R.layout.list_item_price_item, null);
                 return itemView;
@@ -121,8 +182,10 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
     @Override
     public RecyclerViewHolderBase createViewHolder(View view) {
         switch (viewType) {
-            case TYPE_HEAD:
+            case TYPE_HEAD_DEFAULT:
                 return new PriceDetailHeadHolder(view);
+            case TYPE_HEAD_365:
+                return new PriceDetailHead365Holder(view);
             case TYPE_ITEM:
                 return new PriceDetailViewHolder(view);
         }
@@ -145,6 +208,26 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
         }
     }
 
+    static class PriceDetailHead365Holder extends RecyclerViewHolderBase {
+        @Bind(R.id.project_total_price)
+        TextView project_total_price;
+        @Bind(R.id.project_price_after_discount)
+        TextView project_price_after_discount;
+        @Bind(R.id.total_design_fee)
+        TextView total_design_fee;
+        @Bind(R.id.project_price_before_discount)
+        TextView project_price_before_discount;
+        @Bind(R.id.project_basic_price)
+        TextView project_basic_price;
+        @Bind(R.id.project_individutation_price)
+        TextView project_individutation_price;
+
+        public PriceDetailHead365Holder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
     static class PriceDetailViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.titleText)
         TextView itemTitle;
@@ -156,6 +239,8 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
         TextView itemDetail;
         @Bind(R.id.detailLayout)
         RelativeLayout detailLayout;
+        @Bind(R.id.itemLayout)
+        LinearLayout itemLayout;
         @Bind(R.id.itemDetailLayout)
         LinearLayout itemDetailLayout;
         @Bind(R.id.itemDetailText)

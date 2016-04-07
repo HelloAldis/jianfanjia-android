@@ -282,6 +282,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     private void startToActivity(Plan detailInfo) {
         Bundle priceBundle = new Bundle();
         priceBundle.putSerializable(IntentConstant.PLAN_DETAIL, detailInfo);
+        priceBundle.putSerializable(IntentConstant.REQUIREMENT_INFO,requirementInfo);
         startActivity(DetailPriceActivity.class, priceBundle);
     }
 

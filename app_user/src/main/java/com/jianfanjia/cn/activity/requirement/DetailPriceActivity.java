@@ -7,12 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.PlanPriceDetail;
+import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
@@ -38,6 +36,7 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
 
     private PriceDetailAdapter adapter = null;
     private Plan detailInfo = null;
+    private Requirement requirement = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +45,11 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
         detailInfo = (Plan) priceBundle.getSerializable(IntentConstant.PLAN_DETAIL);
+        requirement = (Requirement) priceBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
         LogTool.d(TAG, "detailInfo =" + detailInfo);
     }
 
@@ -58,20 +58,13 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
         initRecycleView();
     }
 
-    private void initRecycleView(){
+    private void initRecycleView() {
         detail_price_listview.setLayoutManager(new LinearLayoutManager(DetailPriceActivity.this));
         detail_price_listview.setItemAnimator(new DefaultItemAnimator());
         detail_price_listview.addItemDecoration(new HorizontalDividerDecoration(TDevice.dip2px(this, 1)));
         if (null != detailInfo) {
-            PlanPriceDetail detail = new PlanPriceDetail();
-            detail.setItem(getResources().getString(R.string.project_text));
-            detail.setPrice(getResources().getString(R.string.project_price_text));
-            detail.setDescription(getResources().getString(R.string.des_text));
-            List<PlanPriceDetail> details = detailInfo.getPrice_detail();
-            if (null != details && details.size() > 0) {
-                details.add(0, detail);
-            }
-            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, details, detailInfo);
+            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, detailInfo.getPrice_detail
+                    (), detailInfo, requirement.getPackage_type());
             detail_price_listview.setAdapter(adapter);
         }
     }

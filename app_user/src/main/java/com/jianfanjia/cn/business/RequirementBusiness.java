@@ -1,7 +1,9 @@
 package com.jianfanjia.cn.business;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
+import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.common.base.application.BaseApplication;
@@ -24,13 +26,30 @@ public class RequirementBusiness {
     public static final String PACKGET_DEFAULT = "0";//默认装修包
     public static final String PACKGET_365 = "1";//365基础包
 
+    public static final String PACKGET_365_ITEM = "365基础包";
+
     //装修面积是否属于365基础包
-    public static boolean isAreaBelong365(int houseArea){
+    public static boolean isAreaBelong365(int houseArea) {
         return (houseArea >= PRICE_EVERY_UNIT_365_MIN_AREA && houseArea <= PRICE_EVERY_UNIT_365_MAX_AREA);
     }
 
     public static String covertPriceToShow(float price) {
         return String.format("%.2f", price);
+    }
+
+    //拿到单位为元的个性化费用
+    public static String getIndividurationPrice(String totalPrice,String basicPrice){
+        int inividurationPrice = Integer.parseInt(totalPrice) - Integer.parseInt(basicPrice);
+        return inividurationPrice + "";
+    }
+
+    public static PlanPriceDetail getPackget365PriceDetail(List<PlanPriceDetail> planPriceDetails) {
+        for (PlanPriceDetail planPriceDetail : planPriceDetails) {
+            if (planPriceDetail.getItem().equals(PACKGET_365_ITEM)) {
+                return planPriceDetail;
+            }
+        }
+        return null;
     }
 
     public static void initHomeRequirement(Requirement requirement) {
