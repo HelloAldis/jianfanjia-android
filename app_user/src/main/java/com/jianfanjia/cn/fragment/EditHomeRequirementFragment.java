@@ -243,9 +243,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             budget365TotalPriceLayout.setVisibility(View.GONE);
             budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
             budget365TotalErrorView.setVisibility(View.VISIBLE);
-
         }
-
     }
 
     private void adjustLayoutToInput() {

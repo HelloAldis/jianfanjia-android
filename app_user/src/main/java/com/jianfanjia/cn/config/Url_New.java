@@ -28,7 +28,6 @@ public class Url_New {
         return instance;
     }
 
-
     private Url_New() {
     }
 
