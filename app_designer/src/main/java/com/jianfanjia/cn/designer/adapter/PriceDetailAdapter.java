@@ -105,7 +105,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
                 priceDetailHead365Holder.project_individutation_price.setText(context.getString(R.string.money_alias)
                         + (TextUtils.isEmpty(individurationPrice) ? 0 : individurationPrice));
                 priceDetailHead365Holder.project_basic_price.setText(context.getString(R.string.money_alias) +
-                        (TextUtils.isEmpty(basicPrice) ? 0 : individurationPrice));
+                        (TextUtils.isEmpty(basicPrice) ? 0 : basicPrice));
                 break;
             case TYPE_HEAD_DEFAULT:
                 PriceDetailHeadHolder priceDetailHeadHolder = (PriceDetailHeadHolder) viewHolder;
@@ -125,7 +125,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
                 final PriceDetailViewHolder priceDetailViewHolder = (PriceDetailViewHolder) viewHolder;
                 priceDetailViewHolder.itemTitle.setText(detail.getItem());
                 if(detail.getItem().equals(RequirementBusiness.PACKGET_365_ITEM)){
-                    priceDetailViewHolder.itemLayout.setBackgroundResource(R.color.transparent_background);
+                    priceDetailViewHolder.itemLayout.setBackgroundResource(R.color.light_blue_color);
                 }else {
                     priceDetailViewHolder.itemLayout.setBackgroundResource(R.color.font_white);
                 }
