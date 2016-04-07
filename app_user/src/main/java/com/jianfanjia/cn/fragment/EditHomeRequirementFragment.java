@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -44,6 +46,8 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     @Bind(R.id.scrollView)
     protected ScrollView rootScrollView;
+    @Bind(R.id.contentLayout)
+    protected LinearLayout contentLayout;
 
     @Bind(R.id.act_edit_req_city_content)
     protected TextView act_edit_req_city_content;//所在城市
@@ -167,6 +171,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             if (RequirementBusiness.isAreaBelong365(area)) {
                 budget365Layout.setVisibility(View.VISIBLE);
                 isShowBudget365 = true;
+                adjustLayoutToInput();
 
                 //设置基础价格
                 float basicPrice = (float) area * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
@@ -221,6 +226,26 @@ public class EditHomeRequirementFragment extends BaseFragment {
             budget365TotalErrorView.setVisibility(View.VISIBLE);
 
         }
+
+    }
+
+    private void adjustLayoutToInput(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int scrollY = contentLayout.getHeight() + TDevice.dip2px(getContext(), 100) - rootScrollView
+                        .getHeight();
+                LogTool.d(this.getClass().getName(), "contentLayout.getHeight() =" + contentLayout.getMeasuredHeight
+                        () + "  " +
+                        "rootScrollView.getHeight() =" + rootScrollView.getHeight() + " scrollY=" + scrollY);
+
+//        ObjectAnimator colorizer =
+//                ObjectAnimator.ofFloat(rootScrollView, "mScrollY", -scrollY);
+//        colorizer.setDuration(100);
+//        colorizer.start();
+                rootScrollView.smoothScrollTo(0, scrollY);
+            }
+        }, 30);
 
     }
 
