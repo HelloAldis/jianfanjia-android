@@ -4,16 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.view.MainHeadView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.business.RequirementBusiness;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -53,6 +54,18 @@ public class PreviewRequirementActivity extends BaseActivity {
     protected String[] arr_love_designerstyle;
     protected String[] arr_worktype;
     protected String[] arr_desisex;
+
+    @Bind(R.id.act_edit_req_decoratebudget_365)
+    protected LinearLayout budget365Layout;
+
+    @Bind(R.id.decoratebudget_365_basic_price)
+    protected TextView budget365BasicPriceView;
+
+    @Bind(R.id.decoratebudget_365_individuation_price)
+    protected TextView budget365IndividuationPriceView;
+
+    @Bind(R.id.decoratebudget_365_total_price)
+    protected TextView budget365TotalPriceView;
 
     private Requirement requirementInfo;
 
@@ -111,7 +124,30 @@ public class PreviewRequirementActivity extends BaseActivity {
                     arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
             act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
                     arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
+
+            initBudget365Layout();
         }
+    }
+
+    private void initBudget365Layout() {
+
+        int houseArea = Integer.parseInt(requirementInfo.getHouse_area());
+        if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_DEFAULT)) {
+            budget365Layout.setVisibility(View.GONE);
+
+        } else {
+            budget365Layout.setVisibility(View.VISIBLE);
+
+            float basicPrice = (float) houseArea * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
+                    .TEN_THOUSAND;
+            float totalPrice = Float.parseFloat(requirementInfo.getTotal_price());
+            float individuationPrice = totalPrice - basicPrice;
+
+            budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
+            budget365TotalPriceView.setText(RequirementBusiness.covertPriceToShow(totalPrice));
+            budget365IndividuationPriceView.setText(RequirementBusiness.covertPriceToShow(individuationPrice));
+        }
+
     }
 
     @Override

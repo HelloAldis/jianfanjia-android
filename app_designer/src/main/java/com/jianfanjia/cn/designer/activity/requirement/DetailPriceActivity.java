@@ -8,19 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.PriceDetailAdapter;
-import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.PlanPriceDetail;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.adapter.PriceDetailAdapter;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:方案详细报价
@@ -28,7 +26,7 @@ import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DetailPriceActivity extends BaseActivity{
+public class DetailPriceActivity extends BaseActivity {
     private static final String TAG = DetailPriceActivity.class.getName();
 
     @Bind(R.id.my_price_head_layout)
@@ -37,6 +35,7 @@ public class DetailPriceActivity extends BaseActivity{
     protected RecyclerView detail_price_listview;
     private PriceDetailAdapter adapter = null;
     private Plan plan = null;
+    private Requirement requirement = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +44,11 @@ public class DetailPriceActivity extends BaseActivity{
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle priceBundle = intent.getExtras();
         plan = (Plan) priceBundle.getSerializable(Global.PLAN_DETAIL);
+        requirement = (Requirement) priceBundle.getSerializable(Global.REQUIREMENT_INFO);
         LogTool.d(TAG, "plan =" + plan);
     }
 
@@ -64,15 +64,8 @@ public class DetailPriceActivity extends BaseActivity{
         detail_price_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
         if (null != plan) {
-            PlanPriceDetail detail = new PlanPriceDetail();
-            detail.setItem(getResources().getString(R.string.project_text));
-            detail.setPrice(getResources().getString(R.string.project_price_text));
-            detail.setDescription(getResources().getString(R.string.des_text));
-            List<PlanPriceDetail> details = plan.getPrice_detail();
-            if (null != details && details.size() > 0) {
-                details.add(0, detail);
-            }
-            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, details, plan);
+            PriceDetailAdapter adapter = new PriceDetailAdapter(DetailPriceActivity.this, plan.getPrice_detail(),
+                    plan, requirement.getPackage_type());
             detail_price_listview.setAdapter(adapter);
         }
     }

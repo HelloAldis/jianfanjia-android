@@ -34,7 +34,6 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
     @Bind(R.id.detail_price_listview)
     protected RecyclerView detail_price_listview;
 
-    private PriceDetailAdapter adapter = null;
     private Plan detailInfo = null;
     private Requirement requirement = null;
 
@@ -82,7 +81,6 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
-
             default:
                 break;
         }

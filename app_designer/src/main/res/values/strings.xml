@@ -296,19 +296,15 @@
     <string name="notify_owner_confirm_mesaure_house">提醒业主确认量房</string>
     <string name="notify_not_more_once_everyday">您今天已经提醒过了！</string>
 
-
-    <string name="__picker_title">图片</string>
-    <string name="__picker_delete">删除</string>
-    <string name="__picker_done">完成</string>
-    <string name="__picker_done_with_count">完成(%1$d/%2$d)</string>
-    <string name="__picker_image_index">%1$d/%2$d</string>
-    <string name="__picker_undo">撤消</string>
-    <string name="__picker_deleted_a_photo">删除了一张图片</string>
-    <string name="__picker_confirm_to_delete">确认删除？</string>
-    <string name="__picker_yes">确定</string>
-    <string name="__picker_cancel">取消</string>
-    <string name="__picker_all_image">所有图片</string>
-    <string name="__picker_over_max_count_tips">你最多可以选择%1$d张图片</string>
-    <string name="__picker_image_count">%1$d张</string>
     <string name="notify_success">提醒成功</string>
+
+    <string name="decoratebudget_365_title">为了让您的装修预算更准确，特为您提供以下公式</string>
+    <string name="decoratebudget_365_alert">提示：您的装修总预算不能低于基础费用</string>
+    <string name="decoratebudget_365_detail">点击此处了解更多关于‘简繁家365基础包’</string>
+    <string name="decoratebudget_365_basic">基础费用</string>
+    <string name="decoratebudget_365_individuation">个性化费用</string>
+    <string name="decoratebudget_365_total">装修总预算</string>
+    <string name="str_coveredarea">建筑面积（㎡）</string>
+    <string name="str_decoratebudget_with_unit">装修预算（万元）</string>
+    <string name="money_alias">￥</string>
 </resources>
