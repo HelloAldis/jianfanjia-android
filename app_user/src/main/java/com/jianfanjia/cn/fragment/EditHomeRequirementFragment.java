@@ -26,9 +26,11 @@ import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
@@ -132,10 +134,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
     public void initView() {
         initStringArray();
 
-        isShowBudget365 = false;
-        budget365Layout.setVisibility(View.GONE);
-        budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
-        budget365TotalPriceLayout.setVisibility(View.GONE);
+        reset365LayoutAndStatus();
     }
 
     private void initStringArray() {
@@ -161,13 +160,35 @@ public class EditHomeRequirementFragment extends BaseFragment {
     @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void houseareaAfterChanged(CharSequence charSequence) {
         requirementInfo.setHouse_area(charSequence.toString());
-        showOrHide365Layout(charSequence);
+        showOrHide365Layout();
         isAllInput();
     }
 
-    private void showOrHide365Layout(CharSequence charSequence) {
-        if (!TextUtils.isEmpty(charSequence.toString())) {
-            int area = Integer.parseInt(charSequence.toString());
+    private void showOrHide365Layout() {
+        String workType = requirementInfo.getWork_type();
+        LogTool.d(this.getClass().getName(), "workType =" + workType);
+        if(workType.equals(Global.PURE_DESIGNER)){//装修类型选择纯设计
+            reset365LayoutAndStatus();
+        }else{
+            determineShowOrNotByHouseArea();
+        }
+    }
+
+    private void reset365LayoutAndStatus(){
+        isShowBudget365 = false;
+        isTotalBudegetCorrect = false;
+        budget365Layout.setVisibility(View.GONE);
+
+        budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
+        budget365TotalPriceLayout.setVisibility(View.GONE);
+        budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
+        budget365TotalErrorView.setVisibility(View.VISIBLE);
+    }
+
+    private void determineShowOrNotByHouseArea() {
+        String editArea = requirementInfo.getHouse_area();
+        if (!TextUtils.isEmpty(editArea)) {
+            int area = Integer.parseInt(editArea);
             if (RequirementBusiness.isAreaBelong365(area)) {
                 budget365Layout.setVisibility(View.VISIBLE);
                 isShowBudget365 = true;
@@ -178,21 +199,19 @@ public class EditHomeRequirementFragment extends BaseFragment {
                         .TEN_THOUSAND;
                 budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
 
-                settingTotalBudget(act_edit_req_decoratebudget_content.getEditableText().toString(), basicPrice);
+                settingTotalBudget(requirementInfo.getTotal_price(), basicPrice);
             } else {
-                budget365Layout.setVisibility(View.GONE);
-                isShowBudget365 = false;
+                reset365LayoutAndStatus();
             }
         } else {
-            budget365Layout.setVisibility(View.GONE);
-            isShowBudget365 = false;
+            reset365LayoutAndStatus();
         }
     }
 
-    private void settingTotalBudget(CharSequence charSequence, float basicPrice) {
-        if (!TextUtils.isEmpty(charSequence.toString())) {
+    private void settingTotalBudget(String totalPrice, float basicPrice) {
+        if (!TextUtils.isEmpty(totalPrice)) {
 
-            float total = Float.parseFloat(charSequence.toString());
+            float total = Float.parseFloat(totalPrice);
             String totalText = RequirementBusiness.covertPriceToShow(total);
             String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
 
@@ -233,7 +252,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                int scrollY = contentLayout.getHeight() + TDevice.dip2px(getContext(), 100) - rootScrollView
+                int scrollY = contentLayout.getHeight() + TDevice.dip2px(getContext(), 110) - rootScrollView
                         .getHeight();
                 LogTool.d(this.getClass().getName(), "contentLayout.getHeight() =" + contentLayout.getMeasuredHeight
                         () + "  " +
@@ -248,7 +267,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
         requirementInfo.setTotal_price(charSequence.toString());
-        showOrHide365Layout(act_edit_req_housearea_content.getEditableText().toString());
+        showOrHide365Layout();
         isAllInput();
     }
 
@@ -308,7 +327,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             R.id.act_edit_req_persons,
             R.id.act_edit_req_lovedesistyle,
             R.id.act_edit_req_lovedesisex,
-            R.id.act_edit_req_work_type})
+            R.id.act_edit_req_work_type,R.id.act_edit_req_decoratebudget_365_detail})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -354,6 +373,9 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 lovedesisexBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
                 startActivityForResult(EditRequirementItemActivity.class, lovedesisexBundle, Constant
                         .REQUIRECODE_DESISEX);
+                break;
+            case R.id.act_edit_req_decoratebudget_365_detail:
+                UiHelper.intentToPackget365Detail(getContext());
                 break;
             default:
                 break;
@@ -444,6 +466,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 case Constant.REQUIRECODE_WORKTYPE:
                     act_edit_req_work_type_content.setText(arr_worktype[Integer.parseInt(itemMap.key)]);
                     requirementInfo.setWork_type(itemMap.key);
+                    showOrHide365Layout();
                     break;
                 case Constant.REQUIRECODE_DESISEX:
                     act_edit_req_lovedesisex_content.setText(itemMap.value);

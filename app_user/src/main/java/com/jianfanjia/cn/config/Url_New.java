@@ -61,6 +61,9 @@ public class Url_New {
     //装修直播详情
     public String DECORATE_LIVE_URL = "/view/share/process.html?pid=";
 
+    //365基础包详情页
+    public String PACKGET365_DETAIL_URL= "/view/zt/365package/index.html";
+
     public static String ID = "id";
 
     //屏幕宽高

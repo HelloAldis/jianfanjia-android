@@ -14,6 +14,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 
 /**
@@ -69,12 +70,15 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
 
     private Requirement requirementInfo;
 
-    @OnClick({R.id.head_back_layout})
+    @OnClick({R.id.head_back_layout,R.id.act_edit_req_decoratebudget_365_detail})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                break;
+            case R.id.act_edit_req_decoratebudget_365_detail:
+                UiHelper.intentToPackget365Detail(this);
                 break;
             default:
                 break;
@@ -133,6 +137,7 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     }
 
     private void initBudget365Layout() {
+
         int houseArea = Integer.parseInt(requirementInfo.getHouse_area());
         if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_DEFAULT)) {
             budget365Layout.setVisibility(View.GONE);

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +31,13 @@ import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.home.WebViewActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
@@ -43,6 +47,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
+
+    public static void intentToPackget365Detail(Context context) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
+        IntentUtil.startActivity(context,WebViewActivity.class, bundle);
+    }
 
     /**
      * 实现文本复制功能
