@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +36,13 @@ import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.LoginNewActivity;
+import com.jianfanjia.cn.designer.activity.common.WebViewActivity;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.config.Url_New;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
@@ -48,6 +51,12 @@ import com.jianfanjia.common.tool.TDevice;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
+
+    public static void intentToPackget365Detail(Context context) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
+        IntentUtil.startActivity(context, WebViewActivity.class, bundle);
+    }
 
     /**
      * 拿到未读消息个数

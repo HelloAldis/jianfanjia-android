@@ -72,6 +72,9 @@
         <meta-data
             android:name="SERVER_URL"
             android:value="${SERVER_URL}"/>
+        <meta-data
+            android:name="MOBILE_SERVER_URL"
+            android:value="${MOBILE_SERVER_URL}"/>
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
@@ -198,6 +201,12 @@
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
+
+        <activity
+            android:name=".activity.common.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+
         <activity
             android:name=".activity.requirement.CheckActivity"
             android:label="@string/title_activity_check"
@@ -245,7 +254,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.requirement.PreviewRequirementActivity"
+            android:name=".activity.requirement.PreviewHomeRequirementActivity"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

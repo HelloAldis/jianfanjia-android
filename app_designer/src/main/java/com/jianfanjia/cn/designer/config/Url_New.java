@@ -15,6 +15,7 @@ public class Url_New {
     private static Url_New instance;
     public String SEVER_IP = "";
 //    public String SEVER_PORT = "";
+    public String MOBILE_SERVER_URL;
 
     public static Url_New getInstance() {
         if (instance == null) {
@@ -32,6 +33,8 @@ public class Url_New {
                     .getApplicationInfo(MyApplication.getInstance().getPackageName(),
                             PackageManager.GET_META_DATA);
             SEVER_IP = appInfo.metaData.getString("SERVER_URL");
+
+            MOBILE_SERVER_URL = appInfo.metaData.getString("MOBILE_SERVER_URL");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -39,8 +42,8 @@ public class Url_New {
 
     public String HTTPROOT = SEVER_IP + "/api/v2/app/";
 
-
-    public String CONTRACT_URL = "http://" + SEVER_IP + "/tpl/user/agreement.html";
+    //365基础包详情页
+    public String PACKGET365_DETAIL_URL= "/view/zt/365package/index.html";
 
     //分享的链接
     public String SHARE_IMAGE = "http://" + SEVER_IP +  "/zt/mobile/sharemito.html?title=";

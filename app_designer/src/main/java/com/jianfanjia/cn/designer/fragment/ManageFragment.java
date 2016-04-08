@@ -28,7 +28,7 @@ import com.jianfanjia.cn.designer.activity.SettingContractActivity;
 import com.jianfanjia.cn.designer.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewHomeRequirementActivity;
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
@@ -172,7 +172,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                                                         PreviewBusinessRequirementActivity.class);
                                             } else {
                                                 gotoPriviewRequirement = new Intent(getActivity(),
-                                                        PreviewRequirementActivity.class);
+                                                        PreviewHomeRequirementActivity.class);
                                             }
                                             gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process
                                                     .getRequirement());

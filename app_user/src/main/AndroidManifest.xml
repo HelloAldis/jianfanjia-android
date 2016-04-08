@@ -377,6 +377,7 @@
         <activity
             android:name=".requirement.PublishRequirementActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
             android:name=".requirement.PreviewBusinessRequirementActivity"
@@ -437,6 +438,12 @@
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
             android:name=".home.WebViewActivity"
+            android:label="@string/title_activity_decorate_strategy"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+
+        <activity
+            android:name=".home.WebViewPackage365Activity"
             android:label="@string/title_activity_decorate_strategy"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

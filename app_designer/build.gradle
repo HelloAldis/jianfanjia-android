@@ -38,7 +38,7 @@ android {
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID: "Ec5Iv1QTPz9pBk2ZYFebd", GETUI_PUSH_APPKEY: "1zvknC2OFL6mUlWch6tcb3", GETUI_PUSH_APPSECRET: "cvNcATrYoo717R8milqyn7",
-                                    SERVER_URL      : DEV_SERVER_URL,]
+                                    SERVER_URL      : DEV_SERVER_URL, MOBILE_SERVER_URL: DEV_MOBILE_SERVER_URL]
         }
 
         release {
@@ -46,7 +46,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
             manifestPlaceholders = [GETUI_PUSH_APPID: "tE9LwxEKvxACImev1VLiCA", GETUI_PUSH_APPKEY: "5pOVHYbLcS6GrWsp0CTwK3", GETUI_PUSH_APPSECRET: "qX6mtXErCJ7I5ADTLW8P85",
-                                    SERVER_URL      : RELEASE_SERVER_URL]
+                                    SERVER_URL      : RELEASE_SERVER_URL, MOBILE_SERVER_URL: RELEASE_MOBILE_SERVER_URL]
         }
         andtest {
             minifyEnabled true
@@ -54,7 +54,7 @@ android {
             signingConfig signingConfigs.relealse
 
             manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5", GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4",
-                                    SERVER_URL      : TEST_SERVER_URL]
+                                    SERVER_URL      : TEST_SERVER_URL, MOBILE_SERVER_URL: TEST_MOBILE_SERVER_URL]
         }
     }
     sourceSets {

@@ -31,7 +31,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewHomeRequirementActivity;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.business.ProcessBusiness;
@@ -185,7 +185,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                     gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewBusinessRequirementActivity
                             .class);
                 } else {
-                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewRequirementActivity.class);
+                    gotoPriviewRequirement = new Intent(NoticeDetailActivity.this, PreviewHomeRequirementActivity.class);
                 }
                 gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirement);
                 startActivity(gotoPriviewRequirement);

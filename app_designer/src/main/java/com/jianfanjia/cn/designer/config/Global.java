@@ -8,6 +8,12 @@ package com.jianfanjia.cn.designer.config;
  */
 public class Global {
 
+    public static final String WEB_VIEW_URL = "web_view_url";
+    public static final String WEB_VIEW_URL_DEC_STRATEGY = "/view/article/";
+    public static final String WEB_VIEW_URL_SAFEGUARD = "/view/zt/safeguard/";
+    public static final String WEB_VIEW_URL_SUPERVISION = "/view/zt/supervision/";
+
+
     public static final String ISREGIISTER = "isregister";//是否是注册
 
     public static final String REGISTER_INFO = "register_info";

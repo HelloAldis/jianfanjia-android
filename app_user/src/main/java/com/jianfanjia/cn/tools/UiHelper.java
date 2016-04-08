@@ -31,7 +31,7 @@ import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.LoginNewActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.home.WebViewActivity;
+import com.jianfanjia.cn.activity.home.WebViewPackage365Activity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.business.DataManagerNew;
@@ -51,7 +51,7 @@ public class UiHelper {
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();
         bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
-        IntentUtil.startActivity(context,WebViewActivity.class, bundle);
+        IntentUtil.startActivity(context, WebViewPackage365Activity.class, bundle);
     }
 
     /**

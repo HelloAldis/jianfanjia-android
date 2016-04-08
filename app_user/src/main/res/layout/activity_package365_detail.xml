@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/main_layout_bg"
+             android:orientation="vertical">
+
+    <include layout="@layout/activity_web_view"/>
+
+    <RelativeLayout
+        android:id="@+id/btn_create_requirement_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_gravity="bottom"
+        android:background="@color/font_white"
+        android:paddingBottom="@dimen/space_4"
+        android:paddingLeft="@dimen/space_48"
+        android:paddingRight="@dimen/space_48"
+        android:paddingTop="@dimen/space_4">
+
+        <TextView
+            android:id="@+id/btn_create_process"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_orange_oval_bg"
+            android:gravity="center"
+            android:text="@string/create_my_requirement"
+            android:textColor="@color/font_white"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+
+</FrameLayout>

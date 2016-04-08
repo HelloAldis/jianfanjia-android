@@ -14,6 +14,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.business.RequirementBusiness;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
@@ -22,7 +23,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class PreviewRequirementActivity extends BaseSwipeBackActivity {
+public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.act_edit_req_head)
     protected MainHeadView mainHeadView;
@@ -69,12 +70,15 @@ public class PreviewRequirementActivity extends BaseSwipeBackActivity {
 
     private Requirement requirementInfo;
 
-    @OnClick({R.id.head_back_layout})
+    @OnClick({R.id.head_back_layout,R.id.act_edit_req_decoratebudget_365_detail})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                break;
+            case R.id.act_edit_req_decoratebudget_365_detail:
+                UiHelper.intentToPackget365Detail(this);
                 break;
             default:
                 break;

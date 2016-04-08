@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.tools.ImageShow;
-
 import java.util.List;
+
+import com.jianfanjia.cn.tools.ImageShow;
 
 /**
  * Name: BaseRecyclerViewAdapter

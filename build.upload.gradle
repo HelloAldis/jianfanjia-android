@@ -1,0 +1,16 @@
+apply plugin: 'org.quanqi.pgyer'
+
+dependencies {
+    classpath 'org.quanqi:pgyer:0.1.2'
+}
+
+pgyer {
+    _api_key = "23753123eeee6bb7b1645ae8b349f5f3"
+    uKey = "75a553da1e363a4e3d0d6352c47f03b9"
+}
+
+apks {
+    release {
+        sourceFile = file("F:\\快盘\\sharebox\\zjfzhangjingfu@yeah.net\\简繁家APP\\apk\\designer_2.5.1\\designer_designer-Default-andtest_20160408_0_38_2.5.1.apk")
+    }
+}

@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.activity.home;
+package com.jianfanjia.cn.designer.activity.common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,15 @@ import android.widget.ImageView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.tools.JavaScriptObject;
-import com.jianfanjia.cn.tools.ShareUtil;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.ProgressWebView;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.config.Url_New;
+import com.jianfanjia.cn.designer.tools.JavaScriptObject;
+import com.jianfanjia.cn.designer.tools.ShareUtil;
+import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.ProgressWebView;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;

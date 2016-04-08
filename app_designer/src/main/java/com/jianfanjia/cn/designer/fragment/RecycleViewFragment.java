@@ -28,7 +28,7 @@ import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
 import com.jianfanjia.cn.designer.activity.requirement.DesignerPlanListActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.activity.requirement.PreviewBusinessRequirementActivity;
-import com.jianfanjia.cn.designer.activity.requirement.PreviewRequirementActivity;
+import com.jianfanjia.cn.designer.activity.requirement.PreviewHomeRequirementActivity;
 import com.jianfanjia.cn.designer.adapter.MyHandledRequirementAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
@@ -217,7 +217,7 @@ public class RecycleViewFragment extends BaseFragment {
                             gotoPriviewRequirement = new Intent(getActivity(), PreviewBusinessRequirementActivity
                                     .class);
                         } else {
-                            gotoPriviewRequirement = new Intent(getActivity(), PreviewRequirementActivity.class);
+                            gotoPriviewRequirement = new Intent(getActivity(), PreviewHomeRequirementActivity.class);
                         }
                         gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, requirementInfo);
                         getActivity().startActivity(gotoPriviewRequirement);
