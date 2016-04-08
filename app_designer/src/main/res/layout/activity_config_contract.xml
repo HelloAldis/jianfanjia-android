@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/main_layout_bg">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/main_head_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/space_48"
         android:background="@color/head_layout_bg"
         android:fitsSystemWindows="true">
 
         <RelativeLayout
-            android:id="@+id/main_head_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_48">
+            android:id="@+id/head_back_layout"
+            android:layout_width="@dimen/space_60"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_head_back_bg_selector">
 
-            <RelativeLayout
-                android:id="@+id/head_back_layout"
-                android:layout_width="@dimen/space_60"
-                android:layout_height="match_parent"
+            <ImageView
+                android:id="@+id/head_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:background="@drawable/common_head_back_bg_selector">
-
-                <ImageView
-                    android:id="@+id/head_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_20"
-                    android:src="@mipmap/icon_delete" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/head_center_title"
-                style="@style/listview_item_text_style_big"
-                android:layout_centerInParent="true"
-                android:text="@string/contract_profile"
-                android:textColor="@color/light_black_color" />
-
-            <View
-                android:id="@+id/head_divier"
-                style="@style/divier_line"
-                android:layout_alignParentBottom="true"
-                android:background="@color/horzontal_line_color" />
+                android:layout_marginLeft="@dimen/space_20"
+                android:src="@mipmap/icon_delete"/>
         </RelativeLayout>
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/head_center_title"
+            style="@style/listview_item_text_style_big"
+            android:layout_centerInParent="true"
+            android:text="@string/contract_profile"
+            android:textColor="@color/light_black_color"/>
+
+        <View
+            android:id="@+id/head_divier"
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color"/>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_layout_bg">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/process_duration"
                         android:textColor="@color/designer_info_text_color_bg"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -91,7 +86,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/process_duration_cont"
                             android:textColor="@color/light_black_color"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textSize="@dimen/text_size_14"/>
 
                         <TextView
                             android:id="@+id/startTimeContent"
@@ -99,7 +94,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/process_startTime_cont"
                             android:textColor="@color/light_black_color"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textSize="@dimen/text_size_14"/>
 
                         <TextView
                             android:id="@+id/endTimeContent"
@@ -107,7 +102,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/process_endTime_cont"
                             android:textColor="@color/light_black_color"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textSize="@dimen/text_size_14"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -125,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/process_totalprice"
                         android:textColor="@color/designer_info_text_color_bg"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/totalPriceContent"
@@ -133,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/process_totalprice_cont"
                         android:textColor="@color/light_black_color"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -150,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/process_workType"
                         android:textColor="@color/designer_info_text_color_bg"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/workTypeContent"
@@ -158,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/process_workType_cont"
                         android:textColor="@color/light_black_color"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -170,7 +165,7 @@
 
                 <View
                     style="@style/divier_line"
-                    android:visibility="visible" />
+                    android:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/timeTitle"
@@ -183,7 +178,7 @@
                     android:background="@drawable/btn_grey_white_bg"
                     android:gravity="center"
                     android:textColor="@color/orange_color"
-                    android:textSize="@dimen/big_size" />
+                    android:textSize="@dimen/big_size"/>
 
                 <DatePicker
                     android:id="@+id/datePicker"
@@ -191,9 +186,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:calendarViewShown="false"
-                    android:spinnersShown="true" />
+                    android:spinnersShown="true"/>
 
-                <View style="@style/divier_line" />
+                <View style="@style/divier_line"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -204,11 +199,11 @@
                         style="@style/button_login_style"
                         android:layout_height="@dimen/space_40"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/space_24"
                         android:layout_marginLeft="@dimen/space_48"
                         android:layout_marginRight="@dimen/space_48"
                         android:layout_marginTop="@dimen/space_24"
-                        android:layout_marginBottom="@dimen/space_24"
-                        android:text="@string/confirm" />
+                        android:text="@string/confirm"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
