@@ -185,7 +185,7 @@ public class DataManagerNew {
         getInstance().savaLastLoginTime(Calendar.getInstance()
                 .getTimeInMillis());
         getInstance().saveLoginUserBean(user);
-        GeTuiManager.bindGeTui(MyApplication.getInstance(), getInstance().getUserId());
+        GeTuiManager.bindGeTui(MyApplication.getInstance(), user.get_id());
     }
 
     /**

@@ -10,6 +10,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -27,10 +29,8 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import com.jianfanjia.api.model.Process;
 
 /**
  * Description:合同查看
@@ -209,7 +209,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
         ConfirmContractRequest confirmContractRequest = new ConfirmContractRequest();
         confirmContractRequest.setRequirementid(requirementid);
         confirmContractRequest.setFinal_planid(final_planid);
-        Api.confirmContract(confirmContractRequest, new ApiCallback<ApiResponse<String>>() {
+        Api.confirmContract(confirmContractRequest, new ApiCallback<ApiResponse<Process>>() {
             @Override
             public void onPreLoad() {
 
@@ -221,13 +221,13 @@ public class ContractActivity extends BaseSwipeBackActivity implements
             }
 
             @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
+            public void onSuccess(ApiResponse<Process> apiResponse) {
                 checkBtn.setEnabled(false);
                 postProcessSuccess();
             }
 
             @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
+            public void onFailed(ApiResponse<Process> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
                 checkBtn.setEnabled(true);
             }

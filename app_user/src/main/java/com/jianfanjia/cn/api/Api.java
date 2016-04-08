@@ -164,7 +164,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().ONE_CONTRACT, request, apiCallback);
     }
 
-    public static void confirmContract(ConfirmContractRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+    public static void confirmContract(ConfirmContractRequest request, ApiCallback<ApiResponse<Process>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().PROCESS, request, apiCallback);
     }
 

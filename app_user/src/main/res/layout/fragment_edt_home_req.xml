@@ -325,6 +325,7 @@
                                 android:maxLength="5"
                                 android:singleLine="true"
                                 android:textSize="@dimen/big_size"
+                                android:textColor="@color/black_color"
                                 android:textStyle="bold"/>
 
                             <TextView
@@ -332,6 +333,7 @@
                                 style="@style/style_edit_req_title"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:textSize="@dimen/small_size"
                                 android:text="@string/unit_million"/>
 
                         </LinearLayout>
@@ -345,6 +347,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:paddingBottom="@dimen/space_2"
+                        android:textColor="@color/font_white"
                         android:text="@string/decoratebudget_365_basic"/>
 
                 </LinearLayout>
@@ -384,6 +387,7 @@
                                 android:layout_centerVertical="true"
                                 android:maxLength="5"
                                 android:singleLine="true"
+                                android:textColor="@color/black_color"
                                 android:textSize="@dimen/big_size"
                                 android:textStyle="bold"
                                 />
@@ -393,6 +397,7 @@
                                 style="@style/style_edit_req_title"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:textSize="@dimen/small_size"
                                 android:text="@string/unit_million"/>
 
                         </LinearLayout>
@@ -413,6 +418,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:paddingBottom="@dimen/space_2"
+                        android:textColor="@color/font_white"
                         android:text="@string/decoratebudget_365_individuation"/>
 
                 </LinearLayout>
@@ -453,6 +459,7 @@
                                 android:maxLength="5"
                                 android:singleLine="true"
                                 android:textSize="@dimen/big_size"
+                                android:textColor="@color/black_color"
                                 android:textStyle="bold"/>
 
                             <TextView
@@ -460,6 +467,7 @@
                                 style="@style/style_edit_req_title"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:textSize="@dimen/small_size"
                                 android:text="@string/unit_million"/>
 
                         </LinearLayout>
@@ -480,6 +488,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:paddingBottom="@dimen/space_2"
+                        android:textColor="@color/font_white"
                         android:text="@string/decoratebudget_365_total"/>
 
 
