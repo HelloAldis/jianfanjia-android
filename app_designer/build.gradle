@@ -8,8 +8,8 @@ android {
         applicationId "com.jianfanjia.cn.designer"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 37
-        versionName "2.5.0"
+        versionCode 38
+        versionName "2.5.1"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
