@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
@@ -16,6 +14,9 @@ import com.jianfanjia.cn.designer.business.RequirementBusiness;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -93,7 +94,7 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     }
 
     public void initView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_req));
+        mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_home_req));
         mainHeadView.setRightTitleVisable(View.GONE);
 
         initStringArray();
