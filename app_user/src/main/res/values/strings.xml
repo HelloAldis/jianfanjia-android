@@ -264,7 +264,7 @@
 
     <!-- edit activity -->
     <string name="input_name">请输入昵称</string>
-    <string name="input_home">请输入家庭地址</string>
+    <string name="input_home">请输入详细地址</string>
     <!-- edit activity -->
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">LoginActivity</string>
