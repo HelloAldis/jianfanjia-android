@@ -101,7 +101,7 @@
             android:orientation="horizontal"
             android:paddingRight="24dp">
 
-        <TextView
+            <TextView
                 android:id="@+id/act_edit_req_dong_title"
                 style="@style/style_edit_req_title"
                 android:text="@string/house_number_text" />
@@ -253,6 +253,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
                 android:gravity="center_vertical|right"
+                android:hint="@string/example_input_budget"
                 android:inputType="number"
                 android:maxLength="3"
                 android:minWidth="@dimen/space_48"
