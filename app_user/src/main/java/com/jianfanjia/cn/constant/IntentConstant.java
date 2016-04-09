@@ -8,7 +8,9 @@ package com.jianfanjia.cn.constant;
  */
 public class IntentConstant {
 
-    public static final String ISREGIISTER = "isregister";//是否是注册
+    public static final String LOGIN_REGIISTER_TYPE = "is_login_register";//是否是登录注册
+    public static final int LOGIN_FRAGMENT = 0;//登录
+    public static final int REGISTER_FRAGMENT = 1;//注册
 
     public static final String REGISTER_INFO = "register_info";
     public static final String REGISTER = "register";

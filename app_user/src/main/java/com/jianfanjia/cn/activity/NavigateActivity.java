@@ -94,11 +94,14 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_login_text:
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(IntentConstant.ISREGIISTER, true);
-                startActivity(LoginNewActivity.class, bundle);
+                Bundle loginBundle = new Bundle();
+                loginBundle.putInt(IntentConstant.LOGIN_REGIISTER_TYPE, IntentConstant.LOGIN_FRAGMENT);
+                startActivity(LoginNewActivity.class, loginBundle);
                 break;
             case R.id.registerText:
+                Bundle registerBundle = new Bundle();
+                registerBundle.putInt(IntentConstant.LOGIN_REGIISTER_TYPE, IntentConstant.REGISTER_FRAGMENT);
+                startActivity(LoginNewActivity.class, registerBundle);
                 break;
             case R.id.btnWeixinLayout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;

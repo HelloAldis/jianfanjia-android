@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,9 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.fragment.LoginFragment;
 import com.jianfanjia.cn.fragment.RegisterFragment;
 import com.jianfanjia.cn.view.ViewPagerIndicator;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +32,7 @@ public class LoginNewActivity extends BaseActivity {
     private static final String[] tabTitles = new String[]{
             "登录", "注册"
     };
-
+    private int currentFragment = 0;
     private List<Fragment> fragmentList = new ArrayList<>();
     private FragmentPagerAdapter mAdapter;
 
@@ -56,6 +59,10 @@ public class LoginNewActivity extends BaseActivity {
     }
 
     private void initView() {
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        currentFragment = bundle.getInt(IntentConstant.LOGIN_REGIISTER_TYPE);
+        LogTool.d(TAG, "currentFragment=" + currentFragment);
         viewPagerIndicator.setTabItemTitles(Arrays.asList(tabTitles));
         fragmentList.add(new LoginFragment());
         fragmentList.add(new RegisterFragment());
@@ -74,7 +81,7 @@ public class LoginNewActivity extends BaseActivity {
             }
         };
         viewPager.setAdapter(mAdapter);
-        viewPagerIndicator.setViewPager(viewPager, 0);
+        viewPagerIndicator.setViewPager(viewPager, currentFragment);
     }
 
     @Override
