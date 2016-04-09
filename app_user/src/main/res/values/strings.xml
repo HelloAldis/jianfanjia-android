@@ -387,7 +387,7 @@
     <string name="decoratebudget_365_individuation">个性化费用</string>
     <string name="decoratebudget_365_total">装修总预算</string>
     <string name="str_coveredarea">建筑面积（㎡）</string>
-    <string name="str_decoratebudget_with_unit">装修预算（万元）</string>
+    <string name="str_decoratebudget_with_unit">装修总预算（万元）</string>
     <string name="money_alias">￥</string>
     <string name="create_my_requirement">我要装修</string>
 </resources>

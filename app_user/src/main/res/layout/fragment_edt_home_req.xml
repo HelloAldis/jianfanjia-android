@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jianfanjia.cn.view.ReboundScrollView
+<com.jianfanjia.cn.view.ReboundScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
@@ -20,7 +19,7 @@
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_city"
@@ -29,7 +28,7 @@
             android:layout_height="48dp"
             android:nextFocusDown="@+id/act_edit_req_street_content">
 
-            <requestFocus/>
+            <requestFocus />
 
             <TextView
                 android:id="@+id/act_edit_req_city_title"
@@ -37,7 +36,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_city"/>
+                android:text="@string/str_city" />
 
 
             <ImageView
@@ -47,7 +46,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_city_content"
@@ -56,12 +55,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
                 android:ellipsize="end"
-                android:singleLine="true"/>
+                android:singleLine="true" />
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <LinearLayout
             android:id="@+id/act_edit_req_cell"
@@ -75,7 +74,7 @@
             <TextView
                 android:id="@+id/act_edit_req_cell_title"
                 style="@style/style_edit_req_title"
-                android:text="@string/str_cell"/>
+                android:text="@string/str_cell" />
 
             <EditText
                 android:id="@+id/act_edit_req_cell_content"
@@ -83,14 +82,15 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
+                android:hint="@string/example_input_cell"
                 android:maxLength="20"
-                android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+                android:nextFocusDown="@+id/act_edit_req_dong_content" />
 
         </LinearLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <LinearLayout
             android:id="@+id/act_edit_req_adressdetail"
@@ -101,10 +101,10 @@
             android:orientation="horizontal"
             android:paddingRight="24dp">
 
-            <TextView
+        <TextView
                 android:id="@+id/act_edit_req_dong_title"
                 style="@style/style_edit_req_title"
-                android:text="@string/house_number_text"/>
+                android:text="@string/house_number_text" />
 
             <EditText
                 android:id="@+id/act_edit_req_dong_content"
@@ -112,18 +112,19 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical|right"
-                android:maxLength="20"/>
+                android:hint="@string/example_input_dong"
+                android:maxLength="20" />
 
         </LinearLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <View
             style="@style/divier_line"
             android:layout_marginTop="@dimen/space_10"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
 
         <RelativeLayout
@@ -138,7 +139,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_housetype"/>
+                android:text="@string/str_housetype" />
 
 
             <ImageView
@@ -148,19 +149,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_housetype_content"
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
 
         <RelativeLayout
@@ -175,7 +176,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_work_type"/>
+                android:text="@string/str_work_type" />
 
 
             <ImageView
@@ -185,20 +186,20 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_work_type_content"
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
         </RelativeLayout>
 
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_housearea"
@@ -212,25 +213,25 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_coveredarea"/>
+                android:text="@string/str_coveredarea" />
 
             <EditText
                 android:id="@+id/act_edit_req_housearea_content"
                 style="@style/style_edit_req_edit"
+                android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/act_edit_req_housearea_title"
                 android:gravity="center_vertical|right"
                 android:inputType="number"
                 android:maxLength="4"
-                android:layout_alignParentRight="true"
                 android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
-                android:numeric="integer"/>
+                android:numeric="integer" />
 
         </RelativeLayout>
 
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_decoratebudget"
@@ -244,24 +245,24 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_decoratebudget_with_unit"/>
+                android:text="@string/str_decoratebudget_with_unit" />
 
             <EditText
                 android:id="@+id/act_edit_req_decoratebudget_content"
                 style="@style/style_edit_req_edit"
+                android:layout_alignParentRight="true"
                 android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
                 android:gravity="center_vertical|right"
                 android:inputType="number"
-                android:layout_alignParentRight="true"
                 android:maxLength="3"
                 android:minWidth="@dimen/space_48"
-                android:numeric="integer"/>
+                android:numeric="integer" />
 
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <LinearLayout
             android:id="@+id/act_edit_req_decoratebudget_365"
@@ -277,16 +278,16 @@
                 android:id="@+id/act_edit_req_decoratebudget_365_alert"
                 style="@style/listview_item_text_style_small"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/space_8"
                 android:text="@string/decoratebudget_365_alert"
                 android:textColor="@color/color_red"
-                android:layout_marginBottom="@dimen/space_8"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/act_edit_req_decoratebudget_365_title"
                 style="@style/listview_item_text_style_small"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/decoratebudget_365_title"/>
+                android:text="@string/decoratebudget_365_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -314,8 +315,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:orientation="horizontal"
-                            >
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/decoratebudget_365_basic_price"
@@ -324,17 +324,17 @@
                                 android:layout_centerVertical="true"
                                 android:maxLength="5"
                                 android:singleLine="true"
-                                android:textSize="@dimen/big_size"
                                 android:textColor="@color/black_color"
-                                android:textStyle="bold"/>
+                                android:textSize="@dimen/big_size"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/decoratebudget_365_basic_unit"
                                 style="@style/style_edit_req_title"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:textSize="@dimen/small_size"
-                                android:text="@string/unit_million"/>
+                                android:text="@string/unit_million"
+                                android:textSize="@dimen/small_size" />
 
                         </LinearLayout>
 
@@ -347,8 +347,8 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:paddingBottom="@dimen/space_2"
-                        android:textColor="@color/font_white"
-                        android:text="@string/decoratebudget_365_basic"/>
+                        android:text="@string/decoratebudget_365_basic"
+                        android:textColor="@color/font_white" />
 
                 </LinearLayout>
 
@@ -357,7 +357,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/space_8"
-                    android:src="@mipmap/icon_plus"/>
+                    android:src="@mipmap/icon_plus" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -389,16 +389,15 @@
                                 android:singleLine="true"
                                 android:textColor="@color/black_color"
                                 android:textSize="@dimen/big_size"
-                                android:textStyle="bold"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/decoratebudget_365_individuation_unit"
                                 style="@style/style_edit_req_title"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:textSize="@dimen/small_size"
-                                android:text="@string/unit_million"/>
+                                android:text="@string/unit_million"
+                                android:textSize="@dimen/small_size" />
 
                         </LinearLayout>
 
@@ -407,7 +406,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:src="@mipmap/icon_error"/>
+                            android:src="@mipmap/icon_error" />
 
                     </RelativeLayout>
 
@@ -418,8 +417,8 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:paddingBottom="@dimen/space_2"
-                        android:textColor="@color/font_white"
-                        android:text="@string/decoratebudget_365_individuation"/>
+                        android:text="@string/decoratebudget_365_individuation"
+                        android:textColor="@color/font_white" />
 
                 </LinearLayout>
 
@@ -428,7 +427,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/space_8"
-                    android:src="@mipmap/icon_equal"/>
+                    android:src="@mipmap/icon_equal" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -458,17 +457,17 @@
                                 android:layout_centerVertical="true"
                                 android:maxLength="5"
                                 android:singleLine="true"
-                                android:textSize="@dimen/big_size"
                                 android:textColor="@color/black_color"
-                                android:textStyle="bold"/>
+                                android:textSize="@dimen/big_size"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/decoratebudget_365_total_unit"
                                 style="@style/style_edit_req_title"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:textSize="@dimen/small_size"
-                                android:text="@string/unit_million"/>
+                                android:text="@string/unit_million"
+                                android:textSize="@dimen/small_size" />
 
                         </LinearLayout>
 
@@ -477,7 +476,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:src="@mipmap/icon_error"/>
+                            android:src="@mipmap/icon_error" />
 
                     </RelativeLayout>
 
@@ -488,8 +487,8 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1"
                         android:paddingBottom="@dimen/space_2"
-                        android:textColor="@color/font_white"
-                        android:text="@string/decoratebudget_365_total"/>
+                        android:text="@string/decoratebudget_365_total"
+                        android:textColor="@color/font_white" />
 
 
                 </LinearLayout>
@@ -505,18 +504,18 @@
                 android:paddingBottom="@dimen/space_8"
                 android:paddingTop="@dimen/space_8"
                 android:text="@string/decoratebudget_365_detail"
-                android:textColor="@color/orange_color"/>
+                android:textColor="@color/orange_color" />
 
         </LinearLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <View
             style="@style/divier_line"
             android:layout_marginTop="@dimen/space_10"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_persons"
@@ -530,7 +529,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_persons"/>
+                android:text="@string/str_persons" />
 
 
             <ImageView
@@ -540,19 +539,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_persons_content"
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_lovestyle"
@@ -566,7 +565,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_lovestyle"/>
+                android:text="@string/str_lovestyle" />
 
 
             <ImageView
@@ -576,19 +575,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_lovestyle_content"
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_lovedesistyle"
@@ -602,7 +601,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_lovedesistyle"/>
+                android:text="@string/str_lovedesistyle" />
 
 
             <ImageView
@@ -612,19 +611,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_lovedesistyle_content"
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
 
         <RelativeLayout
             android:id="@+id/act_edit_req_lovedesisex"
@@ -638,7 +637,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_lovedesisex"/>
+                android:text="@string/str_lovedesisex" />
 
             <ImageView
                 android:id="@+id/act_edit_req_lovedesisex_goto"
@@ -647,19 +646,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_next"/>
+                android:src="@mipmap/icon_next" />
 
             <TextView
                 android:id="@+id/act_edit_req_lovedesisex_content"
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
         </RelativeLayout>
 
         <View
             style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
+            android:background="@color/horzontal_line_color" />
     </LinearLayout>
 
 </com.jianfanjia.cn.view.ReboundScrollView>

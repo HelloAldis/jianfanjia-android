@@ -6,16 +6,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.fragment.LoginFragment;
+import com.jianfanjia.cn.fragment.RegisterFragment;
+import com.jianfanjia.cn.view.ViewPagerIndicator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.fragment.LoginFragment;
-import com.jianfanjia.cn.fragment.RegisterFragment;
-import com.jianfanjia.cn.view.ViewPagerIndicator;
 
 /**
  * @author fengliang
@@ -41,7 +42,6 @@ public class LoginNewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initData();
     }
@@ -57,10 +57,8 @@ public class LoginNewActivity extends BaseActivity {
 
     private void initView() {
         viewPagerIndicator.setTabItemTitles(Arrays.asList(tabTitles));
-
         fragmentList.add(new LoginFragment());
         fragmentList.add(new RegisterFragment());
-
     }
 
     private void initData() {
@@ -75,11 +73,8 @@ public class LoginNewActivity extends BaseActivity {
                 return fragmentList.size();
             }
         };
-
         viewPager.setAdapter(mAdapter);
         viewPagerIndicator.setViewPager(viewPager, 0);
-
-
     }
 
     @Override
