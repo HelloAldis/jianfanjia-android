@@ -1,13 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/font_white"
-             android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font_white"
+    android:orientation="vertical">
 
     <com.jianfanjia.cn.view.WrapContentHeightViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/dot_layout"
@@ -22,43 +22,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_selector"/>
+            android:src="@mipmap/icon_dot_selector" />
 
         <ImageView
             android:layout_width="@dimen/space_4"
             android:layout_height="@dimen/space_4"
-            android:background="@color/transparent"/>
+            android:background="@color/transparent" />
 
         <ImageView
             android:id="@+id/welcome_dot1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal"/>
+            android:src="@mipmap/icon_dot_normal" />
 
         <ImageView
             android:layout_width="@dimen/space_4"
             android:layout_height="@dimen/space_4"
-            android:background="@color/transparent"/>
+            android:background="@color/transparent" />
 
         <ImageView
             android:id="@+id/welcome_dot2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal"/>
+            android:src="@mipmap/icon_dot_normal" />
 
         <ImageView
             android:layout_width="@dimen/space_4"
             android:layout_height="@dimen/space_4"
-            android:background="@color/transparent"/>
+            android:background="@color/transparent" />
 
         <ImageView
             android:id="@+id/welcome_dot3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/icon_dot_normal"/>
+            android:src="@mipmap/icon_dot_normal" />
 
     </LinearLayout>
 
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_weixin_login_bg"/>
+                    android:src="@mipmap/icon_weixin_login_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@id/icon_weixin"
                     android:text="@string/weixin_login_text"
-                    android:textColor="@color/font_white"/>
+                    android:textColor="@color/font_white" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -112,16 +112,16 @@
                 android:layout_alignParentLeft="true"
                 android:text="@string/register_login_text"
                 android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_16"/>
+                android:textSize="@dimen/text_size_16" />
 
             <TextView
-                android:id="@+id/enterText"
+                android:id="@+id/registerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="@string/enterText"
+                android:text="@string/registerText"
                 android:textColor="@color/orange_color"
-                android:textSize="@dimen/text_size_16"/>
+                android:textSize="@dimen/text_size_16" />
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

@@ -9,12 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -30,6 +24,13 @@ import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * @author fengliang
  * @ClassName: NavigateActivity
@@ -43,8 +44,8 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
     @Bind(R.id.register_login_text)
     TextView register_login_text;
 
-    @Bind(R.id.enterText)
-    TextView enterText;
+    @Bind(R.id.registerText)
+    TextView registerText;
 
     @Bind(R.id.btnWeixinLayout)
     RelativeLayout btnWeixinLayout;
@@ -89,7 +90,7 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
         viewPager.setOnPageChangeListener(this);
     }
 
-    @OnClick({R.id.register_login_text, R.id.enterText, R.id.btnWeixinLayout})
+    @OnClick({R.id.register_login_text, R.id.registerText, R.id.btnWeixinLayout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register_login_text:
@@ -97,7 +98,7 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
                 bundle.putBoolean(IntentConstant.ISREGIISTER, true);
                 startActivity(LoginNewActivity.class, bundle);
                 break;
-            case R.id.enterText:
+            case R.id.registerText:
                 break;
             case R.id.btnWeixinLayout:
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
