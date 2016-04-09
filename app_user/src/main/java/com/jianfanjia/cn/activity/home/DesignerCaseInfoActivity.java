@@ -12,11 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -36,6 +31,14 @@ import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.view.ViewPropertyAnimator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -46,8 +49,9 @@ import de.greenrobot.event.EventBus;
  */
 public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
-    private static final int SCROLL_Y = 100;
+    private static final int SCROLL_Y = 120;
     private int mScrollY = 0;
+    private boolean mHeaderIsShow = false;
 
     @Bind(R.id.head_back_layout)
     protected RelativeLayout head_back_layout = null;
@@ -121,14 +125,70 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 mScrollY += dy;
                 if (mScrollY > SCROLL_Y) {
-                    activity_case_info_top_layout.setVisibility(View.VISIBLE);
-                    tv_title.setVisibility(View.VISIBLE);
+                    showTopHeader();
                 } else {
-                    activity_case_info_top_layout.setVisibility(View.GONE);
-                    tv_title.setVisibility(View.GONE);
+                    hideTopHeader();
                 }
             }
         });
+    }
+
+    private void showTopHeader() {
+        if (!mHeaderIsShow) {
+            ViewPropertyAnimator.animate(activity_case_info_top_layout).cancel();
+            ViewPropertyAnimator.animate(activity_case_info_top_layout).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    activity_case_info_top_layout.setVisibility(View.VISIBLE);
+                    tv_title.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            }).translationY(0).setDuration(300).start();
+            mHeaderIsShow = true;
+        }
+    }
+
+    private void hideTopHeader() {
+        if (mHeaderIsShow) {
+            ViewPropertyAnimator.animate(activity_case_info_top_layout).cancel();
+            ViewPropertyAnimator.animate(activity_case_info_top_layout).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    activity_case_info_top_layout.setVisibility(View.GONE);
+                    tv_title.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            }).translationY(-SCROLL_Y).setDuration(300).start();
+            mHeaderIsShow = false;
+        }
     }
 
     @OnClick({R.id.head_back_layout, R.id.toolbar_collect_layout, R.id.top_info_layout})
@@ -136,7 +196,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
-                overridePendingTransition(0,R.anim.slide_out_to_bottom);
+                overridePendingTransition(0, R.anim.slide_out_to_bottom);
                 break;
             case R.id.toolbar_collect_layout:
                 UiHelper.imageButtonAnim(toolbar_collect, null);
