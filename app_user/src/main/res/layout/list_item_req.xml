@@ -38,7 +38,7 @@
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/ltm_req_owner_head"
             android:ellipsize="end"
-            android:maxWidth="100dp"
+            android:maxWidth="150dp"
             android:singleLine="true"
             android:text="@string/str_cell"
             android:textColor="@color/light_black_color"
