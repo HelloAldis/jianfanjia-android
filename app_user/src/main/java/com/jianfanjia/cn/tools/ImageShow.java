@@ -58,13 +58,14 @@ public class ImageShow {
 
     /**
      * 加载宽高缩略图
+     *
      * @param imageid
      * @param imageView
      * @param width
      * @param height
      */
     public void displayThumbnailImageByHeightAndWidth(String imageid, ImageView imageView, int width, int height) {
-        displayThumbnailImageByHeightAndWidth(imageid, imageView, width, height, false);
+        displayThumbnailImageByHeightAndWidth(imageid, imageView, width, height, true);
     }
 
     public void displayThumbnailImageByHeightAndWidth(String imageid, ImageView imageView, int width, int height,
@@ -97,11 +98,11 @@ public class ImageShow {
      * @param imageid
      */
     public void displayScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth(), false);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth(), true);
     }
 
     public void displayHalfScreenWidthThumnailImage(Context context, String imageid, ImageView imageView) {
-        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2, false);
+        displayThumbnailImage(imageid, imageView, (int) TDevice.getScreenWidth() / 2, true);
     }
 
     /**

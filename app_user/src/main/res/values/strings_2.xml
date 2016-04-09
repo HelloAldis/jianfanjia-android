@@ -40,6 +40,7 @@
     <string name="str_not_order">未预约</string>
     <string name="str_dong">栋</string>
     <string name="str_lovedesistyle">偏好设计师类型</string>
+    <string name="no_limit">不限</string>
     <string name="str_change_designer">替换</string>
     <string name="str_comment">评价</string>
     <string name="str_already_comment">已评价</string>

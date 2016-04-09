@@ -15,9 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
@@ -34,6 +31,10 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * Description: com.jianfanjia.cn.fragment
  * Author: zhanghao
@@ -41,7 +42,7 @@ import com.jianfanjia.common.tool.TDevice;
  * Date:2015-12-15 14:43
  */
 public class EditHomeRequirementFragment extends BaseFragment {
-
+    private static final String TAG = EditHomeRequirementFragment.class.getName();
     private NotifyActivityStatusChange hostActivity;
     private boolean isFinish = false;//是否所有字段都填了
     private int actionType = -1;//创建需求or修改需求
@@ -166,15 +167,15 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     private void showOrHide365Layout() {
         String workType = requirementInfo.getWork_type();
-        LogTool.d(this.getClass().getName(), "workType =" + workType);
-        if(workType.equals(Global.PURE_DESIGNER)){//装修类型选择纯设计
+        LogTool.d(TAG, "workType =" + workType);
+        if (workType.equals(Global.PURE_DESIGNER)) {//装修类型选择纯设计
             reset365LayoutAndStatus();
-        }else{
+        } else {
             determineShowOrNotByHouseArea();
         }
     }
 
-    private void reset365LayoutAndStatus(){
+    private void reset365LayoutAndStatus() {
         isShowBudget365 = false;
         isTotalBudegetCorrect = false;
         budget365Layout.setVisibility(View.GONE);
@@ -215,7 +216,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             String totalText = RequirementBusiness.covertPriceToShow(total);
             String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
 
-            LogTool.d(this.getClass().getName(), "tatoal =" + totalText + "  basicPrice =" + basicPrice);
+            LogTool.d(TAG, "tatoal =" + totalText + "  basicPrice =" + basicPrice);
             if (total >= basicPrice) {
                 budget365AlertView.setVisibility(View.GONE);
                 isTotalBudegetCorrect = true;
@@ -252,7 +253,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             public void run() {
                 int scrollY = contentLayout.getHeight() + TDevice.dip2px(getContext(), 110) - rootScrollView
                         .getHeight();
-                LogTool.d(this.getClass().getName(), "contentLayout.getHeight() =" + contentLayout.getMeasuredHeight
+                LogTool.d(TAG, "contentLayout.getHeight() =" + contentLayout.getMeasuredHeight
                         () + "  " +
                         "rootScrollView.getHeight() =" + rootScrollView.getHeight() + " scrollY=" + scrollY);
                 rootScrollView.smoothScrollTo(0, scrollY);
@@ -316,7 +317,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
         } else {
             isFinish = false;
         }
-        LogTool.d(this.getClass().getName(), "isFinish = " + isFinish);
+        LogTool.d(TAG, "isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }
 
@@ -325,7 +326,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             R.id.act_edit_req_persons,
             R.id.act_edit_req_lovedesistyle,
             R.id.act_edit_req_lovedesisex,
-            R.id.act_edit_req_work_type,R.id.act_edit_req_decoratebudget_365_detail})
+            R.id.act_edit_req_work_type, R.id.act_edit_req_decoratebudget_365_detail})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -411,7 +412,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
                         arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type())
-                        ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+                        ? getResources().getString(R.string.no_limit) : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
                 act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
                         arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :

@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
@@ -26,6 +23,10 @@ import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.common.tool.LogTool;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * Description: com.jianfanjia.cn.fragment
  * Author: zhanghao
@@ -33,7 +34,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Date:2015-12-15 14:43
  */
 public class EditBussinessRequirementFragment extends BaseFragment {
-
+    private static final String TAG = EditBussinessRequirementFragment.class.getName();
     private NotifyActivityStatusChange hostActivity;
     protected boolean isFinish = false;//编辑是否已经完成
     private int actionType = -1;//创建需求or修改需求
@@ -143,7 +144,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
         } else {
             isFinish = false;
         }
-        LogTool.d(this.getClass().getName(), "isFinish = " + isFinish);
+        LogTool.d(TAG, "isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }
 
@@ -203,7 +204,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
     }
 
     private void initData() {
-        LogTool.d(this.getClass().getName(), "initData");
+        LogTool.d(TAG, "initData");
         requirementInfo = (Requirement) getArguments().getSerializable(IntentConstant.REQUIREMENT_INFO);
         actionType = getArguments().getInt(IntentConstant.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {
@@ -233,7 +234,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
                         arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type())
-                        ? "" : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+                        ? getResources().getString(R.string.no_limit) : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
                 act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
                         arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
