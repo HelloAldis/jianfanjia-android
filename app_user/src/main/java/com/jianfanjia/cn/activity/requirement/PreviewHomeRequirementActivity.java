@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
@@ -16,6 +14,9 @@ import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -93,7 +94,7 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     }
 
     public void initView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_req));
+        mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_home_req));
         mainHeadView.setRightTitleVisable(View.GONE);
         budget365Layout.setVisibility(View.GONE);
 
