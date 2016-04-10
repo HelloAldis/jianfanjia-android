@@ -38,7 +38,7 @@
                 android:layout_centerVertical="true"
                 android:ellipsize="end"
                 android:gravity="left"
-                android:maxEms="4"
+                android:maxEms="8"
                 android:singleLine="true"
                 android:text="@string/user_name"
                 android:textColor="@color/light_black_color" />
@@ -66,6 +66,7 @@
                 style="@style/listview_item_text_style_small"
                 android:layout_width="match_parent"
                 android:layout_alignBaseline="@+id/ltm_req_username"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/ltm_req_status"
                 android:gravity="right"
                 android:singleLine="true"
