@@ -12,7 +12,8 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/head_layout_bg" />
 
-    <FrameLayout android:id="@+id/content_layout"
+    <FrameLayout
+        android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></FrameLayout>
 

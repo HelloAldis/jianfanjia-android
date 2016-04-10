@@ -21,6 +21,7 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.common.tool.LogTool;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ import butterknife.ButterKnife;
  * Date:2015-10-19 19:15
  */
 public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> {
+    private static final String TAG = RequirementNewAdapter.class.getName();
     private Context context;
     private ClickCallBack clickCallBack;
     private DataManagerNew dataManagerNew;
@@ -125,6 +127,14 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 ltm_req_owner_head.setImageResource(R.mipmap.icon_default_head);
             }
             String requirementStatus = requirementInfo.getStatus();
+            String workType = requirementInfo.getWork_type();
+            LogTool.d(TAG, "workType===========================" + workType);
+            if (workType.equals(Global.PURE_DESIGNER)) {
+                ltm_req_gotopro.setVisibility(View.GONE);
+            } else {
+                ltm_req_gotopro.setVisibility(View.VISIBLE);
+            }
+
             if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global
                     .REQUIREMENT_STATUS8)) {
                 ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_pro));
