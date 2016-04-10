@@ -110,11 +110,15 @@
 
             <Button
                 android:id="@+id/btn_next"
-                style="@style/button_login_style"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:layout_marginTop="@dimen/space_60"
+                android:background="@drawable/btn_selector_bg"
                 android:enabled="false"
                 android:text="@string/next"
-                android:textColor="@color/font_white" />
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14" />
         </LinearLayout>
     </RelativeLayout>
 
