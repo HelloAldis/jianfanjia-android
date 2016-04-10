@@ -12,14 +12,33 @@ import java.util.Map;
  */
 public class GetDecorateLiveRequest extends BaseRequest {
 
-    private Map<String, Object> param;
+    private Map<String, Object> query;
 
+    private int from;
 
-    public Map<String, Object> getParam() {
-        return param;
+    private int limit;
+
+    public int getFrom() {
+        return from;
     }
 
-    public void setParam(Map<String, Object> param) {
-        this.param = param;
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public Map<String, Object> getQuery() {
+        return query;
+    }
+
+    public void setQuery(Map<String, Object> query) {
+        this.query = query;
     }
 }

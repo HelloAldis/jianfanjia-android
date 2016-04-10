@@ -266,13 +266,11 @@ public class DecorateLiveFragment extends BaseFragment {
 
     private void searchShare(int from, int queryStatus, ApiCallback<ApiResponse<DecorateLiveList>> listener) {
         GetDecorateLiveRequest request = new GetDecorateLiveRequest();
-        Map<String, Object> param = new HashMap<>();
-        param.put(Constant.FROM, from);
-        param.put(Constant.LIMIT, Constant.HOME_PAGE_LIMIT);
-        Map<String, Object> query = new HashMap<>();
-        query.put("progress", queryStatus + "");
-        param.put(Constant.QUERY, query);
-        request.setParam(param);
+        Map<String, Object> params = new HashMap<>();
+        params.put("progress", queryStatus + "");
+        request.setQuery(params);
+        request.setFrom(from);
+        request.setLimit(Constant.HOME_PAGE_LIMIT);
         Api.searchShare(request, listener);
     }
 
