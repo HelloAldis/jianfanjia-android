@@ -89,7 +89,7 @@
         android:enabled="false"
         android:text="@string/login"
         android:textColor="@color/font_white"
-        android:textSize="@dimen/text_size_14" />
+        android:textSize="@dimen/text_size_16" />
 
     <TextView
         android:id="@+id/act_forget_password"
