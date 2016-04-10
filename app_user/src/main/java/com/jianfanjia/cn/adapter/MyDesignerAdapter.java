@@ -54,10 +54,10 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
         switch (viewType) {
             case PLAN_TYPE0:
                 return MyDesignerViewType0.build(context);
-            case PLAN_TYPE2:
-                return MyDesignerViewType2.build(context);
             case PLAN_TYPE1:
                 return MyDesignerViewType1.build(context);
+            case PLAN_TYPE2:
+                return MyDesignerViewType2.build(context);
             case PLAN_TYPE3:
                 return MyDesignerViewType3.build(context);
             case PLAN_TYPE4:
@@ -82,13 +82,13 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
                 MyDesignerViewType0 view0 = (MyDesignerViewType0) holder;
                 view0.bind(orderDesignerInfo, clickCallBack, position);
                 break;
-            case PLAN_TYPE2:
-                MyDesignerViewType2 view2 = (MyDesignerViewType2) holder;
-                view2.bind(orderDesignerInfo, clickCallBack, position);
-                break;
             case PLAN_TYPE1:
                 MyDesignerViewType1 view1 = (MyDesignerViewType1) holder;
                 view1.bind(orderDesignerInfo, clickCallBack, position);
+                break;
+            case PLAN_TYPE2:
+                MyDesignerViewType2 view2 = (MyDesignerViewType2) holder;
+                view2.bind(orderDesignerInfo, clickCallBack, position);
                 break;
             case PLAN_TYPE3:
                 MyDesignerViewType3 view3 = (MyDesignerViewType3) holder;
