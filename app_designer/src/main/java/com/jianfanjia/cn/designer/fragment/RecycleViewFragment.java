@@ -107,8 +107,8 @@ public class RecycleViewFragment extends BaseFragment {
 
     private Context _context;
 
-    private String refuseMsg;
-    private CommonDialog refuseDialog;
+    private CommonDialog refuseDialog = null;
+    private String refuseMsg = null;
 
     public static RecycleViewFragment newInstance(int num) {
         RecycleViewFragment f = new RecycleViewFragment();
@@ -368,7 +368,7 @@ public class RecycleViewFragment extends BaseFragment {
                     }
                 });
         refuseDialog.setNegativeButton(R.string.no, null);
-        refuseDialog.show();
+        refuseDialog.show(); 
     }
 
     private void notifyOwnerConfirmHouse(Requirement requirementInfo) {

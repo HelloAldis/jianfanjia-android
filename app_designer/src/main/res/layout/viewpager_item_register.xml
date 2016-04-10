@@ -90,7 +90,7 @@
         android:enabled="false"
         android:text="@string/next"
         android:textColor="@color/font_white"
-        android:textSize="@dimen/text_size_14" />
+        android:textSize="@dimen/text_size_16" />
 
     <RelativeLayout
         android:id="@+id/btn_register_weixin_layout"
