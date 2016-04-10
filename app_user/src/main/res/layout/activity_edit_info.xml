@@ -27,7 +27,7 @@
         android:id="@+id/btn_commit"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/edit_info"
         android:layout_margin="@dimen/space_16"
         android:background="@drawable/btn_selector_bg"

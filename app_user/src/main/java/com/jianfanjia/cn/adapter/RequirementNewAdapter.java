@@ -21,7 +21,6 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
-import com.jianfanjia.common.tool.LogTool;
 
 import java.util.List;
 
@@ -128,7 +127,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             }
             String requirementStatus = requirementInfo.getStatus();
             String workType = requirementInfo.getWork_type();
-            LogTool.d(TAG, "workType===========================" + workType);
             if (workType.equals(Global.PURE_DESIGNER)) {
                 ltm_req_gotopro.setVisibility(View.GONE);
             } else {
