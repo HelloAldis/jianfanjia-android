@@ -10,8 +10,7 @@
     <FrameLayout
         android:id="@+id/act_forget_psw_input_phone_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/act_forget_psw_input_phone"
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:src="@mipmap/icon_delete"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             style="@style/divier_line"
@@ -49,8 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/act_forget_psw_input_phone_layout"
-        android:layout_marginTop="@dimen/space_16"
-        >
+        android:layout_marginTop="@dimen/space_16">
 
         <EditText
             android:id="@+id/act_forget_psw_input_password"
@@ -75,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:src="@mipmap/icon_delete"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             style="@style/divier_line"
@@ -84,11 +82,15 @@
 
     <Button
         android:id="@+id/btn_next"
-        style="@style/button_login_style"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_marginTop="180dp"
+        android:background="@drawable/btn_selector_bg"
+        android:enabled="false"
         android:text="@string/next"
         android:textColor="@color/font_white"
-        android:enabled="false"/>
+        android:textSize="@dimen/text_size_14" />
 
     <RelativeLayout
         android:id="@+id/btn_register_weixin_layout"
