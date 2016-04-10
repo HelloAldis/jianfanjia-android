@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/main_layout_bg"
-              android:focusable="false"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:focusable="false"
+    android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/act_edit_req_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/head_layout_bg"/>
+        android:background="@color/head_layout_bg" />
 
     <com.jianfanjia.cn.view.ReboundScrollView
         android:id="@+id/scrollView"
@@ -28,7 +28,7 @@
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_city"
@@ -39,7 +39,7 @@
                 android:focusableInTouchMode="true"
                 android:nextFocusDown="@+id/act_edit_req_street_content">
 
-                <requestFocus/>
+                <requestFocus />
 
                 <TextView
                     android:id="@+id/act_edit_req_city_title"
@@ -47,93 +47,74 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_city"/>
+                    android:text="@string/str_city" />
 
 
                 <TextView
                     android:id="@+id/act_edit_req_city_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/act_edit_req_cell"
                 style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingRight="24dp">
+                android:layout_height="48dp">
 
                 <TextView
                     android:id="@+id/act_edit_req_cell_title"
                     style="@style/style_edit_req_title"
-                    android:text="@string/str_cell"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_cell" />
 
                 <TextView
                     android:id="@+id/act_edit_req_cell_content"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical|right"
-                    android:maxLength="20"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_16"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size"/>
-            </LinearLayout>
+                    style="@style/style_edit_req_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/act_edit_req_adressdetail"
                 style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingRight="24dp">
+                android:layout_height="48dp">
 
                 <TextView
                     android:id="@+id/act_edit_req_dong_title"
                     style="@style/style_edit_req_title"
-                    android:text="@string/house_number_text"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/house_number_text" />
 
                 <TextView
                     android:id="@+id/act_edit_req_dong_content"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical|right"
-                    android:maxLength="10"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_16"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size"/>
-            </LinearLayout>
+                    style="@style/style_edit_req_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="@dimen/space_8"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_housetype"
@@ -147,19 +128,18 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_housetype"/>
+                    android:text="@string/str_housetype" />
 
                 <TextView
                     android:id="@+id/act_edit_req_housetype_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
 
             <RelativeLayout
@@ -174,20 +154,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_work_type"/>
+                    android:text="@string/str_work_type" />
 
                 <TextView
                     android:id="@+id/act_edit_req_work_type_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_housearea"
@@ -201,21 +180,20 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_coveredarea"/>
+                    android:text="@string/str_coveredarea" />
 
                 <TextView
                     android:id="@+id/act_edit_req_housearea_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_centerVertical="true" />
 
             </RelativeLayout>
 
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_decoratebudget"
@@ -229,20 +207,19 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_decoratebudget_with_unit"/>
+                    android:text="@string/str_decoratebudget_with_unit" />
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"/>
+                    android:layout_centerVertical="true" />
 
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <LinearLayout
                 android:id="@+id/act_edit_req_decoratebudget_365"
@@ -251,14 +228,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/space_8"
-                android:paddingTop="@dimen/space_8"
-                >
+                android:paddingTop="@dimen/space_8">
 
                 <TextView
                     android:id="@+id/act_edit_req_decoratebudget_365_title"
                     style="@style/listview_item_text_style_small"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/decoratebudget_365_title"/>
+                    android:text="@string/decoratebudget_365_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -286,8 +262,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:orientation="horizontal"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/decoratebudget_365_basic_price"
@@ -296,17 +271,17 @@
                                     android:layout_centerVertical="true"
                                     android:maxLength="5"
                                     android:singleLine="true"
-                                    android:textSize="@dimen/big_size"
                                     android:textColor="@color/black_color"
-                                    android:textStyle="bold"/>
+                                    android:textSize="@dimen/big_size"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/decoratebudget_365_basic_unit"
                                     style="@style/style_edit_req_title"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:textSize="@dimen/small_size"
-                                    android:text="@string/unit_million"/>
+                                    android:text="@string/unit_million"
+                                    android:textSize="@dimen/small_size" />
 
                             </LinearLayout>
 
@@ -319,8 +294,8 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="1"
                             android:paddingBottom="@dimen/space_2"
-                            android:textColor="@color/font_white"
-                            android:text="@string/decoratebudget_365_basic"/>
+                            android:text="@string/decoratebudget_365_basic"
+                            android:textColor="@color/font_white" />
 
                     </LinearLayout>
 
@@ -329,7 +304,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:padding="@dimen/space_8"
-                        android:src="@mipmap/icon_plus"/>
+                        android:src="@mipmap/icon_plus" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -349,8 +324,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:orientation="horizontal"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/decoratebudget_365_individuation_price"
@@ -359,18 +333,17 @@
                                     android:layout_centerVertical="true"
                                     android:maxLength="5"
                                     android:singleLine="true"
-                                    android:textSize="@dimen/big_size"
                                     android:textColor="@color/black_color"
-                                    android:textStyle="bold"
-                                    />
+                                    android:textSize="@dimen/big_size"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/decoratebudget_365_individuation_unit"
                                     style="@style/style_edit_req_title"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:textSize="@dimen/small_size"
-                                    android:text="@string/unit_million"/>
+                                    android:text="@string/unit_million"
+                                    android:textSize="@dimen/small_size" />
 
                             </LinearLayout>
 
@@ -383,8 +356,8 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="1"
                             android:paddingBottom="@dimen/space_2"
-                            android:textColor="@color/font_white"
-                            android:text="@string/decoratebudget_365_individuation"/>
+                            android:text="@string/decoratebudget_365_individuation"
+                            android:textColor="@color/font_white" />
 
                     </LinearLayout>
 
@@ -393,7 +366,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:padding="@dimen/space_8"
-                        android:src="@mipmap/icon_equal"/>
+                        android:src="@mipmap/icon_equal" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -413,8 +386,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:orientation="horizontal"
-                                >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/decoratebudget_365_total_price"
@@ -423,17 +395,17 @@
                                     android:layout_centerVertical="true"
                                     android:maxLength="5"
                                     android:singleLine="true"
-                                    android:textSize="@dimen/big_size"
                                     android:textColor="@color/black_color"
-                                    android:textStyle="bold"/>
+                                    android:textSize="@dimen/big_size"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/decoratebudget_365_total_unit"
                                     style="@style/style_edit_req_title"
                                     android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:textSize="@dimen/small_size"
-                                    android:text="@string/unit_million"/>
+                                    android:text="@string/unit_million"
+                                    android:textSize="@dimen/small_size" />
 
                             </LinearLayout>
 
@@ -446,8 +418,8 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_weight="1"
                             android:paddingBottom="@dimen/space_2"
-                            android:textColor="@color/font_white"
-                            android:text="@string/decoratebudget_365_total"/>
+                            android:text="@string/decoratebudget_365_total"
+                            android:textColor="@color/font_white" />
 
                     </LinearLayout>
 
@@ -462,18 +434,18 @@
                     android:paddingBottom="@dimen/space_8"
                     android:paddingTop="@dimen/space_8"
                     android:text="@string/decoratebudget_365_detail"
-                    android:textColor="@color/orange_color"/>
+                    android:textColor="@color/orange_color" />
 
             </LinearLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <View
                 style="@style/divier_line"
                 android:layout_marginTop="@dimen/space_8"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_persons"
@@ -487,19 +459,18 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_persons"/>
+                    android:text="@string/str_persons" />
 
                 <TextView
                     android:id="@+id/act_edit_req_persons_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovestyle"
@@ -513,19 +484,18 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_lovestyle"/>
+                    android:text="@string/str_lovestyle" />
 
                 <TextView
                     android:id="@+id/act_edit_req_lovestyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovedesistyle"
@@ -539,19 +509,18 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_lovedesistyle"/>
+                    android:text="@string/str_lovedesistyle" />
 
                 <TextView
                     android:id="@+id/act_edit_req_lovedesistyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
                 android:id="@+id/act_edit_req_lovedesisex"
@@ -565,19 +534,18 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_lovedesisex"/>
+                    android:text="@string/str_lovedesisex" />
 
                 <TextView
                     android:id="@+id/act_edit_req_lovedesisex_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
                 style="@style/divier_line"
-                android:background="@color/horzontal_line_color"/>
+                android:background="@color/horzontal_line_color" />
         </LinearLayout>
     </com.jianfanjia.cn.view.ReboundScrollView>
 

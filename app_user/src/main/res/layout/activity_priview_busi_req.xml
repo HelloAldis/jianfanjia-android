@@ -53,8 +53,7 @@
                     android:id="@+id/act_edit_req_city_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                     />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -77,19 +76,9 @@
 
                 <TextView
                     android:id="@+id/act_edit_req_street_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/act_edit_req_street_title"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="right|center_vertical"
-                    android:maxLength="20"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_4"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
+                    style="@style/style_edit_req_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"  />
 
             </RelativeLayout>
 
@@ -113,19 +102,9 @@
 
                 <TextView
                     android:id="@+id/act_edit_req_cell_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/act_edit_req_cell_title"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="right|center_vertical"
-                    android:maxLength="20"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_4"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/middle_size" />
+                    style="@style/style_edit_req_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"  />
 
             </RelativeLayout>
 
@@ -247,8 +226,7 @@
                     android:id="@+id/act_edit_req_decoratetype_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -273,8 +251,7 @@
                     android:id="@+id/act_edit_req_work_type_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -304,8 +281,7 @@
                     android:id="@+id/act_edit_req_lovestyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -330,8 +306,7 @@
                     android:id="@+id/act_edit_req_lovedesistyle_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
@@ -356,8 +331,7 @@
                     android:id="@+id/act_edit_req_lovedesisex_content"
                     style="@style/style_edit_req_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View
