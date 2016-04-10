@@ -45,6 +45,7 @@
     <string name="str_comment">评价</string>
     <string name="str_already_comment">已评价</string>
     <string name="str_check_comment">查看评价</string>
+    <string name="str_comment_str">评价设计师</string>
     <string name="str_view_plan">查看方案</string>
     <string name="str_wait_plan">等待方案上传</string>
     <string name="str_view_contract">查看合同</string>

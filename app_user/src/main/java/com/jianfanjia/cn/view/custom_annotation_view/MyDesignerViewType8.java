@@ -111,8 +111,8 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder {
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
-        button1.setText(context.getResources().getString(R.string.str_check_comment));
         if (designerInfo.getEvaluation() == null) {
+            button1.setText(context.getResources().getString(R.string.str_comment_str));
             merger_button1_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -120,6 +120,7 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder {
                 }
             });
         } else {
+            button1.setText(context.getResources().getString(R.string.str_check_comment));
             merger_button1_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
