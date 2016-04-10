@@ -63,7 +63,7 @@
                 style="@style/list_item_ratingbar_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_8"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="0"/>
