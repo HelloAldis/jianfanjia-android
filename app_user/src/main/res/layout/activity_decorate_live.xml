@@ -34,13 +34,13 @@
     <RelativeLayout
         android:id="@+id/btn_create_process_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
+        android:layout_height="@dimen/space_50"
         android:layout_alignParentBottom="true"
+        android:background="@color/font_white"
+        android:paddingBottom="@dimen/space_5"
         android:paddingLeft="@dimen/space_48"
         android:paddingRight="@dimen/space_48"
-        android:paddingBottom="@dimen/space_4"
-        android:background="@color/font_white"
-        android:paddingTop="@dimen/space_4">
+        android:paddingTop="@dimen/space_5">
 
         <TextView
             android:id="@+id/btn_create_process"
