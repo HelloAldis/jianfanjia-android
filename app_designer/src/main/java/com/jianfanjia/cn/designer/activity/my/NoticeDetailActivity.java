@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -42,6 +40,9 @@ import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -322,6 +323,9 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                             || msgType.equals(Constant.TYPE_PRODUCT_DISGRAEE)
                             || msgType.equals(Constant.TYPE_PRODUCT_OFFLINE)) {
                         typeText.setBackgroundResource(R.drawable.sys_detail_text_bg_border);
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.sys_str));
                     } else {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
