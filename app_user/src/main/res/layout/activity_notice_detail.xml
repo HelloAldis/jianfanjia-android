@@ -27,19 +27,29 @@
 
             <Button
                 android:id="@+id/btnAgree"
-                style="@style/button_style_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
-                android:text="同意" />
+                android:background="@drawable/btn_selector_bg"
+                android:text="同意"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14" />
 
             <Button
                 android:id="@+id/btnReject"
-                style="@style/button_style_2"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
-                android:text="拒绝" />
+                android:background="@drawable/btn_selector_bg_1"
+                android:text="拒绝"
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,47 +60,72 @@
 
             <Button
                 android:id="@+id/btnCheck"
-                style="@style/button_style_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector_bg"
                 android:text="对比验收"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnPlan"
-                style="@style/button_style_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector_bg"
                 android:text="查看方案"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnContract"
-                style="@style/button_style_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector_bg"
                 android:text="查看合同"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnCheckHouse"
-                style="@style/button_style_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
-                android:text="确认已量房"
+                android:background="@drawable/btn_selector_bg"
+                android:text="确认量房"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnConfirm"
-                style="@style/button_style_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/space_10"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector_bg"
                 android:text="确认"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
                 android:visibility="gone" />
         </LinearLayout>
     </FrameLayout>

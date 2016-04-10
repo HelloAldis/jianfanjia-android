@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/login_layout"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/space_48">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/space_48">
 
     <FrameLayout
         android:id="@+id/act_login_input_phone_layout"
@@ -28,7 +28,7 @@
             android:paddingRight="@dimen/space_16"
             android:singleLine="true"
             android:textColor="@color/light_black_color"
-            android:textSize="@dimen/middle_size"/>
+            android:textSize="@dimen/middle_size" />
 
         <ImageView
             android:id="@+id/act_login_input_phone_delete"
@@ -36,8 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:padding="@dimen/space_16"
-            android:src="@mipmap/icon_input_phone"
-            />
+            android:src="@mipmap/icon_input_phone" />
 
     </FrameLayout>
 
@@ -65,7 +64,7 @@
             android:paddingRight="@dimen/space_32"
             android:singleLine="true"
             android:textColor="@color/light_black_color"
-            android:textSize="@dimen/middle_size"/>
+            android:textSize="@dimen/middle_size" />
 
         <ImageView
             android:id="@+id/act_login_input_password_delete"
@@ -73,21 +72,24 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:padding="@dimen/space_16"
-            android:src="@mipmap/icon_input_psw"
-            />
+            android:src="@mipmap/icon_input_psw" />
 
     </FrameLayout>
 
     <Button
         android:id="@+id/btn_login"
-        style="@style/button_login_style"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_below="@+id/act_login_input_password_layout"
         android:layout_marginLeft="@dimen/space_48"
         android:layout_marginRight="@dimen/space_48"
         android:layout_marginTop="@dimen/space_48"
+        android:background="@drawable/btn_selector_bg"
         android:enabled="false"
         android:text="@string/login"
-        android:textColor="@color/font_white"/>
+        android:textColor="@color/font_white"
+        android:textSize="@dimen/text_size_14" />
 
     <TextView
         android:id="@+id/act_forget_password"
@@ -100,7 +102,7 @@
         android:paddingRight="@dimen/space_16"
         android:text="@string/forget_pwd"
         android:textColor="@color/light_black_color"
-        android:textSize="@dimen/middle_size"/>
+        android:textSize="@dimen/middle_size" />
 
     <LinearLayout
         android:id="@+id/third_login"
@@ -114,7 +116,7 @@
             style="@style/divier_line"
             android:layout_width="0dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,13 +126,13 @@
             android:paddingRight="@dimen/space_16"
             android:text="@string/the_third_login"
             android:textColor="@color/light_black_color"
-            android:textSize="@dimen/middle_size"/>
+            android:textSize="@dimen/middle_size" />
 
         <View
             style="@style/divier_line"
             android:layout_width="0dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -146,18 +148,18 @@
             android:id="@+id/weixin_login_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_login_weixin"/>
+            android:src="@mipmap/icon_login_weixin" />
 
         <TextView
             android:id="@+id/weixin_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_below="@+id/weixin_login_icon"
+            android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/space_2"
             android:text="@string/weixin_login"
             android:textColor="@color/light_black_color"
-            android:textSize="@dimen/middle_size"/>
+            android:textSize="@dimen/middle_size" />
 
     </RelativeLayout>
 

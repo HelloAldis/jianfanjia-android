@@ -25,9 +25,14 @@
 
     <Button
         android:id="@+id/btn_commit"
-        style="@style/button_login_style"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_below="@+id/edit_info"
         android:layout_margin="@dimen/space_16"
-        android:text="@string/confirm" />
+        android:background="@drawable/btn_selector_bg"
+        android:text="@string/confirm"
+        android:textColor="@color/font_white"
+        android:textSize="@dimen/text_size_14" />
 
 </RelativeLayout>

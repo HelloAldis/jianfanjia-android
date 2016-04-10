@@ -148,21 +148,31 @@
 
             <Button
                 android:id="@+id/btn_add"
-                style="@style/button_add_style"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginBottom="@dimen/space_10"
                 android:layout_marginLeft="@dimen/space_60"
                 android:layout_marginRight="@dimen/space_60"
                 android:layout_marginTop="@dimen/space_10"
-                android:text="@string/strl_add_yixiang" />
+                android:background="@drawable/btn_orange_oval_bg"
+                android:text="@string/strl_add_yixiang"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14" />
 
             <Button
                 android:id="@+id/btn_delete"
-                style="@style/button_delete_style"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginBottom="@dimen/space_10"
                 android:layout_marginLeft="@dimen/space_60"
                 android:layout_marginRight="@dimen/space_60"
                 android:layout_marginTop="@dimen/space_10"
+                android:background="@drawable/btn_orange_white_bg"
                 android:text="@string/strl_delete_yixiang"
+                android:textColor="@color/home_page_text_color"
+                android:textSize="@dimen/text_size_14"
                 android:visibility="gone" />
         </LinearLayout>
 
