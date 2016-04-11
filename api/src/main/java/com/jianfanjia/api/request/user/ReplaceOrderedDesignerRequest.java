@@ -12,7 +12,7 @@ public class ReplaceOrderedDesignerRequest extends BaseRequest {
 
     private String requirementid;
 
-    private String old_designserid;
+    private String old_designerid;
 
     private String new_designerid;
 
@@ -24,12 +24,12 @@ public class ReplaceOrderedDesignerRequest extends BaseRequest {
         this.requirementid = requirementid;
     }
 
-    public String getOld_designserid() {
-        return old_designserid;
+    public String getOld_designerid() {
+        return old_designerid;
     }
 
-    public void setOld_designserid(String old_designserid) {
-        this.old_designserid = old_designserid;
+    public void setOld_designerid(String old_designerid) {
+        this.old_designerid = old_designerid;
     }
 
     public String getNew_designerid() {
