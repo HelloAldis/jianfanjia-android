@@ -118,8 +118,6 @@ public class ImageUtil {
             bos.close();
             // 其次把文件插入到系统图库
             if (ctx != null) {
-                MediaStore.Images.Media.insertImage(ctx.getContentResolver(),
-                        file.getAbsolutePath(), file.getName(), null);
                 scanPhoto(ctx, filePath);
             }
         }

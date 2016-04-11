@@ -400,6 +400,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
         });
     }
 
+
     private void downloadImg() {
         View view = imgViewPager.getChildAt(0).findViewById(R.id.viewPagerLayout);
         ImageView photoView = (ImageView) view.findViewById(R.id.image_item);
