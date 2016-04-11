@@ -8,13 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -34,6 +27,14 @@ import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -211,7 +212,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
     private void replaceDesignerByUser(String requirementid, String old_designerid, String new_designerid) {
         ReplaceOrderedDesignerRequest replaceOrderedDesignerRequest = new ReplaceOrderedDesignerRequest();
         replaceOrderedDesignerRequest.setRequirementid(requirementid);
-        replaceOrderedDesignerRequest.setOld_designserid(old_designerid);
+        replaceOrderedDesignerRequest.setOld_designerid(old_designerid);
         replaceOrderedDesignerRequest.setNew_designerid(new_designerid);
         Api.replaceOrderedDesigner(replaceOrderedDesignerRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
