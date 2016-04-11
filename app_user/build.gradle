@@ -98,7 +98,6 @@ android {
     def update = rec_update
     def testApkPath = "F:\\快盘\\sharebox\\zjfzhangjingfu@yeah.net\\简繁家APP\\apk\\${defaultConfig.versionName}\\";
 
-
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
@@ -109,9 +108,9 @@ android {
 //                    fileName = fileName.replace("-release", "")
 //                    output.outputFile = new File(outputFile.parent, fileName)
 //                }
-//                if(variant.buildType.name.equals('andtest')){
-//                    output.outputFile = new File(testApkPath, fileName)
-//                }
+                if (variant.buildType.name.equals('andtest')) {
+                    output.outputFile = new File(testApkPath, fileName)
+                }
                 if (variant.buildType.name.equals('debug')) {
                     output.outputFile = new File(outputFile.parent, fileName)
                 }

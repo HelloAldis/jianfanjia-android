@@ -1,4 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'org.quanqi.pgyer'
 
 buildscript {
     repositories {
@@ -9,8 +10,22 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'org.quanqi:pgyer:0.1.2'
+
     }
 }
+
+pgyer {
+    _api_key = "23753123eeee6bb7b1645ae8b349f5f3"
+    uKey = "75a553da1e363a4e3d0d6352c47f03b9"
+}
+
+apks {
+    release {
+        sourceFile = file(testApkFileName)
+    }
+}
+
 
 allprojects {
     repositories {
