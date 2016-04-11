@@ -149,13 +149,12 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onHttpDone() {
-
+                    designer_works_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<ProductList> apiResponse) {
                     mHasLoadedOnce = true;
-                    designer_works_listview.onRefreshComplete();
                     ProductList worksInfo = apiResponse.getData();
                     LogTool.d(TAG, "worksInfo :" + worksInfo);
                     if (null != worksInfo) {
@@ -190,7 +189,6 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onFailed(ApiResponse<ProductList> apiResponse) {
-                    designer_works_listview.onRefreshComplete();
                 }
 
                 @Override

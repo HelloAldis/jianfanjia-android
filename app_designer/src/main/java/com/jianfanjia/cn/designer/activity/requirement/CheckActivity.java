@@ -49,6 +49,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -301,7 +302,14 @@ public class CheckActivity extends BaseSwipeBackActivity implements
         LogTool.d(TAG, "position:" + position);
         key = position;
         LogTool.d(TAG, "key:" + key);
-        showPopWindow(checkLayout);
+        showPopWindow();
+    }
+
+    protected void showPopWindow() {
+        if (popupWindow == null) {
+            popupWindow = new AddPhotoDialog(this, this);
+        }
+        popupWindow.show();
     }
 
     @Override

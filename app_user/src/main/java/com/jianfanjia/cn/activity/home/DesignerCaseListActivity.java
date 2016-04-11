@@ -238,6 +238,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onHttpDone() {
             hideWaitDialog();
+            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
@@ -289,7 +290,6 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
             }
-            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
@@ -298,7 +298,6 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
             pullToRefreshRecyclerView.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
-            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
@@ -315,7 +314,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
 
         @Override
         public void onHttpDone() {
-
+            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
@@ -330,13 +329,11 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                     LogTool.d(TAG, "FROM=" + FROM);
                 }
             }
-            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override
         public void onFailed(ApiResponse<ProductList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
-            pullToRefreshRecyclerView.onRefreshComplete();
         }
 
         @Override

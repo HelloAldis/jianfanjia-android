@@ -226,7 +226,7 @@ public class HomeNewFragment extends BaseFragment {
 
             @Override
             public void onHttpDone() {
-
+                pullToRefreshScrollView.onRefreshComplete();
             }
 
             @Override
@@ -250,7 +250,6 @@ public class HomeNewFragment extends BaseFragment {
             public void onFailed(ApiResponse<List<Product>> apiResponse) {
                 contentNext.setVisibility(View.GONE);
                 contentIntent.setVisibility(View.GONE);
-                pullToRefreshScrollView.onRefreshComplete();
             }
 
             @Override

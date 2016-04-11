@@ -238,11 +238,11 @@ public class XuQiuFragment extends BaseFragment {
             @Override
             public void onHttpDone() {
                 hideWaitDialog();
+                pullrefresh.onRefreshComplete();
             }
 
             @Override
             public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
-                pullrefresh.onRefreshComplete();
                 requirementInfos = apiResponse.getData();
                 if (null != requirementInfos && requirementInfos.size() > 0) {
                     requirementAdapter.addItem(requirementInfos);
@@ -256,7 +256,6 @@ public class XuQiuFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
-                pullrefresh.onRefreshComplete();
                 setListVisiable();
                 if (isFirst) {
                     error_Layout.setVisibility(View.VISIBLE);

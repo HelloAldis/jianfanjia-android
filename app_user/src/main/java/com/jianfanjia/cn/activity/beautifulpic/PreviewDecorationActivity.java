@@ -251,11 +251,11 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    mPullToRefreshViewPager.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
-                    mPullToRefreshViewPager.onRefreshComplete();
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
@@ -274,7 +274,6 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
                 @Override
                 public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    mPullToRefreshViewPager.onRefreshComplete();
                 }
 
                 @Override

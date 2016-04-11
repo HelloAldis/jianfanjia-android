@@ -132,7 +132,6 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                hideWaitDialog();
                 appManager.finishActivity(SettingMeasureDateActivity.class);
                 overridePendingTransition(0, R.anim.slide_out_to_bottom);
                 EventBus.getDefault().post(new UpdateEvent(null));

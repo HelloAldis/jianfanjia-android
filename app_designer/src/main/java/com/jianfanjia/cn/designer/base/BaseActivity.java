@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -21,10 +20,10 @@ import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
 import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.cn.designer.view.AddPhotoPopWindow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
+import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.analytics.MobclickAgent;
 
@@ -42,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
     protected NetStateReceiver netStateReceiver = null;
-    protected AddPhotoPopWindow popupWindow = null;
+    protected AddPhotoDialog popupWindow = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog = null;
     protected DataManagerNew dataManager = null;
@@ -149,13 +148,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
             intent.putExtras(bundle);
         }
         startActivity(intent);
-    }
-
-    protected void showPopWindow(View view) {
-        if (popupWindow == null) {
-            popupWindow = new AddPhotoPopWindow(this, this);
-        }
-        popupWindow.show(view);
     }
 
     @Override

@@ -158,11 +158,11 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         @Override
         public void onHttpDone() {
             hideWaitDialog();
+            prodtct_listview.onRefreshComplete();
         }
 
         @Override
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
-            prodtct_listview.onRefreshComplete();
             mHasLoadedOnce = true;
             ProductList ProductList = apiResponse.getData();
             LogTool.d(TAG, "ProductList=" + ProductList);
@@ -227,12 +227,12 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
         @Override
         public void onHttpDone() {
-
+            prodtct_listview.onRefreshComplete();
         }
 
         @Override
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
-            prodtct_listview.onRefreshComplete();
+
             ProductList ProductList = apiResponse.getData();
             LogTool.d(TAG, "ProductList=" + ProductList);
             if (ProductList != null) {
@@ -248,7 +248,6 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
         @Override
         public void onFailed(ApiResponse<ProductList> apiResponse) {
-            prodtct_listview.onRefreshComplete();
         }
 
         @Override

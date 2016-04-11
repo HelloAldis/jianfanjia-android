@@ -183,12 +183,12 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    all_notice_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
                     mHasLoadedOnce = true;
-                    all_notice_listview.onRefreshComplete();
                     UserMessageList noticeListInfo = apiResponse.getData();
                     LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
                     if (null != noticeListInfo) {
@@ -221,7 +221,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
 
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-                    all_notice_listview.onRefreshComplete();
                     all_notice_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
@@ -243,12 +242,12 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
 
         @Override
         public void onHttpDone() {
-
+            all_notice_listview.onRefreshComplete();
         }
 
         @Override
         public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
-            all_notice_listview.onRefreshComplete();
+
             UserMessageList noticeListInfo = apiResponse.getData();
             LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
             if (null != noticeListInfo) {
@@ -264,7 +263,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase
 
         @Override
         public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-            all_notice_listview.onRefreshComplete();
         }
 
         @Override

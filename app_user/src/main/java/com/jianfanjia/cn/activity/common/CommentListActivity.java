@@ -178,11 +178,11 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    refreshRecycleView.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
-                    refreshRecycleView.onRefreshComplete();
                     UserMessageList noticeListInfo = apiResponse.getData();
                     if (noticeListInfo != null) {
                         int total = noticeListInfo.getTotal();
@@ -208,7 +208,6 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    refreshRecycleView.onRefreshComplete();
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
@@ -257,7 +256,6 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    refreshRecycleView.onRefreshComplete();
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }

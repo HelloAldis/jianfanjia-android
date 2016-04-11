@@ -225,11 +225,11 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    decoration_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
-                    decoration_listview.onRefreshComplete();
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
@@ -291,7 +291,6 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                     decoration_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
-                    decoration_listview.onRefreshComplete();
                 }
 
                 @Override
@@ -312,12 +311,11 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
                 @Override
                 public void onHttpDone() {
-
+                    decoration_listview.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
-                    decoration_listview.onRefreshComplete();
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
                     LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
@@ -335,7 +333,6 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
                 @Override
                 public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
-                    decoration_listview.onRefreshComplete();
                 }
 
                 @Override

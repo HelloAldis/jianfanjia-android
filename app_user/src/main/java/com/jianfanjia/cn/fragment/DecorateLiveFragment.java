@@ -13,6 +13,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.DecorateLiveList;
@@ -27,16 +32,10 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -176,11 +175,11 @@ public class DecorateLiveFragment extends BaseFragment {
                 @Override
                 public void onHttpDone() {
                     hideWaitDialog();
+                    recyclerView.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<DecorateLiveList> apiResponse) {
-                    recyclerView.onRefreshComplete();
                     DecorateLiveList decorateLiveList = apiResponse.getData();
                     if (decorateLiveList != null) {
                         int total = decorateLiveList.getTotal();
@@ -205,7 +204,6 @@ public class DecorateLiveFragment extends BaseFragment {
 
                 @Override
                 public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
-                    recyclerView.onRefreshComplete();
                     decorateLiveAdapter.setErrorViewShow();
                     decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }

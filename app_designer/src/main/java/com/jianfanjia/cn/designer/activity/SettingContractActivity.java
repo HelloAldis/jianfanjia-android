@@ -172,17 +172,16 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
         Api.configContract(configContractRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-
+                showWaitDialog();
             }
 
             @Override
             public void onHttpDone() {
-
+                hideWaitDialog();
             }
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                hideWaitDialog();
                 overridePendingTransition(0,R.anim.slide_out_to_bottom);
                 appManager.finishActivity(SettingContractActivity.class);
                 EventBus.getDefault().post(new UpdateEvent(null));
