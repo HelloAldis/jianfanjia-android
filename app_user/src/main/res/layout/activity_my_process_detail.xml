@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_layout_bg"
-    android:fitsSystemWindows="true">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/process_head_wrap"
@@ -14,7 +15,7 @@
             android:id="@+id/process_head_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/head_layout_bg" />
+            android:background="@color/head_layout_bg"/>
 
         <RelativeLayout
             android:id="@+id/head_notification_layout"
@@ -31,58 +32,40 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/icon_notification" />
+                android:src="@mipmap/icon_notification"/>
         </RelativeLayout>
-
     </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/process_viewpager_layout"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_below="@+id/process_head_wrap"
-        android:background="#ffffff">
-
-        <com.jianfanjia.cn.view.MyViewPager
-            android:id="@+id/process_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadingEdge="none" />
-    </RelativeLayout>
+    <include
+        android:id="@+id/process_head_view_layout"
+        layout="@layout/list_item_process_item_head"/>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/process_viewpager_layout">
+        android:layout_height="match_parent">
 
         <View
             android:id="@+id/lineView"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="45dp"
-            android:background="@color/line_color" />
+            android:background="@color/line_color"/>
 
-        <RelativeLayout
+        <com.jianfanjia.cn.view.library.PullToRefreshListView
+            android:id="@+id/process__listview"
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/space_8"
-            android:paddingTop="@dimen/space_8">
-
-            <com.jianfanjia.cn.view.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/process__listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="33dp"
-                android:cacheColorHint="#ffffff"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:fastScrollEnabled="false"
-                android:listSelector="@android:color/transparent"
-                android:scrollbars="none"
-                android:smoothScrollbar="true"
-                ptr:ptrAnimationStyle="flip"
-                ptr:ptrHeaderTextColor="#344a5d" />
-        </RelativeLayout>
+            android:layout_marginLeft="33dp"
+            android:cacheColorHint="#ffffff"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
+            android:smoothScrollbar="true"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d"/>
     </FrameLayout>
-</RelativeLayout>
+</LinearLayout>

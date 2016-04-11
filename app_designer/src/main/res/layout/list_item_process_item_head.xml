@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-    <com.jianfanjia.cn.view.MyViewPager
+    <com.jianfanjia.cn.designer.view.MyViewPager
         android:id="@+id/process_viewpager"
         android:layout_width="match_parent"
         android:layout_height="120dp"
