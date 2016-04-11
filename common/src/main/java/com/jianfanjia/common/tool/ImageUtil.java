@@ -25,6 +25,7 @@ import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.util.DisplayMetrics;
@@ -115,7 +116,10 @@ public class ImageUtil {
             isSuccess = bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
             bos.flush();
             bos.close();
+            // 其次把文件插入到系统图库
             if (ctx != null) {
+                MediaStore.Images.Media.insertImage(ctx.getContentResolver(),
+                        file.getAbsolutePath(), file.getName(), null);
                 scanPhoto(ctx, filePath);
             }
         }
@@ -146,6 +150,7 @@ public class ImageUtil {
 
     /**
      * 通过路径获取bitmap
+     *
      * @param filePath
      * @param opts
      * @return
@@ -397,13 +402,13 @@ public class ImageUtil {
      * @param bitmap
      * @return
      */
-    public static Drawable bitmapToDrawable(Bitmap bitmap,Context mcContext) {
+    public static Drawable bitmapToDrawable(Bitmap bitmap, Context mcContext) {
         Drawable drawable = new BitmapDrawable(mcContext.getResources(), bitmap);
         return drawable;
     }
 
-    public static Bitmap drawableResToBitmap(Context context ,int resId){
-        return BitmapFactory.decodeResource(context.getResources(),resId);
+    public static Bitmap drawableResToBitmap(Context context, int resId) {
+        return BitmapFactory.decodeResource(context.getResources(), resId);
     }
 
     /**
@@ -423,7 +428,6 @@ public class ImageUtil {
         drawable.draw(canvas);
         return bitmap;
     }
-
 
 
     static Bitmap bitmap = null;
@@ -483,7 +487,7 @@ public class ImageUtil {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
+        } finally {
             cursor.close();
         }
         return null;
@@ -592,6 +596,7 @@ public class ImageUtil {
 
     /**
      * 获取imageview的bitmap.保存在本地
+     *
      * @param context
      * @param
      * @param quality
@@ -602,7 +607,10 @@ public class ImageUtil {
         boolean isSuccess = false;
         Bitmap bitmap = drawableToBitmap(imageView.getDrawable());
         if (bitmap != null) {
-            isSuccess = saveImageToSD(context,FileUtil.createTimeStampTmpFile().getAbsolutePath(), bitmap, quality);
+            String savePath = FileUtil.createFile(FileUtil.getSDCardPublicDir(Environment
+                    .DIRECTORY_PICTURES), FileUtil.createTimeStampFileName()).getPath();
+            LogTool.d(ImageUtil.class.getName(), savePath);
+            isSuccess = saveImageToSD(context, savePath, bitmap, quality);
         }
         return isSuccess;
     }
@@ -654,7 +662,7 @@ public class ImageUtil {
      * @param bitmap
      * @return
      */
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,int radius) {
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int radius) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -733,7 +741,7 @@ public class ImageUtil {
         /* 目标位图宽和高 */
         final int reqHeight = 600;
         final int reqWidth = 600;
-		/* 获取裁剪比率 */
+        /* 获取裁剪比率 */
         options.inSampleSize = calculateInSampleSize(options, reqWidth,
                 reqHeight);
 
@@ -755,14 +763,14 @@ public class ImageUtil {
         options.inInputShareable = true;
         options.inTempStorage = new byte[16 * 1024];
         Bitmap bm = BitmapFactory.decodeFile(filePath, options);
-		/* 固定比率缩放位图 */
+        /* 固定比率缩放位图 */
         Bitmap bitmap = null;
         try {
             bitmap = Bitmap.createScaledBitmap(bm, (int) (w / r),
                     (int) (h / r), true);
         } finally {
             if (bitmap != bm) {
-				/* 释放资源 */
+                /* 释放资源 */
                 if (bm != null && !bm.isRecycled()) {
                     bm.recycle();
                     bm = null;
@@ -824,7 +832,7 @@ public class ImageUtil {
         if (be <= 0)
             be = 1;
         newOpts.inSampleSize = be;// 设置缩放比例
-        Bitmap bitmap  = BitmapFactory.decodeFile(srcPath, newOpts);
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
         LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
         LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
         LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
@@ -1248,7 +1256,7 @@ public class ImageUtil {
         canvas.drawBitmap(bkg, 0, 0, paint);
 
         overlay = FastBlur.doBlur(overlay, (int) radius, true);
-        view.setImageDrawable(new BitmapDrawable(view.getResources(),overlay));
+        view.setImageDrawable(new BitmapDrawable(view.getResources(), overlay));
         /**
          * 打印高斯模糊处理时间，如果时间大约16ms，用户就能感到到卡顿，时间越长卡顿越明显，如果对模糊完图片要求不高，可是将scaleFactor设置大一些。
          */

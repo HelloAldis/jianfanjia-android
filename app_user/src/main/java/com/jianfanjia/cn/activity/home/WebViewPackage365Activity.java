@@ -33,7 +33,7 @@ public class WebViewPackage365Activity extends WebViewActivity {
         }
     }
 
-    @OnClick(R.id.btn_create_requirement_layout)
+    @OnClick(R.id.btn_create_process)
     protected void createRequirement() {
         if (!isPublishOrUpdateRequirementInTop) {
             IntentUtil.startActivity(this, PublishRequirementActivity.class);

@@ -2,17 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="@color/main_layout_bg"
-             android:orientation="vertical">
+             android:orientation="vertical"
+             android:background="@color/main_layout_bg">
 
-    <include layout="@layout/activity_web_view"/>
+    <include
+        layout="@layout/activity_web_view"
+        />
 
     <RelativeLayout
         android:id="@+id/btn_create_requirement_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48"
         android:layout_gravity="bottom"
-        android:background="@color/font_white"
+        android:background="@color/black_middle_transparent"
         android:paddingBottom="@dimen/space_4"
         android:paddingLeft="@dimen/space_48"
         android:paddingRight="@dimen/space_48"

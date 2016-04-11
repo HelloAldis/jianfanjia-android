@@ -109,7 +109,7 @@
                     <TextView
                         android:id="@+id/req_text"
                         style="@style/tab_rb_style"
-                        android:text="装修需求" />
+                        android:text="@string/create_my_requirement" />
                 </LinearLayout>
             </FrameLayout>
 

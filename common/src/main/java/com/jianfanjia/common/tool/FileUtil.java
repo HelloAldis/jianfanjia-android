@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -60,11 +61,16 @@ public class FileUtil {
     }
 
     public static File createTimeStampTmpFile() {
+        String fileName = createTimeStampFileName();
+        File tmpFile = new File(IMAG_PATH, fileName);
+        return tmpFile;
+    }
+
+    @NonNull
+    public static String createTimeStampFileName() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.CHINA).format(new Date());
-        String fileName = "jyz_image_" + timeStamp + "";
-        File tmpFile = new File(IMAG_PATH, fileName + ".jpg");
-        return tmpFile;
+        return "jyz_image_" + timeStamp + ".jpg";
     }
 
     /**
