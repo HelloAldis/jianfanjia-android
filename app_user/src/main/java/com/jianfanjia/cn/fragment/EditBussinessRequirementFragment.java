@@ -104,14 +104,14 @@ public class EditBussinessRequirementFragment extends BaseFragment {
 
     @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void houseareaAfterChanged(CharSequence charSequence) {
-        requirementInfo.setHouse_area(charSequence.toString());
+        requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
         isAllInput();
     }
 
     @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
-        requirementInfo.setTotal_price(charSequence.toString());
+        requirementInfo.setTotal_price(Integer.parseInt(charSequence.toString()));
         isAllInput();
     }
 
@@ -221,11 +221,11 @@ public class EditBussinessRequirementFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(requirementInfo.getBasic_address())) {
                     act_edit_req_cell_content.setText(requirementInfo.getBasic_address());
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
-                    act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+                if (requirementInfo.getHouse_area() != 0) {
+                    act_edit_req_housearea_content.setText(requirementInfo.getHouse_area() + "");
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getTotal_price())) {
-                    act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+                if (requirementInfo.getTotal_price() != 0) {
+                    act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price() + "");
                 }
                 act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type())
                         ? "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) >

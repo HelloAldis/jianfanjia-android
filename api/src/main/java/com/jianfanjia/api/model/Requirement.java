@@ -16,7 +16,7 @@ public class Requirement extends BaseModel implements Serializable {
     private String district;
     private String basic_address;
     private String detail_address;
-    private String house_area;
+    private int house_area;
     private String house_type;
     private String dec_style;
     private String dec_type;
@@ -24,7 +24,7 @@ public class Requirement extends BaseModel implements Serializable {
     private String communication_type;
     private String package_type;
     private String prefer_sex;
-    private String total_price;
+    private int total_price;
     private String final_planid;
     private String final_designerid;
     private String business_house_type;
@@ -91,12 +91,20 @@ public class Requirement extends BaseModel implements Serializable {
         this.district = district;
     }
 
-    public String getHouse_area() {
+    public int getHouse_area() {
         return house_area;
     }
 
-    public void setHouse_area(String house_area) {
+    public void setHouse_area(int house_area) {
         this.house_area = house_area;
+    }
+
+    public int getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(int total_price) {
+        this.total_price = total_price;
     }
 
     public String getHouse_type() {
@@ -147,13 +155,6 @@ public class Requirement extends BaseModel implements Serializable {
         this.prefer_sex = prefer_sex;
     }
 
-    public String getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(String total_price) {
-        this.total_price = total_price;
-    }
 
     public String getFinal_planid() {
         return final_planid;

@@ -99,8 +99,8 @@ public class PreviewBusinessRequirementActivity extends BaseSwipeBackActivity {
                     requirementInfo
                             .getBasic_address());
             act_edit_req_cell_content.setText(requirementInfo.getDetail_address());
-            act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
-            act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+            act_edit_req_housearea_content.setText(requirementInfo.getHouse_area() + "");
+            act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price() + "");
             act_edit_req_decoratetype_content.setText(TextUtils.isEmpty(requirementInfo.getBusiness_house_type()) ?
                     "" : arr_busihousetype[Integer.parseInt(requirementInfo.getBusiness_house_type()) >
                     (arr_busihousetype.length - 1) ? (arr_busihousetype.length - 1) : Integer.parseInt

@@ -96,7 +96,7 @@ android {
     def force_update = '1' //强制更新
     def rec_update = '0'   //自愿更新
     def update = rec_update
-    def testApkPath = "F:\\快盘\\sharebox\\zjfzhangjingfu@yeah.net\\简繁家APP\\apk\\${defaultConfig.versionName}\\";
+    def testApkPath = "F:\\apks\\";
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->

@@ -245,13 +245,13 @@ public class BusinessCovertUtil {
      * @param houseBudget
      * @return
      */
-    public static String getDesc(String housetype, String housearea, String decStyle, String houseBudget) {
+    public static String getDesc(String housetype, int housearea, String decStyle, int houseBudget) {
         StringBuffer stringBuffer = new StringBuffer();
         if (!TextUtils.isEmpty(housetype)) {
             stringBuffer.append(convertHouseTypeToShow(housetype));
             stringBuffer.append("，");
         }
-        if (!TextUtils.isEmpty(housearea)) {
+        if (housearea != 0) {
             stringBuffer.append(housearea);
             stringBuffer.append("㎡，");
         }
@@ -259,7 +259,7 @@ public class BusinessCovertUtil {
             stringBuffer.append(convertDecStyleToShow(decStyle));
             stringBuffer.append("，");
         }
-        if (!TextUtils.isEmpty(houseBudget)) {
+        if (houseBudget != 0){
             stringBuffer.append("装修预算" + houseBudget + "万");
         }
         return stringBuffer.toString();

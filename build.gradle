@@ -22,7 +22,8 @@ pgyer {
 
 apks {
     release {
-        sourceFile = file(testApkFileName)
+//        File file = file(testApkFileName).listFiles()[0]
+        sourceFile = file('F:\\apks\\jianfanjia_user-Default-andtest_20160411_0_60_2.5.2.apk')
     }
 }
 

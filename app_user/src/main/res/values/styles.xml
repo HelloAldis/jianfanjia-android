@@ -192,7 +192,7 @@
         <item name="android:background">@drawable/my_item_layout_bg_selector</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">@dimen/space_22</item>
-        <item name="android:paddingRight">@dimen/space_28</item>
+        <item name="android:paddingRight">@dimen/space_22</item>
     </style>
 
     <style name="Theme_Light_Dialog" parent="android:style/Theme.Dialog">

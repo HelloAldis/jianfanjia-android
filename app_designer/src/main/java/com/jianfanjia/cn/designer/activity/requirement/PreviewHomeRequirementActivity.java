@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
@@ -14,9 +16,6 @@ import com.jianfanjia.cn.designer.business.RequirementBusiness;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -71,7 +70,7 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
 
     private Requirement requirementInfo;
 
-    @OnClick({R.id.head_back_layout,R.id.act_edit_req_decoratebudget_365_detail})
+    @OnClick({R.id.head_back_layout, R.id.act_edit_req_decoratebudget_365_detail})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -116,10 +115,10 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
                     requirementInfo.getDistrict());
             act_edit_req_cell_content.setText(requirementInfo.getBasic_address());
             act_edit_req_dong_content.setText(requirementInfo.getDetail_address());
-            act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+            act_edit_req_housearea_content.setText(requirementInfo.getHouse_area() + "");
             act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" :
                     arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);
-            act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+            act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price() + "");
             act_edit_req_persons_content.setText(requirementInfo.getFamily_description());
             act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
                     arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
@@ -135,17 +134,16 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     }
 
     private void initBudget365Layout() {
-
-        int houseArea = Integer.parseInt(requirementInfo.getHouse_area());
-        if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_DEFAULT)) {
+        int houseArea = requirementInfo.getHouse_area();
+        if (requirementInfo.getPackage_type() == null || requirementInfo.getPackage_type().equals(RequirementBusiness
+                .PACKGET_DEFAULT)) {
             budget365Layout.setVisibility(View.GONE);
-
         } else {
             budget365Layout.setVisibility(View.VISIBLE);
 
             float basicPrice = (float) houseArea * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
                     .TEN_THOUSAND;
-            float totalPrice = Float.parseFloat(requirementInfo.getTotal_price());
+            float totalPrice = (float) requirementInfo.getTotal_price();
             float individuationPrice = totalPrice - basicPrice;
 
             budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
