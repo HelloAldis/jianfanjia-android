@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-    <FrameLayout
-        android:id="@+id/topLayout"
+    <com.jianfanjia.cn.view.MyViewPager
+        android:id="@+id/process_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="120dp"
+        android:background="#ffffff"
+        android:fadingEdge="none"/>
 
-        <com.jianfanjia.cn.view.MyViewPager
-            android:id="@+id/process_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="#ffffff"
-            android:fadingEdge="none"/>
+    <View
+        android:id="@+id/first_line"
+        style="@style/divier_line"
+        android:layout_below="@id/process_viewpager"
+        android:layout_gravity="bottom"/>
 
-        <View
-            android:id="@+id/first_line"
-            style="@style/divier_line"
-            android:layout_gravity="bottom"/>
+
+    <LinearLayout
+        android:id="@+id/middleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/first_line"
+        android:layout_marginTop="-7dip"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -27,19 +31,12 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="38dp"
             android:src="@mipmap/icon_row"/>
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/middleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topLayout">
 
         <LinearLayout
             android:id="@+id/site_list_head_checkbutton_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
+            android:background="@color/font_white"
             android:orientation="horizontal">
 
             <TextView
@@ -77,6 +74,7 @@
             android:id="@+id/site_list_head_delay_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/font_white"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -94,19 +92,20 @@
                 android:textColor="@color/font_white"
                 android:textSize="14sp"/>
         </LinearLayout>
-    </FrameLayout>
 
-    <ImageView
-        android:id="@+id/rowBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/middleLayout"
-        android:layout_marginLeft="25dp"
-        android:background="@color/font_white"
-        android:paddingBottom="@dimen/space_10"
-        android:paddingLeft="@dimen/space_15"
-        android:paddingRight="@dimen/space_15"
-        android:paddingTop="@dimen/space_10"
-        android:src="@mipmap/icon_row_up"/>
+        <ImageView
+            android:id="@+id/rowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/middleLayout"
+            android:layout_marginLeft="25dp"
+            android:background="@color/font_white"
+            android:paddingBottom="@dimen/space_10"
+            android:paddingLeft="@dimen/space_15"
+            android:paddingRight="@dimen/space_15"
+            android:paddingTop="@dimen/space_10"
+            android:src="@mipmap/icon_row_up"/>
+    </LinearLayout>
+
 
 </RelativeLayout>
