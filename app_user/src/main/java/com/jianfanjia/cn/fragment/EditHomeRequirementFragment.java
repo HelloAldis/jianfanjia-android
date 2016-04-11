@@ -160,7 +160,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void houseareaAfterChanged(CharSequence charSequence) {
-        requirementInfo.setHouse_area(charSequence.toString());
+        requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
         showOrHide365Layout();
         isAllInput();
     }
@@ -187,9 +187,8 @@ public class EditHomeRequirementFragment extends BaseFragment {
     }
 
     private void determineShowOrNotByHouseArea() {
-        String editArea = requirementInfo.getHouse_area();
-        if (!TextUtils.isEmpty(editArea)) {
-            int area = Integer.parseInt(editArea);
+        int area = requirementInfo.getHouse_area();
+        if (area != 0) {
             if (RequirementBusiness.isAreaBelong365(area)) {
                 budget365Layout.setVisibility(View.VISIBLE);
                 isShowBudget365 = true;
@@ -209,10 +208,10 @@ public class EditHomeRequirementFragment extends BaseFragment {
         }
     }
 
-    private void settingTotalBudget(String totalPrice, float basicPrice) {
-        if (!TextUtils.isEmpty(totalPrice)) {
+    private void settingTotalBudget(int totalPrice, float basicPrice) {
+        if (totalPrice != 0) {
 
-            float total = Float.parseFloat(totalPrice);
+            float total = (float)totalPrice;
             String totalText = RequirementBusiness.covertPriceToShow(total);
             String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
 
@@ -265,7 +264,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
     @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
-        requirementInfo.setTotal_price(charSequence.toString());
+        requirementInfo.setTotal_price(Integer.parseInt(charSequence.toString()));
         showOrHide365Layout();
         isAllInput();
     }
@@ -399,11 +398,11 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(requirementInfo.getDetail_address())) {
                     act_edit_req_dong_content.setText(requirementInfo.getDetail_address());
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
-                    act_edit_req_housearea_content.setText(requirementInfo.getHouse_area());
+                if (requirementInfo.getHouse_area() != 0) {
+                    act_edit_req_housearea_content.setText(requirementInfo.getHouse_area() + "");
                 }
-                if (!TextUtils.isEmpty(requirementInfo.getTotal_price())) {
-                    act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price());
+                if (requirementInfo.getTotal_price() != 0) {
+                    act_edit_req_decoratebudget_content.setText(requirementInfo.getTotal_price() + "");
                 }
                 act_edit_req_housetype_content.setText(TextUtils.isEmpty(requirementInfo.getHouse_type()) ? "" :
                         arr_housetype[Integer.parseInt(requirementInfo.getHouse_type())]);

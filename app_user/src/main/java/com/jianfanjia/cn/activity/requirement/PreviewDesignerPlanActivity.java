@@ -140,7 +140,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
                 houseTypeLayout.setVisibility(View.VISIBLE);
                 houseType.setText(BusinessCovertUtil.convertHouseTypeToShow(requirementInfo.getHouse_type()));
             }
-            if (!TextUtils.isEmpty(requirementInfo.getHouse_area())) {
+            if (requirementInfo.getHouse_area() != 0) {
                 houseAreaLayout.setVisibility(View.VISIBLE);
                 houseArea.setText(requirementInfo.getHouse_area() + getString(R.string.str_sq_unit));
             }

@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class ForgetPswActivity extends BaseActivity {
+
     private static final String TAG = ForgetPswActivity.class.getClass()
             .getName();
     @Bind(R.id.act_forget_psw_input_phone)

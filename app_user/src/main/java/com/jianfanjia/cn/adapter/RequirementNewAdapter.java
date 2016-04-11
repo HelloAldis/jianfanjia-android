@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -22,11 +26,6 @@ import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * Description: com.jianfanjia.cn.base.base
  * Author: zhanghao
@@ -37,12 +36,10 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
     private static final String TAG = RequirementNewAdapter.class.getName();
     private Context context;
     private ClickCallBack clickCallBack;
-    private DataManagerNew dataManagerNew;
 
     public RequirementNewAdapter(Context context, ClickCallBack cickCallBack) {
         this.context = context;
         this.clickCallBack = cickCallBack;
-        dataManagerNew = DataManagerNew.getInstance();
     }
 
     @Override

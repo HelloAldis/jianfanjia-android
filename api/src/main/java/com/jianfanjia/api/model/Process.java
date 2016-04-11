@@ -20,10 +20,10 @@ public class Process extends BaseModel implements Serializable {
     private String detail_address;
     private String house_type;
     private String business_house_type;
-    private String house_area;
+    private int house_area;
     private String dec_style;
     private String work_type;
-    private String total_price;
+    private int total_price;
     private long start_at;
     private long lastupdate;
     private String duration;
@@ -104,12 +104,20 @@ public class Process extends BaseModel implements Serializable {
         this.house_type = house_type;
     }
 
-    public String getHouse_area() {
+    public int getHouse_area() {
         return house_area;
     }
 
-    public void setHouse_area(String house_area) {
+    public void setHouse_area(int house_area) {
         this.house_area = house_area;
+    }
+
+    public int getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(int total_price) {
+        this.total_price = total_price;
     }
 
     public String getDec_style() {
@@ -126,14 +134,6 @@ public class Process extends BaseModel implements Serializable {
 
     public void setWork_type(String work_type) {
         this.work_type = work_type;
-    }
-
-    public String getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(String total_price) {
-        this.total_price = total_price;
     }
 
     public long getStart_at() {

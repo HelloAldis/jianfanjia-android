@@ -31,6 +31,7 @@ import com.jianfanjia.cn.activity.home.DesignerCaseListActivity;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.activity.home.SearchActivity;
 import com.jianfanjia.cn.activity.home.WebViewActivity;
+import com.jianfanjia.cn.activity.home.WebViewPackage365Activity;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.adapter.HomeProductPagerAdapter;
@@ -38,6 +39,7 @@ import com.jianfanjia.cn.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.view.GestureGuideView;
@@ -58,7 +60,7 @@ public class HomeNewFragment extends BaseFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
     private int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
-            R.mipmap.bg_home_banner2};
+            R.mipmap.bg_home_banner2,R.mipmap.bg_home_banner3};
 
     @Bind(R.id.viewPager_lib)
     protected AutoScrollViewPager scrollViewPager;
@@ -110,6 +112,10 @@ public class HomeNewFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
                     startActivity(WebViewActivity.class, bundle);
+                } else if (pos == 2) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
+                    startActivity(WebViewPackage365Activity.class, bundle);
                 }
             }
         });
