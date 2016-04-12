@@ -98,9 +98,9 @@ android {
 //                    fileName = fileName.replace("-release", "")
 //                    output.outputFile = new File(outputFile.parent, fileName)
 //                }
-                if(variant.buildType.name.equals('andtest')){
-                    output.outputFile = new File(testApkPath, fileName)
-                }
+//                if(variant.buildType.name.equals('andtest')){
+//                    output.outputFile = new File(testApkPath, fileName)
+//                }
                 if (variant.buildType.name.equals('debug')) {
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
