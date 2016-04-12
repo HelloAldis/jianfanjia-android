@@ -6,10 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
@@ -17,6 +13,11 @@ import com.jianfanjia.cn.designer.bean.GridItem;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.interf.UploadListener;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: CheckGridViewAdapter
@@ -33,7 +34,8 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
     private static final int TYPE_ITEM = 1;
     private int viewType = -1;
 
-    public CheckGridViewAdapter(Context context, List<GridItem> list, UploadListener listener, ItemClickCallBack itemClickCallBack) {
+    public CheckGridViewAdapter(Context context, List<GridItem> list, UploadListener listener, ItemClickCallBack
+            itemClickCallBack) {
         super(context, list);
         this.itemClickCallBack = itemClickCallBack;
         this.listener = listener;
@@ -46,6 +48,14 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
 
     public void setCanDelete(boolean isCanDelete) {
         this.isCanDelete = isCanDelete;
+        notifyItemRangeChanged(0, getItemCount());
+    }
+
+
+    public void updateItem(int position, String imgid) {
+        GridItem item = list.get(position);
+        item.setImgId(imgid);
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     @Override
@@ -167,7 +177,7 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
 
         public CheckHeadHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
