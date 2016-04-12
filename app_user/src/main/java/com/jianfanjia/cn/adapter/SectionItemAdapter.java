@@ -14,18 +14,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -101,10 +100,11 @@ public class SectionItemAdapter extends BaseAdapter {
                 list.get(currentClickItem).setIsOpen(true);
             }
         }
+        notifyDataSetChanged();
     }
 
     public void setLastOpen() {
-        if (list != null && list.size() > 0) {
+        if (list.size() > 0) {
             long max = list.get(0).getDate();
             for (int i = 0; i < list.size(); i++) {
                 if (max < list.get(i).getDate()) {
@@ -116,8 +116,9 @@ public class SectionItemAdapter extends BaseAdapter {
                     setCurrentOpenItem(i);
                 }
             }
+        }else{
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public String getCurrentItem() {

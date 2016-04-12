@@ -102,10 +102,11 @@ public class SectionItemAdapter extends BaseAdapter {
                 list.get(currentClickItem).setIsOpen(true);
             }
         }
+        notifyDataSetChanged();
     }
 
     public void setLastOpen() {
-        if (list != null && list.size() > 0) {
+        if (list.size() > 0) {
             long max = list.get(0).getDate();
             for (int i = 0; i < list.size(); i++) {
                 if (max < list.get(i).getDate()) {
@@ -117,8 +118,9 @@ public class SectionItemAdapter extends BaseAdapter {
                     setCurrentOpenItem(i);
                 }
             }
+        }else{
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public String getCurrentItem() {
