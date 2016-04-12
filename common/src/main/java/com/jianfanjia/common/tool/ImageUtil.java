@@ -601,9 +601,9 @@ public class ImageUtil {
      * @return
      * @throws Exception
      */
-    public static boolean snapshot(Context context, ImageView imageView, int quality) throws Exception {
+    public static boolean snapshot(Context context, Bitmap bitmap, int quality) throws Exception {
         boolean isSuccess = false;
-        Bitmap bitmap = drawableToBitmap(imageView.getDrawable());
+//        Bitmap bitmap = drawableToBitmap(imageView.getDrawable());
         if (bitmap != null) {
             String savePath = FileUtil.createFile(FileUtil.getSDCardPublicDir(Environment
                     .DIRECTORY_PICTURES), FileUtil.createTimeStampFileName()).getPath();

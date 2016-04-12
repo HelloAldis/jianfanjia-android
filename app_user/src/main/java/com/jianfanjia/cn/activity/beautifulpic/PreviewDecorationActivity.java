@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.activity.beautifulpic;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -32,12 +35,15 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshViewPager;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -54,6 +60,10 @@ import de.greenrobot.event.EventBus;
 public class PreviewDecorationActivity extends BaseSwipeBackActivity implements ViewPager
         .OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
     private static final String TAG = PreviewDecorationActivity.class.getName();
+
+    private static final int DOWNLOAD_MESSAGE = 0;//下载消息类型
+    private static final int DOWNLOAD_MESSAGE_SUCCESS = 1;//下载成功
+    private static final int DOWNLOAD_MESSAGE_FAILURE = 2;//下载失败
 
     @Bind(R.id.showpicPager)
     PullToRefreshViewPager mPullToRefreshViewPager;
@@ -404,16 +414,71 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
     private void downloadImg() {
         View view = imgViewPager.getChildAt(0).findViewById(R.id.viewPagerLayout);
         ImageView photoView = (ImageView) view.findViewById(R.id.image_item);
-        try {
-            boolean isSuccess = ImageUtil.snapshot(this, photoView, 100);
-            if (isSuccess) {
-                makeTextShort(getResources().getString(R.string.save_image_success));
-            } else {
-                makeTextShort(getResources().getString(R.string.save_image_failure));
+        ImageShow.getImageShow().loadImage(currentImgId, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
             }
-        } catch (Exception e) {
-            makeTextShort(getResources().getString(R.string.save_image_failure));
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                saveImage(loadedImage);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+
+            }
+        });
+    }
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.arg1){
+                case DOWNLOAD_MESSAGE_SUCCESS:
+                    makeTextShort(getResources().getString(R.string.save_image_success));
+                    break;
+                case DOWNLOAD_MESSAGE_FAILURE:
+                    makeTextShort(getResources().getString(R.string.save_image_failure));
+                    break;
+            }
+            return true;
         }
+    });
+
+    private void saveImage(final Bitmap loadedImage) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Message message = handler.obtainMessage();
+                message.what = DOWNLOAD_MESSAGE;
+                try {
+                    boolean isSuccess = ImageUtil.snapshot(PreviewDecorationActivity.this, loadedImage, 100);
+
+                    if (isSuccess) {
+                        message.arg1 = DOWNLOAD_MESSAGE_SUCCESS;
+                    } else {
+                        message.arg1 = DOWNLOAD_MESSAGE_FAILURE;
+                    }
+                } catch (Exception e) {
+                    message.arg1 = DOWNLOAD_MESSAGE_FAILURE;
+                }finally {
+                    handler.sendMessage(message);
+                }
+
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

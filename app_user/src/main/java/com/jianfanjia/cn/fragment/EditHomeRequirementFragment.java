@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
@@ -29,11 +33,6 @@ import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.common.tool.TDevice;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -135,6 +134,66 @@ public class EditHomeRequirementFragment extends BaseFragment {
     public void initView() {
         initStringArray();
 
+        act_edit_req_housearea_content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    UiHelper.controlKeyboardShowLayout(rootScrollView, act_edit_req_housearea_content);
+                }
+            }
+        });
+        act_edit_req_housearea_content.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())) {
+                    requirementInfo.setHouse_area(Integer.parseInt(s.toString()));
+                } else {
+                    requirementInfo.setHouse_area(0);
+                }
+                showOrHide365Layout();
+                isAllInput();
+            }
+        });
+
+        act_edit_req_decoratebudget_content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    UiHelper.controlKeyboardShowLayout(rootScrollView, act_edit_req_decoratebudget_content);
+                }
+            }
+        });
+        act_edit_req_decoratebudget_content.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())) {
+                    requirementInfo.setTotal_price(Integer.parseInt(s.toString()));
+                } else {
+                    requirementInfo.setTotal_price(0);
+                }
+                showOrHide365Layout();
+                isAllInput();
+            }
+        });
+
         reset365LayoutAndStatus();
     }
 
@@ -158,19 +217,14 @@ public class EditHomeRequirementFragment extends BaseFragment {
         isAllInput();
     }
 
-    @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    protected void houseareaAfterChanged(CharSequence charSequence) {
-        requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
-        showOrHide365Layout();
-        isAllInput();
-    }
-
     private void showOrHide365Layout() {
         String workType = requirementInfo.getWork_type();
         LogTool.d(TAG, "workType =" + workType);
         if (workType.equals(Global.PURE_DESIGNER)) {//装修类型选择纯设计
             reset365LayoutAndStatus();
+            act_edit_req_decoratebudget_content.setHint(R.string.must_input);
         } else {
+            act_edit_req_decoratebudget_content.setHint(R.string.example_input_budget);
             determineShowOrNotByHouseArea();
         }
     }
@@ -192,6 +246,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             if (RequirementBusiness.isAreaBelong365(area)) {
                 budget365Layout.setVisibility(View.VISIBLE);
                 isShowBudget365 = true;
+
                 adjustLayoutToInput();
 
                 //设置基础价格
@@ -211,7 +266,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
     private void settingTotalBudget(int totalPrice, float basicPrice) {
         if (totalPrice != 0) {
 
-            float total = (float)totalPrice;
+            float total = (float) totalPrice;
             String totalText = RequirementBusiness.covertPriceToShow(total);
             String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
 
@@ -247,27 +302,9 @@ public class EditHomeRequirementFragment extends BaseFragment {
     }
 
     private void adjustLayoutToInput() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int scrollY = contentLayout.getHeight() + TDevice.dip2px(getContext(), 110) - rootScrollView
-                        .getHeight();
-                LogTool.d(TAG, "contentLayout.getHeight() =" + contentLayout.getMeasuredHeight
-                        () + "  " +
-                        "rootScrollView.getHeight() =" + rootScrollView.getHeight() + " scrollY=" + scrollY);
-                rootScrollView.smoothScrollTo(0, scrollY);
-            }
-        }, 30);
-
+        UiHelper.controlKeyboardShowLayout(rootScrollView, budget365Layout);
     }
 
-    @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
-            .AFTER_TEXT_CHANGED)
-    protected void decoratebudgetAfterChanged(CharSequence charSequence) {
-        requirementInfo.setTotal_price(Integer.parseInt(charSequence.toString()));
-        showOrHide365Layout();
-        isAllInput();
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -411,7 +448,8 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
                         arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type())
-                        ? getResources().getString(R.string.no_limit) : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+                        ? getResources().getString(R.string.no_limit) : arr_love_designerstyle[Integer.parseInt
+                        (requirementInfo.getCommunication_type())]);
                 act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
                         arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :

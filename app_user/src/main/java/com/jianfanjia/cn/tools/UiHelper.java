@@ -211,6 +211,49 @@ public class UiHelper {
         context.startService(intent);
     }
 
+    public static void controlKeyboardShowLayout(final View root, final View scrollToView) {
+        root.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        root.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                        Rect rect = new Rect();
+                        // 获取root在窗体的可视区域
+                        root.getRootView().getWindowVisibleDisplayFrame(rect);
+
+                        // 获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                        int rootInvisibleHeight = root.getRootView()
+                                .getHeight() - rect.bottom;
+
+                        if (rootInvisibleHeight > 100) {
+                            int[] location = new int[2];
+                            // 获取scrollToView在窗体的坐标
+                            scrollToView.getLocationInWindow(location);
+                            // 计算root滚动高度，使scrollToView在可见区域
+                            int srollHeight = (location[1] + scrollToView
+                                    .getHeight()) - rect.bottom;
+                            if (srollHeight > 0) {
+                                root.scrollBy(0, srollHeight);
+                            }
+                        }
+
+                        LogTool.d(UiHelper.class.
+
+                                        getName(),
+
+                                "root.getRootView().getHeight() =" + root.getRootView().
+
+                                        getHeight()
+
+                                        + ",rect.top =" + rect.top + ",rect.bottom =" + rect.bottom + "," +
+                                        "rootInvisibleHeight =" +
+
+                                        rootInvisibleHeight);
+                    }
+                });
+    }
+
     /**
      * @param root         最外层布局，需要调整的布局
      * @param scrollToView 被键盘遮挡的scrollToView，滚动root,使scrollToView在root可视区域的底部

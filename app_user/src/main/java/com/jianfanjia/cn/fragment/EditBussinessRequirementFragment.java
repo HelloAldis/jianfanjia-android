@@ -104,14 +104,22 @@ public class EditBussinessRequirementFragment extends BaseFragment {
 
     @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void houseareaAfterChanged(CharSequence charSequence) {
-        requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
+        if(!TextUtils.isEmpty(charSequence.toString())){
+            requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
+        }else {
+            requirementInfo.setHouse_area(0);
+        }
         isAllInput();
     }
 
     @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
-        requirementInfo.setTotal_price(Integer.parseInt(charSequence.toString()));
+        if(!TextUtils.isEmpty(charSequence.toString())){
+            requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
+        }else {
+            requirementInfo.setHouse_area(0);
+        }
         isAllInput();
     }
 
