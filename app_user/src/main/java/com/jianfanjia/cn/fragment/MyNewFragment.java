@@ -13,10 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.activity.R;
@@ -31,12 +27,17 @@ import com.jianfanjia.cn.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.layout.BadgeView;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:我的
@@ -181,7 +182,7 @@ public class MyNewFragment extends BaseFragment {
         initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
                 dataManager.getUserName());
-        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
+        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
     }
 
     @Override

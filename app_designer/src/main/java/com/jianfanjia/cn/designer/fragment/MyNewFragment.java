@@ -167,7 +167,7 @@ public class MyNewFragment extends BaseFragment {
         initMyInfo();
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
                 dataManager.getUserName());
-        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "账号：" + dataManager.getAccount());
+        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
     }
 
     @Override
