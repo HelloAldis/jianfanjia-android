@@ -1,18 +1,17 @@
 package com.jianfanjia.cn.designer.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.business.ProcessBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -26,7 +25,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Date: 2016-03-07
  * Time: 09:25
  */
-public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
+public class NoticeAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
     private static final String TAG = NoticeAdapter.class.getName();
     private static final int ITEM_TYPE0 = 0;
     private static final int ITEM_TYPE1 = 1;
@@ -50,72 +49,107 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
     private static final int ITEM_TYPE19 = 19;
     private static final int ITEM_TYPE20 = 20;
     private static final int ITEM_TYPE21 = 21;
-
     private RecyclerItemCallBack callback;
-    private int viewType = -1;
 
-    public NoticeAdapter(Context context, List<UserMessage> list, RecyclerItemCallBack callback) {
-        super(context, list);
+    public NoticeAdapter(Context context, RecyclerView recyclerView, RecyclerItemCallBack callback) {
+        super(context, recyclerView);
         this.callback = callback;
     }
 
     @Override
     public int getItemViewType(int position) {
-        UserMessage userMessage = list.get(position);
-        String msgType = userMessage.getMessage_type();
-        LogTool.d(TAG, "msgType:" + msgType);
-        if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
-            viewType = ITEM_TYPE0;
-        } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
-            viewType = ITEM_TYPE1;
-        } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
-            viewType = ITEM_TYPE2;
-        } else if (msgType.equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
-            viewType = ITEM_TYPE3;
-        } else if (msgType.equals(Constant.TYPE_SECTION_COMMENT_MSG)) {
-            viewType = ITEM_TYPE4;
-        } else if (msgType.equals(Constant.TYPE_AUTH_TYPE_AGRAEE)) {
-            viewType = ITEM_TYPE5;
-        } else if (msgType.equals(Constant.TYPE_AUTH_TYPE_DISGREE)) {
-            viewType = ITEM_TYPE6;
-        } else if (msgType.equals(Constant.TYPE_UID_TYPE_AGRAEE)) {
-            viewType = ITEM_TYPE7;
-        } else if (msgType.equals(Constant.TYPE_UID_TYPE_DISGRAEE)) {
-            viewType = ITEM_TYPE8;
-        } else if (msgType.equals(Constant.TYPE_PROCESS_AGRAEE)) {
-            viewType = ITEM_TYPE9;
-        } else if (msgType.equals(Constant.TYPE_PROCESS_DISGRAEE)) {
-            viewType = ITEM_TYPE10;
-        } else if (msgType.equals(Constant.TYPE_PRODUCT_AGRAEE)) {
-            viewType = ITEM_TYPE11;
-        } else if (msgType.equals(Constant.TYPE_PRODUCT_DISGRAEE)) {
-            viewType = ITEM_TYPE12;
-        } else if (msgType.equals(Constant.TYPE_PRODUCT_OFFLINE)) {
-            viewType = ITEM_TYPE13;
-        } else if (msgType.equals(Constant.TYPE_USER_APPOINT_MSG)) {
-            viewType = ITEM_TYPE14;
-        } else if (msgType.equals(Constant.TYPE_USER_CONFIRM_HOSER_MSG)) {
-            viewType = ITEM_TYPE15;
-        } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG)) {
-            viewType = ITEM_TYPE16;
-        } else if (msgType.equals(Constant.TYPE_PLAN_NOT_CHOOSED_MSG)) {
-            viewType = ITEM_TYPE17;
-        } else if (msgType.equals(Constant.TYPE_CONFIRM_CONTRACT_MSG)) {
-            viewType = ITEM_TYPE18;
-        } else if (msgType.equals(Constant.TYPE_REJECT_DELAY_MSG)) {
-            viewType = ITEM_TYPE19;
-        } else if (msgType.equals(Constant.TYPE_AGREE_DELAY_MSG)) {
-            viewType = ITEM_TYPE20;
-        } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
-            viewType = ITEM_TYPE21;
+        if (super.getItemViewType(position) == TYPE_NORMAL_ITEM) {
+            String msgType = mDatas.get(position).getMessage_type();
+            LogTool.d(TAG, "msgType:" + msgType);
+            if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
+                return  ITEM_TYPE0;
+            } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {
+                return  ITEM_TYPE1;
+            } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
+                return  ITEM_TYPE2;
+            } else if (msgType.equals(Constant.TYPE_PLAN_COMMENT_MSG)) {
+                return  ITEM_TYPE3;
+            } else if (msgType.equals(Constant.TYPE_SECTION_COMMENT_MSG)) {
+                return  ITEM_TYPE4;
+            } else if (msgType.equals(Constant.TYPE_AUTH_TYPE_AGRAEE)) {
+                return  ITEM_TYPE5;
+            } else if (msgType.equals(Constant.TYPE_AUTH_TYPE_DISGREE)) {
+                return  ITEM_TYPE6;
+            } else if (msgType.equals(Constant.TYPE_UID_TYPE_AGRAEE)) {
+                return  ITEM_TYPE7;
+            } else if (msgType.equals(Constant.TYPE_UID_TYPE_DISGRAEE)) {
+                return  ITEM_TYPE8;
+            } else if (msgType.equals(Constant.TYPE_PROCESS_AGRAEE)) {
+                return  ITEM_TYPE9;
+            } else if (msgType.equals(Constant.TYPE_PROCESS_DISGRAEE)) {
+                return  ITEM_TYPE10;
+            } else if (msgType.equals(Constant.TYPE_PRODUCT_AGRAEE)) {
+                return  ITEM_TYPE11;
+            } else if (msgType.equals(Constant.TYPE_PRODUCT_DISGRAEE)) {
+                return  ITEM_TYPE12;
+            } else if (msgType.equals(Constant.TYPE_PRODUCT_OFFLINE)) {
+                return  ITEM_TYPE13;
+            } else if (msgType.equals(Constant.TYPE_USER_APPOINT_MSG)) {
+                return  ITEM_TYPE14;
+            } else if (msgType.equals(Constant.TYPE_USER_CONFIRM_HOSER_MSG)) {
+                return  ITEM_TYPE15;
+            } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG)) {
+                return  ITEM_TYPE16;
+            } else if (msgType.equals(Constant.TYPE_PLAN_NOT_CHOOSED_MSG)) {
+                return  ITEM_TYPE17;
+            } else if (msgType.equals(Constant.TYPE_CONFIRM_CONTRACT_MSG)) {
+                return  ITEM_TYPE18;
+            } else if (msgType.equals(Constant.TYPE_REJECT_DELAY_MSG)) {
+                return  ITEM_TYPE19;
+            } else if (msgType.equals(Constant.TYPE_AGREE_DELAY_MSG)) {
+                return  ITEM_TYPE20;
+            } else if (msgType.equals(Constant.TYPE_CONFIRM_CHECK_MSG)) {
+                return  ITEM_TYPE21;
+            }
         }
-        return viewType;
+        return super.getItemViewType(position);
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<UserMessage> list) {
-        final UserMessage info = list.get(position);
+    public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
+        View view = null;
         switch (viewType) {
+            case ITEM_TYPE0:
+            case ITEM_TYPE1:
+            case ITEM_TYPE19:
+            case ITEM_TYPE20:
+            case ITEM_TYPE21:
+                view = layoutInflater.inflate(R.layout.list_notice_item_site, null);
+                return new SiteViewHolder(view);
+            case ITEM_TYPE2:
+            case ITEM_TYPE5:
+            case ITEM_TYPE6:
+            case ITEM_TYPE7:
+            case ITEM_TYPE8:
+            case ITEM_TYPE9:
+            case ITEM_TYPE10:
+            case ITEM_TYPE11:
+            case ITEM_TYPE12:
+            case ITEM_TYPE13:
+                view = layoutInflater.inflate(R.layout.list_notice_item_sys, null);
+                return new SysViewHolder(view);
+            case ITEM_TYPE3:
+            case ITEM_TYPE4:
+            case ITEM_TYPE14:
+            case ITEM_TYPE15:
+            case ITEM_TYPE16:
+            case ITEM_TYPE17:
+            case ITEM_TYPE18:
+                view = layoutInflater.inflate(R.layout.list_notice_item_req, null);
+                return new ReqViewHolder(view);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder viewHolder,final int position) {
+        final UserMessage info = mDatas.get(position);
+        switch (getItemViewType(position)) {
             case ITEM_TYPE0:
             case ITEM_TYPE1:
             case ITEM_TYPE19:
@@ -220,70 +254,6 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
         }
     }
 
-    @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
-        switch (viewType) {
-            case ITEM_TYPE0:
-            case ITEM_TYPE1:
-            case ITEM_TYPE19:
-            case ITEM_TYPE20:
-            case ITEM_TYPE21:
-                return layoutInflater.inflate(R.layout.list_notice_item_site, null);
-            case ITEM_TYPE2:
-            case ITEM_TYPE5:
-            case ITEM_TYPE6:
-            case ITEM_TYPE7:
-            case ITEM_TYPE8:
-            case ITEM_TYPE9:
-            case ITEM_TYPE10:
-            case ITEM_TYPE11:
-            case ITEM_TYPE12:
-            case ITEM_TYPE13:
-                return layoutInflater.inflate(R.layout.list_notice_item_sys, null);
-            case ITEM_TYPE3:
-            case ITEM_TYPE4:
-            case ITEM_TYPE14:
-            case ITEM_TYPE15:
-            case ITEM_TYPE16:
-            case ITEM_TYPE17:
-            case ITEM_TYPE18:
-                return layoutInflater.inflate(R.layout.list_notice_item_req, null);
-        }
-        return null;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
-        switch (viewType) {
-            case ITEM_TYPE0:
-            case ITEM_TYPE1:
-            case ITEM_TYPE19:
-            case ITEM_TYPE20:
-            case ITEM_TYPE21:
-                return new SiteViewHolder(view);
-            case ITEM_TYPE2:
-            case ITEM_TYPE5:
-            case ITEM_TYPE6:
-            case ITEM_TYPE7:
-            case ITEM_TYPE8:
-            case ITEM_TYPE9:
-            case ITEM_TYPE10:
-            case ITEM_TYPE11:
-            case ITEM_TYPE12:
-            case ITEM_TYPE13:
-                return new SysViewHolder(view);
-            case ITEM_TYPE3:
-            case ITEM_TYPE4:
-            case ITEM_TYPE14:
-            case ITEM_TYPE15:
-            case ITEM_TYPE16:
-            case ITEM_TYPE17:
-            case ITEM_TYPE18:
-                return new ReqViewHolder(view);
-        }
-        return null;
-    }
-
     static class SysViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_sys_tip_title)
         TextView itemTitle;
@@ -332,3 +302,4 @@ public class NoticeAdapter extends BaseRecyclerViewAdapter<UserMessage> {
         }
     }
 }
+
