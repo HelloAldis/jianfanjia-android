@@ -14,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.designer.R;
@@ -21,12 +26,6 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -103,7 +102,6 @@ public class SectionItemAdapter extends BaseAdapter {
                 list.get(currentClickItem).setIsOpen(true);
             }
         }
-        notifyDataSetChanged();
     }
 
     public void setLastOpen() {
@@ -120,6 +118,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 }
             }
         }
+        notifyDataSetChanged();
     }
 
     public String getCurrentItem() {
