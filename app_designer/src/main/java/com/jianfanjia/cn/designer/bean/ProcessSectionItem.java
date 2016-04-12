@@ -3,12 +3,12 @@ package com.jianfanjia.cn.designer.bean;
 import java.io.Serializable;
 
 /**
- * Name: SiteProcessItem
+ * Name: ProcessSectionItem
  * User: fengliang
  * Date: 2016-01-20
  * Time: 10:48
  */
-public class SiteProcessItem implements Serializable {
+public class ProcessSectionItem implements Serializable {
     private int res;
     private String title;
 

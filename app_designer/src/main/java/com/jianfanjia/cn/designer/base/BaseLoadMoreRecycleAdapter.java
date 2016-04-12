@@ -12,12 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.base
@@ -27,16 +27,16 @@ import java.util.List;
  */
 public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int STATE_LOAD_MORE = 1;//正在加载状态
-    public static final int STATE_NO_MORE = 2;//没有更多数据加载
-    public static final int STATE_NO_DATA = 3;//没有任何数据，list为空
-    public static final int STATE_INIT = 4;//初始状态
-    public static final int STATE_NETWORK_ERROR = 5;//数据加载错误
+    public static final int STATE_LOAD_MORE = 0x111;//正在加载状态
+    public static final int STATE_NO_MORE = 0x112;//没有更多数据加载
+    public static final int STATE_NO_DATA = 0x113;//没有任何数据，list为空
+    public static final int STATE_INIT = 0x114;//初始状态
+    public static final int STATE_NETWORK_ERROR = 0x115;//数据加载错误
 
     //正常条目
-    protected static final int TYPE_NORMAL_ITEM = 6;//正常item
+    protected static final int TYPE_NORMAL_ITEM = 0x116;//正常item
     //加载条目
-    protected static final int TYPE_LOADING_ITEM = 7;//加载item
+    protected static final int TYPE_LOADING_ITEM = 0x117;//加载item
 
     protected ArrayList<T> mDatas = new ArrayList<>();
 

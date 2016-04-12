@@ -12,6 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -33,12 +38,6 @@ import com.jianfanjia.cn.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -88,10 +87,15 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
+        initSwipeBack();
         this.initView();
         this.getDataFromIntent(this.getIntent());
         this.setListener();
+    }
+
+    private void initSwipeBack(){
+        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
+        swipeBackLayout.setScrollChild(designer_case_listview);
     }
 
     public void initView() {

@@ -22,6 +22,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ViewDragHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -176,7 +177,9 @@ public class SwipeBackLayout extends ViewGroup {
             View child;
             for (int i = 0; i < count; i++) {
                 child = viewGroup.getChildAt(i);
-                if (child instanceof AbsListView || child instanceof ScrollView || child instanceof ViewPager || child instanceof WebView) {
+                LogTool.d(this.getClass().getName(),"find recycleview");
+                if (child instanceof AbsListView || child instanceof ScrollView || child instanceof ViewPager ||
+                        child instanceof WebView || child instanceof RecyclerView) {
                     scrollChild = child;
                     return;
                 }
@@ -209,8 +212,10 @@ public class SwipeBackLayout extends ViewGroup {
         }
 
         if (getChildCount() > 0) {
-            int measureWidth = MeasureSpec.makeMeasureSpec(getMeasuredWidth() - getPaddingLeft() - getPaddingRight(), MeasureSpec.EXACTLY);
-            int measureHeight = MeasureSpec.makeMeasureSpec(getMeasuredHeight() - getPaddingTop() - getPaddingBottom(), MeasureSpec.EXACTLY);
+            int measureWidth = MeasureSpec.makeMeasureSpec(getMeasuredWidth() - getPaddingLeft() - getPaddingRight(),
+                    MeasureSpec.EXACTLY);
+            int measureHeight = MeasureSpec.makeMeasureSpec(getMeasuredHeight() - getPaddingTop() - getPaddingBottom
+                    (), MeasureSpec.EXACTLY);
             getChildAt(0).measure(measureWidth, measureHeight);
         }
     }
@@ -260,6 +265,7 @@ public class SwipeBackLayout extends ViewGroup {
         if (isEnabled()) {
             switch (dragEdge) {
                 case TOP:
+                    handled = true;
                     break;
                 case BOTTOM:
                     break;
