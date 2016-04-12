@@ -51,7 +51,6 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
         notifyItemRangeChanged(0, getItemCount());
     }
 
-
     public void updateItem(int position, String imgid) {
         GridItem item = list.get(position);
         item.setImgId(imgid);
