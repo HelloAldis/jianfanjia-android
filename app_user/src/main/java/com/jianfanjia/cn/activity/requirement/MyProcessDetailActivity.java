@@ -296,11 +296,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                         Log.i(TAG, "potition=" + potition);
                         if (sectionInfos != null) {
                             if (potition < TOTAL_PROCESS) {
-//                                currentList = potition;
-//                                sectionInfo = sectionInfos.get(currentList);
-//                                setCheckLayoutState();
-//                                sectionItemAdapter.setPosition(currentList);
-                                processViewPager.setCurrentItem(potition);
+                                currentList = potition;
+                                processViewPager.setCurrentItem(currentList);
                                 sectionViewPageAdapter.notifyDataSetChanged();
                             }
                         }
@@ -363,7 +360,25 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     });
                     break;
                 case Constant.NO_START:
-                    checkLayout.setVisibility(View.GONE);
+                    checkLayout.setVisibility(View.VISIBLE);
+                    site_list_head_delay_layout.setVisibility(View.GONE);
+                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+                    openDelay.setEnabled(false);
+                    openDelay.setTextColor(getResources().getColor(R.color.grey_color));
+                    openDelay.setText(getResources().getText(R.string.site_example_node_delay));
+                    openCheck.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle checkBundle = new Bundle();
+                            checkBundle.putString(Constant.SECTION, sectionInfo.getName());
+                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                            checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
+                            checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity
+                                    .PROCESS_LIST_INTENT);
+                            startActivityForResult(CheckActivity.class, checkBundle, Constant
+                                    .REQUESTCODE_CHECK);
+                        }
+                    });
                     break;
                 case Constant.YANQI_AGREE:
                 case Constant.YANQI_REFUSE:
