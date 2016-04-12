@@ -147,6 +147,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
                 .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(processSection.getName());
+        LogTool.d(TAG, "checkGridList:" + checkGridList.size());
         imageids = processSection.getYs().getImages();
         LogTool.d(TAG, "imageids=" + imageids);
         currentUploadCount = imageids.size();
@@ -484,6 +485,12 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
     private void updateList(String imgid) {
         adapter.updateItem(key * 2 + 1, imgid);
+        showProcessPic.clear();
+        for (int i = 1; i < checkGridList.size(); i += 2) {
+            if (!checkGridList.get(i).getImgId().contains(Constant.DEFALUT_PIC_HEAD)) {
+                showProcessPic.add(checkGridList.get(i).getImgId());
+            }
+        }
     }
 
     private void onClickCheckConfirm() {
@@ -570,6 +577,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
         } else {
             String currentImageId = checkGridList.get(arg2).getImgId();
+            LogTool.d(TAG, "currentImageId:" + currentImageId);
             for (int i = 0; i < showProcessPic.size(); i++) {
                 if (currentImageId.equals(showProcessPic.get(i))) {
                     arg2 = i;
