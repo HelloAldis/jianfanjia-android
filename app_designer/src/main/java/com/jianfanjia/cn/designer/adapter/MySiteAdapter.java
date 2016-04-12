@@ -77,7 +77,7 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_process_listview.setLayoutManager(linearLayoutManager);
-        ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, siteProcessList, processIndex,
+        ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, process.getSections(),
                 new OnItemClickListener() {
                     @Override
                     public void OnItemClick(int pos) {

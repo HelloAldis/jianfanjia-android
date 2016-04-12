@@ -6,16 +6,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
-import com.jianfanjia.cn.designer.interf.OnItemClickListener;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 
 /**
  * Name: ProcessRecyclerViewAdapter
@@ -23,28 +23,24 @@ import butterknife.ButterKnife;
  * Date: 2016-01-20
  * Time: 10:51
  */
-public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<ProcessSectionItem> {
+public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<ProcessSection> {
     private static final String TAG = ProcessRecyclerViewAdapter.class.getName();
     private OnItemClickListener listener;
-    private int processIndex;
 
-    public static final int FIRST = 0;
-    public static final int LAST = 1;
-    public static final int NORMAL = 2;
-
-    public ProcessRecyclerViewAdapter(Context context, List<ProcessSectionItem> list, int processIndex,
+    public ProcessRecyclerViewAdapter(Context context, List<ProcessSection> list,
                                       OnItemClickListener listener) {
         super(context, list);
-        this.processIndex = processIndex;
         this.listener = listener;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<ProcessSectionItem> list) {
-        ProcessSectionItem item = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<ProcessSection> list) {
+        ProcessSection item = list.get(position);
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
-        holder.itemImgView.setImageResource(item.getRes());
-        holder.itemTitleView.setText(item.getTitle());
+        holder.itemImgView.setImageResource(context.getResources()
+                .getIdentifier("icon_home_bg" + (position + 1), "drawable",
+                        context.getPackageName()));
+        holder.itemTitleView.setText(item.getLabel());
         if (position == 0) {
             holder.LeftLineView.setVisibility(View.INVISIBLE);
             holder.rightLineView.setVisibility(View.VISIBLE);
@@ -55,14 +51,15 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<ProcessS
             holder.rightLineView.setVisibility(View.VISIBLE);
             holder.LeftLineView.setVisibility(View.VISIBLE);
         }
-        if (position < processIndex) {
+        String sectionStatus = list.get(position).getStatus();
+        if(sectionStatus.equals(Constant.FINISHED)){//已完工
             holder.itemImgView.setSelected(true);
             holder.itemTitleView.setSelected(true);
-        } else if (position == processIndex) {
+        }else if(sectionStatus.equals(Constant.NO_START)){//未开工
+
+        }else {//其余状态
             holder.itemImgView.setEnabled(false);
             holder.itemTitleView.setSelected(true);
-        } else {
-
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
