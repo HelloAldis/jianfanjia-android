@@ -13,6 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -27,7 +32,7 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewHomeRequirementAct
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -37,19 +42,13 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * Description:工地管理
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ManageFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2<RecyclerView> {
+public class ManageFragment extends BaseFragment{
     private static final String TAG = ManageFragment.class.getName();
     public static final int ITEM_PRIVIEW = 10;
     public static final int ITEM_CONTRACT = 20;
@@ -78,8 +77,8 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
     TextView process_tip_text;
 
     private String[] proTitle = null;
-    private List<Process> processList = new ArrayList<Process>();
-    private List<SiteProcessItem> siteProcessList = new ArrayList<SiteProcessItem>();
+    private List<Process> processList;
+    private List<ProcessSectionItem> siteProcessList;
     private MySiteAdapter adapter = null;
     private String processId = null;
     private int itemPosition = -1;
@@ -106,12 +105,78 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         });
         proTitle = getActivity().getApplication().getResources().getStringArray(
                 R.array.site_procedure);
-        setProcessList();
+        setProcessSectionItemList();
         manage_pullfefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
         manage_pullfefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
-        manage_pullfefresh.setOnRefreshListener(this);
+        manage_pullfefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                getProcessList();
+            }
+        });
+        adapter = new MySiteAdapter(getActivity(), siteProcessList, new
+                ClickCallBack() {
+                    @Override
+                    public void click(int position, int itemType) {
+                        Process process = processList.get(position);
+                        processId = process.get_id();
+                        LogTool.d(TAG, "processId:" + processId + "  itemPosition:" + itemPosition);
+                        switch (itemType) {
+                            case ITEM_PRIVIEW:
+                                Intent gotoPriviewRequirement = null;
+                                if (process.getRequirement().getDec_type().equals(Global
+                                        .DEC_TYPE_BUSINESS)) {
+                                    gotoPriviewRequirement = new Intent(getActivity(),
+                                            PreviewBusinessRequirementActivity.class);
+                                } else {
+                                    gotoPriviewRequirement = new Intent(getActivity(),
+                                            PreviewHomeRequirementActivity.class);
+                                }
+                                gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process
+                                        .getRequirement());
+                                startActivity(gotoPriviewRequirement);
+                                break;
+                            case ITEM_CONTRACT:
+                                Intent viewContractIntent = new Intent(getActivity(),
+                                        SettingContractActivity
+                                                .class);
+                                Bundle contractBundle = new Bundle();
+                                contractBundle.putSerializable(Global.REQUIREMENT_INFO, process
+                                        .getRequirement());
+                                contractBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
+                                viewContractIntent.putExtras(contractBundle);
+                                startActivity(viewContractIntent);
+                                getActivity().overridePendingTransition(R.anim
+                                        .slide_and_fade_in_from_bottom, R.anim
+                                        .fade_out);
+                                break;
+                            case ITEM_PLAN:
+                                Intent viewPlanIntent = new Intent(getActivity(),
+                                        PreviewDesignerPlanActivity
+                                                .class);
+                                Bundle planBundle = new Bundle();
+                                planBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
+                                planBundle.putSerializable(Global.REQUIREMENT_INFO, process
+                                        .getRequirement());
+                                viewPlanIntent.putExtras(planBundle);
+                                startActivity(viewPlanIntent);
+                                break;
+                            case ITEM_GOTOO_SITE:
+                                Intent gotoMyProcess = new Intent(getActivity(),
+                                        MyProcessDetailActivity
+                                                .class);
+                                gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
+                                startActivity(gotoMyProcess);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+        manage_pullfefresh.setAdapter(adapter);
+        manage_pullfefresh.setVisibility(View.VISIBLE);
     }
 
     private void initMainHeadView() {
@@ -157,64 +222,7 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
                 processList = apiResponse.getData();
                 LogTool.d(TAG, "processList:" + processList);
                 if (null != processList && processList.size() > 0) {
-                    adapter = new MySiteAdapter(getActivity(), processList, siteProcessList, new
-                            ClickCallBack() {
-                                @Override
-                                public void click(int position, int itemType) {
-                                    Process process = processList.get(position);
-                                    processId = process.get_id();
-                                    LogTool.d(TAG, "processId:" + processId + "  itemPosition:" + itemPosition);
-                                    switch (itemType) {
-                                        case ITEM_PRIVIEW:
-                                            Intent gotoPriviewRequirement = null;
-                                            if (process.getRequirement().getDec_type().equals(Global
-                                                    .DEC_TYPE_BUSINESS)) {
-                                                gotoPriviewRequirement = new Intent(getActivity(),
-                                                        PreviewBusinessRequirementActivity.class);
-                                            } else {
-                                                gotoPriviewRequirement = new Intent(getActivity(),
-                                                        PreviewHomeRequirementActivity.class);
-                                            }
-                                            gotoPriviewRequirement.putExtra(Global.REQUIREMENT_INFO, process
-                                                    .getRequirement());
-                                            startActivity(gotoPriviewRequirement);
-                                            break;
-                                        case ITEM_CONTRACT:
-                                            Intent viewContractIntent = new Intent(getActivity(),
-                                                    SettingContractActivity
-                                                            .class);
-                                            Bundle contractBundle = new Bundle();
-                                            contractBundle.putSerializable(Global.REQUIREMENT_INFO, process
-                                                    .getRequirement());
-                                            contractBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
-                                            viewContractIntent.putExtras(contractBundle);
-                                            startActivity(viewContractIntent);
-                                            break;
-                                        case ITEM_PLAN:
-                                            Intent viewPlanIntent = new Intent(getActivity(),
-                                                    PreviewDesignerPlanActivity
-                                                            .class);
-                                            Bundle planBundle = new Bundle();
-                                            planBundle.putSerializable(Global.PLAN_DETAIL, process.getPlan());
-                                            planBundle.putSerializable(Global.REQUIREMENT_INFO, process
-                                                    .getRequirement());
-                                            viewPlanIntent.putExtras(planBundle);
-                                            startActivity(viewPlanIntent);
-                                            break;
-                                        case ITEM_GOTOO_SITE:
-                                            Intent gotoMyProcess = new Intent(getActivity(),
-                                                    MyProcessDetailActivity
-                                                            .class);
-                                            gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
-                                            startActivity(gotoMyProcess);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            });
-                    manage_pullfefresh.setAdapter(adapter);
-                    manage_pullfefresh.setVisibility(View.VISIBLE);
+                    adapter.addItem(processList);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
                 } else {
@@ -247,25 +255,16 @@ public class ManageFragment extends BaseFragment implements PullToRefreshBase.On
         });
     }
 
-    private void setProcessList() {
+    private void setProcessSectionItemList() {
+        siteProcessList = new ArrayList<>();
         for (int i = 0; i < proTitle.length; i++) {
-            SiteProcessItem item = new SiteProcessItem();
+            ProcessSectionItem item = new ProcessSectionItem();
             item.setRes(getResources()
                     .getIdentifier("icon_home_bg" + (i + 1), "drawable",
                             getActivity().getApplication().getPackageName()));
             item.setTitle(proTitle[i]);
             siteProcessList.add(item);
         }
-    }
-
-    @Override
-    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getProcessList();
-    }
-
-    @Override
-    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-
     }
 
     @Override

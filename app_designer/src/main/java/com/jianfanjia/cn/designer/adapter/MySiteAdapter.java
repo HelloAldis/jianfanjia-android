@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,12 +18,13 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
-import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.designer.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.interf.OnItemClickListener;
+import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -32,25 +34,27 @@ import com.jianfanjia.common.tool.LogTool;
  * Date: 2016-01-18
  * Time: 14:21
  */
-public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
+public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
     private static final String TAG = MySiteAdapter.class.getName();
     private ClickCallBack callBack;
-    private List<SiteProcessItem> siteProcessList;
+    private List<ProcessSectionItem> siteProcessList;
     private int processIndex = -1;
+    private Context context;
 
-    public MySiteAdapter(Context context, List<Process> list, List<SiteProcessItem> siteProcessList, ClickCallBack
+    public MySiteAdapter(Context context,List<ProcessSectionItem> siteProcessList, ClickCallBack
             callBack) {
-        super(context, list);
+        this.context = context;
         this.siteProcessList = siteProcessList;
         this.callBack = callBack;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Process> list) {
-        Process process = list.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,final int position) {
+        Process process = items.get(position);
         MySiteViewHolder holder = (MySiteViewHolder) viewHolder;
         if (!TextUtils.isEmpty(process.getUser().getImageid())) {
-            imageShow.displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(), holder.itemHeadView);
+            ImageShow.getImageShow().displayImageHeadWidthThumnailImage(context, process.getUser().getImageid(),
+                    holder.itemHeadView);
         } else {
             holder.itemHeadView.setImageResource(R.mipmap.icon_default_head);
         }
@@ -118,14 +122,9 @@ public class MySiteAdapter extends BaseRecyclerViewAdapter<Process> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
-        View view = layoutInflater.inflate(R.layout.list_item_site_info,
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_site_info,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new MySiteViewHolder(view);
     }
 

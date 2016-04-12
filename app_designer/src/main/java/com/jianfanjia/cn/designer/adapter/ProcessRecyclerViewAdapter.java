@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.SiteProcessItem;
+import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Date: 2016-01-20
  * Time: 10:51
  */
-public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProcessItem> {
+public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<ProcessSectionItem> {
     private static final String TAG = ProcessRecyclerViewAdapter.class.getName();
     private OnItemClickListener listener;
     private int processIndex;
@@ -32,7 +32,7 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
     public static final int LAST = 1;
     public static final int NORMAL = 2;
 
-    public ProcessRecyclerViewAdapter(Context context, List<SiteProcessItem> list, int processIndex,
+    public ProcessRecyclerViewAdapter(Context context, List<ProcessSectionItem> list, int processIndex,
                                       OnItemClickListener listener) {
         super(context, list);
         this.processIndex = processIndex;
@@ -40,8 +40,8 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<SiteProc
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<SiteProcessItem> list) {
-        SiteProcessItem item = list.get(position);
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<ProcessSectionItem> list) {
+        ProcessSectionItem item = list.get(position);
         ProcessViewHolder holder = (ProcessViewHolder) viewHolder;
         holder.itemImgView.setImageResource(item.getRes());
         holder.itemTitleView.setText(item.getTitle());
