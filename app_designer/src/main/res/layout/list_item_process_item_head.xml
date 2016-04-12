@@ -11,17 +11,12 @@
         android:fadingEdge="none"
         android:visibility="gone"/>
 
-    <View
-        android:id="@+id/first_line"
-        style="@style/divier_line"
-        android:layout_below="@id/process_viewpager"/>
-
     <LinearLayout
         android:id="@+id/checkLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/first_line"
-        android:layout_marginTop="-6dip"
+        android:layout_below="@id/process_viewpager"
+        android:layout_marginTop="-7dip"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -30,6 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="38dp"
             android:src="@mipmap/icon_row"/>
+
+        <View
+            android:id="@+id/first_line"
+            style="@style/divier_line"/>
 
         <LinearLayout
             android:id="@+id/site_list_head_checkbutton_layout"
