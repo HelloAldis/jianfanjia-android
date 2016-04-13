@@ -38,6 +38,19 @@
     <string name="str_shi">室</string>
     <string name="str_danyuan">单元</string>
     <string name="str_not_order">未预约</string>
+    <string name="str_order_measure_house">预约上门量房</string>
+    <string name="str_wait_respond">等待响应</string>
+    <string name="str_refuse">已拒绝</string>
+    <string name="str_wait_measure_house">等待量房</string>
+    <string name="str_wait_confirm_measure_house">等待确认量房</string>
+    <string name="str_wait_upload_plan">等待上传方案</string>
+    <string name="str_not_choose">未中标</string>
+    <string name="str_out_date">已过时</string>
+    <string name="str_wait_setting_constract">等待设置合同</string>
+    <string name="str_wait_confirm_constract">等待确认合同</string>
+    <string name="str_working">已开工</string>
+    <string name="str_done">已竣工</string>
+
     <string name="str_dong">栋</string>
     <string name="str_lovedesistyle">偏好设计师类型</string>
     <string name="no_limit">不限</string>
