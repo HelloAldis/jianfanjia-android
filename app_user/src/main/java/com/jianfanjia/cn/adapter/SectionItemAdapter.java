@@ -14,17 +14,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -116,7 +117,7 @@ public class SectionItemAdapter extends BaseAdapter {
                     setCurrentOpenItem(i);
                 }
             }
-        }else{
+        } else {
             notifyDataSetChanged();
         }
     }
@@ -146,6 +147,7 @@ public class SectionItemAdapter extends BaseAdapter {
             case Constant.FINISHED:
                 viewHolder.finishStatusIcon
                         .setImageResource(R.mipmap.icon_home_finish);
+                viewHolder.openFinishStatus.setTextColor(context.getResources().getColor(R.color.orange_color));
                 viewHolder.openFinishStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_finish));
                 viewHolder.finishTime.setVisibility(View.VISIBLE);
@@ -159,6 +161,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 viewHolder.finishStatusIcon
                         .setImageResource(R.drawable.site_listview_item_notstart_circle);
                 viewHolder.finishTime.setVisibility(View.GONE);
+                viewHolder.openFinishStatus.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                 viewHolder.openFinishStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_not_start));
                 viewHolder.openFinishStatus.setVisibility(View.VISIBLE);
@@ -175,6 +178,7 @@ public class SectionItemAdapter extends BaseAdapter {
                         .setBackgroundResource(R.mipmap.list_item_text_bg2);
                 viewHolder.smallcloseLayout
                         .setBackgroundResource(R.mipmap.list_item_text_bg2);
+                viewHolder.openFinishStatus.setTextColor(context.getResources().getColor(R.color.blue_color));
                 viewHolder.openFinishStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_working));
                 break;
