@@ -8,19 +8,20 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.fragment.LoginFragment;
-import com.jianfanjia.cn.fragment.RegisterFragment;
-import com.jianfanjia.cn.view.ViewPagerIndicator;
-import com.jianfanjia.common.tool.LogTool;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.fragment.LoginFragment;
+import com.jianfanjia.cn.fragment.RegisterFragment;
+import com.jianfanjia.cn.tools.AuthUtil;
+import com.jianfanjia.cn.view.ViewPagerIndicator;
+import com.jianfanjia.common.tool.LogTool;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 /**
  * @author fengliang
@@ -86,6 +87,17 @@ public class LoginNewActivity extends BaseActivity {
         viewPager.setAdapter(mAdapter);
         viewPagerIndicator.setViewPager(viewPager, currentFragment);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogTool.d(this.getClass().getName(), "onActivityResult");
+        UMSsoHandler ssoHandler = AuthUtil.getInstance(this).getUmSocialService().getConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
 
     @Override
     public int getLayoutId() {

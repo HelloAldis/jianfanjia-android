@@ -81,7 +81,10 @@
 -dontwarn android.support.v4.**
 -dontwarn android.support.v7.**
 -dontwarn org.apache.commons.net.**
+-dontwarn org.apache.http.entity.mime.**
 -dontwarn com.tencent.**
+
+-keep class org.apache.http.entity.** { *; }
 
 -keep class android.support.v7.** { *; }
 

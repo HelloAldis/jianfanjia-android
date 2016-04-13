@@ -12,6 +12,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImage;
@@ -31,8 +38,7 @@ import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshViewPager;
+import com.jianfanjia.cn.view.MyViewPager;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -42,14 +48,6 @@ import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -58,8 +56,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends BaseSwipeBackActivity implements ViewPager
-        .OnPageChangeListener, PullToRefreshBase.OnRefreshListener<ViewPager> {
+public class PreviewDecorationActivity extends BaseSwipeBackActivity{
     private static final String TAG = PreviewDecorationActivity.class.getName();
 
     private static final int DOWNLOAD_MESSAGE = 0;//下载消息类型
@@ -67,7 +64,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
     private static final int DOWNLOAD_MESSAGE_FAILURE = 2;//下载失败
 
     @Bind(R.id.showpicPager)
-    PullToRefreshViewPager mPullToRefreshViewPager;
+    MyViewPager myViewPager;
 
     @Bind(R.id.pic_tip)
     TextView picTip;
@@ -94,9 +91,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
     RelativeLayout btnDownloadLayout;
 
     private ShareUtil shareUtil = null;
-    private boolean isFirst = true;
-    private ViewPager imgViewPager = null;
-    private String decorationId = null;
+    private String beautyImageId = null;
     private List<BeautifulImage> beautiful_images = new ArrayList<>();
     private PreImgPagerAdapter showPicPagerAdapter = null;
     private int viewType = -1;
@@ -108,9 +103,11 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
     private String currentImgId = null;
     private String currentStyle = null;
     private String currentTag = null;
-    private int totalCount = 0;
     private String search = null;
-    private int FROM = 0;
+    private int totalCount = 0;
+    private int from = 0;
+
+    private boolean isLoading = false;//是否正在加载
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +123,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
         toolbar.setNavigationIcon(R.mipmap.icon_back);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        imgViewPager = mPullToRefreshViewPager.getRefreshableView();
+
         btnDownloadLayout.setVisibility(View.VISIBLE);
         toolbarCollectLayout.setVisibility(View.VISIBLE);
         toolbarShareLayout.setVisibility(View.VISIBLE);
@@ -138,18 +135,19 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
         LogTool.d(TAG, "viewType==" + viewType);
         search = decorationBundle.getString(IntentConstant.SEARCH_TEXT);
         LogTool.d(TAG, "search==" + search);
-        decorationId = decorationBundle.getString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID);
+        beautyImageId = decorationBundle.getString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID);
         currentPosition = decorationBundle.getInt(IntentConstant.POSITION, 0);
         totalCount = decorationBundle.getInt(IntentConstant.TOTAL_COUNT, 0);
         beautiful_images = (List<BeautifulImage>) decorationBundle.getSerializable(IntentConstant.IMG_LIST);
+        from = beautiful_images.size();
+        LogTool.d(TAG, "beautyImageId=" + beautyImageId + " currentPosition=" + currentPosition + "  totalCount=" +
+                totalCount + "  beautiful_images.size()=" + beautiful_images.size());
+        LogTool.d(TAG, "FROM:" + from);
+
         section = decorationBundle.getString(IntentConstant.HOUSE_SECTION);
         houseStyle = decorationBundle.getString(IntentConstant.HOUSE_STYLE);
         decStyle = decorationBundle.getString(IntentConstant.DEC_STYLE);
         LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
-        LogTool.d(TAG, "decorationId=" + decorationId + " currentPosition=" + currentPosition + "  totalCount=" +
-                totalCount + "  beautiful_images.size()=" + beautiful_images.size());
-        FROM = beautiful_images.size();
-        LogTool.d(TAG, "FROM:" + FROM);
     }
 
     private void initData() {
@@ -160,9 +158,10 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
                         appManager.finishActivity(PreviewDecorationActivity.this);
                     }
                 });
-        imgViewPager.setAdapter(showPicPagerAdapter);
-        imgViewPager.setCurrentItem(currentPosition);
-        setPreviewImgInfo(currentPosition);
+        myViewPager.setAdapter(showPicPagerAdapter);
+        myViewPager.setCurrentItem(currentPosition);
+
+        setPreviewImgInfoView(currentPosition);
     }
 
     public void setListener() {
@@ -172,8 +171,28 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
                 appManager.finishActivity(PreviewDecorationActivity.this);
             }
         });
-        mPullToRefreshViewPager.setOnRefreshListener(this);
-        imgViewPager.setOnPageChangeListener(this);
+        myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPosition = position;
+                if(!isLoading && currentPosition > from - 5){
+                    loadData();
+                }
+                LogTool.d(TAG, "currentPosition=" + currentPosition);
+                setPreviewImgInfoView(currentPosition);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @OnClick({R.id.toolbar_collect_layout, R.id.toolbar_share_layout, R.id.btn_download_layout})
@@ -182,9 +201,9 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
             case R.id.toolbar_collect_layout:
                 UiHelper.imageButtonAnim(toolbarCollect, null);
                 if (toolbarCollect.isSelected()) {
-                    deleteDecorationImg(decorationId);
+                    deleteDecorationImg(beautyImageId);
                 } else {
-                    addDecorationImgInfo(decorationId);
+                    addDecorationImgInfo(beautyImageId);
                 }
                 break;
             case R.id.toolbar_share_layout:
@@ -200,18 +219,14 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
         }
     }
 
-    @Override
-    public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
-        isFirst = false;
+    public void loadData() {
         switch (viewType) {
             case IntentConstant.BEAUTY_FRAGMENT:
-                getDecorationImgInfo(FROM);
+            case IntentConstant.SEARCH_BEAUTY_FRAGMENT:
+                getDecorationImgInfo(from);
                 break;
             case IntentConstant.COLLECT_BEAUTY_FRAGMENT:
-                getCollectedDecorationImgInfo(FROM, Constant.HOME_PAGE_LIMIT);
-                break;
-            case IntentConstant.SEARCH_BEAUTY_FRAGMENT:
-                getDecorationImgInfo(FROM);
+                getCollectedDecorationImgInfo(from, Constant.HOME_PAGE_LIMIT);
                 break;
             default:
                 break;
@@ -254,15 +269,12 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
             ApiCallback<ApiResponse<BeautifulImageList>>() {
                 @Override
                 public void onPreLoad() {
-                    if (isFirst) {
-                        showWaitDialog();
-                    }
+                    isLoading = true;
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
-                    mPullToRefreshViewPager.onRefreshComplete();
+                    isLoading = false;
                 }
 
                 @Override
@@ -274,7 +286,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
                         LogTool.d(TAG, "beautyImages:" + beautyImages.size());
                         if (null != beautyImages && beautyImages.size() > 0) {
                             showPicPagerAdapter.addItem(beautyImages);
-                            FROM += Constant.HOME_PAGE_LIMIT;
+                            from += Constant.HOME_PAGE_LIMIT;
 //                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
                         } else {
                             makeTextShort(getResources().getString(R.string.no_more_data));
@@ -359,26 +371,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
         showPicPagerAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onPageScrollStateChanged(int arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onPageSelected(int arg0) {
-        currentPosition = arg0;
-        LogTool.d(TAG, "currentPosition=" + currentPosition);
-        setPreviewImgInfo(currentPosition);
-    }
-
-    private void setPreviewImgInfo(int position) {
+    private void setPreviewImgInfoView(int position) {
         LogTool.d(TAG, "position===" + position);
         picTip.setText((position + 1) + "/" + totalCount);
         BeautifulImage BeautifulImage = beautiful_images.get(position);
@@ -388,7 +381,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity implements 
         currentStyle = BeautifulImage.getDec_style();
         currentTag = BeautifulImage.getSection();
         LogTool.d(TAG, "picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
-        decorationId = BeautifulImage.get_id();
+        beautyImageId = BeautifulImage.get_id();
         if (BeautifulImage.is_my_favorite()) {
             toolbarCollect.setSelected(true);
         } else {
