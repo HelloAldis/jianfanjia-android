@@ -119,6 +119,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
 
+        button1.setTextColor(context.getResources().getColor(R.color.light_black_color));
         button1.setText(context.getResources().getString(R.string.str_check_comment));
         merger_button1_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +127,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_COMMENT);
             }
         });
+
         button2.setText(context.getResources().getString(R.string.str_view_plan));
         merger_button2_layout.setOnClickListener(new View.OnClickListener() {
             @Override
