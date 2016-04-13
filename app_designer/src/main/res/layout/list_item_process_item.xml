@@ -78,7 +78,10 @@
                 android:background="@drawable/btn_selector"
                 android:clickable="true"
                 android:focusable="false"
-                android:padding="8dip"
+                android:paddingBottom="6dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
+                android:paddingTop="6dip"
                 android:text="@string/site_example_node_confirm_finish"
                 android:textColor="@color/font_white"
                 android:visibility="gone"/>
