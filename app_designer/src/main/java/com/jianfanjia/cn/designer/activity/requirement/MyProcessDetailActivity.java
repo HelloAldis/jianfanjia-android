@@ -352,7 +352,24 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     });
                     break;
                 case Constant.NO_START:
-                    checkLayout.setVisibility(View.GONE);
+                    checkLayout.setVisibility(View.VISIBLE);
+                    site_list_head_delay_layout.setVisibility(View.GONE);
+                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+                    openDelay.setEnabled(false);
+                    openDelay.setTextColor(getResources().getColor(R.color.grey_color));
+                    openDelay.setText(getResources().getText(R.string.site_example_node_delay));
+                    openCheck.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle checkBundle = new Bundle();
+                            checkBundle.putString(Constant.SECTION, processSection.getName());
+                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                            Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity
+                                    .class);
+                            checkIntent.putExtras(checkBundle);
+                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
+                        }
+                    });
                     break;
                 case Constant.YANQI_AGREE:
                 case Constant.YANQI_REFUSE:
