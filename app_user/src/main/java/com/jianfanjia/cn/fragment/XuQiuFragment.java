@@ -11,11 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
@@ -40,6 +35,12 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description:需求
@@ -143,7 +144,8 @@ public class XuQiuFragment extends BaseFragment {
                         break;
                     case ITEM_GOTOMYDESI:
                         Bundle gotoMyDesignerBundle = new Bundle();
-                        gotoMyDesignerBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get(position));
+                        gotoMyDesignerBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
+                                (position));
                         startActivity(MyDesignerActivity.class, gotoMyDesignerBundle);
                         break;
                     case ITEM_GOTOODERDESI:
@@ -161,8 +163,9 @@ public class XuQiuFragment extends BaseFragment {
     protected void gotoOrderDesigner() {
         Bundle gotoOrderDesignerBundle = new Bundle();
         if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-            gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size
-                    ());
+            gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo
+                    .getOrder_designers().size
+                            ());
         } else {
             gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, 0);
         }
@@ -188,7 +191,7 @@ public class XuQiuFragment extends BaseFragment {
     }
 
     protected void initView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.requirement_list));
+        mainHeadView.setMianTitle(getResources().getString(R.string.create_my_requirement));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.VISIBLE);
