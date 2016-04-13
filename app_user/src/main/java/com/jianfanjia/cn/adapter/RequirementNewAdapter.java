@@ -112,8 +112,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
             ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time
                     ()));
-//            ltm_req_status.setText(context.getResources().getStringArray(R.array.requirement_status)[Integer.parseInt
-//                    (requirementInfo.getStatus())]);
             DataManagerNew dataManagerNew = DataManagerNew.getInstance();
             if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {
                 imageShow.displayImageHeadWidthThumnailImage(context, dataManagerNew.getUserImagePath(),
@@ -171,30 +169,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     }
                 });
             }
-//            switch (requirementStatus) {
-//                case Global.REQUIREMENT_STATUS1:
-//                case Global.REQUIREMENT_STATUS7:
-//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.green_color));
-//                    break;
-//                case Global.REQUIREMENT_STATUS2:
-//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.blue_color));
-//                    break;
-//                case Global.REQUIREMENT_STATUS4:
-//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.orange_color));
-//                    if (requirementInfo.getWork_type().equals(Global.PURE_DESIGNER)) {
-//                        ltm_req_status.setText(context.getResources().getString(R.string.already_finish));
-//                    }
-//                    break;
-//                case Global.REQUIREMENT_STATUS3:
-//                case Global.REQUIREMENT_STATUS5:
-//                case Global.REQUIREMENT_STATUS6:
-//                case Global.REQUIREMENT_STATUS8:
-//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.orange_color));
-//                    break;
-//                default:
-//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
-//                    break;
-//            }
 
             List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
