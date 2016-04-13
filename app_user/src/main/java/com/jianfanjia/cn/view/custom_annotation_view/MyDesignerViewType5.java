@@ -128,6 +128,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
             }
         });
 
+        button2.setTextColor(context.getResources().getColor(R.color.light_black_color));
         button2.setText(context.getResources().getString(R.string.str_view_plan));
         merger_button2_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +137,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
             }
         });
 
+        button3.setTextColor(context.getResources().getColor(R.color.light_black_color));
         button3.setText(context.getResources().getString(R.string.str_view_contract));
         merger_button3_layout.setOnClickListener(new View.OnClickListener() {
             @Override
