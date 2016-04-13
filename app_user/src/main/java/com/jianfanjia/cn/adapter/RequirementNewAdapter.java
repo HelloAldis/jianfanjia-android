@@ -22,6 +22,7 @@ import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -213,7 +214,14 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                                 break;
                             case Global.PLAN_STATUS2:
                                 statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
-                                statusView.setText(context.getResources().getString(R.string.str_wait_measure_house));
+                                if (Calendar.getInstance().getTimeInMillis() > orderDesignerInfos.get(i).getPlan()
+                                        .getHouse_check_time()) {
+                                    statusView.setText(context.getResources().getString(R.string
+                                            .str_wait_confirm_measure_house));
+                                } else {
+                                    statusView.setText(context.getResources().getString(R.string
+                                            .str_wait_measure_house));
+                                }
                                 break;
                             case Global.PLAN_STATUS3:
                                 statusView.setTextColor(context.getResources().getColor(R.color.blue_color));

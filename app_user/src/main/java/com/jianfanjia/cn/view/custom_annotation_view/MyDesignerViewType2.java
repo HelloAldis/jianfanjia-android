@@ -107,10 +107,10 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
         statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
-        statusView.setText(context.getResources().getString(R.string.already_repsonse));
         LogTool.d(this.getClass().getName(), "当前时间 =" + Calendar.getInstance().getTimeInMillis() + "  量房时间 =" +
                 designerInfo.getPlan().getHouse_check_time());
         if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
+            statusView.setText(context.getResources().getString(R.string.str_wait_confirm_measure_house));
             textView3.setText(context.getResources().getString(R.string.confirm_measure_house));
             contentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,6 +119,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
                 }
             });
         } else {
+            statusView.setText(context.getResources().getString(R.string.str_wait_measure_house));
             textView3.setText(context.getResources().getString(R.string.measure_house_time) + "：" + StringUtils
                     .covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
