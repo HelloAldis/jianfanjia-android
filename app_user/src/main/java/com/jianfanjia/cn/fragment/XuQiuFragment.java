@@ -11,15 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
+import com.jianfanjia.cn.Event.ScrollEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
@@ -40,6 +36,13 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:需求
@@ -91,6 +94,7 @@ public class XuQiuFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     protected void setListVisiable() {
@@ -143,7 +147,8 @@ public class XuQiuFragment extends BaseFragment {
                         break;
                     case ITEM_GOTOMYDESI:
                         Bundle gotoMyDesignerBundle = new Bundle();
-                        gotoMyDesignerBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get(position));
+                        gotoMyDesignerBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
+                                (position));
                         startActivity(MyDesignerActivity.class, gotoMyDesignerBundle);
                         break;
                     case ITEM_GOTOODERDESI:
@@ -161,8 +166,9 @@ public class XuQiuFragment extends BaseFragment {
     protected void gotoOrderDesigner() {
         Bundle gotoOrderDesignerBundle = new Bundle();
         if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-            gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo.getOrder_designers().size
-                    ());
+            gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo
+                    .getOrder_designers().size
+                            ());
         } else {
             gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, 0);
         }
@@ -188,7 +194,7 @@ public class XuQiuFragment extends BaseFragment {
     }
 
     protected void initView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.requirement_list));
+        mainHeadView.setMianTitle(getResources().getString(R.string.create_my_requirement));
         mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.VISIBLE);
@@ -267,6 +273,16 @@ public class XuQiuFragment extends BaseFragment {
 
             }
         });
+    }
+
+    public void onEventMainThread(ScrollEvent event) {
+        pullrefresh.scrollToPosition(0);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

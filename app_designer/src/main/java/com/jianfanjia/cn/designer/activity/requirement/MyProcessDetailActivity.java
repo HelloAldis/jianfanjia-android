@@ -18,13 +18,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -64,6 +57,14 @@ import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -287,10 +288,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                         Log.i(TAG, "potition=" + potition);
                         if (processSections != null) {
                             if (potition < TOTAL_PROCESS) {
-//                                currentList = potition;
-//                                processSection = processSections.get(currentList);
-//                                setCheckLayoutState();
-                                processViewPager.setCurrentItem(potition);
+                                currentList = potition;
+                                processViewPager.setCurrentItem(currentList);
                                 sectionViewPageAdapter.notifyDataSetChanged();
                             }
                         }
@@ -298,7 +297,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
                 });
         processViewPager.setAdapter(sectionViewPageAdapter);
-        processViewPager.setCurrentItem(processList.size() - 1);
         processViewPager.setVisibility(View.GONE);
         processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
             @Override

@@ -12,13 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.BeautifulImage;
@@ -48,6 +41,14 @@ import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -432,7 +433,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            switch (msg.arg1){
+            switch (msg.arg1) {
                 case DOWNLOAD_MESSAGE_SUCCESS:
                     makeTextShort(getResources().getString(R.string.save_image_success));
                     break;
@@ -452,7 +453,6 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
                 message.what = DOWNLOAD_MESSAGE;
                 try {
                     boolean isSuccess = ImageUtil.snapshot(PreviewDecorationActivity.this, loadedImage, 100);
-
                     if (isSuccess) {
                         message.arg1 = DOWNLOAD_MESSAGE_SUCCESS;
                     } else {
@@ -460,7 +460,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
                     }
                 } catch (Exception e) {
                     message.arg1 = DOWNLOAD_MESSAGE_FAILURE;
-                }finally {
+                } finally {
                     handler.sendMessage(message);
                 }
 

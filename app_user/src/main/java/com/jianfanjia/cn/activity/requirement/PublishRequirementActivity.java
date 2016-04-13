@@ -7,11 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -19,6 +14,7 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
+import com.jianfanjia.cn.Event.ScrollEvent;
 import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
@@ -37,6 +33,13 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:发布需求
@@ -185,6 +188,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
             public void onSuccess(ApiResponse<Object> apiResponse) {
                 startActivity(MainActivity.class);
                 appManager.finishActivity(PublishRequirementActivity.this);
+                EventBus.getDefault().post(new ScrollEvent());
             }
 
             @Override
