@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,6 +36,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -56,7 +58,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class PreviewDecorationActivity extends BaseSwipeBackActivity{
+public class PreviewDecorationActivity extends BaseSwipeBackActivity {
     private static final String TAG = PreviewDecorationActivity.class.getName();
 
     private static final int DOWNLOAD_MESSAGE = 0;//下载消息类型
@@ -89,6 +91,12 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
 
     @Bind(R.id.btn_download_layout)
     RelativeLayout btnDownloadLayout;
+
+    @Bind(R.id.pic_title)
+    TextView titleView;
+
+    @Bind(R.id.pic_des)
+    TextView desView;
 
     private ShareUtil shareUtil = null;
     private String beautyImageId = null;
@@ -173,24 +181,28 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
         });
         myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
+            private int currentState;
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                LogTool.d(this.getClass().getName(), "position =" + position + " positionOffset =" + positionOffset);
+                if (!isLoading && currentState == ViewPager.SCROLL_STATE_DRAGGING && from >= 20 && currentPosition >
+                        from - 5 && positionOffsetPixels > 0) {
+                    isLoading = true;
+                    loadData();
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
                 currentPosition = position;
-                if(!isLoading && currentPosition > from - 5){
-                    loadData();
-                }
                 LogTool.d(TAG, "currentPosition=" + currentPosition);
                 setPreviewImgInfoView(currentPosition);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                currentState = state;
             }
         });
     }
@@ -269,7 +281,6 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
             ApiCallback<ApiResponse<BeautifulImageList>>() {
                 @Override
                 public void onPreLoad() {
-                    isLoading = true;
                 }
 
                 @Override
@@ -287,7 +298,6 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
                         if (null != beautyImages && beautyImages.size() > 0) {
                             showPicPagerAdapter.addItem(beautyImages);
                             from += Constant.HOME_PAGE_LIMIT;
-//                    EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
                         } else {
                             makeTextShort(getResources().getString(R.string.no_more_data));
                         }
@@ -374,15 +384,23 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity{
     private void setPreviewImgInfoView(int position) {
         LogTool.d(TAG, "position===" + position);
         picTip.setText((position + 1) + "/" + totalCount);
-        BeautifulImage BeautifulImage = beautiful_images.get(position);
-        currentImgId = BeautifulImage.getImages().get(0).getImageid();
+        BeautifulImage beautifulImage = beautiful_images.get(position);
+
+        currentImgId = beautifulImage.getImages().get(0).getImageid();
         LogTool.d(TAG, "  currentImgId=" + currentImgId);
-        picTitle = BeautifulImage.getTitle();
-        currentStyle = BeautifulImage.getDec_style();
-        currentTag = BeautifulImage.getSection();
+        picTitle = beautifulImage.getTitle();
+        currentStyle = beautifulImage.getDec_style();
+        currentTag = beautifulImage.getSection();
+
+        titleView.setText(TextUtils.isEmpty(picTitle) ? "" : picTitle);
+        String keyDes = BusinessCovertUtil.spilteKeyWord(beautifulImage.getKeywords());
+        if (!TextUtils.isEmpty(keyDes)) {
+            desView.setText(keyDes);
+        }
+
         LogTool.d(TAG, "picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
-        beautyImageId = BeautifulImage.get_id();
-        if (BeautifulImage.is_my_favorite()) {
+        beautyImageId = beautifulImage.get_id();
+        if (beautifulImage.is_my_favorite()) {
             toolbarCollect.setSelected(true);
         } else {
             toolbarCollect.setSelected(false);

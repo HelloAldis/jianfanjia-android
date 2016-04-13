@@ -9,8 +9,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
 
-        versionCode 62
-        versionName "2.5.4"
+        versionCode 63
+        versionName "2.5.5"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -103,7 +103,7 @@ android {
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
-                fileName = fileName.replace("app", "jianfanjia")
+                fileName = fileName.replace("app_user", "jianfanjia")
 //                if (variant.buildType.name.equals('release')) {
 //                    fileName = fileName.replace("-release", "")
 //                    output.outputFile = new File(outputFile.parent, fileName)

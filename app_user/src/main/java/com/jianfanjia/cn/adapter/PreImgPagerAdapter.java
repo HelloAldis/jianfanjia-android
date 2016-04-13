@@ -2,22 +2,18 @@ package com.jianfanjia.cn.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import java.util.List;
 
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageDetail;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.ImageShow;
-
-import java.util.List;
-
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -80,18 +76,12 @@ public class PreImgPagerAdapter extends PagerAdapter {
         List<BeautifulImageDetail> images = info.getImages();
         View view = inflater.inflate(R.layout.viewpager_item_show_img, null);
         PhotoView imageView = (PhotoView) view.findViewById(R.id.image_item);
-        TextView pic_title = (TextView) view.findViewById(R.id.pic_title);
-        TextView pic_des = (TextView) view.findViewById(R.id.pic_des);
         if (!images.get(0).getImageid().contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayScreenWidthThumnailImage(context, images.get(0).getImageid(), imageView);
         } else {
             imageShow.displayLocalImage(images.get(0).getImageid(), imageView);
         }
-        pic_title.setText(TextUtils.isEmpty(info.getTitle()) ? "" : info.getTitle());
-        String keyDes = BusinessCovertUtil.spilteKeyWord(info.getKeywords());
-        if (!TextUtils.isEmpty(keyDes)) {
-            pic_des.setText(keyDes);
-        }
+
         imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
