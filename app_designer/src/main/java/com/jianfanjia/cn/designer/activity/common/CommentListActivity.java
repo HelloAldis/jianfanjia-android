@@ -8,13 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
@@ -34,6 +31,9 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity.common
@@ -82,7 +82,6 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 MyCommentInfoAdapter.OnItemCallback() {
                     @Override
                     public void onResponse(UserMessage userMessage, int viewType) {
-
                         Bundle bundle = new Bundle();
                         bundle.putString(Global.TOPIC_ID, userMessage.getTopicid());
                         bundle.putString(Global.TOPICTYPE, viewType + "");
@@ -96,7 +95,6 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                                 break;
                         }
                         startActivity(CommentActivity.class, bundle);
-
                     }
 
                     @Override
@@ -106,7 +104,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                                 startPlanInfoActivity(userMessage.getPlan(), userMessage.getRequirement());
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
-                                startProcessDetailActivity(userMessage.getProcess());
+                                startProcessDetailActivity(userMessage.getProcess().get_id());
                                 break;
                         }
                     }
@@ -138,10 +136,10 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
-    private void startProcessDetailActivity(Process process) {
-        Bundle processBundle = new Bundle();
-        processBundle.putSerializable(Global.PROCESS_INFO, process);
-        startActivity(MyProcessDetailActivity.class, processBundle);
+    private void startProcessDetailActivity(String processId) {
+        Intent gotoMyProcess = new Intent(CommentListActivity.this, MyProcessDetailActivity.class);
+        gotoMyProcess.putExtra(Global.PROCESS_ID, processId);
+        startActivity(gotoMyProcess);
     }
 
     private void getMyCommentInfo(int from, ApiCallback<ApiResponse<UserMessageList>> apiCallback) {
