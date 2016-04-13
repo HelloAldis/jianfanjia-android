@@ -121,7 +121,7 @@ public class MyDesignerViewType7 extends RecyclerView.ViewHolder {
                 clickCallBack.click(position, MyDesignerActivity.CHANGE_DESIGNER);
             }
         });
-        statusView.setText(context.getResources().getString(R.string.not_response));
+        statusView.setText(context.getResources().getString(R.string.str_out_date));
         statusView.setTextColor(context.getResources().getColor(R.color.grey_color));
 
         Requirement requirementInfo = designerInfo.getRequirement();

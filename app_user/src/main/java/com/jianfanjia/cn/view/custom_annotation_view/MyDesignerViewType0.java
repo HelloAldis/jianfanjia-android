@@ -104,11 +104,10 @@ public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
         switch (status) {
             case Global.PLAN_STATUS0:
-                textView3.setText(context.getResources().getString(R.string.wait_response));
-                statusView.setText(context.getResources().getString(R.string.already_order));
-                statusView.setTextColor(context.getResources().getColor(R.color.green_color));
+                contentLayout.setVisibility(View.GONE);
+                statusView.setText(context.getResources().getString(R.string.str_wait_respond));
+                statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
                 break;
         }
-
     }
 }

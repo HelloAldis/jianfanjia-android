@@ -127,10 +127,8 @@ public class MyDesignerViewType6 extends RecyclerView.ViewHolder {
                 }
             });
         }
-        button2.setText(context.getResources().getString(R.string.str_wait_plan));
-        merger_button2_layout.setEnabled(false);
-        button2.setTextColor(context.getResources().getColor(R.color.grey_color));
-        statusView.setText(context.getResources().getString(R.string.already_measure));
-        statusView.setTextColor(context.getResources().getColor(R.color.grey_color));
+        merger_button2_layout.setVisibility(View.GONE);
+        statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+        statusView.setText(context.getResources().getString(R.string.str_wait_upload_plan));
     }
 }

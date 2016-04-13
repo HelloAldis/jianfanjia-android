@@ -10,10 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -25,6 +21,11 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -79,8 +80,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
         protected TextView ltm_req_starttime_cont;
         @Bind(R.id.ltm_req_updatetime_cont)
         protected TextView ltm_req_updatetime_cont;
-        @Bind(R.id.ltm_req_status)
-        protected TextView ltm_req_status;
         @Bind(R.id.ltm_req_owner_head)
         protected ImageView ltm_req_owner_head;
         @Bind(R.id.ltm_req_gotopro)
@@ -113,8 +112,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
             ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time
                     ()));
-            ltm_req_status.setText(context.getResources().getStringArray(R.array.requirement_status)[Integer.parseInt
-                    (requirementInfo.getStatus())]);
+//            ltm_req_status.setText(context.getResources().getStringArray(R.array.requirement_status)[Integer.parseInt
+//                    (requirementInfo.getStatus())]);
             DataManagerNew dataManagerNew = DataManagerNew.getInstance();
             if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {
                 imageShow.displayImageHeadWidthThumnailImage(context, dataManagerNew.getUserImagePath(),
@@ -172,32 +171,31 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     }
                 });
             }
-            switch (requirementStatus) {
-                case Global.REQUIREMENT_STATUS1:
-                case Global.REQUIREMENT_STATUS7:
-                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.green_color));
-                    break;
-                case Global.REQUIREMENT_STATUS2:
-                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.blue_color));
-                    break;
-                case Global.REQUIREMENT_STATUS4:
-                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    if (requirementInfo.getWork_type().equals(Global.PURE_DESIGNER)) {
-                        ltm_req_status.setText(context.getResources().getString(R.string.already_finish));
-                    }
-                    break;
-                case Global.REQUIREMENT_STATUS3:
-                case Global.REQUIREMENT_STATUS5:
-                case Global.REQUIREMENT_STATUS6:
-                case Global.REQUIREMENT_STATUS8:
-                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    break;
-                default:
-                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
-                    break;
-            }
+//            switch (requirementStatus) {
+//                case Global.REQUIREMENT_STATUS1:
+//                case Global.REQUIREMENT_STATUS7:
+//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.green_color));
+//                    break;
+//                case Global.REQUIREMENT_STATUS2:
+//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.blue_color));
+//                    break;
+//                case Global.REQUIREMENT_STATUS4:
+//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.orange_color));
+//                    if (requirementInfo.getWork_type().equals(Global.PURE_DESIGNER)) {
+//                        ltm_req_status.setText(context.getResources().getString(R.string.already_finish));
+//                    }
+//                    break;
+//                case Global.REQUIREMENT_STATUS3:
+//                case Global.REQUIREMENT_STATUS5:
+//                case Global.REQUIREMENT_STATUS6:
+//                case Global.REQUIREMENT_STATUS8:
+//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.orange_color));
+//                    break;
+//                default:
+//                    ltm_req_status.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+//                    break;
+//            }
 
-            List<Designer> recDesignerInfos = requirementInfo.getRec_designers();
             List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();
@@ -230,22 +228,70 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                             imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC, headView);
                         }
                         String status = orderDesignerInfos.get(i).getPlan().getStatus();
-                        statusView.setText(context.getResources().getStringArray(R.array.plan_status)[Integer.parseInt
-                                (status)]);
                         switch (status) {
                             case Global.PLAN_STATUS0:
-                                statusView.setTextColor(context.getResources().getColor(R.color.green_color));
+                                statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                                statusView.setText(context.getResources().getString(R.string.str_wait_respond));
                                 break;
-                            case Global.PLAN_STATUS5:
-                            case Global.PLAN_STATUS6:
-                            case Global.PLAN_STATUS3:
-                                statusView.setTextColor(context.getResources().getColor(R.color.orange_color));
+                            case Global.PLAN_STATUS1:
+                                statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                                statusView.setText(context.getResources().getString(R.string.str_refuse));
                                 break;
                             case Global.PLAN_STATUS2:
                                 statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                                statusView.setText(context.getResources().getString(R.string.str_wait_measure_house));
+                                break;
+                            case Global.PLAN_STATUS3:
+                                statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                                statusView.setText(context.getResources().getString(R.string.str_wait_confirm_plan));
+                                break;
+                            case Global.PLAN_STATUS4:
+                                statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                                statusView.setText(context.getResources().getString(R.string.str_not_choose));
+                                break;
+                            case Global.PLAN_STATUS5:
+                                switch (requirementStatus) {
+                                    case Global.REQUIREMENT_STATUS1:
+                                        break;
+                                    case Global.REQUIREMENT_STATUS7:
+                                        statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                                        statusView.setText(context.getResources().getString(R.string
+                                                .str_wait_confirm_constract));
+                                        break;
+                                    case Global.REQUIREMENT_STATUS2:
+                                        break;
+                                    case Global.REQUIREMENT_STATUS4:
+                                        statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                                        statusView.setText(context.getResources().getString(R.string
+                                                .str_wait_setting_constract));
+                                        break;
+                                    case Global.REQUIREMENT_STATUS3:
+                                        break;
+                                    case Global.REQUIREMENT_STATUS5:
+                                        statusView.setTextColor(context.getResources().getColor(R.color.orange_color));
+                                        statusView.setText(context.getResources().getString(R.string
+                                                .str_working));
+                                        break;
+                                    case Global.REQUIREMENT_STATUS6:
+                                        break;
+                                    case Global.REQUIREMENT_STATUS8:
+                                        statusView.setTextColor(context.getResources().getColor(R.color.green_color));
+                                        statusView.setText(context.getResources().getString(R.string
+                                                .str_done));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case Global.PLAN_STATUS6:
+                                statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                                statusView.setText(context.getResources().getString(R.string.str_wait_upload_plan));
+                                break;
+                            case Global.PLAN_STATUS7:
+                                break;
+                            case Global.PLAN_STATUS8:
                                 break;
                             default:
-                                statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                                 break;
                         }
                         designerLayout.setOnClickListener(new View.OnClickListener() {

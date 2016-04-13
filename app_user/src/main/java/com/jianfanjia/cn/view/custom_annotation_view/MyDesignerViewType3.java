@@ -134,8 +134,8 @@ public class MyDesignerViewType3 extends RecyclerView.ViewHolder {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
             }
         });
-        statusView.setText(context.getResources().getString(R.string.already_commit));
-        statusView.setTextColor(context.getResources().getColor(R.color.grey_color));
+        statusView.setText(context.getResources().getString(R.string.str_wait_confirm_plan));
+        statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
 
     }
 

@@ -136,7 +136,7 @@ public class MyDesignerViewType4 extends RecyclerView.ViewHolder {
                 clickCallBack.click(position, MyDesignerActivity.VIEW_PLAN);
             }
         });
-        statusView.setText(context.getResources().getString(R.string.not_choose));
-        statusView.setTextColor(context.getResources().getColor(R.color.grey_color));
+        statusView.setText(context.getResources().getString(R.string.str_not_choose));
+        statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
     }
 }

@@ -144,17 +144,45 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
 
         Requirement requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
-        if (requirementStatus.equals(Global.REQUIREMENT_STATUS4)) {
-            merger_button3_layout.setEnabled(false);
-            button3.setTextColor(context.getResources().getColor(R.color.grey_color));
-        } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS7)) {
-            merger_button3_layout.setEnabled(true);
-            button3.setTextColor(context.getResources().getColor(R.color.orange_color));
-        } else {
-            merger_button3_layout.setEnabled(true);
-            button3.setTextColor(context.getResources().getColor(R.color.orange_color));
+        switch (requirementStatus) {
+            case Global.REQUIREMENT_STATUS1:
+                break;
+            case Global.REQUIREMENT_STATUS7:
+                merger_button3_layout.setEnabled(true);
+                button3.setTextColor(context.getResources().getColor(R.color.orange_color));
+                statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                statusView.setText(context.getResources().getString(R.string
+                        .str_wait_confirm_constract));
+                break;
+            case Global.REQUIREMENT_STATUS2:
+                break;
+            case Global.REQUIREMENT_STATUS4:
+                merger_button3_layout.setEnabled(false);
+                button3.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+                statusView.setText(context.getResources().getString(R.string
+                        .str_wait_setting_constract));
+                break;
+            case Global.REQUIREMENT_STATUS3:
+                break;
+            case Global.REQUIREMENT_STATUS5:
+                merger_button3_layout.setEnabled(true);
+                button3.setTextColor(context.getResources().getColor(R.color.orange_color));
+                statusView.setTextColor(context.getResources().getColor(R.color.orange_color));
+                statusView.setText(context.getResources().getString(R.string
+                        .str_working));
+                break;
+            case Global.REQUIREMENT_STATUS6:
+                break;
+            case Global.REQUIREMENT_STATUS8:
+                merger_button3_layout.setEnabled(true);
+                button3.setTextColor(context.getResources().getColor(R.color.orange_color));
+                statusView.setTextColor(context.getResources().getColor(R.color.green_color));
+                statusView.setText(context.getResources().getString(R.string
+                        .str_done));
+                break;
+            default:
+                break;
         }
-        statusView.setTextColor(context.getResources().getColor(R.color.orange_color));
-        statusView.setText(context.getResources().getString(R.string.already_choose));
     }
 }

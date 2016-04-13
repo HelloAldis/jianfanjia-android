@@ -129,7 +129,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
                 || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global
                 .REQUIREMENT_STATUS8)) {
             contentLayout.setEnabled(false);
-            textView3.setTextColor(context.getResources().getColor(R.color.grey_color));
+            textView3.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
         } else {
             contentLayout.setEnabled(true);
             textView3.setTextColor(context.getResources().getColor(R.color.orange_color));
