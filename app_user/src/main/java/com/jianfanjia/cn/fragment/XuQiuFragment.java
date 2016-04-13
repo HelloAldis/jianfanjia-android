@@ -15,6 +15,7 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
+import com.jianfanjia.cn.Event.ScrollEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
@@ -41,6 +42,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Description:需求
@@ -92,6 +94,7 @@ public class XuQiuFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     protected void setListVisiable() {
@@ -270,6 +273,16 @@ public class XuQiuFragment extends BaseFragment {
 
             }
         });
+    }
+
+    public void onEventMainThread(ScrollEvent event) {
+        pullrefresh.scrollToPosition(0);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
