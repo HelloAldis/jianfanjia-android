@@ -6,14 +6,12 @@
     android:background="@color/black_color"
     android:fitsSystemWindows="true">
 
-    <com.jianfanjia.cn.view.library.PullToRefreshViewPager xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    <com.jianfanjia.cn.view.MyViewPager
         android:id="@+id/showpicPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        ptr:ptrAnimationStyle="rotate"
-        ptr:ptrHeaderTextColor="#344a5d"
-        ptr:ptrMode="pullFromEnd" />
+        />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

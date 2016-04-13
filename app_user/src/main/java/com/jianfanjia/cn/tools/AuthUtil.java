@@ -39,7 +39,6 @@ public class AuthUtil {
         if (authUtil == null) {
             authUtil = new AuthUtil(activity);
         }
-
         return authUtil;
     }
 
