@@ -14,11 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.designer.R;
@@ -26,6 +21,12 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -118,7 +119,7 @@ public class SectionItemAdapter extends BaseAdapter {
                     setCurrentOpenItem(i);
                 }
             }
-        }else{
+        } else {
             notifyDataSetChanged();
         }
     }
@@ -149,6 +150,7 @@ public class SectionItemAdapter extends BaseAdapter {
             case Constant.FINISHED:
                 viewHolder.finishStatusIcon
                         .setImageResource(R.mipmap.icon_home_finish);
+                viewHolder.openFinishStatus.setTextColor(context.getResources().getColor(R.color.orange_color));
                 viewHolder.openFinishStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_finish));
                 viewHolder.finishTime.setVisibility(View.VISIBLE);
