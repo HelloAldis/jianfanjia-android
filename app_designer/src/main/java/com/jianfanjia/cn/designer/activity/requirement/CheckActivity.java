@@ -191,6 +191,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements
                 btn_confirm.setEnabled(false);
                 break;
             case Constant.DOING:
+            case Constant.YANQI_BE_DOING:
+            case Constant.YANQI_AGREE:
+            case Constant.YANQI_REFUSE:
                 mainHeadView.setRightTitleVisable(View.VISIBLE);
                 mainHeadView.setRigthTitleEnable(true);
                 if (currentUploadCount < BusinessCovertUtil
