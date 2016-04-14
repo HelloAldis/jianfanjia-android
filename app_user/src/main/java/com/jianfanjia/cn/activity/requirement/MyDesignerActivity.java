@@ -30,6 +30,7 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:我的设计师
@@ -63,6 +64,8 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
     MyDesignerAdapter myDesignerAdapter;
     List<Designer> orderDesignerInfos = new ArrayList<>();
 
+    private String workType;
+
     private boolean isLoadedOnce;//是否成功加载过一次数据
 
     @Override
@@ -79,7 +82,9 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         requirementInfo = (Requirement) intent.getSerializableExtra(IntentConstant.REQUIREMENT_INFO);
         if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
+            workType = requirementInfo.getWork_type();
         }
+        LogTool.d(TAG, "requirementid:" + requirementid + "  workType:" + workType);
         initPullRefresh();
     }
 
@@ -98,7 +103,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                 initdata();
             }
         });
-        myDesignerAdapter = new MyDesignerAdapter(this, new ClickCallBack() {
+        myDesignerAdapter = new MyDesignerAdapter(this, workType, new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
                 Designer orderDesignerInfo = orderDesignerInfos.get(position);
