@@ -190,12 +190,10 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
 
             @Override
             public void onFailed(ApiResponse<Designer> apiResponse) {
-
             }
 
             @Override
             public void onNetworkError(int code) {
-
             }
         });
 

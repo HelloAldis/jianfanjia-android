@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
@@ -332,12 +333,12 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -365,13 +366,14 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onFailed(ApiResponse<User> apiResponse) {
-                scrollView.setVisibility(View.GONE);
-                error_Layout.setVisibility(View.VISIBLE);
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                scrollView.setVisibility(View.GONE);
+                error_Layout.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -451,12 +453,12 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

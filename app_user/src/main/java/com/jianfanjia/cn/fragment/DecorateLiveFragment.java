@@ -20,6 +20,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.cn.activity.R;
@@ -204,13 +205,14 @@ public class DecorateLiveFragment extends BaseFragment {
 
                 @Override
                 public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
-                    decorateLiveAdapter.setErrorViewShow();
-                    decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    decorateLiveAdapter.setErrorViewShow();
+                    decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
             };
 
@@ -252,13 +254,14 @@ public class DecorateLiveFragment extends BaseFragment {
 
                 @Override
                 public void onFailed(ApiResponse<DecorateLiveList> apiResponse) {
-                    decorateLiveAdapter.setErrorViewShow();
-                    decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    decorateLiveAdapter.setErrorViewShow();
+                    decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
             };
 

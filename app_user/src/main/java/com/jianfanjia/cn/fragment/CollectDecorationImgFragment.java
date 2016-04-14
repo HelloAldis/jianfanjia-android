@@ -18,6 +18,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
@@ -221,14 +222,15 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
-                    decoration_img_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.VISIBLE);
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    decoration_img_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
                 }
 
             };
@@ -264,12 +266,12 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
-
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
 
             };

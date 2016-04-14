@@ -21,6 +21,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
@@ -237,12 +238,12 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
         @Override
         public void onHttpDone() {
+            designerListView.onRefreshComplete();
             hideWaitDialog();
         }
 
         @Override
         public void onSuccess(ApiResponse<DesignerList> apiResponse) {
-            designerListView.onRefreshComplete();
             DesignerList designer = apiResponse.getData();
             LogTool.d(TAG, "designer:" + designer);
             if (null != designer) {
@@ -292,16 +293,17 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onFailed(ApiResponse<DesignerList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
-            hideWaitDialog();
-            designerListView.onRefreshComplete();
-            designerListView.setVisibility(View.GONE);
-            emptyLayout.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
+
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            if(isFirst){
+                designerListView.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
+            }
         }
     };
 
@@ -313,7 +315,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
         @Override
         public void onHttpDone() {
-
+            designerListView.onRefreshComplete();
         }
 
         @Override
@@ -336,12 +338,11 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onFailed(ApiResponse<DesignerList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
-            designerListView.onRefreshComplete();
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 

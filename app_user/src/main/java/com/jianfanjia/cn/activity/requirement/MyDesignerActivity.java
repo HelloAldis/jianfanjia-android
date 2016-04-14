@@ -7,6 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -25,12 +30,6 @@ import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:我的设计师
@@ -232,16 +231,17 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<List<Designer>> apiResponse) {
-                if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
-                    if (!isLoadedOnce) {
-                        error_Layout.setVisibility(View.VISIBLE);
-                    }
-                }
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
+                    if (!isLoadedOnce) {
+                        error_Layout.setVisibility(View.VISIBLE);
+                    }
+                }
             }
         });
     }
