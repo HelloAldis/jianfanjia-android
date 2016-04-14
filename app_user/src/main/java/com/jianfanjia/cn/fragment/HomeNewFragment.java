@@ -60,8 +60,8 @@ import com.jianfanjia.common.tool.TDevice;
 public class HomeNewFragment extends BaseFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
-    private int BANNER_ICON[] = {R.mipmap.bg_home_banner1,
-            R.mipmap.bg_home_banner2,R.mipmap.bg_home_banner3};
+    private int BANNER_ICON[] = {R.mipmap.bg_home_banner3,R.mipmap.bg_home_banner1,
+            R.mipmap.bg_home_banner2};
 
     @Bind(R.id.viewPager_lib)
     protected AutoScrollViewPager scrollViewPager;
@@ -105,15 +105,15 @@ public class HomeNewFragment extends BaseFragment {
             @Override
             public void onClickItem(int pos) {
                 LogTool.d(this.getClass().getName(), "position =" + pos);
-                if (pos == 0) {
+                if (pos == 1) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
                     startActivity(WebViewActivity.class, bundle);
-                } else if (pos == 1) {
+                } else if (pos == 2) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
                     startActivity(WebViewActivity.class, bundle);
-                } else if (pos == 2) {
+                } else if (pos == 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
                     startActivity(WebViewPackage365Activity.class, bundle);

@@ -97,6 +97,7 @@ android {
     def rec_update = '0'   //自愿更新
     def update = force_update
     def testApkPath = "F:\\apks\\${defaultConfig.versionName}";
+    def releaseApkPath = "G:\\apk\\v_${defaultConfig.versionName}";
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -106,7 +107,7 @@ android {
                 fileName = fileName.replace("app_user", "jianfanjia")
 //                if (variant.buildType.name.equals('release')) {
 //                    fileName = fileName.replace("-release", "")
-//                    output.outputFile = new File(outputFile.parent, fileName)
+//                    output.outputFile = new File(releaseApkPath, fileName)
 //                }
                 if (variant.buildType.name.equals('andtest')) {
                     output.outputFile = new File(testApkPath, fileName)
