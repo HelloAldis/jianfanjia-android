@@ -10,11 +10,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
@@ -29,8 +28,10 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import com.jianfanjia.api.model.Process;
 
 /**
  * Description:合同查看
@@ -78,6 +79,9 @@ public class ContractActivity extends BaseSwipeBackActivity implements
                 requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
             checkBtn.setEnabled(false);
             checkBtn.setText(getString(R.string.already_open_process));
+        } else if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
+            checkBtn.setEnabled(false);
+            checkBtn.setText(getString(R.string.str_check_contract));
         } else {
             checkBtn.setEnabled(true);
             checkBtn.setText(getString(R.string.str_check_contract));

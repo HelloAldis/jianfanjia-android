@@ -132,8 +132,13 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             contentLayout.setEnabled(false);
             textView3.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
         } else {
-            contentLayout.setEnabled(true);
-            textView3.setTextColor(context.getResources().getColor(R.color.orange_color));
+            if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
+                contentLayout.setEnabled(true);
+                textView3.setTextColor(context.getResources().getColor(R.color.orange_color));
+            } else {
+                contentLayout.setEnabled(false);
+                textView3.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+            }
         }
     }
 }
