@@ -10,6 +10,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -21,12 +26,6 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
-
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -85,24 +84,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
         protected ImageView ltm_req_owner_head;
         @Bind(R.id.ltm_req_gotopro)
         protected TextView ltm_req_gotopro;
-        @Bind(R.id.ltm_req_designer_head0)
-        protected ImageView ltm_req_designer_head0;
-        @Bind(R.id.ltm_req_designer_name0)
-        protected TextView ltm_req_designer_name0;
-        @Bind(R.id.ltm_req_designer_status0)
-        protected TextView ltm_req_designer_status0;
-        @Bind(R.id.ltm_req_designer_head1)
-        protected ImageView ltm_req_designer_head1;
-        @Bind(R.id.ltm_req_designer_name1)
-        protected TextView ltm_req_designer_name1;
-        @Bind(R.id.ltm_req_designer_status1)
-        protected TextView ltm_req_designer_status1;
-        @Bind(R.id.ltm_req_designer_head2)
-        protected ImageView ltm_req_designer_head2;
-        @Bind(R.id.ltm_req_designer_name2)
-        protected TextView ltm_req_designer_name2;
-        @Bind(R.id.ltm_req_designer_status2)
-        protected TextView ltm_req_designer_status2;
 
         public void bind(Context context, Requirement requirementInfo, final ClickCallBack clickCallBack, final int
                 position) {
@@ -177,6 +158,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                     RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(context.getResources()
                             .getIdentifier("ltm_req_designer_layout" + i, "id", context.getPackageName()));
+                    designerLayout.setAlpha(1.0f);
                     ImageView headView = (ImageView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_head" + i, "id", context.getPackageName()));
                     TextView nameView = (TextView) getRootView().findViewById(context.getResources().getIdentifier
@@ -315,6 +297,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                             case Global.REQUIREMENT_STATUS7:
                             case Global.REQUIREMENT_STATUS8:
                                 designerLayout.setOnClickListener(null);
+                                designerLayout.setAlpha(0.3f);
                                 break;
                         }
 
@@ -324,6 +307,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                     RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(context.getResources()
                             .getIdentifier("ltm_req_designer_layout" + i, "id", context.getPackageName()));
+                    designerLayout.setAlpha(1.0f);
                     ImageView headView = (ImageView) getRootView().findViewById(context.getResources().getIdentifier
                             ("ltm_req_designer_head" + i, "id", context.getPackageName()));
                     TextView nameView = (TextView) getRootView().findViewById(context.getResources().getIdentifier

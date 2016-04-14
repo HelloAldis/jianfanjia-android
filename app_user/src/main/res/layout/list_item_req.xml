@@ -124,7 +124,8 @@
             android:id="@+id/ltm_req_designer_layout0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            >
 
             <FrameLayout
                 android:id="@+id/imageLayout0"
@@ -139,7 +140,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/icon_add"/>
+                    android:src="@mipmap/icon_add"
+                    />
 
                 <ImageView
                     android:id="@+id/designerinfo_auth0"
