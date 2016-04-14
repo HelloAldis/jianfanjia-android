@@ -142,7 +142,8 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     }
 
     private void initData() {
-        LogTool.d(TAG, "processSection:" + processSection.get_id());
+        LogTool.d(TAG, "processSection.get_id():" + processSection.get_id() + " processSection.getStatus():" +
+                processSection.getStatus());
         mainHeadView.setMianTitle(processSection.getLabel() + getResources()
                 .getString(R.string.stage_check_text));
         checkGridList.clear();
@@ -151,7 +152,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
         imageids = processSection.getYs().getImages();
         LogTool.d(TAG, "imageids=" + imageids);
         currentUploadCount = imageids.size();
-        LogTool.d(TAG, "currentUploadCount=======" + currentUploadCount);
+        LogTool.d(TAG, "currentUploadCount  " + currentUploadCount);
         initCheckGridList();
         adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
@@ -184,39 +185,25 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     }
 
     private void setConfimStatus() {
-        if (!processSection.getStatus().equals(Constant.FINISHED)) {
-            mainHeadView.setRightTitleVisable(View.VISIBLE);
-            mainHeadView.setRigthTitleEnable(true);
-            if (currentUploadCount < BusinessCovertUtil
-                    .getCheckPicCountBySection(processSection.getName())) {
-                //设计师图片没上传完，不能验收
-                btn_confirm.setText(this.getResources().getString(
-                        R.string.confirm_upload));
-                btn_confirm.setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        setResult(RESULT_OK);
-                        appManager.finishActivity(CheckActivity.this);
-                    }
-                });
-                if (currentState == FINISH_STATUS) {
-                    btn_confirm.setEnabled(true);
-                } else {
-                    btn_confirm.setEnabled(false);
-                }
-            } else {
-                boolean isFinish = isSectionInfoFishish(processSection.getItems());
-                LogTool.d(TAG, "isFinish=" + isFinish);
-                if (isFinish) {
-                    //图片上传完了，可以进行验收
+        switch (processSection.getStatus()) {
+            case Constant.NO_START:
+                mainHeadView.setRightTitleVisable(View.GONE);
+                btn_confirm.setEnabled(false);
+                break;
+            case Constant.DOING:
+                mainHeadView.setRightTitleVisable(View.VISIBLE);
+                mainHeadView.setRigthTitleEnable(true);
+                if (currentUploadCount < BusinessCovertUtil
+                        .getCheckPicCountBySection(processSection.getName())) {
+                    //设计师图片没上传完，不能验收
                     btn_confirm.setText(this.getResources().getString(
-                            R.string.confirm_tip));
+                            R.string.confirm_upload));
                     btn_confirm.setOnClickListener(new OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
-                            onClickCheckConfirm();
+                            setResult(RESULT_OK);
+                            appManager.finishActivity(CheckActivity.this);
                         }
                     });
                     if (currentState == FINISH_STATUS) {
@@ -225,18 +212,39 @@ public class CheckActivity extends BaseSwipeBackActivity implements
                         btn_confirm.setEnabled(false);
                     }
                 } else {
-                    //图片上传完了，但是工序的某些节点还没有完工
-                    btn_confirm.setEnabled(false);
-                    btn_confirm.setText(this.getResources().getString(
-                            R.string.confirm_not_finish));
+                    boolean isFinish = isSectionInfoFishish(processSection.getItems());
+                    LogTool.d(TAG, "isFinish=" + isFinish);
+                    if (isFinish) {
+                        //图片上传完了，可以进行验收
+                        btn_confirm.setText(this.getResources().getString(
+                                R.string.confirm_tip));
+                        btn_confirm.setOnClickListener(new OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                onClickCheckConfirm();
+                            }
+                        });
+                        if (currentState == FINISH_STATUS) {
+                            btn_confirm.setEnabled(true);
+                        } else {
+                            btn_confirm.setEnabled(false);
+                        }
+                    } else {
+                        //图片上传完了，但是工序的某些节点还没有完工
+                        btn_confirm.setEnabled(false);
+                        btn_confirm.setText(this.getResources().getString(
+                                R.string.confirm_not_finish));
+                    }
                 }
-            }
-        } else {
-            mainHeadView.setRightTitleVisable(View.GONE);
-            //已经验收过了
-            btn_confirm.setEnabled(false);
-            btn_confirm.setText(this.getResources().getString(
-                    R.string.confirm_finish));
+                break;
+            case Constant.FINISHED:
+                mainHeadView.setRightTitleVisable(View.GONE);
+                btn_confirm.setEnabled(false);
+                btn_confirm.setText(this.getResources().getString(R.string.confirm_finish));
+                break;
+            default:
+                break;
         }
     }
 
