@@ -8,14 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -41,6 +35,12 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -61,7 +61,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
     protected RecyclerView gridView = null;
     @Bind(R.id.btn_confirm)
     protected TextView btn_confirm = null;
-    protected GridLayoutManager gridLayoutManager = null;
+    private GridLayoutManager gridLayoutManager = null;
     private CheckGridViewAdapter adapter = null;
     private List<GridItem> checkGridList = new ArrayList<>();
     private List<String> showSamplePic = new ArrayList<>();
@@ -161,13 +161,6 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
             btn_confirm.setText(this.getResources().getString(
                     R.string.confirm_finish));
         }
-        btn_confirm.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                onClickCheckDone();
-            }
-        });
     }
 
     /**

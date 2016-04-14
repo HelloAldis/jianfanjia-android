@@ -56,6 +56,7 @@
     <string name="not_response">未响应</string>
     <string name="str_done">已竣工</string>
     <string name="confirm_measure_house">确认已量房</string>
+    <string name="str_finish">已完成</string>
     <string name="str_work_type">包工类型</string>
     <string name="str_lovedesisex">偏好设计师性别</string>
     <string name="requirement_list">装修需求</string>

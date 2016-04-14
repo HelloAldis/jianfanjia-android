@@ -12,10 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.R;
@@ -27,6 +23,11 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -195,6 +196,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
             case Constant.FINISHED:
                 holder.itemStatus
                         .setImageResource(R.mipmap.icon_home_finish);
+                holder.nodeStatus.setTextColor(context.getResources().getColor(R.color.orange_color));
                 holder.nodeStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_finish));
                 holder.itemBackground
@@ -203,6 +205,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
             case Constant.NO_START:
                 holder.itemStatus
                         .setImageResource(R.drawable.site_listview_item_notstart_circle);
+                holder.nodeStatus.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                 holder.nodeStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_not_start));
                 holder.itemBackground
@@ -211,6 +214,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
             case Constant.DOING:
                 holder.itemStatus
                         .setImageResource(R.mipmap.icon_home_working);
+                holder.nodeStatus.setTextColor(context.getResources().getColor(R.color.blue_color));
                 holder.nodeStatus.setText(context.getResources()
                         .getString(R.string.site_example_node_working));
                 holder.itemBackground

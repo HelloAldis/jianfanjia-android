@@ -10,11 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -26,6 +21,12 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -230,7 +231,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                                             statusView.setTextColor(context.getResources().getColor(R.color
                                                     .green_color));
                                             statusView.setText(context.getResources().getString(R.string
-                                                    .str_done));
+                                                    .str_finish));
                                         } else {
                                             statusView.setTextColor(context.getResources().getColor(R.color
                                                     .blue_color));

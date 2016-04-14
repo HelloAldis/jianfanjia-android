@@ -174,7 +174,7 @@ public class MyDesignerViewType5 extends RecyclerView.ViewHolder {
                     merger_button3_layout.setEnabled(true);
                     button3.setTextColor(context.getResources().getColor(R.color.orange_color));
                     statusView.setTextColor(context.getResources().getColor(R.color.green_color));
-                    statusView.setText(context.getResources().getString(R.string.str_done));
+                    statusView.setText(context.getResources().getString(R.string.str_finish));
                 } else {
                     merger_button3_layout.setEnabled(true);
                     button3.setTextColor(context.getResources().getColor(R.color.orange_color));
