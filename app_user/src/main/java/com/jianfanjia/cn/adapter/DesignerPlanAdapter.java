@@ -8,11 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
@@ -22,6 +17,11 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ItemClickListener;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: DesignerPlanAdapter
@@ -46,7 +46,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
         if (status.equals(Global.PLAN_STATUS3)) {
-            holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.blue_color));
             holder.statusText.setText("沟通中");
         } else if (status.equals(Global.PLAN_STATUS4)) {
             holder.statusText.setTextColor(context.getResources().getColor(R.color.grey_color));

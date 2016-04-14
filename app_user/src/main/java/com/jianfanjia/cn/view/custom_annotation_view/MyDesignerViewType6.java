@@ -110,6 +110,7 @@ public class MyDesignerViewType6 extends RecyclerView.ViewHolder {
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
+        button1.setTextColor(context.getResources().getColor(R.color.light_black_color));
         if (designerInfo.getEvaluation() == null) {
             button1.setText(context.getResources().getString(R.string.str_comment_str));
             merger_button1_layout.setOnClickListener(new View.OnClickListener() {
