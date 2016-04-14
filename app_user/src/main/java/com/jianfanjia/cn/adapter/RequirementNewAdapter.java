@@ -264,6 +264,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                             case Global.PLAN_STATUS7:
                                 break;
                             case Global.PLAN_STATUS8:
+                                statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                                statusView.setText(context.getResources().getString(R.string.str_no_submit));
                                 break;
                             default:
                                 break;

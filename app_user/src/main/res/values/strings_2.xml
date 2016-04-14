@@ -45,6 +45,7 @@
     <string name="str_wait_confirm_measure_house">等待确认量房</string>
     <string name="str_wait_upload_plan">等待上传方案</string>
     <string name="str_wait_confirm_plan">等待确认方案</string>
+    <string name="str_no_submit">未提交</string>
     <string name="str_not_choose">未中标</string>
     <string name="str_out_date">已过时</string>
     <string name="str_wait_setting_constract">等待配置合同</string>
