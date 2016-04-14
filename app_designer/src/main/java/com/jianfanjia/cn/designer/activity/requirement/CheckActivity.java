@@ -306,6 +306,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
     @Override
     public void onUpload(int position) {
+        if (processSection.getStatus().equals(Constant.NO_START)) {
+            return;
+        }
         LogTool.d(TAG, "position:" + position);
         key = position;
         LogTool.d(TAG, "key:" + key);

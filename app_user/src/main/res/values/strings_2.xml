@@ -51,7 +51,7 @@
     <string name="str_wait_confirm_constract">等待确认合同</string>
     <string name="str_working">已开工</string>
     <string name="str_done">已竣工</string>
-
+    <string name="str_finish">已完成</string>
     <string name="str_dong">栋</string>
     <string name="str_lovedesistyle">偏好设计师类型</string>
     <string name="no_limit">不限</string>

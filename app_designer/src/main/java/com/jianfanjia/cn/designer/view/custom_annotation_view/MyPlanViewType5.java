@@ -135,7 +135,7 @@ public class MyPlanViewType5 extends MyPlanViewTypeBase {
             if (requirementInfo.getWork_type().equals(Global.WORK_TYPE_DESIGNER)) {
                 settingStartAtLayout.setVisibility(View.GONE);
                 statusView.setText(getResources().getString(R.string
-                        .str_done));
+                        .str_finish));
                 statusView.setTextColor(getResources().getColor(R.color.green_color));
             } else {
                 settingStartAtLayout.setVisibility(View.VISIBLE);
