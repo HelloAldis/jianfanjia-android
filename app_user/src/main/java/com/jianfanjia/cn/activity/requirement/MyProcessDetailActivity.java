@@ -117,7 +117,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     @Bind(R.id.head_notification_layout)
     RelativeLayout notificationLayout;
 
-    String[] proTitle = null;
+    private String[] proTitle = null;
 
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
@@ -341,6 +341,10 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             switch (section_status) {
                 case Constant.FINISHED:
                     checkLayout.setVisibility(View.VISIBLE);
+                    rowBtnUp.setVisibility(View.VISIBLE);
+                    rowBtnDown.setVisibility(View.GONE);
+                    site_list_head_delay_layout.setVisibility(View.GONE);
+                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
                     openDelay.setEnabled(false);
                     openDelay.setTextColor(getResources().getColor(R.color.grey_color));
                     openDelay.setText(getResources().getText(R.string
@@ -361,6 +365,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     break;
                 case Constant.NO_START:
                     checkLayout.setVisibility(View.VISIBLE);
+                    rowBtnUp.setVisibility(View.VISIBLE);
+                    rowBtnDown.setVisibility(View.GONE);
                     site_list_head_delay_layout.setVisibility(View.GONE);
                     site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
                     openDelay.setEnabled(false);
@@ -384,6 +390,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 case Constant.YANQI_REFUSE:
                 case Constant.DOING:
                     checkLayout.setVisibility(View.VISIBLE);
+                    rowBtnUp.setVisibility(View.VISIBLE);
+                    rowBtnDown.setVisibility(View.GONE);
                     site_list_head_delay_layout.setVisibility(View.GONE);
                     site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
                     openDelay.setEnabled(true);
@@ -416,6 +424,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                         String role = rescheduleInfo.getRequest_role();
                         if (role.equals(Constant.IDENTITY_OWNER)) {
                             checkLayout.setVisibility(View.VISIBLE);
+                            rowBtnUp.setVisibility(View.VISIBLE);
+                            rowBtnDown.setVisibility(View.GONE);
                             site_list_head_delay_layout.setVisibility(View.GONE);
                             site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
                             openDelay.setTextColor(getResources().getColor(R.color.grey_color));
@@ -424,6 +434,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                             openDelay.setEnabled(false);
                         } else {
                             checkLayout.setVisibility(View.VISIBLE);
+                            rowBtnUp.setVisibility(View.VISIBLE);
+                            rowBtnDown.setVisibility(View.GONE);
                             site_list_head_delay_layout.setVisibility(View.VISIBLE);
                             site_list_head_checkbutton_layout.setVisibility(View.GONE);
                             site_list_head_delay_text.setOnClickListener(new View.OnClickListener() {
