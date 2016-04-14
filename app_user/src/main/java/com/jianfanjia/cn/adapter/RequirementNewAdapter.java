@@ -191,7 +191,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                                 statusView.setText(context.getResources().getString(R.string.str_wait_respond));
                                 break;
                             case Global.PLAN_STATUS1:
-                                statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                                statusView.setTextColor(
+                                        context.getResources().getColor(R.color.middle_grey_color));
                                 statusView.setText(context.getResources().getString(R.string.str_refuse));
                                 break;
                             case Global.PLAN_STATUS2:
