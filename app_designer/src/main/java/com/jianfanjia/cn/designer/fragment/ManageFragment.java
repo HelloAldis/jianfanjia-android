@@ -13,11 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -42,13 +37,19 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * Description:工地管理
  * Author：fengliang
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class ManageFragment extends BaseFragment{
+public class ManageFragment extends BaseFragment {
     private static final String TAG = ManageFragment.class.getName();
     public static final int ITEM_PRIVIEW = 10;
     public static final int ITEM_CONTRACT = 20;
@@ -180,7 +181,7 @@ public class ManageFragment extends BaseFragment{
     }
 
     private void initMainHeadView() {
-        mainHeadView.setMianTitle("我的工地");
+        mainHeadView.setMianTitle(getResources().getString(R.string.my_site));
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.GONE);
@@ -247,7 +248,7 @@ public class ManageFragment extends BaseFragment{
                     manage_pullfefresh.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
-                }else{
+                } else {
                     manage_pullfefresh.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
