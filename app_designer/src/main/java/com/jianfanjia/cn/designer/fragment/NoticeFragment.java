@@ -18,6 +18,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
@@ -41,7 +42,7 @@ import com.jianfanjia.common.tool.LogTool;
  * @Description: 通知 全部
  * @date 2015-8-26 下午1:07:52
  */
-public class NoticeFragment extends BaseFragment{
+public class NoticeFragment extends BaseFragment {
     private static final String TAG = NoticeFragment.class.getName();
     private View view = null;
 
@@ -202,13 +203,16 @@ public class NoticeFragment extends BaseFragment{
 
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-                    noticeAdapter.setErrorViewShow();
-                    noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    if (!mHasLoadedOnce) {
+                        noticeAdapter.setErrorViewShow();
+                        noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                    }
                 }
             };
 
@@ -259,13 +263,14 @@ public class NoticeFragment extends BaseFragment{
 
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-                    noticeAdapter.setErrorViewShow();
-                    noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    noticeAdapter.setErrorViewShow();
+                    noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
             };
 

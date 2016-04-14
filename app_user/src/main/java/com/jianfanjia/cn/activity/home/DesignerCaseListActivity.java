@@ -20,6 +20,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
@@ -295,13 +296,16 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onFailed(ApiResponse<ProductList> apiResponse) {
             makeTextShort(apiResponse.getErr_msg());
-            pullToRefreshRecyclerView.setVisibility(View.GONE);
-            errorLayout.setVisibility(View.VISIBLE);
-            emptyLayout.setVisibility(View.GONE);
         }
 
         @Override
         public void onNetworkError(int code) {
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            if (isFirst) {
+                pullToRefreshRecyclerView.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
+                emptyLayout.setVisibility(View.GONE);
+            }
 
         }
     };
@@ -338,7 +342,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 

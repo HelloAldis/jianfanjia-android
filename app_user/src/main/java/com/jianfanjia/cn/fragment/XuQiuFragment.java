@@ -11,8 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.cn.Event.ScrollEvent;
@@ -36,12 +42,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -262,15 +262,16 @@ public class XuQiuFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
-                setListVisiable();
-                if (isFirst) {
-                    error_Layout.setVisibility(View.VISIBLE);
-                }
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                setListVisiable();
+                if (isFirst) {
+                    error_Layout.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

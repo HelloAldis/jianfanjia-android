@@ -118,6 +118,33 @@
                 android:layout_marginTop="@dimen/space_10"
                 android:background="@color/horzontal_line_color" />
 
+
+
+            <RelativeLayout
+                android:id="@+id/act_edit_req_decoratetype"
+                style="@style/my_list_item_layout_style"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:id="@+id/act_edit_req_decoratetype_title"
+                    style="@style/style_edit_req_title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_businessdecoratetype" />
+
+                <TextView
+                    android:id="@+id/act_edit_req_decoratetype_content"
+                    style="@style/style_edit_req_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_line"
+                android:background="@color/horzontal_line_color" />
+
             <RelativeLayout
                 android:id="@+id/act_edit_req_housearea"
                 style="@style/my_list_item_layout_style"
@@ -163,6 +190,33 @@
                 android:background="@color/horzontal_line_color" />
 
             <RelativeLayout
+                android:id="@+id/act_edit_req_work_type"
+                style="@style/my_list_item_layout_style"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:id="@+id/act_edit_req_work_type_title"
+                    style="@style/style_edit_req_title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_work_type" />
+
+                <TextView
+                    android:id="@+id/act_edit_req_work_type_content"
+                    style="@style/style_edit_req_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_line"
+                android:background="@color/horzontal_line_color" />
+
+
+
+            <RelativeLayout
                 android:id="@+id/act_edit_req_decoratebudget"
                 style="@style/my_list_item_layout_style"
                 android:layout_width="match_parent"
@@ -199,56 +253,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/unit_million" />
-            </RelativeLayout>
-
-            <View
-                style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
-
-            <RelativeLayout
-                android:id="@+id/act_edit_req_decoratetype"
-                style="@style/my_list_item_layout_style"
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
-
-                <TextView
-                    android:id="@+id/act_edit_req_decoratetype_title"
-                    style="@style/style_edit_req_title"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/str_decoratetype" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_decoratetype_content"
-                    style="@style/style_edit_req_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-
-            <View
-                style="@style/divier_line"
-                android:background="@color/horzontal_line_color" />
-
-            <RelativeLayout
-                android:id="@+id/act_edit_req_work_type"
-                style="@style/my_list_item_layout_style"
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
-
-                <TextView
-                    android:id="@+id/act_edit_req_work_type_title"
-                    style="@style/style_edit_req_title"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/str_work_type" />
-
-                <TextView
-                    android:id="@+id/act_edit_req_work_type_content"
-                    style="@style/style_edit_req_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <View

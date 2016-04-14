@@ -191,13 +191,13 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    myCommentInfoAdapter.setErrorViewShow();
-                    myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
 
                 @Override
                 public void onNetworkError(int code) {
                     makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    myCommentInfoAdapter.setErrorViewShow();
+                    myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
             };
 
@@ -239,13 +239,13 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onFailed(ApiResponse<UserMessageList> apiResponse) {
                     makeTextShort(apiResponse.getErr_msg());
-                    myCommentInfoAdapter.setErrorViewShow();
-                    myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
 
                 @Override
                 public void onNetworkError(int code) {
                     makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    myCommentInfoAdapter.setErrorViewShow();
+                    myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
             };
 

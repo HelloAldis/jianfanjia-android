@@ -241,7 +241,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override

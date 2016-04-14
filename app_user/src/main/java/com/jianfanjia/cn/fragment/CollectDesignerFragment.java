@@ -18,6 +18,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
@@ -209,14 +210,15 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onFailed(ApiResponse<DesignerList> apiResponse) {
-                    my_favorite_designer_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.VISIBLE);
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    my_favorite_designer_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
                 }
 
             };

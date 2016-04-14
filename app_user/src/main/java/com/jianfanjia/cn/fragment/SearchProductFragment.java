@@ -15,6 +15,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
@@ -161,13 +162,14 @@ public class SearchProductFragment extends BaseFragment {
 
         @Override
         public void onFailed(ApiResponse<ProductList> apiResponse) {
-            productAdapter.setErrorViewShow();
-            productAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            productAdapter.setErrorViewShow();
+            productAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }
     };
 

@@ -22,6 +22,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.cn.activity.R;
@@ -243,18 +244,18 @@ public class HomeNewFragment extends BaseFragment {
                 if (dataManager.isShowNext()) {
                     contentNext.setVisibility(View.VISIBLE);
                 }
-                pullToRefreshScrollView.onRefreshComplete();
             }
 
             @Override
             public void onFailed(ApiResponse<List<Product>> apiResponse) {
-                contentNext.setVisibility(View.GONE);
-                contentIntent.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                contentNext.setVisibility(View.GONE);
+                contentIntent.setVisibility(View.GONE);
             }
         });
     }

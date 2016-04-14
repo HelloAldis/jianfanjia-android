@@ -14,6 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -42,11 +46,6 @@ import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -289,15 +288,16 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
-                if (!mHasLoadedOnce) {
-                    errorLayout.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                }
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                if (!mHasLoadedOnce) {
+                    errorLayout.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                }
             }
         });
     }

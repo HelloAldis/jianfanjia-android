@@ -237,20 +237,21 @@ public class ManageFragment extends BaseFragment{
 
             @Override
             public void onFailed(ApiResponse<List<Process>> apiResponse) {
-                if (null != adapter) {
-                    manage_pullfefresh.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.GONE);
-                } else {
-                    manage_pullfefresh.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.GONE);
-                    errorLayout.setVisibility(View.VISIBLE);
-                }
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                if (adapter.getItemCount() > 0) {
+                    manage_pullfefresh.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.GONE);
+                }else{
+                    manage_pullfefresh.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.GONE);
+                    errorLayout.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.EditCityActivity;
@@ -22,10 +25,6 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -104,9 +103,9 @@ public class EditBussinessRequirementFragment extends BaseFragment {
 
     @OnTextChanged(value = R.id.act_edit_req_housearea_content, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     protected void houseareaAfterChanged(CharSequence charSequence) {
-        if(!TextUtils.isEmpty(charSequence.toString())){
+        if (!TextUtils.isEmpty(charSequence.toString())) {
             requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
-        }else {
+        } else {
             requirementInfo.setHouse_area(0);
         }
         isAllInput();
@@ -115,10 +114,10 @@ public class EditBussinessRequirementFragment extends BaseFragment {
     @OnTextChanged(value = R.id.act_edit_req_decoratebudget_content, callback = OnTextChanged.Callback
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
-        if(!TextUtils.isEmpty(charSequence.toString())){
-            requirementInfo.setHouse_area(Integer.parseInt(charSequence.toString()));
-        }else {
-            requirementInfo.setHouse_area(0);
+        if (!TextUtils.isEmpty(charSequence.toString())) {
+            requirementInfo.setTotal_price(Integer.parseInt(charSequence.toString()));
+        } else {
+            requirementInfo.setTotal_price(0);
         }
         isAllInput();
     }
@@ -242,7 +241,8 @@ public class EditBussinessRequirementFragment extends BaseFragment {
                 act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(requirementInfo.getDec_style()) ? "" :
                         arr_lovestyle[Integer.parseInt(requirementInfo.getDec_style())]);
                 act_edit_req_lovedesistyle_content.setText(TextUtils.isEmpty(requirementInfo.getCommunication_type())
-                        ? getResources().getString(R.string.no_limit) : arr_love_designerstyle[Integer.parseInt(requirementInfo.getCommunication_type())]);
+                        ? getResources().getString(R.string.no_limit) : arr_love_designerstyle[Integer.parseInt
+                        (requirementInfo.getCommunication_type())]);
                 act_edit_req_lovedesisex_content.setText(TextUtils.isEmpty(requirementInfo.getPrefer_sex()) ? "" :
                         arr_desisex[Integer.parseInt(requirementInfo.getPrefer_sex())]);
                 act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
