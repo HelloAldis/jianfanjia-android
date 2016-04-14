@@ -8,8 +8,8 @@ android {
         applicationId "com.jianfanjia.cn.designer"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 43
-        versionName "2.5.6"
+        versionCode 44
+        versionName "2.5.7"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -85,8 +85,8 @@ android {
     def date = new Date().format('yyyyMMdd');
     def force_update = '1' //强制更新
     def rec_update = '0'   //自愿更新
-    def update = rec_update
-    def testApkPath = "F:\\apks\\";
+    def update = force_update
+    def testApkPath = "F:\\apks\\${defaultConfig.versionName}";
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
