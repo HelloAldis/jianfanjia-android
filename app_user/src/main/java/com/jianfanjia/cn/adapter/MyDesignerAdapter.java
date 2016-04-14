@@ -35,10 +35,12 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
     public static final int PLAN_TYPE8 = 8;
 
     Context context;
+    private String workType;
     private ClickCallBack clickCallBack;
 
-    public MyDesignerAdapter(Context context, ClickCallBack cickCallBack) {
+    public MyDesignerAdapter(Context context, String workType, ClickCallBack cickCallBack) {
         this.context = context;
+        this.workType = workType;
         this.clickCallBack = cickCallBack;
     }
 
@@ -63,7 +65,7 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
             case PLAN_TYPE4:
                 return MyDesignerViewType4.build(context);
             case PLAN_TYPE5:
-                return MyDesignerViewType5.build(context);
+                return MyDesignerViewType5.build(context, workType);
             case PLAN_TYPE6:
                 return MyDesignerViewType6.build(context);
             case PLAN_TYPE7:

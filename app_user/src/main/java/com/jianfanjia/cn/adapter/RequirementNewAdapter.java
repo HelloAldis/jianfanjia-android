@@ -243,9 +243,17 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                                     case Global.REQUIREMENT_STATUS2:
                                         break;
                                     case Global.REQUIREMENT_STATUS4:
-                                        statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
-                                        statusView.setText(context.getResources().getString(R.string
-                                                .str_wait_setting_constract));
+                                        if (workType.equals(Global.PURE_DESIGNER)) {
+                                            statusView.setTextColor(context.getResources().getColor(R.color
+                                                    .green_color));
+                                            statusView.setText(context.getResources().getString(R.string
+                                                    .str_done));
+                                        } else {
+                                            statusView.setTextColor(context.getResources().getColor(R.color
+                                                    .blue_color));
+                                            statusView.setText(context.getResources().getString(R.string
+                                                    .str_wait_setting_constract));
+                                        }
                                         break;
                                     case Global.REQUIREMENT_STATUS3:
                                         break;
