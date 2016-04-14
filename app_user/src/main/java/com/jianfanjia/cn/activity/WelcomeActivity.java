@@ -133,9 +133,9 @@ public class WelcomeActivity extends BaseActivity {
     private void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
         CommonDialog dialog = DialogHelper
                 .getPinterestDialog(this);
-        dialog.setTitle("版本更新");
+        dialog.setTitle(getString(R.string.version_update));
         dialog.setMessage(message);
-        dialog.setPositiveButton(R.string.ok,
+        dialog.setPositiveButton(R.string.update,
                 new DialogInterface.OnClickListener() {
 
                     @Override

@@ -127,9 +127,9 @@ public class WelcomeActivity extends BaseActivity{
      * @param updateVersion
      */
     public void showNewVersionDialog(String message, final UpdateVersion updateVersion) {
-        dialog.setTitle("版本更新");
+        dialog.setTitle(getString(R.string.version_update));
         dialog.setMessage(message);
-        dialog.setPositiveButton(R.string.ok,
+        dialog.setPositiveButton(R.string.updated,
                 new DialogInterface.OnClickListener() {
 
                     @Override
