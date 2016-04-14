@@ -8,8 +8,8 @@ android {
         applicationId "com.jianfanjia.cn.designer"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 45
-        versionName "2.5.8"
+        versionCode 46
+        versionName "2.5.9"
 
         // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
 //        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
@@ -66,7 +66,7 @@ android {
     productFlavors {
         Default {
         }
-        /* zhushou_360 {
+         zhushou_360 {
          }
          mi {
          }
@@ -75,7 +75,7 @@ android {
          yingyongbao {
          }
          huawei {
-         }*/
+         }
     }
 
     productFlavors.all { flavor ->
@@ -87,6 +87,7 @@ android {
     def rec_update = '0'   //自愿更新
     def update = force_update
     def testApkPath = "F:\\apks\\${defaultConfig.versionName}";
+    def releaseApkPath = "G:\\apk\\designer_${defaultConfig.versionName}";
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -96,7 +97,7 @@ android {
                 fileName = fileName.replace("app_designer", "designer")
 //                if (variant.buildType.name.equals('release')) {
 //                    fileName = fileName.replace("-release", "")
-//                    output.outputFile = new File(outputFile.parent, fileName)
+//                    output.outputFile = new File(releaseApkPath, fileName)
 //                }
                 if(variant.buildType.name.equals('andtest')){
                     output.outputFile = new File(testApkPath, fileName)
