@@ -54,6 +54,7 @@
     <string name="already_choose">已中标</string>
     <string name="already_measure">已量房</string>
     <string name="not_response">未响应</string>
+    <string name="str_done">已竣工</string>
     <string name="confirm_measure_house">确认已量房</string>
     <string name="str_work_type">包工类型</string>
     <string name="str_lovedesisex">偏好设计师性别</string>
