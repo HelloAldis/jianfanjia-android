@@ -111,25 +111,15 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder {
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
-        if (designerInfo.getEvaluation() == null) {
-            button1.setText(context.getResources().getString(R.string.str_comment_str));
-            merger_button1_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.COMMENT);
-                }
-            });
-        } else {
-            button1.setText(context.getResources().getString(R.string.str_check_comment));
-            merger_button1_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.VIEW_COMMENT);
-                }
-            });
-        }
-        merger_button2_layout.setVisibility(View.GONE);
-        statusView.setText(context.getResources().getString(R.string.str_wait_upload_plan));
-        statusView.setTextColor(context.getResources().getColor(R.color.grey_color));
+        merger_button1_layout.setVisibility(View.GONE);
+        button2.setText(context.getResources().getString(R.string.str_change_designer));
+        statusView.setTextColor(context.getResources().getColor(R.color.green_color));
+        statusView.setText(context.getResources().getString(R.string.str_no_submit));
+        merger_button2_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, MyDesignerActivity.CHANGE_DESIGNER);
+            }
+        });
     }
 }
