@@ -6,19 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -36,6 +28,14 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Description:评论留言
@@ -72,7 +72,6 @@ public class CommentActivity extends BaseSwipeBackActivity {
         super.onCreate(savedInstanceState);
         getDataFormIntent();
         initView();
-        setListener();
         initData();
     }
 
@@ -114,10 +113,6 @@ public class CommentActivity extends BaseSwipeBackActivity {
         getCommentList(topicid, 0, 10000, section, item);
     }
 
-    public void setListener() {
-        commentEdit.addTextChangedListener(textWatcher);
-    }
-
     @OnClick({R.id.btn_send, R.id.head_back_layout})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -133,32 +128,14 @@ public class CommentActivity extends BaseSwipeBackActivity {
         }
     }
 
-    private TextWatcher textWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            // TODO Auto-generated method stub
-
+    @OnTextChanged(R.id.add_comment)
+    public void onTextChanged(CharSequence text) {
+        if (TextUtils.isEmpty(text)) {
+            btnSend.setEnabled(false);
+        } else {
+            btnSend.setEnabled(true);
         }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String content = s.toString().trim();
-            if (TextUtils.isEmpty(content)) {
-                btnSend.setEnabled(false);
-            } else {
-                btnSend.setEnabled(true);
-            }
-        }
-    };
+    }
 
     //获取留言评论并标记为已读
     private void getCommentList(String topicid, int from, int limit, String section, String item) {
