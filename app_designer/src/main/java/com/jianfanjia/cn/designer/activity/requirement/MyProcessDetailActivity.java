@@ -213,7 +213,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         mainHeadView.setRightTitleVisable(View.GONE);
     }
 
-    @OnClick({R.id.head_back_layout, R.id.head_notification_layout, R.id.rowBtnUp, R.id.rowBtnDown})
+    @OnClick({R.id.head_back_layout, R.id.head_notification_layout, R.id.site_list_head_delay, R.id
+            .site_list_head_check, R.id.site_list_head_delay_text, R.id.rowBtnUp, R.id.rowBtnDown})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -221,6 +222,21 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 break;
             case R.id.head_notification_layout:
                 startActivity(NoticeActivity.class);
+                break;
+            case R.id.site_list_head_delay:
+                delayDialog();
+                break;
+            case R.id.site_list_head_check:
+                Bundle checkBundle = new Bundle();
+                checkBundle.putString(Constant.SECTION, processSection.getName());
+                checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                Intent checkIntent = new Intent(MyProcessDetailActivity.this,
+                        CheckActivity.class);
+                checkIntent.putExtras(checkBundle);
+                startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
+                break;
+            case R.id.site_list_head_delay_text:
+                showDelayDialog();
                 break;
             case R.id.rowBtnUp:
                 rowBtnUp.setVisibility(View.GONE);
@@ -330,19 +346,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     openDelay.setTextColor(getResources().getColor(R.color.grey_color));
                     openDelay.setText(getResources().getText(R.string
                             .site_example_node_delay_no));
-                    openCheck.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.SECTION, processSection.getName());
-                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                            Intent checkIntent = new Intent(MyProcessDetailActivity.this,
-                                    CheckActivity.class);
-                            checkIntent.putExtras(checkBundle);
-                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
-                        }
-                    });
                     break;
                 case Constant.NO_START:
                     checkLayout.setVisibility(View.VISIBLE);
@@ -353,18 +356,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     openDelay.setEnabled(false);
                     openDelay.setTextColor(getResources().getColor(R.color.grey_color));
                     openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    openCheck.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.SECTION, processSection.getName());
-                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                            Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity
-                                    .class);
-                            checkIntent.putExtras(checkBundle);
-                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
-                        }
-                    });
                     break;
                 case Constant.YANQI_AGREE:
                 case Constant.YANQI_REFUSE:
@@ -377,25 +368,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     openDelay.setEnabled(true);
                     openDelay.setTextColor(getResources().getColor(R.color.orange_color));
                     openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    openDelay.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            delayDialog();
-                        }
-                    });
-                    openCheck.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.SECTION, processSection.getName());
-                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                            Intent checkIntent = new Intent(MyProcessDetailActivity.this, CheckActivity
-                                    .class);
-                            checkIntent.putExtras(checkBundle);
-                            startActivityForResult(checkIntent, Constant.REQUESTCODE_CHECK);
-                        }
-                    });
                     break;
                 case Constant.YANQI_BE_DOING:
                     LogTool.d(TAG, "this section is yanqi_doing");
@@ -418,12 +390,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                             rowBtnDown.setVisibility(View.GONE);
                             site_list_head_delay_layout.setVisibility(View.VISIBLE);
                             site_list_head_checkbutton_layout.setVisibility(View.GONE);
-                            site_list_head_delay_text.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    showDelayDialog();
-                                }
-                            });
                         }
                     }
                     break;
