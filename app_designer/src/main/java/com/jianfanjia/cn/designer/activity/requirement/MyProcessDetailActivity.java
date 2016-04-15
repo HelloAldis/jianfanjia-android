@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,6 +64,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnPageChange;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -213,28 +213,42 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         mainHeadView.setRightTitleVisable(View.GONE);
     }
 
-    @OnClick(R.id.head_back_layout)
-    public void comeback() {
-        appManager.finishActivity(this);
+    @OnClick({R.id.head_back_layout, R.id.head_notification_layout, R.id.rowBtnUp, R.id.rowBtnDown})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
+            case R.id.head_notification_layout:
+                startActivity(NoticeActivity.class);
+                break;
+            case R.id.rowBtnUp:
+                rowBtnUp.setVisibility(View.GONE);
+                rowBtnDown.setVisibility(View.VISIBLE);
+                site_list_head_checkbutton_layout.setVisibility(View.GONE);
+                break;
+            case R.id.rowBtnDown:
+                rowBtnUp.setVisibility(View.VISIBLE);
+                rowBtnDown.setVisibility(View.GONE);
+                site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
-    @OnClick(R.id.head_notification_layout)
-    protected void gotoNotifyActivity() {
-        startActivity(NoticeActivity.class);
-    }
-
-    @OnClick(R.id.rowBtnUp)
-    public void rowBtnUpClick() {
-        rowBtnUp.setVisibility(View.GONE);
-        rowBtnDown.setVisibility(View.VISIBLE);
-        site_list_head_checkbutton_layout.setVisibility(View.GONE);
-    }
-
-    @OnClick(R.id.rowBtnDown)
-    public void rowBtnDownClick() {
-        rowBtnUp.setVisibility(View.VISIBLE);
-        rowBtnDown.setVisibility(View.GONE);
-        site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+    @OnPageChange(R.id.process_viewpager)
+    public void onPageSelected(int position) {
+        if (processSections != null) {
+            if (position < TOTAL_PROCESS) {
+                currentList = position;
+                processSection = processSections.get(currentList);
+                Log.i(TAG, "processSection=" + processSection.getName());
+                setCheckLayoutState();
+                sectionItemAdapter.setPosition(currentList);
+                detailNodeListView.getRefreshableView().startLayoutAnimation();
+            }
+        }
     }
 
     // 初始化数据
@@ -298,31 +312,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 });
         processViewPager.setAdapter(sectionViewPageAdapter);
         processViewPager.setVisibility(View.GONE);
-        processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onPageSelected(int arg0) {
-                if (processSections != null) {
-                    if (arg0 < TOTAL_PROCESS) {
-                        currentList = arg0;
-                        processSection = processSections.get(currentList);
-                        Log.i(TAG, "processSection=" + processSection.getName());
-                        setCheckLayoutState();
-                        sectionItemAdapter.setPosition(currentList);
-                        detailNodeListView.getRefreshableView().startLayoutAnimation();
-                    }
-                }
-            }
-        });
     }
 
     private void setCheckLayoutState() {
