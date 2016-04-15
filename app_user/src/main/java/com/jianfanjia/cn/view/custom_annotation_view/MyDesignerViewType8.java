@@ -112,6 +112,7 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder {
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
         merger_button1_layout.setVisibility(View.GONE);
+        button2.setTextColor(context.getResources().getColor(R.color.light_black_color));
         button2.setText(context.getResources().getString(R.string.str_change_designer));
         statusView.setTextColor(context.getResources().getColor(R.color.green_color));
         statusView.setText(context.getResources().getString(R.string.str_no_submit));
