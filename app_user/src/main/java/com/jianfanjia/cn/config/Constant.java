@@ -157,11 +157,8 @@ public class Constant {
             + R.mipmap.pix_default;
 
     public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
-    public static final String CURRENT_ITEM = "current_item";// 当前节点
     public static final String CURRENT_POSITION = "current_position";// 当前位置
     public static final String IMAGE_LIST = "image_list";
-    public static final String PROCESS_NAME = "process_name";
-    public static final String PROCESS_STATUS = "process_status";
     public static final String PROCESS_INFO = "process";
     public static final String SECTION = "section";
     public static final String SECTION_INFO = "sectioninfo";

@@ -7,6 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -33,12 +38,6 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -269,7 +268,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         }
         if (ownerInfo != null) {
             String family_des = ownerInfo.getFamily_description();
-            if (TextUtils.isEmpty(family_des)) {
+            if (!TextUtils.isEmpty(family_des)) {
                 requirement.setFamily_description(family_des);
             }
             if (ownerInfo.getDec_styles() != null && ownerInfo.getDec_styles().size() > 0) {

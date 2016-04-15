@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.AppManager;
@@ -18,11 +22,6 @@ import com.jianfanjia.cn.fragment.HomeNewFragment;
 import com.jianfanjia.cn.fragment.MyNewFragment;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -48,6 +47,7 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.my_layout)
     LinearLayout myLayout;
+
 
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;

@@ -79,13 +79,7 @@ public class DataManagerNew {
         return isExipre;
     }
 
-    public int getCurrentList() {
-        return sharedPreferuser.getValue(Constant.CURRENT_LIST, 0);
-    }
 
-    public void setCurrentList(int currentList) {
-        sharedPreferuser.setValue(Constant.CURRENT_LIST, currentList);
-    }
 
     public boolean isFirst() {
         return sharedPreferApp.getValue(Constant.ISFIRST, true);
