@@ -1,19 +1,13 @@
 package com.jianfanjia.cn.fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -36,6 +30,12 @@ import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * Description: com.jianfanjia.cn.fragment
  * Author: zhanghao
@@ -54,7 +54,7 @@ public class LoginFragment extends BaseFragment {
     private String mUserName = null;// 用户名
     private String mPassword = null;// 密码
 
-    private AuthUtil authUtil;
+    private AuthUtil authUtil = null;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -65,55 +65,25 @@ public class LoginFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initView();
         return view;
     }
 
-    private void initView() {
-        mEtLoginUserName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    @OnTextChanged(R.id.act_login_input_phone)
+    public void onAccountTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnLogin.setEnabled(true);
+        } else {
+            mBtnLogin.setEnabled(false);
+        }
+    }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginPassword.getText().toString())) {
-                    mBtnLogin.setEnabled(true);
-                } else {
-                    mBtnLogin.setEnabled(false);
-//                    verifyPhone(text);
-                }
-            }
-        });
-        mEtLoginPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtLoginUserName.getText().toString())) {
-                    mBtnLogin.setEnabled(true);
-                } else {
-                    mBtnLogin.setEnabled(false);
-//                    verifyPhone(text);
-                }
-            }
-        });
+    @OnTextChanged(R.id.act_login_input_password)
+    public void onPswTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnLogin.setEnabled(true);
+        } else {
+            mBtnLogin.setEnabled(false);
+        }
     }
 
     @OnClick({R.id.btn_login, R.id.act_forget_password, R.id
@@ -159,7 +129,6 @@ public class LoginFragment extends BaseFragment {
                 }
                 weiXinRegisterRequest.setWechat_openid(data.get("openid").toString());
                 weiXinRegisterRequest.setWechat_unionid(data.get("unionid").toString());
-
                 Api.weiXinRegister(weiXinRegisterRequest, new ApiCallback<ApiResponse<User>>() {
                     @Override
                     public void onPreLoad() {
@@ -173,12 +142,10 @@ public class LoginFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(ApiResponse<User> apiResponse) {
-
                         User loginUserBean = apiResponse.getData();
                         loginUserBean.setWechat_openid(loginUserBean.getWechat_openid());
                         loginUserBean.setWechat_unionid(loginUserBean.getWechat_unionid());
                         DataManagerNew.loginSuccess(loginUserBean);
-
                         if (dataManager.getWeixinFisrtLogin()) {
                             startActivity(NewUserCollectDecStageActivity.class);
                         } else {
@@ -189,12 +156,12 @@ public class LoginFragment extends BaseFragment {
 
                     @Override
                     public void onFailed(ApiResponse<User> apiResponse) {
-
+                        makeTextLong(apiResponse.getErr_msg());
                     }
 
                     @Override
                     public void onNetworkError(int code) {
-
+                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
                 });
             } else {

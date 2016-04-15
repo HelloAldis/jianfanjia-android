@@ -1,17 +1,13 @@
 package com.jianfanjia.cn.fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -24,7 +20,10 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -32,8 +31,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email: jame.zhang@myjyz.com
  * Date:2016-04-05 11:22
  */
-public class RegisterFragment extends BaseFragment{
-
+public class RegisterFragment extends BaseFragment {
     private static final String TAG = RegisterFragment.class.getClass().getName();
 
     @Bind(R.id.act_forget_psw_input_phone)
@@ -49,62 +47,30 @@ public class RegisterFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initView();
         return view;
     }
 
-    private void initView(){
-        mEtRegisterUserName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    @OnTextChanged(R.id.act_forget_psw_input_phone)
+    public void onAccountTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnNext.setEnabled(true);
+        } else {
+            mBtnNext.setEnabled(false);
+        }
+    }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "registerlogin afterTextChanged");
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterPassword.getText().toString())) {
-                    mBtnNext.setEnabled(true);
-                } else {
-                    mBtnNext.setEnabled(false);
-//                    verifyPhone(text);
-                }
-            }
-        });
-        mEtRegisterPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "registerpassword afterTextChanged");
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtRegisterUserName.getText().toString())) {
-                    mBtnNext.setEnabled(true);
-                } else {
-                    mBtnNext.setEnabled(false);
-                }
-            }
-        });
+    @OnTextChanged(R.id.act_forget_psw_input_password)
+    public void onPswTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnNext.setEnabled(true);
+        } else {
+            mBtnNext.setEnabled(false);
+        }
     }
 
     @OnClick({R.id.btn_next})
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.btn_next:
                 mUserName = mEtRegisterUserName.getText().toString().trim();
                 mPassword = mEtRegisterPassword.getText().toString().trim();
