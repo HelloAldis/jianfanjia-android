@@ -114,7 +114,7 @@ public class MyDesignerViewType8 extends RecyclerView.ViewHolder {
         merger_button1_layout.setVisibility(View.GONE);
         button2.setTextColor(context.getResources().getColor(R.color.light_black_color));
         button2.setText(context.getResources().getString(R.string.str_change_designer));
-        statusView.setTextColor(context.getResources().getColor(R.color.green_color));
+        statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
         statusView.setText(context.getResources().getString(R.string.str_no_submit));
         merger_button2_layout.setOnClickListener(new View.OnClickListener() {
             @Override

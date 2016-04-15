@@ -216,14 +216,14 @@
             android:name=".activity.common.CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".activity.my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.ForgetPswActivity"
             android:label="@string/title_activity_forget_psw"
@@ -271,12 +271,11 @@
         <service android:name=".service.UpdateService"/>
 
         <activity
-            android:name=".activity.requirement.MyProcessDetailActivity"
+            android:name=".activity.requirement.DesignerPlanListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".activity.requirement.DesignerPlanListActivity"
-            android:label="@string/title_activity_designer_plan_list"
+            android:name=".activity.requirement.MyProcessDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity

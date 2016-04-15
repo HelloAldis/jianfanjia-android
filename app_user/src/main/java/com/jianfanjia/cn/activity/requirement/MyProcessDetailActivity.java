@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,6 +64,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnPageChange;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -220,28 +220,59 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         mainHeadView.setRightTitleVisable(View.GONE);
     }
 
-    @OnClick(R.id.head_back_layout)
-    public void comeback() {
-        appManager.finishActivity(this);
+    @OnClick({R.id.head_back_layout, R.id.head_notification_layout, R.id.site_list_head_delay, R.id
+            .site_list_head_check, R.id.site_list_head_delay_text, R.id.rowBtnUp, R.id.rowBtnDown})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
+            case R.id.head_notification_layout:
+                startActivity(NoticeActivity.class);
+                break;
+            case R.id.site_list_head_delay:
+                delayDialog();
+                break;
+            case R.id.site_list_head_check:
+                Bundle checkBundle = new Bundle();
+                checkBundle.putString(Constant.SECTION, sectionInfo.getName());
+                checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
+                checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
+                checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity
+                        .PROCESS_LIST_INTENT);
+                startActivityForResult(CheckActivity.class, checkBundle, Constant
+                        .REQUESTCODE_CHECK);
+                break;
+            case R.id.site_list_head_delay_text:
+                showDelayDialog();
+                break;
+            case R.id.rowBtnUp:
+                rowBtnUp.setVisibility(View.GONE);
+                rowBtnDown.setVisibility(View.VISIBLE);
+                site_list_head_checkbutton_layout.setVisibility(View.GONE);
+                break;
+            case R.id.rowBtnDown:
+                rowBtnUp.setVisibility(View.VISIBLE);
+                rowBtnDown.setVisibility(View.GONE);
+                site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
-    @OnClick(R.id.head_notification_layout)
-    protected void gotoNotifyActivity() {
-        startActivity(NoticeActivity.class);
-    }
-
-    @OnClick(R.id.rowBtnUp)
-    public void rowBtnUpClick() {
-        rowBtnUp.setVisibility(View.GONE);
-        rowBtnDown.setVisibility(View.VISIBLE);
-        site_list_head_checkbutton_layout.setVisibility(View.GONE);
-    }
-
-    @OnClick(R.id.rowBtnDown)
-    public void rowBtnDownClick() {
-        rowBtnUp.setVisibility(View.VISIBLE);
-        rowBtnDown.setVisibility(View.GONE);
-        site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
+    @OnPageChange(R.id.process_viewpager)
+    public void onPageSelected(int position) {
+        if (sectionInfos != null) {
+            if (position < TOTAL_PROCESS) {
+                currentList = position;
+                sectionInfo = sectionInfos.get(currentList);
+                Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
+                setCheckLayoutState();
+                sectionItemAdapter.setPosition(currentList);
+                detailNodeListView.getRefreshableView().startLayoutAnimation();
+            }
+        }
     }
 
     // 初始化数据
@@ -306,31 +337,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 });
         processViewPager.setAdapter(sectionViewPageAdapter);
         processViewPager.setVisibility(View.GONE);
-        processViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onPageSelected(int arg0) {
-                if (sectionInfos != null) {
-                    if (arg0 < TOTAL_PROCESS) {
-                        currentList = arg0;
-                        sectionInfo = sectionInfos.get(currentList);
-                        Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
-                        setCheckLayoutState();
-                        sectionItemAdapter.setPosition(currentList);
-                        detailNodeListView.getRefreshableView().startLayoutAnimation();
-                    }
-                }
-            }
-        });
     }
 
     private void setCheckLayoutState() {
@@ -349,19 +355,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     openDelay.setTextColor(getResources().getColor(R.color.grey_color));
                     openDelay.setText(getResources().getText(R.string
                             .site_example_node_delay_no));
-                    openCheck.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.SECTION, sectionInfo.getName());
-                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                            checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
-                            checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity
-                                    .PROCESS_LIST_INTENT);
-                            startActivityForResult(CheckActivity.class, checkBundle, Constant
-                                    .REQUESTCODE_CHECK);
-                        }
-                    });
                     break;
                 case Constant.NO_START:
                     checkLayout.setVisibility(View.VISIBLE);
@@ -372,19 +365,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     openDelay.setEnabled(false);
                     openDelay.setTextColor(getResources().getColor(R.color.grey_color));
                     openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    openCheck.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.SECTION, sectionInfo.getName());
-                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                            checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
-                            checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity
-                                    .PROCESS_LIST_INTENT);
-                            startActivityForResult(CheckActivity.class, checkBundle, Constant
-                                    .REQUESTCODE_CHECK);
-                        }
-                    });
                     break;
                 case Constant.YANQI_AGREE:
                 case Constant.YANQI_REFUSE:
@@ -397,26 +377,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     openDelay.setEnabled(true);
                     openDelay.setTextColor(getResources().getColor(R.color.orange_color));
                     openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    openDelay.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-                            delayDialog();
-                        }
-                    });
-                    openCheck.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle checkBundle = new Bundle();
-                            checkBundle.putString(Constant.SECTION, sectionInfo.getName());
-                            checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                            checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
-                            checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity
-                                    .PROCESS_LIST_INTENT);
-                            startActivityForResult(CheckActivity.class, checkBundle, Constant
-                                    .REQUESTCODE_CHECK);
-                        }
-                    });
                     break;
                 case Constant.YANQI_BE_DOING:
                     Reschedule rescheduleInfo = sectionInfo.getReschedule();
@@ -438,12 +398,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                             rowBtnDown.setVisibility(View.GONE);
                             site_list_head_delay_layout.setVisibility(View.VISIBLE);
                             site_list_head_checkbutton_layout.setVisibility(View.GONE);
-                            site_list_head_delay_text.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    showDelayDialog();
-                                }
-                            });
                         }
                     }
                     break;

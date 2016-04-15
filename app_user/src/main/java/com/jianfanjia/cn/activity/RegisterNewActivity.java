@@ -2,17 +2,13 @@ package com.jianfanjia.cn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -27,7 +23,10 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -58,48 +57,32 @@ public class RegisterNewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.getDataFromIntent();
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = getIntent();
         registerInfo = (RegisterInfo) intent.getSerializableExtra(IntentConstant.REGISTER_INFO);
         requsetCode = intent.getIntExtra(IntentConstant.REGISTER, 0);
     }
 
     public void initView() {
-
         if (registerInfo != null) {
             mPhoneView.setText(registerInfo.getPhone());
         }
         mBtnCommit.setEnabled(false);
+    }
 
-        mEtVerification.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "register afterTextChanged");
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text)) {
-                    mBtnCommit.setEnabled(true);
-                } else {
-                    mBtnCommit.setEnabled(false);
-                }
-            }
-        });
+    @OnTextChanged(R.id.et_verification)
+    public void onTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnCommit.setEnabled(true);
+        } else {
+            mBtnCommit.setEnabled(false);
+        }
     }
 
     @OnClick({R.id.head_back_layout, R.id.btn_commit})
@@ -145,7 +128,6 @@ public class RegisterNewActivity extends BaseActivity {
         registerRequest.setPass(registerInfo.getPass());
         registerRequest.setPhone(registerInfo.getPhone());
         registerRequest.setCode(registerInfo.getCode());
-
         Api.register(registerRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
@@ -159,7 +141,6 @@ public class RegisterNewActivity extends BaseActivity {
 
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
-
                 User loginUserBean = apiResponse.getData();
                 loginUserBean.setPass(registerInfo.getPass());
                 DataManagerNew.loginSuccess(loginUserBean);
@@ -185,7 +166,6 @@ public class RegisterNewActivity extends BaseActivity {
         updatePasswordRequest.setCode(registerInfo.getCode());
         updatePasswordRequest.setPhone(registerInfo.getPhone());
         updatePasswordRequest.setPass(registerInfo.getPass());
-
         Api.updatePassword(updatePasswordRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -210,7 +190,7 @@ public class RegisterNewActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -219,7 +199,6 @@ public class RegisterNewActivity extends BaseActivity {
         BindPhoneRequest bindPhoneReques = new BindPhoneRequest();
         bindPhoneReques.setPhone(registerInfo.getPhone());
         bindPhoneReques.setCode(registerInfo.getCode());
-
         Api.bindPhone(bindPhoneReques, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -234,8 +213,8 @@ public class RegisterNewActivity extends BaseActivity {
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 dataManager.setAccount(registerInfo.getPhone());
-                if (getIntent().getExtras().getInt(IntentConstant.BINDING_PHONE_INTENT) == IntentConstant.BINDING_PHONE_REQUIREMENT)
-                {//发布需求就导向发布需求
+                if (getIntent().getExtras().getInt(IntentConstant.BINDING_PHONE_INTENT) == IntentConstant
+                        .BINDING_PHONE_REQUIREMENT) {//发布需求就导向发布需求
                     startActivity(PublishRequirementActivity.class);
                 } else {
                     EventBus.getDefault().post(new BindingPhoneEvent(registerInfo.getPhone()));
@@ -250,7 +229,7 @@ public class RegisterNewActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

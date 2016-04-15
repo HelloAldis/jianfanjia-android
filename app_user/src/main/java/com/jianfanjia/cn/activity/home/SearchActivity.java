@@ -2,9 +2,7 @@ package com.jianfanjia.cn.activity.home;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,8 +14,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
@@ -26,6 +22,10 @@ import com.jianfanjia.cn.fragment.SearchDesignerFragment;
 import com.jianfanjia.cn.fragment.SearchProductFragment;
 import com.jianfanjia.common.tool.LogTool;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * Description: com.jianfanjia.cn.activity.home
  * Author: zhanghao
@@ -33,6 +33,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Date:2016-02-20 09:12
  */
 public class SearchActivity extends BaseSwipeBackActivity {
+    private static final String TAG = SearchActivity.class.getName();
 
     public static final int DESIGNER = 0x00;
     public static final int PRODUCTCASE = 0x01;
@@ -65,43 +66,16 @@ public class SearchActivity extends BaseSwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.initView();
+        initView();
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_search;
-    }
-
-    public void initView(){
+    private void initView() {
         contentLayout.setVisibility(View.GONE);
         deleteView.setVisibility(View.GONE);
-        searchText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s.toString())) {
-                    resetView();
-                    deleteView.setVisibility(View.GONE);
-                    contentLayout.setVisibility(View.GONE);
-                } else {
-                    deleteView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                LogTool.d(this.getClass().getName(), "checkId");
+                LogTool.d(TAG, "checkId");
                 switch (checkedId) {
                     case R.id.tab_rb_1:
                         setTabSelection(DESIGNER);
@@ -138,23 +112,23 @@ public class SearchActivity extends BaseSwipeBackActivity {
         });
     }
 
-    public void hideSoftKeyBoard(){
-        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(contentLayout.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+    public void hideSoftKeyBoard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(contentLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
-    public void resetView(){
+    public void resetView() {
         FragmentTransaction transaction = this.getSupportFragmentManager()
                 .beginTransaction();
-        if(searchDesignerFragment != null){
+        if (searchDesignerFragment != null) {
             transaction.remove(searchDesignerFragment);
             searchDesignerFragment = null;
         }
-        if(searchDecorationImgFragment != null){
+        if (searchDecorationImgFragment != null) {
             transaction.remove(searchDecorationImgFragment);
             searchDecorationImgFragment = null;
         }
-        if(searchProductFragment != null){
+        if (searchProductFragment != null) {
             transaction.remove(searchProductFragment);
             searchProductFragment = null;
         }
@@ -199,9 +173,9 @@ public class SearchActivity extends BaseSwipeBackActivity {
         transaction.commit();
     }
 
-    protected Bundle getSearchBundle(String search){
+    protected Bundle getSearchBundle(String search) {
         Bundle bundle = new Bundle();
-        bundle.putString(IntentConstant.SEARCH_TEXT,search);
+        bundle.putString(IntentConstant.SEARCH_TEXT, search);
         return bundle;
     }
 
@@ -218,9 +192,20 @@ public class SearchActivity extends BaseSwipeBackActivity {
         }
     }
 
-    @OnClick({R.id.act_search_cancel,R.id.act_search_delete})
-    protected void click(View view){
-        switch (view.getId()){
+    @OnTextChanged(R.id.act_search_input)
+    public void onTextChanged(CharSequence text) {
+        if (TextUtils.isEmpty(text)) {
+            resetView();
+            deleteView.setVisibility(View.GONE);
+            contentLayout.setVisibility(View.GONE);
+        } else {
+            deleteView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick({R.id.act_search_cancel, R.id.act_search_delete})
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.act_search_cancel:
                 appManager.finishActivity(this);
                 break;
@@ -229,4 +214,10 @@ public class SearchActivity extends BaseSwipeBackActivity {
                 break;
         }
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_search;
+    }
+
 }

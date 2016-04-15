@@ -3,21 +3,15 @@ package com.jianfanjia.cn.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -32,13 +26,21 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnPageChange;
+
 /**
  * @author fengliang
  * @ClassName: NavigateActivity
  * @Description: 引导
  * @date 2015-8-28 下午3:23:37
  */
-public class NavigateActivity extends BaseActivity implements OnPageChangeListener {
+public class NavigateActivity extends BaseActivity {
     @Bind(R.id.viewPager)
     ViewPager viewPager;
 
@@ -88,7 +90,6 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
         adapter = new ViewPageAdapter(NavigateActivity.this, list);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentItem);
-        viewPager.setOnPageChangeListener(this);
     }
 
     @OnClick({R.id.register_login_text, R.id.registerText, R.id.btnWeixinLayout})
@@ -113,20 +114,9 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
         }
     }
 
-    @Override
-    public void onPageScrollStateChanged(int arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void onPageSelected(int arg0) {
-        currentItem = arg0;
+    @OnPageChange(R.id.viewPager)
+    public void onPageSelected(int position) {
+        currentItem = position;
         if (currentItem != lastSelectorItem) {
             dots[currentItem].setImageResource(R.mipmap.icon_dot_selector);
             dots[lastSelectorItem].setImageResource(R.mipmap.icon_dot_normal);
@@ -181,12 +171,12 @@ public class NavigateActivity extends BaseActivity implements OnPageChangeListen
 
                     @Override
                     public void onFailed(ApiResponse<User> apiResponse) {
-
+                        makeTextShort(apiResponse.getErr_msg());
                     }
 
                     @Override
                     public void onNetworkError(int code) {
-
+                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
                 });
             } else {

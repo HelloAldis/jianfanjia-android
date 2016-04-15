@@ -1,9 +1,7 @@
 package com.jianfanjia.cn.activity;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,11 +18,11 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.tools.UiHelper;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class ForgetPswActivity extends BaseActivity {
 
@@ -51,7 +49,6 @@ public class ForgetPswActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         initView();
     }
 
@@ -98,55 +95,27 @@ public class ForgetPswActivity extends BaseActivity {
         return true;
     }
 
-    public void initView() {
+    private void initView() {
         UiHelper.controlKeyboardLayout(registerLayout, mBtnNext);
-
         mBtnNext.setEnabled(false);
+    }
 
-        mEtForgetPswUserName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    @OnTextChanged(R.id.act_forget_psw_input_phone)
+    public void onAccountTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnNext.setEnabled(true);
+        } else {
+            mBtnNext.setEnabled(false);
+        }
+    }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "forgetPsw afterTextChanged");
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())) {
-                    mBtnNext.setEnabled(true);
-                } else {
-                    mBtnNext.setEnabled(false);
-                }
-            }
-        });
-        mEtForgetPswPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "forgetPsw afterTextChanged");
-                String text = s.toString();
-                if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())) {
-                    mBtnNext.setEnabled(true);
-                } else {
-                    mBtnNext.setEnabled(false);
-                }
-            }
-        });
+    @OnTextChanged(R.id.act_forget_psw_input_password)
+    public void onPswTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBtnNext.setEnabled(true);
+        } else {
+            mBtnNext.setEnabled(false);
+        }
     }
 
     /**
