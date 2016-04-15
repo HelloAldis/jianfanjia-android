@@ -1,5 +1,5 @@
 # jianfanjia-android
-简繁家branch user-2.5 模块和开发规则介绍：</br>
+###简繁家branch user-2.5 模块介绍:
 </br>
 整个项目分为common,api,imageshow,photopicker,hub,pullrefresh,app_user,app_designer等几个模块，其中app_user,app_designer分别对应的是业主版app和
 专业版app，其余模块均为library 模块。</br>
@@ -14,3 +14,12 @@
 加载库可以在此进行替换。</br>
 </br>
 5、photopicker是单独写的一个多图选取的模块，可以同时获取多张图片，目前主要在工地图片上传中用到。
+</br>
+###简繁家branch user-2.5总体开发原则：
+1、能抽象出独立功能的代码尽量封装成模块。</br>
+</br>
+2、不能封装成模块的功能代码尽量创建在一个工具类中，对外提供统一的调用方法。</br>
+</br>
+3、base里面只能写最通用的功能，不要为了某些特定范围的子类方便而随便往base里加代码。</br>
+</br>
+4、base里面不谢util方法，只是重写父类的方法。
