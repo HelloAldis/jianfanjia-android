@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
 import com.jianfanjia.cn.adapter.ViewPageAdapter;
@@ -175,7 +176,7 @@ public class NavigateActivity extends BaseActivity {
 
                     @Override
                     public void onNetworkError(int code) {
-
+                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
                 });
             } else {

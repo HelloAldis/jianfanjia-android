@@ -166,7 +166,6 @@ public class RegisterNewActivity extends BaseActivity {
         updatePasswordRequest.setCode(registerInfo.getCode());
         updatePasswordRequest.setPhone(registerInfo.getPhone());
         updatePasswordRequest.setPass(registerInfo.getPass());
-
         Api.updatePassword(updatePasswordRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -191,7 +190,7 @@ public class RegisterNewActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -200,7 +199,6 @@ public class RegisterNewActivity extends BaseActivity {
         BindPhoneRequest bindPhoneReques = new BindPhoneRequest();
         bindPhoneReques.setPhone(registerInfo.getPhone());
         bindPhoneReques.setCode(registerInfo.getCode());
-
         Api.bindPhone(bindPhoneReques, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -231,7 +229,7 @@ public class RegisterNewActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

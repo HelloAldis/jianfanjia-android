@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.User;
@@ -172,7 +173,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
@@ -216,7 +217,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
