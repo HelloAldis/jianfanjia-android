@@ -1,15 +1,11 @@
 package com.jianfanjia.cn.designer.activity.my;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -19,6 +15,10 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class FeedBackActivity extends BaseSwipeBackActivity {
     private static final String TAG = FeedBackActivity.class.getName();
@@ -36,7 +36,6 @@ public class FeedBackActivity extends BaseSwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        setListener();
     }
 
     private void initView() {
@@ -50,10 +49,6 @@ public class FeedBackActivity extends BaseSwipeBackActivity {
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    private void setListener() {
-        feedContentView.addTextChangedListener(textWatcher);
-    }
-
     @OnClick({R.id.head_back_layout, R.id.btn_commit})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -64,8 +59,18 @@ public class FeedBackActivity extends BaseSwipeBackActivity {
                 String content = feedContentView.getText().toString().trim();
                 feedBack(content, "" + MyApplication
                         .getInstance().getVersionCode(), "0");
+                break;
             default:
                 break;
+        }
+    }
+
+    @OnTextChanged(R.id.add_feedback)
+    public void onTextChanged(CharSequence text) {
+        if (TextUtils.isEmpty(text)) {
+            confirm.setEnabled(false);
+        } else {
+            confirm.setEnabled(true);
         }
     }
 
@@ -93,7 +98,7 @@ public class FeedBackActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
@@ -102,33 +107,6 @@ public class FeedBackActivity extends BaseSwipeBackActivity {
             }
         });
     }
-
-    private TextWatcher textWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String content = s.toString().trim();
-            if (TextUtils.isEmpty(content)) {
-                confirm.setEnabled(false);
-            } else {
-                confirm.setEnabled(true);
-            }
-        }
-    };
 
     @Override
     public int getLayoutId() {
