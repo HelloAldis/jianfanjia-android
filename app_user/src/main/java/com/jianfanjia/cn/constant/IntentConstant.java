@@ -20,13 +20,15 @@ public class IntentConstant {
     public static final int BINDING_PHONE_USERINFO = 1;
 
     public static final String REQUIREMENT_INFO = "requirement_info";
-    public static final String PROCESS_INFO = "process_info";
-    public static final String OWNERINFO = "ownerinfo";
     public static final String REQUIREMENT_ID = "requirement_id";
-    public static final String REQUIREMENT_DESIGNER_NUM = "requirement_designer_num";
 
-    public static final String REQUIREMENG_ACTION_TYPE = "requirement_action_type";
+    public static final String PROCESS_INFO = "process_info";
     public static final String PROCESS_ID = "process_id";
+
+    public static final String OWNERINFO = "ownerinfo";
+
+    public static final String REQUIREMENT_DESIGNER_NUM = "requirement_designer_num";
+    public static final String REQUIREMENG_ACTION_TYPE = "requirement_action_type";
 
     public static final String DESIGNER_ID = "designer_id";
     public static final String PRODUCT_ID = "product_id";
