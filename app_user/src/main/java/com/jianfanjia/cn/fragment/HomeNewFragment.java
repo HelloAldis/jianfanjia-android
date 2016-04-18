@@ -46,8 +46,8 @@ import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.view.GestureGuideView;
 import com.jianfanjia.cn.view.MainScrollView;
 import com.jianfanjia.cn.view.auto_view_pager.AutoScrollViewPager;
-import com.jianfanjia.cn.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.library.PullToRefreshScrollViewNew;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.view.pullrefresh.PullToRefreshScrollViewNew;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 

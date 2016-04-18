@@ -88,7 +88,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView
+        <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView
             android:id="@+id/decoration_listview"
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"

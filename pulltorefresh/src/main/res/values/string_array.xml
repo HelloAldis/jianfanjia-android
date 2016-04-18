@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pull_head_icons">
+        <item>@drawable/icon_pull_head1</item>
+        <item>@drawable/icon_pull_head2</item>
+        <item>@drawable/icon_pull_head3</item>
+        <item>@drawable/icon_pull_head4</item>
+        <item>@drawable/icon_pull_head5</item>
+        <item>@drawable/icon_pull_head6</item>
+        <item>@drawable/icon_pull_head7</item>
+        <item>@drawable/icon_pull_head8</item>
+        <item>@drawable/icon_pull_head9</item>
+        <item>@drawable/icon_pull_head10</item>
+        <item>@drawable/icon_pull_head11</item>
+        <item>@drawable/icon_pull_head12</item>
+        <item>@drawable/icon_pull_head13</item>
+        <item>@drawable/icon_pull_head14</item>
+        <item>@drawable/icon_pull_head15</item>
+        <item>@drawable/icon_pull_head16</item>
+        <item>@drawable/icon_pull_head17</item>
+        <item>@drawable/icon_pull_head18</item>
+        <item>@drawable/icon_pull_head19</item>
+        <item>@drawable/icon_pull_head20</item>
+        <item>@drawable/icon_pull_head21</item>
+        <item>@drawable/icon_pull_head22</item>
+        <item>@drawable/icon_pull_head23</item>
+        <item>@drawable/icon_pull_head24</item>
+    </string-array>
+</resources>

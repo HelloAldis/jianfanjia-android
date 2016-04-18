@@ -13,9 +13,4 @@
     <item name="return_scan_result" type="id" />
     <item name="search_book_contents_failed" type="id" />
     <item name="search_book_contents_succeeded" type="id" />
-    <item name="gridview" type="id" />
-    <item name="webview" type="id" />
-    <item name="scrollview" type="id" />
-    <item name="recycleview" type="id" />
-    <item name="viewpager" type="id" />
 </resources>

@@ -2,43 +2,30 @@ package com.jianfanjia.cn.designer.bean;
 
 import java.io.Serializable;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 /**
  * @author fengliang
  * @ClassName: NotifyMessage
  * @Description: 推送消息
  * @date 2015-9-2 上午9:58:19
  */
-@DatabaseTable(tableName = "NotifyMessage")
 public class NotifyMessage implements Serializable {
 
-    @DatabaseField(generatedId = true)
     public int id;// 自增长
 
-    @DatabaseField(columnName = "type")
     private String type;// 类型
 
-    @DatabaseField(columnName = "cell")
     private String cell;//小区
 
-    @DatabaseField(columnName = "content")
     private String content;// 内容
 
-    @DatabaseField(columnName = "time")
     private long time;// 日期
 
-    @DatabaseField(columnName = "section")
     private String section;// 阶段
 
-    @DatabaseField(columnName = "status")
     private String status;// 状态
 
-    @DatabaseField(columnName = "processid")
     private String processid;// 工序id
 
-    @DatabaseField(columnName = "userid")
     private String userid;
 
     private String messageid;

@@ -13,12 +13,9 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
-import com.jianfanjia.cn.designer.dao.impl.NotifyMessageDao;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
-import com.jianfanjia.cn.designer.tools.DaoManager;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -36,7 +33,6 @@ import com.umeng.analytics.MobclickAgent;
 public abstract class BaseActivity extends AppCompatActivity implements
         DialogControl,PopWindowCallBack{
     protected DownloadManager downloadManager = null;
-    protected NotifyMessageDao notifyMessageDao = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
@@ -61,7 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         appManager = AppManager.getAppManager();
         appManager.addActivity(this);
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();
