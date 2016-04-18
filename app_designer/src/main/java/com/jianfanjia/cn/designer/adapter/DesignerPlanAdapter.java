@@ -7,10 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
@@ -20,6 +16,11 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Name: DesignerPlanAdapter
@@ -44,7 +45,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
         holder.commentText.setText("留言(" + info.getComment_count() + ")");
         String status = info.getStatus();
         if (status.equals(Global.PLAN_STATUS3)) {
-            holder.statusText.setTextColor(context.getResources().getColor(R.color.orange_color));
+            holder.statusText.setTextColor(context.getResources().getColor(R.color.blue_color));
             holder.statusText.setText("沟通中");
         } else if (status.equals(Global.PLAN_STATUS4)) {
             holder.statusText.setTextColor(context.getResources().getColor(R.color.grey_color));
@@ -57,14 +58,15 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_plan_listview.setLayoutManager(linearLayoutManager);
-        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new ViewPagerClickListener() {
-            @Override
-            public void onClickItem(int pos) {
-                if (null != itemClickListener) {
-                    itemClickListener.onCallBack(position, pos);
-                }
-            }
-        });
+        DesignerPlanRecyclerViewAdapter adapter = new DesignerPlanRecyclerViewAdapter(context, imgList, new
+                ViewPagerClickListener() {
+                    @Override
+                    public void onClickItem(int pos) {
+                        if (null != itemClickListener) {
+                            itemClickListener.onCallBack(position, pos);
+                        }
+                    }
+                });
         holder.item_plan_listview.setAdapter(adapter);
         holder.commentText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +114,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
 
         public DesignerPlanViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

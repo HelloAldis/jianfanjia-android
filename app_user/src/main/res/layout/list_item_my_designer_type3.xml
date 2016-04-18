@@ -12,21 +12,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <View
-        android:id="@+id/first_line"
-        style="@style/divier_line"
-        android:layout_below="@id/ltm_my_designer_left_layout"/>
 
     <RelativeLayout
         android:id="@+id/ltm_my_designer_content"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/first_line">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ltm_my_designer_left_layout">
+
+        <View
+            android:id="@+id/first_line"
+            style="@style/divier_line"/>
 
         <TextView
             android:id="@+id/ltm_my_designer_textview3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/first_line"
             android:gravity="center"
             android:textSize="@dimen/middle_size"/>
 

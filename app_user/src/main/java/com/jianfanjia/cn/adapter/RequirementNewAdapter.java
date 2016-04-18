@@ -7,14 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -26,6 +22,12 @@ import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -84,6 +86,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
         protected ImageView ltm_req_owner_head;
         @Bind(R.id.ltm_req_gotopro)
         protected TextView ltm_req_gotopro;
+        @Bind(R.id.ltm_req_gotopro_layout)
+        protected LinearLayout ltm_req_gotopro_layout;
 
         public void bind(Context context, Requirement requirementInfo, final ClickCallBack clickCallBack, final int
                 position) {
@@ -104,9 +108,9 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             String requirementStatus = requirementInfo.getStatus();
             String workType = requirementInfo.getWork_type();
             if (workType.equals(Global.PURE_DESIGNER)) {
-                ltm_req_gotopro.setVisibility(View.GONE);
+                ltm_req_gotopro_layout.setVisibility(View.GONE);
             } else {
-                ltm_req_gotopro.setVisibility(View.VISIBLE);
+                ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
             }
 
             if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global
