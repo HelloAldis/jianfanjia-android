@@ -120,11 +120,11 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
         imageids = sectionInfo.getYs().getImages();
         currentUploadCount = imageids.size();
         LogTool.d(TAG, "currentUploadCount=" + currentUploadCount);
-        for (int i = 0; imageids != null && i < imageids.size(); i++) {
-            String key = imageids.get(i).getKey();
+        for (ProcessSectionYsImage ysImage : imageids) {
+            String key = ysImage.getKey();
             LogTool.d(TAG, "key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                    imageids.get(i).getImageid());
+                    ysImage.getImageid());
         }
         adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                 this);

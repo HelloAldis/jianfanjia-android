@@ -162,11 +162,11 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     }
 
     private void initCheckGridList() {
-        for (int i = 0; imageids != null && i < imageids.size(); i++) {
-            String key = imageids.get(i).getKey();
+        for (ProcessSectionYsImage ysImage : imageids) {
+            String key = ysImage.getKey();
             LogTool.d(TAG, "key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
-                    imageids.get(i).getImageid());
+                    ysImage.getImageid());
         }
     }
 
