@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/manage_pullfefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/emptyPullRefreshScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -52,6 +52,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
-    </com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView>
+    </com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView>
 
 </RelativeLayout>

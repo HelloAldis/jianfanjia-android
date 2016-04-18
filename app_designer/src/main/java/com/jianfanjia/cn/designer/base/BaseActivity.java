@@ -15,7 +15,6 @@ import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
-import com.jianfanjia.cn.designer.receiver.NetStateReceiver;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -36,7 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
-    protected NetStateReceiver netStateReceiver = null;
     protected AddPhotoDialog popupWindow = null;
     private boolean _isVisible;
     private WaitDialog _waitDialog = null;

@@ -145,4 +145,5 @@ dependencies {
     compile project(':imageshow')
     compile files('libs/GetuiExt-2.0.3.jar')
     compile files('libs/GetuiSDK2.8.1.0.jar')
+    compile project(':pulltorefresh')
 }
