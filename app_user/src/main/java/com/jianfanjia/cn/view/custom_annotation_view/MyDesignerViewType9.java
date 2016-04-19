@@ -14,7 +14,6 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 
@@ -63,13 +62,12 @@ public class MyDesignerViewType9 extends RecyclerView.ViewHolder {
         this.context = context;
     }
 
-    public static MyDesignerViewType0 build(Context context) {
+    public static MyDesignerViewType9 build(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_my_designer_type3, null);
-        return new MyDesignerViewType0(view, context);
+        return new MyDesignerViewType9(view, context);
     }
 
     public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
-        String status = designerInfo.getPlan().getStatus();
         String imageid = designerInfo.getImageid();
         String username = designerInfo.getUsername();
         ltm_my_designer_left_layout.setOnClickListener(new View.OnClickListener() {
@@ -101,12 +99,8 @@ public class MyDesignerViewType9 extends RecyclerView.ViewHolder {
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
-        switch (status) {
-            case Global.PLAN_STATUS9:
-                contentLayout.setVisibility(View.GONE);
-                statusView.setText(context.getResources().getString(R.string.str_out_date));
-                statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
-                break;
-        }
+        contentLayout.setVisibility(View.GONE);
+        statusView.setText(context.getResources().getString(R.string.str_out_date));
+        statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
     }
 }
