@@ -6,10 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.designer.base.RecyclerViewAdapterBase;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType0;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType1;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType2;
@@ -19,6 +18,8 @@ import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType5;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType6;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType7;
 import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType8;
+import com.jianfanjia.cn.designer.view.custom_annotation_view.MyPlanViewType9;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.adapter.base
@@ -36,6 +37,7 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
     public static final int PLAN_TYPE6 = 6;
     public static final int PLAN_TYPE7 = 7;
     public static final int PLAN_TYPE8 = 8;
+    public static final int PLAN_TYPE9 = 9;
 
     Context context;
     private ClickCallBack clickCallBack;
@@ -80,6 +82,8 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
                 return MyPlanViewType7.build(context);
             case PLAN_TYPE8:
                 return MyPlanViewType8.build(context);
+            case PLAN_TYPE9:
+                return MyPlanViewType9.build(context);
         }
         return null;
     }
@@ -123,6 +127,10 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
             case PLAN_TYPE8:
                 MyPlanViewType8 view8 = (MyPlanViewType8) viewHolder;
                 view8.bind(requirementInfo, clickCallBack, position);
+                break;
+            case PLAN_TYPE9:
+                MyPlanViewType9 view9 = (MyPlanViewType9) viewHolder;
+                view9.bind(requirementInfo, clickCallBack, position);
                 break;
         }
     }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/font_white"
+              android:orientation="vertical">
+
+    <View style="@style/divier_line"/>
+
+    <include
+        android:id="@+id/ltm_req_info_layout"
+        layout="@layout/merge_req"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View style="@style/divier_line"/>
+
+    <RelativeLayout
+        android:id="@+id/refuseLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_16">
+
+        <TextView
+            android:id="@+id/refuse_title"
+            style="@style/listview_item_text_style_small"
+            android:layout_centerVertical="true"
+            android:text="@string/out_date_title"/>
+
+        <TextView
+            android:id="@+id/refuse_content"
+            style="@style/listview_item_text_style_small"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/refuse_title"
+            android:text="@string/other"/>
+    </RelativeLayout>
+
+    <View style="@style/divier_line"/>
+
+
+</LinearLayout>
