@@ -1,14 +1,12 @@
-package com.jianfanjia.cn.designer.bean;
-
-import java.io.Serializable;
+package com.jianfanjia.api.model;
 
 /**
- * @author fengliang
- * @ClassName: NotifyMessage
- * @Description: 推送消息
- * @date 2015-9-2 上午9:58:19
+ * Name: NotifyMessage
+ * User: fengliang
+ * Date: 2016-04-19
+ * Time: 10:22
  */
-public class NotifyMessage implements Serializable {
+public class NotifyMessage extends BaseModel {
 
     public int id;// 自增长
 
@@ -32,12 +30,28 @@ public class NotifyMessage implements Serializable {
 
     private String badge;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCell() {
+        return cell;
+    }
+
+    public void setCell(String cell) {
+        this.cell = cell;
     }
 
     public String getContent() {
@@ -48,12 +62,12 @@ public class NotifyMessage implements Serializable {
         this.content = content;
     }
 
-    public String getStatus() {
-        return status;
+    public long getTime() {
+        return time;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public String getSection() {
@@ -64,28 +78,12 @@ public class NotifyMessage implements Serializable {
         this.section = section;
     }
 
-    public long getTime() {
-        return time;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCell() {
-        return cell;
-    }
-
-    public void setCell(String cell) {
-        this.cell = cell;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getProcessid() {
