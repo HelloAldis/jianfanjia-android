@@ -251,6 +251,7 @@
         <item>已量房</item>
         <item>未响应</item>
         <item>未提交</item>
+        <item>已过期</item>
     </string-array>
 
     <string-array name="requirement_status">
