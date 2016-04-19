@@ -82,6 +82,7 @@ public class Constant {
     // 用户身份type
     public static final String IDENTITY_OWNER = "1";// 业主
     public static final String IDENTITY_DESIGNER = "2";// 设计师
+    public static final String IDENTITY_SUPERVISOR = "3";// 监理
 
     public static final String ISFIRST = "isFirst";// 是否是首次打开程序
     public static final String ISSHOWGUIDE = "isshowguide";// 是否显示过首页手势引导

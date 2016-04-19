@@ -10,6 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -28,14 +35,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description:评论留言

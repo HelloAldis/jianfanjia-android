@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
@@ -14,11 +18,6 @@ import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: CommentAdapter
@@ -37,16 +36,25 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
         Comment commentInfo = list.get(position);
         CommentViewHolder holder = (CommentViewHolder) viewHolder;
-        holder.itemNameView.setText(commentInfo.getByUser().getUsername());
-        holder.itemContentView.setText(commentInfo.getContent());
         String userType = commentInfo.getUsertype();
+        String imageid = Constant.DEFALUT_OWNER_PIC;
+        String userName = "";
         if (userType.equals(Constant.IDENTITY_OWNER)) {
             holder.itemIdentityView.setText(context.getString(R.string.ower));
-        } else {
+            imageid = commentInfo.getByUser().getImageid();
+            userName = commentInfo.getByUser().getUsername();
+        } else if(userType.equals(Constant.IDENTITY_DESIGNER)){
             holder.itemIdentityView.setText(context.getString(R.string.designer));
+            imageid = commentInfo.getByDesigner().getImageid();
+            userName = commentInfo.getByDesigner().getUsername();
+        } else if(userType.equals(Constant.IDENTITY_SUPERVISOR)){
+            holder.itemIdentityView.setText(context.getString(R.string.supervisor));
+            imageid = commentInfo.getBySupervisor().getImageid();
+            userName = commentInfo.getBySupervisor().getUsername();
         }
+        holder.itemNameView.setText(userName);
         holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
-        String imageid = commentInfo.getByUser().getImageid();
+        holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
         LogTool.d(TAG, "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);

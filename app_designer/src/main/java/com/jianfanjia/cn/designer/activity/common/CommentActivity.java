@@ -23,13 +23,14 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.api.model.CommentList;
-import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.CommentAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
@@ -232,11 +233,11 @@ public class CommentActivity extends BaseSwipeBackActivity {
         comment.setTopictype(topictype);
         comment.setDate(Calendar.getInstance().getTimeInMillis());
         comment.setContent(content);
-        comment.setUsertype(dataManager.getUserType());
-        User user = new User();
+        comment.setUsertype(Constant.IDENTITY_DESIGNER);
+        Designer user = new Designer();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());
-        comment.setByUser(user);
+        comment.setByDesigner(user);
         return comment;
     }
 

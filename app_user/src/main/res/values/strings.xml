@@ -6,6 +6,7 @@
 
     <string name="designer">设计师</string>
     <string name="ower">业主</string>
+    <string name="supervisor">监理</string>
     <string name="update">升级</string>
     <string name="version_update">版本更新</string>
     <string name="jianfanjia_net">http://www.jianfanjia.com</string>
