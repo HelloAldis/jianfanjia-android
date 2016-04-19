@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.jianfanjia.cn.view.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/designer_plan_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

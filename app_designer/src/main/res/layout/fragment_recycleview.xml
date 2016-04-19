@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView
         android:id="@+id/pull_refresh_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -127,8 +127,6 @@ dependencies {
     //    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile project(':hud')
     compile project(':api')
-    compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
-    compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
     compile files('libs/commons-codec-1.10.jar')
     compile files('libs/SocialSDK_WeiXin_1.jar')
     compile files('libs/SocialSDK_WeiXin_2.jar')

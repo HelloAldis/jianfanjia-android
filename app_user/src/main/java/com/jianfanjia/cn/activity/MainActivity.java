@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -66,6 +67,12 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         badgeView.setVisibility(View.GONE);
         switchTab(Constant.HOME);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        switchTab(Constant.MANAGE);
     }
 
     @Override

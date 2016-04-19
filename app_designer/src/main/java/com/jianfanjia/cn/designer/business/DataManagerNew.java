@@ -12,11 +12,9 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.db.DBHelper;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
-import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
+import com.jianfanjia.common.tool.LogTool;
 
 public class DataManagerNew {
     private static final String TAG = DataManagerNew.class.getName();
@@ -248,7 +246,6 @@ public class DataManagerNew {
         processLists = null;
         requirementInfo = null;
         currentProcessInfo = null;
-        DataCleanTool.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
     /**

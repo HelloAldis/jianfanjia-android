@@ -51,7 +51,7 @@
             android:layout_marginLeft="45dp"
             android:background="@color/line_color"/>
 
-        <com.jianfanjia.cn.designer.view.library.PullToRefreshListView
+        <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/process__listview"
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"

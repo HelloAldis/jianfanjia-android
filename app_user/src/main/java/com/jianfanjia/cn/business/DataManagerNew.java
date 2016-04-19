@@ -10,10 +10,8 @@ import com.jianfanjia.api.model.User;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.db.DBHelper;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.SharedPrefer;
-import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.common.tool.LogTool;
 
 public class DataManagerNew {
@@ -166,7 +164,6 @@ public class DataManagerNew {
 
     public void cleanData() {
         sharedPreferuser.clear();
-        DataCleanTool.cleanDatabaseByName(context, DBHelper.DBNAME);
     }
 
     /**

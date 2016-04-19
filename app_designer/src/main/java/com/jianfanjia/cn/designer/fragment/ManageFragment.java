@@ -37,9 +37,9 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.cn.designer.view.library.PullToRefreshBase;
-import com.jianfanjia.cn.designer.view.library.PullToRefreshRecycleView;
-import com.jianfanjia.cn.designer.view.library.PullToRefreshScrollView;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
 
 /**

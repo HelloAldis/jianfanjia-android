@@ -10,18 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.business.DataManagerNew;
-import com.jianfanjia.cn.dao.impl.NotifyMessageDao;
-import com.jianfanjia.cn.tools.DaoManager;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.cn.view.dialog.DialogControl;
 import com.jianfanjia.cn.view.dialog.WaitDialog;
-
-import butterknife.ButterKnife;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description:Fragment基类
@@ -31,7 +27,6 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment extends Fragment {
     protected FragmentManager fragmentManager = null;
-    protected NotifyMessageDao notifyMessageDao = null;
     protected DataManagerNew dataManager = null;
     protected LayoutInflater inflater = null;
     protected ImageShow imageShow = null;
@@ -68,7 +63,6 @@ public abstract class BaseFragment extends Fragment {
 
     private void init() {
         dataManager = DataManagerNew.getInstance();
-        notifyMessageDao = DaoManager.getNotifyMessageDao(MyApplication.getInstance());
         fragmentManager = getFragmentManager();
         imageShow = ImageShow.getImageShow();
     }

@@ -253,6 +253,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         } else {
             LogTool.d(TAG, "没有改变");
             appManager.finishActivity(this);
+
         }
     }
 
