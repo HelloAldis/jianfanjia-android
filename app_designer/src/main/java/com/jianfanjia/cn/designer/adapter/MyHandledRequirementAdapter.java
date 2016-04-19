@@ -127,10 +127,11 @@ public class MyHandledRequirementAdapter extends RecyclerViewAdapterBase<Require
         }
     }
 
-    protected void cacularView(ViewGroup parent,View view){
-        LogTool.d(this.getClass().getName(), "parent height =" + parent.getHeight() + " parent width =" + parent.getWidth());
+    protected void cacularView(ViewGroup parent, View view) {
+        LogTool.d(this.getClass().getName(), "parent height =" + parent.getHeight() + " parent width =" + parent
+                .getWidth());
 //        view.setLayoutParams();
-        view.setLayoutParams(new ViewGroup.LayoutParams(parent.getWidth(),parent.getHeight()));
+        view.setLayoutParams(new ViewGroup.LayoutParams(parent.getWidth(), parent.getHeight()));
     }
 
 }

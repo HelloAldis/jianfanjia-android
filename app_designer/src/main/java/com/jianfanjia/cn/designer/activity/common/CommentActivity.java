@@ -191,7 +191,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         request.setSection(section);
         request.setItem(item);
         request.setContent(content);
-        request.setTo(to);
+        request.setTo_userid(to);
         Api.addComment(request, this.addCommentCallback);
     }
 

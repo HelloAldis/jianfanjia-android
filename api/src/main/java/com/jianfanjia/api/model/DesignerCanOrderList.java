@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Aldis on 16/3/28.
  */
-public class DesignerCanOrderList {
+public class DesignerCanOrderList extends BaseModel {
     private List<Designer> rec_designer;
     private List<Designer> favorite_designer;
 

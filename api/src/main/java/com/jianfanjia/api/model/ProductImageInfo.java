@@ -1,12 +1,9 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Aldis on 16/3/28.
  */
-public class ProductImageInfo extends BaseModel implements Serializable{
-    private static final long serialVersionUID = 8429692010603248547L;
+public class ProductImageInfo extends BaseModel {
     private String description;
     private String imageid;
     private String section;

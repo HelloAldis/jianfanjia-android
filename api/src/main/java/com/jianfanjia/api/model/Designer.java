@@ -1,6 +1,5 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,9 +8,7 @@ import java.util.List;
  * Email：leo.feng@myjyz.com
  * Date:15-10-20 21:47
  */
-public class Designer extends BaseModel implements Serializable {
-    private static final long serialVersionUID = -8515828649644437770L;
-
+public class Designer extends BaseModel {
     private String _id;
     private String phone;
     private String philosophy;

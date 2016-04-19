@@ -1,14 +1,12 @@
-package com.jianfanjia.cn.designer.bean;
-
-import java.io.Serializable;
+package com.jianfanjia.api.model;
 
 /**
- * @author fengliang
- * @ClassName: NotifyMessage
- * @Description: 推送消息
- * @date 2015-9-2 上午9:58:19
+ * Name: NotifyMessage
+ * User: fengliang
+ * Date: 2016-04-19
+ * Time: 10:22
  */
-public class NotifyMessage implements Serializable {
+public class NotifyMessage extends BaseModel {
 
     public int id;// 自增长
 
@@ -32,8 +30,12 @@ public class NotifyMessage implements Serializable {
 
     private String badge;
 
-    public NotifyMessage() {
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -44,28 +46,20 @@ public class NotifyMessage implements Serializable {
         this.type = type;
     }
 
+    public String getCell() {
+        return cell;
+    }
+
+    public void setCell(String cell) {
+        this.cell = cell;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
     }
 
     public long getTime() {
@@ -76,20 +70,20 @@ public class NotifyMessage implements Serializable {
         this.time = time;
     }
 
-    public int getId() {
-        return id;
+    public String getSection() {
+        return section;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSection(String section) {
+        this.section = section;
     }
 
-    public String getCell() {
-        return cell;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCell(String cell) {
-        this.cell = cell;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getProcessid() {

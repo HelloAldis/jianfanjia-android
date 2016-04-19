@@ -1,14 +1,11 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Aldis on 16/3/28.
  */
-public class ProcessSection extends BaseModel implements Serializable {
-    private static final long serialVersionUID = 7265654008649361788L;
-
+public class ProcessSection extends BaseModel {
     private String _id;
     private long start_at;
     private long end_at;

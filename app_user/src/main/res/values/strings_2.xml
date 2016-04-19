@@ -47,7 +47,7 @@
     <string name="str_wait_confirm_plan">等待确认方案</string>
     <string name="str_no_submit">未提交</string>
     <string name="str_not_choose">未中标</string>
-    <string name="str_out_date">已过时</string>
+    <string name="str_out_date">已过期</string>
     <string name="str_wait_setting_constract">等待配置合同</string>
     <string name="str_wait_confirm_constract">等待确认合同</string>
     <string name="str_working">已开工</string>

@@ -69,7 +69,15 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        getDataFromIntent();
         initView();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = this.getIntent();
+        requestmentid = intent.getStringExtra(IntentConstant.REQUIREMENT_ID);
+        designerid = intent.getStringExtra(IntentConstant.DESIGNER_ID);
+        LogTool.d(TAG, "requestmentid:" + requestmentid + " designerid:" + designerid);
     }
 
     private void initView() {
@@ -82,10 +90,6 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
         paint.setAntiAlias(true);
         replace_designer_listview.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).paint(paint)
                 .showLastDivider().build());
-        Intent intent = this.getIntent();
-        requestmentid = intent.getStringExtra(IntentConstant.REQUIREMENT_ID);
-        designerid = intent.getStringExtra(IntentConstant.DESIGNER_ID);
-        LogTool.d(TAG, "requestmentid:" + requestmentid + " designerid:" + designerid);
         getOrderDesignerList(requestmentid);
     }
 

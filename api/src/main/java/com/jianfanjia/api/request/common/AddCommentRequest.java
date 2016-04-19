@@ -12,10 +12,10 @@ public class AddCommentRequest extends BaseRequest {
     private String topicid;
     private String topictype;
     private String content;
-    private String to;
+    private String to_designerid;
+    private String to_userid;
     private String section;
     private String item;
-
 
     public String getTopicid() {
         return topicid;
@@ -41,12 +41,20 @@ public class AddCommentRequest extends BaseRequest {
         this.content = content;
     }
 
-    public String getTo() {
-        return to;
+    public String getTo_designerid() {
+        return to_designerid;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setTo_designerid(String to_designerid) {
+        this.to_designerid = to_designerid;
+    }
+
+    public String getTo_userid() {
+        return to_userid;
+    }
+
+    public void setTo_userid(String to_userid) {
+        this.to_userid = to_userid;
     }
 
     public String getSection() {

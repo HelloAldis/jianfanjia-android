@@ -1,6 +1,5 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,9 +8,7 @@ import java.util.List;
  * Date: 2015-10-23
  * Time: 14:23
  */
-public class Plan extends BaseModel implements Serializable {
-    private static final long serialVersionUID = 4176946137457671385L;
-
+public class Plan extends BaseModel {
     private String _id;
     private String name;
     private long last_status_update_time;

@@ -16,6 +16,7 @@ import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType5;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType6;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType7;
 import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType8;
+import com.jianfanjia.cn.view.custom_annotation_view.MyDesignerViewType9;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -33,6 +34,7 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
     public static final int PLAN_TYPE6 = 6;
     public static final int PLAN_TYPE7 = 7;
     public static final int PLAN_TYPE8 = 8;
+    public static final int PLAN_TYPE9 = 9;
 
     Context context;
     private String workType;
@@ -72,6 +74,8 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
                 return MyDesignerViewType7.build(context);
             case PLAN_TYPE8:
                 return MyDesignerViewType8.build(context);
+            case PLAN_TYPE9:
+                return MyDesignerViewType9.build(context);
         }
         return null;
     }
@@ -115,6 +119,10 @@ public class MyDesignerAdapter extends RecyclerViewAdapterBase<Designer> {
             case PLAN_TYPE8:
                 MyDesignerViewType8 view8 = (MyDesignerViewType8) holder;
                 view8.bind(orderDesignerInfo, clickCallBack, position);
+                break;
+            case PLAN_TYPE9:
+                MyDesignerViewType9 view9 = (MyDesignerViewType9) holder;
+                view9.bind(orderDesignerInfo, clickCallBack, position);
                 break;
         }
     }

@@ -9,10 +9,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
@@ -39,6 +38,9 @@ import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -347,12 +349,12 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<UserMessage> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -386,7 +388,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
 
@@ -421,7 +423,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -450,12 +452,12 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
 

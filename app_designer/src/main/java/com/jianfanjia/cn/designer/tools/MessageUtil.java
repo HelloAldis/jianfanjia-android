@@ -11,18 +11,18 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.jianfanjia.api.model.NotifyMessage;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.MainActivity;
 import com.jianfanjia.cn.designer.activity.common.CommentListActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeDetailActivity;
-import com.jianfanjia.cn.designer.bean.NotifyMessage;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.common.tool.DateFormatTool;
 
 import de.greenrobot.event.EventBus;
 

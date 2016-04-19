@@ -1,6 +1,5 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,9 +8,7 @@ import java.util.List;
  * Email: jame.zhang@myjyz.com
  * Date:2016-03-11 14:55
  */
-public class DecorateLiveList implements Serializable{
-
-    private static final long serialVersionUID = 5323623591343265226L;
+public class DecorateLiveList extends BaseModel {
 
     private List<DecorateLive> shares;
     private int total;

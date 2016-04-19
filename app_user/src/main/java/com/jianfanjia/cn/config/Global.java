@@ -25,6 +25,7 @@ public class Global {
     public static final String PLAN_STATUS6 = "6";//已确认量房但没有方案
     public static final String PLAN_STATUS7 = "7";//设计师无响应导致响应过期
     public static final String PLAN_STATUS8 = "8";//设计师规定时间内没有提交方案
+    public static final String PLAN_STATUS9 = "9";//业主选定了方案，其他设计师还是 未响应，未量房，无方案   过期
 
     public static final String REQUIREMENT_STATUS0 = "0";//未预约任何设计师
     public static final String REQUIREMENT_STATUS1 = "1";//预约过设计师但是没有一个设计师响应过

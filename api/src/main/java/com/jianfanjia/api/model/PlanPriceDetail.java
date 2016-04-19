@@ -1,11 +1,9 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Aldis on 16/3/28.
  */
-public class PlanPriceDetail extends BaseModel implements Serializable {
+public class PlanPriceDetail extends BaseModel {
     private static final long serialVersionUID = 5886154173353451274L;
     private String _id;
     private String item;

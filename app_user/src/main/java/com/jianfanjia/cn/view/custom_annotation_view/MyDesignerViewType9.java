@@ -21,13 +21,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Description: com.jianfanjia.cn.view.baseview
- * Author: zhanghao
- * Email: jame.zhang@myjyz.com
- * Date:2015-10-22 10:46
+ * Name: MyDesignerViewType9
+ * User: fengliang
+ * Date: 2016-04-19
+ * Time: 11:37
  */
-public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
-
+public class MyDesignerViewType9 extends RecyclerView.ViewHolder {
     @Bind(R.id.ltm_my_designer_left_layout)
     protected RelativeLayout ltm_my_designer_left_layout;
 
@@ -57,15 +56,15 @@ public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
 
     private Context context;
 
-    public MyDesignerViewType0(View view, Context context) {
+    public MyDesignerViewType9(View view, Context context) {
         super(view);
         ButterKnife.bind(this, view);
         this.context = context;
     }
 
-    public static MyDesignerViewType0 build(Context context) {
+    public static MyDesignerViewType9 build(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_my_designer_type3, null);
-        return new MyDesignerViewType0(view, context);
+        return new MyDesignerViewType9(view, context);
     }
 
     public void bind(Designer designerInfo, final ClickCallBack clickCallBack, final int position) {
@@ -101,7 +100,7 @@ public class MyDesignerViewType0 extends RecyclerView.ViewHolder {
         int service_attitude = (int) designerInfo.getService_attitude();
         ratingBarView.setRating((respond_speed + service_attitude) / 2);
         contentLayout.setVisibility(View.GONE);
-        statusView.setText(context.getResources().getString(R.string.str_wait_respond));
-        statusView.setTextColor(context.getResources().getColor(R.color.blue_color));
+        statusView.setText(context.getResources().getString(R.string.str_out_date));
+        statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
     }
 }

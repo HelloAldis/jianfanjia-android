@@ -1,12 +1,9 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Aldis on 16/3/28.
  */
-public class Comment extends BaseModel implements Serializable {
-    private static final long serialVersionUID = -1804805285725131805L;
+public class Comment extends BaseModel {
     private String _id;
     private String topicid;
     private String topictype;
