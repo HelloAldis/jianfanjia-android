@@ -11,12 +11,12 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 
+import java.util.List;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.PopWindowAdapter;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.interf.GetItemCallback;
-
-import java.util.List;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 
 /**
  * Name: DecorationPopWindow
