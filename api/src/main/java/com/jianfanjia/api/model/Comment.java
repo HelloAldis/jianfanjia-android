@@ -8,8 +8,7 @@ public class Comment extends BaseModel {
     private String topicid;
     private String topictype;
     private String content;
-    private String to_user;
-    private String to_designer;
+    private String to;
     private String by;
     private String usertype;
     private long date;
@@ -48,20 +47,12 @@ public class Comment extends BaseModel {
         this.content = content;
     }
 
-    public String getTo_user() {
-        return to_user;
+    public String getTo() {
+        return to;
     }
 
-    public void setTo_user(String to_user) {
-        this.to_user = to_user;
-    }
-
-    public String getTo_designer() {
-        return to_designer;
-    }
-
-    public void setTo_designer(String to_designer) {
-        this.to_designer = to_designer;
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public String getBy() {

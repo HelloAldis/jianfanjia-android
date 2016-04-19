@@ -191,7 +191,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         request.setSection(section);
         request.setItem(item);
         request.setContent(content);
-        request.setTo(to);
+        request.setTo_userid(to);
         Api.addComment(request, this.addCommentCallback);
     }
 
@@ -229,7 +229,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
     protected Comment createCommentInfo(String content) {
         Comment comment = new Comment();
-        comment.setTo_user(to);
+        comment.setTo(to);
         comment.setTopicid(topicid);
         comment.setTopictype(topictype);
         comment.setDate(Calendar.getInstance().getTimeInMillis());
