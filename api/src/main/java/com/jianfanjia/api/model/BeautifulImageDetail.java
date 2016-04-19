@@ -1,13 +1,9 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Created by jyz on 16/3/28.
  */
-public class BeautifulImageDetail extends BaseModel implements Serializable {
-    private static final long serialVersionUID = -2396378567042666240L;
-
+public class BeautifulImageDetail extends BaseModel {
     private String imageid;
     private int width;
     private int height;

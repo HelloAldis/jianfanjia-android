@@ -1,17 +1,15 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Aldis on 16/3/28.
  */
-public class Comment extends BaseModel implements Serializable {
-    private static final long serialVersionUID = -1804805285725131805L;
+public class Comment extends BaseModel {
     private String _id;
     private String topicid;
     private String topictype;
     private String content;
-    private String to;
+    private String to_user;
+    private String to_designer;
     private String by;
     private String usertype;
     private long date;
@@ -50,12 +48,20 @@ public class Comment extends BaseModel implements Serializable {
         this.content = content;
     }
 
-    public String getTo() {
-        return to;
+    public String getTo_user() {
+        return to_user;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setTo_user(String to_user) {
+        this.to_user = to_user;
+    }
+
+    public String getTo_designer() {
+        return to_designer;
+    }
+
+    public void setTo_designer(String to_designer) {
+        this.to_designer = to_designer;
     }
 
     public String getBy() {

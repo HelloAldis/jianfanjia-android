@@ -1,12 +1,11 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Aldis on 16/3/28.
  */
-public class DecorateLive extends BaseModel implements Serializable {
+public class DecorateLive extends BaseModel {
     private static final long serialVersionUID = 5457508744568649579L;
     private String _id;
     private String cover_imageid;

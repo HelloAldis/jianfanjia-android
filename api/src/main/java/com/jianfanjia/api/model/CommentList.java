@@ -1,6 +1,5 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,10 +8,7 @@ import java.util.List;
  * Date: 2015-10-28
  * Time: 17:01
  */
-public class CommentList implements Serializable {
-
-    private static final long serialVersionUID = -7792774353344872678L;
-
+public class CommentList extends BaseModel {
     private List<Comment> comments;
     private int total;
 

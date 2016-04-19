@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Aldis on 16/3/28.
  */
-public class DesignerList  {
+public class DesignerList extends BaseModel {
     private int total;
     private List<Designer> designers;
 

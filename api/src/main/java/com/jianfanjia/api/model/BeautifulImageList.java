@@ -1,13 +1,11 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Aldis on 16/3/28.
  */
-public class BeautifulImageList implements Serializable {
-    private static final long serialVersionUID = 1882322068000269988L;
+public class BeautifulImageList extends BaseModel {
     private List<BeautifulImage> beautiful_images;
     private int total;
 
