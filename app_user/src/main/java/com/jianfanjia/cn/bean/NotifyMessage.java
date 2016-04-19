@@ -32,10 +32,6 @@ public class NotifyMessage implements Serializable {
 
     private String badge;
 
-    public NotifyMessage() {
-
-    }
-
     public String getType() {
         return type;
     }
