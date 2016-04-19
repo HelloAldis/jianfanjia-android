@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.supervisor.view.MainHeadView
+        android:id="@+id/my_pingjia_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/rootview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.jianfanjia.cn.supervisor.view.layout.CircleImageView
+                    android:id="@+id/designer_head_img"
+                    android:layout_width="60dip"
+                    android:layout_height="60dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/space_50"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_default_head" />
+
+                <TextView
+                    android:id="@+id/designerName"
+                    style="@style/listview_item_text_style_big"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:text="设计师"
+                    android:textColor="@color/light_black_color" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/list_item_ratingbar_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dip"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="0" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/speedLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_60"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_gravity="center_vertical"
+                        android:text="响应速度："
+                        android:textColor="@color/light_black_color" />
+
+                    <RatingBar
+                        android:id="@+id/speedBar"
+                        style="@style/list_item_ratingbar_style_middle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/attudeLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/speedLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_gravity="center_vertical"
+                        android:text="服务态度："
+                        android:textColor="@color/light_black_color" />
+
+                    <RatingBar
+                        android:id="@+id/attudeBar"
+                        style="@style/list_item_ratingbar_style_middle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="0" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/attudeLayout"
+                    android:layout_alignRight="@id/attudeLayout"
+                    android:layout_below="@id/attudeLayout"
+                    android:layout_marginTop="@dimen/space_30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/commentText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_color_grey"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

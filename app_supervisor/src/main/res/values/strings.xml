@@ -1,0 +1,317 @@
+<resources>
+    <string name="app_name">简繁家监理版</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="designer">设计师</string>
+    <string name="ower">业主</string>
+    <string name="update">升级</string>
+    <string name="version_update">版本更新</string>
+    <string name="jianfanjia_net">http://www.jianfanjia.com</string>
+    <string name="loading"></string>
+
+    <string name="share_app_des">我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。</string>
+    <string name="share_app_title">简繁家，让装修变简单</string>
+    <string name="share_app_url">http://www.jianfanjia.com/zt/mobile/index.html</string>
+    <string name="share_image_des">我在简繁家发现一张%1$s风格的%2$s美图，感觉还不错，分享给大家！</string>
+
+    <!-- Error View -->
+    <string name="error_view_no_caigou_data">您还没有采购提醒</string>
+    <string name="error_view_no_pay_data">您还没有付款提醒</string>
+    <string name="error_view_no_delay_data">您还没有改期提醒</string>
+
+    <!-- login_activity -->
+    <string name="login">登录</string>
+    <string name="loging">正在登录中</string>
+    <string name="no">取     消</string>
+    <string name="ok">确     定</string>
+    <string name="agree">同     意</string>
+    <string name="refuse">拒     绝</string>
+    <string name="forget_pwd">忘记密码？</string>
+    <string name="register">注册</string>
+    <string name="new_user">新用户</string>
+    <string name="tip_please_input_username">请输入账号</string>
+    <string name="tip_please_input_password">请输入密码</string>
+    <string name="hint_update_password">请输入重置密码</string>
+    <!-- login_activity -->
+
+    <!-- register_activity -->
+    <string name="next">下一步</string>
+    <string name="hint_verification">请输入验证码</string>
+    <string name="confirm">确认</string>
+    <string name="finish">完成</string>
+    <string name="commit">提交</string>
+    <string name="submit_comment">发表评价</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="verifica_phone">验证手机</string>
+    <string name="verification_code_sended">验证码已发送到:</string>
+    <string name="register_success">注册成功</string>
+    <string name="update_psw_success">修改密码成功</string>
+    <!-- register_activity -->
+
+    <!-- site_fragment -->
+    <string name="site_example_node_name">面板数量核算</string>
+    <string name="site_example_node_check">对比验收</string>
+    <string name="site_example_node_time">2015-8-1 9:30</string>
+    <string name="site_example_node_delay">申请改期</string>
+    <string name="site_example_node_delay_doing">改期进行中</string>
+    <string name="site_example_node_delay_no">工序已完工</string>
+    <string name="site_example_node_working">正在施工</string>
+    <string name="site_example_node_finish">已完工</string>
+    <string name="site_example_node_not_start">未开工</string>
+    <string name="site_example_node_confirm_finish">确认完工</string>
+    <string name="more">更多</string>
+    <string name="retract">收起</string>
+    <string name="site_example_node_delay_text">您有未处理的改期</string>
+
+    <!-- my_site information -->
+    <string name="my_site_villagename_example">中建康城二期</string>
+    <string name="current_process">当前工地</string>
+
+    <!-- my_fragment -->
+    <string name="fisrt_page">首页</string>
+    <string name="my_designer">我的设计师</string>
+    <string name="my_decoration_site">我的工地</string>
+    <string name="my_diary">我的日记</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="my_setting">设置</string>
+    <string name="my_tip">我的提醒</string>
+    <string name="my_help">帮助</string>
+    <string name="my_ower">我的业主</string>
+    <string name="owner_detail">业主详情</string>
+    <string name="designer_detail">设计师详情</string>
+    <string name="xuqiu">装修需求</string>
+    <string name="stage_check_text">阶段验收</string>
+    <string name="appoint">位可预约</string>
+    <string name="appointText">预约</string>
+    <string name="marchDesignerText">匹配的设计师</string>
+    <string name="intentionDesignerText">意向设计师</string>
+    <string name="replaceText">替换</string>
+    <string name="commentText">留言</string>
+    <string name="planText">我的方案</string>
+    <string name="designerPlanText">方案</string>
+    <string name="designerPlan">方案详情</string>
+    <string name="pingjiaText">评价设计师</string>
+    <string name="pingjiaDetailText">评价详情</string>
+    <string name="detailPrice">详细报价</string>
+    <string name="contractText">施工合同</string>
+    <string name="comfirmText">确认</string>
+    <string name="my_site">我的工地</string>
+    <string name="message_push">消息推送</string>
+    <string name="share">分享给小伙伴</string>
+    <string name="current_version">当前版本</string>
+    <string name="current_version_example">1.0</string>
+    <string name="clear_cache">清空缓存</string>
+    <string name="cache_size">110M</string>
+    <string name="feedback">意见反馈</string>
+    <string name="logout">退出登录</string>
+    <string name="kefuText">客服中心</string>
+    <string name="online_kefu">在线客服</string>
+    <string name="list_item_comment_pubtime_example">30分钟前</string>
+    <string name="add_comment">添加评论</string>
+    <string name="add_feedback">请添加您想说的内容</string>
+    <string name="userinfo">个人信息</string>
+    <string name="commentList">留言</string>
+    <string name="check">阶段验收</string>
+    <string name="back">返回</string>
+    <string name="send">发送</string>
+    <string name="confirm_upload">确认上传</string>
+    <string name="confirm_tip">提醒业主进行验收</string>
+    <string name="confirm_done">确认验收</string>
+    <string name="confirm_not_finish">工序未完工，您还不能提醒业主验收</string>
+    <string name="confirm_finish">已确认验收</string>
+    <string name="checkRequire">查看需求</string>
+
+    <!-- activity_upload_pic -->
+    <string name="upload_pic">现场照片</string>
+    <string name="show_pic">示范照片</string>
+    <string name="edit">编辑</string>
+    <string name="confirm_check">确认验收</string>
+    <!-- activity_upload_pic -->
+
+
+    <!-- activity owner detail -->
+    <string name="owner_detail_city">所在城市：</string>
+    <string name="owner_detail_cell">所在小区：</string>
+    <string name="owner_detail_site">工地地址：</string>
+    <string name="owner_detail_housestyle">装修户型：</string>
+    <string name="owner_detail_decoratearea">装修面积（㎡）：</string>
+    <string name="owner_detail_lovestyle">风格喜好：</string>
+    <string name="owner_detail_decoratestyle">装修类型：</string>
+    <string name="owner_detail_decoratebudget">装修预算（万元）：</string>
+    <string name="owner_detail_startdate">开工日期：</string>
+    <string name="owner_detail_totaldate">总工期（天）：</string>
+    <!-- activity owner detail -->
+
+
+    <!-- activity userinfo -->
+    <string name="user_head">头像</string>
+    <string name="user_name">姓名</string>
+    <string name="user_sex">性别</string>
+    <string name="user_phone">手机号</string>
+    <string name="user_address">所在地</string>
+    <string name="user_home">详细地址</string>
+    <string name="not_edit">未填写</string>
+    <!-- activity userinfo -->
+
+
+    <!-- activity_about -->
+    <string name="about">关于我们</string>
+    <string name="about_my">关于简繁家</string>
+    <string name="about_content">让装修更简单</string>
+    <string name="about_version">版本号：%1$s</string>
+    <string name="company">武汉家易装科技有限公司</string>
+    <string name="compant_net">Copyright © 2015-2016 jianfanjia.com</string>
+    <!-- activity_about -->
+
+
+    <!-- activity_share -->
+    <string name="share_tip">长按二维码保存</string>
+    <string name="save_image_success">图片已保存至相册中</string>
+    <string name="save_image_failure">图片保存失败</string>
+    <string name="share_title">分享</string>
+    <!-- activity_share -->
+
+    <string name="open_camera">拍照</string>
+    <string name="open_album">从相册中选择</string>
+
+    <!-- edit activity -->
+    <string name="input_name">请输入昵称</string>
+    <string name="input_home">请输入家庭地址</string>
+    <!-- edit activity -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_welcom">WelcomActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_share">ShareActivity</string>
+    <string name="title_activity_check">CheckActivity</string>
+    <string name="title_activity_comment">CommentActivity</string>
+    <string name="title_activity_edit_info">EditInfoActivity</string>
+    <string name="title_activity_feed_back">FeedBackActivity</string>
+    <string name="title_activity_forget_psw">ForgetPswActivity</string>
+    <string name="title_activity_my_designer">MyDesignerActivity</string>
+    <string name="title_activity_navigate">NavigateActivity</string>
+    <string name="title_activity_notify">NotifyActivity</string>
+    <string name="title_activity_show_pic">ShowPicActivity</string>
+    <string name="title_activity_user_info">UserInfoActivity</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_designer_info">DesignerInfoActivity</string>
+    <string name="title_activity_designer_case_info">DesignerCaseInfoActivity</string>
+
+     <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
+    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
+    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
+    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
+    the big cheese.</string>
+    <string name="checkin">Checkin</string>
+    <string name="title_activity_appoint_designer">AppointDesignerActivity</string>
+    <string name="not_commit">未提交</string>
+    <string name="already_repsonse">已响应</string>
+    <string name="title_activity_designer_plan_list">DesignerPlanListActivity</string>
+    <string name="title_activity_preview_designer_plan">PreviewDesignerPlanActivity</string>
+    <string name="title_activity_ping_jia_info">PingJiaInfoActivity</string>
+    <string name="title_activity_detail_price">DetailPriceActivity</string>
+    <string name="title_activity_replace_designer">ReplaceDesignerActivity</string>
+    <string name="tip_input_corrent_phone">请输入正确的手机号</string>
+    <string name="tip_input_correct_password">请输入正确的密码格式，密码由6-30位数字、字母组成</string>
+    <string name="tip_open_camera">请开启摄像机权限</string>
+    <string name="tip_not_sdcard">没有SD卡，无法打开相机</string>
+    <string name="title_activity_preview_decoration">PreviewDecorationActivity</string>
+
+    <!--CollectActivity-->
+    <string name="designerText">设计师</string>
+    <string name="productText">作品</string>
+    <string name="imgText">美图</string>
+    <string name="man">男</string>
+    <string name="women">女</string>
+    <string name="choose_sex">选择性别</string>
+    <string name="str_collect_success">收藏成功</string>
+    <string name="title_activity_customer_service">CustomerServiceActivity</string>
+    <string name="measure_house_tip">请在24小时内响应业主并设置量房时间，否则自动视为放弃</string>
+    <string name="response">响应</string>
+    <string name="reply">回复</string>
+    <string name="phone_tip">为了更进一步与业主交流和确认量房时间，请及时与业主联系</string>
+    <string name="setting_measure_date">设置量房时间</string>
+    <string name="refuse_title">拒绝原因：</string>
+    <string name="phone_owner">联系业主</string>
+    <string name="other">其他</string>
+    <string name="str_view_comment">查看评价</string>
+    <string name="refuse_msg0">预算偏低，不符合预期</string>
+    <string name="refuse_msg1">时间忙，接不过来</string>
+    <string name="refuse_msg2">距离太远，交通不方便</string>
+    <string name="refuse_msg3">其他</string>
+    <string name="refuse_tip">PS：以下收集的信息，将不会向业主展示，麻烦您耐心选择拒绝接单原因，以便我们的合作更紧密。</string>
+    <string name="refuse_reason">拒绝接单原因</string>
+    <string name="str_setting_startdate">设置开工日期</string>
+    <string name="contract_profile">合同概况</string>
+    <string name="process_duration">工程期限：</string>
+    <string name="process_duration_cont">总工期：%1$d天</string>
+    <string name="process_startTime_cont">开工日期：%1$s年%2$s月%3$s日</string>
+    <string name="process_endTime_cont">竣工日期：%1$s年%2$s月%3$s日</string>
+    <string name="process_totalprice">工程价款：</string>
+    <string name="process_totalprice_cont">本工程装修总价为人民币（大写）%1$s（￥%2$d元）</string>
+    <string name="process_workType">承包方式：</string>
+    <string name="process_workType_cont">%1$s</string>
+    <string name="tip_no_unhandle">您暂时没有待响应的需求</string>
+    <string name="tip_handled">您暂时没有进行中的需求</string>
+    <string name="tip_already_handle">您暂时没有已放弃的需求</string>
+    <string name="reminder_title">温馨提示：</string>
+    <string name="reminder_content">如您资料完善程度高，系统将会优先将您推送给业主</string>
+    <string name="process_tip">由于您的工地还没有开工，请即时查看需求动态，如您想查看装修流程，我们已精心为您准备了工地模板</string>
+    <string name="process_tip_text">点击查看工地模板></string>
+    <string name="tip_choose_refuse_reason">请选择拒绝接单原因</string>
+    <string name="not_comment">业主还没有对您进行评价！</string>
+    <string name="empty_view_no_notice_data">目前您还没有相关通知</string>
+    <string name="no_more_data">没有更多了</string>
+
+    <string name="all_finish">已竣工</string>
+    <string name="my_comment">我的留言</string>
+    <string name="my_notice">我的通知</string>
+    <string name="my_notice_detail">通知详情</string>
+    <string name="all_notice">全部</string>
+    <string name="system_notice">系统</string>
+    <string name="req_notice">需求</string>
+    <string name="site_notice">工地</string>
+    <string name="call_phone">咨询热线：400-8515-167</string>
+    <string name="my">我的</string>
+    <string name="app_phone">4008515167</string>
+
+
+    <string name="delay_str">改期</string>
+    <string name="pay_str">付款</string>
+    <string name="caigou_str">采购</string>
+    <string name="check_str">验收</string>
+    <string name="sys_str">系统</string>
+    <string name="req_str">需求</string>
+    <string name="agree_str">已同意</string>
+    <string name="reject_str">已拒绝</string>
+    <string name="repond_str">已响应</string>
+    <string name="search_no_commnet">目前还没有留言</string>
+    <string name="plan_list">方案列表</string>
+    <string name="notify_owner_confirm_mesaure_house">提醒业主确认量房</string>
+    <string name="notify_not_more_once_everyday">您今天已经提醒过了！</string>
+
+    <string name="notify_success">提醒成功</string>
+
+    <string name="decoratebudget_365_title">为了让您的装修预算更准确，特为您提供以下公式</string>
+    <string name="decoratebudget_365_alert">提示：您的装修总预算不能低于基础费用</string>
+    <string name="decoratebudget_365_detail">点击此处了解更多关于‘简繁家365基础包’</string>
+    <string name="decoratebudget_365_basic">基础费用</string>
+    <string name="decoratebudget_365_individuation">个性化费用</string>
+    <string name="decoratebudget_365_total">装修总预算</string>
+    <string name="str_coveredarea">建筑面积（㎡）</string>
+    <string name="str_decoratebudget_with_unit">装修预算（万元）</string>
+    <string name="money_alias">￥</string>
+    <string name="create_my_requirement">我要装修</string>
+
+    <string name="follow_weixin">关注官方微信：jianfanjia</string>
+    <string name="follow_weibo">关注官方微博</string>
+    <string name="follow_weixin_success">微信号已复制成功，请在微信搜索并关注简繁家</string>
+    <string name="jianfanjia_weixin">jianfanjia</string>
+</resources>

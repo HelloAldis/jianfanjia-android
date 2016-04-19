@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/wheel"
+        android:layout_alignTop="@+id/wheel"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@mipmap/wheel_backgroud" />
+
+    <LinearLayout
+        android:id="@+id/wheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_8" >
+
+        <com.jianfanjia.cn.supervisor.view.wheel.WheelView
+            android:id="@+id/wheel_item1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.jianfanjia.cn.supervisor.view.wheel.WheelView
+            android:id="@+id/wheel_item2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.jianfanjia.cn.supervisor.view.wheel.WheelView
+            android:id="@+id/wheel_item3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,190 @@
+[
+    {
+        "name": "开工",
+        "date": "10,1-10,2",
+        "proIsFinish":true,
+        "proIsRequestCheck":false,
+        "nodeList": [
+            {
+                "nodeName": "现场交底",
+                "finishStatus":1
+            },
+            {
+                "nodeName": "橱柜第一次测量",
+                "finishStatus":1
+            },
+            {
+                "nodeName": "墙地砖面积测量",
+                "finishStatus":1
+            },
+            {
+                "nodeName": "石膏线测量",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "木地板测量",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "开关面板数量核算",
+                "finishStatus":0
+            }
+        ]
+    },
+    {
+        "name": "拆改",
+        "date": "10,2-10,4",
+        "proIsFinish":false,
+        "proIsRequestCheck":false,
+        "nodeList": [
+            {
+                "nodeName": "成品保护",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "主体拆改",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "墙皮铲除",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "石膏线测量",
+                "finishStatus":0
+            }
+        ]
+    },
+    {
+        "name": "水电",
+        "date": "10,4-10,8",        
+        "proIsFinish":false,
+        "proIsRequestCheck":true,
+        "nodeList": [
+            {
+                "nodeName": "水电施工",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "暖通施工",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "水电验收",
+                "finishStatus":0
+            }
+        ]
+    },
+    {
+        "name": "泥木",
+        "date": "10,4-10,8",
+        "proIsFinish":false,
+        "proIsRequestCheck":true,
+        "nodeList": [
+            {
+                "nodeName": "石膏线安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "厨卫全防水施工",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "客厅阳台砖施工",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "地面找平",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "吊顶施工",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "柜体施工",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "厨卫墙地砖施工",
+                "finishStatus":0
+            }
+        ]
+    },
+    {
+        "name": "油漆",
+        "date": "10,8-10,13",
+        "proIsFinish":false,
+        "proIsRequestCheck":true,
+        "nodeList": [
+            {
+                "nodeName": "木器漆施工",
+                "finishStatus":0
+            },
+            {
+				"nodeName": "墙面乳胶漆",
+                "finishStatus":0
+            }
+        ]
+    },
+    {
+        "name": "安装",
+        "date": "10,13-10,20",
+        "proIsFinish":false,
+        "proIsRequestCheck":true,
+        "nodeList": [
+            {
+                "nodeName": "石材安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "洁具安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "厨卫吊顶安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "五金安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "橱柜、水槽安装开关",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "烟机灶具安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "木地板、木门安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "墙纸铺贴",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "面板灯具安装",
+                "finishStatus":0
+            },
+            {
+                "nodeName": "室内整理",
+                "finishStatus":0
+            }
+        ]
+    },
+    {
+        "name": "竣工",
+        "date": "10,20-10,26",
+        "proIsFinish":false,
+        "proIsRequestCheck":true,
+        "nodeList": [
+            {
+                "nodeName": "竣工验收",
+                "finishStatus":0
+            }
+        ]
+    }
+]
