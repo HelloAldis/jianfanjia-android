@@ -369,7 +369,7 @@ public class RecycleViewFragment extends BaseFragment {
                     }
                 });
         refuseDialog.setNegativeButton(R.string.no, null);
-        refuseDialog.show(); 
+        refuseDialog.show();
     }
 
     private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
