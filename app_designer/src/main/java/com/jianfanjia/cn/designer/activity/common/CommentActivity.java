@@ -11,6 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -23,19 +30,10 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.CommentAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description:评论留言
@@ -234,7 +232,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         comment.setTopictype(topictype);
         comment.setDate(Calendar.getInstance().getTimeInMillis());
         comment.setContent(content);
-        comment.setUsertype(Constant.IDENTITY_DESIGNER);
+        comment.setUsertype(dataManager.getUserType());
         User user = new User();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());

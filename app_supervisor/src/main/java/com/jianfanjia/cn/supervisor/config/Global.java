@@ -41,7 +41,8 @@ public class Global {
     public static final String DESIGNER_NAME = "designer_name";
     public static final String DESIGNER_INFO = "designer_info";
     public static final String TOPIC_ID = "topic_id";
-    public static final String TO = "to";
+    public static final String TO_USER = "to_user";
+    public static final String TO_DESIGNER = "to_designer";
     public static final String SECTION = "section";
     public static final String ITEM = "item";
     public static final String TOPICTYPE = "topictype";

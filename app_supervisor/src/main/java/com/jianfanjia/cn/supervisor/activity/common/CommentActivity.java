@@ -31,7 +31,6 @@ import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.adapter.CommentAdapter;
 import com.jianfanjia.cn.supervisor.api.Api;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.view.MainHeadView;
 import com.jianfanjia.cn.supervisor.view.baseview.HorizontalDividerItemDecoration;
@@ -60,7 +59,8 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
     private CommentAdapter commentAdapter = null;
     private String topicid = null;
-    private String to = null;
+    private String toUserid = null;
+    private String toDesignerid = null;
     private String section = null;
     private String item = null;
     private String topictype = null;
@@ -79,11 +79,12 @@ public class CommentActivity extends BaseSwipeBackActivity {
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
         topicid = commentBundle.getString(Global.TOPIC_ID);
-        to = commentBundle.getString(Global.TO);
+        toDesignerid = commentBundle.getString(Global.TO_DESIGNER);
+        toUserid = commentBundle.getString(Global.TO_USER);
         section = commentBundle.getString(Global.SECTION);
         item = commentBundle.getString(Global.ITEM);
         topictype = commentBundle.getString(Global.TOPICTYPE);
-        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
+        LogTool.d(TAG, "topicid=" + topicid  + " toUserid " + toUserid + " toDesignerid " + toDesignerid +  " section = " + section + " item" + item);
     }
 
     public void initView() {
@@ -109,7 +110,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
     }
 
     private void initData() {
-        LogTool.d(TAG, "topicid=" + topicid + " to=" + to + " section = " + section + " item" + item);
+        LogTool.d(TAG, "topicid=" + topicid  + " toUserid " + toUserid + " toDesignerid " + toDesignerid +  " section = " + section + " item" + item);
         getCommentList(topicid, 0, 10000, section, item);
     }
 
@@ -121,7 +122,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.btn_send:
                 String content = commentEdit.getText().toString().trim();
-                addComment(topicid, topictype, section, item, content, to);
+                addComment(topicid, topictype, section, item, content);
                 break;
             default:
                 break;
@@ -184,14 +185,15 @@ public class CommentActivity extends BaseSwipeBackActivity {
     };
 
     //添加评论
-    private void addComment(String topicid, String topictype, String section, String item, String content, String to) {
+    private void addComment(String topicid, String topictype, String section, String item, String content) {
         AddCommentRequest request = new AddCommentRequest();
         request.setTopicid(topicid);
         request.setTopictype(topictype);
         request.setSection(section);
         request.setItem(item);
         request.setContent(content);
-        request.setTo(to);
+        request.setTo_designerid(toDesignerid);
+        request.setTo_userid(toUserid);
         Api.addComment(request, this.addCommentCallback);
     }
 
@@ -229,12 +231,11 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
     protected Comment createCommentInfo(String content) {
         Comment comment = new Comment();
-        comment.setTo(to);
         comment.setTopicid(topicid);
         comment.setTopictype(topictype);
         comment.setDate(Calendar.getInstance().getTimeInMillis());
         comment.setContent(content);
-        comment.setUsertype(Constant.IDENTITY_DESIGNER);
+        comment.setUsertype(dataManager.getUserType());
         User user = new User();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());

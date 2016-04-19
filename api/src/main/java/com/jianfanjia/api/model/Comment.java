@@ -14,6 +14,8 @@ public class Comment extends BaseModel {
     private long date;
     private String status;
     private User byUser;
+    private SuperVisor bySupervisor;
+    private Designer byDesigner;
 
     public String get_id() {
         return _id;
@@ -89,6 +91,22 @@ public class Comment extends BaseModel {
 
     public User getByUser() {
         return byUser;
+    }
+
+    public SuperVisor getBySupervisor() {
+        return bySupervisor;
+    }
+
+    public void setBySupervisor(SuperVisor bySupervisor) {
+        this.bySupervisor = bySupervisor;
+    }
+
+    public Designer getByDesigner() {
+        return byDesigner;
+    }
+
+    public void setByDesigner(Designer byDesigner) {
+        this.byDesigner = byDesigner;
     }
 
     public void setByUser(User byUser) {
