@@ -1,13 +1,11 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Aldis on 16/3/28.
  */
-public class User extends BaseModel implements Serializable {
-    private static final long serialVersionUID = -1450173592300692043L;
+public class User extends BaseModel {
 
     private String _id;
     private String imageid;

@@ -223,7 +223,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
     protected Comment createCommentInfo(String content) {
         Comment commentInfo = new Comment();
-        commentInfo.setTo(to);
+        commentInfo.setTo_designer(to);
         commentInfo.setTopicid(topicid);
         commentInfo.setTopictype(topictype);
         commentInfo.setDate(Calendar.getInstance().getTimeInMillis());

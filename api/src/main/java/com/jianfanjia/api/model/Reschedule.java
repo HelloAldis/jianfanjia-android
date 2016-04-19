@@ -1,13 +1,9 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Created by Aldis on 16/3/28.
  */
-public class Reschedule extends BaseModel implements Serializable {
-    private static final long serialVersionUID = 0L;
-
+public class Reschedule extends BaseModel {
     private String _id;
     private long request_date;
     private String processid;

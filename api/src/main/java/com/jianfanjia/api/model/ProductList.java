@@ -1,14 +1,11 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Aldis on 16/3/28.
  */
-public class ProductList implements Serializable {
-    private static final long serialVersionUID = 5438941915418246822L;
-
+public class ProductList extends BaseModel {
     private List<Product> products;
     private int total;
 

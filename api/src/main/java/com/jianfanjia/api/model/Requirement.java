@@ -1,14 +1,11 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Aldis on 16/3/28.
  */
-public class Requirement extends BaseModel implements Serializable {
-    private static final long serialVersionUID = -5082792601841753217L;
-
+public class Requirement extends BaseModel {
     private String _id;
     private String userid;
     private String province;
