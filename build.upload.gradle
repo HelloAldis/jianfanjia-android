@@ -10,7 +10,13 @@ pgyer {
 }
 
 apks {
-    release {
-        sourceFile = file("F:\\快盘\\sharebox\\zjfzhangjingfu@yeah.net\\简繁家APP\\apk\\designer_2.5.1\\designer_designer-Default-andtest_20160408_0_38_2.5.1.apk")
+    supervisor {
+        sourceFile = file("G:\\test_apks\\supervisor_1.0.0\\supervisor-Defalut-andtest_20160420_0_1_1.0.0.apk")
+    }
+    user {
+        sourceFile = file("G:\\test_apks\\user_2.6.0\\designer_designer-Default-andtest_20160408_0_38_2.5.1.apk")
+    }
+    designer {
+        sourceFile = file("G:\\test_apks\\designer_2.6.0\\jianfanjia-Default-andtest_20160420_0_70_2.6.0.apk")
     }
 }

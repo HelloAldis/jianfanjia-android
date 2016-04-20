@@ -14,6 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -42,11 +46,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -173,7 +172,7 @@ public class RecycleViewFragment extends BaseFragment {
         if (!isPrepared || !isVisiable) {
             return;
         }
-        initData();
+//        initData();
     }
 
     private void initView() {
@@ -261,7 +260,7 @@ public class RecycleViewFragment extends BaseFragment {
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
-    private void initData() {
+    public void initData() {
         GetRequirementListRequest request = new GetRequirementListRequest();
         Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
             @Override
@@ -284,7 +283,7 @@ public class RecycleViewFragment extends BaseFragment {
                 requirementInfos = apiResponse.getData();
                 requirementList = new RequirementList(requirementInfos);
                 errorLayout.setVisibility(View.GONE);
-                disposeData(requirementList);
+                ((MyOwnerFragment)getParentFragment()).setRequirementList(requirementList);
             }
 
             @Override
@@ -303,7 +302,7 @@ public class RecycleViewFragment extends BaseFragment {
         });
     }
 
-    private void disposeData(RequirementList requirementList) {
+    public void disposeData(RequirementList requirementList) {
         switch (mNum) {
             case FIRST_FRAGMENT:
                 currentRequirementInfo = requirementList.getUnHandleRequirementInfoList();

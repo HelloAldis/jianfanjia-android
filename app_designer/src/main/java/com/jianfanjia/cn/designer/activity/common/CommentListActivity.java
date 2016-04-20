@@ -85,11 +85,12 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         Bundle bundle = new Bundle();
                         bundle.putString(Global.TOPIC_ID, userMessage.getTopicid());
                         bundle.putString(Global.TOPICTYPE, viewType + "");
-                        bundle.putString(Global.TO, userMessage.getUserid());
                         switch (viewType) {
                             case MyCommentInfoAdapter.PLAN_TYPE:
+                                bundle.putString(Global.TO, userMessage.getPlan().getUserid());
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
+                                bundle.putString(Global.TO,userMessage.getProcess().getUserid());
                                 bundle.putString(Global.SECTION, userMessage.getSection());
                                 bundle.putString(Global.ITEM, userMessage.getItem());
                                 break;

@@ -21,9 +21,14 @@ pgyer {
 }
 
 apks {
-    release {
-//        File file = file(testApkFileName).listFiles()[0]
-//        sourceFile = file('G:\\apk\\designer_2.5.10\\designer-Default_20160414_1_47_2.5.10.apk')
+    supervisor {
+        sourceFile = file("G:\\test_apks\\supervisor_1.0.0\\supervisor-Defalut-andtest_20160420_0_1_1.0.0.apk")
+    }
+    user {
+        sourceFile = file("G:\\test_apks\\user_2.6.0\\jianfanjia-Default-andtest_20160420_0_70_2.6.0.apk")
+    }
+    designer {
+        sourceFile = file("G:\\test_apks\\designer_2.6.0\\designer-Default-andtest_20160420_0_70_2.6.0.apk")
     }
 }
 

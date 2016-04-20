@@ -7,8 +7,9 @@ android {
         applicationId 'com.jianfanjia.cn.supervisor'
         minSdkVersion 15
         targetSdkVersion 23
+
         versionCode 1
-        versionName "1.0.0"
+        versionName '1.0.0'
     }
 
     //签名
@@ -49,6 +50,10 @@ android {
         Defalut{
 
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     def date = new Date().format('yyyyMMdd');

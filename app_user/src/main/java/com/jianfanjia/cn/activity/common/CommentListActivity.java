@@ -100,11 +100,12 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         Bundle bundle = new Bundle();
                         bundle.putString(IntentConstant.TOPIC_ID, noticeInfo.getTopicid());
                         bundle.putString(IntentConstant.TOPICTYPE, viewType + "");
-                        bundle.putString(IntentConstant.TO, noticeInfo.getDesignerid());
                         switch (viewType) {
                             case MyCommentInfoAdapter.PLAN_TYPE:
+                                bundle.putString(IntentConstant.TO, noticeInfo.getPlan().getDesignerid());
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
+                                bundle.putString(IntentConstant.TO,noticeInfo.getProcess().getFinal_designerid());
                                 bundle.putString(IntentConstant.SECTION, noticeInfo.getSection());
                                 bundle.putString(IntentConstant.ITEM, noticeInfo.getItem());
                                 break;
