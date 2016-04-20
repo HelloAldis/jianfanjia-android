@@ -51,8 +51,8 @@ public class MyPlanViewType9 extends MyPlanViewTypeBase {
     @Bind(R.id.ltm_req_sex)
     protected ImageView sexView;
 
-    @Bind(R.id.refuse_content)
-    protected TextView refuseContent;
+    @Bind(R.id.expire_content)
+    protected TextView expireContent;
 
     public MyPlanViewType9(View view) {
         super(view);
@@ -60,7 +60,7 @@ public class MyPlanViewType9 extends MyPlanViewTypeBase {
     }
 
     public static MyPlanViewType9 build(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type1, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_plan_type8, null);
         return new MyPlanViewType9(view);
     }
 
@@ -84,12 +84,8 @@ public class MyPlanViewType9 extends MyPlanViewTypeBase {
         } else {
             nameView.setText(getResources().getString(R.string.ower));
         }
-        String refuseReason = requirementInfo.getPlan().getReject_respond_msg();
-        if (!TextUtils.isEmpty(refuseReason)) {
-            refuseContent.setText(refuseReason);
-        } else {
-            refuseContent.setText("业主选定了方案");
-        }
+        expireContent.setText(getResources().getString(R.string.expire_other_plan_choosed));
+
         String sex = requirementInfo.getUser().getSex();
         if (!TextUtils.isEmpty(sex)) {
             sexView.setVisibility(View.VISIBLE);

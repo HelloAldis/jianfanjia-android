@@ -51,6 +51,9 @@ public class MyPlanViewType8 extends MyPlanViewTypeBase {
     @Bind(R.id.ltm_req_sex)
     protected ImageView sexView;
 
+    @Bind(R.id.expire_content)
+    protected TextView expireContent;
+
     public MyPlanViewType8(View view) {
         super(view);
         ButterKnife.bind(this, view);
@@ -81,6 +84,8 @@ public class MyPlanViewType8 extends MyPlanViewTypeBase {
         } else {
             nameView.setText(getResources().getString(R.string.ower));
         }
+        expireContent.setText(getResources().getString(R.string.expire_not_submit));
+
         String sex = requirementInfo.getUser().getSex();
         if (!TextUtils.isEmpty(sex)) {
             sexView.setVisibility(View.VISIBLE);

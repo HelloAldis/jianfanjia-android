@@ -72,7 +72,8 @@
         android:paddingRight="@dimen/space_16"
         android:text="@string/forget_pwd"
         android:textColor="@color/light_black_color"
-        android:textSize="@dimen/middle_size" />
+        android:textSize="@dimen/middle_size"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btn_login"

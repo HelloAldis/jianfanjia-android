@@ -311,4 +311,7 @@
     <string name="str_decoratebudget_with_unit">装修预算（万元）</string>
     <string name="money_alias">￥</string>
     <string name="create_my_requirement">我要装修</string>
+    <string name="expire_title">过期原因：</string>
+    <string name="expire_other_plan_choosed">该业主已选中其他设计师的方案，感谢您的配合。</string>
+    <string name="expire_not_submit">由于您5天未上传方案，已超时</string>
 </resources>

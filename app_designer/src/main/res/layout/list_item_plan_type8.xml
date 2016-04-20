@@ -15,5 +15,27 @@
 
     <View style="@style/divier_line" />
 
+    <RelativeLayout
+        android:id="@+id/expireLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_16">
+
+        <TextView
+            android:id="@+id/expire_title"
+            style="@style/listview_item_text_style_small"
+            android:layout_centerVertical="true"
+            android:text="@string/expire_title" />
+
+        <TextView
+            android:id="@+id/expire_content"
+            style="@style/listview_item_text_style_small"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/expire_title"
+            android:text="@string/other" />
+    </RelativeLayout>
+
+    <View style="@style/divier_line"/>
+
 
 </LinearLayout>

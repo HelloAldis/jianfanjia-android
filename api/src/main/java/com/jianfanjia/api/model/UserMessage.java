@@ -27,6 +27,7 @@ public class UserMessage extends BaseModel {
     private Plan plan;
     private Process process;
     private User user;
+    private SuperVisor supervisor;
     private Reschedule reschedule;
 
     public String get_id() {
@@ -211,5 +212,13 @@ public class UserMessage extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public SuperVisor getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(SuperVisor supervisor) {
+        this.supervisor = supervisor;
     }
 }

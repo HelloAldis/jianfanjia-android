@@ -6,9 +6,9 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
-import com.jianfanjia.cn.designer.R;
-
 import java.util.Calendar;
+
+import com.jianfanjia.cn.designer.R;
 
 /**
  * Description: com.jianfanjia.cn.designer.view

@@ -13,7 +13,7 @@ public class Hud {
         public static float dimAmount = 0;
 
         // background color of dialog,
-        public static int backgroundColor = Color.argb(0xb1, 0, 0 ,0);
+        public static int backgroundColor = Color.argb(0x33, 0, 0 ,0);
 
         // corner radius of dialog, default is 10
         public static int cornerRadius = 10;

@@ -12,7 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.SuperVisor;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
@@ -23,11 +29,6 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -92,20 +93,31 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
 
     private void onBindPlanCommentViewHolder(final UserMessage userMessage, PlanCommentViewHolder holder) {
 
-        //设计师的名字
-        holder.nameView.setText(userMessage.getUser().getUsername());
+        User user = userMessage.getUser();
+        SuperVisor superVisor = userMessage.getSupervisor();
+        String imageid = null;
+        if(user != null){
+            imageid = user.getImageid();
+            String username = user.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(username) ? context.getString(R.string.ower) : username);
+        }else if(superVisor != null){
+            imageid = superVisor.getImageid();
+            String superVisorName = superVisor.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) : superVisorName);
+        }
 
-        holder.cellText.setText(userMessage.getRequirement().getBasic_address());
-
-        holder.numText.setText(userMessage.getPlan().getName());
         //设计师的头像
-        String imageid = userMessage.getUser().getImageid();
-        LogTool.d(this.getClass().getName(), "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
+            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
+
+
+        holder.cellText.setText(userMessage.getRequirement().getBasic_address());
+
+        holder.numText.setText(userMessage.getPlan().getName());
 
         //评论时间
         holder.dateText.setText(StringUtils.covertLongToStringHasMini(userMessage.getCreate_at()));
@@ -163,16 +175,27 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
     }
 
     private void onBindProcessCommentViewHolder(final UserMessage userMessage, ProcessCommentViewHolder holder) {
-        String imageid = userMessage.getUser().getImageid();
-        LogTool.d(this.getClass().getName(), "imageid=" + imageid);
+
+        User user = userMessage.getUser();
+        SuperVisor superVisor = userMessage.getSupervisor();
+        String imageid = null;
+        if(user != null){
+            imageid = user.getImageid();
+            String username = user.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(username) ? context.getString(R.string.ower) : username);
+        }else if(superVisor != null){
+            imageid = superVisor.getImageid();
+            String superVisorName = superVisor.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) : superVisorName);
+        }
+
         if (!TextUtils.isEmpty(imageid)) {
+            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
 
-        //设计师的名字
-        holder.nameView.setText(userMessage.getUser().getUsername());
         //评论时间
         holder.dateText.setText(StringUtils.covertLongToStringHasMini(userMessage.getCreate_at()));
         //评论内容

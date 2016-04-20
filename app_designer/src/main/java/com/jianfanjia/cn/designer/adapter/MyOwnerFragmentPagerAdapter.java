@@ -34,9 +34,4 @@ public class MyOwnerFragmentPagerAdapter extends FragmentPagerAdapter {
         return POSITION_NONE;  //没有找到child要求重新加载
     }
 
-   /* @Override
-    public int getItemPosition(Object object) {
-        return super.getItemPosition(object);
-    }*/
-
 }

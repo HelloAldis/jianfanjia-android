@@ -12,7 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.api.model.SuperVisor;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
@@ -23,11 +29,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -93,20 +94,30 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
     private void onBindPlanCommentViewHolder(final UserMessage noticeInfo, PlanCommentViewHolder holder) {
 
         //设计师的名字
-        holder.nameView.setText(noticeInfo.getDesigner().getUsername());
-
-        holder.cellText.setText(noticeInfo.getRequirement().getBasic_address());
-
-        holder.numText.setText(noticeInfo.getPlan().getName());
-        //设计师的头像
-        String imageid = noticeInfo.getDesigner().getImageid();
-        LogTool.d(this.getClass().getName(), "imageid=" + imageid);
+        Designer designer = noticeInfo.getDesigner();
+        SuperVisor superVisor = noticeInfo.getSupervisor();
+        String imageid = null;
+        if(designer != null){
+            imageid = designer.getImageid();
+            String designerName = designer.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.designer) : designerName);
+        }else if(superVisor != null){
+            imageid = superVisor.getImageid();
+            String superVisorName = superVisor.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) : superVisorName);
+        }
+        //留言人的头像
         if (!TextUtils.isEmpty(imageid)) {
+            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
 
+
+        holder.cellText.setText(noticeInfo.getRequirement().getBasic_address());
+
+        holder.numText.setText(noticeInfo.getPlan().getName());
         //评论时间
         holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
@@ -163,16 +174,27 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
     }
 
     private void onBindProcessCommentViewHolder(final UserMessage noticeInfo, ProcessCommentViewHolder holder) {
-        String imageid = noticeInfo.getDesigner().getImageid();
-        LogTool.d(this.getClass().getName(), "imageid=" + imageid);
+
+        Designer designer = noticeInfo.getDesigner();
+        SuperVisor superVisor = noticeInfo.getSupervisor();
+        String imageid = null;
+        if(designer != null){
+            imageid = designer.getImageid();
+            String designerName = designer.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.designer) : designerName);
+        }else if(superVisor != null){
+            imageid = superVisor.getImageid();
+            String superVisorName = superVisor.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) : superVisorName);
+        }
         if (!TextUtils.isEmpty(imageid)) {
+            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
 
         //设计师的名字
-        holder.nameView.setText(noticeInfo.getDesigner().getUsername());
         //评论时间
         holder.dateText.setText(StringUtils.covertLongToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
