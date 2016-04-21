@@ -140,7 +140,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             merger_button2_layout.setEnabled(false);
             button2.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
         } else {
-            merger_button2_layout.setEnabled(false);
+            merger_button2_layout.setEnabled(true);
             button2.setTextColor(context.getResources().getColor(R.color.orange_color));
         }
     }

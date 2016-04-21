@@ -91,7 +91,8 @@
                 android:contentDescription="@null" />
         </RelativeLayout>
 
-        <View style="@style/divier_line" />
+        <View android:id="@+id/weixin_layout_line"
+            style="@style/divier_line" />
     </LinearLayout>
 
 </LinearLayout>

@@ -58,6 +58,9 @@ public class BindingAccountActivity extends BaseSwipeBackActivity {
     @Bind(R.id.bindingaccount_weixin_goto)
     ImageView bindingaccount_weixin_goto;
 
+    @Bind(R.id.weixin_layout_line)
+    View weixin_layout_line;
+
     private String phone;
 
     private AuthUtil authUtil;
@@ -79,7 +82,11 @@ public class BindingAccountActivity extends BaseSwipeBackActivity {
             bindingaccount_phone_layout.setEnabled(false);
             bindingaccount_phoneText.setText(phone);
             bindingaccount_phone_goto.setVisibility(View.GONE);
+            bindingaccount_weixin_layout.setVisibility(View.GONE);
+            weixin_layout_line.setVisibility(View.GONE);
         } else {
+            bindingaccount_weixin_layout.setVisibility(View.VISIBLE);
+            weixin_layout_line.setVisibility(View.VISIBLE);
             bindingaccount_phone_layout.setEnabled(true);
             bindingaccount_phoneText.setText(getString(R.string.not_binding));
             bindingaccount_phone_goto.setVisibility(View.VISIBLE);
