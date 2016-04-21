@@ -86,6 +86,7 @@
     <string name="str_scan">逛一逛</string>
     <string name="forget_pwd_title">忘记密码</string>
     <string name="str_goto_order">已为您匹配三名设计师，请点击前往预约</string>
+    <string name="str_designer_new_action">设计师有新动态，请点击查看</string>
     <string name="city_tip">（目前仅支持湖北省武汉市）</string>
     <string name="str_preview_pro">预览工地</string>
     <string name="process_example">工地示例</string>

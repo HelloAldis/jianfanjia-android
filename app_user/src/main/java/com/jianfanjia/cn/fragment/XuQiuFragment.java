@@ -25,6 +25,7 @@ import com.jianfanjia.cn.Event.ScrollEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
+import com.jianfanjia.cn.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.activity.requirement.PreviewBusinessRequirementActivity;
@@ -37,10 +38,10 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -60,6 +61,7 @@ public class XuQiuFragment extends BaseFragment {
 
     public static final int ITEM_GOTOMYDESI = 0x04;//去我的设计师
     public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
+    public static final int ITEM_GOTOCONTRACT = 0x07;//查看合同
 
     protected RequirementNewAdapter requirementAdapter;
     private List<Requirement> requirementInfos = new ArrayList<>();
@@ -153,6 +155,12 @@ public class XuQiuFragment extends BaseFragment {
                         break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner();
+                        break;
+                    case ITEM_GOTOCONTRACT:
+                        Bundle gotoContractBundle = new Bundle();
+                        gotoContractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
+                                (position));
+                        startActivity(ContractActivity.class,gotoContractBundle);
                         break;
                     default:
                         break;

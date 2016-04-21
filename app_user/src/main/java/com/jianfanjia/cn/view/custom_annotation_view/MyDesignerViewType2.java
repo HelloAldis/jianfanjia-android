@@ -10,6 +10,10 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -20,11 +24,6 @@ import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.Calendar;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -55,11 +54,17 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     @Bind(R.id.ltm_my_designer_status)
     protected TextView statusView;
 
-    @Bind(R.id.ltm_my_designer_content)
-    protected RelativeLayout contentLayout;
+    @Bind(R.id.merger_button1_layout)
+    protected RelativeLayout merger_button1_layout;
 
-    @Bind(R.id.ltm_my_designer_textview3)
-    protected TextView textView3;
+    @Bind(R.id.merger_button2_layout)
+    protected RelativeLayout merger_button2_layout;
+
+    @Bind(R.id.merger_button1)
+    protected TextView button1;
+
+    @Bind(R.id.merger_button2)
+    protected TextView button2;
 
     private Context context;
 
@@ -70,7 +75,7 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     }
 
     public static MyDesignerViewType2 build(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_my_designer_type3, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_my_designer_type4, null);
         return new MyDesignerViewType2(view, context);
     }
 
@@ -111,34 +116,32 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
                 designerInfo.getPlan().getHouse_check_time());
         if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
             statusView.setText(context.getResources().getString(R.string.str_wait_confirm_measure_house));
-            textView3.setText(context.getResources().getString(R.string.confirm_measure_house));
-            contentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
-                }
-            });
         } else {
             statusView.setText(context.getResources().getString(R.string.str_wait_measure_house));
-            textView3.setText(context.getResources().getString(R.string.measure_house_time) + "：" + StringUtils
-                    .covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
         }
+
+        button1.setText(context.getResources().getString(R.string.measure_house_time) + "：" + StringUtils
+                .covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
+
+        button2.setText(context.getResources().getString(R.string.confirm_measure_house));
+
+        merger_button2_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallBack.click(position, MyDesignerActivity.CONFIRM_MEASURE_HOUSE);
+            }
+        });
 
         Requirement requirementInfo = designerInfo.getRequirement();
         String requirementStatus = requirementInfo.getStatus();
         if (requirementStatus.equals(Global.REQUIREMENT_STATUS4) || requirementStatus.equals(Global.REQUIREMENT_STATUS5)
                 || requirementStatus.equals(Global.REQUIREMENT_STATUS7) || requirementStatus.equals(Global
                 .REQUIREMENT_STATUS8)) {
-            contentLayout.setEnabled(false);
-            textView3.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+            merger_button2_layout.setEnabled(false);
+            button2.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
         } else {
-            if (Calendar.getInstance().getTimeInMillis() > designerInfo.getPlan().getHouse_check_time()) {
-                contentLayout.setEnabled(true);
-                textView3.setTextColor(context.getResources().getColor(R.color.orange_color));
-            } else {
-                contentLayout.setEnabled(false);
-                textView3.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
-            }
+            merger_button2_layout.setEnabled(false);
+            button2.setTextColor(context.getResources().getColor(R.color.orange_color));
         }
     }
 }

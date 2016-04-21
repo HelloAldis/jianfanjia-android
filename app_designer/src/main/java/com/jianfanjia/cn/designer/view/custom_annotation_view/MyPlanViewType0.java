@@ -73,8 +73,7 @@ public class MyPlanViewType0 extends MyPlanViewTypeBase {
         if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
-        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo
-                .getPlan().getStatus())]);
+        statusView.setText(getResources().getString(R.string.str_order_measure_house));
         statusView.setTextColor(getResources().getColor(R.color.orange_color));
         String imageId = requirementInfo.getUser().getImageid();
         if (!TextUtils.isEmpty(imageId)) {

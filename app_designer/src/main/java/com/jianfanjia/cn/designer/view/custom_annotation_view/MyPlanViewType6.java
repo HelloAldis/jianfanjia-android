@@ -74,9 +74,8 @@ public class MyPlanViewType6 extends MyPlanViewTypeBase {
         if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
-        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo
-                .getPlan().getStatus())]);
-        statusView.setTextColor(getResources().getColor(R.color.orange_color));
+        statusView.setText(getResources().getString(R.string.str_wait_upload_plan));
+        statusView.setTextColor(getResources().getColor(R.color.blue_color));
         String imageId = requirementInfo.getUser().getImageid();
         if (!TextUtils.isEmpty(imageId)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageId, headView);

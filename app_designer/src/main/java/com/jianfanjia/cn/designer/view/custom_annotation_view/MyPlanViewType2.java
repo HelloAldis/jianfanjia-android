@@ -8,18 +8,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
-import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.StringUtils;
-
 import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
+import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.designer.tools.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -77,18 +76,18 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
 
     public void bind(Requirement requirementInfo, final ClickCallBack clickCallBack, final int position) {
         cellView.setText(requirementInfo.getBasic_address());
-        statusView.setText(getResources().getStringArray(R.array.plan_status)[Integer.parseInt(requirementInfo
-                .getPlan().getStatus())]);
-        statusView.setTextColor(getResources().getColor(R.color.orange_color));
+        statusView.setTextColor(getResources().getColor(R.color.blue_color));
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
         if (lastUpdateTime != 0l) {
             createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
         }
         long measureTime = requirementInfo.getPlan().getHouse_check_time();
         if (Calendar.getInstance().getTimeInMillis() > measureTime) {
+            statusView.setText(getResources().getString(R.string.str_wait_confirm_measure_house));
             measureLayout.setVisibility(View.GONE);
             notifyLayout.setVisibility(View.VISIBLE);
         } else {
+            statusView.setText(getResources().getString(R.string.str_wait_measure_house));
             measureLayout.setVisibility(View.VISIBLE);
             notifyLayout.setVisibility(View.GONE);
             if (measureTime != 0l) {

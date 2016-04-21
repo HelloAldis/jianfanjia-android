@@ -242,9 +242,9 @@
     </string-array>
 
     <string-array name="plan_status">
-        <item>预约量房</item>
+        <item>预约上门量房</item>
         <item>已拒绝</item>
-        <item>已响应</item>
+        <item>等待量房</item>
         <item>有方案</item>
         <item>未中标</item>
         <item>已中标</item>

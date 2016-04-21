@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/ltm_req_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/font_white">
+
+    <include
+        android:id="@+id/ltm_my_designer_left_layout"
+        layout="@layout/include_my_designer_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/first_line"
+        style="@style/divier_line"
+        android:layout_below="@id/ltm_my_designer_left_layout"/>
+
+    <LinearLayout
+        android:id="@+id/ltm_my_designer_content"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/first_line"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/merger_button1_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/my_item_layout_bg_selector">
+
+            <TextView
+                android:id="@+id/merger_button1"
+                style="@style/listview_item_text_style_middle"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <View style="@style/vertical_divier_line"/>
+
+        <RelativeLayout
+            android:id="@+id/merger_button2_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/my_item_layout_bg_selector">
+
+            <TextView
+                android:id="@+id/merger_button2"
+                style="@style/listview_item_text_style_middle"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
