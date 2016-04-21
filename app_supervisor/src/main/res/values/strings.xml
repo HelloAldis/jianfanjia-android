@@ -159,7 +159,7 @@
     <!-- activity_about -->
     <string name="about">关于我们</string>
     <string name="about_my">关于简繁家</string>
-    <string name="about_content">让装修更简单</string>
+    <string name="about_content">让装修变简单</string>
     <string name="about_version">版本号：%1$s</string>
     <string name="company">武汉家易装科技有限公司</string>
     <string name="compant_net">Copyright © 2015-2016 jianfanjia.com</string>
@@ -178,7 +178,7 @@
 
     <!-- edit activity -->
     <string name="input_name">请输入昵称</string>
-    <string name="input_home">请输入家庭地址</string>
+    <string name="input_home">请输入详细地址</string>
     <!-- edit activity -->
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">LoginActivity</string>

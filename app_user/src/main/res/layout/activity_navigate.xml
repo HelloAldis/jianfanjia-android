@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/space_120"
+        android:layout_marginBottom="128dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -66,7 +66,7 @@
         android:layout_width="@dimen/space_250"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/space_25"
+        android:layout_marginBottom="@dimen/space_40"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -103,7 +103,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_15">
+            android:layout_marginTop="@dimen/space_8">
 
             <TextView
                 android:id="@+id/register_login_text"
@@ -111,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="@string/register_login_text"
+                android:padding="@dimen/space_4"
                 android:textColor="@color/home_page_text_color"
                 android:textSize="@dimen/text_size_16" />
 
@@ -120,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/registerText"
+                android:padding="@dimen/space_4"
                 android:textColor="@color/orange_color"
                 android:textSize="@dimen/text_size_16" />
         </RelativeLayout>

@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -32,7 +31,6 @@ import com.jianfanjia.cn.designer.activity.requirement.PreviewHomeRequirementAct
 import com.jianfanjia.cn.designer.adapter.MySiteAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -78,7 +76,6 @@ public class ManageFragment extends BaseFragment {
 
     private String[] proTitle = null;
     private List<Process> processList;
-    private List<ProcessSectionItem> siteProcessList;
     private MySiteAdapter adapter = null;
     private String processId = null;
     private int itemPosition = -1;
@@ -105,7 +102,6 @@ public class ManageFragment extends BaseFragment {
         });
         proTitle = getActivity().getApplication().getResources().getStringArray(
                 R.array.site_procedure);
-        setProcessSectionItemList();
         manage_pullfefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
@@ -116,7 +112,7 @@ public class ManageFragment extends BaseFragment {
                 getProcessList();
             }
         });
-        adapter = new MySiteAdapter(getActivity(), siteProcessList, new
+        adapter = new MySiteAdapter(getActivity(), new
                 ClickCallBack() {
                     @Override
                     public void click(int position, int itemType) {
@@ -255,18 +251,6 @@ public class ManageFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    private void setProcessSectionItemList() {
-        siteProcessList = new ArrayList<>();
-        for (int i = 0; i < proTitle.length; i++) {
-            ProcessSectionItem item = new ProcessSectionItem();
-            item.setRes(getResources()
-                    .getIdentifier("icon_home_bg" + (i + 1), "drawable",
-                            getActivity().getApplication().getPackageName()));
-            item.setTitle(proTitle[i]);
-            siteProcessList.add(item);
-        }
     }
 
     @Override

@@ -22,10 +22,8 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
-import com.jianfanjia.cn.designer.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.SettingContractActivity;
 import com.jianfanjia.cn.designer.activity.SettingMeasureDateActivity;
@@ -46,7 +44,6 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
 import com.jianfanjia.common.tool.LogTool;
-import de.greenrobot.event.EventBus;
 
 /**
  * Description: com.jianfanjia.cn.designer.fragment
@@ -90,19 +87,9 @@ public class RecycleViewFragment extends BaseFragment {
 
     private MyHandledRequirementAdapter myHandledRequirementAdapter;
 
-    private boolean isVisiable;
-
     private View view = null;
 
-    private boolean isPrepared;
-
-    private boolean mHasLoadedOnce;
-
-    private List<Requirement> requirementInfos;
-
     private List<Requirement> currentRequirementInfo;
-
-    private RequirementList requirementList;
 
     private Context _context;
 
@@ -127,7 +114,7 @@ public class RecycleViewFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
         LogTool.d(this.getClass().getName(), "num =" + mNum);
     }
@@ -138,8 +125,6 @@ public class RecycleViewFragment extends BaseFragment {
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
-            isPrepared = true;
-            lazyLoad();
         }
         ViewGroup parent = (ViewGroup) view.getParent();
         if (parent != null) {
@@ -148,38 +133,11 @@ public class RecycleViewFragment extends BaseFragment {
         return view;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisiable = true;
-            onVisible();
-        } else {
-            isVisiable = false;
-            onInvisible();
-        }
-    }
-
-    private void onVisible() {
-        lazyLoad();
-    }
-
-    private void onInvisible() {
-
-    }
-
-    private void lazyLoad() {
-        if (!isPrepared || !isVisiable) {
-            return;
-        }
-//        initData();
-    }
-
     private void initView() {
         emptyPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                initData();
+                ((MyOwnerFragment)getParentFragment()).loadData();
             }
         });
         pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -187,7 +145,7 @@ public class RecycleViewFragment extends BaseFragment {
         pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                initData();
+                ((MyOwnerFragment)getParentFragment()).loadData();
             }
         });
         myHandledRequirementAdapter = new MyHandledRequirementAdapter(getActivity(), new ClickCallBack() {
@@ -260,49 +218,8 @@ public class RecycleViewFragment extends BaseFragment {
         LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
-    public void initData() {
-        GetRequirementListRequest request = new GetRequirementListRequest();
-        Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
-            @Override
-            public void onPreLoad() {
-                if (!mHasLoadedOnce) {
-                    showWaitDialog();
-                }
-            }
-
-            @Override
-            public void onHttpDone() {
-                hideWaitDialog();
-                pullrefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
-                mHasLoadedOnce = true;
-                requirementInfos = apiResponse.getData();
-                requirementList = new RequirementList(requirementInfos);
-                errorLayout.setVisibility(View.GONE);
-                ((MyOwnerFragment)getParentFragment()).setRequirementList(requirementList);
-            }
-
-            @Override
-            public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-                if (!mHasLoadedOnce) {
-                    errorLayout.setVisibility(View.VISIBLE);
-                    emptyLayout.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
-
     public void disposeData(RequirementList requirementList) {
+        errorLayout.setVisibility(View.GONE);
         switch (mNum) {
             case FIRST_FRAGMENT:
                 currentRequirementInfo = requirementList.getUnHandleRequirementInfoList();
@@ -318,7 +235,7 @@ public class RecycleViewFragment extends BaseFragment {
                 break;
         }
         myHandledRequirementAdapter.addItem(currentRequirementInfo);
-        if (currentRequirementInfo.size() == 0) {
+        if (myHandledRequirementAdapter.getItemCount() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
             emptyLayout.findViewById(R.id.empty_contentLayout).setLayoutParams(
                     new RelativeLayout.LayoutParams(rootLayout.getWidth(), rootLayout.getHeight()));
@@ -327,9 +244,25 @@ public class RecycleViewFragment extends BaseFragment {
         }
     }
 
+    public void httpDone(){
+        if (pullrefresh != null) {
+            pullrefresh.onRefreshComplete();
+        }
+        if (emptyPullRefresh != null) {
+            emptyPullRefresh.onRefreshComplete();
+        }
+    }
+
+    public void onNetError(){
+        if (myHandledRequirementAdapter.getItemCount() == 0) {
+            errorLayout.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.GONE);
+        }
+    }
+
     @OnClick(R.id.error_include)
     public void onClick() {
-        initData();
+        ((MyOwnerFragment)getParentFragment()).loadData();
     }
 
     private void showRefuseDialog(final String requirementid) {
@@ -423,7 +356,7 @@ public class RecycleViewFragment extends BaseFragment {
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
-                initData();
+                ((MyOwnerFragment)getParentFragment()).loadData();
             }
 
             @Override
@@ -436,16 +369,6 @@ public class RecycleViewFragment extends BaseFragment {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
-    }
-
-    public void onEventMainThread(UpdateEvent event) {
-        initData();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

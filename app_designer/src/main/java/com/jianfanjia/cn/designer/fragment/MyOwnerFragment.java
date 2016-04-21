@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.designer.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -11,8 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.adapter.MyFragmentPagerAdapter;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.bean.SelectItem;
@@ -38,6 +45,9 @@ public class MyOwnerFragment extends BaseFragment {
     private RequirementList mRequirementList;
     private MyFragmentPagerAdapter mMyOwnerFragmentPagerAdapter;
     private List<SelectItem> mSelectItemList = new ArrayList<>();
+    private List<Requirement> requirementInfos;
+    private RequirementList requirementList;
+    private boolean mHasLoadOnce;
 
     private String[] tabs = new String[]{"待响应", "进行中", "已放弃"};
 
@@ -84,7 +94,7 @@ public class MyOwnerFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             initData();
         }
     }
@@ -95,11 +105,50 @@ public class MyOwnerFragment extends BaseFragment {
         initData();
     }
 
-    private void initData(){
-        if(mSelectItemList.size() > 0){
-            RecycleViewFragment recycleViewFragment = (RecycleViewFragment) mSelectItemList.get(0).getFragment();
-            recycleViewFragment.initData();
-        }
+    private void initData() {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+               loadData();
+            }
+        });
+    }
+
+    public void loadData(){
+        GetRequirementListRequest request = new GetRequirementListRequest();
+        Api.getAllRequirementList(request, new ApiCallback<ApiResponse<List<Requirement>>>() {
+            @Override
+            public void onPreLoad() {
+                if(!mHasLoadOnce){
+                    showWaitDialog();
+                }
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+                notifyAllFragmentHttpDone();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<Requirement>> apiResponse) {
+                mHasLoadOnce = true;
+                requirementInfos = apiResponse.getData();
+                requirementList = new RequirementList(requirementInfos);
+                setRequirementList(requirementList);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<Requirement>> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                notifyAllFragmentNetError();
+            }
+        });
     }
 
     public void setRequirementList(RequirementList requirementList) {
@@ -111,6 +160,20 @@ public class MyOwnerFragment extends BaseFragment {
         for (SelectItem selectItem : mSelectItemList) {
             RecycleViewFragment recycleViewFragment = (RecycleViewFragment) selectItem.getFragment();
             recycleViewFragment.disposeData(mRequirementList);
+        }
+    }
+
+    private void notifyAllFragmentNetError(){
+        for (SelectItem selectItem : mSelectItemList) {
+            RecycleViewFragment recycleViewFragment = (RecycleViewFragment) selectItem.getFragment();
+            recycleViewFragment.onNetError();
+        }
+    }
+
+    private void notifyAllFragmentHttpDone(){
+        for (SelectItem selectItem : mSelectItemList) {
+            RecycleViewFragment recycleViewFragment = (RecycleViewFragment) selectItem.getFragment();
+            recycleViewFragment.httpDone();
         }
     }
 

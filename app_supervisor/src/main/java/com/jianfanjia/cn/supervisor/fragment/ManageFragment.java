@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -36,7 +34,6 @@ import com.jianfanjia.cn.supervisor.activity.requirement.PreviewHomeRequirementA
 import com.jianfanjia.cn.supervisor.adapter.MySiteAdapter;
 import com.jianfanjia.cn.supervisor.api.Api;
 import com.jianfanjia.cn.supervisor.base.BaseFragment;
-import com.jianfanjia.cn.supervisor.bean.ProcessSectionItem;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ClickCallBack;
 import com.jianfanjia.cn.supervisor.tools.UiHelper;
@@ -74,15 +71,12 @@ public class ManageFragment extends BaseFragment {
     @Bind(R.id.frag_req_rootview)
     LinearLayout rootLayout;
 
-    @Bind(R.id.process_tip_text)
-    TextView process_tip_text;
-
-    private String[] proTitle = null;
     private List<Process> processList;
-    private List<ProcessSectionItem> siteProcessList;
     private MySiteAdapter adapter = null;
     private String processId = null;
     private int itemPosition = -1;
+
+    private boolean mHasLoadOnce;//是否成功加载过一次
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,9 +98,6 @@ public class ManageFragment extends BaseFragment {
                 getProcessList();
             }
         });
-        proTitle = getActivity().getApplication().getResources().getStringArray(
-                R.array.site_procedure);
-        setProcessSectionItemList();
         manage_pullfefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         manage_pullfefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
         manage_pullfefresh.setItemAnimator(new DefaultItemAnimator());
@@ -117,7 +108,7 @@ public class ManageFragment extends BaseFragment {
                 getProcessList();
             }
         });
-        adapter = new MySiteAdapter(getActivity(), siteProcessList, new
+        adapter = new MySiteAdapter(getActivity(), new
                 ClickCallBack() {
                     @Override
                     public void click(int position, int itemType) {
@@ -208,7 +199,9 @@ public class ManageFragment extends BaseFragment {
         Api.getProcessList(getProcessListRequest, new ApiCallback<ApiResponse<List<Process>>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(getContext());
+                if (!mHasLoadOnce) {
+                    Hud.show(getContext());
+                }
             }
 
             @Override
@@ -220,6 +213,7 @@ public class ManageFragment extends BaseFragment {
 
             @Override
             public void onSuccess(ApiResponse<List<Process>> apiResponse) {
+                mHasLoadOnce = true;
                 processList = apiResponse.getData();
                 LogTool.d(TAG, "processList:" + processList);
                 if (null != processList && processList.size() > 0) {
@@ -256,18 +250,6 @@ public class ManageFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    private void setProcessSectionItemList() {
-        siteProcessList = new ArrayList<>();
-        for (int i = 0; i < proTitle.length; i++) {
-            ProcessSectionItem item = new ProcessSectionItem();
-            item.setRes(getResources()
-                    .getIdentifier("icon_home_bg" + (i + 1), "drawable",
-                            getActivity().getApplication().getPackageName()));
-            item.setTitle(proTitle[i]);
-            siteProcessList.add(item);
-        }
     }
 
     @Override

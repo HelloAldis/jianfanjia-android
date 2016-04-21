@@ -57,7 +57,7 @@
             android:name=".activity.LoginNewActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
 
         <activity
             android:name=".activity.SettingContractActivity"
@@ -83,7 +83,8 @@
             android:name=".activity.my.EditOwnerInfoActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.my.UserInfoActivity"
             android:label="@string/title_activity_about"

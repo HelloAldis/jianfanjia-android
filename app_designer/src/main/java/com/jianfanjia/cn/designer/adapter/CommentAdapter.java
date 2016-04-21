@@ -36,6 +36,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
         Comment commentInfo = list.get(position);
         CommentViewHolder holder = (CommentViewHolder) viewHolder;
+        holder.itemContentView.setText(commentInfo.getContent());
         String userType = commentInfo.getUsertype();
         String imageid = Constant.DEFALUT_OWNER_PIC;
         String userName = "";
@@ -53,7 +54,6 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
             userName = commentInfo.getBySupervisor().getUsername();
         }
         holder.itemNameView.setText(userName);
-        holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
         holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
         LogTool.d(TAG, "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {

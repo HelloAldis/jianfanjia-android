@@ -397,6 +397,11 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 default:
                     break;
             }
+            //此处监理没有权限
+            openDelay.setEnabled(false);
+            openDelay.setTextColor(getResources().getColor(R.color.grey_color));
+            site_list_head_delay_layout.setVisibility(View.GONE);
+            site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
         } else {
             checkLayout.setVisibility(View.GONE);
         }

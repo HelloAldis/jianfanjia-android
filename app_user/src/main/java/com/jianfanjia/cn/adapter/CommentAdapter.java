@@ -36,6 +36,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
         Comment commentInfo = list.get(position);
         CommentViewHolder holder = (CommentViewHolder) viewHolder;
+        holder.itemContentView.setText(commentInfo.getContent());
         String userType = commentInfo.getUsertype();
         String imageid = Constant.DEFALUT_OWNER_PIC;
         String userName = "";

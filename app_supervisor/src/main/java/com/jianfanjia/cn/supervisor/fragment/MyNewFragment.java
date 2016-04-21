@@ -134,15 +134,6 @@ public class MyNewFragment extends BaseFragment {
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        LogTool.d(TAG, "isHidden =" + hidden);
-        if (!hidden) {
-//            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
-        }
-    }
-
     /**
      * 清空缓存
      */

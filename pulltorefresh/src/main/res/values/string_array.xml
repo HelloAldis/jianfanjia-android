@@ -3,6 +3,8 @@
 
     <string-array name="pull_head_icons">
         <item>@drawable/icon_pull_head0</item>
+        <item>@drawable/icon_pull_head6</item>
+        <item>@drawable/icon_pull_head7</item>
         <item>@drawable/icon_pull_head8</item>
         <item>@drawable/icon_pull_head9</item>
         <item>@drawable/icon_pull_head10</item>

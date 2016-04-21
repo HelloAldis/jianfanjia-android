@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Process;
@@ -20,7 +18,6 @@ import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.application.MyApplication;
 import com.jianfanjia.cn.supervisor.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.supervisor.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.supervisor.bean.ProcessSectionItem;
 import com.jianfanjia.cn.supervisor.fragment.ManageFragment;
 import com.jianfanjia.cn.supervisor.interf.ClickCallBack;
 import com.jianfanjia.cn.supervisor.interf.OnItemClickListener;
@@ -37,14 +34,12 @@ import com.jianfanjia.common.tool.LogTool;
 public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
     private static final String TAG = MySiteAdapter.class.getName();
     private ClickCallBack callBack;
-    private List<ProcessSectionItem> siteProcessList;
     private int processIndex = -1;
     private Context context;
 
-    public MySiteAdapter(Context context, List<ProcessSectionItem> siteProcessList, ClickCallBack
+    public MySiteAdapter(Context context,ClickCallBack
             callBack) {
         this.context = context;
-        this.siteProcessList = siteProcessList;
         this.callBack = callBack;
     }
 
@@ -66,6 +61,7 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
             holder.itemNodeView.setText(context.getResources().getText(R.string.all_finish));
             processIndex = 7;
         } else {
+            holder.itemNodeView.setTextColor(context.getResources().getColor(R.color.orange_color));
             processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
             LogTool.d(TAG, "processIndex =" + processIndex);
             itemNode = process.getSections().get(processIndex).getLabel();

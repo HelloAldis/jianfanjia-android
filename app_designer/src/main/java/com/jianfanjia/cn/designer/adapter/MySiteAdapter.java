@@ -11,23 +11,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.designer.bean.ProcessSectionItem;
 import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: MySiteAdapter
@@ -38,14 +34,12 @@ import butterknife.ButterKnife;
 public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
     private static final String TAG = MySiteAdapter.class.getName();
     private ClickCallBack callBack;
-    private List<ProcessSectionItem> siteProcessList;
     private int processIndex = -1;
     private Context context;
 
-    public MySiteAdapter(Context context, List<ProcessSectionItem> siteProcessList, ClickCallBack
+    public MySiteAdapter(Context context,ClickCallBack
             callBack) {
         this.context = context;
-        this.siteProcessList = siteProcessList;
         this.callBack = callBack;
     }
 
@@ -67,6 +61,7 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
             holder.itemNodeView.setText(context.getResources().getText(R.string.all_finish));
             processIndex = 7;
         } else {
+            holder.itemNodeView.setTextColor(context.getResources().getColor(R.color.orange_color));
             processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
             LogTool.d(TAG, "processIndex =" + processIndex);
             itemNode = process.getSections().get(processIndex).getLabel();
