@@ -28,6 +28,10 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 public class NoticeActivity extends BaseSwipeBackActivity {
     private static final String TAG = NoticeActivity.class.getName();
 
+    public static final String TAB_TYPE = "tab_type";
+
+    public static final int TAB_TYPE_PROCESS = 3;
+
     @Bind(R.id.my_notice_head_layout)
     MainHeadView mainHeadView;
 
@@ -37,10 +41,17 @@ public class NoticeActivity extends BaseSwipeBackActivity {
     @Bind(R.id.viewpager)
     ViewPager mPager;
 
+    private int initPos = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDataFromIntent();
         initView();
+    }
+
+    private void getDataFromIntent(){
+        initPos = getIntent().getIntExtra(TAB_TYPE,0);
     }
 
     private void initView() {
@@ -48,6 +59,7 @@ public class NoticeActivity extends BaseSwipeBackActivity {
         mPager.setOffscreenPageLimit(1);
         setupViewPager(mPager);
         tabLayout.setupWithViewPager(mPager);
+        mPager.setCurrentItem(initPos);
     }
 
     private void initMainHeadView() {

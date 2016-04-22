@@ -220,6 +220,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 appManager.finishActivity(this);
                 break;
             case R.id.head_notification_layout:
+                Bundle noticeBundle = new Bundle();
+                noticeBundle.putInt(NoticeActivity.TAB_TYPE,NoticeActivity.TAB_TYPE_PROCESS);
                 startActivity(NoticeActivity.class);
                 break;
             case R.id.site_list_head_delay:

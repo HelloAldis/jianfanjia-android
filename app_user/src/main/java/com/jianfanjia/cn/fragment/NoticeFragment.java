@@ -59,7 +59,7 @@ public class NoticeFragment extends BaseFragment {
     private NoticeAdapter noticeAdapter = null;
     private boolean isVisible = false;
     private boolean isPrepared = false;
-    private boolean mHasLoadedOnce = true;
+    private boolean mHasLoadedOnce = false;
     private String[] typeArray = null;
 
     @Override

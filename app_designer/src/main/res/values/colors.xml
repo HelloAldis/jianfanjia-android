@@ -24,7 +24,7 @@
     <color name="ower_color">#378fe4</color>
     <color name="designer_color">#e3398c</color>
     <color name="add_comment_bg">#f2f2f3</color>
-    <color name="btn_unenable">#aaaaaa</color>
+    <color name="btn_unenable">#b5b9bc</color>
     <color name="btn_enable_unpress">#fe7003</color>
     <color name="btn_enable_press">#ccfe7003</color>
     <color name="error_bg">#f2f2f3</color>
