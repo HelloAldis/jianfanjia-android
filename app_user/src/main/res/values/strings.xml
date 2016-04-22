@@ -392,4 +392,7 @@
     <string name="str_decoratebudget_with_unit">装修总预算（万元）</string>
     <string name="money_alias">￥</string>
     <string name="create_my_requirement">我要装修</string>
+
+    <string name="tip">提示</string>
+    <string name="tip_confirm_measure">您的量房时间还未到，是否需要确认量房？</string>
 </resources>

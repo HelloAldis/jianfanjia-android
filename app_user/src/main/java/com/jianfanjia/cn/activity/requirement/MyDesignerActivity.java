@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.activity.requirement;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -26,10 +28,12 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ClickCallBack;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -60,6 +64,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
     private String requirementid;
     private Requirement requirementInfo;
+    private Designer orderDesignerInfo;
 
     MyDesignerAdapter myDesignerAdapter;
     List<Designer> orderDesignerInfos = new ArrayList<>();
@@ -106,7 +111,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         myDesignerAdapter = new MyDesignerAdapter(this, workType, new ClickCallBack() {
             @Override
             public void click(int position, int itemType) {
-                Designer orderDesignerInfo = orderDesignerInfos.get(position);
+                orderDesignerInfo = orderDesignerInfos.get(position);
                 switch (itemType) {
                     case VIEW_COMMENT:
                         Bundle viewBundle = new Bundle();
@@ -118,14 +123,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         startActivity(PingJiaInfoActivity.class, viewBundle);
                         break;
                     case COMMENT:
-                        Bundle commentBundle = new Bundle();
-                        commentBundle.putString(IntentConstant.IMAGE_ID, orderDesignerInfo.getImageid());
-                        commentBundle.putString(IntentConstant.DESIGNER_NAME, orderDesignerInfo.getUsername());
-                        commentBundle.putString(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
-                        commentBundle.putFloat(IntentConstant.SPEED, orderDesignerInfo.getRespond_speed());
-                        commentBundle.putFloat(IntentConstant.ATTITUDE, orderDesignerInfo.getService_attitude());
-                        commentBundle.putString(IntentConstant.REQUIREMENT_ID, requirementid);
-                        startActivity(PingjiaActivity.class, commentBundle);
+                        gotoComment();
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
@@ -149,7 +147,12 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         startActivity(ReplaceDesignerActivity.class, changeBundle);
                         break;
                     case CONFIRM_MEASURE_HOUSE:
-                        confirmMeasureHouse(orderDesignerInfo.get_id());
+                        if (Calendar.getInstance().getTimeInMillis() > orderDesignerInfo.getPlan()
+                                .getHouse_check_time()) {
+                            confirmMeasureHouse(orderDesignerInfo.get_id());
+                        } else {
+                            showTipDialog();
+                        }
                         break;
                     case VIEW_DESIGNER:
                         Bundle bundle = new Bundle();
@@ -165,10 +168,43 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         refreshView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
     }
 
+    private void gotoComment() {
+        Bundle commentBundle = new Bundle();
+        commentBundle.putString(IntentConstant.IMAGE_ID, orderDesignerInfo.getImageid());
+        commentBundle.putString(IntentConstant.DESIGNER_NAME, orderDesignerInfo.getUsername());
+        commentBundle.putString(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
+        commentBundle.putFloat(IntentConstant.SPEED, orderDesignerInfo.getRespond_speed());
+        commentBundle.putFloat(IntentConstant.ATTITUDE, orderDesignerInfo.getService_attitude());
+        commentBundle.putString(IntentConstant.REQUIREMENT_ID, requirementid);
+        startActivity(PingjiaActivity.class, commentBundle);
+    }
+
     @OnClick(R.id.error_include)
     protected void errorRefresh() {
         initdata();
     }
+
+    //显示放弃提交提醒
+    protected void showTipDialog() {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip);
+        commonDialog.setMessage(getString(R.string.tip_confirm_measure));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                confirmMeasureHouse(orderDesignerInfo.get_id());
+            }
+        });
+        commonDialog.show();
+    }
+
 
     protected void confirmMeasureHouse(String designerid) {
         ConfirmMeasureHouseRequest confirmMeasureHouseRequest = new ConfirmMeasureHouseRequest();
@@ -187,7 +223,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                initdata();
+                gotoComment();
             }
 
             @Override

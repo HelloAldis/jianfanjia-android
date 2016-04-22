@@ -16,6 +16,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnPageChange;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -43,6 +51,8 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.interf.PopWindowCallBack;
 import com.jianfanjia.cn.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -50,21 +60,10 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnPageChange;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -582,7 +581,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 refuseReschedule(processInfo.get_id());
             }
         });
-        dialog.show();
         dialog.show();
     }
 

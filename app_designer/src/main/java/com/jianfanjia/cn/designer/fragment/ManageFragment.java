@@ -80,6 +80,8 @@ public class ManageFragment extends BaseFragment {
     private String processId = null;
     private int itemPosition = -1;
 
+    private boolean mHasLoadOnce;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,7 +205,9 @@ public class ManageFragment extends BaseFragment {
         Api.getProcessList(getProcessListRequest, new ApiCallback<ApiResponse<List<Process>>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                if(!mHasLoadOnce){
+                    showWaitDialog();
+                }
             }
 
             @Override
@@ -216,6 +220,7 @@ public class ManageFragment extends BaseFragment {
             @Override
             public void onSuccess(ApiResponse<List<Process>> apiResponse) {
                 processList = apiResponse.getData();
+                mHasLoadOnce = true;
                 LogTool.d(TAG, "processList:" + processList);
                 if (null != processList && processList.size() > 0) {
                     manage_pullfefresh.setVisibility(View.VISIBLE);

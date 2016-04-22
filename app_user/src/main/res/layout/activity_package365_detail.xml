@@ -12,13 +12,13 @@
     <RelativeLayout
         android:id="@+id/btn_create_requirement_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_48"
+        android:layout_height="@dimen/space_64"
         android:layout_gravity="bottom"
         android:background="@color/black_middle_transparent"
-        android:paddingBottom="@dimen/space_4"
+        android:paddingBottom="@dimen/space_8"
         android:paddingLeft="@dimen/space_48"
         android:paddingRight="@dimen/space_48"
-        android:paddingTop="@dimen/space_4">
+        android:paddingTop="@dimen/space_8">
 
         <TextView
             android:id="@+id/btn_create_process"
@@ -28,6 +28,7 @@
             android:gravity="center"
             android:text="@string/create_my_requirement"
             android:textColor="@color/font_white"
+            android:layout_centerInParent="true"
             android:textSize="16sp"/>
     </RelativeLayout>
 

@@ -26,6 +26,8 @@
     <color name="btn_enable_press">#ccfe7003</color>
     <color name="error_bg">#f2f2f3</color>
 
+    <color name="white_translucencen">#AAffffff</color>
+
     <color name="head_layout_bg">#E5fbfbfb</color>
     <color name="head_layout_bg_pressed">#fbfbfb</color>
     <color name="main_layout_bg">#f2f2f3</color>

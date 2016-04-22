@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -33,6 +34,9 @@ import com.jianfanjia.common.tool.LogTool;
  */
 public class PingjiaActivity extends BaseSwipeBackActivity {
     private static final String TAG = PingjiaActivity.class.getName();
+
+    @Bind(R.id.scrollView)
+    protected ScrollView mScrollView;
 
     @Bind(R.id.my_pingjia_head_layout)
     protected MainHeadView mainHeadView;
@@ -83,6 +87,9 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
 
     public void initView() {
         initMainHeadView();
+        mScrollView.smoothScrollTo(0,0);//防止一开始就滚动到底部了
+
+
         bar.setRating((int) (speed + attitude) / 2);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(this, imageid, designer_head_img);

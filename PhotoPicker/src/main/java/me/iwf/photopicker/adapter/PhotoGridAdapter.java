@@ -104,7 +104,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
         if (getItemViewType(position) == ITEM_TYPE_PHOTO) {
 
-            List<Photo> photos = getCurrentPhotos();
+            final List<Photo> photos = getCurrentPhotos();
             final Photo photo;
 
             if (showCamera()) {
@@ -113,9 +113,33 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
                 photo = photos.get(position);
             }
 
+//            ImageDisplay.getInstance().loadImage(Uri.fromFile(new File(Uri.decode(photo.getPath()))).toString(),
+//                    DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new ImageLoadingListener() {
+//                        @Override
+//                        public void onLoadingStarted(String imageUri, View view) {
+//                            holder.ivPhoto.setImageResource(R.drawable.icon_default_pic);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                            Log.e(this.getClass().getName(), "onLoadingFailed imageuri =" + imageUri + " failReason " +
+//                                    "=" + failReason.getType().toString());
+//                        }
+//
+//                        @Override
+//                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                            Log.e(this.getClass().getName(), "onLoadingComplete imageuri =" + imageUri);
+//                            holder.ivPhoto.setImageBitmap(loadedImage);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingCancelled(String imageUri, View view) {
+//
+//                        }
+//                    });
+
             ImageLoader.getInstance().displayImage(Uri.fromFile(new File(photo.getPath())).toString(), holder
                     .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
-
 
 //            Glide.with(mContext)
 //                    .load(new File(photo.getPath()))

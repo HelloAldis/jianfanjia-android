@@ -43,7 +43,7 @@ public class AboutActivity extends BaseSwipeBackActivity implements OnClickListe
     }
 
     private void initMainHeadView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.about));
+        mainHeadView.setMianTitle(getResources().getString(R.string.more));
         mainHeadView.setLayoutBackground(R.color.head_layout_bg);
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
