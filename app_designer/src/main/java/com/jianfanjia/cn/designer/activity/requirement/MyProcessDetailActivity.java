@@ -96,6 +96,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
     private File mTmpFile = null;
 
+    private boolean isResetCheckHead = true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +145,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadCurrentProcess();
+                loadCurrentProcess(true);
             }
         });
     }
@@ -153,15 +155,15 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         processId = intent.getStringExtra(Global.PROCESS_ID);
         LogTool.d(TAG, "processId :" + processId);
         if (processId != null) {
-            loadCurrentProcess();
+            loadCurrentProcess(true);
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
             processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
-            initData();
+            initData(true);
         }
     }
 
-    private void loadCurrentProcess() {
+    private void loadCurrentProcess(final boolean isResetCheckHead) {
         if (processId != null) {
             GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
             getProcessInfoRequest.setProcessId(processId);
@@ -180,7 +182,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 @Override
                 public void onSuccess(ApiResponse<Process> apiResponse) {
                     processInfo = apiResponse.getData();
-                    initData();
+                    initData(isResetCheckHead);
                 }
 
                 @Override
@@ -210,7 +212,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             case R.id.head_notification_layout:
                 Bundle noticeBundle = new Bundle();
                 noticeBundle.putInt(NoticeActivity.TAB_TYPE, NoticeActivity.TAB_TYPE_PROCESS);
-                startActivity(NoticeActivity.class);
+                startActivity(NoticeActivity.class, noticeBundle);
                 break;
             case R.id.site_list_head_delay:
                 delayDialog();
@@ -233,7 +235,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     }
 
     // 初始化数据
-    private void initData() {
+    private void initData(boolean isResetCheckHead) {
         if (processInfo != null) {
             mainHeadView.setMianTitle(processInfo.getBasic_address() == null ? getString(R.string.process_example)
                     : processInfo.getBasic_address());// 设置标题头
@@ -248,7 +250,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             sectionItemAdapter.setSectionInfoList(processSections, currentList);
             mProcessDetailHeadView.setScrollHeadTime(processSections);
             mProcessDetailHeadView.setCurrentItem(currentList);
-            mProcessDetailHeadView.changeProcessStateShow(processSection, true);
+            mProcessDetailHeadView.changeProcessStateShow(processSection, isResetCheckHead);
         }
     }
 
@@ -443,7 +445,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -475,7 +477,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -507,7 +509,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -543,7 +545,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -603,7 +605,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
             case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
-                loadCurrentProcess();
+                loadCurrentProcess(false);
                 break;
             default:
                 break;
@@ -647,7 +649,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
                     @Override
                     public void onSuccess(ApiResponse<String> apiResponse) {
-                        loadCurrentProcess();
+                        loadCurrentProcess(false);
                         if (mTmpFile != null
                                 && mTmpFile
                                 .exists()) {

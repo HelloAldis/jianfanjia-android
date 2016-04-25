@@ -124,6 +124,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     });
                     break;
                 case Global.REQUIREMENT_STATUS1:
+                case Global.REQUIREMENT_STATUS6:
+                case Global.REQUIREMENT_STATUS4:
                     ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.light_black_color));
                     ltm_req_gotopro.setText(context.getResources().getString(R.string.str_preview_pro));
                     ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
@@ -133,10 +135,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                         }
                     });
                     break;
-                case Global.REQUIREMENT_STATUS2:
                 case Global.REQUIREMENT_STATUS3:
-                case Global.REQUIREMENT_STATUS6:
-                case Global.REQUIREMENT_STATUS4:
+                case Global.REQUIREMENT_STATUS2:
                     ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
                     ltm_req_gotopro.setText(context.getResources().getString(R.string.str_designer_new_action));
                     ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {

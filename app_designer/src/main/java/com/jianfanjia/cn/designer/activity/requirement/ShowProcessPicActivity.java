@@ -21,7 +21,7 @@ import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.view.DeletePicPopWindow;
+import com.jianfanjia.cn.designer.view.DeletePicDialog;
 
 public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener, View.OnClickListener, View.OnLongClickListener {
@@ -41,7 +41,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
     private String section;
     private String item;
     private String tipText = null;
-    private DeletePicPopWindow deletePicPopWindow = null;
+    private DeletePicDialog deletePicPopWindow = null;
     private boolean isDeletePic = false;
 
     @Override
@@ -70,7 +70,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
 
     private void initView(){
         setTipText();
-        deletePicPopWindow = new DeletePicPopWindow(this, this);
+        deletePicPopWindow = new DeletePicDialog(this, this);
     }
 
     private void initData(){
@@ -146,7 +146,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
     @Override
     public boolean onLongClick(View v) {
         if (processid != null) {
-            deletePicPopWindow.show(v);
+            deletePicPopWindow.show();
             return true;
         }
         return false;

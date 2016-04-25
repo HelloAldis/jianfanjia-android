@@ -85,9 +85,9 @@ public class ShowPicPagerAdapter extends PagerAdapter {
             }
         });
         //监理暂没有删除照片功能，所以先屏蔽掉
-//        if (onLongClickListener != null) {
-//            imageView.setOnLongClickListener(onLongClickListener);
-//        }
+        if (onLongClickListener != null) {
+            imageView.setOnLongClickListener(onLongClickListener);
+        }
         container.addView(view, 0);
         return view;
     }

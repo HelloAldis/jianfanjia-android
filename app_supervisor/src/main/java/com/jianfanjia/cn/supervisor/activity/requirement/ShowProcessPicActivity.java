@@ -22,7 +22,7 @@ import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.supervisor.view.DeletePicPopWindow;
+import com.jianfanjia.cn.supervisor.view.DeletePicDialog;
 
 
 public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
@@ -36,14 +36,14 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
     TextView tipView;
 
     private ShowPicPagerAdapter showPicPagerAdapter;
-    private List<String> imageList = new ArrayList<String>();
+    private List<String> imageList = new ArrayList<>();
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
     private String processid;
     private String section;
     private String item;
     private String tipText = null;
-    private DeletePicPopWindow deletePicPopWindow = null;
+    private DeletePicDialog deletePicPopWindow = null;
     private boolean isDeletePic = false;
 
     @Override
@@ -72,7 +72,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
 
     private void initView(){
         setTipText();
-        deletePicPopWindow = new DeletePicPopWindow(this, this);
+        deletePicPopWindow = new DeletePicDialog(this,this);
     }
 
     private void initData(){
@@ -148,7 +148,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
     @Override
     public boolean onLongClick(View v) {
         if (processid != null) {
-            deletePicPopWindow.show(v);
+            deletePicPopWindow.show();
             return true;
         }
         return false;

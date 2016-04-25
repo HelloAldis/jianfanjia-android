@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,6 +53,8 @@ public class ProcessDetailHeadStateView extends FrameLayout {
     @Bind(R.id.rowBtnUpLayout)
     RelativeLayout rowBtnUpLayout;
 
+    private boolean isOpen = true;//验收view是否展开
+
     public ProcessDetailHeadStateView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -65,13 +66,17 @@ public class ProcessDetailHeadStateView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 LogTool.d(TAG, "rowBtnUp animate");
-                openOrCloseAnimate();
+                if (isOpen) {
+                    closeAnim();
+                } else {
+                    openAnimate();
+                }
             }
         });
     }
 
-    private void openOrCloseAnimate() {
-        rowBtnUp.animate().rotationBy(180).setDuration(100).setListener(new Animator.AnimatorListener() {
+    private void openAnimate() {
+        rowBtnUp.animate().rotationBy(180).setDuration(200).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -79,55 +84,29 @@ public class ProcessDetailHeadStateView extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                ViewPropertyAnimator layoutAni;
-                if (site_list_head_content_layout.getVisibility() == GONE) {
-                    layoutAni = site_list_head_content_layout.animate().yBy
-                            (site_list_head_content_layout.getHeight()).setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
+                site_list_head_content_layout.animate().yBy
+                        (site_list_head_content_layout.getHeight()).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            site_list_head_content_layout.setVisibility(VISIBLE);
-                        }
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        site_list_head_content_layout.setVisibility(VISIBLE);
+                        isOpen = true;
+                    }
 
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
 
-                        }
-                    }).setDuration(200);
-                } else {
-                    layoutAni = site_list_head_content_layout.animate().yBy
-                            (-site_list_head_content_layout.getHeight()).setListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            site_list_head_content_layout.setVisibility(GONE);
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    }).setDuration(200);
-                }
-                layoutAni.start();
+                    }
+                }).setDuration(300).start();
             }
 
             @Override
@@ -142,10 +121,56 @@ public class ProcessDetailHeadStateView extends FrameLayout {
         }).start();
     }
 
+    private void closeAnim() {
+        rowBtnUp.animate().rotationBy(-180).setDuration(200).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                site_list_head_content_layout.animate().yBy
+                        (-site_list_head_content_layout.getHeight()).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        site_list_head_content_layout.setVisibility(GONE);
+                        isOpen = false;
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).setDuration(300).start();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        }).start();
+
+    }
+
     public void resetCheckLayout(ProcessSection processSection) {
         String section_status = processSection.getStatus();
         LogTool.d(TAG, "section_status=" + section_status);
-        showHead();
         switch (section_status) {
             case Constant.FINISHED:
                 site_list_head_delay_layout.setVisibility(View.GONE);
@@ -196,7 +221,9 @@ public class ProcessDetailHeadStateView extends FrameLayout {
 
     private void showHead() {
         LogTool.d(TAG, "show head");
+        openCheckLayout();
         if (site_list_head_check_layout.getVisibility() == GONE) {
+            indicatorImage.setVisibility(VISIBLE);
             site_list_head_check_layout.animate().yBy(site_list_head_check_layout.getHeight()).alpha(1).setDuration
                     (300).setListener(new Animator
                     .AnimatorListener() {
@@ -224,11 +251,20 @@ public class ProcessDetailHeadStateView extends FrameLayout {
         }
     }
 
+    public void openCheckLayout() {
+        if (isOpen) {
+
+        } else {
+            openAnimate();
+        }
+    }
+
     public void changeCheckLayoutState(ProcessSection processSection, boolean isReset) {
         if (processSection.getName().equals("kai_gong")
                 || processSection.getName().equals("chai_gai")) {
             LogTool.d(TAG, "dismiss head");
             if (site_list_head_check_layout.getVisibility() == VISIBLE) {
+                indicatorImage.setVisibility(INVISIBLE);
                 site_list_head_check_layout.animate().yBy(-site_list_head_check_layout.getHeight()).alpha(0)
                         .setDuration(300).setListener(new Animator.AnimatorListener() {
                     @Override
@@ -255,8 +291,9 @@ public class ProcessDetailHeadStateView extends FrameLayout {
             return;
         }
 
+        resetCheckLayout(processSection);
         if (isReset) {
-            resetCheckLayout(processSection);
+            showHead();
         } else {
             int finishCount = 0;
             for (ProcessSectionItem processSectionItem : processSection.getItems()) {
@@ -265,7 +302,7 @@ public class ProcessDetailHeadStateView extends FrameLayout {
                 }
             }
             if (finishCount == processSection.getItems().size() - 1) {
-                resetCheckLayout(processSection);
+                showHead();
             }
         }
 
