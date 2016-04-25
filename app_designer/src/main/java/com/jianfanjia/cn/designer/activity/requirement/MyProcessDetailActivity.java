@@ -11,11 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,13 +20,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnPageChange;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.Reschedule;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.GetProcessInfoRequest;
@@ -42,19 +36,17 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.activity.common.CommentActivity;
 import com.jianfanjia.cn.designer.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.adapter.SectionItemAdapter;
-import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.designer.bean.ViewPagerItem;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ItemClickCallBack;
-import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.ProcessDetailHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -78,48 +70,21 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
-    @Bind(R.id.process_head_view_layout)
-    RelativeLayout process_head_view_layout;
+//    @Bind(R.id.site_list_head_check)
+//    TextView openCheck;
 
-    @Bind(R.id.checkLayout)
-    LinearLayout checkLayout;
+//    @Bind(R.id.site_list_head_delay_text)
+//    TextView site_list_head_delay_text;
 
-    @Bind(R.id.site_list_head_checkbutton_layout)
-    LinearLayout site_list_head_checkbutton_layout;
-
-    @Bind(R.id.site_list_head_delay_layout)
-    LinearLayout site_list_head_delay_layout;
-
-    @Bind(R.id.site_list_head_delay)
-    TextView openDelay;
-
-    @Bind(R.id.site_list_head_check)
-    TextView openCheck;
-
-    @Bind(R.id.site_list_head_delay_text)
-    TextView site_list_head_delay_text;
-
-    @Bind(R.id.rowBtnUp)
-    ImageView rowBtnUp;
-
-    @Bind(R.id.rowBtnDown)
-    ImageView rowBtnDown;
-
-    @Bind(R.id.process_viewpager)
-    ViewPager processViewPager;
     @Bind(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
     @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
 
-    @Bind(R.id.head_notification_layout)
-    RelativeLayout notificationLayout;
-
-    private String[] proTitle = null;
+    @Bind(R.id.process_head_view_layout)
+    ProcessDetailHeadView mProcessDetailHeadView;
 
     private SectionItemAdapter sectionItemAdapter = null;
-    private SectionViewPageAdapter sectionViewPageAdapter = null;
-    private List<ViewPagerItem> processList = new ArrayList<ViewPagerItem>();
     private List<ProcessSection> processSections;
     private ProcessSection processSection = null;
     private Process processInfo = null;
@@ -138,16 +103,39 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     }
 
     private void initView() {
-        initStringArray();
         initPullRefresh();
         initMainHead();
-        initScrollLayout();
+        initProcessHead();
         initListView();
         initProcessInfo();
     }
 
-    private void initStringArray() {
-        proTitle = getResources().getStringArray(R.array.site_procedure);
+    private void initProcessHead() {
+        mProcessDetailHeadView.setOnPageScrollListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (processSections != null) {
+                    if (position < TOTAL_PROCESS) {
+                        currentList = position;
+                        processSection = processSections.get(currentList);
+                        Log.i(TAG, "processSection=" + processSection.getName());
+                        mProcessDetailHeadView.changeProcessStateShow(processSection, true);
+                        sectionItemAdapter.setPosition(currentList);
+                        detailNodeListView.getRefreshableView().startLayoutAnimation();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initPullRefresh() {
@@ -213,7 +201,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     }
 
     @OnClick({R.id.head_back_layout, R.id.head_notification_layout, R.id.site_list_head_delay, R.id
-            .site_list_head_check, R.id.site_list_head_delay_text, R.id.rowBtnUp, R.id.rowBtnDown})
+            .site_list_head_check, R.id.site_list_head_delay_text})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -221,7 +209,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 break;
             case R.id.head_notification_layout:
                 Bundle noticeBundle = new Bundle();
-                noticeBundle.putInt(NoticeActivity.TAB_TYPE,NoticeActivity.TAB_TYPE_PROCESS);
+                noticeBundle.putInt(NoticeActivity.TAB_TYPE, NoticeActivity.TAB_TYPE_PROCESS);
                 startActivity(NoticeActivity.class);
                 break;
             case R.id.site_list_head_delay:
@@ -239,32 +227,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             case R.id.site_list_head_delay_text:
                 showDelayDialog();
                 break;
-            case R.id.rowBtnUp:
-                rowBtnUp.setVisibility(View.GONE);
-                rowBtnDown.setVisibility(View.VISIBLE);
-                site_list_head_checkbutton_layout.setVisibility(View.GONE);
-                break;
-            case R.id.rowBtnDown:
-                rowBtnUp.setVisibility(View.VISIBLE);
-                rowBtnDown.setVisibility(View.GONE);
-                site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                break;
             default:
                 break;
-        }
-    }
-
-    @OnPageChange(R.id.process_viewpager)
-    public void onPageSelected(int position) {
-        if (processSections != null) {
-            if (position < TOTAL_PROCESS) {
-                currentList = position;
-                processSection = processSections.get(currentList);
-                Log.i(TAG, "processSection=" + processSection.getName());
-                setCheckLayoutState();
-                sectionItemAdapter.setPosition(currentList);
-                detailNodeListView.getRefreshableView().startLayoutAnimation();
-            }
         }
     }
 
@@ -281,160 +245,10 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             }
             processSections = processInfo.getSections();
             processSection = processSections.get(currentList);
-            setScrollHeadTime();
-            setCheckLayoutState();
             sectionItemAdapter.setSectionInfoList(processSections, currentList);
-            processViewPager.setVisibility(View.VISIBLE);
-            processViewPager.setCurrentItem(currentList);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    private void initScrollLayout() {
-        for (int i = 0; i < proTitle.length; i++) {
-            ViewPagerItem viewPagerItem = new ViewPagerItem();
-            viewPagerItem.setResId(getApplication().getResources()
-                    .getIdentifier("icon_home_normal" + (i + 1), "drawable",
-                            getApplication().getPackageName()));
-            viewPagerItem.setTitle(proTitle[i]);
-            viewPagerItem.setDate("");
-            processList.add(viewPagerItem);
-        }
-        for (int i = 0; i < 3; i++) {
-            ViewPagerItem viewPagerItem = new ViewPagerItem();
-            viewPagerItem.setResId(R.mipmap.icon_process_no);
-            viewPagerItem.setTitle("");
-            viewPagerItem.setDate("");
-            processList.add(viewPagerItem);
-        }
-        sectionViewPageAdapter = new SectionViewPageAdapter(this, processList,
-                new ViewPagerClickListener() {
-
-                    @Override
-                    public void onClickItem(int potition) {
-                        Log.i(TAG, "potition=" + potition);
-                        if (processSections != null) {
-                            if (potition < TOTAL_PROCESS) {
-                                currentList = potition;
-                                processViewPager.setCurrentItem(currentList);
-                                sectionViewPageAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-
-                });
-        processViewPager.setAdapter(sectionViewPageAdapter);
-        processViewPager.setVisibility(View.GONE);
-    }
-
-    private void setCheckLayoutState() {
-        if (!processSection.getName().equals("kai_gong")
-                && !processSection.getName().equals("chai_gai")) {
-            String section_status = processSection.getStatus();
-            Log.i(TAG, "section_status=" + section_status);
-            switch (section_status) {
-                case Constant.FINISHED:
-                    checkLayout.setVisibility(View.VISIBLE);
-                    rowBtnUp.setVisibility(View.VISIBLE);
-                    rowBtnDown.setVisibility(View.GONE);
-                    site_list_head_delay_layout.setVisibility(View.GONE);
-                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                    openDelay.setEnabled(false);
-                    openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-                    openDelay.setText(getResources().getText(R.string
-                            .site_example_node_delay_no));
-                    break;
-                case Constant.NO_START:
-                    checkLayout.setVisibility(View.VISIBLE);
-                    rowBtnUp.setVisibility(View.VISIBLE);
-                    rowBtnDown.setVisibility(View.GONE);
-                    site_list_head_delay_layout.setVisibility(View.GONE);
-                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                    openDelay.setEnabled(false);
-                    openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-                    openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    break;
-                case Constant.YANQI_AGREE:
-                case Constant.YANQI_REFUSE:
-                case Constant.DOING:
-                    checkLayout.setVisibility(View.VISIBLE);
-                    rowBtnUp.setVisibility(View.VISIBLE);
-                    rowBtnDown.setVisibility(View.GONE);
-                    site_list_head_delay_layout.setVisibility(View.GONE);
-                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                    openDelay.setEnabled(true);
-                    openDelay.setTextColor(getResources().getColor(R.color.orange_color));
-                    openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    break;
-                case Constant.YANQI_BE_DOING:
-                    LogTool.d(TAG, "this section is yanqi_doing");
-                    Reschedule reschedule = processSection.getReschedule();
-                    if (null != reschedule) {
-                        String role = reschedule.getRequest_role();
-                        if (role.equals(Constant.IDENTITY_DESIGNER)) {
-                            checkLayout.setVisibility(View.VISIBLE);
-                            rowBtnUp.setVisibility(View.VISIBLE);
-                            rowBtnDown.setVisibility(View.GONE);
-                            site_list_head_delay_layout.setVisibility(View.GONE);
-                            site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                            openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-                            openDelay.setText(getResources().getText(R.string
-                                    .site_example_node_delay_doing));
-                            openDelay.setEnabled(false);
-                        } else {
-                            checkLayout.setVisibility(View.VISIBLE);
-                            rowBtnUp.setVisibility(View.VISIBLE);
-                            rowBtnDown.setVisibility(View.GONE);
-                            site_list_head_delay_layout.setVisibility(View.VISIBLE);
-                            site_list_head_checkbutton_layout.setVisibility(View.GONE);
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            checkLayout.setVisibility(View.GONE);
-        }
-    }
-
-    private void setScrollHeadTime() {
-        if (processSections != null) {
-            for (int i = 0; i < proTitle.length; i++) {
-                ViewPagerItem viewPagerItem = sectionViewPageAdapter.getList()
-                        .get(i);
-                if (processSections.get(i).getStart_at() > 0) {
-                    viewPagerItem.setDate(DateFormatTool.covertLongToString(
-                            processSections.get(i).getStart_at(), "M.dd")
-                            + "-"
-                            + DateFormatTool.covertLongToString(processSections
-                            .get(i).getEnd_at(), "M.dd"));
-                }
-                if (processSections.get(i).getStatus().equals(Constant.NO_START)) {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_normal" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
-                } else if (processSections.get(i).getStatus().equals(Constant.FINISHED)) {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_checked" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
-                } else {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_normal_" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
-                }
-            }
-            sectionViewPageAdapter.notifyDataSetChanged();
+            mProcessDetailHeadView.setScrollHeadTime(processSections);
+            mProcessDetailHeadView.setCurrentItem(currentList);
+            mProcessDetailHeadView.changeProcessStateShow(processSection, true);
         }
     }
 

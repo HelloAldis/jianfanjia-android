@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.jianfanjia.cn.designer.view.MyViewPager
+        android:id="@+id/process_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#ffffff"
+        android:fadingEdge="none"
+        />
+
+    <com.jianfanjia.cn.designer.view.ProcessDetailHeadStateView
+        android:id="@+id/process_headstateview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/process_viewpager"
+        android:layout_marginTop="-6dip"
+        />
+
+  </RelativeLayout>
