@@ -1,10 +1,9 @@
-package com.jianfanjia.cn.designer.view;
+package com.jianfanjia.cn.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,8 +11,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Reschedule;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -22,7 +21,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email: jame.zhang@myjyz.com
  * Date:2016-04-25 10:03
  */
-public class ProcessDetailHeadStateView extends FrameLayout {
+public class ProcessDetailHeadStateView extends LinearLayout {
 
     private static final String TAG = ProcessDetailHeadStateView.class.getName();
 
@@ -35,14 +34,16 @@ public class ProcessDetailHeadStateView extends FrameLayout {
     @Bind(R.id.site_list_head_delay)
     TextView openDelay;
 
-
     public ProcessDetailHeadStateView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         View view = inflate(context, R.layout.custom_processdetail_stateview, null);
-        addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
-                .WRAP_CONTENT));
+        addView(view, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         ButterKnife.bind(this);
+
+        setOrientation(VERTICAL);
+
+
     }
 
     public void resetCheckLayout(ProcessSection processSection) {
@@ -78,7 +79,7 @@ public class ProcessDetailHeadStateView extends FrameLayout {
                 Reschedule reschedule = processSection.getReschedule();
                 if (null != reschedule) {
                     String role = reschedule.getRequest_role();
-                    if (role.equals(Constant.IDENTITY_DESIGNER)) {
+                    if (role.equals(Constant.IDENTITY_OWNER)) {
                         site_list_head_delay_layout.setVisibility(View.GONE);
                         site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
                         openDelay.setTextColor(getResources().getColor(R.color.grey_color));
@@ -96,9 +97,82 @@ public class ProcessDetailHeadStateView extends FrameLayout {
         }
     }
 
+    private void showHead() {
+        LogTool.d(TAG, "show head");
+//        openCheckLayout();
+//        if (site_list_head_check_layout.getVisibility() == GONE) {
+//            LogTool.d(TAG, "check height =" + site_list_head_check_layout.getHeight());
+//            site_list_head_check_layout.animate().yBy(site_list_head_check_layout.getHeight()).alpha(1).setDuration
+//                    (300).setListener(new Animator
+//                    .AnimatorListener() {
+//                @Override
+//                public void onAnimationStart(Animator animation) {
+//
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    site_list_head_check_layout.setVisibility(View.VISIBLE);
+//                }
+//
+//                @Override
+//                public void onAnimationCancel(Animator animation) {
+//
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animator animation) {
+//
+//                }
+//            }).start();
 
-    public void changeCheckLayoutState(ProcessSection processSection) {
+//        }
+    }
+
+
+
+    public void changeCheckLayoutState(ProcessSection processSection, boolean isReset) {
+//        if (processSection.getName().equals("kai_gong")
+//                || processSection.getName().equals("chai_gai")) {
+//            LogTool.d(TAG, "dismiss head");
+//            if (site_list_head_check_layout.getVisibility() == VISIBLE) {
+//                indicatorImage.setVisibility(INVISIBLE);
+//                LogTool.d(TAG, "close check height =" + site_list_head_check_layout.getHeight());
+//                post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        site_list_head_check_layout.animate().yBy(-site_list_head_check_layout.getHeight()).alpha(0)
+//                                .setDuration(300).setListener(new Animator.AnimatorListener() {
+//                            @Override
+//                            public void onAnimationStart(Animator animation) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onAnimationEnd(Animator animation) {
+//                                site_list_head_check_layout.setVisibility(View.GONE);
+//                            }
+//
+//                            @Override
+//                            public void onAnimationCancel(Animator animation) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onAnimationRepeat(Animator animation) {
+//
+//                            }
+//                        }).start();
+//                    }
+//                });
+//            }
+//            return;
+//        }
         resetCheckLayout(processSection);
+        if (isReset) {
+            showHead();
+        }
+
     }
 
 

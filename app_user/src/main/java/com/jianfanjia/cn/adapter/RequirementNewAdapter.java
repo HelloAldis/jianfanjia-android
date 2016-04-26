@@ -112,92 +112,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
             }
 
-            switch (requirementStatus){
-                case Global.REQUIREMENT_STATUS0:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_order));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
-                        }
-                    });
-                    break;
-                case Global.REQUIREMENT_STATUS1:
-                case Global.REQUIREMENT_STATUS6:
-                case Global.REQUIREMENT_STATUS4:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.light_black_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_preview_pro));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
-                        }
-                    });
-                    break;
-                case Global.REQUIREMENT_STATUS3:
-                case Global.REQUIREMENT_STATUS2:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_designer_new_action));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOMYDESI);
-                        }
-                    });
-                    break;
-                case Global.REQUIREMENT_STATUS5:
-                case Global.REQUIREMENT_STATUS8:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_pro));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
-                        }
-                    });
-                break;
-                case Global.REQUIREMENT_STATUS7:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_view_contract));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOCONTRACT);
-                        }
-                    });
-                    break;
-
-            }
-
-      /*      if (requirementStatus.equals(Global.REQUIREMENT_STATUS5) || requirementStatus.equals(Global
-                    .REQUIREMENT_STATUS8)) {
-                ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_pro));
-                ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
-                    }
-                });
-            } else if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
-                ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_order));
-                ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
-                    }
-                });
-            } else {
-                ltm_req_gotopro.setText(context.getResources().getString(R.string.str_preview_pro));
-                ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
-                    }
-                });
-            }
-*/
-
             if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
                 ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -215,9 +129,89 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 });
             }
 
+            setDesignerItemLayout(context, requirementInfo, clickCallBack, position, requirementStatus, workType);
+        }
+
+        private void setNewActionText(Context context, List<Designer> orderDesignerInfos, String requirementStatus,
+                                      final ClickCallBack
+                                              clickCallBack, final int position) {
+            switch (requirementStatus) {
+                case Global.REQUIREMENT_STATUS0:
+                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_order));
+                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
+                        }
+                    });
+                    break;
+                case Global.REQUIREMENT_STATUS5:
+                case Global.REQUIREMENT_STATUS8:
+                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_pro));
+                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
+                        }
+                    });
+                    break;
+                case Global.REQUIREMENT_STATUS7:
+                case Global.REQUIREMENT_STATUS4:
+                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_view_contract));
+                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOCONTRACT);
+                        }
+                    });
+                    break;
+                default:
+                    setHasNewAction(context, orderDesignerInfos, clickCallBack, position);
+                    break;
+
+            }
+        }
+
+        private void setHasNewAction(Context context, List<Designer> orderDesignerInfos, final ClickCallBack
+                clickCallBack, final int position) {
+            boolean isHasNewAction = false;
+            for (int i = 0; i < orderDesignerInfos.size(); i++) {
+                String planStatus = orderDesignerInfos.get(i).getPlan().getStatus();
+                if (planStatus.equals(Global.PLAN_STATUS2) || planStatus.equals(Global.PLAN_STATUS3)) {
+                    isHasNewAction = true;
+                    break;
+                }
+            }
+            if (isHasNewAction) {
+                ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
+                ltm_req_gotopro.setText(context.getResources().getString(R.string.str_designer_new_action));
+                ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOMYDESI);
+                    }
+                });
+            } else {
+                ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.light_black_color));
+                ltm_req_gotopro.setText(context.getResources().getString(R.string.str_preview_pro));
+                ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOMYDESI);
+                    }
+                });
+            }
+        }
+
+        private void setDesignerItemLayout(Context context, Requirement requirementInfo, final ClickCallBack
+                clickCallBack, final int position, String requirementStatus, String workType) {
             List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();
+                setNewActionText(context, orderDesignerInfos, requirementStatus, clickCallBack, position);
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                     RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(context.getResources()
                             .getIdentifier("ltm_req_designer_layout" + i, "id", context.getPackageName()));

@@ -358,6 +358,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
+            makeTextShort(getString(R.string.str_cancel_collect_success));
             toolbarCollect.setSelected(false);
             notifyChangeState(false);
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));

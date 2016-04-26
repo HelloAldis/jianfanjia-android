@@ -338,7 +338,7 @@
     <string name="str_decoratehousetype">装修户型</string>
     <string name="search_no_designer">没有找到任何匹配的设计师</string>
     <string name="search_no_beautyimg">没有找到任何匹配的美图</string>
-    <string name="search_no_product">没有找到任何匹配的作品</string>
+    <string name="search_no_product">没有找到任何匹配的案例</string>
     <string name="already_finish">已完成</string>
 
     <string name="hint_choose_plan_text">选定方案</string>
@@ -395,4 +395,5 @@
 
     <string name="tip">提示</string>
     <string name="tip_confirm_measure">您的量房时间还未到，是否需要确认量房？</string>
+    <string name="str_cancel_collect_success">取消收藏成功</string>
 </resources>

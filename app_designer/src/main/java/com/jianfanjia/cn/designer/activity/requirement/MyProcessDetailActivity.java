@@ -3,9 +3,7 @@ package com.jianfanjia.cn.designer.activity.requirement;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -53,7 +51,6 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.common.tool.DateFormatTool;
-import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -69,12 +66,6 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
 public class MyProcessDetailActivity extends BaseSwipeBackActivity implements ItemClickCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
-
-//    @Bind(R.id.site_list_head_check)
-//    TextView openCheck;
-
-//    @Bind(R.id.site_list_head_delay_text)
-//    TextView site_list_head_delay_text;
 
     @Bind(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
@@ -95,8 +86,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     private int lastPro = -1;// 上次进行的工序
 
     private File mTmpFile = null;
-
-    private boolean isResetCheckHead = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,6 +150,11 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
             initData(true);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void loadCurrentProcess(final boolean isResetCheckHead) {
@@ -326,29 +320,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             default:
                 break;
         }
-    }
-
-    @Override
-    public void firstItemClick() {
-        mTmpFile = FileUtil.createTimeStampTmpFile();
-        if (mTmpFile != null) {
-            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            if (cameraIntent != null) {
-                startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-            } else {
-//                makeTextShort(getString(R.string.tip_open_camera));
-            }
-        } else {
-            makeTextShort(getString(R.string.tip_not_sdcard));
-        }
-    }
-
-    @Override
-    public void secondItemClick() {
-        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-        albumIntent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
     }
 
     private void confirmFinishDialog() {
@@ -573,29 +544,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
                         LogTool.d(TAG, "imageBitmap: path :" + path);
-                        if (null != imageBitmap) {
-                            upload_image(imageBitmap);
-                        }
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_CAMERA:// 拍照
-                mTmpFile = new File(dataManager.getPicPath());
-                if (mTmpFile != null) {
-                    Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
-                    LogTool.d(TAG, "imageBitmap:" + imageBitmap);
-                    if (null != imageBitmap) {
-                        upload_image(imageBitmap);
-                    }
-                }
-                break;
-            case Constant.REQUESTCODE_LOCATION:// 本地选取
-                if (data != null) {
-                    Uri uri = data.getData();
-                    LogTool.d(TAG, "uri:" + uri);
-                    if (null != uri) {
-                        Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
-                                .getImagePath(this, uri));
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }

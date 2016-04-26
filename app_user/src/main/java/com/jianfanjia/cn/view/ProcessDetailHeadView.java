@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.view;
+package com.jianfanjia.cn.view;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -19,12 +19,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.ProcessSectionItem;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
-import com.jianfanjia.cn.designer.bean.ViewPagerItem;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.adapter.SectionViewPageAdapter;
+import com.jianfanjia.cn.bean.ViewPagerItem;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -69,6 +68,7 @@ public class ProcessDetailHeadView extends FrameLayout {
 
         View view = inflate(context, R.layout.custom_processdetail_view, null);
         addView(view);
+
         ButterKnife.bind(this);
 
         rowBtnUpLayout.setOnClickListener(new OnClickListener() {
@@ -82,7 +82,6 @@ public class ProcessDetailHeadView extends FrameLayout {
                 }
             }
         });
-
 
         this.mViewPager = (ViewPager) findViewById(R.id.process_viewpager);
         this.mProcessDetailHeadStateView = (ProcessDetailHeadStateView) findViewById(R.id.process_headstateview);
@@ -137,7 +136,7 @@ public class ProcessDetailHeadView extends FrameLayout {
         mViewPager.addOnPageChangeListener(onPageScrollListener);
     }
 
-    public void setCurrentItem(int pos){
+    public void setCurrentItem(int pos) {
         mViewPager.setCurrentItem(pos);
         sectionViewPageAdapter.notifyDataSetChanged();
     }
@@ -179,7 +178,7 @@ public class ProcessDetailHeadView extends FrameLayout {
     }
 
     public void changeProcessStateShow(ProcessSection processSection, boolean isResetCheckHead) {
-        mProcessDetailHeadStateView.changeCheckLayoutState(processSection);
+        mProcessDetailHeadStateView.changeCheckLayoutState(processSection, isResetCheckHead);
         changeCheckHead(processSection, isResetCheckHead);
     }
 
@@ -187,7 +186,6 @@ public class ProcessDetailHeadView extends FrameLayout {
         if (processSection.getName().equals("kai_gong")
                 || processSection.getName().equals("chai_gai")) {
             indicatorImage.setVisibility(GONE);
-
             if (isCheckShow) {
                 hideCheckHead();
                 isCheckShow = false;
@@ -195,11 +193,6 @@ public class ProcessDetailHeadView extends FrameLayout {
             LogTool.d(TAG, "dismiss head");
         } else {
             indicatorImage.setVisibility(VISIBLE);
-
-            if(!isResetCheckHead){
-                isResetCheckHead = isResetCheckHead(processSection, isResetCheckHead);
-            }
-
             if (isResetCheckHead) {
                 openCheckLayout();
             }
@@ -209,19 +202,6 @@ public class ProcessDetailHeadView extends FrameLayout {
                 isCheckShow = true;
             }
         }
-    }
-
-    private boolean isResetCheckHead(ProcessSection processSection, boolean isResetCheckHead) {
-        int finishCount = 0;
-        for (ProcessSectionItem processSectionItem : processSection.getItems()) {
-            if (processSectionItem.getStatus().equals(Constant.FINISHED)) {
-                finishCount++;
-            }
-        }
-        if (finishCount == processSection.getItems().size() - 1) {
-            isResetCheckHead = true;
-        }
-        return isResetCheckHead;
     }
 
     private void openAnimate() {
@@ -368,7 +348,6 @@ public class ProcessDetailHeadView extends FrameLayout {
         });
         valueAnimator.start();
     }
-
 
 
 }

@@ -351,6 +351,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
             toolbar_collect.setSelected(false);
+            makeTextShort(getString(R.string.str_cancel_collect_success));
             EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_PRODUCT_FRAGMENT));
         }
 
