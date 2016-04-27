@@ -132,7 +132,8 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     }
 
     private void showPopwindow() {
-        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject.getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
+        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject
+                .getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
 
@@ -148,7 +149,9 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     private String getUrlFromIntent() {
         Intent intent = this.getIntent();
         String url = intent.getStringExtra(Global.WEB_VIEW_URL);
-        LogTool.d(TAG, url);
+        if (!TextUtils.isEmpty(url)) {
+            LogTool.d(TAG, url);
+        }
         return url;
     }
 

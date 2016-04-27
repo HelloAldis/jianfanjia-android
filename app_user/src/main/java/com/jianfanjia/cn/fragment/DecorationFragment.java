@@ -26,7 +26,7 @@ import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectBeautyImageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
@@ -37,12 +37,12 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
@@ -252,7 +252,8 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                                 BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
-                                                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID, beautyImgInfo.get_id
+                                                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID,
+                                                        beautyImgInfo.get_id
                                                         ());
                                                 decorationBundle.putInt(IntentConstant.POSITION, position);
                                                 decorationBundle.putSerializable(IntentConstant.IMG_LIST,
@@ -262,7 +263,8 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                                 decorationBundle.putString(IntentConstant.HOUSE_STYLE, houseStyle);
                                                 decorationBundle.putString(IntentConstant.DEC_STYLE, decStyle);
                                                 decorationBundle.putInt(IntentConstant.TOTAL_COUNT, total);
-                                                decorationBundle.putInt(IntentConstant.VIEW_TYPE, IntentConstant.BEAUTY_FRAGMENT);
+                                                decorationBundle.putInt(IntentConstant.VIEW_TYPE, IntentConstant
+                                                        .BEAUTY_FRAGMENT);
                                                 startActivity(PreviewDecorationActivity.class, decorationBundle);
                                             }
                                         });
@@ -458,23 +460,16 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
         }
     };
 
-    public void onEventMainThread(MessageEvent event) {
-        LogTool.d(TAG, "event=" + event.getEventType());
-        switch (event.getEventType()) {
-            case Constant.UPDATE_BEAUTY_IMG_FRAGMENT:
-                notifyChangeItemState(true);
-                break;
-            case Constant.UPDATE_BEAUTY_FRAGMENT:
-                notifyChangeItemState(false);
-                break;
-            default:
-                break;
-        }
+    public void onEventMainThread(CollectBeautyImageEvent collectBeautyImageEvent) {
+        notifyChangeItemState(collectBeautyImageEvent.getImageid(), collectBeautyImageEvent.isCollect());
     }
 
-    private void notifyChangeItemState(boolean isSelect) {
-        BeautifulImage beautyImgInfo = decorationAdapter.getBeautyImgList().get(currentPos);
-        beautyImgInfo.setIs_my_favorite(isSelect);
+    private void notifyChangeItemState(String imageid, boolean isCollect) {
+        for (BeautifulImage beautyImgInfo : decorationAdapter.getBeautyImgList()) {
+            if (beautyImgInfo.equals(imageid)) {
+                beautyImgInfo.setIs_my_favorite(isCollect);
+            }
+        }
         decorationAdapter.notifyDataSetChanged();
     }
 

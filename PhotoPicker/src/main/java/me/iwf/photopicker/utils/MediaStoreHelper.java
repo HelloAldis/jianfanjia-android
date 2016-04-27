@@ -60,6 +60,8 @@ public class MediaStoreHelper {
         String name = data.getString(data.getColumnIndexOrThrow(BUCKET_DISPLAY_NAME));
         String path = data.getString(data.getColumnIndexOrThrow(DATA));
 
+        if(path.contains(" ")) continue;//因为imageloader无法加载带空格的图片文件，所以先把这种文件过滤掉
+
         PhotoDirectory photoDirectory = new PhotoDirectory();
         photoDirectory.setId(bucketId);
         photoDirectory.setName(name);

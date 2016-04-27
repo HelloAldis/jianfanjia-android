@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -38,9 +40,6 @@ import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -117,14 +116,16 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
     private void initView() {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
-        messageid = planBundle.getString(IntentConstant.MSG_ID);
-        LogTool.d(TAG, "messageid=" + messageid);
+        if (planBundle != null) {
+            messageid = planBundle.getString(IntentConstant.MSG_ID);
+            getNoticeDetailInfo(messageid);
+            LogTool.d(TAG, "messageid=" + messageid);
+        }
         initMainHeadView();
         contentView.getSettings().setJavaScriptEnabled(true);
         contentView.setBackgroundColor(0); // 设置背景色
         contentView.setWebChromeClient(new WebChromeClient());
 
-        getNoticeDetailInfo(messageid);
     }
 
     private void initMainHeadView() {

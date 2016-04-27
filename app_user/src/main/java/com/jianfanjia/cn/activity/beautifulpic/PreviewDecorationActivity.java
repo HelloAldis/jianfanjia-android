@@ -28,7 +28,7 @@ import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectBeautyImageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.PreImgPagerAdapter;
 import com.jianfanjia.cn.api.Api;
@@ -331,7 +331,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
             makeTextShort(getString(R.string.str_collect_success));
             toolbarCollect.setSelected(true);
             notifyChangeState(true);
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_IMG_FRAGMENT));
+            postCollectEvent(true);
         }
 
         @Override
@@ -361,7 +361,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
             makeTextShort(getString(R.string.str_cancel_collect_success));
             toolbarCollect.setSelected(false);
             notifyChangeState(false);
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_BEAUTY_FRAGMENT));
+            postCollectEvent(false);
         }
 
         @Override
@@ -374,6 +374,13 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
         }
     };
+
+    private void postCollectEvent(boolean isCollect){
+        CollectBeautyImageEvent collectBeautyImageEvent = new CollectBeautyImageEvent();
+        collectBeautyImageEvent.setImageid(beautyImageId);
+        collectBeautyImageEvent.setIsCollect(isCollect);
+        EventBus.getDefault().post(collectBeautyImageEvent);
+    }
 
     private void notifyChangeState(boolean isSelect) {
         BeautifulImage BeautifulImage = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);

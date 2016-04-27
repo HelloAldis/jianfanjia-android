@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,7 +120,6 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         designerid = bundle.getString(IntentConstant.DESIGNER_ID);
-        LogTool.d(TAG, "designerid=" + designerid);
     }
 
     @Override
@@ -147,6 +147,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
     }
 
     private void getDesignerPageInfo(String designerid) {
+        if(TextUtils.isEmpty(designerid)) return;
         DesignerHomePageRequest request = new DesignerHomePageRequest();
         request.set_id(designerid);
         Api.getDesignerHomePage(request, new ApiCallback<ApiResponse<Designer>>() {

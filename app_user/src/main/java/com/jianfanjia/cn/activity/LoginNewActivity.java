@@ -65,7 +65,9 @@ public class LoginNewActivity extends BaseActivity {
     private void initView() {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        currentFragment = bundle.getInt(IntentConstant.LOGIN_REGIISTER_TYPE);
+        if(bundle != null){
+            currentFragment = bundle.getInt(IntentConstant.LOGIN_REGIISTER_TYPE,0);
+        }
         LogTool.d(TAG, "currentFragment=" + currentFragment);
         viewPagerIndicator.setTabItemTitles(Arrays.asList(tabTitles));
         fragmentList.add(new LoginFragment());

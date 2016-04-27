@@ -107,9 +107,22 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             String requirementStatus = requirementInfo.getStatus();
             String workType = requirementInfo.getWork_type();
             if (workType.equals(Global.PURE_DESIGNER)) {
-                ltm_req_gotopro_layout.setVisibility(View.GONE);
+                if(requirementStatus.equals(Global.REQUIREMENT_STATUS0)){
+                    ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
+                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_order));
+                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOODERDESI);
+                        }
+                    });
+                }else{
+                    ltm_req_gotopro_layout.setVisibility(View.GONE);
+                }
             } else {
                 ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
+                setNewActionText(context, requirementInfo.getOrder_designers(), requirementStatus, clickCallBack, position);
             }
 
             if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
@@ -211,7 +224,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();
-                setNewActionText(context, orderDesignerInfos, requirementStatus, clickCallBack, position);
                 for (int i = 0; i < Constant.REC_DESIGNER_TOTAL; i++) {
                     RelativeLayout designerLayout = (RelativeLayout) getRootView().findViewById(context.getResources()
                             .getIdentifier("ltm_req_designer_layout" + i, "id", context.getPackageName()));

@@ -64,6 +64,7 @@
             android:layout_marginLeft="33dp"
             android:cacheColorHint="#ffffff"
             android:clipToPadding="false"
+            android:layout_marginTop="@dimen/space_8"
             android:divider="@null"
             android:fadingEdge="none"
             android:fastScrollEnabled="false"

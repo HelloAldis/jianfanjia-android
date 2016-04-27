@@ -10,10 +10,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
@@ -21,10 +23,6 @@ import com.jianfanjia.cn.fragment.SearchDecorationImgFragment;
 import com.jianfanjia.cn.fragment.SearchDesignerFragment;
 import com.jianfanjia.cn.fragment.SearchProductFragment;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description: com.jianfanjia.cn.activity.home
@@ -54,14 +52,13 @@ public class SearchActivity extends BaseSwipeBackActivity {
     @Bind(R.id.tab_rg_menu)
     protected RadioGroup radioGroup;
 
-    @Bind(R.id.tab_rb_1)
-    protected RadioButton radioButton;
-
     private SearchDecorationImgFragment searchDecorationImgFragment;
     private SearchDesignerFragment searchDesignerFragment;
     private SearchProductFragment searchProductFragment;
 
     private String search;
+
+    private int currentTab = DESIGNER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +76,15 @@ public class SearchActivity extends BaseSwipeBackActivity {
                 switch (checkedId) {
                     case R.id.tab_rb_1:
                         setTabSelection(DESIGNER);
+                        currentTab = DESIGNER;
                         break;
                     case R.id.tab_rb_2:
                         setTabSelection(PRODUCTCASE);
+                        currentTab = PRODUCTCASE;
                         break;
                     case R.id.tab_rb_3:
                         setTabSelection(BEAUTYIMAGE);
+                        currentTab = BEAUTYIMAGE;
                         break;
                     default:
                         break;
@@ -101,8 +101,18 @@ public class SearchActivity extends BaseSwipeBackActivity {
                     if (!TextUtils.isEmpty(search = searchText.getEditableText().toString())) {
                         contentLayout.setVisibility(View.VISIBLE);
                         resetView();
-                        radioGroup.check(R.id.tab_rb_1);
-                        setTabSelection(DESIGNER);
+                        switch (currentTab){
+                            case DESIGNER:
+                                radioGroup.check(R.id.tab_rb_1);
+                                break;
+                            case PRODUCTCASE:
+                                radioGroup.check(R.id.tab_rb_2);
+                                break;
+                            case BEAUTYIMAGE:
+                                radioGroup.check(R.id.tab_rb_3);
+                                break;
+                        }
+                        setTabSelection(currentTab);
 //                        radioButton.setChecked(true);
                         hideSoftKeyBoard();
                     }

@@ -1,6 +1,7 @@
 package me.iwf.photopicker.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.entity.Photo;
 import me.iwf.photopicker.entity.PhotoDirectory;
@@ -139,7 +142,28 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 //                    });
 
             ImageLoader.getInstance().displayImage(Uri.fromFile(new File(photo.getPath())).toString(), holder
-                    .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true));
+                    .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new ImageLoadingListener() {
+
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    holder.vSelected.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    holder.vSelected.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+
+                }
+            });
 
 //            Glide.with(mContext)
 //                    .load(new File(photo.getPath()))

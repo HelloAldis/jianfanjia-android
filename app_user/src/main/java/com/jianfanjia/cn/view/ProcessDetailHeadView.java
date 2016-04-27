@@ -3,6 +3,8 @@ package com.jianfanjia.cn.view;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -347,6 +349,36 @@ public class ProcessDetailHeadView extends FrameLayout {
             }
         });
         valueAnimator.start();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        // 新建一个Bundle
+        Bundle bundle = new Bundle();
+        // 保存view基本的状态，调用父类方法即可
+        bundle.putParcelable("instanceState", super.onSaveInstanceState());
+        // 保存我们自己的数据
+        bundle.putBoolean("currentIsOpen", this.isOpen);
+        bundle.putBoolean("currentIsCheckShow", this.isCheckShow);
+        // 当然还可以继续保存其他数据
+        // 返回bundle对象
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        // 判断该对象是否是我们保存的
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            // 把我们自己的数据恢复
+            this.isOpen = bundle.getBoolean("currentIsOpen");
+            this.isCheckShow = bundle.getBoolean("currentIsCheckShow");
+            // 可以继续恢复之前的其他数据
+            // 恢复view的基本状态
+            state = bundle.getParcelable("instanceState");
+        }
+        // 如果不是我们保存的对象，则直接调用父类的方法进行恢复
+        super.onRestoreInstanceState(state);
     }
 
 

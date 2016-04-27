@@ -93,7 +93,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         this.setListener();
     }
 
-    private void initSwipeBack(){
+    private void initSwipeBack() {
         swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
         swipeBackLayout.setScrollChild(designer_case_listview);
     }
@@ -109,9 +109,11 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
     private void getDataFromIntent(Intent intent) {
         Bundle productBundle = intent.getExtras();
-        productid = productBundle.getString(IntentConstant.PRODUCT_ID);
-        LogTool.d(TAG, "productid=" + productid);
-        getProductHomePageInfo(productid);
+        if (productBundle != null) {
+            productid = productBundle.getString(IntentConstant.PRODUCT_ID);
+            LogTool.d(TAG, "productid=" + productid);
+            getProductHomePageInfo(productid);
+        }
     }
 
     @Override

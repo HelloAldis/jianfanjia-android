@@ -97,10 +97,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:background="@color/font_white"
-            android:paddingBottom="@dimen/space_10"
+            android:paddingBottom="@dimen/space_12"
             android:paddingLeft="@dimen/space_15"
             android:paddingRight="@dimen/space_15"
-            android:paddingTop="@dimen/space_10"
+            android:paddingTop="@dimen/space_12"
             android:src="@mipmap/icon_row_up"/>
 
         <ImageView

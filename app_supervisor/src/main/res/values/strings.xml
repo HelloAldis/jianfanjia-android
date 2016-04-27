@@ -315,4 +315,5 @@
     <string name="follow_weibo">关注官方微博</string>
     <string name="follow_weixin_success">微信号已复制成功，请在微信搜索并关注简繁家</string>
     <string name="jianfanjia_weixin">jianfanjia</string>
+    <string name="me">我</string>
 </resources>

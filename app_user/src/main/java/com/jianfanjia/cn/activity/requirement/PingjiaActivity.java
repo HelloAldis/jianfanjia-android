@@ -69,26 +69,29 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getDataFromIntent();
-        initView();
+        initMainHeadView();
     }
 
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle commentBundle = intent.getExtras();
-        imageid = commentBundle.getString(IntentConstant.IMAGE_ID);
-        designer_name = commentBundle.getString(IntentConstant.DESIGNER_NAME);
-        requirementid = commentBundle.getString(IntentConstant.REQUIREMENT_ID);
-        designerid = commentBundle.getString(IntentConstant.DESIGNER_ID);
-        speed = commentBundle.getFloat(IntentConstant.SPEED);
-        attitude = commentBundle.getFloat(IntentConstant.ATTITUDE);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" + requirementid +
-                " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
+        if (commentBundle != null) {
+            imageid = commentBundle.getString(IntentConstant.IMAGE_ID);
+            designer_name = commentBundle.getString(IntentConstant.DESIGNER_NAME);
+            requirementid = commentBundle.getString(IntentConstant.REQUIREMENT_ID);
+            designerid = commentBundle.getString(IntentConstant.DESIGNER_ID);
+            speed = commentBundle.getFloat(IntentConstant.SPEED);
+            attitude = commentBundle.getFloat(IntentConstant.ATTITUDE);
+            LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" +
+                    requirementid +
+                    " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
+
+            initView();
+        }
     }
 
     public void initView() {
-        initMainHeadView();
-        mScrollView.smoothScrollTo(0,0);//防止一开始就滚动到底部了
-
+        mScrollView.smoothScrollTo(0, 0);//防止一开始就滚动到底部了
 
         bar.setRating((int) (speed + attitude) / 2);
         if (!TextUtils.isEmpty(imageid)) {

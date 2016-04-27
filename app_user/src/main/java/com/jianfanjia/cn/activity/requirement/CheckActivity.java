@@ -10,6 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -35,12 +40,6 @@ import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -78,8 +77,6 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getDataFromIntent();
-        initView();
-        initData();
     }
 
     public void initView() {
@@ -108,6 +105,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId + " flagIntent:" + flagIntent);
             sectionInfo = (ProcessSection) bundle.getSerializable(Constant.SECTION_INFO);
+
+            initView();
+            initData();
         }
     }
 

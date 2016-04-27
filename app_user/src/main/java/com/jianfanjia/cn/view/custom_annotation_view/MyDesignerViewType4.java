@@ -128,8 +128,9 @@ public class MyDesignerViewType4 extends RecyclerView.ViewHolder {
                 }
             });
         }
+        button1.setTextColor(context.getResources().getColor(R.color.light_black_color));
         button2.setText(context.getResources().getString(R.string.str_view_plan));
-        button2.setTextColor(context.getResources().getColor(R.color.orange_color));
+        button2.setTextColor(context.getResources().getColor(R.color.light_black_color));
         merger_button2_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

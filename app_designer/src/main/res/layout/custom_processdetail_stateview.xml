@@ -85,18 +85,25 @@
             android:id="@+id/rowBtnUpLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:background="@color/font_white"
-            android:paddingBottom="@dimen/space_10"
-            android:paddingLeft="@dimen/space_15"
-            android:paddingRight="@dimen/space_15"
-            android:paddingTop="@dimen/space_10">
+            >
 
-            <ImageView
-                android:id="@+id/rowBtnUp"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_row_up"/>
+                android:background="@color/font_white"
+                android:layout_marginLeft="25dp"
+                android:paddingBottom="@dimen/space_12"
+                android:paddingLeft="@dimen/space_15"
+                android:paddingRight="@dimen/space_15"
+                android:paddingTop="@dimen/space_12">
+
+                <ImageView
+                    android:id="@+id/rowBtnUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_row_up"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

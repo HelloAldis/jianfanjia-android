@@ -15,6 +15,12 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -48,13 +54,6 @@ import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author fengliang
@@ -98,8 +97,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getDataFromIntent();
-        initView();
-        initData();
+
     }
 
     private void getDataFromIntent() {
@@ -112,6 +110,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId);
             processSection = BusinessCovertUtil.getSectionInfoByName(processInfo.getSections(), sectionName);
+
+            initView();
+            initData();
         }
     }
 

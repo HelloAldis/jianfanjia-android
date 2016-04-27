@@ -208,21 +208,13 @@ public class UiHelper {
      */
     public static void setLayoutAnim(Context context, ViewGroup viewGroup) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
-
         //得到一个LayoutAnimationController对象；
-
         LayoutAnimationController lac = new LayoutAnimationController(animation);
-
         //设置控件显示的顺序；
-
         lac.setOrder(LayoutAnimationController.ORDER_NORMAL);
-
         //设置控件显示间隔时间；
-
         lac.setDelay(0.1f);
-
         //为ListView设置LayoutAnimationController属性；
-
         viewGroup.setLayoutAnimation(lac);
     }
 

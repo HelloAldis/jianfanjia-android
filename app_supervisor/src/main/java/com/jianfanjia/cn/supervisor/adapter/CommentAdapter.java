@@ -42,14 +42,17 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
         String userName = "";
         if (userType.equals(Constant.IDENTITY_OWNER)) {
             holder.itemIdentityView.setText(context.getString(R.string.ower));
+            holder.itemIdentityView.setTextColor(context.getResources().getColor(R.color.orange_color));
             imageid = commentInfo.getByUser().getImageid();
             userName = commentInfo.getByUser().getUsername();
         } else if(userType.equals(Constant.IDENTITY_DESIGNER)){
             holder.itemIdentityView.setText(context.getString(R.string.designer));
+            holder.itemIdentityView.setTextColor(context.getResources().getColor(R.color.blue_color));
             imageid = commentInfo.getByDesigner().getImageid();
             userName = commentInfo.getByDesigner().getUsername();
         } else if(userType.equals(Constant.IDENTITY_SUPERVISOR)){
-            holder.itemIdentityView.setText(context.getString(R.string.supervisor));
+            holder.itemIdentityView.setText(context.getString(R.string.me));
+            holder.itemIdentityView.setTextColor(context.getResources().getColor(R.color.green_color));
             imageid = commentInfo.getBySupervisor().getImageid();
             userName = commentInfo.getBySupervisor().getUsername();
         }
