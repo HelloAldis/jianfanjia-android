@@ -51,10 +51,14 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
             imageid = commentInfo.getByDesigner().getImageid();
             userName = commentInfo.getByDesigner().getUsername();
         } else if(userType.equals(Constant.IDENTITY_SUPERVISOR)){
-            holder.itemIdentityView.setText(context.getString(R.string.me));
+            userName = commentInfo.getBySupervisor().getUsername();
+            if(userName.equals(dataManagerNew.getUserName())){
+                holder.itemIdentityView.setText(context.getString(R.string.me));
+            }else{
+                holder.itemIdentityView.setText(context.getString(R.string.supervisor));
+            }
             holder.itemIdentityView.setTextColor(context.getResources().getColor(R.color.green_color));
             imageid = commentInfo.getBySupervisor().getImageid();
-            userName = commentInfo.getBySupervisor().getUsername();
         }
         holder.itemNameView.setText(userName);
         holder.itemTimeView.setText(DateFormatTool.toLocalTimeString(commentInfo.getDate()));
