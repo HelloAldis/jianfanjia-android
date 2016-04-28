@@ -187,6 +187,7 @@
                     android:layout_gravity="center_horizontal"
                     android:calendarViewShown="false"
                     android:spinnersShown="true"
+                    android:datePickerMode="spinner"
                     />
 
                 <View style="@style/divier_line"/>
