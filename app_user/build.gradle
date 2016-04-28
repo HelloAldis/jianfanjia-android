@@ -76,16 +76,16 @@ android {
     productFlavors {
         Default {
         }
-//        zhushou_360 {
-//        }
-//        mi {
-//        }
-//        baidu {
-//        }
-//        yingyongbao {
-//        }
-//        huawei {
-//        }
+     /*   zhushou_360 {
+        }
+        mi {
+        }
+        baidu {
+        }
+        yingyongbao {
+        }
+        huawei {
+        }*/
     }
 
     productFlavors.all { flavor ->
