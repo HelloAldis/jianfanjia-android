@@ -182,8 +182,8 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                overridePendingTransition(0,R.anim.slide_out_to_bottom);
                 appManager.finishActivity(SettingContractActivity.class);
+                overridePendingTransition(0,R.anim.slide_out_to_bottom);
                 EventBus.getDefault().post(new UpdateEvent(null));
             }
 

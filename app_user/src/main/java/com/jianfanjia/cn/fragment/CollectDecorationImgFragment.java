@@ -22,7 +22,7 @@ import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectBeautyImageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.beautifulpic.PreviewDecorationActivity;
 import com.jianfanjia.cn.adapter.DecorationAdapter;
@@ -31,9 +31,9 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
@@ -191,7 +191,8 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                                 BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
-                                                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID, beautyImgInfo.get_id
+                                                decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID,
+                                                        beautyImgInfo.get_id
                                                         ());
                                                 decorationBundle.putInt(IntentConstant.POSITION, position);
                                                 decorationBundle.putSerializable(IntentConstant.IMG_LIST,
@@ -276,19 +277,28 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
             };
 
-    public void onEventMainThread(MessageEvent event) {
-        LogTool.d(TAG, "event=" + event.getEventType());
-        switch (event.getEventType()) {
-            case Constant.UPDATE_BEAUTY_FRAGMENT:
-                decorationImgAdapter.remove(currentPos);
-                total = beautyImgList.size();
-                if (total == 0) {
-                    decoration_img_listview.setVisibility(View.GONE);
-                    emptyLayout.setVisibility(View.VISIBLE);
-                }
-                break;
-            default:
-                break;
+    public void onEventMainThread(CollectBeautyImageEvent collectBeautyImageEvent) {
+        notifyChangeItemState(collectBeautyImageEvent.getImageid(), collectBeautyImageEvent.isCollect());
+    }
+
+    private void notifyChangeItemState(String imageid, boolean isCollect) {
+        if (isCollect) return; //如果是收藏，则此处直接返回
+        int removePos = -1;
+        BeautifulImage beautyImgInfo = null;
+        for (int i = 0; i < beautyImgList.size(); i++) {
+            beautyImgInfo = beautyImgList.get(i);
+            if (beautyImgInfo.get_id().equals(imageid)) {
+                removePos = i;
+            }
+        }
+        LogTool.d("notifyChangeItemState",removePos + "");
+        if (removePos != -1) {
+            decorationImgAdapter.remove(removePos);
+            total = beautyImgList.size();
+            if (total == 0) {
+                decoration_img_listview.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

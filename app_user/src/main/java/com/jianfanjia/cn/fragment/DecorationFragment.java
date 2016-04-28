@@ -466,7 +466,8 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
     private void notifyChangeItemState(String imageid, boolean isCollect) {
         for (BeautifulImage beautyImgInfo : decorationAdapter.getBeautyImgList()) {
-            if (beautyImgInfo.equals(imageid)) {
+            if (beautyImgInfo.get_id().equals(imageid)) {
+                LogTool.d("notifyChangeItemState","isCollect = " + isCollect );
                 beautyImgInfo.setIs_my_favorite(isCollect);
             }
         }
