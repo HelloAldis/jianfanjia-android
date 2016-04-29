@@ -18,7 +18,6 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.common.tool.DateFormatTool;
 
 /**
@@ -92,7 +91,7 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
             measureLayout.setVisibility(View.VISIBLE);
             notifyLayout.setVisibility(View.GONE);
             if (measureTime != 0l) {
-                measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
+                measureTimeView.setText(DateFormatTool.longToStringHasMini(measureTime));
             }
         }
         String imageId = requirementInfo.getUser().getImageid();

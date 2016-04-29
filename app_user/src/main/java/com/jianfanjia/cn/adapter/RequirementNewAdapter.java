@@ -26,7 +26,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.XuQiuFragment;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 /**
  * Description: com.jianfanjia.cn.base.base
@@ -94,8 +94,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             if (!TextUtils.isEmpty(cellPhase)) {
                 ltm_req_cell.setText(cellPhase);
             }
-            ltm_req_starttime_cont.setText(StringUtils.covertLongToString(requirementInfo.getCreate_at()));
-            ltm_req_updatetime_cont.setText(StringUtils.covertLongToString(requirementInfo.getLast_status_update_time
+            ltm_req_starttime_cont.setText(DateFormatTool.longToString(requirementInfo.getCreate_at()));
+            ltm_req_updatetime_cont.setText(DateFormatTool.longToString(requirementInfo.getLast_status_update_time
                     ()));
             DataManagerNew dataManagerNew = DataManagerNew.getInstance();
             if (!dataManagerNew.getUserImagePath().contains(Constant.DEFALUT_PIC_HEAD)) {

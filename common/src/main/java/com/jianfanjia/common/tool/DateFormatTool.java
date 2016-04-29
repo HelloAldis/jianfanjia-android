@@ -43,13 +43,23 @@ public class DateFormatTool {
         return 0L;
     }
 
-    public static String toLocalTimeString(long time) {
+    public static String longToStringHasMini(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return sdf.format(time);
     }
 
     public static String longToString(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(time);
+    }
+
+    public static String covertLongToStringHasChinese(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        return sdf.format(time);
+    }
+
+    public static String covertLongToStringHasMiniAndChinese(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
         return sdf.format(time);
     }
 

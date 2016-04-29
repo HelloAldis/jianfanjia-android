@@ -1,10 +1,5 @@
 package com.jianfanjia.cn.tools;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.common.tool.LogTool;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +11,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.tools

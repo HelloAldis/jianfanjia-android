@@ -14,18 +14,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.ProcessSectionItem;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.ItemClickCallBack;
-import com.jianfanjia.cn.tools.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.ProcessSection;
+import com.jianfanjia.api.model.ProcessSectionItem;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.ItemClickCallBack;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
@@ -188,8 +187,7 @@ public class SectionItemAdapter extends BaseAdapter {
         // 设置最新动态的时间
         long date = sectionItemInfo.getDate();
         if (date != 0L) {
-            viewHolder.openUploadTime.setText(StringUtils
-                    .covertLongToString(date));
+            viewHolder.openUploadTime.setText(DateFormatTool.longToString(date));
         } else {
             viewHolder.openUploadTime.setText("");
         }

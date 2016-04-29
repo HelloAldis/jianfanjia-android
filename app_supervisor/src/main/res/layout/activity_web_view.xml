@@ -7,13 +7,13 @@
               android:orientation="vertical">
 
 
-    <com.jianfanjia.cn.supervisor.view.MainHeadView
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/my_contract_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg"/>
 
-    <com.jianfanjia.cn.supervisor.view.ProgressWebView
+    <com.jianfanjia.cn.view.ProgressWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -20,7 +20,7 @@
         android:paddingRight="@dimen/space_26"
         android:paddingTop="@dimen/space_16">
 
-        <com.jianfanjia.cn.supervisor.view.layout.CircleImageView
+        <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/ltm_req_owner_head"
             android:layout_width="60dp"
             android:layout_height="60dp"

@@ -16,10 +16,11 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Global;
-import com.jianfanjia.cn.supervisor.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.supervisor.tools.StringUtils;
-import com.jianfanjia.cn.supervisor.view.SwipeBackLayout;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.view.SwipeBackLayout;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.designer.activity
@@ -119,7 +120,7 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
     }
 
     protected void updateTitle(Calendar calendar) {
-        titleTimeView.setText(StringUtils.covertLongToStringHasChinese(calendar.getTimeInMillis()));
+        titleTimeView.setText(DateFormatTool.covertLongToStringHasChinese(calendar.getTimeInMillis()));
     }
 
     @OnClick({R.id.head_back_layout})

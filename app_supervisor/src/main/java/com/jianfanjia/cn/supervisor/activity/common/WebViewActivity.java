@@ -14,9 +14,9 @@ import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.config.Url_New;
-import com.jianfanjia.cn.supervisor.tools.JavaScriptObject;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
-import com.jianfanjia.cn.supervisor.view.ProgressWebView;
+import com.jianfanjia.cn.tools.JavaScriptObject;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.ProgressWebView;
 import com.jianfanjia.common.tool.LogTool;
 
 

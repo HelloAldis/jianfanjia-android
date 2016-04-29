@@ -22,7 +22,7 @@ import com.jianfanjia.cn.designer.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.interf.OnItemClickListener;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -68,8 +68,8 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
             holder.itemNodeView.setText(itemNode + "阶段");
 
         }
-        holder.itemPubTimeView.setText(StringUtils.covertLongToString(process.getStart_at()));
-        holder.itemUpdateTimeView.setText(StringUtils.covertLongToString(process.getLastupdate()));
+        holder.itemPubTimeView.setText(DateFormatTool.longToString(process.getStart_at()));
+        holder.itemUpdateTimeView.setText(DateFormatTool.longToString(process.getLastupdate()));
         LogTool.d(TAG, "processIndex=" + processIndex);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
