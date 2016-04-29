@@ -12,7 +12,7 @@ import java.util.List;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.supervisor.tools.ImageShow;
+import com.jianfanjia.cn.tools.ImageShow;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 

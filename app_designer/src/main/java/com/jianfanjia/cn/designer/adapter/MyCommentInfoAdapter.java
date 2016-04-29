@@ -27,7 +27,7 @@ import com.jianfanjia.cn.designer.business.ProcessBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -120,7 +120,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
         holder.numText.setText(userMessage.getPlan().getName());
 
         //评论时间
-        holder.dateText.setText(StringUtils.covertLongToStringHasMini(userMessage.getCreate_at()));
+        holder.dateText.setText(DateFormatTool.longToStringHasMini(userMessage.getCreate_at()));
         //评论内容
         holder.contentText.setText(userMessage.getContent());
 
@@ -197,7 +197,7 @@ public class MyCommentInfoAdapter extends BaseRecycleAdapter<UserMessage> {
         }
 
         //评论时间
-        holder.dateText.setText(StringUtils.covertLongToStringHasMini(userMessage.getCreate_at()));
+        holder.dateText.setText(DateFormatTool.longToStringHasMini(userMessage.getCreate_at()));
         //评论内容
         holder.contentText.setText(userMessage.getContent());
 

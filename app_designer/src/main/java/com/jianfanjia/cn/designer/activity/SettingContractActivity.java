@@ -24,8 +24,9 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.StringUtils;
 import com.jianfanjia.cn.designer.view.SwipeBackLayout;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -147,7 +148,7 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
     }
 
     protected void updateTitle(Calendar calendar) {
-        titleTimeView.setText(StringUtils.covertLongToStringHasChinese(calendar.getTimeInMillis()));
+        titleTimeView.setText(DateFormatTool.covertLongToStringHasChinese(calendar.getTimeInMillis()));
     }
 
     @OnClick({R.id.head_back_layout, R.id.btn_confirm})
@@ -159,7 +160,7 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.btn_confirm:
                 long startTime = chooseCalendar.getTimeInMillis();
-                LogTool.d(this.getClass().getName(), StringUtils.covertLongToStringHasMini(startTime));
+                LogTool.d(this.getClass().getName(), DateFormatTool.longToStringHasMini(startTime));
                 configStartTime(requirementid, startTime);
                 break;
         }

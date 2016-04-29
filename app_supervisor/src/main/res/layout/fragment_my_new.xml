@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.jianfanjia.cn.fragment.MyFragment">
 
-    <com.jianfanjia.cn.supervisor.view.PullZoomScrollView
+    <com.jianfanjia.cn.view.PullZoomScrollView
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
 
-                    <com.jianfanjia.cn.supervisor.view.layout.CircleImageView
+                    <com.jianfanjia.cn.view.layout.CircleImageView
                         android:id="@+id/user_head_img"
                         android:layout_width="90dip"
                         android:layout_height="90dip"
@@ -150,5 +150,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </com.jianfanjia.cn.supervisor.view.PullZoomScrollView>
+    </com.jianfanjia.cn.view.PullZoomScrollView>
 </FrameLayout>

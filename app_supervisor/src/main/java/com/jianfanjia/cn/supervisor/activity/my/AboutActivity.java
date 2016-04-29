@@ -10,8 +10,8 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.application.MyApplication;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description:关于

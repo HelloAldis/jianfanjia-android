@@ -8,17 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.DecorateLive;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.StringUtils;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.DecorateLive;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.OnItemClickListener;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -54,7 +53,7 @@ public class DecorateLiveAdapter extends BaseLoadMoreRecycleAdapter<DecorateLive
         }
 
         viewHolder.cellName.setText(decorateLiveInfo.getCell());
-        viewHolder.updateDate.setText(context.getString(R.string.live_date) + StringUtils.covertLongToString
+        viewHolder.updateDate.setText(context.getString(R.string.live_date) + DateFormatTool.longToString
                 (decorateLiveInfo.getCreate_at()));
 
         StringBuffer sb = new StringBuffer();

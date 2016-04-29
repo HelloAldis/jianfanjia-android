@@ -17,6 +17,7 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.StringUtils;
 
 public class BusinessCovertUtil {
 

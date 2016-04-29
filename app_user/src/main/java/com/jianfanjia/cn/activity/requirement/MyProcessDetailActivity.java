@@ -43,7 +43,6 @@ import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.tools.StringUtils;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.ProcessDetailHeadView;
@@ -335,9 +334,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        String dateStr = StringUtils
-                                .getDateString(((DateWheelDialog) dialog)
-                                        .getChooseCalendar().getTime());
+                        String dateStr = DateFormatTool.longToString(((DateWheelDialog) dialog)
+                                .getChooseCalendar().getTimeInMillis());
                         LogTool.d(TAG, "dateStr:" + dateStr);
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),

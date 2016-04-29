@@ -18,9 +18,9 @@ import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.api.Api;
 import com.jianfanjia.cn.supervisor.base.BaseActivity;
 import com.jianfanjia.cn.supervisor.config.Global;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.dialog.CommonDialog;
-import com.jianfanjia.cn.supervisor.view.dialog.DialogHelper;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 
 /**

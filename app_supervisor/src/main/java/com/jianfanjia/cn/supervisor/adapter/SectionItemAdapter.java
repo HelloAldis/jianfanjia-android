@@ -24,7 +24,7 @@ import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.interf.ItemClickCallBack;
-import com.jianfanjia.cn.supervisor.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 
 public class SectionItemAdapter extends BaseAdapter {
@@ -188,8 +188,7 @@ public class SectionItemAdapter extends BaseAdapter {
         // 设置最新动态的时间
         long date = sectionItemInfo.getDate();
         if (date != 0L) {
-            viewHolder.openUploadTime.setText(StringUtils
-                    .covertLongToString(date));
+            viewHolder.openUploadTime.setText(DateFormatTool.longToString(date));
         } else {
             viewHolder.openUploadTime.setText("");
         }

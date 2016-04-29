@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.tools

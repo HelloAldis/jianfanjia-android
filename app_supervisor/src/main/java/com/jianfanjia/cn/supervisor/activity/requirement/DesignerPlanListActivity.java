@@ -29,8 +29,8 @@ import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ItemClickListener;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 
 /**

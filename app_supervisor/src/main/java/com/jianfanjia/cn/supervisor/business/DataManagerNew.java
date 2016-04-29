@@ -12,7 +12,7 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.application.MyApplication;
 import com.jianfanjia.cn.supervisor.config.Constant;
-import com.jianfanjia.cn.supervisor.tools.SharedPrefer;
+import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.common.tool.LogTool;
 
 public class DataManagerNew {

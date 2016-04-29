@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.tools;
 
+import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
@@ -24,7 +25,7 @@ public class JavaScriptObject {
     private String imageUrl;
 
     public String getDescription() {
-        if (StringUtils.isEmpty(this.description)) {
+        if (TextUtils.isEmpty(this.description)) {
             return "我在使用 #简繁家# 的App，业内一线设计师为您量身打造房间，比传统装修便宜20%，让你一手轻松掌控装修全过程。";
         } else {
             return this.description;
@@ -32,7 +33,7 @@ public class JavaScriptObject {
     }
 
     public String getImageUrl() {
-        if (StringUtils.isEmpty(this.imageUrl)) {
+        if (TextUtils.isEmpty(this.imageUrl)) {
             return "http://www.jianfanjia.com/static/img/design/head.jpg";
         } else {
             return this.imageUrl;

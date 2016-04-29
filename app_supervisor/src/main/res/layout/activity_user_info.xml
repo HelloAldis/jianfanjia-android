@@ -5,7 +5,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/main_layout_bg">
 
-    <com.jianfanjia.cn.supervisor.view.MainHeadView
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/ownerinfo_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -40,7 +40,7 @@
                     android:text="@string/user_head"
                     android:textColor="@color/light_black_color" />
 
-                <com.jianfanjia.cn.supervisor.view.layout.CircleImageView
+                <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/head_icon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"

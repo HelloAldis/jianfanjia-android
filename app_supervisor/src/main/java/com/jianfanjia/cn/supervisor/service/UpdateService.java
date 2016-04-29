@@ -15,7 +15,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.progress.UIProgressListener;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.config.Constant;
-import com.jianfanjia.cn.supervisor.tools.DownLoadManager;
+import com.jianfanjia.cn.tools.DownLoadManager;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.ToastUtil;

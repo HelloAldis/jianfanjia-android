@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jianfanjia.cn.supervisor.view.layout.SquareLayout
+<com.jianfanjia.cn.view.layout.SquareLayout
     android:id="@+id/ll_grid_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -24,4 +24,4 @@
         android:src="@mipmap/icon_check_delete"
         android:visibility="gone"/>
 
-</com.jianfanjia.cn.supervisor.view.layout.SquareLayout>
+</com.jianfanjia.cn.view.layout.SquareLayout>

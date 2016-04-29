@@ -21,10 +21,10 @@ import com.jianfanjia.cn.supervisor.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.supervisor.application.MyApplication;
 import com.jianfanjia.cn.supervisor.base.BaseFragment;
 import com.jianfanjia.cn.supervisor.config.Constant;
-import com.jianfanjia.cn.supervisor.tools.IntentUtil;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.dialog.CommonDialog;
-import com.jianfanjia.cn.supervisor.view.dialog.DialogHelper;
+import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 

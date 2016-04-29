@@ -22,7 +22,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -120,8 +120,8 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             statusView.setText(context.getResources().getString(R.string.str_wait_measure_house));
         }
 
-        button1.setText(context.getResources().getString(R.string.measure_house_time) + "：" + StringUtils
-                .covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
+        button1.setText(context.getResources().getString(R.string.measure_house_time) + "：" + DateFormatTool.longToStringHasMini(
+                designerInfo.getPlan().getHouse_check_time()));
 
         button2.setText(context.getResources().getString(R.string.confirm_measure_house));
 

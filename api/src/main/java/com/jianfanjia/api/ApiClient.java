@@ -2,6 +2,7 @@ package com.jianfanjia.api;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -16,7 +17,6 @@ import com.jianfanjia.common.base.application.BaseApplication;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.NetTool;
-import com.jianfanjia.common.tool.StringUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.JavaNetCookieJar;
@@ -96,7 +96,7 @@ public class ApiClient {
                     logResponseBody(json);
                     ApiResponse apiResponse = getApiResponse(json, apiCallback);
 
-                    if (StringUtils.isEmpty(apiResponse.getErr_msg())) {
+                    if (TextUtils.isEmpty(apiResponse.getErr_msg())) {
                         success(baseRequest, apiCallback, apiResponse);
                     } else {
                         failed(baseRequest, apiCallback, apiResponse);
