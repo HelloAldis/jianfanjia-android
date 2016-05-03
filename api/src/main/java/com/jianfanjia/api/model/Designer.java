@@ -54,6 +54,7 @@ public class Designer extends BaseModel {
     private Plan plan;//设计师方案
     private Evaluation evaluation;
     private Requirement requirement;
+    private List<Product> products;
 
     public String get_id() {
         return _id;
@@ -413,5 +414,13 @@ public class Designer extends BaseModel {
 
     public void setRequirement(Requirement requirement) {
         this.requirement = requirement;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

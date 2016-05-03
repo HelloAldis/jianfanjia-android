@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
 
-                <com.jianfanjia.cn.view.MyViewPager
+                <com.jianfanjia.cn.view.viewpager.MyViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

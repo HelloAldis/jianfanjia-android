@@ -4,7 +4,7 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.MyViewPager
+    <com.jianfanjia.cn.view.viewpager.MyViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

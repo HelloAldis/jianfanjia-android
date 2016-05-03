@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.view.viewpager;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

@@ -397,4 +397,7 @@
     <string name="tip_confirm_measure">您的量房时间还未到，是否需要确认量房？</string>
     <string name="str_cancel_collect_success">取消收藏成功</string>
     <string name="me">我</string>
+    <string name="high_point">匠心定制</string>
+    <string name="immediately_appoint">立即预约</string>
+    <string name="appoint_high_point_title">您可立即预约1名大咖设计师</string>
 </resources>

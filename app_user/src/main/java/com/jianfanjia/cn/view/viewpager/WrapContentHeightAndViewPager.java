@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.view.viewpager;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.jianfanjia.common.tool.TDevice;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Name: 自定义ViewPager
@@ -14,17 +14,22 @@ import com.jianfanjia.common.tool.TDevice;
  * Date: 2015-10-12
  * Time: 10:36
  */
-public class WrapContentHeightViewPager extends ViewPager {
+public class WrapContentHeightAndViewPager extends ViewPager {
 
-    public WrapContentHeightViewPager(Context context, AttributeSet attrs) {
+    public WrapContentHeightAndViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        this.getParent().requestDisallowInterceptTouchEvent(true);
+//        this.getParent().requestDisallowInterceptTouchEvent(true);
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return super.onTouchEvent(ev);
     }
 
     @Override
@@ -44,24 +49,24 @@ public class WrapContentHeightViewPager extends ViewPager {
         // find the first child view
         int maxHeight = 0;
         int height = 0;
-        for(int i= 0;i<getChildCount();i++){
+        for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             // measure the first child view with the specified measure spec
             view.measure(widthMeasureSpec, heightMeasureSpec);
             height = measureHeight(heightMeasureSpec, view);
-            if(height > maxHeight){
+            if (height > maxHeight) {
                 maxHeight = height;
             }
         }
-        setMeasuredDimension(getMeasuredWidth(), (int)TDevice.getScreenHeight());
+        LogTool.d(this.getClass().getName(),"height =" + height);
+        setMeasuredDimension(getMeasuredWidth(), height);
     }
 
     /**
      * Determines the height of this view
      *
      * @param measureSpec A measureSpec packed into an int
-     * @param view the base view with already measured height
-     *
+     * @param view        the base view with already measured height
      * @return The height of the view, honoring constraints from measureSpec
      */
     private int measureHeight(int measureSpec, View view) {

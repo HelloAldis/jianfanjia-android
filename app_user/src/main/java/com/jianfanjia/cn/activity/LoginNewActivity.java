@@ -19,7 +19,7 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.fragment.LoginFragment;
 import com.jianfanjia.cn.fragment.RegisterFragment;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.cn.view.ViewPagerIndicator;
+import com.jianfanjia.cn.view.viewpager.ViewPagerIndicator;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.sso.UMSsoHandler;
 

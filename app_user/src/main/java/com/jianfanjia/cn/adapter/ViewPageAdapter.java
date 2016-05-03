@@ -6,9 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.interf.ViewPagerClickListener;
-
 import java.util.List;
+
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 
 public class ViewPageAdapter extends PagerAdapter {
 	private static final String TAG = "ViewPageAdapter";
@@ -67,7 +67,11 @@ public class ViewPageAdapter extends PagerAdapter {
 
 	@Override
 	public float getPageWidth(int position) {
-		return super.getPageWidth(position);
+//		return super.getPageWidth(position);
+		if(position == (list.size() -1)){//最后一屏，显示屏幕宽
+			return 1.0f;
+		}
+		return 0.75f;
 	}
 
 }

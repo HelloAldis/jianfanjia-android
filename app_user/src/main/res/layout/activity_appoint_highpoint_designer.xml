@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/appoint_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg"/>
+
+    <TextView
+        android:id="@+id/appoint_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/appoint_high_point_title"
+        android:layout_below="@+id/appoint_head_layout"
+        android:textSize="@dimen/big_size"/>
+
+    <com.jianfanjia.cn.view.viewpager.WrapContentHeightAndViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/dot_indicator"
+        android:layout_below="@+id/appoint_tip"
+        />
+
+    <com.jianfanjia.viewpager_indicator.CircleIndicator
+        android:id="@+id/dot_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="@dimen/space_16"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:ci_drawable="@drawable/shape_indicator_selected_oval_orange"
+        app:ci_drawable_unselected="@drawable/shape_indicator_unselected_oval"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

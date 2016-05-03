@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_36"
+        android:layout_marginRight="@dimen/space_36"
+        android:layout_centerInParent="true"
+        tools:cardCornerRadius="4dp"
+        tools:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/font_white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/designer_case_background"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/img_req_di_zhonghai"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginTop="-30dip"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/imageLayout"
+                    android:layout_width="60dip"
+                    android:layout_height="60dip"
+                    android:layout_gravity="center_horizontal"
+                    >
+
+                    <com.jianfanjia.cn.view.layout.CircleImageView
+                        android:id="@+id/designerinfo_head_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon_default_pic"
+                        app:border_color="@color/white"
+                        app:border_width="2dip"/>
+
+                    <ImageView
+                        android:id="@+id/designerinfo_auth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:src="@mipmap/icon_auth"
+                        android:visibility="gone"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/designer_name"
+                    style="@style/listview_item_text_style_big"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dip"
+                    android:textColor="@color/home_page_text_color"/>
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/list_item_ratingbar_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dip"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="0"/>
+
+                <LinearLayout
+                    android:id="@+id/infoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dip"
+                    android:layout_marginRight="30dip"
+                    android:layout_marginTop="16dip"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/viewCountText"
+                            style="@style/listview_item_text_style_middle"
+                            android:layout_gravity="center_horizontal"
+                            android:text="0"
+                            android:textColor="@color/home_page_text_color"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <TextView
+                            style="@style/listview_item_text_style_small"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dip"
+                            android:text="@string/scan"
+                            android:textColor="@color/designer_info_text_color_bg"
+                            android:textSize="@dimen/text_size_14"/>
+                        <!-- android:textColor="@color/designer_info_text_color"-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/productCountText"
+                            style="@style/listview_item_text_style_middle"
+                            android:layout_gravity="center_horizontal"
+                            android:text="0"
+                            android:textColor="@color/home_page_text_color"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <TextView
+                            style="@style/listview_item_text_style_small"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dip"
+                            android:text="@string/my_designer_product1"
+                            android:textColor="@color/designer_info_text_color_bg"
+                            android:textSize="@dimen/text_size_14"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/appointCountText"
+                            style="@style/listview_item_text_style_middle"
+                            android:layout_gravity="center_horizontal"
+                            android:text="0"
+                            android:textColor="@color/home_page_text_color"
+                            android:textSize="@dimen/text_size_14"/>
+
+                        <TextView
+                            style="@style/listview_item_text_style_small"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dip"
+                            android:text="@string/appointText"
+                            android:textColor="@color/designer_info_text_color_bg"
+                            android:textSize="@dimen/text_size_14"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btn_apponit"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="@dimen/space_24"
+                    android:layout_marginLeft="@dimen/space_60"
+                    android:layout_marginRight="@dimen/space_60"
+                    android:layout_marginTop="@dimen/space_24"
+                    android:background="@drawable/btn_orange_oval_bg"
+                    android:gravity="center"
+                    android:text="@string/immediately_appoint"
+                    android:textColor="@color/font_white"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

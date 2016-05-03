@@ -11,10 +11,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.jianfanjia.common.tool.LogTool;
-
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.view

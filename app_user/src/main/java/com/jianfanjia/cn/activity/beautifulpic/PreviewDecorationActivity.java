@@ -40,7 +40,7 @@ import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MyViewPager;
+import com.jianfanjia.cn.view.viewpager.MyViewPager;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.assist.FailReason;
