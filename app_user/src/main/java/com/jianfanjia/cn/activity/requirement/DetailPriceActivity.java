@@ -16,7 +16,7 @@ import com.jianfanjia.cn.adapter.PriceDetailAdapter;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 

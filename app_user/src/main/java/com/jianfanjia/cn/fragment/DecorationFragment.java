@@ -42,7 +42,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.SpacesItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;

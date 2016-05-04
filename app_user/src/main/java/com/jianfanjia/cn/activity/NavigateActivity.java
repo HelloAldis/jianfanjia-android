@@ -9,6 +9,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -22,17 +28,10 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.viewpager_indicator.CircleIndicator;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.sso.UMSsoHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnPageChange;
 
 /**
  * @author fengliang
@@ -50,21 +49,17 @@ public class NavigateActivity extends BaseActivity {
     @Bind(R.id.registerText)
     TextView registerText;
 
-    @Bind(R.id.btnWeixinLayout)
-    RelativeLayout btnWeixinLayout;
+    @Bind(R.id.dot_indicator)
+    CircleIndicator mCircleIndicator;
 
     private AuthUtil authUtil;
 
     private List<View> list = new ArrayList<>();
     private ViewPageAdapter adapter = null;
-    private int lastSelectorItem = 0;
-    private int currentItem = 0; // 当前图片的索引号
     private RelativeLayout imageLayout = null;
 
     private int imgId[] = {R.mipmap.img_guide1, R.mipmap.img_guide2,
             R.mipmap.img_guide3, R.mipmap.img_guide4};
-
-    private ImageView[] dots = new ImageView[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +77,9 @@ public class NavigateActivity extends BaseActivity {
             view.setImageResource(imgId[i]);
             list.add(view);
         }
-        for (int i = 0; i < dots.length; i++) {
-            ImageView imageView = (ImageView) findViewById(getResources().getIdentifier("welcome_dot" + i, "id",
-                    getPackageName()));
-            dots[i] = imageView;
-        }
         adapter = new ViewPageAdapter(NavigateActivity.this, list);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(currentItem);
+        mCircleIndicator.setViewPager(viewPager);
     }
 
     @OnClick({R.id.register_login_text, R.id.registerText, R.id.btnWeixinLayout})
@@ -111,16 +101,6 @@ public class NavigateActivity extends BaseActivity {
                 break;
             default:
                 break;
-        }
-    }
-
-    @OnPageChange(R.id.viewPager)
-    public void onPageSelected(int position) {
-        currentItem = position;
-        if (currentItem != lastSelectorItem) {
-            dots[currentItem].setImageResource(R.mipmap.icon_dot_selector);
-            dots[lastSelectorItem].setImageResource(R.mipmap.icon_dot_normal);
-            lastSelectorItem = currentItem;
         }
     }
 

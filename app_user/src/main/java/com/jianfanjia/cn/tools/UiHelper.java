@@ -39,7 +39,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.service.UpdateService;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;

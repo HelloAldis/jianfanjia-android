@@ -24,7 +24,7 @@ import android.widget.ScrollView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.OverscrollHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.MainScrollView;
+import com.jianfanjia.cn.view.scrollview.MainScrollView;
 
 public class PullToRefreshScrollViewNew extends PullToRefreshBase<ScrollView> {
 

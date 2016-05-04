@@ -1,11 +1,11 @@
-package com.jianfanjia.cn.view.auto_view_pager;
+package com.jianfanjia.cn.view.viewpager.auto_view_pager;
 
 import android.content.Context;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 /**
- * Description: com.jianfanjia.cn.view.auto_view_pager
+ * Description: com.jianfanjia.cn.view.viewpager.auto_view_pager
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2016-02-24 10:26

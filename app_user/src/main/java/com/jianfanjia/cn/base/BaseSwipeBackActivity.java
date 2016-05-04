@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.view.SwipeBackLayout;
+import com.jianfanjia.cn.view.layout.SwipeBackLayout;
 
 /**
  * Created by Eric on 15/3/3.

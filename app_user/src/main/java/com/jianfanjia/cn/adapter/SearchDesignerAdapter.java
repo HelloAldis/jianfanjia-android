@@ -10,16 +10,18 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.ImageShow;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.business.RequirementBusiness;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.tools.ImageShow;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -64,10 +66,23 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
         } else {
             holder.infoAuthImageView.setVisibility(View.GONE);
         }
-        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            holder.identityAuthImageView.setVisibility(View.VISIBLE);
-        } else {
-            holder.identityAuthImageView.setVisibility(View.GONE);
+        List<String> tags = designerInfo.getTags();
+        if(tags.size() > 0){
+            holder.itemTagText.setVisibility(View.VISIBLE);
+            holder.itemTagText.setText(tags.get(0));
+            switch (tags.get(0)){
+                case RequirementBusiness.TAG_NEW_GENERATE:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                    break;
+                case RequirementBusiness.TAG_MIDDER_GENERATE:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                    break;
+                case RequirementBusiness.TAG_HIGH_POINT:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    break;
+            }
+        }else {
+            holder.itemTagText.setVisibility(View.GONE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +103,8 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
         ImageView headImageView;
         @Bind(R.id.ltm_info_auth)
         ImageView infoAuthImageView;
-        @Bind(R.id.ltm_identity_auth)
-        ImageView identityAuthImageView;
+        @Bind(R.id.ltm_req_tag)
+        TextView itemTagText;
         @Bind(R.id.ltm_req_username)
         TextView nameView;
         @Bind(R.id.ltm_good_at_style_cont)

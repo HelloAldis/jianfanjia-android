@@ -22,23 +22,38 @@
             android:paddingRight="@dimen/space_16"
             android:paddingTop="@dimen/space_16">
 
-            <com.jianfanjia.cn.view.layout.CircleImageView
-                android:id="@+id/ltm_req_owner_head"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+            <FrameLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="72dip"
+                android:layout_height="72dip"
                 android:layout_centerVertical="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/icon_default_head" />
+                >
+
+                <com.jianfanjia.cn.view.layout.CircleImageView
+                    android:id="@+id/ltm_req_owner_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_default_pic"
+                    />
+
+                <ImageView
+                    android:id="@+id/ltm_info_auth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@mipmap/icon_auth"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
 
             <RelativeLayout
                 android:id="@+id/basic_info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ltm_req_owner_head"
+                android:layout_alignTop="@+id/imageLayout"
                 android:layout_marginLeft="@dimen/space_8"
-                android:layout_toRightOf="@id/ltm_req_owner_head">
+                android:layout_toRightOf="@+id/imageLayout">
 
                 <TextView
                     android:id="@+id/ltm_req_username"
@@ -46,54 +61,46 @@
                     android:layout_centerVertical="true"
                     android:ellipsize="end"
                     android:gravity="left"
-                    android:maxEms="4"
+                    android:maxEms="8"
                     android:singleLine="true"
                     android:text="@string/user_name"
                     android:textColor="@color/light_black_color"
                     android:textSize="@dimen/text_size_16"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/ltm_identity_auth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignWithParentIfMissing="true"
+                <TextView
+                    android:id="@+id/ltm_req_tag"
+                    style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@id/ltm_req_username"
-                    android:src="@mipmap/icon_identity_auth" />
-
-                <ImageView
-                    android:id="@+id/ltm_info_auth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignWithParentIfMissing="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:layout_toRightOf="@id/ltm_identity_auth"
-                    android:src="@mipmap/icon_info_auth" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/list_item_ratingbar_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:textColor="@color/font_white"
+                    android:paddingLeft="@dimen/space_4"
+                    android:paddingRight="@dimen/space_4"
                     android:layout_marginLeft="@dimen/space_24"
-                    android:layout_toRightOf="@id/ltm_info_auth"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="0" />
+                    android:layout_toRightOf="@id/ltm_req_username"
+                   />
 
             </RelativeLayout>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/list_item_ratingbar_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/basic_info_layout"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_toRightOf="@+id/imageLayout"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="0" />
 
             <TextView
                 android:id="@+id/ltm_req_starttime"
                 style="@style/listview_item_text_style_small"
-                android:layout_below="@id/basic_info_layout"
+                android:layout_below="@+id/ratingBar"
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_6"
-                android:layout_toRightOf="@id/ltm_req_owner_head"
+                android:layout_toRightOf="@+id/imageLayout"
                 android:text="@string/str_decoratehousetype"
                 android:textColor="@color/grey_color" />
 
@@ -116,7 +123,6 @@
                 android:layout_toRightOf="@id/ltm_req_starttime"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="New Text"
                 android:textSize="@dimen/text_size_12" />
 
             <TextView
@@ -128,7 +134,6 @@
                 android:layout_toRightOf="@id/ltm_req_updatetime"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="New Text"
                 android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12" />
 

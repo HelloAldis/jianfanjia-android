@@ -29,6 +29,10 @@ public class RequirementBusiness {
 
     public static final String PACKGET_365_ITEM = "365基础包";
 
+    public static final String TAG_NEW_GENERATE = "新锐先锋";
+    public static final String TAG_HIGH_POINT = "匠心定制";
+    public static final String TAG_MIDDER_GENERATE = "暖暖走心";
+
     //装修面积是否属于365基础包
     public static boolean isAreaBelong365(int houseArea) {
         return (houseArea >= PRICE_EVERY_UNIT_365_MIN_AREA && houseArea <= PRICE_EVERY_UNIT_365_MAX_AREA);

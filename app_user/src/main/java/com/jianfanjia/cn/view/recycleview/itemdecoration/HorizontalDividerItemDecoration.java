@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view.baseview;
+package com.jianfanjia.cn.view.recycleview.itemdecoration;
 
 import android.content.Context;
 import android.graphics.Rect;

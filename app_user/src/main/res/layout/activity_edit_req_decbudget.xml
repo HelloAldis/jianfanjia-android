@@ -11,7 +11,7 @@
         android:background="@color/head_layout_bg" />
 
 
-    <com.jianfanjia.cn.view.MyGridView
+    <com.jianfanjia.cn.view.gridview.MyGridView
         android:id="@+id/act_collect_gridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

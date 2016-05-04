@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view.auto_view_pager;
+package com.jianfanjia.cn.view.viewpager.auto_view_pager;
 
 import android.content.Context;
 import android.os.Handler;

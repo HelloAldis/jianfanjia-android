@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.base;
 
-import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import com.umeng.analytics.MobclickAgent;
  */
 public abstract class BaseActivity extends AppCompatActivity implements
         DialogControl {
-    protected DownloadManager downloadManager = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
@@ -51,7 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     protected void init(Bundle savedInstanceState) {
         appManager = AppManager.getAppManager();
         appManager.addActivity(this);
-        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         dataManager = DataManagerNew.getInstance();

@@ -34,7 +34,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.SwipeBackLayout;
+import com.jianfanjia.cn.view.layout.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.view.ViewPropertyAnimator;

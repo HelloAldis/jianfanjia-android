@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.view.gridview;
 
 import android.content.Context;
 import android.util.AttributeSet;

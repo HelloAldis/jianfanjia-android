@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view.baseview;
+package com.jianfanjia.cn.view.recycleview.itemdecoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

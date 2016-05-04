@@ -28,6 +28,7 @@ public class Designer extends BaseModel {
     private String agreee_license;
     private String auth_type;
     private String uid_auth_type;
+    private List<String> tags;
     private int team_count;
     private int product_count;
     private int order_count;
@@ -126,6 +127,14 @@ public class Designer extends BaseModel {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public String getAddress() {

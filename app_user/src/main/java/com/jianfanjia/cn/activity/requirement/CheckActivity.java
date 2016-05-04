@@ -35,7 +35,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ItemClickCallBack;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.ItemSpaceDecoration;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;

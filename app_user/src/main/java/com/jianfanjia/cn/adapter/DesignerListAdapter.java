@@ -11,14 +11,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
 
 /**
  * Name: DesignerListAdapter
@@ -52,10 +52,23 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         } else {
             holder.itemAuthView.setVisibility(View.GONE);
         }
-        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            holder.itemIdentityView.setVisibility(View.VISIBLE);
-        } else {
-            holder.itemIdentityView.setVisibility(View.GONE);
+        List<String> tags = designerInfo.getTags();
+        if(tags.size() > 0){
+            holder.itemTagText.setVisibility(View.VISIBLE);
+            holder.itemTagText.setText(tags.get(0));
+            switch (tags.get(0)){
+                case RequirementBusiness.TAG_NEW_GENERATE:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                    break;
+                case RequirementBusiness.TAG_MIDDER_GENERATE:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                    break;
+                case RequirementBusiness.TAG_HIGH_POINT:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    break;
+            }
+        }else {
+            holder.itemTagText.setVisibility(View.GONE);
         }
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
@@ -91,8 +104,8 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         ImageView itemHeadView;
         @Bind(R.id.ltm_req_username)
         TextView itemNameText;
-        @Bind(R.id.ltm_identity_auth)
-        ImageView itemIdentityView;
+        @Bind(R.id.ltm_req_tag)
+        TextView itemTagText;
         @Bind(R.id.ltm_info_auth)
         ImageView itemAuthView;
         @Bind(R.id.ratingBar)

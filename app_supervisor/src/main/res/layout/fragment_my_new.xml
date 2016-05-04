@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.jianfanjia.cn.fragment.MyFragment">
 
-    <com.jianfanjia.cn.view.PullZoomScrollView
+    <com.jianfanjia.cn.view.scrollview.PullZoomScrollView
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -150,5 +150,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </com.jianfanjia.cn.view.PullZoomScrollView>
+    </com.jianfanjia.cn.view.scrollview.PullZoomScrollView>
 </FrameLayout>

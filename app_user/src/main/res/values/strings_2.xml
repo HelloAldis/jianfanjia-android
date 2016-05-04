@@ -155,5 +155,6 @@
     <string name="dec_house_type_str">户型</string>
     <string name="dec_style_str">风格</string>
     <string name="dec_fee_str">报价</string>
+    <string name="dec_grade">等级</string>
     <string name="dec_area_str">面积</string>
 </resources>

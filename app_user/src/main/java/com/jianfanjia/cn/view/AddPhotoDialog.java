@@ -42,6 +42,7 @@ public class AddPhotoDialog extends Dialog implements OnClickListener {
         inflater = LayoutInflater.from(context);
         menuView = inflater.inflate(R.layout.popwin_dialog, null);
         open_camera = (Button) menuView.findViewById(R.id.btn_open_camera);
+
         open_album = (Button) menuView.findViewById(R.id.btn_open_album);
         cancel = (Button) menuView.findViewById(R.id.btn_cancel);
         open_camera.setOnClickListener(this);

@@ -25,7 +25,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
 
 import java.util.ArrayList;

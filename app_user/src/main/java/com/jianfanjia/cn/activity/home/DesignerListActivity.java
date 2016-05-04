@@ -34,12 +34,12 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.FilterPopWindow;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.SelectPopupWindowUtil;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -98,11 +98,11 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
     private DesignerListAdapter designerListAdapter = null;
     private List<Designer> designerList = new ArrayList<>();
-    private FilterPopWindow window = null;
+    private SelectPopupWindowUtil mSelectPopupWindowUtil = null;
     private String decType = null;
     private String decHouseStyle = null;
     private String decStyle = null;
-    private String decFee = null;
+    private String decFeeList = null;
     private boolean isFirst = true;
     private int FROM = 0;
 
@@ -123,6 +123,8 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         designerListView.setHasFixedSize(true);
         designerListView.setItemAnimator(new DefaultItemAnimator());
         designerListView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+
+        mSelectPopupWindowUtil = new SelectPopupWindowUtil(this);
 
         searchDesigners(FROM, this.pullDownCallback);
     }
@@ -187,7 +189,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                 decFeeLayout.setSelected(false);
                 break;
             case DEC_FEE:
-                showWindow(R.array.arr_fee, DEC_FEE);
+                showWindow(R.array.arr_grade, DEC_FEE);
                 decTypeLayout.setSelected(false);
                 decHouseTypeLayout.setSelected(false);
                 decStyleLayout.setSelected(false);
@@ -208,7 +210,9 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         query.put("dec_types", decType);
         query.put("dec_house_types", decHouseStyle);
         query.put("dec_styles", decStyle);
-        query.put("design_fee_range", decFee);
+        if (!TextUtils.isEmpty(decFeeList)) {
+            query.put("tags", decFeeList);
+        }
         SearchDesignerRequest request = new SearchDesignerRequest();
         request.setQuery(query);
         request.setFrom(from);
@@ -299,7 +303,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onNetworkError(int code) {
             makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-            if(isFirst){
+            if (isFirst) {
                 designerListView.setVisibility(View.GONE);
                 emptyLayout.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
@@ -350,25 +354,24 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
     private void showWindow(int resId, int type) {
         switch (type) {
             case DEC_TYPE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecTypeCallback, Global
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecTypeCallback, Global
                         .DEC_TYPE_POSITION);
                 break;
             case DEC_HOUSE_TYPE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecHouseTypeCallback, Global
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecHouseTypeCallback, Global
                         .DEC_HOUSE_TYPE_POSITION);
                 break;
             case DEC_STYLE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecStyleCallback, Global
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecStyleCallback, Global
                         .STYLE_POSITION);
                 break;
             case DEC_FEE:
-                window = new FilterPopWindow(DesignerListActivity.this, resId, getDecFeeCallback, Global
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecFeeCallback, Global
                         .DEC_FEE_POSITION);
                 break;
             default:
                 break;
         }
-        window.show(topLayout);
     }
 
     private GetItemCallback getDecTypeCallback = new GetItemCallback() {
@@ -384,23 +387,11 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
             FROM = 0;
             decType = BusinessCovertUtil.getDecTypeByText(title);
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -417,23 +408,11 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
             decHouseStyle = BusinessCovertUtil.getHouseTypeByText(title);
             FROM = 0;
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -450,23 +429,11 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
             decStyle = BusinessCovertUtil.getDecStyleByText(title);
             FROM = 0;
             searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -475,31 +442,22 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         public void onItemCallback(int position, String title) {
             isFirst = true;
             Global.DEC_FEE_POSITION = position;
-            if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
-                decFee_item.setText(title);
-            } else {
-                decFee_item.setText(getResources().getString(R.string.dec_fee_str));
-            }
-            decFee = BusinessCovertUtil.getDecFeeByText(title);
-            FROM = 0;
-            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
+            if (!TextUtils.isEmpty(title)) {
+                if (!title.equals(Constant.KEY_WORD)) {
+                    decFeeList = title;
+                    decFee_item.setText(title);
+                } else {
+                    decFeeList = null;
+                    decFee_item.setText(getResources().getString(R.string.dec_grade));
                 }
             }
+            FROM = 0;
+            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 

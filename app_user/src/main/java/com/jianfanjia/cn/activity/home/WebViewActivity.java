@@ -19,7 +19,7 @@ import com.jianfanjia.cn.tools.JavaScriptObject;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.ProgressWebView;
+import com.jianfanjia.cn.view.webview.ProgressWebView;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
