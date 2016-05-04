@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/appoint_tip"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="52dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/appoint_high_point_title"
@@ -33,8 +33,8 @@
     <com.jianfanjia.viewpager_indicator.CircleIndicator
         android:id="@+id/dot_indicator"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="@dimen/space_16"
+        android:layout_height="36dp"
+        android:layout_marginBottom="@dimen/space_8"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:ci_drawable="@drawable/shape_indicator_selected_oval_orange"
         app:ci_drawable_unselected="@drawable/shape_indicator_unselected_oval"

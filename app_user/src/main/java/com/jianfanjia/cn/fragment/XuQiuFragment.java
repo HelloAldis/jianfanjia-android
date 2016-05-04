@@ -25,6 +25,7 @@ import com.jianfanjia.cn.Event.ScrollEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.my.BindingPhoneActivity;
 import com.jianfanjia.cn.activity.requirement.AppointDesignerActivity;
+import com.jianfanjia.cn.activity.requirement.AppointHighPointDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
 import com.jianfanjia.cn.activity.requirement.MyProcessDetailActivity;
@@ -35,6 +36,7 @@ import com.jianfanjia.cn.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ClickCallBack;
@@ -160,7 +162,7 @@ public class XuQiuFragment extends BaseFragment {
                         Bundle gotoContractBundle = new Bundle();
                         gotoContractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
                                 (position));
-                        startActivity(ContractActivity.class,gotoContractBundle);
+                        startActivity(ContractActivity.class, gotoContractBundle);
                         break;
                     default:
                         break;
@@ -173,15 +175,19 @@ public class XuQiuFragment extends BaseFragment {
 
     protected void gotoOrderDesigner() {
         Bundle gotoOrderDesignerBundle = new Bundle();
-        if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-            gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo
-                    .getOrder_designers().size
-                            ());
+        if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_HIGH_POINT)) {//匠心定制的需求预约高端设计师
+            gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
+            startActivity(AppointHighPointDesignerActivity.class, gotoOrderDesignerBundle);
         } else {
-            gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, 0);
+            if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
+                gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo
+                        .getOrder_designers().size());
+            } else {
+                gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, 0);
+            }
+            gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
+            startActivity(AppointDesignerActivity.class, gotoOrderDesignerBundle);
         }
-        gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
-        startActivity(AppointDesignerActivity.class, gotoOrderDesignerBundle);
     }
 
     @OnClick({R.id.req_publish_layout, R.id.head_right_title})

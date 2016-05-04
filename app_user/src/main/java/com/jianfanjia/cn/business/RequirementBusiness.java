@@ -25,6 +25,7 @@ public class RequirementBusiness {
 
     public static final String PACKGET_DEFAULT = "0";//默认装修包
     public static final String PACKGET_365 = "1";//365基础包
+    public static final String PACKGET_HIGH_POINT = "2";//匠心定制包
 
     public static final String PACKGET_365_ITEM = "365基础包";
 
