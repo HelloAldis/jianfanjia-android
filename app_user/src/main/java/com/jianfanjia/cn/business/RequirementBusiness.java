@@ -3,6 +3,7 @@ package com.jianfanjia.cn.business;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -55,6 +56,18 @@ public class RequirementBusiness {
             }
         }
         return null;
+    }
+
+    public static boolean isHighPointDesigner(Designer designerInfo){
+        boolean isHighPoint = false;
+        List<String> tags = designerInfo.getTags();
+        if (tags != null && tags.size() > 0) {
+            String tag = tags.get(0);
+            if (tag.equals(RequirementBusiness.TAG_HIGH_POINT)) {
+                isHighPoint = true;
+            }
+        }
+        return isHighPoint;
     }
 
     public static void initHomeRequirement(Requirement requirement) {

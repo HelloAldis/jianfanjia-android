@@ -41,7 +41,8 @@
                     style="@style/listview_item_text_style_big"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="38dip"
-                    android:textColor="@color/home_page_text_color"/>
+                    android:textColor="@color/home_page_text_color"
+                    android:textStyle="bold"/>
 
                 <RatingBar
                     android:id="@+id/ratingBar"
@@ -75,15 +76,15 @@
                             android:layout_gravity="center_horizontal"
                             android:text="0"
                             android:textColor="@color/home_page_text_color"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textStyle="bold"/>
 
                         <TextView
-                            style="@style/listview_item_text_style_small"
+                            style="@style/listview_item_text_style_middle"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dip"
                             android:text="@string/scan"
                             android:textColor="@color/designer_info_text_color_bg"
-                            android:textSize="@dimen/text_size_14"/>
+                            />
                         <!-- android:textColor="@color/designer_info_text_color"-->
                     </LinearLayout>
 
@@ -99,7 +100,7 @@
                             android:layout_gravity="center_horizontal"
                             android:text="0"
                             android:textColor="@color/home_page_text_color"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textStyle="bold"/>
 
                         <TextView
                             style="@style/listview_item_text_style_small"
@@ -123,15 +124,15 @@
                             android:layout_gravity="center_horizontal"
                             android:text="0"
                             android:textColor="@color/home_page_text_color"
-                            android:textSize="@dimen/text_size_14"/>
+                            android:textStyle="bold"/>
 
                         <TextView
-                            style="@style/listview_item_text_style_small"
+                            style="@style/listview_item_text_style_middle"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dip"
                             android:text="@string/appointText"
                             android:textColor="@color/designer_info_text_color_bg"
-                            android:textSize="@dimen/text_size_14"/>
+                            />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -155,19 +156,20 @@
 
     <FrameLayout
         android:id="@+id/imageLayout"
-        android:layout_width="60dip"
-        android:layout_height="60dip"
+        android:layout_width="64dip"
+        android:layout_height="66dip"
         android:layout_centerInParent="true"
         >
 
         <com.jianfanjia.cn.view.layout.CircleImageView
             android:id="@+id/designerinfo_head_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_default_pic"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_default_head"
             app:border_color="@color/white"
-            app:border_width="2dip"/>
+            app:border_width="1dip"/>
 
         <ImageView
             android:id="@+id/designerinfo_auth"
@@ -175,6 +177,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:src="@mipmap/icon_auth"
+            android:layout_margin="2dp"
             android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/designerinfo_high_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:src="@mipmap/icon_designer_high_point"
+            />
     </FrameLayout>
 </RelativeLayout>

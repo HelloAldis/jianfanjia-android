@@ -55,7 +55,7 @@ import de.greenrobot.event.EventBus;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnClickListener, ViewPager
+public class DesignerInfoHighPointActivity extends BaseSwipeBackActivity implements OnClickListener, ViewPager
         .OnPageChangeListener {
     private static final String TAG = DesignerInfoHighPointActivity.class.getName();
 
@@ -377,7 +377,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             designerName.setText(designer_name);
             String designerid = designerInfo.getImageid();
             if (!TextUtils.isEmpty(designerid)) {
-                imageShow.displayImageHeadWidthThumnailImage(DesignerInfoActivity.this, designerInfo
+                imageShow.displayImageHeadWidthThumnailImage(DesignerInfoHighPointActivity.this, designerInfo
                         .getImageid()
                         , designerinfo_head_img);
             } else {

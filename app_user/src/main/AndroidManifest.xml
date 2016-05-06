@@ -311,6 +311,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
+
+        <activity
+            android:name=".home.DesignerInfoHighPointActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+
         <activity
             android:name=".home.DesignerCaseInfoActivity"
             android:launchMode="singleTask"

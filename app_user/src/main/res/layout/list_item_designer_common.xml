@@ -5,7 +5,7 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <View style="@style/divier_line" />
+    <View android:id="@+id/start_line" style="@style/divier_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,16 +25,17 @@
             <FrameLayout
                 android:id="@+id/imageLayout"
                 android:layout_width="72dip"
-                android:layout_height="72dip"
+                android:layout_height="74dip"
                 android:layout_centerVertical="true"
                 >
 
                 <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/ltm_req_owner_head"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/icon_default_pic"
+                    android:layout_gravity="center"
                     />
 
                 <ImageView
@@ -43,7 +44,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:src="@mipmap/icon_auth"
+                    android:layout_margin="@dimen/space_2"
                     android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/designerinfo_high_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:src="@mipmap/icon_designer_high_point"
+                    />
             </FrameLayout>
 
 
@@ -248,7 +258,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <View style="@style/divier_line" />
+    <View android:id="@+id/end_line" style="@style/divier_line" />
 
 
 </LinearLayout>

@@ -66,6 +66,8 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
         } else {
             holder.infoAuthImageView.setVisibility(View.GONE);
         }
+        holder.startLine.setBackgroundResource(R.color.horzontal_line_color);
+        holder.endLine.setBackgroundResource(R.color.horzontal_line_color);
         List<String> tags = designerInfo.getTags();
         if(tags.size() > 0){
             holder.itemTagText.setVisibility(View.VISIBLE);
@@ -79,6 +81,9 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
                     break;
                 case RequirementBusiness.TAG_HIGH_POINT:
                     holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    holder.itemHighPointView.setVisibility(View.VISIBLE);
+                    holder.startLine.setBackgroundResource(R.color.orange_color);
+                    holder.endLine.setBackgroundResource(R.color.orange_color);
                     break;
             }
         }else {
@@ -119,6 +124,15 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
         TextView appointSumView;
         @Bind(R.id.designer_fee)
         TextView designerFeeView;
+
+        @Bind(R.id.designerinfo_high_point)
+        ImageView itemHighPointView;
+
+        @Bind(R.id.start_line)
+        View startLine;
+
+        @Bind(R.id.end_line)
+        View endLine;
 
         public SearchDesignerViewHolder(View itemView) {
             super(itemView);

@@ -52,6 +52,9 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         } else {
             holder.itemAuthView.setVisibility(View.GONE);
         }
+        holder.itemHighPointView.setVisibility(View.GONE);
+        holder.startLine.setBackgroundResource(R.color.horzontal_line_color);
+        holder.endLine.setBackgroundResource(R.color.horzontal_line_color);
         List<String> tags = designerInfo.getTags();
         if(tags.size() > 0){
             holder.itemTagText.setVisibility(View.VISIBLE);
@@ -65,6 +68,9 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
                     break;
                 case RequirementBusiness.TAG_HIGH_POINT:
                     holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    holder.itemHighPointView.setVisibility(View.VISIBLE);
+                    holder.startLine.setBackgroundResource(R.color.orange_color);
+                    holder.endLine.setBackgroundResource(R.color.orange_color);
                     break;
             }
         }else {
@@ -108,6 +114,10 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         TextView itemTagText;
         @Bind(R.id.ltm_info_auth)
         ImageView itemAuthView;
+
+        @Bind(R.id.designerinfo_high_point)
+        ImageView itemHighPointView;
+
         @Bind(R.id.ratingBar)
         RatingBar itemRatingBar;
         @Bind(R.id.ltm_decoratehousetype_cont)
@@ -120,6 +130,12 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         TextView itemAppointCountText;
         @Bind(R.id.designer_fee)
         TextView itemDecFeeText;
+
+        @Bind(R.id.start_line)
+        View startLine;
+
+        @Bind(R.id.end_line)
+        View endLine;
 
         public DesignerListViewHolder(View itemView) {
             super(itemView);
