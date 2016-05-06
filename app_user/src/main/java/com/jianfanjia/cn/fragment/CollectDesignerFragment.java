@@ -22,7 +22,7 @@ import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectDesignerEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.FavoriteDesignerAdapter;
@@ -31,9 +31,9 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -263,18 +263,31 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
             };
 
-    public void onEventMainThread(MessageEvent event) {
-        LogTool.d(TAG, "event:" + event.getEventType());
-        switch (event.getEventType()) {
-            case Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT:
-                designAdapter.remove(currentPos);
+    public void onEventMainThread(CollectDesignerEvent collectDesignerEvent) {
+        boolean isCollect = collectDesignerEvent.isCollect();
+        if (isCollect) {
+            if (designers.size() > Constant.HOME_PAGE_LIMIT) {
+                getMyFavoriteDesignerList(0, (designers.size() / Constant.HOME_PAGE_LIMIT + 1) * Constant
+                        .HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+            } else {
+                getMyFavoriteDesignerList(0, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+            }
+        } else {
+            int removeSize = -1;
+            Designer designer = null;
+            for (int i = 0; i < designers.size(); i++) {
+                designer = designers.get(i);
+                if (designer.get_id().equals(collectDesignerEvent.getDesignerId())) {
+                    removeSize = i;
+                }
+            }
+            if (removeSize != -1) {
+                designAdapter.remove(removeSize);
                 if (designers.size() == 0) {
                     my_favorite_designer_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
-                break;
-            default:
-                break;
+            }
         }
     }
 

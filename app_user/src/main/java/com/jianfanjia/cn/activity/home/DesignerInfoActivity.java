@@ -33,7 +33,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.user.AddFavoriteDesignerRequest;
 import com.jianfanjia.api.request.user.DeleteFavoriteDesignerRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectDesignerEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.api.Api;
@@ -397,9 +397,11 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             if (!designerInfo.is_my_favorite()) {
                 addBtn.setSelected(false);
                 addBtn.setTextColor(getResources().getColor(R.color.font_white));
+                addBtn.setText(R.string.strl_add_yixiang);
             } else {
                 addBtn.setSelected(true);
                 addBtn.setTextColor(getResources().getColor(R.color.orange_color));
+                addBtn.setText(R.string.strl_delete_yixiang);
             }
             changeUiShow(designerInfo);
         }
@@ -446,7 +448,9 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         public void onSuccess(ApiResponse<Object> apiResponse) {
             addBtn.setSelected(true);
             addBtn.setTextColor(getResources().getColor(R.color.orange_color));
-            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
+            addBtn.setText(R.string.strl_delete_yixiang);
+//            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
+            postFavoriteDesignerEvent(true);
         }
 
         @Override
@@ -459,6 +463,13 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
+
+    private void postFavoriteDesignerEvent(boolean isCollect){
+        CollectDesignerEvent collectDesignerEvent = new CollectDesignerEvent();
+        collectDesignerEvent.setDesignerId(designerid);
+        collectDesignerEvent.setIsCollect(isCollect);
+        EventBus.getDefault().post(collectDesignerEvent);
+    }
 
 
     private ApiCallback<ApiResponse<Object>> deleteMyFavoriteDesignerCallback = new ApiCallback<ApiResponse<Object>>() {
@@ -476,8 +487,10 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         public void onSuccess(ApiResponse<Object> apiResponse) {
             addBtn.setSelected(false);
             addBtn.setTextColor(getResources().getColor(R.color.font_white));
-            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT));
-            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_ORDER_DESIGNER_ACTIVITY));
+            addBtn.setText(R.string.strl_add_yixiang);
+            postFavoriteDesignerEvent(false);
+//            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT));
+//            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_ORDER_DESIGNER_ACTIVITY));
         }
 
         @Override

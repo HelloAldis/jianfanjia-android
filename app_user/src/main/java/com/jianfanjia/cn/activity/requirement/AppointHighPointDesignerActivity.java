@@ -66,12 +66,6 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
 
     private List<Designer> rec_designer;
 
-    protected int[] loveStyleImageIds = new int[]{
-            R.mipmap.img_req_ou_shi, R.mipmap.img_req_zhong_shi, R.mipmap.img_req_xian_dai,
-            R.mipmap.img_req_di_zhonghai, R.mipmap.img_req_mei_shi, R.mipmap.img_req_dong_nanya,
-            R.mipmap.img_req_tian_yuan
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

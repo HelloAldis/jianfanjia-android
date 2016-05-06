@@ -22,7 +22,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectDesignerEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
@@ -60,9 +60,6 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
     private int orderDesignerNum = 0;//已预约设计师数
     private int totalCount = 3;//总可预约数
     private int total = 0;
-    private int checkedItemCount = 0;//已选数
-
-    private int currentPos = -1;
 
     private List<String> designerIds = new ArrayList<>();
 
@@ -138,17 +135,24 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
         }
     }
 
-    public void onEventMainThread(MessageEvent messageEvent) {
-        LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
-        switch (messageEvent.getEventType()) {
-            case Constant.DELETE_ORDER_DESIGNER_ACTIVITY:
-                designerByAppointOrReplaceAdapter.remove(currentPos);
-                break;
-            case Constant.UPDATE_ORDER_DESIGNER_ACTIVITY:
-                getOrderDesignerList(requestmentid);
-                break;
-            default:
-                break;
+    public void onEventMainThread(CollectDesignerEvent collectDesignerEvent) {
+        boolean isCollect = collectDesignerEvent.isCollect();
+        if (isCollect) {
+            getOrderDesignerList(requestmentid);
+        } else {
+            int removeSize = -1;
+            Designer designer = null;
+            for (int i = 0; i < favorite_designer.size(); i++) {
+                designer = favorite_designer.get(i);
+                if (designer.get_id().equals(collectDesignerEvent.getDesignerId())) {
+                    removeSize = i;
+                }
+            }
+            if (removeSize != -1) {
+                favorite_designer.remove(removeSize);
+                setAppointDesignerList(rec_designer,favorite_designer);
+                designerByAppointOrReplaceAdapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -199,7 +203,6 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
                                         @Override
                                         public void getItemData(int position, String designerid) {
                                             LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
-                                            currentPos = position;
                                             Bundle designerBundle = new Bundle();
                                             designerBundle.putString(IntentConstant.DESIGNER_ID, designerid);
                                             startActivity(DesignerInfoActivity.class, designerBundle);

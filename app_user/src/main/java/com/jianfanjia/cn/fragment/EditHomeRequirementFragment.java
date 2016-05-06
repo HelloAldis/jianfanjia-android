@@ -27,7 +27,6 @@ import com.jianfanjia.cn.activity.requirement.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.interf.cutom_annotation.ReqItemFinderImp;
@@ -45,6 +44,8 @@ public class EditHomeRequirementFragment extends BaseFragment {
     private NotifyActivityStatusChange hostActivity;
     private boolean isFinish = false;//是否所有字段都填了
     private int actionType = -1;//创建需求or修改需求
+
+    private String currentReqType = RequirementBusiness.PACKGET_DEFAULT;//当前页面需求的类型
 
     @Bind(R.id.scrollView)
     protected ScrollView rootScrollView;
@@ -88,6 +89,9 @@ public class EditHomeRequirementFragment extends BaseFragment {
     @Bind(R.id.act_edit_req_decoratebudget_365)
     protected LinearLayout budget365Layout;
 
+    @Bind(R.id.act_edit_req_decoratebudget_high_point)
+    protected LinearLayout budgetHighPointLayout;
+
     @Bind(R.id.decoratebudget_365_basic_price)
     protected TextView budget365BasicPriceView;
 
@@ -120,7 +124,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
 
     private Requirement requirementInfo;
-    private boolean isShowBudget365;//是否显示365包
     private boolean isTotalBudegetCorrect = false;//总预算是否正确
 
     @Override
@@ -194,7 +197,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
             }
         });
 
-        reset365LayoutAndStatus();
     }
 
     private void initStringArray() {
@@ -219,87 +221,72 @@ public class EditHomeRequirementFragment extends BaseFragment {
 
     private void showOrHide365Layout() {
         String workType = requirementInfo.getWork_type();
-        LogTool.d(TAG, "workType =" + workType);
-        if (workType.equals(Global.PURE_DESIGNER)) {//装修类型选择纯设计
-            reset365LayoutAndStatus();
-            act_edit_req_decoratebudget_content.setHint(R.string.must_input);
+        int budgetTotal = requirementInfo.getTotal_price();
+        int houseArea = requirementInfo.getHouse_area();
+        if (budgetTotal > 0 && houseArea > 0) {
+            currentReqType = RequirementBusiness.getReqPackgetType(workType, budgetTotal, houseArea);
+            if (currentReqType.equals(RequirementBusiness.PACKGET_HIGH_POINT)) {
+                budgetHighPointLayout.setVisibility(View.VISIBLE);
+                budget365Layout.setVisibility(View.GONE);
+            } else if (currentReqType.equals(RequirementBusiness.PACKGET_365)) {
+                determineShowOrNotByHouseArea();
+
+                budgetHighPointLayout.setVisibility(View.GONE);
+                budget365Layout.setVisibility(View.VISIBLE);
+            } else {
+                budgetHighPointLayout.setVisibility(View.GONE);
+                budget365Layout.setVisibility(View.GONE);
+            }
         } else {
-            act_edit_req_decoratebudget_content.setHint(R.string.example_input_budget);
-            determineShowOrNotByHouseArea();
+            currentReqType = RequirementBusiness.PACKGET_DEFAULT;
+            budgetHighPointLayout.setVisibility(View.GONE);
+            budget365Layout.setVisibility(View.GONE);
         }
-    }
 
-    private void reset365LayoutAndStatus() {
-        isShowBudget365 = false;
-        isTotalBudegetCorrect = false;
-        budget365Layout.setVisibility(View.GONE);
-
-        budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
-        budget365TotalPriceLayout.setVisibility(View.GONE);
-        budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
-        budget365TotalErrorView.setVisibility(View.VISIBLE);
     }
 
     private void determineShowOrNotByHouseArea() {
         int area = requirementInfo.getHouse_area();
-        if (area != 0) {
-            if (RequirementBusiness.isAreaBelong365(area)) {
-                budget365Layout.setVisibility(View.VISIBLE);
-                isShowBudget365 = true;
 
-                adjustLayoutToInput();
+        adjustLayoutToInput();
 
-                //设置基础价格
-                float basicPrice = (float) area * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
-                        .TEN_THOUSAND;
-                budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
+        //设置基础价格
+        float basicPrice = (float) area * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
+                .TEN_THOUSAND;
+        budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
 
-                settingTotalBudget(requirementInfo.getTotal_price(), basicPrice);
-            } else {
-                reset365LayoutAndStatus();
-            }
-        } else {
-            reset365LayoutAndStatus();
-        }
+        settingTotalBudget(requirementInfo.getTotal_price(), basicPrice);
     }
 
+
     private void settingTotalBudget(int totalPrice, float basicPrice) {
-        if (totalPrice != 0) {
+        float total = (float) totalPrice;
+        String totalText = RequirementBusiness.covertPriceToShow(total);
+        String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
 
-            float total = (float) totalPrice;
-            String totalText = RequirementBusiness.covertPriceToShow(total);
-            String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
+        LogTool.d(TAG, "tatoal =" + totalText + "  basicPrice =" + basicPrice);
+        if (total >= basicPrice) {
+            budget365AlertView.setVisibility(View.GONE);
+            isTotalBudegetCorrect = true;
 
-            LogTool.d(TAG, "tatoal =" + totalText + "  basicPrice =" + basicPrice);
-            if (total >= basicPrice) {
-                budget365AlertView.setVisibility(View.GONE);
-                isTotalBudegetCorrect = true;
+            budget365IndividuatiuonPriceLayout.setVisibility(View.VISIBLE);
+            budget365TotalPriceLayout.setVisibility(View.VISIBLE);
+            budget365TotalPriceView.setText(totalText);
+            budget365IndividuationPriceView.setText(individuationText);
 
-                budget365IndividuatiuonPriceLayout.setVisibility(View.VISIBLE);
-                budget365TotalPriceLayout.setVisibility(View.VISIBLE);
-                budget365TotalPriceView.setText(totalText);
-                budget365IndividuationPriceView.setText(individuationText);
-
-                budget365IndividuatiuonErrorView.setVisibility(View.GONE);
-                budget365TotalErrorView.setVisibility(View.GONE);
-            } else {
-                budget365AlertView.setVisibility(View.VISIBLE);
-                isTotalBudegetCorrect = false;
-
-                budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
-                budget365TotalPriceLayout.setVisibility(View.GONE);
-                budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
-                budget365TotalErrorView.setVisibility(View.VISIBLE);
-            }
+            budget365IndividuatiuonErrorView.setVisibility(View.GONE);
+            budget365TotalErrorView.setVisibility(View.GONE);
         } else {
-
+            budget365AlertView.setVisibility(View.VISIBLE);
             isTotalBudegetCorrect = false;
+
             budget365IndividuatiuonPriceLayout.setVisibility(View.GONE);
             budget365TotalPriceLayout.setVisibility(View.GONE);
             budget365IndividuatiuonErrorView.setVisibility(View.VISIBLE);
             budget365TotalErrorView.setVisibility(View.VISIBLE);
         }
     }
+
 
     private void adjustLayoutToInput() {
         UiHelper.controlKeyboardShowLayout(rootScrollView, budget365Layout);
@@ -334,18 +321,16 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 && act_edit_req_persons_content.length() > 0
                 && act_edit_req_dong_content.length() > 0
                 && act_edit_req_work_type_content.length() > 0) {
-            if (isShowBudget365) {//如果符合365基础包，就按照365基础包方式判断
+            if (currentReqType.equals(RequirementBusiness.PACKGET_365)) {//如果符合365基础包，就按照365基础包方式判断
                 if (!isTotalBudegetCorrect) {
                     isFinish = false;
                 } else {
                     isFinish = true;
-                    requirementInfo.setPackage_type(RequirementBusiness.PACKGET_365);
                 }
             } else {//不符合365基础包，简单判断一下
                 if (act_edit_req_decoratebudget_content.length() > 0
                         && act_edit_req_housearea_content.length() > 0) {
                     isFinish = true;
-                    requirementInfo.setPackage_type(RequirementBusiness.PACKGET_DEFAULT);
                 } else {
                     isFinish = false;
                 }
@@ -353,6 +338,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
         } else {
             isFinish = false;
         }
+        requirementInfo.setPackage_type(currentReqType);
         LogTool.d(TAG, "isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }

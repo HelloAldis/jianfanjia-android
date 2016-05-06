@@ -193,7 +193,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                                 Bundle decorationBundle = new Bundle();
                                                 decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID,
                                                         beautyImgInfo.get_id
-                                                        ());
+                                                                ());
                                                 decorationBundle.putInt(IntentConstant.POSITION, position);
                                                 decorationBundle.putSerializable(IntentConstant.IMG_LIST,
                                                         (ArrayList<BeautifulImage>)
@@ -282,22 +282,30 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     }
 
     private void notifyChangeItemState(String imageid, boolean isCollect) {
-        if (isCollect) return; //如果是收藏，则此处直接返回
-        int removePos = -1;
-        BeautifulImage beautyImgInfo = null;
-        for (int i = 0; i < beautyImgList.size(); i++) {
-            beautyImgInfo = beautyImgList.get(i);
-            if (beautyImgInfo.get_id().equals(imageid)) {
-                removePos = i;
+        if (isCollect) {
+            if (beautyImgList.size() > Constant.HOME_PAGE_LIMIT) {
+                getDecorationImgList(0, (beautyImgList.size() / Constant.HOME_PAGE_LIMIT + 1) * Constant
+                        .HOME_PAGE_LIMIT, pullDownListener);
+            } else {
+                getDecorationImgList(0, Constant.HOME_PAGE_LIMIT, pullDownListener);
             }
-        }
-        LogTool.d("notifyChangeItemState",removePos + "");
-        if (removePos != -1) {
-            decorationImgAdapter.remove(removePos);
-            total = beautyImgList.size();
-            if (total == 0) {
-                decoration_img_listview.setVisibility(View.GONE);
-                emptyLayout.setVisibility(View.VISIBLE);
+        } else {
+            int removePos = -1;
+            BeautifulImage beautyImgInfo = null;
+            for (int i = 0; i < beautyImgList.size(); i++) {
+                beautyImgInfo = beautyImgList.get(i);
+                if (beautyImgInfo.get_id().equals(imageid)) {
+                    removePos = i;
+                }
+            }
+            LogTool.d("notifyChangeItemState", removePos + "");
+            if (removePos != -1) {
+                decorationImgAdapter.remove(removePos);
+                total = beautyImgList.size();
+                if (total == 0) {
+                    decoration_img_listview.setVisibility(View.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
