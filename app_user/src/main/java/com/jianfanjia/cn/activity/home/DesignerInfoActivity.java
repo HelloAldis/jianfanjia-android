@@ -107,6 +107,9 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     @Bind(R.id.btn_add)
     protected Button addBtn = null;
 
+    @Bind(R.id.btn_add_icon)
+    ImageView addBtnIconView;
+
     @Bind(R.id.designer_info_head_content)
     protected LinearLayout headContentLayout;
 
@@ -122,17 +125,18 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     @Bind(R.id.designer_info_tab_content)
     LinearLayout designerInfoTabLayout;
 
-    @Bind(R.id.merger_button1_layout)
-    RelativeLayout buttonResourceLayout;
-
-    @Bind(R.id.merger_button2_layout)
-    RelativeLayout buttonCaseLayout;
-
     @Bind(R.id.designer_info_head_content_wrap)
     FrameLayout designerInfoHeadContentWrap;
 
     @Bind(R.id.ic_headerbar)
     RelativeLayout headLayout;
+
+    @Bind(R.id.ltm_req_tag)
+    TextView itemTagText;
+
+    @Bind(R.id.designerinfo_high_point)
+    ImageView itemHighPointView;
+
 
     private boolean isHighPoint;
 
@@ -388,6 +392,28 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             } else {
                 designerinfo_auth.setVisibility(View.GONE);
             }
+            itemHighPointView.setVisibility(View.GONE);
+            itemTagText.setVisibility(View.VISIBLE);
+            List<String> tags = designerInfo.getTags();
+            if(tags.size() > 0){
+                itemTagText.setVisibility(View.VISIBLE);
+                itemTagText.setText(tags.get(0));
+                switch (tags.get(0)){
+                    case RequirementBusiness.TAG_NEW_GENERATE:
+                        itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                        break;
+                    case RequirementBusiness.TAG_MIDDER_GENERATE:
+                        itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                        break;
+                    case RequirementBusiness.TAG_HIGH_POINT:
+                        itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                        itemTagText.setVisibility(View.GONE);
+                        itemHighPointView.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }else {
+                itemTagText.setVisibility(View.GONE);
+            }
             viewCountText.setText("" + designerInfo.getView_count());
             productCountText.setText("" + designerInfo.getProduct_count());
             appointCountText.setText("" + designerInfo.getOrder_count());
@@ -396,15 +422,25 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             ratingBar.setRating((int) (respond_speed + service_attitude) / 2);
             if (!designerInfo.is_my_favorite()) {
                 addBtn.setSelected(false);
-                addBtn.setTextColor(getResources().getColor(R.color.font_white));
-                addBtn.setText(R.string.strl_add_yixiang);
+                showAddFavorite();
             } else {
                 addBtn.setSelected(true);
-                addBtn.setTextColor(getResources().getColor(R.color.orange_color));
-                addBtn.setText(R.string.strl_delete_yixiang);
+                showCancelFavorite();
             }
             changeUiShow(designerInfo);
         }
+    }
+
+    private void showAddFavorite(){
+        addBtn.setTextColor(getResources().getColor(R.color.font_white));
+        addBtn.setText(R.string.strl_add_yixiang);
+        addBtnIconView.setVisibility(View.VISIBLE);
+    }
+
+    private void showCancelFavorite(){
+        addBtn.setTextColor(getResources().getColor(R.color.orange_color));
+        addBtn.setText(R.string.strl_delete_yixiang);
+        addBtnIconView.setVisibility(View.GONE);
     }
 
     private void changeUiShow(Designer designerInfo) {
@@ -447,9 +483,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
             addBtn.setSelected(true);
-            addBtn.setTextColor(getResources().getColor(R.color.orange_color));
-            addBtn.setText(R.string.strl_delete_yixiang);
-//            EventBus.getDefault().post(new MessageEvent(Constant.UPDATE_ORDER_DESIGNER_ACTIVITY));
+            showCancelFavorite();
             postFavoriteDesignerEvent(true);
         }
 
@@ -486,11 +520,8 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
             addBtn.setSelected(false);
-            addBtn.setTextColor(getResources().getColor(R.color.font_white));
-            addBtn.setText(R.string.strl_add_yixiang);
+            showAddFavorite();
             postFavoriteDesignerEvent(false);
-//            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_FAVORITE_DESIGNER_FRAGMENT));
-//            EventBus.getDefault().post(new MessageEvent(Constant.DELETE_ORDER_DESIGNER_ACTIVITY));
         }
 
         @Override

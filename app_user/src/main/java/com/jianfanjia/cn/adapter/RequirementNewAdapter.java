@@ -134,6 +134,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             if (!TextUtils.isEmpty(cellPhase)) {
                 ltm_req_cell.setText(cellPhase);
             }
+
             ltm_req_starttime_cont.setText(DateFormatTool.longToString(requirementInfo.getCreate_at()));
             ltm_req_updatetime_cont.setText(DateFormatTool.longToString(requirementInfo.getLast_status_update_time
                     ()));
@@ -144,13 +145,14 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             } else {
                 ltm_req_owner_head.setImageResource(R.mipmap.icon_default_head);
             }
+
             String requirementStatus = requirementInfo.getStatus();
             String workType = requirementInfo.getWork_type();
             if (workType.equals(Global.PURE_DESIGNER)) {
                 if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
                     ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
                     ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_order));
+                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_order_high_point));
                     ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -282,8 +284,9 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                         imageShow.displayImageHeadWidthThumnailImage(context, orderDesignerInfo
                                 .getImageid(), headView);
                     } else {
-                        imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC, headView);
+                        headView.setImageResource(R.mipmap.icon_add_high_point);
                     }
+
                     String status = orderDesignerInfo.getPlan().getStatus();
                     switch (status) {
                         case Global.PLAN_STATUS0:
@@ -395,7 +398,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 authView.setVisibility(View.GONE);
             }
         }
-
 
     }
 
@@ -720,7 +722,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                                 designerLayout.setAlpha(0.3f);
                                 break;
                         }
-
                     }
                 }
             } else {

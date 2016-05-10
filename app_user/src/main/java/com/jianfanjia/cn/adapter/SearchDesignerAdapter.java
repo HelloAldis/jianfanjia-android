@@ -69,7 +69,7 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
         holder.startLine.setBackgroundResource(R.color.horzontal_line_color);
         holder.endLine.setBackgroundResource(R.color.horzontal_line_color);
         List<String> tags = designerInfo.getTags();
-        if(tags.size() > 0){
+        if(tags != null && tags.size() > 0){
             holder.itemTagText.setVisibility(View.VISIBLE);
             holder.itemTagText.setText(tags.get(0));
             switch (tags.get(0)){

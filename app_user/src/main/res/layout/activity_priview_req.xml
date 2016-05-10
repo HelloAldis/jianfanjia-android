@@ -221,6 +221,8 @@
                 style="@style/divier_line"
                 android:background="@color/horzontal_line_color" />
 
+            <include layout="@layout/include_edit_req_high_point"/>
+
             <LinearLayout
                 android:id="@+id/act_edit_req_decoratebudget_365"
                 style="@style/my_list_item_layout_style"

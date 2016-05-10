@@ -2,35 +2,66 @@
 <LinearLayout
     android:id="@+id/designer_info_head_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/imageLayout"
-        android:layout_width="60dip"
-        android:layout_height="60dip"
-        android:layout_gravity="center_horizontal"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dip">
 
-        <com.jianfanjia.cn.view.layout.CircleImageView
-            android:id="@+id/designerinfo_head_img"
-            app:border_color="@color/white"
-            app:border_width="2dip"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+        <FrameLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="68dip"
+            android:layout_height="76dip"
+            android:layout_centerInParent="true"
+            >
 
-        <ImageView
-            android:id="@+id/designerinfo_auth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@mipmap/icon_auth"
-            android:visibility="gone"/>
-    </FrameLayout>
+            <com.jianfanjia.cn.view.layout.CircleImageView
+                android:id="@+id/designerinfo_head_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_head"
+                app:border_color="@color/white"
+                app:border_width="1dip"/>
+
+            <ImageView
+                android:id="@+id/designerinfo_auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="@dimen/space_4"
+                android:layout_marginBottom="@dimen/space_8"
+                android:src="@mipmap/icon_auth"
+                />
+
+            <ImageView
+                android:id="@+id/designerinfo_high_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:src="@mipmap/icon_designer_high_point"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/ltm_req_tag"
+            style="@style/listview_item_text_style_small"
+            android:layout_marginLeft="-22dp"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_toRightOf="@id/imageLayout"
+            android:background="@drawable/text_rectangle_blue_bg"
+            android:paddingLeft="@dimen/space_4"
+            android:paddingRight="@dimen/space_4"
+            android:textColor="@color/font_white"
+            />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/designer_name"
@@ -72,8 +103,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="0"
                 android:textColor="@color/font_white"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_14"/>
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/viewCountTextTitle"
@@ -98,8 +129,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="0"
                 android:textColor="@color/font_white"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_14"/>
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/productCountTextTitle"
@@ -124,8 +155,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="0"
                 android:textColor="@color/font_white"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size_14"/>
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/appointCountTextTitle"
@@ -138,18 +169,31 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_add"
-        style="?android:attr/borderlessButtonStyle"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/space_40"
         android:layout_marginLeft="@dimen/space_60"
         android:layout_marginRight="@dimen/space_60"
-        android:layout_marginTop="@dimen/space_40"
-        android:background="@drawable/add_and_cancel_appoint_selector"
-        android:text="@string/strl_add_yixiang"
-        android:textColor="@color/font_white"
-        android:textSize="@dimen/text_size_14"/>
+        android:layout_marginTop="@dimen/space_40">
+
+        <Button
+            android:id="@+id/btn_add"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/add_and_cancel_appoint_selector"
+            android:text="@string/strl_add_yixiang"
+            android:textColor="@color/font_white"
+            android:textSize="@dimen/text_size_14"/>
+
+        <ImageView
+            android:id="@+id/btn_add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_add_favorite"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/space_12"/>
+    </FrameLayout>
 
 </LinearLayout>

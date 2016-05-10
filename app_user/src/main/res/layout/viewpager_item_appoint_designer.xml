@@ -12,7 +12,8 @@
         android:layout_marginLeft="@dimen/space_36"
         android:layout_marginRight="@dimen/space_36"
         tools:cardCornerRadius="4dp"
-        tools:cardUseCompatPadding="true">
+        tools:cardUseCompatPadding="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,8 +157,8 @@
 
     <FrameLayout
         android:id="@+id/imageLayout"
-        android:layout_width="64dip"
-        android:layout_height="66dip"
+        android:layout_width="68dip"
+        android:layout_height="76dip"
         android:layout_centerInParent="true"
         >
 
@@ -169,7 +170,7 @@
             android:layout_gravity="center"
             android:src="@mipmap/icon_default_head"
             app:border_color="@color/white"
-            app:border_width="1dip"/>
+            app:border_width="1dp"/>
 
         <ImageView
             android:id="@+id/designerinfo_auth"
@@ -177,8 +178,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:src="@mipmap/icon_auth"
-            android:layout_margin="2dp"
-            android:visibility="gone"/>
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_8"
+            />
 
         <ImageView
             android:id="@+id/designerinfo_high_point"
