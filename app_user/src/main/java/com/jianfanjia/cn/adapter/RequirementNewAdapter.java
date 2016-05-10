@@ -284,7 +284,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                         imageShow.displayImageHeadWidthThumnailImage(context, orderDesignerInfo
                                 .getImageid(), headView);
                     } else {
-                        headView.setImageResource(R.mipmap.icon_add_high_point);
+                        headView.setImageResource(R.mipmap.icon_default_head);
                     }
 
                     String status = orderDesignerInfo.getPlan().getStatus();
@@ -386,7 +386,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             } else {
                 highPointView.setVisibility(View.GONE);
                 nameView.setText(context.getResources().getString(R.string.designer));
-                headView.setImageResource(R.mipmap.icon_add);
+                headView.setImageResource(R.mipmap.icon_add_high_point);
                 statusView.setText(context.getResources().getString(R.string.str_not_order));
                 statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                 designerLayout.setOnClickListener(new View.OnClickListener() {

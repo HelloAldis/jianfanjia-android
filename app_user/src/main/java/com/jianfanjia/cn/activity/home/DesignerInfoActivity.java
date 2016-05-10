@@ -57,7 +57,7 @@ import de.greenrobot.event.EventBus;
  */
 public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnClickListener, ViewPager
         .OnPageChangeListener {
-    private static final String TAG = DesignerInfoHighPointActivity.class.getName();
+    private static final String TAG = DesignerInfoActivity.class.getName();
 
     @Bind(R.id.sl_root)
     protected ScrollableLayout sl_root = null;
@@ -458,7 +458,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
                             .MATCH_PARENT, height));
                 }
             });
-            designerInfoBackground.setImageResource(R.mipmap.bg_fragment_my);
+            designerInfoBackground.setImageResource(R.mipmap.bg_designerinfo_high_point);
             designerInfoTabLayout.setVisibility(View.VISIBLE);
             sl_root.setIsEnableScroll(false);
             setAllTextColor(getResources().getColor(R.color.font_white));
