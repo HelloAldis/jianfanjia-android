@@ -256,7 +256,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOMYDESI);
+                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
                     }
                 });
             }
@@ -278,7 +278,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     if (!TextUtils.isEmpty(orderDesignerInfo.getUsername())) {
                         nameView.setText(orderDesignerInfo.getUsername());
                     } else {
-                        nameView.setText(context.getResources().getString(R.string.designer));
+                        nameView.setText(context.getResources().getString(R.string.designer_high_point));
                     }
                     if (!TextUtils.isEmpty(orderDesignerInfo.getImageid())) {
                         imageShow.displayImageHeadWidthThumnailImage(context, orderDesignerInfo
@@ -385,7 +385,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 }
             } else {
                 highPointView.setVisibility(View.GONE);
-                nameView.setText(context.getResources().getString(R.string.designer));
+                nameView.setText(context.getResources().getString(R.string.designer_high_point));
                 headView.setImageResource(R.mipmap.icon_add_high_point);
                 statusView.setText(context.getResources().getString(R.string.str_not_order));
                 statusView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
@@ -530,7 +530,6 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 default:
                     setHasNewAction(context, orderDesignerInfos, clickCallBack, position);
                     break;
-
             }
         }
 
@@ -559,7 +558,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                 ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOMYDESI);
+                        clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPRO);
                     }
                 });
             }

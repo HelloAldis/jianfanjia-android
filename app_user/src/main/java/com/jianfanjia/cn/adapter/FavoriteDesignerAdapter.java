@@ -56,7 +56,7 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<Designer> {
             holder.authView.setVisibility(View.GONE);
         }
         List<String> tags = designerInfo.getTags();
-        if(tags.size() > 0){
+        if(tags != null && tags.size() > 0){
             holder.itemTagText.setVisibility(View.VISIBLE);
             holder.itemTagText.setText(tags.get(0));
             switch (tags.get(0)){

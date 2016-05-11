@@ -190,7 +190,6 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) designerInfoHeadContentWrap
                         .getLayoutParams();
                 layoutParams.height = startHeight - (Integer) animation.getAnimatedValue();

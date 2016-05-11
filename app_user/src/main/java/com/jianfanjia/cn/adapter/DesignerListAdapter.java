@@ -55,11 +55,12 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
         holder.itemHighPointView.setVisibility(View.GONE);
         holder.startLine.setBackgroundResource(R.color.horzontal_line_color);
         holder.endLine.setBackgroundResource(R.color.horzontal_line_color);
+
         List<String> tags = designerInfo.getTags();
-        if(tags != null && tags.size() > 0){
+        if (tags != null && tags.size() > 0) {
             holder.itemTagText.setVisibility(View.VISIBLE);
             holder.itemTagText.setText(tags.get(0));
-            switch (tags.get(0)){
+            switch (tags.get(0)) {
                 case RequirementBusiness.TAG_NEW_GENERATE:
                     holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
                     break;
@@ -73,7 +74,7 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
                     holder.endLine.setBackgroundResource(R.color.orange_color);
                     break;
             }
-        }else {
+        } else {
             holder.itemTagText.setVisibility(View.GONE);
         }
         int respond_speed = (int) designerInfo.getRespond_speed();
