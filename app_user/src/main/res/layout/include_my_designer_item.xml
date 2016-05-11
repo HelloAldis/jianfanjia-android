@@ -42,31 +42,51 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ltm_my_designer_info_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
                 <TextView
                     android:id="@+id/ltm_my_designer_name"
                     style="@style/listview_item_text_style_middle"
-                    android:layout_gravity="center_vertical"
-                    android:text="张三"
-                    android:textColor="@color/light_black_color"/>
+                    android:layout_centerVertical="true"
+                    android:maxEms="6"
+                    android:ellipsize="end"
+                    android:text="aaa"
+                    android:layout_toLeftOf="@+id/ltm_req_tag"
+                    android:layout_width="match_parent"
+                    android:gravity="left|center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/light_black_color"
+                    />
 
                 <TextView
                     android:id="@+id/ltm_req_tag"
                     style="@style/listview_item_text_style_small"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/space_24"
-                    android:text="dadsada"
-                    android:paddingLeft="@dimen/space_4"
-                    android:paddingRight="@dimen/space_4"
+                    android:layout_toLeftOf="@+id/ltm_my_designer_status"
+                    android:layout_marginRight="@dimen/space_6"
+                    android:layout_alignWithParentIfMissing="true"
+                    android:paddingLeft="@dimen/space_6"
+                    android:paddingRight="@dimen/space_6"
+                    android:paddingTop="@dimen/space_2"
+                    android:paddingBottom="@dimen/space_2"
                     android:textColor="@color/font_white"
                     />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/ltm_my_designer_status"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_centerVertical="true"
+                    android:singleLine="true"
+                    android:text="已响应"
+                    android:textColor="@color/grey_color"/>
+
+            </RelativeLayout>
 
             <RatingBar
                 android:id="@+id/ltm_my_ratingBar"
@@ -80,14 +100,6 @@
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/ltm_my_designer_status"
-            style="@style/listview_item_text_style_small"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/space_10"
-            android:singleLine="true"
-            android:text="已响应"
-            android:textColor="@color/grey_color"/>
     </RelativeLayout>
 
 

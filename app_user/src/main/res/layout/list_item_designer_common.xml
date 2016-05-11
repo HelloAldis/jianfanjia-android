@@ -19,20 +19,18 @@
             android:background="@drawable/my_item_layout_bg_selector"
             android:paddingBottom="@dimen/space_16"
             android:paddingLeft="@dimen/space_16"
-            android:paddingRight="@dimen/space_16"
-            android:paddingTop="@dimen/space_16">
+            android:paddingRight="@dimen/space_16">
 
             <FrameLayout
                 android:id="@+id/imageLayout"
-                android:layout_width="78dip"
-                android:layout_height="80dip"
-                android:layout_centerVertical="true"
-                >
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
 
                 <com.jianfanjia.cn.view.layout.CircleImageView
                     android:id="@+id/ltm_req_owner_head"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/icon_default_head"
                     android:layout_gravity="center_vertical|left"
@@ -44,18 +42,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:src="@mipmap/icon_auth"
-                    android:layout_margin="@dimen/space_8"
-                    />
-
-                <ImageView
-                    android:id="@+id/designerinfo_high_point"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|right"
-                    android:layout_marginRight="@dimen/space_2"
-                    android:src="@mipmap/icon_designer_high_point"
                     />
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/designerinfo_high_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_toRightOf="@+id/imageLayout"
+                android:layout_marginLeft="-20dp"
+                android:layout_marginTop="6dp"
+                android:src="@mipmap/icon_designer_high_point"
+                />
 
 
             <RelativeLayout
@@ -63,15 +62,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/imageLayout"
-                android:layout_marginLeft="@dimen/space_8"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/imageLayout">
 
                 <TextView
                     android:id="@+id/ltm_req_username"
                     style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
                     android:ellipsize="end"
-                    android:gravity="left"
+                    android:gravity="left|top"
                     android:maxEms="8"
                     android:singleLine="true"
                     android:text="@string/user_name"
@@ -84,10 +82,11 @@
                     style="@style/listview_item_text_style_small"
                     android:layout_centerVertical="true"
                     android:textColor="@color/font_white"
-                    android:paddingLeft="@dimen/space_4"
-                    android:paddingRight="@dimen/space_4"
-                    android:layout_marginLeft="@dimen/space_24"
-                    android:layout_toRightOf="@id/ltm_req_username"
+                    android:paddingLeft="@dimen/space_6"
+                    android:paddingRight="@dimen/space_6"
+                    android:paddingTop="@dimen/space_2"
+                    android:paddingBottom="@dimen/space_2"
+                    android:layout_alignParentRight="true"
                    />
 
             </RelativeLayout>
@@ -98,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/basic_info_layout"
-                android:layout_marginLeft="@dimen/space_8"
+                android:layout_alignLeft="@id/basic_info_layout"
                 android:layout_marginTop="@dimen/space_6"
                 android:layout_toRightOf="@+id/imageLayout"
                 android:isIndicator="true"
@@ -106,32 +105,12 @@
                 android:rating="0" />
 
             <TextView
-                android:id="@+id/ltm_req_starttime"
-                style="@style/listview_item_text_style_small"
-                android:layout_below="@+id/ratingBar"
-                android:layout_marginLeft="@dimen/space_8"
-                android:layout_marginTop="@dimen/space_6"
-                android:layout_toRightOf="@+id/imageLayout"
-                android:text="@string/str_decoratehousetype"
-                android:textColor="@color/grey_color" />
-
-            <TextView
-                android:id="@+id/ltm_req_updatetime"
-                style="@style/listview_item_text_style_small"
-                android:layout_alignLeft="@id/ltm_req_starttime"
-                android:layout_alignStart="@id/ltm_req_starttime"
-                android:layout_below="@id/ltm_req_starttime"
-                android:layout_marginTop="6dp"
-                android:text="@string/good_at_style1"
-                android:textColor="@color/grey_color" />
-
-            <TextView
                 android:id="@+id/ltm_decoratehousetype_cont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/ltm_req_starttime"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_toRightOf="@id/ltm_req_starttime"
+                android:layout_below="@+id/ratingBar"
+                android:layout_alignLeft="@id/basic_info_layout"
+                android:layout_marginTop="@dimen/space_6"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_12" />
@@ -140,12 +119,11 @@
                 android:id="@+id/ltm_good_at_style_cont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/ltm_req_updatetime"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_toRightOf="@id/ltm_req_updatetime"
+                android:layout_alignLeft="@id/basic_info_layout"
+                android:layout_below="@id/ltm_decoratehousetype_cont"
+                android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12" />
 
         </RelativeLayout>

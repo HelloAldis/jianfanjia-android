@@ -87,7 +87,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 holder.itemNameText.setText(designerCanOrderInfo.getUsername());
                 if (designerCanOrderInfo.getMatch() != 0) {
                     holder.itemMarchText.setVisibility(View.VISIBLE);
-                    holder.itemMarchText.setText("匹配度" + designerCanOrderInfo.getMatch() + "%");
+                    holder.itemMarchText.setText("匹配度：" + designerCanOrderInfo.getMatch() + "%");
                 } else {
                     holder.itemMarchText.setVisibility(View.GONE);
                 }

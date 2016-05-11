@@ -22,13 +22,13 @@ pgyer {
 
 apks {
     supervisor {
-        sourceFile = file("G:\\release_apks\\supervisor_1.0.8\\supervisor-Defalut_20160428_0_8_1.0.8.apk")
+        sourceFile = file("G:\\test_apks\\supervisor_1.1.0\\supervisor-Defalut-andtest_20160510_0_10_1.1.0.apk")
     }
     user {
-        sourceFile = file("G:\\release_apks\\user_2.6.8\\jianfanjia-Default_20160428_0_78_2.6.8.apk")
+        sourceFile = file("G:\\test_apks\\user_2.7.0\\jianfanjia-Default-andtest_20160510_0_80_2.7.0.apk")
     }
     designer {
-        sourceFile = file("G:\\release_apks\\designer_2.6.8\\designer-Default_20160428_0_78_2.6.8.apk")
+        sourceFile = file("G:\\test_apks\\designer_2.7.0\\designer-Default-andtest_20160510_0_80_2.7.0.apk")
     }
 }
 

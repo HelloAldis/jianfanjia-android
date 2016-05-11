@@ -3,6 +3,7 @@ package com.jianfanjia.cn.activity.requirement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,6 +26,7 @@ import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
+import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
@@ -58,9 +60,13 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
     @Bind(R.id.dot_indicator)
     CircleIndicator mCircleIndicator;
 
+    @Bind(R.id.appoint_tip)
+    TextView appointTipView;
+
     AppointDesignerViewPageAdapter mViewPageAdapter;
 
     private String requirementid;
+    private String oldDesignerid;
 
     List<View> mViews = new ArrayList<>();
 
@@ -79,11 +85,17 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             requirementid = intent.getStringExtra(IntentConstant.REQUIREMENT_ID);
+            oldDesignerid = intent.getStringExtra(IntentConstant.DESIGNER_ID);
         }
     }
 
     private void initView() {
         initMainView();
+        changeTipColor();
+    }
+
+    private void changeTipColor() {
+        appointTipView.setText(Html.fromHtml("您可立即预约<font color=\"#fe7003\"> 1 </font>名匠心定制设计师"));
     }
 
     private void initDate() {
@@ -93,12 +105,6 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
     }
 
     private void initViewPager() {
-//        for (int imageid : loveStyleImageIds) {
-//            View view = inflater.inflate(R.layout.viewpager_item_appoint_designer, null, true);
-//            ImageView imageView = (ImageView) view.findViewById(R.id.designer_case_background);
-//            imageView.setImageResource(imageid);
-//            mViews.add(view);
-//        }
 
         mViewPageAdapter = new AppointDesignerViewPageAdapter(this, mViews);
 
@@ -227,7 +233,11 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
                 public void onClick(View v) {
                     List<String> designerIdList = new ArrayList<>();
                     designerIdList.add(designerInfo.get_id());
-                    orderDesignerByUser(requirementid, designerIdList);
+                    if (oldDesignerid != null) {
+                        replaceDesignerByUser(requirementid, oldDesignerid, designerInfo.get_id());
+                    } else {
+                        orderDesignerByUser(requirementid, designerIdList);
+                    }
                 }
             });
             viewHolder.mFrameLayout.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +256,40 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
             i++;
         }
         initViewPager();
+    }
+
+    //替换设计师
+    private void replaceDesignerByUser(String requirementid, String old_designerid, String new_designerid) {
+        ReplaceOrderedDesignerRequest replaceOrderedDesignerRequest = new ReplaceOrderedDesignerRequest();
+        replaceOrderedDesignerRequest.setRequirementid(requirementid);
+        replaceOrderedDesignerRequest.setOld_designerid(old_designerid);
+        replaceOrderedDesignerRequest.setNew_designerid(new_designerid);
+        Api.replaceOrderedDesigner(replaceOrderedDesignerRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(AppointHighPointDesignerActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
     }
 
     private void intentToDesignerInfo(Designer designerInfo) {

@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -99,6 +101,24 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
         ButterKnife.unbind(this);
         LogTool.d(this.getClass().getName(), "onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LogTool.d(this.getClass().getName(), "onDetach");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LogTool.d(this.getClass().getName(), "onAttach context");
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        LogTool.d(this.getClass().getName(), "onAttach activity");
     }
 
     protected void makeTextShort(String text) {
