@@ -32,9 +32,6 @@ task hello {
     }
 }
 
-task test {
-    println "test task"
-}
 
 //./gradlew -Prtype=b bumpAppUser  :app_user:assembleDefaultDebug
 

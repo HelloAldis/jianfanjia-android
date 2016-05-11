@@ -1,12 +1,12 @@
 package com.jianfanjia.cn.designer.bean;
 
-import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.designer.config.Global;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jianfanjia.api.model.Plan;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.designer.config.Global;
 
 /**
  * Description: com.jianfanjia.cn.designer.bean
@@ -48,10 +48,6 @@ public class RequirementList implements Serializable {
             overRequirementInfoLists.clear();
             for (Requirement requirementInfo : requirementInfoList) {
                 String requiremnetStatus = requirementInfo.getStatus();
-                if (requiremnetStatus.equals(Global.REQUIREMENT_STATUS5) || requiremnetStatus.equals(Global
-                        .REQUIREMENT_STATUS8)) {
-                    continue;
-                }
                 Plan plan = requirementInfo.getPlan();
                 if (plan != null) {
                     String status = plan.getStatus();
@@ -68,7 +64,10 @@ public class RequirementList implements Serializable {
                         case Global.PLAN_STATUS7:
                             break;
                         default:
-                            communicationRequirementInfoList.add(requirementInfo);
+                            if (!requiremnetStatus.equals(Global.REQUIREMENT_STATUS5) && !requiremnetStatus.equals
+                                    (Global.REQUIREMENT_STATUS8)) {
+                                communicationRequirementInfoList.add(requirementInfo);
+                            }
                             break;
                     }
                 }

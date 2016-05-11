@@ -69,6 +69,7 @@ public class NewUserCollectDecStageActivity extends BaseActivity {
     private void initView() {
 //        dec_stage_1.setTranslationY(TDevice.getScreenHeight() / 2);
         LogTool.d(TAG, "TDevice.getScreenHeight() =" + TDevice.getScreenHeight());
+
         dec_stage_1.setTranslationY(TDevice.getScreenHeight());
         dec_stage_1.animate().translationY(0).setInterpolator(new OvershootInterpolator(1.0f)).setStartDelay(200)
                 .setDuration(700).start();

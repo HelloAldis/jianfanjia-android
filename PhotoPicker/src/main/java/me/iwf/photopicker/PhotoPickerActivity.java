@@ -143,7 +143,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     public void showImagePagerFragment(List<String> photos, int index) {
         Intent intent = new Intent(this, PhotoPagerActivity.class);
         intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, index);
-        intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, (ArrayList)photos);
+        intent.putStringArrayListExtra(PhotoPagerActivity.EXTRA_PHOTOS, (ArrayList)photos);
         intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false);
         startActivity(intent);
     }

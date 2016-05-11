@@ -254,6 +254,19 @@
         <item>300以上</item>
     </string-array>
 
+    <string-array name="arr_grade">
+        <item>新锐先锋</item>
+        <item>暖暖走心</item>
+        <item>匠心定制</item>
+    </string-array>
+
+    <string-array name="arr_tag">
+        <item></item>
+        <item>100-200</item>
+        <item>200-300</item>
+        <item>300以上</item>
+    </string-array>
+
     <string-array name="arr_area">
         <item>90㎡以下</item>
         <item>90-120㎡</item>

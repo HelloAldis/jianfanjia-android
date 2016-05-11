@@ -35,6 +35,8 @@ public class ScrollableLayout extends LinearLayout {
     private float moveDistanceX;
     private float moveDistanceY;
 
+    private boolean isEnableScroll = true;//是否可以滚动
+
     private View mHeadView;
     private ViewPager childViewPager;
 
@@ -106,6 +108,14 @@ public class ScrollableLayout extends LinearLayout {
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec) + maxY, MeasureSpec.EXACTLY));
     }
 
+    public boolean isEnableScroll() {
+        return isEnableScroll;
+    }
+
+    public void setIsEnableScroll(boolean isEnableScroll) {
+        this.isEnableScroll = isEnableScroll;
+    }
+
     @Override
     protected void onFinishInflate() {
         if (mHeadView != null && !mHeadView.isClickable()) {
@@ -130,6 +140,10 @@ public class ScrollableLayout extends LinearLayout {
         int shiftY;
         shiftX = (int) Math.abs(currentX - mDownX);
         shiftY = (int) Math.abs(currentY - mDownY);
+        if(!isEnableScroll()){
+            super.dispatchTouchEvent(ev);
+            return true;
+        }
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mDisallowIntercept = false;

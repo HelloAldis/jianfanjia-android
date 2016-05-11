@@ -7,7 +7,7 @@ package com.jianfanjia.cn.supervisor.api;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
+import com.jianfanjia.cn.tools.UiHelper;
 
 /**
  * 基础的Api回调方法, 可以将一些全局的无关具体请求和具体屏的公共逻辑放这里

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,11 +19,12 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.cn.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -42,8 +44,8 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
     @Bind(R.id.ltm_my_designer_name)
     protected TextView nameView;
 
-    @Bind(R.id.ltm_my_identity_auth)
-    protected ImageView identityAuthView;
+    @Bind(R.id.ltm_req_tag)
+    TextView itemTagText;
 
     @Bind(R.id.ltm_my_info_auth)
     protected ImageView infoAuthView;
@@ -103,10 +105,23 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
         } else {
             infoAuthView.setVisibility(View.GONE);
         }
-        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            identityAuthView.setVisibility(View.VISIBLE);
-        } else {
-            identityAuthView.setVisibility(View.GONE);
+        List<String> tags = designerInfo.getTags();
+        if(tags != null && tags.size() > 0){
+            itemTagText.setVisibility(View.VISIBLE);
+            itemTagText.setText(tags.get(0));
+            switch (tags.get(0)){
+                case RequirementBusiness.TAG_NEW_GENERATE:
+                    itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                    break;
+                case RequirementBusiness.TAG_MIDDER_GENERATE:
+                    itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                    break;
+                case RequirementBusiness.TAG_HIGH_POINT:
+                    itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    break;
+            }
+        }else {
+            itemTagText.setVisibility(View.GONE);
         }
         int respond_speed = (int) designerInfo.getRespond_speed();
         int service_attitude = (int) designerInfo.getService_attitude();
@@ -120,8 +135,8 @@ public class MyDesignerViewType2 extends RecyclerView.ViewHolder {
             statusView.setText(context.getResources().getString(R.string.str_wait_measure_house));
         }
 
-        button1.setText(context.getResources().getString(R.string.measure_house_time) + "：" + StringUtils
-                .covertLongToStringHasMini(designerInfo.getPlan().getHouse_check_time()));
+        button1.setText(context.getResources().getString(R.string.measure_house_time) + "：" + DateFormatTool.longToStringHasMini(
+                designerInfo.getPlan().getHouse_check_time()));
 
         button2.setText(context.getResources().getString(R.string.confirm_measure_house));
 

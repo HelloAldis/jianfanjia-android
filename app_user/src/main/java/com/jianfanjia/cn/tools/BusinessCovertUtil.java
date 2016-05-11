@@ -17,6 +17,7 @@ import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.StringUtils;
 
 public class BusinessCovertUtil {
 
@@ -200,6 +201,20 @@ public class BusinessCovertUtil {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
             for (int i = 0; i < items.length; i++) {
                 if (items[i].equals(decStyleText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDecGradeByText(String decGradeText) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_grade);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(decGradeText)) {
                     return i + "";
                 }
             }

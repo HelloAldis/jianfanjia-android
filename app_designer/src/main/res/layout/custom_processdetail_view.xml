@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <com.jianfanjia.cn.designer.view.MyViewPager
-        android:id="@+id/process_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="#ffffff"
-        android:fadingEdge="none"
-        />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+    >
 
     <com.jianfanjia.cn.designer.view.ProcessDetailHeadStateView
         android:id="@+id/process_headstateview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/process_viewpager"
-        android:layout_marginTop="-6dip"
+        android:layout_gravity="bottom"
         />
 
-  </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <com.jianfanjia.cn.designer.view.MyViewPager
+            android:id="@+id/process_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="#ffffff"
+            android:fadingEdge="none"
+            />
+
+        <View style="@style/divier_line"
+              android:layout_gravity="bottom"/>
+
+        <ImageView
+            android:id="@+id/indicator_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="38dp"
+            android:src="@mipmap/icon_row"
+            android:layout_gravity="bottom"/>
+
+    </FrameLayout>
+
+</FrameLayout>

@@ -19,7 +19,7 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.fragment.LoginFragment;
 import com.jianfanjia.cn.fragment.RegisterFragment;
 import com.jianfanjia.cn.tools.AuthUtil;
-import com.jianfanjia.cn.view.ViewPagerIndicator;
+import com.jianfanjia.cn.view.viewpager.ViewPagerIndicator;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.sso.UMSsoHandler;
 
@@ -65,7 +65,9 @@ public class LoginNewActivity extends BaseActivity {
     private void initView() {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        currentFragment = bundle.getInt(IntentConstant.LOGIN_REGIISTER_TYPE);
+        if(bundle != null){
+            currentFragment = bundle.getInt(IntentConstant.LOGIN_REGIISTER_TYPE,0);
+        }
         LogTool.d(TAG, "currentFragment=" + currentFragment);
         viewPagerIndicator.setTabItemTitles(Arrays.asList(tabTitles));
         fragmentList.add(new LoginFragment());

@@ -7,11 +7,14 @@ import android.animation.PropertyValuesHolder;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -39,7 +42,7 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.service.UpdateService;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -47,6 +50,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
+
+    public static Drawable tintDrawable(Drawable drawable, ColorStateList colors) {
+        final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTintList(wrappedDrawable, colors);
+        return wrappedDrawable;
+    }
 
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();
@@ -150,21 +159,13 @@ public class UiHelper {
      */
     public static void setLayoutAnim(Context context, ViewGroup viewGroup) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.listview_from_top);
-
         //得到一个LayoutAnimationController对象；
-
         LayoutAnimationController lac = new LayoutAnimationController(animation);
-
         //设置控件显示的顺序；
-
         lac.setOrder(LayoutAnimationController.ORDER_NORMAL);
-
         //设置控件显示间隔时间；
-
         lac.setDelay(0.1f);
-
         //为ListView设置LayoutAnimationController属性；
-
         viewGroup.setLayoutAnimation(lac);
     }
 

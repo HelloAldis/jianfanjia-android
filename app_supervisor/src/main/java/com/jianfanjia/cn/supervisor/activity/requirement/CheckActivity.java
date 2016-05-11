@@ -24,8 +24,8 @@ import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.bean.GridItem;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.interf.ItemClickCallBack;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
-import com.jianfanjia.cn.supervisor.view.baseview.ItemSpaceDecoration;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 

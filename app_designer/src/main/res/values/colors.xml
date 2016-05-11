@@ -34,6 +34,7 @@
     <color name="main_layout_bg">#f2f2f3</color>
     <color name="light_white_color">#d5d5d5</color>
     <color name="orange_color">#fe7003</color>
+    <color name="light_orange_color">#FEA968</color>
     <color name="light_black_color">#344a5c</color>
     <color name="black_color">#000000</color>
     <color name="grey_color">#7c8489</color>

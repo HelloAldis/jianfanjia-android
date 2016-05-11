@@ -6,9 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.interf.ViewPagerClickListener;
-
 import java.util.List;
+
+import com.jianfanjia.cn.interf.ViewPagerClickListener;
 
 public class ViewPageAdapter extends PagerAdapter {
 	private static final String TAG = "ViewPageAdapter";

@@ -19,7 +19,7 @@ import com.jianfanjia.cn.tools.JavaScriptObject;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.ProgressWebView;
+import com.jianfanjia.cn.view.webview.ProgressWebView;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
@@ -132,7 +132,8 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     }
 
     private void showPopwindow() {
-        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject.getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
+        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject
+                .getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
 
@@ -148,7 +149,9 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     private String getUrlFromIntent() {
         Intent intent = this.getIntent();
         String url = intent.getStringExtra(Global.WEB_VIEW_URL);
-        LogTool.d(TAG, url);
+        if (!TextUtils.isEmpty(url)) {
+            LogTool.d(TAG, url);
+        }
         return url;
     }
 

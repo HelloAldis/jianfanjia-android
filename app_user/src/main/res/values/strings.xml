@@ -338,7 +338,7 @@
     <string name="str_decoratehousetype">装修户型</string>
     <string name="search_no_designer">没有找到任何匹配的设计师</string>
     <string name="search_no_beautyimg">没有找到任何匹配的美图</string>
-    <string name="search_no_product">没有找到任何匹配的作品</string>
+    <string name="search_no_product">没有找到任何匹配的案例</string>
     <string name="already_finish">已完成</string>
 
     <string name="hint_choose_plan_text">选定方案</string>
@@ -395,4 +395,11 @@
 
     <string name="tip">提示</string>
     <string name="tip_confirm_measure">您的量房时间还未到，是否需要确认量房？</string>
+    <string name="str_cancel_collect_success">取消收藏成功</string>
+    <string name="me">我</string>
+    <string name="high_point">匠心定制</string>
+    <string name="immediately_appoint">立即预约</string>
+    <string name="appoint_high_point_title">您可立即预约1名大咖设计师</string>
+    <string name="decoratebudget_high_point_title">您完全符合我们“匠心定制包”的标准\n我们的设计师将会为您提供全程定制化的服务</string>
+    <string name="str_goto_order_high_point">请点击前往预约一名匠心定制设计师</string>
 </resources>

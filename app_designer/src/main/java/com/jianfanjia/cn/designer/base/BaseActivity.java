@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
-import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -30,7 +29,7 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl,PopWindowCallBack{
+        DialogControl{
     protected DownloadManager downloadManager = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
@@ -141,18 +140,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
             intent.putExtras(bundle);
         }
         startActivity(intent);
-    }
-
-    @Override
-    public void firstItemClick() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void secondItemClick() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

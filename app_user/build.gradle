@@ -76,16 +76,16 @@ android {
     productFlavors {
         Default {
         }
-//        zhushou_360 {
-//        }
-//        mi {
-//        }
-//        baidu {
-//        }
-//        yingyongbao {
-//        }
-//        huawei {
-//        }
+     /*   zhushou_360 {
+        }
+        mi {
+        }
+        baidu {
+        }
+        yingyongbao {
+        }
+        huawei {
+        }*/
     }
 
     productFlavors.all { flavor ->
@@ -156,6 +156,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile project(':pulltorefresh')
     compile project(':imageshow')
+    compile project(':viewpager_indicator')
     compile files('libs/GetuiExt-2.0.3.jar')
     compile files('libs/GetuiSDK2.8.1.0.jar')
+    compile 'com.android.support:support-v4:23.2.1'
 }

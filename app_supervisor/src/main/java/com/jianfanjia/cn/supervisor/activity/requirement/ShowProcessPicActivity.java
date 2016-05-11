@@ -22,7 +22,7 @@ import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.supervisor.view.DeletePicDialog;
+import com.jianfanjia.cn.view.DeletePicDialog;
 
 
 public class ShowProcessPicActivity extends BaseSwipeBackActivity implements

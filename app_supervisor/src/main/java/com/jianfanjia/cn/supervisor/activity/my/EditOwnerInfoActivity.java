@@ -23,7 +23,7 @@ import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.api.Api;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Constant;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
+import com.jianfanjia.cn.view.MainHeadView;
 
 
 public class EditOwnerInfoActivity extends BaseSwipeBackActivity implements OnClickListener {

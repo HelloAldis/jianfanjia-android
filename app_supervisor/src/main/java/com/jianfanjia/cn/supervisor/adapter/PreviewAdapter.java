@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.supervisor.tools.ImageShow;
+import com.jianfanjia.cn.tools.ImageShow;
 
 /**
  * Name: PreviewAdapter

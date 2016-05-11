@@ -10,6 +10,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -18,6 +20,7 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.cn.Event.ChoosedContractEvent;
+import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
@@ -28,9 +31,6 @@ import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -43,6 +43,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
         View.OnKeyListener {
     private static final String TAG = ContractActivity.class.getName();
     public static final String CONSTRACT_INTENT_FLAG = "contract_intent_flag";
+
     public static final int NOTICE_INTENT = 0;//通知进入的
     public static final int DESIGNER_LIST_INTENT = 1;//我的设计师列表
     private int flagIntent = -1;
@@ -67,9 +68,11 @@ public class ContractActivity extends BaseSwipeBackActivity implements
     protected void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle contractBundle = intent.getExtras();
-        requirement = (Requirement) contractBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
-        flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG);
-        LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
+        if (contractBundle != null) {
+            requirement = (Requirement) contractBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
+            flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG, DESIGNER_LIST_INTENT);//默认是设计师列表
+            LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
+        }
     }
 
     public void initView() {
@@ -81,7 +84,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
             checkBtn.setText(getString(R.string.already_open_process));
         } else if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
             checkBtn.setEnabled(false);
-            checkBtn.setText(getString(R.string.str_check_contract));
+            checkBtn.setText(getString(R.string.str_wait_setting_open_process_time));
         } else {
             checkBtn.setEnabled(true);
             checkBtn.setText(getString(R.string.str_check_contract));
@@ -250,6 +253,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
                 break;
             case DESIGNER_LIST_INTENT:
 //                setResult(RESULT_OK);
+                startActivity(MainActivity.class);
                 appManager.finishActivity(ContractActivity.this);
                 break;
             default:

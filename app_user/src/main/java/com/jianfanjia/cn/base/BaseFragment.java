@@ -120,7 +120,7 @@ public abstract class BaseFragment extends Fragment {
 
     // 含有Bundle通过Class跳转界面
     protected void startActivity(Class<?> cls, Bundle bundle) {
-        IntentUtil.startActivity(getContext(), cls, bundle);
+        IntentUtil.startActivity(getActivity(), cls, bundle);
     }
 
     protected void startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {

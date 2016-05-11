@@ -18,7 +18,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.designer.tools.StringUtils;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 /**
  * Description: com.jianfanjia.cn.view.baseview
@@ -79,7 +79,7 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
         statusView.setTextColor(getResources().getColor(R.color.blue_color));
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
         if (lastUpdateTime != 0l) {
-            createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
+            createTimeView.setText(DateFormatTool.getHumReadDateString(lastUpdateTime));
         }
         long measureTime = requirementInfo.getPlan().getHouse_check_time();
         if (Calendar.getInstance().getTimeInMillis() > measureTime) {
@@ -91,7 +91,7 @@ public class MyPlanViewType2 extends MyPlanViewTypeBase {
             measureLayout.setVisibility(View.VISIBLE);
             notifyLayout.setVisibility(View.GONE);
             if (measureTime != 0l) {
-                measureTimeView.setText(StringUtils.covertLongToStringHasMini(measureTime));
+                measureTimeView.setText(DateFormatTool.longToStringHasMini(measureTime));
             }
         }
         String imageId = requirementInfo.getUser().getImageid();

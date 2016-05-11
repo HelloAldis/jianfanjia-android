@@ -19,10 +19,10 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.StringUtils;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.DateTimePicker;
 import com.jianfanjia.cn.designer.view.SwipeBackLayout;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -92,7 +92,7 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
     }
 
     protected void updateTitle(Calendar calendar) {
-        timeTitleView.setText(StringUtils.covertLongToStringHasMiniAndChinese(calendar.getTimeInMillis()));
+        timeTitleView.setText(DateFormatTool.covertLongToStringHasMiniAndChinese(calendar.getTimeInMillis()));
     }
 
     @OnClick({R.id.head_back_layout, R.id.btn_confirm, R.id.btn_phone_layout})
@@ -104,7 +104,7 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.btn_confirm:
                 long houseCheckTime = chooseDate.getTimeInMillis();
-                LogTool.d(TAG, "houseCheckTime=" + StringUtils.covertLongToStringHasMini(houseCheckTime));
+                LogTool.d(TAG, "houseCheckTime=" + DateFormatTool.longToStringHasMini(houseCheckTime));
                 setHouseTime(requirementid, houseCheckTime);
                 break;
             case R.id.btn_phone_layout:

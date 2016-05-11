@@ -19,7 +19,7 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.view.SwipeBackLayout;
+import com.jianfanjia.cn.view.layout.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
 
 import butterknife.Bind;

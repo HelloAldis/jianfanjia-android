@@ -36,8 +36,8 @@ import com.jianfanjia.cn.supervisor.api.Api;
 import com.jianfanjia.cn.supervisor.base.BaseFragment;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ClickCallBack;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 
 /**

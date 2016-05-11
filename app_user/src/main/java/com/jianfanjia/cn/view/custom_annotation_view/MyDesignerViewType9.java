@@ -10,9 +10,12 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.tools.ImageShow;
@@ -36,8 +39,8 @@ public class MyDesignerViewType9 extends RecyclerView.ViewHolder {
     @Bind(R.id.ltm_my_designer_name)
     protected TextView nameView;
 
-    @Bind(R.id.ltm_my_identity_auth)
-    protected ImageView identityAuthView;
+    @Bind(R.id.ltm_req_tag)
+    TextView itemTagText;
 
     @Bind(R.id.ltm_my_info_auth)
     protected ImageView infoAuthView;
@@ -86,10 +89,23 @@ public class MyDesignerViewType9 extends RecyclerView.ViewHolder {
         } else {
             infoAuthView.setVisibility(View.GONE);
         }
-        if (designerInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-            identityAuthView.setVisibility(View.VISIBLE);
-        } else {
-            identityAuthView.setVisibility(View.GONE);
+        List<String> tags = designerInfo.getTags();
+        if(tags != null && tags.size() > 0){
+            itemTagText.setVisibility(View.VISIBLE);
+            itemTagText.setText(tags.get(0));
+            switch (tags.get(0)){
+                case RequirementBusiness.TAG_NEW_GENERATE:
+                    itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                    break;
+                case RequirementBusiness.TAG_MIDDER_GENERATE:
+                    itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                    break;
+                case RequirementBusiness.TAG_HIGH_POINT:
+                    itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    break;
+            }
+        }else {
+            itemTagText.setVisibility(View.GONE);
         }
         if (!TextUtils.isEmpty(username)) {
             nameView.setText(username);

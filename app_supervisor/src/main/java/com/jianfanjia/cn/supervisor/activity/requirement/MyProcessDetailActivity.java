@@ -52,14 +52,13 @@ import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ItemClickCallBack;
 import com.jianfanjia.cn.supervisor.interf.PopWindowCallBack;
 import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.supervisor.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.supervisor.tools.IntentUtil;
-import com.jianfanjia.cn.supervisor.tools.StringUtils;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
-import com.jianfanjia.cn.supervisor.view.dialog.CommonDialog;
-import com.jianfanjia.cn.supervisor.view.dialog.DateWheelDialog;
-import com.jianfanjia.cn.supervisor.view.dialog.DialogHelper;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
@@ -547,9 +546,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        String dateStr = StringUtils
-                                .getDateString(((DateWheelDialog) dialog)
-                                        .getChooseCalendar().getTime());
+                        String dateStr = DateFormatTool.longToString(((DateWheelDialog) dialog)
+                                        .getChooseCalendar().getTimeInMillis());
                         LogTool.d(TAG, "dateStr:" + dateStr);
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),

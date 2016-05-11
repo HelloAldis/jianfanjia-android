@@ -20,6 +20,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.tools.IntentUtil;
@@ -100,10 +101,23 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                 } else {
                     holder.itemInfoAuthView.setVisibility(View.GONE);
                 }
-                if (designerCanOrderInfo.getUid_auth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
-                    holder.itemIdentityAuthView.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemIdentityAuthView.setVisibility(View.GONE);
+                List<String> tags = designerCanOrderInfo.getTags();
+                if(tags.size() > 0){
+                    holder.itemTagText.setVisibility(View.VISIBLE);
+                    holder.itemTagText.setText(tags.get(0));
+                    switch (tags.get(0)){
+                        case RequirementBusiness.TAG_NEW_GENERATE:
+                            holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                            break;
+                        case RequirementBusiness.TAG_MIDDER_GENERATE:
+                            holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                            break;
+                        case RequirementBusiness.TAG_HIGH_POINT:
+                            holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                            break;
+                    }
+                }else {
+                    holder.itemTagText.setVisibility(View.GONE);
                 }
                 holder.itemwHeadView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,8 +202,8 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
         ImageView itemwHeadView;
         @Bind(R.id.list_item_name_text)
         TextView itemNameText;
-        @Bind(R.id.list_item_identity_auth)
-        ImageView itemIdentityAuthView;
+        @Bind(R.id.ltm_req_tag)
+        TextView itemTagText;
         @Bind(R.id.list_item_info_auth)
         ImageView itemInfoAuthView;
         @Bind(R.id.list_item_march_text)

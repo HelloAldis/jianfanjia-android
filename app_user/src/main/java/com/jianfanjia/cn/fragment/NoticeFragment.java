@@ -116,7 +116,7 @@ public class NoticeFragment extends BaseFragment {
         all_notice_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getNoticeList(Constant.FROM_START, typeArray, pullDownListener);
+                getNoticeList(Constant.FROM_START,Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
             }
         });
 
@@ -134,7 +134,7 @@ public class NoticeFragment extends BaseFragment {
         noticeAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-                getNoticeList(noticeAdapter.getData().size(), typeArray, loadMoreListener);
+                getNoticeList(noticeAdapter.getData().size(),Constant.HOME_PAGE_LIMIT, typeArray, loadMoreListener);
             }
         });
         noticeAdapter.setEmptyView(emptyLayout);
@@ -154,21 +154,25 @@ public class NoticeFragment extends BaseFragment {
         if (!isPrepared || !isVisible) {
             return;
         }
-        getNoticeList(Constant.FROM_START, typeArray, pullDownListener);
+        getNoticeList(Constant.FROM_START,Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
     }
 
     @OnClick(R.id.error_include)
     public void onClick() {
-        getNoticeList(Constant.FROM_START, typeArray, pullDownListener);
+        getNoticeList(Constant.FROM_START,Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+        if(noticeAdapter.getData().size() > 0){
+            getNoticeList(Constant.FROM_START, noticeAdapter.getData().size(), typeArray, pullDownListener);
+        }else{
+            getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
+        }
     }
 
-    private void getNoticeList(int from, String[] typeStr, ApiCallback<ApiResponse<UserMessageList>> listener) {
+    private void getNoticeList(int from, int limit ,String[] typeStr, ApiCallback<ApiResponse<UserMessageList>> listener) {
         SearchUserMsgRequest request = new SearchUserMsgRequest();
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
@@ -176,7 +180,7 @@ public class NoticeFragment extends BaseFragment {
         conditionParam.put("message_type", params);
         request.setQuery(conditionParam);
         request.setFrom(from);
-        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        request.setLimit(limit);
         Api.searchUserMsg(request, listener);
     }
 

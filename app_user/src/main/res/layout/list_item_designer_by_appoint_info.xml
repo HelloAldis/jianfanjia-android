@@ -9,23 +9,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.jianfanjia.cn.view.layout.CircleImageView
-            android:id="@+id/list_item_head_img"
+        <FrameLayout
+            android:id="@+id/imageLayout"
             android:layout_width="60dip"
             android:layout_height="60dip"
-            android:layout_centerVertical="true"
             android:layout_marginBottom="15dip"
             android:layout_marginLeft="24dip"
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dip"
-            android:scaleType="centerCrop"/>
+            android:layout_centerVertical="true"
+            >
+
+            <com.jianfanjia.cn.view.layout.CircleImageView
+                android:id="@+id/list_item_head_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_head"
+                />
+
+            <ImageView
+                android:id="@+id/list_item_info_auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:src="@mipmap/icon_auth"
+                android:visibility="gone"/>
+        </FrameLayout>
+
 
         <LinearLayout
             android:id="@+id/textLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/list_item_head_img"
+            android:layout_toRightOf="@+id/imageLayout"
             android:orientation="vertical">
 
             <LinearLayout
@@ -40,23 +58,17 @@
                     android:text="张三"
                     android:textColor="@color/light_black_color"/>
 
-                <ImageView
-                    android:id="@+id/list_item_identity_auth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/ltm_req_tag"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/font_white"
+                    android:paddingLeft="@dimen/space_4"
+                    android:paddingRight="@dimen/space_4"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:src="@mipmap/icon_identity_auth"
-                    android:visibility="gone"/>
-
-                <ImageView
-                    android:id="@+id/list_item_info_auth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:src="@mipmap/icon_info_auth"
-                    android:visibility="gone"/>
+                    android:layout_marginLeft="@dimen/space_24"
+                    android:layout_toRightOf="@id/list_item_name_text"
+                    />
 
             </LinearLayout>
 

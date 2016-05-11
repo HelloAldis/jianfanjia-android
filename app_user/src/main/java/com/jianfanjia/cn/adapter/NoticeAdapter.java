@@ -135,7 +135,7 @@ public class NoticeAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
                     siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
                     siteViewHolder.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
                     siteViewHolder.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
-                    siteViewHolder.itemSection.setTextColor(context.getResources().getColor(R.color.going_blue_color));
+                    siteViewHolder.itemSection.setTextColor(context.getResources().getColor(R.color.blue_color));
                     siteViewHolder.itemContent.setTextColor(context.getResources().getColor(R.color.grey_color));
                 }
                 siteViewHolder.itemTitle.setText(info.getTitle());

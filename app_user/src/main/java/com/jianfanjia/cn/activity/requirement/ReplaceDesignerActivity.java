@@ -8,6 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -15,7 +22,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
-import com.jianfanjia.cn.Event.MessageEvent;
+import com.jianfanjia.cn.Event.CollectDesignerEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.DesignerByAppointOrReplaceAdapter;
@@ -25,16 +32,8 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.CheckListener;
 import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.view.baseview.HorizontalDividerItemDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -246,17 +245,24 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
         });
     }
 
-    public void onEventMainThread(MessageEvent messageEvent) {
-        LogTool.d(TAG, "messageEvent:" + messageEvent.getEventType());
-        switch (messageEvent.getEventType()) {
-            case Constant.DELETE_ORDER_DESIGNER_ACTIVITY:
-                designerByAppointOrReplaceAdapter.remove(currentPos);
-                break;
-            case Constant.UPDATE_ORDER_DESIGNER_ACTIVITY:
-                getOrderDesignerList(requestmentid);
-                break;
-            default:
-                break;
+    public void onEventMainThread(CollectDesignerEvent collectDesignerEvent) {
+        boolean isCollect = collectDesignerEvent.isCollect();
+        if (isCollect) {
+            getOrderDesignerList(requestmentid);
+        } else {
+            int removeSize = -1;
+            Designer designer = null;
+            for (int i = 0; i < favorite_designer.size(); i++) {
+                designer = favorite_designer.get(i);
+                if (designer.get_id().equals(collectDesignerEvent.getDesignerId())) {
+                    removeSize = i;
+                }
+            }
+            if (removeSize != -1) {
+                favorite_designer.remove(removeSize);
+                setReplaceDesignerList(rec_designer,favorite_designer);
+                designerByAppointOrReplaceAdapter.notifyDataSetChanged();
+            }
         }
     }
 

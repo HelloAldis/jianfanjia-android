@@ -3,6 +3,7 @@ package com.jianfanjia.cn.business;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -23,14 +24,49 @@ public class RequirementBusiness {
     public static final int PRICE_EVERY_UNIT_365_MIN_AREA = 80;//365基础包最小80平方米
     public static final int PRICE_EVERY_UNIT_365_MAX_AREA = 120;//365基础包最大面积120平方米
 
+    public static final int HIGH_POINT_PRICE_EVERY_UNIT_HALF = 1000;//高端包半包要求：1000元/平方米
+    public static final int HIGH_POINT_PRICE_EVERY_UNIT_ALL = 2500;//高端包的全包要求：2500元/平方米
+    public static final int HIGH_POINT_PRICE_EVERY_UNIT_DESIGNER = 200;//高端包的设计要求：200元/平方米
+
     public static final String PACKGET_DEFAULT = "0";//默认装修包
     public static final String PACKGET_365 = "1";//365基础包
+    public static final String PACKGET_HIGH_POINT = "2";//匠心定制包
 
     public static final String PACKGET_365_ITEM = "365基础包";
+
+    public static final String TAG_NEW_GENERATE = "新锐先锋";
+    public static final String TAG_HIGH_POINT = "匠心定制";
+    public static final String TAG_MIDDER_GENERATE = "暖暖走心";
+
+    public static final String WORK_TYPE_HALF_PACKGET = "0";//半包
+    public static final String WORK_TYPE_ALL_PACKGET = "1";//全包
+    public static final String WORK_TYPE_PURE_DESIGNER = "2";//纯设计
 
     //装修面积是否属于365基础包
     public static boolean isAreaBelong365(int houseArea) {
         return (houseArea >= PRICE_EVERY_UNIT_365_MIN_AREA && houseArea <= PRICE_EVERY_UNIT_365_MAX_AREA);
+    }
+
+    //判断需求的包的类型
+    public static String getReqPackgetType(String workType, int totalBudget, int houseArea) {
+        if (totalBudget * TEN_THOUSAND / houseArea >= HIGH_POINT_PRICE_EVERY_UNIT_HALF && workType.equals
+                (WORK_TYPE_HALF_PACKGET)) {
+            return PACKGET_HIGH_POINT;
+        }
+        if (totalBudget * TEN_THOUSAND / houseArea >= HIGH_POINT_PRICE_EVERY_UNIT_ALL && workType.equals
+                (WORK_TYPE_ALL_PACKGET)) {
+            return PACKGET_HIGH_POINT;
+        }
+        if (totalBudget * TEN_THOUSAND / houseArea >= HIGH_POINT_PRICE_EVERY_UNIT_DESIGNER && workType.equals
+                (WORK_TYPE_PURE_DESIGNER)) {
+            return PACKGET_HIGH_POINT;
+        }
+
+        if (isAreaBelong365(houseArea) && workType != WORK_TYPE_PURE_DESIGNER) {
+            return PACKGET_365;
+        }
+
+        return PACKGET_DEFAULT;
     }
 
     public static String covertPriceToShow(float price) {
@@ -38,7 +74,7 @@ public class RequirementBusiness {
     }
 
     //拿到单位为元的个性化费用
-    public static String getIndividurationPrice(String totalPrice,String basicPrice){
+    public static String getIndividurationPrice(String totalPrice, String basicPrice) {
         int inividurationPrice = Integer.parseInt(totalPrice) - Integer.parseInt(basicPrice);
         return inividurationPrice + "";
     }
@@ -50,6 +86,18 @@ public class RequirementBusiness {
             }
         }
         return null;
+    }
+
+    public static boolean isHighPointDesigner(Designer designerInfo) {
+        boolean isHighPoint = false;
+        List<String> tags = designerInfo.getTags();
+        if (tags != null && tags.size() > 0) {
+            String tag = tags.get(0);
+            if (tag.equals(RequirementBusiness.TAG_HIGH_POINT)) {
+                isHighPoint = true;
+            }
+        }
+        return isHighPoint;
     }
 
     public static void initHomeRequirement(Requirement requirement) {

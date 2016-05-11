@@ -36,9 +36,10 @@
         </RelativeLayout>
     </FrameLayout>
 
-    <include
+    <com.jianfanjia.cn.view.ProcessDetailHeadView
         android:id="@+id/process_head_view_layout"
-        layout="@layout/list_item_process_item_head"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -57,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="33dp"
+            android:layout_marginTop="@dimen/space_8"
             android:cacheColorHint="#ffffff"
             android:clipToPadding="false"
             android:divider="@null"

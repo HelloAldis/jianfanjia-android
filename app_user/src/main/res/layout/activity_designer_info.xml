@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
                 android:layout_marginRight="30dip"
-                android:layout_marginTop="16dip"
+                android:layout_marginTop="24dip"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -151,29 +151,15 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginBottom="@dimen/space_40"
                 android:layout_marginLeft="@dimen/space_60"
                 android:layout_marginRight="@dimen/space_60"
-                android:layout_marginTop="@dimen/space_10"
-                android:background="@drawable/btn_orange_oval_bg"
+                android:layout_marginTop="@dimen/space_40"
+                android:background="@drawable/add_and_cancel_appoint_selector"
                 android:text="@string/strl_add_yixiang"
                 android:textColor="@color/font_white"
                 android:textSize="@dimen/text_size_14" />
 
-            <Button
-                android:id="@+id/btn_delete"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginLeft="@dimen/space_60"
-                android:layout_marginRight="@dimen/space_60"
-                android:layout_marginTop="@dimen/space_10"
-                android:background="@drawable/btn_orange_white_bg"
-                android:text="@string/strl_delete_yixiang"
-                android:textColor="@color/home_page_text_color"
-                android:textSize="@dimen/text_size_14"
-                android:visibility="gone" />
         </LinearLayout>
 
         <android.support.design.widget.TabLayout

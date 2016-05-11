@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/designer_info_head_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip">
+
+        <FrameLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="68dip"
+            android:layout_height="76dip"
+            android:layout_centerInParent="true"
+            >
+
+            <com.jianfanjia.cn.view.layout.CircleImageView
+                android:id="@+id/designerinfo_head_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_head"
+                app:border_color="@color/white"
+                app:border_width="1dip"/>
+
+            <ImageView
+                android:id="@+id/designerinfo_auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="@dimen/space_4"
+                android:layout_marginBottom="@dimen/space_8"
+                android:src="@mipmap/icon_auth"
+                />
+
+            <ImageView
+                android:id="@+id/designerinfo_high_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:src="@mipmap/icon_designer_high_point"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/ltm_req_tag"
+            style="@style/listview_item_text_style_small"
+            android:layout_marginLeft="-22dp"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_toRightOf="@id/imageLayout"
+            android:background="@drawable/text_rectangle_blue_bg"
+            android:paddingLeft="@dimen/space_4"
+            android:paddingRight="@dimen/space_4"
+            android:textColor="@color/font_white"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/designer_name"
+        style="@style/listview_item_text_style_big"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dip"
+        android:textColor="@color/font_white"
+        android:textStyle="bold"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/list_item_ratingbar_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dip"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="0"/>
+
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:layout_marginTop="24dip"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/viewCountText"
+                style="@style/listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/viewCountTextTitle"
+                style="@style/listview_item_text_style_small"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dip"
+                android:text="@string/scan"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"/>
+            <!-- android:textColor="@color/designer_info_text_color"-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/productCountText"
+                style="@style/listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/productCountTextTitle"
+                style="@style/listview_item_text_style_small"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dip"
+                android:text="@string/my_designer_product1"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/appointCountText"
+                style="@style/listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:text="0"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/appointCountTextTitle"
+                style="@style/listview_item_text_style_small"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dip"
+                android:text="@string/appointText"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/text_size_14"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_40"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_40">
+
+        <Button
+            android:id="@+id/btn_add"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/add_and_cancel_appoint_selector"
+            android:text="@string/strl_add_yixiang"
+            android:textColor="@color/font_white"
+            android:textSize="@dimen/text_size_14"/>
+
+        <ImageView
+            android:id="@+id/btn_add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_add_favorite"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/space_12"/>
+    </FrameLayout>
+
+</LinearLayout>

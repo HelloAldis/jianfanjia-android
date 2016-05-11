@@ -8,16 +8,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.StringUtils;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
+import com.jianfanjia.common.tool.DateFormatTool;
 
 
 /**
@@ -69,7 +68,7 @@ public class MyPlanViewType4 extends MyPlanViewTypeBase {
         cellView.setText(requirementInfo.getBasic_address());
         long lastUpdateTime = requirementInfo.getPlan().getLast_status_update_time();
         if (lastUpdateTime != 0l) {
-            createTimeView.setText(StringUtils.covertLongToStringHasMini(lastUpdateTime));
+            createTimeView.setText(DateFormatTool.getHumReadDateString(lastUpdateTime));
         }
         statusView.setText(getResources().getString(R.string.not_choose));
         statusView.setTextColor(getResources().getColor(R.color.middle_grey_color));

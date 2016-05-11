@@ -29,7 +29,7 @@ import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.OnItemClickListener;
-import com.jianfanjia.cn.view.baseview.SpacesItemDecoration;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.SpacesItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 

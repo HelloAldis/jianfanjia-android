@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/main_layout_bg"
+             android:fitsSystemWindows="true"
+             android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/designer_info_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <ImageView
+        android:id="@+id/designer_info_font"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/font_white"
+        android:alpha="0"/>
+
+    <LinearLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/ic_headerbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_48"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/head_back_layout"
+                android:layout_width="@dimen/space_60"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                >
+
+                <ImageView
+                    android:id="@+id/head_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_18"
+                    android:src="@mipmap/icon_register_back"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/listview_item_text_style_big"
+                android:layout_centerInParent="true"
+                android:textColor="@color/light_black_color"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <com.jianfanjia.cn.view.layout.ScrollableLayout
+            android:id="@+id/sl_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/designer_info_head_content_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <include layout="@layout/include_designer_info_highpoint_init"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/layout_border_bg"
+                >
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    style="@style/MyCustomTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="45dp"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"/>
+
+                <LinearLayout
+                    android:id="@+id/designer_info_tab_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/merger_button1_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/my_item_layout_bg_selector">
+
+                        <TextView
+                            android:id="@+id/merger_button1"
+                            style="@style/listview_item_text_style_middle"
+                            android:layout_width="match_parent"
+                            android:layout_centerVertical="true"
+                            android:text="@string/resourceText"/>
+                    </RelativeLayout>
+
+                    <View style="@style/vertical_divier_line"/>
+
+                    <RelativeLayout
+                        android:id="@+id/merger_button2_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/my_item_layout_bg_selector">
+
+                        <TextView
+                            android:id="@+id/merger_button2"
+                            style="@style/listview_item_text_style_middle"
+                            android:layout_width="match_parent"
+                            android:layout_centerVertical="true"
+                            android:text="@string/str_case"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.jianfanjia.cn.view.layout.ScrollableLayout>
+    </LinearLayout>
+
+</FrameLayout>

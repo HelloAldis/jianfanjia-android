@@ -6,14 +6,14 @@
     android:focusable="false"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.supervisor.view.MainHeadView
+    <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/act_edit_req_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/head_layout_bg" />
 
-    <com.jianfanjia.cn.supervisor.view.ReboundScrollView
+    <com.jianfanjia.cn.view.ReboundScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -219,6 +219,8 @@
             <View
                 style="@style/divier_line"
                 android:background="@color/horzontal_line_color" />
+
+            <include layout="@layout/include_edit_req_high_point"/>
 
             <LinearLayout
                 android:id="@+id/act_edit_req_decoratebudget_365"
@@ -547,6 +549,6 @@
                 style="@style/divier_line"
                 android:background="@color/horzontal_line_color" />
         </LinearLayout>
-    </com.jianfanjia.cn.supervisor.view.ReboundScrollView>
+    </com.jianfanjia.cn.view.ReboundScrollView>
 
 </LinearLayout>

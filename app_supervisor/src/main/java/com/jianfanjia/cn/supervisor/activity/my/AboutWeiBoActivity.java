@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.config.Url_New;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
+import com.jianfanjia.cn.view.MainHeadView;
 
 
 /**

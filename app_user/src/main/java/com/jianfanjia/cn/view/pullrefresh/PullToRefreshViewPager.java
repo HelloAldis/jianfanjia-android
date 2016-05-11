@@ -22,7 +22,7 @@ import android.util.AttributeSet;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.MyViewPager;
+import com.jianfanjia.cn.view.viewpager.MyViewPager;
 
 
 /**

@@ -14,8 +14,8 @@ import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.business.RequirementBusiness;
 import com.jianfanjia.cn.supervisor.config.Global;
-import com.jianfanjia.cn.supervisor.tools.UiHelper;
-import com.jianfanjia.cn.supervisor.view.MainHeadView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.view.MainHeadView;
 
 
 /**
@@ -68,6 +68,9 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.decoratebudget_365_total_price)
     protected TextView budget365TotalPriceView;
+
+    @Bind(R.id.act_edit_req_decoratebudget_high_point)
+    protected LinearLayout budgetHighPointLayout;
 
     private Requirement requirementInfo;
 
@@ -135,24 +138,38 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     }
 
     private void initBudget365Layout() {
-        int houseArea = requirementInfo.getHouse_area();
-        if (requirementInfo.getPackage_type() == null || requirementInfo.getPackage_type().equals(RequirementBusiness
-                .PACKGET_DEFAULT)) {
-            budget365Layout.setVisibility(View.GONE);
-        } else {
-            budget365Layout.setVisibility(View.VISIBLE);
+        String pageType = requirementInfo.getPackage_type();
 
-            float basicPrice = (float) houseArea * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
-                    .TEN_THOUSAND;
-            float totalPrice = (float) requirementInfo.getTotal_price();
-            float individuationPrice = totalPrice - basicPrice;
-
-            budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
-            budget365TotalPriceView.setText(RequirementBusiness.covertPriceToShow(totalPrice));
-            budget365IndividuationPriceView.setText(RequirementBusiness.covertPriceToShow(individuationPrice));
+        switch (pageType){
+            case RequirementBusiness.PACKGET_DEFAULT:
+                budget365Layout.setVisibility(View.GONE);
+                budgetHighPointLayout.setVisibility(View.GONE);
+                break;
+            case RequirementBusiness.PACKGET_365:
+                budget365Layout.setVisibility(View.VISIBLE);
+                budgetHighPointLayout.setVisibility(View.GONE);
+                update365Layout();
+                break;
+            case RequirementBusiness.PACKGET_HIGH_POINT:
+                budget365Layout.setVisibility(View.GONE);
+                budgetHighPointLayout.setVisibility(View.VISIBLE);
+                break;
         }
-
     }
+
+    private void update365Layout(){
+
+        int houseArea = requirementInfo.getHouse_area();
+        float basicPrice = (float) houseArea * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
+                .TEN_THOUSAND;
+        float totalPrice = (float) requirementInfo.getTotal_price();
+        float individuationPrice = totalPrice - basicPrice;
+
+        budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
+        budget365TotalPriceView.setText(RequirementBusiness.covertPriceToShow(totalPrice));
+        budget365IndividuationPriceView.setText(RequirementBusiness.covertPriceToShow(individuationPrice));
+    }
+
 
     @Override
     public int getLayoutId() {

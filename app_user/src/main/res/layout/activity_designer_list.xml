@@ -89,7 +89,7 @@
                     android:layout_centerInParent="true"
                     android:drawablePadding="@dimen/space_5"
                     android:drawableRight="@drawable/icon_arrow"
-                    android:text="@string/dec_fee_str"
+                    android:text="@string/dec_grade"
                     android:textColor="@color/font_style_colors" />
 
             </RelativeLayout>

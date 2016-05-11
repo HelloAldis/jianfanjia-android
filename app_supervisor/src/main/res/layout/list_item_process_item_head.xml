@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-    <com.jianfanjia.cn.supervisor.view.MyViewPager
+    <com.jianfanjia.cn.view.viewpager.MyViewPager
         android:id="@+id/process_viewpager"
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -97,10 +97,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:background="@color/font_white"
-            android:paddingBottom="@dimen/space_10"
+            android:paddingBottom="@dimen/space_12"
             android:paddingLeft="@dimen/space_15"
             android:paddingRight="@dimen/space_15"
-            android:paddingTop="@dimen/space_10"
+            android:paddingTop="@dimen/space_12"
             android:src="@mipmap/icon_row_up"/>
 
         <ImageView

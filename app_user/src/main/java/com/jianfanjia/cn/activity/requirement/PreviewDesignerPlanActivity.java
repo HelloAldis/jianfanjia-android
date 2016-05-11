@@ -119,7 +119,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         itemPosition = planDetailInfo.getName();
         requirementInfo = (Requirement) planBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
-        flagIntent = planBundle.getInt(PLAN_INTENT_FLAG);
+        flagIntent = planBundle.getInt(PLAN_INTENT_FLAG, PLAN_LIST_INTENT);//默认是从方案列表过来的
         LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
     }
 
@@ -282,7 +282,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     private void startToActivity(Plan detailInfo) {
         Bundle priceBundle = new Bundle();
         priceBundle.putSerializable(IntentConstant.PLAN_DETAIL, detailInfo);
-        priceBundle.putSerializable(IntentConstant.REQUIREMENT_INFO,requirementInfo);
+        priceBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
         startActivity(DetailPriceActivity.class, priceBundle);
     }
 
