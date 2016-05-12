@@ -300,7 +300,14 @@ public class RecycleViewFragment extends BaseFragment {
                         }
                     }
                 });
-        refuseDialog.setNegativeButton(R.string.no, null);
+        refuseDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                refuseMsg = null;
+            }
+        });
         refuseDialog.show();
     }
 
