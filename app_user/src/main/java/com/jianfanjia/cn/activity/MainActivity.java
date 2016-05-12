@@ -54,7 +54,6 @@ public class MainActivity extends BaseActivity {
     private XuQiuFragment xuqiuFragment = null;
     private MyNewFragment myFragment = null;
     private long mExitTime = 0L;
-    private int tab = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

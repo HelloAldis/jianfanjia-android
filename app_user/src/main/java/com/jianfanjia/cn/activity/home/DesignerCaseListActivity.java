@@ -49,6 +49,7 @@ import com.jianfanjia.common.tool.LogTool;
 public class DesignerCaseListActivity extends BaseSwipeBackActivity implements View.OnClickListener, PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerCaseListActivity.class.getName();
+
     private static final int DEC_TYPE = 1;
     private static final int DESIGN_STYLE = 2;
     private static final int HOUSE_TYPE = 3;
