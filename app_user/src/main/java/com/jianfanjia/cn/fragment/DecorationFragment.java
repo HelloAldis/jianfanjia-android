@@ -33,15 +33,14 @@ import com.jianfanjia.cn.adapter.DecorationAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.OnItemClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.view.FilterPopWindow;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.SelectPopupWindowUtil;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.SpacesItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -55,7 +54,9 @@ import de.greenrobot.event.EventBus;
  */
 public class DecorationFragment extends BaseFragment implements PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
+
     private static final String TAG = DecorationFragment.class.getName();
+
     private static final int SECTION = 1;
     private static final int HOUSETYPE = 2;
     private static final int DECSTYLE = 3;
@@ -95,7 +96,6 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     PullToRefreshRecycleView decoration_listview;
 
     private DecorationAdapter decorationAdapter = null;
-    private FilterPopWindow window = null;
     private List<BeautifulImage> beautyImgList = new ArrayList<>();
     private String section = null;
     private String houseStyle = null;
@@ -103,8 +103,11 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     private int FROM = 0;
     private boolean isFirst = true;
     private int total = 0;
+    private SelectPopupWindowUtil mSelectPopupWindowUtil;
 
-    private int currentPos = -1;
+    private int sectionPos;
+    private int houseTypePos;
+    private int decStylePos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +120,12 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
         View view = super.onCreateView(inflater, container, savedInstanceState);
         initView();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mSelectPopupWindowUtil = new SelectPopupWindowUtil(getContext());
     }
 
     private void initView() {
@@ -247,14 +256,12 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                             @Override
                                             public void OnItemClick(int position) {
                                                 LogTool.d(TAG, "position=" + position);
-                                                currentPos = position;
-                                                LogTool.d(TAG, "currentPos-----" + currentPos);
-                                                BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
+                                                BeautifulImage beautyImgInfo = beautyImgList.get(position);
                                                 LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
                                                 decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID,
                                                         beautyImgInfo.get_id
-                                                        ());
+                                                                ());
                                                 decorationBundle.putInt(IntentConstant.POSITION, position);
                                                 decorationBundle.putSerializable(IntentConstant.IMG_LIST,
                                                         (ArrayList<BeautifulImage>)
@@ -348,24 +355,23 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     private void showWindow(int resId, int type) {
         switch (type) {
             case SECTION:
-                window = new FilterPopWindow(getActivity(), resId, getSectionCallback, Global.SECTION_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getSectionCallback, sectionPos);
                 break;
             case HOUSETYPE:
-                window = new FilterPopWindow(getActivity(), resId, getHouseStyleCallback, Global.HOUSE_TYPE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getHouseStyleCallback, houseTypePos);
                 break;
             case DECSTYLE:
-                window = new FilterPopWindow(getActivity(), resId, getDecStyleCallback, Global.DEC_STYLE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecStyleCallback, decStylePos);
                 break;
             default:
                 break;
         }
-        window.show(topLayout);
     }
 
     private GetItemCallback getSectionCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
-            Global.SECTION_POSITION = position;
+            sectionPos = position;
             isFirst = true;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 section = title;
@@ -376,29 +382,17 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
             }
             FROM = 0;
             getDecorationImgInfo(pullDownListener);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
     private GetItemCallback getHouseStyleCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
-            Global.HOUSE_TYPE_POSITION = position;
+            houseTypePos = position;
             isFirst = true;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 houseType_item.setText(title);
@@ -408,29 +402,17 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
             houseStyle = BusinessCovertUtil.getHouseTypeByText(title);
             FROM = 0;
             getDecorationImgInfo(pullDownListener);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
     private GetItemCallback getDecStyleCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
-            Global.DEC_STYLE_POSITION = position;
+            decStylePos = position;
             isFirst = true;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
@@ -440,23 +422,11 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
             decStyle = BusinessCovertUtil.getDecStyleByText(title);
             FROM = 0;
             getDecorationImgInfo(pullDownListener);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -467,7 +437,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     private void notifyChangeItemState(String imageid, boolean isCollect) {
         for (BeautifulImage beautyImgInfo : decorationAdapter.getBeautyImgList()) {
             if (beautyImgInfo.get_id().equals(imageid)) {
-                LogTool.d("notifyChangeItemState","isCollect = " + isCollect );
+                LogTool.d("notifyChangeItemState", "isCollect = " + isCollect);
                 beautyImgInfo.setIs_my_favorite(isCollect);
             }
         }

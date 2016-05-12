@@ -114,13 +114,13 @@ public class MainScrollView extends ScrollView {
             //图片加载失败，禁止滑动事件
             return false;
         }
-
         int action = ev.getAction();
         float nowY = ev.getY();
         float nowX = ev.getX();
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
+                if (nowY - lastY < 0
+                        && contentFlag == ANCHOR_BOTTOPM) {
                     if (scrollPullUpListener != null && !isIntent) {
                         LogTool.d(this.getClass().getName(), "intentTo");
                         isIntent = true;
@@ -132,7 +132,17 @@ public class MainScrollView extends ScrollView {
                 LogTool.d(this.getClass().getName(), "ACTION_Up");
                 LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX
                         - lastX));
-                if (nowY - lastY < 0 && contentFlag == ANCHOR_TOP) {
+                if (getScrollY() > 0 && getScrollY() < totaloffset) {
+                    if (contentFlag == ANCHOR_TOP) {
+                        smoothScrollTo((int) totaloffset, onSmoothScrollFinishedListener);
+                        break;
+                    } else if (contentFlag == ANCHOR_BOTTOPM) {
+                        LogTool.d(this.getClass().getName(), "scrollBottom");
+                        smoothScrollTo(0, onSmoothScrollFinishedListener);
+                        break;
+                    }
+                }
+             /*   if (nowY - lastY < 0 && contentFlag == ANCHOR_TOP) {
                     LogTool.d(this.getClass().getName(), "scrollUP");
                     smoothScrollTo((int) totaloffset, onSmoothScrollFinishedListener);
                     break;
@@ -141,18 +151,25 @@ public class MainScrollView extends ScrollView {
                     LogTool.d(this.getClass().getName(), "scrollBottom");
                     smoothScrollTo(0, onSmoothScrollFinishedListener);
                     break;
-                }
+                }*/
                 isIntent = false;
                 break;
             case MotionEvent.ACTION_CANCEL:
                 LogTool.d(this.getClass().getName(), "ACTION_cancel");
+                isIntent = false;
                 break;
             default:
                 break;
         }
-
         return super.onTouchEvent(ev);
     }
+
+    @Override
+    public void onWindowSystemUiVisibilityChanged(int visible) {
+        super.onWindowSystemUiVisibilityChanged(visible);
+        LogTool.d(TAG, "isvisible = " + visible);
+    }
+
 
     /**
      * 在触摸事件中, 处理上拉和下拉的逻辑
@@ -168,6 +185,9 @@ public class MainScrollView extends ScrollView {
                 LogTool.d(this.getClass().getName(), "ACTION_DOWN");
                 lastX = ev.getX();
                 lastY = ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (isIntent) return true;
                 break;
             default:
                 break;

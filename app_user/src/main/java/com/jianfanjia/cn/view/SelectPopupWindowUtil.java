@@ -37,7 +37,9 @@ public class SelectPopupWindowUtil {
     }
 
     private void initPopupWindow() {
-        mPopupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mPopupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        mPopupWindow.setAnimationStyle(0);
         ColorDrawable dw = new ColorDrawable(0x44000000);
         mPopupWindow.setBackgroundDrawable(dw);
         mPopupWindow.setOutsideTouchable(true);
@@ -63,9 +65,9 @@ public class SelectPopupWindowUtil {
             gridView.post(new Runnable() {
                 @Override
                 public void run() {
-                    gridView.setTranslationY(- gridView.getHeight());
+                    gridView.setTranslationY(-gridView.getHeight());
                     gridView.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).setDuration(400)
-                            .start();
+                            .setStartDelay(100);
                 }
             });
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -24,7 +24,7 @@ apks {
 //        sourceFile = file("G:\\test_apks\\supervisor_1.1.0\\supervisor-Defalut-andtest_20160510_0_10_1.1.0.apk")
 //    }
     user {
-        sourceFile = file("G:\\test_apks\\user_2.7.1\\jianfanjia-Default-andtest_20160511_0_81_2.7.1.apk")
+        sourceFile = file("G:\\test_apks\\user_2.7.2\\jianfanjia-Default-andtest_20160512_0_82_2.7.2.apk")
     }
 //    designer {
 //        sourceFile = file("G:\\test_apks\\designer_2.7.0\\designer-Default-andtest_20160510_0_80_2.7.0.apk")

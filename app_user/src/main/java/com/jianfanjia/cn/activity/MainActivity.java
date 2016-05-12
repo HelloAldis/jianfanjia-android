@@ -17,7 +17,6 @@ import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.Event.MessageCountEvent;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.fragment.DecorationFragment;
 import com.jianfanjia.cn.fragment.HomeNewFragment;
 import com.jianfanjia.cn.fragment.MyNewFragment;
@@ -267,9 +266,6 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        Global.SECTION_POSITION = 0;
-        Global.HOUSE_TYPE_POSITION = 0;
-        Global.DEC_STYLE_POSITION = 0;
     }
 
     @Override

@@ -9,11 +9,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@color/font_white"
-        android:horizontalSpacing="15dp"
+        android:horizontalSpacing="8dp"
         android:listSelector="@drawable/grid_item_selector"
         android:numColumns="3"
         android:scrollbars="none"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
+        android:verticalSpacing="5dp"
+        android:paddingTop="@dimen/space_8"
+        android:paddingBottom="@dimen/space_8"/>
 
 </RelativeLayout>
