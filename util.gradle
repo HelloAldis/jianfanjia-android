@@ -51,7 +51,7 @@ def write2File(String filename, String content) {
 def Set getAllAssembleTask(String projectName) {
     def p = project.findProject(projectName);
     p.tasks.findAll {
-        task -> task.name.startsWith('apk')
+        task -> task.name.startsWith('archiveApk')
     }
 }
 
@@ -147,16 +147,16 @@ ext {
 
 /**
  * 业主 app 的测试和Release 命令
- * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:apkAndTest :app_user:uploadPgyer
- * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:apkRelease
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:archiveApkAndTest :app_user:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:archiveApkRelease
  *
  *
  * 设计师 app测试和Release 命令
- * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_designer:bumpVersion :app_designer:tag :app_designer:apkAndTest :app_designer:uploadPgyer
- * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:apkRelease
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_designer:bumpVersion :app_designer:tag :app_designer:archiveApkAndTest :app_designer:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:archiveApkRelease
  *
  *
  * 监理 app测试和和Release 命令
- * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:apkAndTest :app_supervisor:uploadPgyer
- * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:apkRelease
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:archiveApkAndTest :app_supervisor:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:archiveApkRelease
  */

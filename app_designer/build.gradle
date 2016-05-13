@@ -71,7 +71,7 @@ android {
 }
 
 dependencies {
-    compile 'com.mcxiaoke.gradle:packer-helper:1.0.4'
+    // compile 'com.mcxiaoke.gradle:packer-helper:1.0.4'
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(':hud')
