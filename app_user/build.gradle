@@ -169,5 +169,8 @@ apks {
 }
 rootProject.tasks.uploadPgyerAndtestuser.shouldRunAfter(tag)
 
-//Test ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:apkTest uploadPgyerAndtestuser
+//Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:apkTest uploadPgyerAndtestuser
+//Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:apkRelease
+
+
 //./gradlew -Pmarket=markets_test.txt :app_user:apkAndTest
