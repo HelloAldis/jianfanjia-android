@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.designer.fragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -37,9 +35,8 @@ import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.interf.RefuseRequirementCallback;
 import com.jianfanjia.cn.designer.tools.UiHelper;
-import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
-import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
@@ -93,9 +90,6 @@ public class RecycleViewFragment extends BaseFragment {
 
     private Context _context;
 
-    private CommonDialog refuseDialog = null;
-    private String refuseMsg = null;
-
     public static RecycleViewFragment newInstance(int num) {
         RecycleViewFragment f = new RecycleViewFragment();
         Bundle args = new Bundle();
@@ -114,7 +108,6 @@ public class RecycleViewFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
         LogTool.d(this.getClass().getName(), "num =" + mNum);
     }
@@ -266,42 +259,12 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     private void showRefuseDialog(final String requirementid) {
-        refuseDialog = DialogHelper
-                .getPinterestDialogCancelable(getActivity());
-        refuseDialog.setTitle(getString(R.string.refuse_reason));
-        View contentView = LayoutInflater.from(_context).inflate(R.layout.dialog_refuse_requirement, null);
-        RadioGroup radioGroup = (RadioGroup) contentView
-                .findViewById(R.id.refuse_radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        UiHelper.showRefuseDialog(getContext(), new RefuseRequirementCallback() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (group.getCheckedRadioButtonId() == R.id.refuse_radio0) {
-                    refuseMsg = getString(R.string.refuse_msg0);
-                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio1) {
-                    refuseMsg = getString(R.string.refuse_msg1);
-                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio2) {
-                    refuseMsg = getString(R.string.refuse_msg2);
-                } else {
-                    refuseMsg = getString(R.string.refuse_msg3);
-                }
+            public void refuseRequirementSuccess(String refuseReason) {
+                refuseRequirement(requirementid, refuseReason);
             }
         });
-        refuseDialog.setContent(contentView);
-        refuseDialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (refuseMsg != null) {
-                            refuseRequirement(requirementid, refuseMsg);
-                            dialog.dismiss();
-                        } else {
-                            makeTextShort(getString(R.string.tip_choose_refuse_reason));
-                        }
-                    }
-                });
-        refuseDialog.setNegativeButton(R.string.no, null);
-        refuseDialog.show();
     }
 
     private void notifyOwnerConfirmHouse(Requirement requirementInfo) {
@@ -353,9 +316,6 @@ public class RecycleViewFragment extends BaseFragment {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                if (refuseDialog != null) {
-                    refuseDialog.dismiss();
-                }
                 ((MyOwnerFragment)getParentFragment()).loadData();
             }
 

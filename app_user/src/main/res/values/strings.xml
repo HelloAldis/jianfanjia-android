@@ -313,7 +313,8 @@
     <string name="tip_not_sdcard">没有SD卡，无法打开相机</string>
     <string name="title_activity_preview_decoration">PreviewDecorationActivity</string>
 
-    <string name="resourceText">资料</string>
+    <string name="resourceText">个人资料</string>
+    <string name="str_case_product">案例作品</string>
     <string name="designerText">设计师</string>
     <string name="imgText">美图</string>
     <string name="man">男</string>
@@ -399,7 +400,7 @@
     <string name="me">我</string>
     <string name="high_point">匠心定制</string>
     <string name="immediately_appoint">立即预约</string>
-    <string name="appoint_high_point_title">您可立即预约1名大咖设计师</string>
     <string name="decoratebudget_high_point_title">您完全符合我们“匠心定制包”的标准\n我们的设计师将会为您提供全程定制化的服务</string>
-    <string name="str_goto_order_high_point">请点击前往预约一名匠心定制设计师</string>
+    <string name="str_goto_order_high_point">请点击前往预约1名匠心定制设计师</string>
+    <string name="designer_high_point">匠心定制设计师</string>
 </resources>

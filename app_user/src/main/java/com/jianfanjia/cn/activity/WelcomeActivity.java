@@ -8,7 +8,6 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.api.model.User;
@@ -200,7 +199,7 @@ public class WelcomeActivity extends BaseActivity {
                     appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     LogTool.d(TAG, "expire");
-                    ApiClient.clearCookie();
+//                    ApiClient.clearCookie();
                     refreshSession();
                 }
             }

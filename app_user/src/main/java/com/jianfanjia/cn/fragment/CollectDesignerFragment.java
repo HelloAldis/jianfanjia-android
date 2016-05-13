@@ -220,7 +220,6 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
                 }
-
             };
 
     private ApiCallback<ApiResponse<DesignerList>> getUpMyFavoriteDesignerListener = new

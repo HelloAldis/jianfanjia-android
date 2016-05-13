@@ -62,7 +62,7 @@ public class RequirementBusiness {
             return PACKGET_HIGH_POINT;
         }
 
-        if (isAreaBelong365(houseArea) && workType != WORK_TYPE_PURE_DESIGNER) {
+        if (isAreaBelong365(houseArea) && !workType.equals(WORK_TYPE_PURE_DESIGNER)) {
             return PACKGET_365;
         }
 

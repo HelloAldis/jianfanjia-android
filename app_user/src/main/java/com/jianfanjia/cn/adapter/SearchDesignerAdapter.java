@@ -66,6 +66,7 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
         } else {
             holder.infoAuthImageView.setVisibility(View.GONE);
         }
+        holder.itemHighPointView.setVisibility(View.GONE);
         holder.startLine.setBackgroundResource(R.color.horzontal_line_color);
         holder.endLine.setBackgroundResource(R.color.horzontal_line_color);
         List<String> tags = designerInfo.getTags();

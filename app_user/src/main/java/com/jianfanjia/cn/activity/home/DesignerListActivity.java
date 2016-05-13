@@ -30,7 +30,6 @@ import com.jianfanjia.cn.adapter.DesignerListAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
@@ -56,6 +55,11 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
     private static final int DEC_STYLE = 3;
     private static final int DEC_FEE = 4;
     private static final int NOT = 5;
+
+    private int decTypePos;
+    private int decHouseTypePos;
+    private int decStylePos;
+    private int decGradePos;
 
     @Bind(R.id.designer_head)
     protected MainHeadView mainHeadView = null;
@@ -104,7 +108,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
     private String decStyle = null;
     private String decFeeList = null;
     private boolean isFirst = true;
-    private int FROM = 0;
+    private int mFrom = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +130,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
         mSelectPopupWindowUtil = new SelectPopupWindowUtil(this);
 
-        searchDesigners(FROM, this.pullDownCallback);
+        searchDesigners(mFrom, this.pullDownCallback);
     }
 
     private void initMainHeadView() {
@@ -158,7 +162,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                 setSelectState(DEC_FEE);
                 break;
             case R.id.error_include:
-                searchDesigners(FROM, this.pullUpCallback);
+                searchDesigners(mFrom, this.pullUpCallback);
                 break;
             default:
                 break;
@@ -223,13 +227,13 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        FROM = 0;
-        searchDesigners(FROM, this.pullDownCallback);
+        mFrom = 0;
+        searchDesigners(mFrom, this.pullDownCallback);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        searchDesigners(FROM, this.pullUpCallback);
+        searchDesigners(mFrom, this.pullUpCallback);
     }
 
     private ApiCallback<ApiResponse<DesignerList>> pullDownCallback = new ApiCallback<ApiResponse<DesignerList>>() {
@@ -280,8 +284,8 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                         designerListView.scrollToPosition(0);
                         designerListAdapter.notifyDataSetChanged();
                     }
-                    FROM = designerList.size();
-                    LogTool.d(TAG, "FROM:" + FROM);
+                    mFrom = designerList.size();
+                    LogTool.d(TAG, "mFrom:" + mFrom);
                     isFirst = false;
                     designerListView.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -330,9 +334,9 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
             if (null != designer) {
                 List<Designer> designers = designer.getDesigners();
                 if (null != designers && designers.size() > 0) {
-                    designerListAdapter.add(FROM, designers);
-                    FROM += Constant.HOME_PAGE_LIMIT;
-                    LogTool.d(TAG, "FROM=" + FROM);
+                    designerListAdapter.add(mFrom, designers);
+                    mFrom += Constant.HOME_PAGE_LIMIT;
+                    LogTool.d(TAG, "mFrom=" + mFrom);
                 } else {
                     makeTextShort(getResources().getString(R.string.no_more_data));
                 }
@@ -354,20 +358,16 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
     private void showWindow(int resId, int type) {
         switch (type) {
             case DEC_TYPE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecTypeCallback, Global
-                        .DEC_TYPE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecTypeCallback, decTypePos);
                 break;
             case DEC_HOUSE_TYPE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecHouseTypeCallback, Global
-                        .DEC_HOUSE_TYPE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecHouseTypeCallback, decHouseTypePos);
                 break;
             case DEC_STYLE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecStyleCallback, Global
-                        .STYLE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecStyleCallback, decStylePos);
                 break;
             case DEC_FEE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecFeeCallback, Global
-                        .DEC_FEE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecFeeCallback, decGradePos);
                 break;
             default:
                 break;
@@ -378,15 +378,15 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_TYPE_POSITION = position;
+            decTypePos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decType_item.setText(title);
             } else {
                 decType_item.setText(getResources().getString(R.string.dec_type_str));
             }
-            FROM = 0;
+            mFrom = 0;
             decType = BusinessCovertUtil.getDecTypeByText(title);
-            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
+            searchDesigners(mFrom, DesignerListActivity.this.pullDownCallback);
         }
 
         @Override
@@ -399,15 +399,15 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_HOUSE_TYPE_POSITION = position;
+            decHouseTypePos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decHouseType_item.setText(title);
             } else {
                 decHouseType_item.setText(getResources().getString(R.string.dec_house_type_str));
             }
             decHouseStyle = BusinessCovertUtil.getHouseTypeByText(title);
-            FROM = 0;
-            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
+            mFrom = 0;
+            searchDesigners(mFrom, DesignerListActivity.this.pullDownCallback);
         }
 
         @Override
@@ -420,15 +420,15 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.STYLE_POSITION = position;
+            decStylePos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decStyle_item.setText(title);
             } else {
                 decStyle_item.setText(getResources().getString(R.string.dec_style_str));
             }
             decStyle = BusinessCovertUtil.getDecStyleByText(title);
-            FROM = 0;
-            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
+            mFrom = 0;
+            searchDesigners(mFrom, DesignerListActivity.this.pullDownCallback);
         }
 
         @Override
@@ -441,7 +441,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_FEE_POSITION = position;
+            decGradePos = position;
             if (!TextUtils.isEmpty(title)) {
                 if (!title.equals(Constant.KEY_WORD)) {
                     decFeeList = title;
@@ -451,8 +451,8 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                     decFee_item.setText(getResources().getString(R.string.dec_grade));
                 }
             }
-            FROM = 0;
-            searchDesigners(FROM, DesignerListActivity.this.pullDownCallback);
+            mFrom = 0;
+            searchDesigners(mFrom, DesignerListActivity.this.pullDownCallback);
         }
 
         @Override
@@ -464,10 +464,6 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Global.DEC_TYPE_POSITION = 0;
-        Global.DEC_HOUSE_TYPE_POSITION = 0;
-        Global.STYLE_POSITION = 0;
-        Global.DEC_FEE_POSITION = 0;
     }
 
     @Override

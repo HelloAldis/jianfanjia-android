@@ -21,6 +21,17 @@
             android:text="@string/my_site_villagename_example"
             android:textColor="@color/light_black_color" />
 
+        <TextView
+            android:id="@+id/ltm_req_tag"
+            style="@style/listview_item_text_style_small"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/space_6"
+            android:paddingRight="@dimen/space_6"
+            android:paddingTop="@dimen/space_2"
+            android:paddingBottom="@dimen/space_2"
+            android:textColor="@color/font_white"
+            />
+
         <FrameLayout
             android:id="@+id/imageLayout"
             android:layout_width="60dip"

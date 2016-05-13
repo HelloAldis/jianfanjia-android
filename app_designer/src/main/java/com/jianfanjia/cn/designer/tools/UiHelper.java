@@ -5,12 +5,14 @@ import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -23,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.io.File;
@@ -43,14 +46,62 @@ import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.config.Url_New;
+import com.jianfanjia.cn.designer.interf.RefuseRequirementCallback;
 import com.jianfanjia.cn.designer.service.UpdateService;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
+import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+import com.jianfanjia.common.tool.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
+
+    public static void showRefuseDialog(final Context context,final RefuseRequirementCallback refuseRequirementCallback){
+        CommonDialog refuseDialog = DialogHelper
+                .getPinterestDialogCancelable(context);
+        refuseDialog.setTitle(context.getString(R.string.refuse_reason));
+        View contentView = LayoutInflater.from(context).inflate(R.layout.dialog_refuse_requirement,
+                null);
+        final RadioGroup radioGroup = (RadioGroup) contentView
+                .findViewById(R.id.refuse_radioGroup);
+        refuseDialog.setContent(contentView);
+        refuseDialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String refuseMsg;
+                        if (radioGroup.getCheckedRadioButtonId() == R.id.refuse_radio0) {
+                            refuseMsg = context.getString(R.string.refuse_msg0);
+                        } else if (radioGroup.getCheckedRadioButtonId() == R.id.refuse_radio1) {
+                            refuseMsg = context.getString(R.string.refuse_msg1);
+                        } else if (radioGroup.getCheckedRadioButtonId() == R.id.refuse_radio2) {
+                            refuseMsg = context.getString(R.string.refuse_msg2);
+                        } else if(radioGroup.getCheckedRadioButtonId() == R.id.refuse_radio3){
+                            refuseMsg = context.getString(R.string.refuse_msg3);
+                        }else {
+                            refuseMsg = null;
+                        }
+                        if (refuseMsg != null) {
+                            refuseRequirementCallback.refuseRequirementSuccess(refuseMsg);
+                            dialog.dismiss();
+                        } else {
+                            ToastUtil.showShortTost(context.getString(R.string.tip_choose_refuse_reason));
+                        }
+                    }
+                });
+        refuseDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        refuseDialog.show();
+    }
+
 
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();

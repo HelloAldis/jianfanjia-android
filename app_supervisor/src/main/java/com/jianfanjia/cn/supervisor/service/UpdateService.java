@@ -64,7 +64,7 @@ public class UpdateService extends Service{
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-            ToastUtil.showShortTost(UpdateService.this, apiResponse.getErr_msg());
+            ToastUtil.showShortTost(apiResponse.getErr_msg());
         }
 
         @Override

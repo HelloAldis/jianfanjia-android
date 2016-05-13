@@ -27,17 +27,5 @@ pgyer {
     uKey = "75a553da1e363a4e3d0d6352c47f03b9"
 }
 
-task hello {
-    doLast {
-        def a = getApkName('jianfanjia', APP_USER_FORCE_UPDATE, APP_USER_VERSION_CODE, APP_USER_VERSION_NAME);
-        println a;
-    }
-}
 
-gradle.buildFinished {
-
-}
-
-
-//./gradlew -Prtype=b bumpAppUser  :app_user:assembleDefaultDebug tagAppUser
 

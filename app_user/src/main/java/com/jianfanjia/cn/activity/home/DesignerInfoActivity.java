@@ -116,8 +116,11 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     @Bind(R.id.container_layout)
     protected LinearLayout containerLayout;
 
+    @Bind(R.id.foreground_view)
+    ImageView foregroundView;
+
     @Bind(R.id.designer_info_background)
-    ImageView designerInfoBackground;
+    ImageView backgroundView;
 
     @Bind(R.id.designer_info_font)
     ImageView designerInfoFont;
@@ -137,7 +140,6 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     @Bind(R.id.designerinfo_high_point)
     ImageView itemHighPointView;
 
-
     private boolean isHighPoint;
 
     private String designerid = null;
@@ -149,6 +151,8 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     private float maxScrollHeight;
 
     private int initHeight;
+
+    private boolean isNewIntent = false;
 
     private List<SelectItem> listViews = new ArrayList<>();
 
@@ -186,7 +190,6 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) designerInfoHeadContentWrap
                         .getLayoutParams();
                 layoutParams.height = startHeight - (Integer) animation.getAnimatedValue();
@@ -231,13 +234,14 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
         getDataFromIntent(intent);
+        isNewIntent = true;
     }
 
     private void setupViewPager(ViewPager viewPager) {
         SelectItem resItem = new SelectItem(DesignerInfoFragment.newInstance(designerid),
                 getResources().getString(R.string.resourceText));
         SelectItem productItem = new SelectItem(DesignerProductFragment.newInstance(designerid),
-                getResources().getString(R.string.str_case));
+                getResources().getString(R.string.str_case_product));
         listViews.add(resItem);
         listViews.add(productItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
@@ -395,7 +399,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             itemHighPointView.setVisibility(View.GONE);
             itemTagText.setVisibility(View.VISIBLE);
             List<String> tags = designerInfo.getTags();
-            if(tags.size() > 0){
+            if(tags != null  && tags.size() > 0){
                 itemTagText.setVisibility(View.VISIBLE);
                 itemTagText.setText(tags.get(0));
                 switch (tags.get(0)){
@@ -427,7 +431,9 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
                 addBtn.setSelected(true);
                 showCancelFavorite();
             }
-            changeUiShow(designerInfo);
+            if(!isNewIntent){
+                changeUiShow(designerInfo);
+            }
         }
     }
 
@@ -451,18 +457,20 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             designerInfoHeadContentWrap.post(new Runnable() {
                 @Override
                 public void run() {
-
                     int height = containerLayout.getHeight() - tabLayout.getHeight() - headLayout.getHeight();
                     initHeight = headContentLayout.getHeight();
                     designerInfoHeadContentWrap.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
                             .MATCH_PARENT, height));
+                    backgroundView.setVisibility(View.VISIBLE);
+                    foregroundView.setVisibility(View.GONE);
                 }
             });
-            designerInfoBackground.setImageResource(R.mipmap.bg_designerinfo_high_point);
             designerInfoTabLayout.setVisibility(View.VISIBLE);
             sl_root.setIsEnableScroll(false);
             setAllTextColor(getResources().getColor(R.color.font_white));
         } else {
+            backgroundView.setVisibility(View.GONE);
+            foregroundView.setVisibility(View.GONE);
             setAllTextColor(getResources().getColor(R.color.light_black_color));
             designerInfoTabLayout.setVisibility(View.GONE);
             sl_root.setIsEnableScroll(true);

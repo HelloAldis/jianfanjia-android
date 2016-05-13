@@ -25,6 +25,7 @@
             style="@style/listview_item_text_style_middle"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/space_8"
+            android:textColor="@color/middle_grey_color"
             android:text="@string/loading" />
 
     </LinearLayout>

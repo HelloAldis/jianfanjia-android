@@ -56,15 +56,5 @@ public class Global {
     public static final String FORCE_UPDATE = "1";
     public static final String REC_UPDATE = "0";
 
-    public static int SECTION_POSITION = 0;
-    public static int HOUSE_TYPE_POSITION = 0;
-    public static int DEC_STYLE_POSITION = 0;
-
-    public static int DEC_TYPE_POSITION = 0;
-    public static int DEC_HOUSE_TYPE_POSITION = 0;
-    public static int STYLE_POSITION = 0;
-    public static int DEC_FEE_POSITION = 0;
-    public static int DEC_AREA_POSITION = 0;
-
     public static final String PURE_DESIGNER = "2";//纯设计
 }

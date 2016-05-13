@@ -24,6 +24,7 @@ import com.jianfanjia.cn.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.constant.IntentConstant;
@@ -78,16 +79,21 @@ public class ContractActivity extends BaseSwipeBackActivity implements
     public void initView() {
         initMainHeadView();
         initWebView();
-        if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS5) ||
-                requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
-            checkBtn.setEnabled(false);
-            checkBtn.setText(getString(R.string.already_open_process));
-        } else if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
-            checkBtn.setEnabled(false);
-            checkBtn.setText(getString(R.string.str_wait_setting_open_process_time));
-        } else {
-            checkBtn.setEnabled(true);
-            checkBtn.setText(getString(R.string.str_check_contract));
+        if(requirement.getWork_type().equals(RequirementBusiness.WORK_TYPE_PURE_DESIGNER)){
+            checkBtn.setVisibility(View.GONE);
+        }else{
+            checkBtn.setVisibility(View.VISIBLE);
+            if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS5) ||
+                    requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
+                checkBtn.setEnabled(false);
+                checkBtn.setText(getString(R.string.already_open_process));
+            } else if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
+                checkBtn.setEnabled(false);
+                checkBtn.setText(getString(R.string.str_wait_setting_open_process_time));
+            } else {
+                checkBtn.setEnabled(true);
+                checkBtn.setText(getString(R.string.str_check_contract));
+            }
         }
     }
 

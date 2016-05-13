@@ -46,8 +46,9 @@
             style="@style/listview_item_text_style_middle"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_toRightOf="@+id/list_item_comment_userhead"
-            android:text="@string/my_example_name"
-            android:maxWidth="@dimen/space_70"
+            android:text="jeff"
+            android:maxWidth="@dimen/space_120"
+            android:gravity="left"
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="@color/light_black_color" />

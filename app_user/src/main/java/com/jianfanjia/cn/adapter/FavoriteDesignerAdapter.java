@@ -17,6 +17,7 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
 
@@ -54,6 +55,25 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<Designer> {
         } else {
             holder.authView.setVisibility(View.GONE);
         }
+        List<String> tags = designerInfo.getTags();
+        if(tags != null && tags.size() > 0){
+            holder.itemTagText.setVisibility(View.VISIBLE);
+            holder.itemTagText.setText(tags.get(0));
+            switch (tags.get(0)){
+                case RequirementBusiness.TAG_NEW_GENERATE:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_blue_bg);
+                    break;
+                case RequirementBusiness.TAG_MIDDER_GENERATE:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_pink_bg);
+                    break;
+                case RequirementBusiness.TAG_HIGH_POINT:
+                    holder.itemTagText.setBackgroundResource(R.drawable.text_rectangle_orange_bg);
+                    break;
+            }
+        }else {
+            holder.itemTagText.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +106,8 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<Designer> {
         RatingBar ltm_myfavdesi_score;
         @Bind(R.id.designerinfo_auth)
         ImageView authView;
+        @Bind(R.id.ltm_req_tag)
+        TextView itemTagText;
 
         public FavoriteDesignerViewHolder(View itemView) {
             super(itemView);

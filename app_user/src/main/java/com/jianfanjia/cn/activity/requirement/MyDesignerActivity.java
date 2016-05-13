@@ -26,6 +26,7 @@ import com.jianfanjia.cn.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.adapter.MyDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.ClickCallBack;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
@@ -144,7 +145,11 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         Bundle changeBundle = new Bundle();
                         changeBundle.putString(IntentConstant.DESIGNER_ID, orderDesignerInfo.get_id());
                         changeBundle.putString(IntentConstant.REQUIREMENT_ID, requirementid);
-                        startActivity(ReplaceDesignerActivity.class, changeBundle);
+                        if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_HIGH_POINT)) {
+                            startActivity(AppointHighPointDesignerActivity.class, changeBundle);
+                        } else {
+                            startActivity(ReplaceDesignerActivity.class, changeBundle);
+                        }
                         break;
                     case CONFIRM_MEASURE_HOUSE:
                         if (Calendar.getInstance().getTimeInMillis() > orderDesignerInfo.getPlan()

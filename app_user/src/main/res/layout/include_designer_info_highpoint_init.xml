@@ -53,11 +53,13 @@
             android:id="@+id/ltm_req_tag"
             style="@style/listview_item_text_style_small"
             android:layout_marginLeft="-22dp"
-            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_8"
             android:layout_toRightOf="@id/imageLayout"
             android:background="@drawable/text_rectangle_blue_bg"
-            android:paddingLeft="@dimen/space_4"
-            android:paddingRight="@dimen/space_4"
+            android:paddingLeft="@dimen/space_6"
+            android:paddingRight="@dimen/space_6"
+            android:paddingTop="@dimen/space_2"
+            android:paddingBottom="@dimen/space_2"
             android:textColor="@color/font_white"
             />
 

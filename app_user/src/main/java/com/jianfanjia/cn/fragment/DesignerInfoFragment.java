@@ -166,7 +166,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
                 mHasLoadedOnce = true;
                 Designer designerInfo = apiResponse.getData();
                 LogTool.d(TAG, "designerInfo:" + designerInfo);
-                if (null != designerInfo) {
+                if (null != designerInfo && DesignerInfoFragment.this.getView() != null) {
                     jiandanTypeLayout.setVisibility(View.VISIBLE);
                     jiandanHouseTypeLayout.setVisibility(View.VISIBLE);
                     jiandanDistrictLayout.setVisibility(View.VISIBLE);

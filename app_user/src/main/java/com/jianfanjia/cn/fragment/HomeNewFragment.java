@@ -173,6 +173,7 @@ public class HomeNewFragment extends BaseFragment {
             LogTool.d(TAG, "productid:" + productid);
             Bundle productBundle = new Bundle();
             productBundle.putString(IntentConstant.PRODUCT_ID, productid);
+            productBundle.putBoolean(DesignerCaseInfoActivity.INTENT_FROM_HOME,true);
             startActivity(DesignerCaseInfoActivity.class, productBundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
         }

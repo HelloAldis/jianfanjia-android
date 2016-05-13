@@ -29,16 +29,15 @@ import com.jianfanjia.cn.adapter.ProductAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.interf.EndlessRecyclerViewScrollListener;
 import com.jianfanjia.cn.interf.GetItemCallback;
 import com.jianfanjia.cn.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.view.FilterPopWindow;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.SelectPopupWindowUtil;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -50,11 +49,18 @@ import com.jianfanjia.common.tool.LogTool;
 public class DesignerCaseListActivity extends BaseSwipeBackActivity implements View.OnClickListener, PullToRefreshBase
         .OnRefreshListener2<RecyclerView> {
     private static final String TAG = DesignerCaseListActivity.class.getName();
+
     private static final int DEC_TYPE = 1;
     private static final int DESIGN_STYLE = 2;
     private static final int HOUSE_TYPE = 3;
     private static final int DEC_AREA = 4;
     private static final int NOT = 5;
+
+    private int decTypePos;
+    private int decHouseTypePos;
+    private int decStylePos;
+    private int decAreaPos;
+
 
     @Bind(R.id.topLayout)
     protected LinearLayout topLayout = null;
@@ -95,7 +101,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
     @Bind(R.id.empty_include)
     protected RelativeLayout emptyLayout = null;
 
-    private FilterPopWindow window = null;
+    private SelectPopupWindowUtil mSelectPopupWindowUtil;
     private boolean isFirst = true;
     private ProductAdapter productAdapter = null;
     private List<Product> productList = new ArrayList<>();
@@ -128,6 +134,9 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         pullToRefreshRecyclerView.setHasFixedSize(true);
         pullToRefreshRecyclerView.setItemAnimator(new DefaultItemAnimator());
         pullToRefreshRecyclerView.setOnRefreshListener(this);
+
+        mSelectPopupWindowUtil = new SelectPopupWindowUtil(this);
+
         getDesignerProductList(FROM, this.pullDownCallback);
     }
 
@@ -349,32 +358,27 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
     private void showWindow(int resId, int type) {
         switch (type) {
             case DEC_TYPE:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDecTypeCallback, Global
-                        .DEC_TYPE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getDecTypeCallback,decTypePos);
                 break;
             case DESIGN_STYLE:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getDesignStyleCallback, Global
-                        .STYLE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getDesignStyleCallback,decStylePos);
                 break;
             case HOUSE_TYPE:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseTypeCallback, Global
-                        .DEC_HOUSE_TYPE_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getHouseTypeCallback,decHouseTypePos);
                 break;
             case DEC_AREA:
-                window = new FilterPopWindow(DesignerCaseListActivity.this, resId, getHouseAreaCallback, Global
-                        .DEC_AREA_POSITION);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getHouseAreaCallback,decAreaPos);
                 break;
             default:
                 break;
         }
-        window.show(topLayout);
     }
 
     private GetItemCallback getDecTypeCallback = new GetItemCallback() {
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_TYPE_POSITION = position;
+            decTypePos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decType_item.setText(title);
             } else {
@@ -383,23 +387,11 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
             FROM = 0;
             decType = BusinessCovertUtil.getDecTypeByText(title);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -407,7 +399,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.STYLE_POSITION = position;
+            decStylePos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 designStyle_item.setText(title);
             } else {
@@ -416,23 +408,11 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
             FROM = 0;
             designStyle = BusinessCovertUtil.getDecStyleByText(title);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -440,7 +420,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_HOUSE_TYPE_POSITION = position;
+            decHouseTypePos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 houseType_item.setText(title);
             } else {
@@ -449,23 +429,11 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
             FROM = 0;
             houseType = BusinessCovertUtil.getHouseTypeByText(title);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
@@ -473,7 +441,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onItemCallback(int position, String title) {
             isFirst = true;
-            Global.DEC_AREA_POSITION = position;
+            decAreaPos = position;
             if (!TextUtils.isEmpty(title) && !title.equals(Constant.KEY_WORD)) {
                 decArea_item.setText(title);
             } else {
@@ -483,33 +451,17 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
             decArea = BusinessCovertUtil.convertDecAreaValueByText(title);
             LogTool.d(TAG, "decArea=" + decArea);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
 
         @Override
         public void onDismissCallback() {
             setSelectState(NOT);
-            if (null != window) {
-                if (window.isShowing()) {
-                    window.dismiss();
-                    window = null;
-                }
-            }
         }
     };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Global.DEC_TYPE_POSITION = 0;
-        Global.DEC_HOUSE_TYPE_POSITION = 0;
-        Global.STYLE_POSITION = 0;
-        Global.DEC_AREA_POSITION = 0;
     }
 
     @Override
