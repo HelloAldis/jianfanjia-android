@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'packer'
+apply plugin: 'org.quanqi.pgyer'
 apply from: "$rootDir/util.gradle"
 
 def appName = 'jianfanjia';
@@ -132,8 +133,7 @@ task test1 {
 //        println getApkDir(appName, APP_USER_VERSION_NAME);
 //        println getApkName(appName, APP_USER_FORCE_UPDATE, APP_USER_VERSION_CODE, APP_USER_VERSION_NAME)
 //        println variant.name.capitalize();
-        println getLastestPgyapp(appName);
-        println rootProject.tasks.uploadPgyerAndtestuser
+        println getLatestPgyapp(appName);
     }
 }
 
@@ -160,18 +160,22 @@ task tag() {
 }
 tag.shouldRunAfter(bumpVersion);
 
-apks {
-    andtestuser {
-        def app = getLastestPgyapp(appName);
-        if (app != null) {
-            sourceFile = file(app);
+pgyer {
+    _api_key = PGY_API_KEY
+    uKey = PGY_UKEY
+}
+
+task configPgy() {
+    doLast {
+        apks {
+            andtest {
+                def app = getLatestPgyapp(appName);
+                if (app != null) {
+                    sourceFile = file(app);
+                }
+            }
         }
     }
 }
-rootProject.tasks.uploadPgyerAndtestuser.shouldRunAfter(tag)
-
-//Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:apkTest uploadPgyerAndtestuser
-//Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:apkRelease
-
-
-//./gradlew -Pmarket=markets_test.txt :app_user:apkAndTest
+tasks.uploadPgyer.dependsOn(configPgy);
+tasks.uploadPgyer.shouldRunAfter(tag);

@@ -94,17 +94,22 @@ def String getApkDir(String appName, String versionName) {
     return "${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/${buildType}/${versionName}"
 }
 
-def String getLastestPgyapp(String appName) {
+def String getLatestPgyapp(String appName) {
     def f = new File("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest");
-    def files = f.list();
+    def files = f.listFiles();
     if (files == null || files.length == 0) {
         return null;
     } else {
         def array = Arrays.asList(files);
-        array = array.sort();
-        def version = array.last();
-
-        return "${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest/${version}/pgyapp.apk";
+        array.sort(new Comparator<File>() {
+            public int compare(File file1, File file2) {
+                return (int)(file1.lastModified()-file2.lastModified());
+            }
+        });
+        def latest = array.last();
+        def app = "${latest.getAbsolutePath()}/pgyapp.apk";
+        println "the lastes app is ${app}";
+        return app;
     }
 }
 
@@ -137,7 +142,21 @@ ext {
     getApkDir = this.&getApkDir
 
     gitTag = this.&gitTag;
-    getLastestPgyapp = this.&getLastestPgyapp
+    getLatestPgyapp = this.&getLatestPgyapp
 }
 
-
+/**
+ * 业主 app 的测试和Release 命令
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:apkAndTest :app_user:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:apkRelease
+ *
+ *
+ * 设计师 app测试和Release 命令
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_designer:bumpVersion :app_designer:tag :app_designer:apkAndTest :app_designer:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:apkRelease
+ *
+ *
+ * 监理 app测试和和Release 命令
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:apkAndTest :app_supervisor:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:apkRelease
+ */

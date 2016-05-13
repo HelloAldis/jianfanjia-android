@@ -68,7 +68,7 @@
             android:value="55e40deee0f55acc66001861"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}"/>
+            android:value="Default"/>
         <meta-data
             android:name="SERVER_URL"
             android:value="${SERVER_URL}"/>

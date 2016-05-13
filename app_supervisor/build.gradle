@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'packer'
+apply plugin: 'org.quanqi.pgyer'
 apply from: "$rootDir/util.gradle"
 
 def appName = 'supervisor'
@@ -12,8 +13,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
 
-        versionCode 10
-        versionName '1.1.0'
+        versionCode Integer.parseInt(APP_SUPERVISOR_VERSION_CODE)
+        versionName APP_SUPERVISOR_VERSION_NAME
     }
 
     //签名
@@ -114,14 +115,23 @@ task tag() {
 }
 tag.shouldRunAfter(bumpVersion);
 
-apks {
-    andtestsupervisor {
-        def app = getLastestPgyapp(appName);
-        if (app != null) {
-            sourceFile = file(app);
+pgyer {
+    _api_key = PGY_API_KEY
+    uKey = PGY_UKEY
+}
+task configPgy() {
+    doLast {
+        apks {
+            andtest {
+                def app = getLatestPgyapp(appName);
+                if (app != null) {
+                    sourceFile = file(app);
+                }
+            }
         }
     }
 }
-rootProject.tasks.uploadPgyerAndtestsupervisor.shouldRunAfter(tag);
+tasks.uploadPgyer.dependsOn(configPgy);
+tasks.uploadPgyer.shouldRunAfter(tag);
 
 
