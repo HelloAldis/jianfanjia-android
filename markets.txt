@@ -1,0 +1,6 @@
+Default#默认渠道
+zhushou_360#360 应用市场
+mi#小米应用市场
+baidu#百度应用市场
+yingyongbao#应用宝
+huawei#华为

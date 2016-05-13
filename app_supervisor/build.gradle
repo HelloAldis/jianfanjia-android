@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'packer'
+apply from: "$rootDir/util.gradle"
+
+def appName = 'supervisor'
 
 android {
     compileSdkVersion 23
@@ -54,36 +58,11 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    def date = new Date().format('yyyyMMdd');
-    def force_update = '1' //强制更新
-    def rec_update = '0'   //自愿更新
-    def update = rec_update
-    def testApkPath = "G:\\test_apks\\supervisor_${defaultConfig.versionName}";
-    def releaseApkPath = "G:\\release_apks\\supervisor_${defaultConfig.versionName}";
-
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                String fileName = outputFile.name.replace(".apk", "_${date}_${update}_${defaultConfig.versionCode}_${defaultConfig.versionName}.apk")
-                fileName = fileName.replace("app_supervisor", "supervisor")
-//                if (variant.buildType.name.equals('release')) {
-//                    fileName = fileName.replace("-release", "")
-//                    output.outputFile = new File(releaseApkPath, fileName)
-//                }
-                if (variant.buildType.name.equals('andtest')) {
-                    output.outputFile = new File(testApkPath, fileName)
-                }
-                if (variant.buildType.name.equals('debug')) {
-                    output.outputFile = new File(outputFile.parent, fileName)
-                }
-            }
-        }
-    }
 }
 
 dependencies {
+    compile 'com.mcxiaoke.gradle:packer-helper:1.0.4'
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
@@ -105,3 +84,44 @@ dependencies {
     compile project(':common')
     compile project(':imageshow')
 }
+
+packer {
+    manifestMatcher = ['UMENG_CHANNEL']
+    archiveNameFormat = getApkNameFormat(appName, APP_SUPERVISOR_FORCE_UPDATE, APP_SUPERVISOR_VERSION_CODE, APP_SUPERVISOR_VERSION_NAME)
+    archiveOutput = file(getApkDir(appName, APP_SUPERVISOR_VERSION_NAME));
+}
+
+task bumpVersion {
+    doLast {
+        println 'start to update supervisor user version'
+        def newVersionName = bumpVersionName(APP_SUPERVISOR_VERSION_NAME, rtype);
+        def newVersionCode = bumpVersionCode(APP_SUPERVISOR_VERSION_CODE);
+        def fileContent = readFile(getPropertiesFile());
+        def newContent = replaceValue(fileContent, 'APP_SUPERVISOR_VERSION_NAME', newVersionName);
+        newContent = replaceValue(newContent, 'APP_SUPERVISOR_VERSION_CODE', newVersionCode);
+        write2File(getPropertiesFile(), newContent);
+        println 'start to update supervisor user version'
+    }
+}
+bumpVersion.shouldRunAfter {
+    getAllAssembleTask(':app_supervisor');
+}
+
+task tag() {
+    doLast {
+        gitTag(appName, APP_SUPERVISOR_VERSION_NAME);
+    }
+}
+tag.shouldRunAfter(bumpVersion);
+
+apks {
+    andtestsupervisor {
+        def app = getLastestPgyapp(appName);
+        if (app != null) {
+            sourceFile = file(app);
+        }
+    }
+}
+rootProject.tasks.uploadPgyerAndtestsupervisor.shouldRunAfter(tag);
+
+
