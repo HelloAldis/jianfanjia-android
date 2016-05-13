@@ -73,7 +73,7 @@ def gitTag(String appName, version) {
 def cmd(String cmd) {
     println "execute cmd $cmd";
     def msg = cmd.execute().text.trim();
-    print msg;
+    println msg;
 }
 
 /**
