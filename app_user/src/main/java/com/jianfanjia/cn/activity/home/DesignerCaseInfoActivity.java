@@ -48,9 +48,13 @@ import de.greenrobot.event.EventBus;
  */
 public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
+
+    public static final String INTENT_FROM_HOME = "intent_from_home";
+
     private static final int SCROLL_Y = 120;
     private int mScrollY = 0;
     private boolean mHeaderIsShow = false;
+    private boolean isIntentFromHome = false;
 
     @Bind(R.id.head_back_layout)
     protected RelativeLayout head_back_layout = null;
@@ -87,7 +91,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initSwipeBack();
+//        initSwipeBack();
         this.initView();
         this.getDataFromIntent(this.getIntent());
         this.setListener();
@@ -111,6 +115,10 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         Bundle productBundle = intent.getExtras();
         if (productBundle != null) {
             productid = productBundle.getString(IntentConstant.PRODUCT_ID);
+            isIntentFromHome = productBundle.getBoolean(INTENT_FROM_HOME, false);
+            if (isIntentFromHome) {
+                initSwipeBack();
+            }
             LogTool.d(TAG, "productid=" + productid);
             getProductHomePageInfo(productid);
         }
@@ -202,7 +210,9 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
-                overridePendingTransition(0, R.anim.slide_out_to_bottom);
+                if (isIntentFromHome) {
+                    overridePendingTransition(0, R.anim.slide_out_to_bottom);
+                }
                 break;
             case R.id.toolbar_collect_layout:
                 UiHelper.imageButtonAnim(toolbar_collect, null);

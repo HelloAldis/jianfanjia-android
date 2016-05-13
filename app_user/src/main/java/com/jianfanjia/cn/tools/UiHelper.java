@@ -7,14 +7,11 @@ import android.animation.PropertyValuesHolder;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -50,12 +47,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
-
-    public static Drawable tintDrawable(Drawable drawable, ColorStateList colors) {
-        final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
-        DrawableCompat.setTintList(wrappedDrawable, colors);
-        return wrappedDrawable;
-    }
 
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();

@@ -1,22 +1,20 @@
 package com.jianfanjia.cn.designer.activity.my;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UserMessage;
@@ -35,14 +33,11 @@ import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.business.ProcessBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.interf.RefuseRequirementCallback;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
-import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -86,14 +81,8 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
     @Bind(R.id.btnReject)
     Button btnReject;
 
-    @Bind(R.id.btnCheck)
-    Button btnCheck;
-
     @Bind(R.id.btnPlan)
     Button btnPlan;
-
-    @Bind(R.id.btnContract)
-    Button btnContract;
 
     @Bind(R.id.btnRefuse)
     Button btnRefuse;
@@ -106,13 +95,9 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
 
     private String messageid = null;
     private String processid = null;
-    private String sectionName = null;
-    private Process processInfo = null;
     private Plan plan = null;
     private Requirement requirement = null;
 
-    private CommonDialog refuseDialog = null;
-    private String refuseMsg = null;
     private String phone = null;
 
     @Override
@@ -284,6 +269,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                         singleBtnLayout.setVisibility(View.VISIBLE);
                         appointBtnLayout.setVisibility(View.VISIBLE);
                         mainHeadView.setRightTitleVisable(View.VISIBLE);
+                        btnConfirm.setVisibility(View.GONE);
                         cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                         if (noticeDetailInfo.getPlan().getStatus().equals(Global.PLAN_STATUS0)) {
@@ -298,7 +284,8 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                             btnRefuse.setVisibility(View.GONE);
                             btnRespond.setText(getResources().getString(R.string.repond_str));
                         } else {
-
+                            appointBtnLayout.setVisibility(View.GONE);
+                            btnConfirm.setVisibility(View.VISIBLE);
                         }
                     } else if (msgType.equals(Constant.TYPE_PLAN_CHOOSED_MSG) || msgType.equals(Constant
                             .TYPE_PLAN_NOT_CHOOSED_MSG)) {
@@ -422,43 +409,12 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
     }
 
     private void showRefuseDialog(final String requirementid) {
-        refuseDialog = DialogHelper
-                .getPinterestDialogCancelable(NoticeDetailActivity.this);
-        refuseDialog.setTitle(getString(R.string.refuse_reason));
-        View contentView = LayoutInflater.from(NoticeDetailActivity.this).inflate(R.layout.dialog_refuse_requirement,
-                null);
-        RadioGroup radioGroup = (RadioGroup) contentView
-                .findViewById(R.id.refuse_radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        UiHelper.showRefuseDialog(this, new RefuseRequirementCallback() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (group.getCheckedRadioButtonId() == R.id.refuse_radio0) {
-                    refuseMsg = getString(R.string.refuse_msg0);
-                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio1) {
-                    refuseMsg = getString(R.string.refuse_msg1);
-                } else if (group.getCheckedRadioButtonId() == R.id.refuse_radio2) {
-                    refuseMsg = getString(R.string.refuse_msg2);
-                } else {
-                    refuseMsg = getString(R.string.refuse_msg3);
-                }
+            public void refuseRequirementSuccess(String refuseReason) {
+                refuseRequirement(requirementid, refuseReason);
             }
         });
-        refuseDialog.setContent(contentView);
-        refuseDialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (refuseMsg != null) {
-                            refuseRequirement(requirementid, refuseMsg);
-                            dialog.dismiss();
-                        } else {
-                            makeTextShort(getString(R.string.tip_choose_refuse_reason));
-                        }
-                    }
-                });
-        refuseDialog.setNegativeButton(R.string.no, null);
-        refuseDialog.show();
     }
 
     private void refuseRequirement(String requirementid, String msg) {
@@ -478,9 +434,9 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                if (refuseDialog != null) {
-                    refuseDialog.dismiss();
-                }
+//                if (refuseDialog != null) {
+//                    refuseDialog.dismiss();
+//                }
                 btnRefuse.setEnabled(false);
                 btnRespond.setVisibility(View.GONE);
                 btnRefuse.setText(getResources().getString(R.string.reject_str));
