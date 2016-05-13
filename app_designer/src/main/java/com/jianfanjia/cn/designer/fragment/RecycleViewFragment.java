@@ -108,7 +108,6 @@ public class RecycleViewFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
         LogTool.d(this.getClass().getName(), "num =" + mNum);
     }
