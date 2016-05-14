@@ -13,12 +13,15 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.common.CommentListActivity;
 import com.jianfanjia.cn.activity.my.AboutActivity;
-import com.jianfanjia.cn.activity.my.BindingAccountActivity;
 import com.jianfanjia.cn.activity.my.CollectActivity;
 import com.jianfanjia.cn.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.my.FeedBackActivity;
@@ -33,11 +36,6 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.layout.BadgeView;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description:我的
@@ -75,9 +73,6 @@ public class MyNewFragment extends BaseFragment {
 
     @Bind(R.id.comment_layout)
     RelativeLayout commentLayout;
-
-    @Bind(R.id.binding_account_layout)
-    RelativeLayout bindingAccountLayout;
 
     @Bind(R.id.cache_size)
     TextView cacheSizeView;
@@ -121,7 +116,7 @@ public class MyNewFragment extends BaseFragment {
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
-    protected void initMyInfo() {
+    protected void updateUserHeader() {
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
@@ -133,8 +128,7 @@ public class MyNewFragment extends BaseFragment {
     }
 
     @OnClick({R.id.notify_layout, R.id.collect_layout, R.id.frag_my_info_layout, R.id.kefu_layout, R.id
-            .setting_layout, R.id.feedback_layout, R.id.clear_cache_layout, R.id.call_layout, R.id.comment_layout, R
-            .id.binding_account_layout})
+            .setting_layout, R.id.feedback_layout, R.id.clear_cache_layout, R.id.call_layout, R.id.comment_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.notify_layout:
@@ -164,9 +158,6 @@ public class MyNewFragment extends BaseFragment {
             case R.id.comment_layout:
                 startActivity(CommentListActivity.class);
                 break;
-            case R.id.binding_account_layout:
-                startActivity(BindingAccountActivity.class);
-                break;
             default:
                 break;
         }
@@ -179,7 +170,11 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        initMyInfo();
+        updateUserHeader();
+        updateUserInfo();
+    }
+
+    private void updateUserInfo() {
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
                 dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
@@ -191,6 +186,7 @@ public class MyNewFragment extends BaseFragment {
         LogTool.d(TAG, "isHidden =" + hidden);
         if (!hidden) {
 //            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+            updateUserInfo();
         }
     }
 
@@ -269,7 +265,7 @@ public class MyNewFragment extends BaseFragment {
         }
         switch (requestCode) {
             case REQUESTCODE_USERINFO:
-                initMyInfo();
+                updateUserHeader();
                 break;
         }
     }

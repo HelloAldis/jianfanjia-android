@@ -259,7 +259,7 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     private void showRefuseDialog(final String requirementid) {
-        UiHelper.showRefuseDialog(getContext(), new RefuseRequirementCallback() {
+        UiHelper.showRefuseDialog(getActivity(), new RefuseRequirementCallback() {
             @Override
             public void refuseRequirementSuccess(String refuseReason) {
                 refuseRequirement(requirementid, refuseReason);

@@ -223,45 +223,9 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/binding_account_layout"
-                style="@style/my_list_item_layout_style">
-
-                <ImageView
-                    android:id="@+id/binding_account_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_account" />
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_toRightOf="@+id/binding_account_icon"
-                    android:text="@string/account_binding"
-                    android:textColor="@color/light_black_color" />
-
-                <TextView
-                    android:id="@+id/phoneText"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/phone_goto"
-                    android:textColor="@color/light_black_color" />
-
-                <ImageView
-                    android:id="@+id/phone_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
                 android:id="@+id/clear_cache_layout"
                 style="@style/my_list_item_layout_style"
-                android:layout_marginTop="@dimen/space_10">
+                >
 
                 <ImageView
                     android:id="@+id/clear_cache_icon"
