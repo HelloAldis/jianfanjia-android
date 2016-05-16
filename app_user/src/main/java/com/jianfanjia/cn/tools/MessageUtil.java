@@ -13,11 +13,11 @@ import android.widget.RemoteViews;
 
 import com.jianfanjia.api.model.NotifyMessage;
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.Event.MessageCountEvent;
-import com.jianfanjia.cn.activity.MainActivity;
+import com.jianfanjia.cn.ui.Event.MessageCountEvent;
+import com.jianfanjia.cn.ui.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.common.CommentListActivity;
-import com.jianfanjia.cn.activity.my.NoticeDetailActivity;
+import com.jianfanjia.cn.ui.activity.common.CommentListActivity;
+import com.jianfanjia.cn.ui.activity.my.NoticeDetailActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.common.tool.DateFormatTool;

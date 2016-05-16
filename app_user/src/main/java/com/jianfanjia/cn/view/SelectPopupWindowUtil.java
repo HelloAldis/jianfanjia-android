@@ -13,8 +13,8 @@ import android.widget.PopupWindow;
 import java.util.List;
 
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.adapter.PopWindowAdapter;
-import com.jianfanjia.cn.interf.GetItemCallback;
+import com.jianfanjia.cn.ui.adapter.PopWindowAdapter;
+import com.jianfanjia.cn.ui.interf.GetItemCallback;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 
 /**

@@ -60,8 +60,6 @@ public class IntentConstant {
     public static final String SEARCH_TEXT = "search_text";
     public static final String VIEW_TYPE = "type";
 
-    public static final String VIEW_INFO = "view_info";
-
     //view类型
     public static final int BEAUTY_FRAGMENT = 1;//装修美图
     public static final int COLLECT_BEAUTY_FRAGMENT = 2;//装修美图收藏
