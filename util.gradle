@@ -94,7 +94,18 @@ def String getApkDir(String appName, String versionName) {
     return "${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/${buildType}/${versionName}"
 }
 
-def String getLatestPgyapp(String appName) {
+def String getLatestPgyapp(String appName){
+    def buildType =  getCurrentBuildType();
+    if(buildType.equals("release")){
+        return getLastReleasePgyapp(appName)
+    }
+    if(buildType.equals("andtest")){
+        return getLatestAndtestPgyapp(appName)
+    }
+
+}
+
+def String getLatestAndtestPgyapp(String appName) {
     def f = new File("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest");
     def files = f.listFiles();
     if (files == null || files.length == 0) {
@@ -110,6 +121,34 @@ def String getLatestPgyapp(String appName) {
         def app = "${latest.getAbsolutePath()}/pgyapp.apk";
         println "the lastes app is ${app}";
         return app;
+    }
+}
+
+def String getLastReleasePgyapp(String appName){
+    def f = new File("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release");
+    def files = f.listFiles();
+    if (files == null || files.length == 0) {
+        return null;
+    } else {
+        def array = Arrays.asList(files);
+        array.sort(new Comparator<File>() {
+            public int compare(File file1, File file2) {
+                return (int)(file1.lastModified()-file2.lastModified());
+            }
+        });
+        def latestFile = array.last();
+        def lastestApkFiles = latestFile.listFiles();
+        if (lastestApkFiles == null || lastestApkFiles.length == 0) {
+            return null;
+        }else{
+            for(File lasrApk : lastestApkFiles){
+                if(lasrApk.getName().contains("Default")){
+                    def app = lasrApk.getAbsolutePath() + File.separator + lasrApk.getName();
+                    println "the lastes app is ${app}";
+                    return app;
+                }
+            }
+        }
     }
 }
 
