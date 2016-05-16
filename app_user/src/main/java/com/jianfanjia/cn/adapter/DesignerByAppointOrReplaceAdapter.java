@@ -102,7 +102,7 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
                     holder.itemInfoAuthView.setVisibility(View.GONE);
                 }
                 List<String> tags = designerCanOrderInfo.getTags();
-                if(tags.size() > 0){
+                if(tags != null && tags.size() > 0){
                     holder.itemTagText.setVisibility(View.VISIBLE);
                     holder.itemTagText.setText(tags.get(0));
                     switch (tags.get(0)){
