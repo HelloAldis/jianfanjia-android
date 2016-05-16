@@ -143,7 +143,7 @@ def String getLastReleasePgyapp(String appName){
         }else{
             for(File lasrApk : lastestApkFiles){
                 if(lasrApk.getName().contains("Default")){
-                    def app = lasrApk.getAbsolutePath() + File.separator + lasrApk.getName();
+                    def app = lasrApk.getAbsolutePath();
                     println "the lastes app is ${app}";
                     return app;
                 }
