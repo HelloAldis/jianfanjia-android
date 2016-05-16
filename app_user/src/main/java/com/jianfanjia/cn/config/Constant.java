@@ -67,13 +67,9 @@ public class Constant {
     public static final String EDIT_DISTRICT = "district";
 
     // item点击项
-    public static final int CONFIRM_ITEM = 1;
     public static final int ADD_ITEM = 2;
     public static final int IMG_ITEM = 3;
     public static final int COMMENT_ITEM = 4;
-    public static final int DELAY_ITEM = 5;
-    public static final int CHECK_ITEM = 6;
-    public static final int OPERATE_ITEM = 7;
 
     //设计师方案列表item点击项
     public static final int PLAN_COMMENT_ITEM = 1;//留言
@@ -157,7 +153,6 @@ public class Constant {
     public static final String DEFALUT_PIC = DEFALUT_PIC_HEAD
             + R.mipmap.pix_default;
 
-    public static final String CURRENT_LIST = "current_list";// 首页展开的第一道工序
     public static final String CURRENT_POSITION = "current_position";// 当前位置
     public static final String IMAGE_LIST = "image_list";
     public static final String PROCESS_INFO = "process";
@@ -176,7 +171,6 @@ public class Constant {
     public static final String JUN_GONG = "jun_gong";
 
     public static final int REC_DESIGNER_TOTAL = 3;//推荐设计师总数
-    public static final int ROST_REQUIREMTNE_TOTAL = 3;//能够发布需求总数
 
     public static final int LOVE_STYLE_TOTAL = 3;//能够选择的风格喜好数量
 
