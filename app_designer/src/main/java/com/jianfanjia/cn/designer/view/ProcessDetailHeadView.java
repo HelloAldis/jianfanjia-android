@@ -23,10 +23,10 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.adapter.SectionViewPageAdapter;
+import com.jianfanjia.cn.designer.ui.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.designer.bean.ViewPagerItem;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 

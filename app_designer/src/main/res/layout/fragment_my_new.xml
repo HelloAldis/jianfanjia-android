@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.jianfanjia.cn.fragment.MyFragment">
 
-    <com.jianfanjia.cn.designer.view.PullZoomScrollView
+    <ScrollView
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,56 +21,67 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <FrameLayout
+            <RelativeLayout
+                android:id="@+id/frag_my_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/space_16"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingRight="@dimen/space_16"
+                android:paddingTop="@dimen/space_16"
+                android:background="@color/font_white">
+
+                <com.jianfanjia.cn.designer.view.layout.CircleImageView
+                    android:id="@+id/user_head_img"
+                    android:layout_width="60dip"
+                    android:layout_height="60dip"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_default_head"
+                    app:border_color="@color/white"
+                    app:border_width="2dip" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/user_head_img"
+                    android:layout_toLeftOf="@+id/btn_next"
+                    android:paddingLeft="@dimen/space_16"
+                    android:paddingRight="@dimen/space_8"
+                    android:orientation="vertical"
+                    >
+
+                <TextView
+                    android:id="@+id/frag_my_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_black_color"
+                    android:textSize="@dimen/middle_size"
+                    android:text="aaaaa"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/frag_my_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:textColor="@color/middle_grey_color"
+                    android:text="ddddd"
+                    android:textSize="@dimen/small_size" />
+
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/head_img"
+                    android:id="@+id/btn_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_fragment_my" />
+                    android:src="@mipmap/icon_next"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/frag_my_info_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <com.jianfanjia.cn.designer.view.layout.CircleImageView
-                        android:id="@+id/user_head_img"
-                        android:layout_width="90dip"
-                        android:layout_height="90dip"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="centerCrop"
-                        app:border_color="@color/white"
-                        app:border_width="2dip" />
-
-                    <TextView
-                        android:id="@+id/frag_my_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/user_head_img"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dip"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/middle_size"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/frag_my_account"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/frag_my_name"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dip"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/small_size" />
-                </RelativeLayout>
-
-            </FrameLayout>
+            <View style="@style/divier_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +92,7 @@
                 android:paddingTop="@dimen/space_12">
 
                 <RelativeLayout
-                    android:id="@+id/notify_layout"
+                    android:id="@+id/product_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -95,7 +106,7 @@
                         android:layout_centerVertical="true">
 
                         <com.jianfanjia.cn.designer.view.layout.CircleImageView
-                            android:id="@+id/ltm_req_designer_head0"
+                            android:id="@+id/product_head"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
@@ -104,7 +115,7 @@
                             android:src="@mipmap/icon_notice" />
 
                         <com.jianfanjia.cn.designer.view.layout.BadgeView
-                            android:id="@+id/notify_count_text"
+                            android:id="@+id/product_badgeview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|right"
@@ -113,7 +124,7 @@
                     </FrameLayout>
 
                     <TextView
-                        android:id="@+id/ltm_req_designer_name0"
+                        android:id="@+id/product_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/imageLayout0"
@@ -122,7 +133,57 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:singleLine="true"
-                        android:text="@string/my_notice"
+                        android:text="@string/my_product"
+                        android:textColor="@color/light_black_color"
+                        android:textSize="@dimen/middle_size" />
+
+                </RelativeLayout>
+
+                <View style="@style/vertical_divier_line" />
+
+                <RelativeLayout
+                    android:id="@+id/team_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:id="@+id/imageLayout1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true">
+
+                        <com.jianfanjia.cn.designer.view.layout.CircleImageView
+                            android:id="@+id/team_head"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:layout_marginRight="@dimen/space_4"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_notice" />
+
+                        <com.jianfanjia.cn.designer.view.layout.BadgeView
+                            android:id="@+id/team_badgetview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:textSize="@dimen/text_size_14" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/team_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imageLayout1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/my_team"
                         android:textColor="@color/light_black_color"
                         android:textSize="@dimen/middle_size" />
 
@@ -313,5 +374,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </com.jianfanjia.cn.designer.view.PullZoomScrollView>
+    </ScrollView>
 </FrameLayout>

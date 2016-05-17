@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.ScrollView;
 
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -73,7 +72,7 @@ public class PullZoomScrollView extends ScrollView {
         super.onFinishInflate();
         if (getChildCount() > 0) {
             contentView = getChildAt(0);
-            headerView = contentView.findViewById(R.id.head_img);
+//            headerView = contentView.findViewById(R.id.head_img);
         }
     }
 

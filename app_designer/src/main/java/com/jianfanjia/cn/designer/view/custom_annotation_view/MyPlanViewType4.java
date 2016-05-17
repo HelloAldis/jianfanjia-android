@@ -13,8 +13,8 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.fragment.RecycleViewFragment;
-import com.jianfanjia.cn.designer.interf.ClickCallBack;
+import com.jianfanjia.cn.designer.ui.fragment.RecycleViewFragment;
+import com.jianfanjia.cn.designer.ui.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.common.tool.DateFormatTool;
 

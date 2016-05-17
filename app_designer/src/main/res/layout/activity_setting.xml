@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_layout_bg"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:orientation="vertical">
 
     <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/my_setting_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg" />
+        android:background="@color/head_layout_bg"/>
 
     <ScrollView
         android:id="@+id/setting_scrollview"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View style="@style/divier_line" />
+            <View style="@style/divier_line"/>
 
             <RelativeLayout
                 android:id="@+id/about_layout"
@@ -33,20 +33,20 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:text="@string/about"
-                    android:textColor="@color/light_black_color" />
+                    android:textColor="@color/light_black_color"/>
 
                 <ImageView
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"/>
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
+            <View style="@style/divier_line"/>
 
             <View
                 style="@style/divier_line"
-                android:layout_marginTop="@dimen/space_10" />
+                android:layout_marginTop="@dimen/space_10"/>
 
             <RelativeLayout
                 android:id="@+id/logout_layout"
@@ -57,10 +57,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/logout"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/orange_color"/>
             </RelativeLayout>
 
-            <View style="@style/divier_line" />
+            <View style="@style/divier_line"/>
         </LinearLayout>
     </ScrollView>
 

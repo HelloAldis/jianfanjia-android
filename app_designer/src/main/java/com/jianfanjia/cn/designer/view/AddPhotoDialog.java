@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.interf.PopWindowCallBack;
+import com.jianfanjia.cn.designer.ui.interf.PopWindowCallBack;
 
 public class AddPhotoDialog extends Dialog implements OnClickListener {
 

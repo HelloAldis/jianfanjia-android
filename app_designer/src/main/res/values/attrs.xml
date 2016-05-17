@@ -7,4 +7,9 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="CustomEditText">
+        <attr name="show_inputlength_limit" format="boolean" />
+        <attr name="inputlength_limit_size" format="integer" />
+    </declare-styleable>
+
 </resources>

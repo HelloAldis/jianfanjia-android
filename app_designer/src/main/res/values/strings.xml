@@ -315,4 +315,18 @@
     <string name="expire_other_plan_choosed">该业主已选中其他设计师的方案，感谢您的配合。</string>
     <string name="expire_not_submit">由于您5天未上传方案，已超时</string>
     <string name="decoratebudget_high_point_title">您完全符合我们“匠心定制包”的标准\n我们的设计师将会为您提供全程定制化的服务</string>
+    <string name="base_info_auth">基本资料认证</string>
+    <string name="identity_auth">身份认证</string>
+    <string name="product_auth">作品认证</string>
+    <string name="process_team_auth">施工团队认证</string>
+    <string name="email_auth">邮箱认证</string>
+    <string name="university">毕业院校</string>
+    <string name="work_year">工作年限</string>
+    <string name="work_company">曾就职装修公司</string>
+    <string name="design_achievement">设计成就</string>
+    <string name="design_concept">设计理念</string>
+    <string name="upload_diploma_image">上传学历图片</string>
+    <string name="upload_award_details">上传获奖照片及描述</string>
+    <string name="my_product">我的作品</string>
+    <string name="my_team">我的团队</string>
 </resources>
