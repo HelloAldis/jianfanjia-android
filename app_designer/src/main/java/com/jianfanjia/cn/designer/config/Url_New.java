@@ -190,4 +190,15 @@ public class Url_New {
     public String SEARCH_USER_COMMENT = HTTPROOT + "search_designer_comment";
     //设计师提醒业主确认量房
     public String NOTIFY_OWNER_MEASURE_HOUSE = HTTPROOT + "designer_remind_user_house_check";
+    //设计师获取自己的全部作品
+    public String GET_ALL_PRODUCT = HTTPROOT + "designer/product";
+    //设计师获取自己的某个作品
+    public String GET_ONE_PRODUCT = HTTPROOT + "designer/product/one";
+    //设计师删除某个作品
+    public String DELETE_ONE_PRODUCT = HTTPROOT + "designer/product/delete";
+    //设计师修改某个作品
+    public String UPDATE_ONE_PRODUCT = HTTPROOT + "designer/product/update";
+    //设计师提交某个作品
+    public String ADD_ONE_PRODUCT = HTTPROOT + "designer/product/add";
+
 }

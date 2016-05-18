@@ -40,25 +40,27 @@ public class CustomEditText extends FrameLayout {
 
         isShowCurrentInputSize = a.getBoolean(R.styleable.CustomEditText_show_inputlength_limit, false);
 
-        currentCanInputSize = a.getInt(R.styleable.CustomEditText_inputlength_limit_size,0);
+        currentCanInputSize = a.getInt(R.styleable.CustomEditText_inputlength_limit_size, 0);
 
         a.recycle();
 
-        View view = inflate(context, R.layout.custom_edittext_has_length,null);
+        View view = inflate(context, R.layout.custom_edittext_has_length, null);
 
-        inputText = (EditText)view.findViewById(R.id.edittext);
+        inputText = (EditText) view.findViewById(R.id.edittext);
 
-        lengthText = (TextView)view.findViewById(R.id.input_length);
+        lengthText = (TextView) view.findViewById(R.id.input_length);
 
-        if(isShowCurrentInputSize){
+        if (isShowCurrentInputSize) {
             lengthText.setVisibility(VISIBLE);
             lengthText.setText(String.valueOf(currentCanInputSize));
-        }else{
+        } else {
             lengthText.setVisibility(View.GONE);
         }
 
-        InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(currentCanInputSize)};
-        inputText.setFilters(inputFilters);
+        if (isShowCurrentInputSize) {
+            InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(currentCanInputSize)};
+            inputText.setFilters(inputFilters);
+        }
 
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,27 +82,27 @@ public class CustomEditText extends FrameLayout {
         addView(view);
     }
 
-    public String getText(){
-        return  inputText.getEditableText().toString();
+    public String getText() {
+        return inputText.getEditableText().toString();
     }
 
-    public void addTextChangedListener(final TextWatcher textWatcher){
-        if(textWatcher != null){
+    public void addTextChangedListener(final TextWatcher textWatcher) {
+        if (textWatcher != null) {
             inputText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    textWatcher.beforeTextChanged(s,start,count,after);
+                    textWatcher.beforeTextChanged(s, start, count, after);
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    textWatcher.onTextChanged(s,start,before,count);
+                    textWatcher.onTextChanged(s, start, before, count);
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
                     textWatcher.afterTextChanged(s);
-                    if(isShowCurrentInputSize){
+                    if (isShowCurrentInputSize) {
                         int leaveLenth = currentCanInputSize - s.toString().length();
                         LogTool.d(TAG, "leaveLength =" + leaveLenth);
                         lengthText.setText(String.valueOf(leaveLenth));
@@ -113,11 +115,11 @@ public class CustomEditText extends FrameLayout {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if(enabled){
-            if(isShowCurrentInputSize){
+        if (enabled) {
+            if (isShowCurrentInputSize) {
                 lengthText.setVisibility(View.VISIBLE);
             }
-        }else {
+        } else {
             lengthText.setVisibility(View.GONE);
         }
         inputText.setEnabled(enabled);

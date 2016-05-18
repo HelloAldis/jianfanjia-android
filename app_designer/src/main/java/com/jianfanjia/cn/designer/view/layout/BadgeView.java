@@ -37,7 +37,7 @@ public class BadgeView extends TextView {
 
     private static final int DEFAULT_MARGIN_DIP = 5;
     private static final int DEFAULT_LR_PADDING_DIP = 5;
-    private static final int DEFAULT_CORNER_RADIUS_DIP = 10;
+    private static final int DEFAULT_CORNER_RADIUS_DIP = 5;
     private static final int DEFAULT_POSITION = POSITION_TOP_RIGHT;
     private static final int DEFAULT_BADGE_COLOR = Color.parseColor("#FF0000"); //Color.RED;
     private static final int DEFAULT_TEXT_COLOR = Color.WHITE;
@@ -115,8 +115,8 @@ public class BadgeView extends TextView {
         badgeColor = DEFAULT_BADGE_COLOR;
 
         setTypeface(Typeface.DEFAULT_BOLD);
-        int paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP);
-        setPadding(paddingPixels, 0, paddingPixels, 0);
+//        int paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP);
+//        setPadding(paddingPixels, paddingPixels, paddingPixels, paddingPixels);
         setTextColor(DEFAULT_TEXT_COLOR);
 
         fadeIn = new AlphaAnimation(0, 1);
@@ -258,7 +258,7 @@ public class BadgeView extends TextView {
             }
             setBackgroundDrawable(badgeBg);
         }
-        applyLayoutParams();
+//        applyLayoutParams();
 
         if (animate) {
             this.startAnimation(anim);
@@ -321,7 +321,8 @@ public class BadgeView extends TextView {
         int r = dipToPixels(DEFAULT_CORNER_RADIUS_DIP);
         float[] outerR = new float[]{r, r, r, r, r, r, r, r};
 
-        RoundRectShape rr = new RoundRectShape(outerR, null, null);
+        RoundRectShape rr = new RoundRectShape(null, null, outerR);
+//        OvalShape ovalShape = new OvalShape();
         ShapeDrawable drawable = new ShapeDrawable(rr);
         drawable.getPaint().setColor(badgeColor);
 

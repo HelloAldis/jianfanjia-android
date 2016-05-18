@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-
-import java.util.List;
 
 /**
  * Name: BaseRecyclerViewAdapter
@@ -34,6 +34,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     public void setList(List<T> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public void add(T t) {
@@ -101,4 +102,8 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     public abstract View createView(ViewGroup viewGroup, int viewType);
 
     public abstract RecyclerViewHolderBase createViewHolder(View view);
+
+    public interface OnItemClickListener{
+        void OnItemClick(int position);
+    }
 }

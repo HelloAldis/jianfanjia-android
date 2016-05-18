@@ -1,13 +1,11 @@
 package com.jianfanjia.cn.designer.ui.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -18,17 +16,20 @@ import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.common.CommentListActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.FeedBackActivity;
+import com.jianfanjia.cn.designer.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.SettingActivity;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.DesignerInfoAuthActivity;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.DesignerReceiveInfoActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAuthActicity;
-import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
-import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.DesignerProductAuthActivity;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.layout.BadgeView;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -41,29 +42,8 @@ import com.jianfanjia.common.tool.LogTool;
 public class MyNewFragment extends BaseFragment {
     private static final String TAG = MyNewFragment.class.getName();
 
-    @Bind(R.id.setting_layout)
-    RelativeLayout setting_layout;
-
-    @Bind(R.id.kefu_layout)
-    RelativeLayout kefu_layout;
-
-    @Bind(R.id.frag_my_info_layout)
-    RelativeLayout my_info_layout;
-
-    @Bind(R.id.feedback_layout)
-    RelativeLayout feedback_layout;
-
-    @Bind(R.id.clear_cache_layout)
-    RelativeLayout clearCacheLayout;
-
-    @Bind(R.id.call_layout)
-    RelativeLayout callPhoneLayout;
-
-    @Bind(R.id.comment_layout)
-    RelativeLayout commentLayout;
-
-    @Bind(R.id.cache_size)
-    TextView cacheSizeView;
+    @Bind(R.id.my_head_layout)
+    protected MainHeadView mainHeadView;
 
     @Bind(R.id.setting_scrollview)
     ScrollView scrollView;
@@ -96,10 +76,18 @@ public class MyNewFragment extends BaseFragment {
         return view;
     }
 
+    private void initMainHeadView() {
+        mainHeadView.setMianTitle(getResources().getString(R.string.my));
+        mainHeadView.setBackgroundTransparent();
+        mainHeadView.setRightTitleVisable(View.GONE);
+        mainHeadView.setBackLayoutVisable(View.GONE);
+    }
+
     private void initView() {
+        initMainHeadView();
         commentCountView.setVisibility(View.GONE);
         noticeCountView.setVisibility(View.GONE);
-        cacheSizeView.setText(UiHelper.caculateCacheSize());
+
         //动态计算imageview的宽高
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
@@ -118,12 +106,16 @@ public class MyNewFragment extends BaseFragment {
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
-    @OnClick({R.id.frag_my_info_layout, R.id.kefu_layout, R.id
-            .setting_layout, R.id.feedback_layout, R.id.clear_cache_layout, R.id.call_layout, R.id.comment_layout})
+    @OnClick({R.id.frag_my_info_layout, R.id.kefu_layout, R.id.setting_layout, R.id.feedback_layout, R.id
+            .call_layout, R.id.comment_layout, R.id.designer_auth_center_layout, R.id.head_notification_layout, R.id
+            .product_layout, R.id.team_layout, R.id.receive_business_info_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.frag_my_info_layout:
                 startActivity(BaseInfoAuthActicity.class);
+                break;
+            case R.id.head_notification_layout:
+                startActivity(NoticeActivity.class);
                 break;
             case R.id.kefu_layout:
                 startActivity(CustomerServiceActivity.class);
@@ -134,14 +126,23 @@ public class MyNewFragment extends BaseFragment {
             case R.id.feedback_layout:
                 startActivity(FeedBackActivity.class);
                 break;
-            case R.id.clear_cache_layout:
-                onClickCleanCache();
-                break;
             case R.id.call_layout:
                 UiHelper.callPhoneIntent(getContext(), getString(R.string.app_phone));
                 break;
             case R.id.comment_layout:
                 startActivity(CommentListActivity.class);
+                break;
+            case R.id.designer_auth_center_layout:
+                startActivity(DesignerInfoAuthActivity.class);
+                break;
+            case R.id.product_layout:
+                startActivity(DesignerProductAuthActivity.class);
+                break;
+            case R.id.team_layout:
+                startActivity(DesignerTeamAuthActivity.class);
+                break;
+            case R.id.receive_business_info_layout:
+                startActivity(DesignerReceiveInfoActivity.class);
                 break;
             default:
                 break;
@@ -208,28 +209,6 @@ public class MyNewFragment extends BaseFragment {
 
             }
         }, selectLists);
-    }
-
-    /**
-     * 清空缓存
-     */
-    private void onClickCleanCache() {
-        CommonDialog dialog = DialogHelper
-                .getPinterestDialogCancelable(getActivity());
-        dialog.setTitle("清空缓存");
-        dialog.setMessage("确定清空缓存吗？");
-        dialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MyApplication.getInstance().clearAppCache();
-                        cacheSizeView.setText("0KB");
-                        dialog.dismiss();
-                    }
-                });
-        dialog.setNegativeButton(R.string.no, null);
-        dialog.show();
     }
 
 

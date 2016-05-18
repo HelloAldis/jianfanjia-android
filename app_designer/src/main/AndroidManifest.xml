@@ -192,6 +192,36 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
+            android:name=".ui.activity.my_info_auth.DesignerInfoAuthActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.my_info_auth.DesignerReceiveInfoActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.my_info_auth.identity_info.DesignerIdentityAuthActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.my_info_auth.product_info.DesignerProductAuthActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.my_info_auth.EmailAuthActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
             android:name=".ui.activity.RegisterNewActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"

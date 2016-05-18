@@ -3,10 +3,10 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/main_layout_bg">
+                >
 
     <com.jianfanjia.cn.designer.view.MainHeadView
-        android:id="@+id/designerinfo_head_layout"
+        android:id="@+id/designerinfo_auth_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -14,8 +14,7 @@
         android:id="@+id/designerinfo_scrollview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/designerinfo_head_layout"
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_below="@+id/designerinfo_auth_head_layout"
         android:overScrollMode="always">
 
         <LinearLayout
@@ -37,7 +36,8 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16">
+                android:paddingTop="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_10">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -207,7 +207,8 @@
                     android:id="@+id/email_addr_editext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"/>
+                    android:layout_marginTop="@dimen/space_8"
+                    />
             </LinearLayout>
 
             <View
@@ -434,7 +435,7 @@
         layout="@layout/view_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/designerinfo_head_layout"
+        android:layout_below="@+id/designerinfo_auth_head_layout"
         android:layout_gravity="center"
         android:visibility="gone"/>
 

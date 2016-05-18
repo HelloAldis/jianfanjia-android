@@ -1,0 +1,101 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:background="@drawable/shape_indicator_selected_rect">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <FrameLayout
+                android:id="@+id/list_item_works_img_layout"
+                android:layout_width="match_parent"
+                android:layout_height="250dip">
+
+                <ImageView
+                    android:id="@+id/list_item_works_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/bg_fragment_my"/>
+
+                <RelativeLayout
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_rectangle_orange_bg"
+                    android:layout_gravity="center"
+                    android:paddingLeft="@dimen/space_24"
+                    android:paddingRight="@dimen/space_20"
+                    android:paddingBottom="@dimen/space_4"
+                    android:paddingTop="@dimen/space_4">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_clean"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delete"
+                    android:paddingTop="@dimen/space_2"
+                    android:paddingBottom="@dimen/space_2"
+                    android:paddingRight="@dimen/space_4"
+                    android:paddingLeft="@dimen/space_4"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/middle_size"
+                    android:textColor="@color/font_white"/>
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/list_item_works_xiaoqu_text"
+                style="@style/listview_item_text_style_middle"
+                android:layout_below="@id/list_item_works_img_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="小区名称"
+                android:textColor="@color/light_black_color"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/list_item_works_produce_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/list_item_works_xiaoqu_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_5"
+                android:text="100平米"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12"/>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/auth_status"
+        android:layout_width="64dp"
+        android:layout_height="24dp"
+        android:layout_gravity="left|top"
+        android:layout_marginLeft="@dimen/space_6"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@mipmap/icon_auth_success"
+        android:gravity="center"
+        android:paddingRight="@dimen/space_4"
+        android:paddingTop="@dimen/space_2"
+        android:text="@string/auth_success"
+        android:textColor="@color/font_white"
+        android:textSize="@dimen/small_size"/>
+</FrameLayout>

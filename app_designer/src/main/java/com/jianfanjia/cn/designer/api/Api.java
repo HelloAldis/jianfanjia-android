@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.designer.api;
 
+import java.util.List;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.ApiResponse;
@@ -7,6 +9,7 @@ import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.api.model.UserMessage;
@@ -27,10 +30,14 @@ import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
+import com.jianfanjia.api.request.designer.AddOneProductRequest;
 import com.jianfanjia.api.request.designer.ConfigContractRequest;
 import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
+import com.jianfanjia.api.request.designer.DeleteOneProductRequest;
 import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
+import com.jianfanjia.api.request.designer.GetAllProductRequest;
+import com.jianfanjia.api.request.designer.GetOneProductRequest;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
@@ -38,6 +45,7 @@ import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
 import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
+import com.jianfanjia.api.request.designer.UpdateOneProductRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
@@ -45,8 +53,6 @@ import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
 import com.jianfanjia.cn.designer.config.Url_New;
-
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.designer.api
@@ -207,6 +213,26 @@ public class Api {
     public static void submitImageToProcess(SubmitImageToProcessRequest request, ApiCallback<ApiResponse<String>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().POST_PROCESS_IMAGE, request, apiCallback);
+    }
+
+    public static void getAllProduct(GetAllProductRequest request, ApiCallback<ApiResponse<ProductList>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_ALL_PRODUCT, request, apiCallback);
+    }
+
+    public static void addOneProduct(AddOneProductRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_ONE_PRODUCT, request, apiCallback);
+    }
+
+    public static void updateOneProduct(UpdateOneProductRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_ONE_PRODUCT, request, apiCallback);
+    }
+
+    public static void deleteOneProduct(DeleteOneProductRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_ONE_PRODUCT, request, apiCallback);
+    }
+
+    public static void getOneProduct(GetOneProductRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_ONE_PRODUCT, request, apiCallback);
     }
 
 }

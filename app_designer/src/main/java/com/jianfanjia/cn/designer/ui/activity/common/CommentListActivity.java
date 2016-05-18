@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -17,23 +19,19 @@ import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.requirement.MyProcessDetailActivity;
-import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.designer.ui.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.designer.base.BaseRecycleAdapter;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.activity.requirement.MyProcessDetailActivity;
+import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.designer.ui.adapter.MyCommentInfoAdapter;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.activity.common
@@ -110,7 +108,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         }
                     }
                 });
-        myCommentInfoAdapter.setLoadMoreListener(new BaseRecycleAdapter.LoadMoreListener() {
+        myCommentInfoAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
                 getMyCommentInfo(myCommentInfoAdapter.getData().size(), loadMoreCallback);

@@ -4,11 +4,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.LoginNewActivity;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
@@ -38,6 +41,9 @@ public class SettingActivity extends BaseSwipeBackActivity {
     @Bind(R.id.my_setting_head_layout)
     MainHeadView mainHeadView;
 
+    @Bind(R.id.cache_size)
+    TextView cacheSizeView;
+
     private ShareUtil shareUtil;
 
     @Override
@@ -49,6 +55,7 @@ public class SettingActivity extends BaseSwipeBackActivity {
 
     private void initView() {
         initMainHeadView();
+        cacheSizeView.setText(UiHelper.caculateCacheSize());
     }
 
     private void initMainHeadView() {
@@ -57,7 +64,7 @@ public class SettingActivity extends BaseSwipeBackActivity {
         mainHeadView.setDividerVisable(View.VISIBLE);
     }
 
-    @OnClick({R.id.about_layout, R.id.logout_layout, R.id.head_back_layout})
+    @OnClick({R.id.about_layout, R.id.logout_layout, R.id.head_back_layout,R.id.clear_cache_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.about_layout:
@@ -69,10 +76,36 @@ public class SettingActivity extends BaseSwipeBackActivity {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
+            case R.id.clear_cache_layout:
+                onClickCleanCache();
+                break;
             default:
                 break;
         }
     }
+
+    /**
+     * 清空缓存
+     */
+    private void onClickCleanCache() {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(this);
+        dialog.setTitle("清空缓存");
+        dialog.setMessage("确定清空缓存吗？");
+        dialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyApplication.getInstance().clearAppCache();
+                        cacheSizeView.setText("0KB");
+                        dialog.dismiss();
+                    }
+                });
+        dialog.setNegativeButton(R.string.no, null);
+        dialog.show();
+    }
+
 
     private void onClickExit() {
         CommonDialog dialog = DialogHelper

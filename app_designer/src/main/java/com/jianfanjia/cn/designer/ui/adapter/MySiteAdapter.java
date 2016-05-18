@@ -16,12 +16,12 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewAdapterBase;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.ui.fragment.ManageFragment;
 import com.jianfanjia.cn.designer.ui.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.ui.interf.OnItemClickListener;
-import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -75,7 +75,7 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_process_listview.setLayoutManager(linearLayoutManager);
         ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, process.getSections(),
-                new OnItemClickListener() {
+                new BaseRecyclerViewAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(int pos) {
                         if (null != callBack) {

@@ -1,11 +1,52 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_layout_bg"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.jianfanjia.cn.fragment.MyFragment">
+
+    <FrameLayout
+        android:id="@+id/process_head_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.jianfanjia.cn.designer.view.MainHeadView
+            android:id="@+id/my_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/head_layout_bg"/>
+
+        <FrameLayout
+            android:id="@+id/head_notification_layout"
+            android:layout_width="@dimen/space_64"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginBottom="1px"
+            android:background="@drawable/common_head_back_bg_selector"
+            >
+
+            <ImageView
+                android:id="@+id/head_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/space_16"
+                android:src="@mipmap/icon_notification"/>
+
+            <com.jianfanjia.cn.designer.view.layout.BadgeView
+                android:id="@+id/product_badgeview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="@dimen/space_8"
+                android:textSize="@dimen/text_size_11"
+                android:visibility="gone"/>
+        </FrameLayout>
+    </FrameLayout>
 
     <ScrollView
         android:id="@+id/setting_scrollview"
@@ -13,7 +54,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        >
 
         <LinearLayout
             android:id="@+id/rootview"
@@ -26,10 +68,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/space_16"
-                android:paddingLeft="@dimen/space_16"
+                android:paddingLeft="@dimen/space_24"
                 android:paddingRight="@dimen/space_16"
                 android:paddingTop="@dimen/space_16"
-                android:background="@color/font_white">
+                android:background="@color/font_white"
+                android:layout_marginTop="@dimen/space_10">
 
                 <com.jianfanjia.cn.designer.view.layout.CircleImageView
                     android:id="@+id/user_head_img"
@@ -38,8 +81,7 @@
                     android:layout_centerVertical="true"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/icon_default_head"
-                    app:border_color="@color/white"
-                    app:border_width="2dip" />
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -112,14 +154,7 @@
                             android:layout_marginLeft="@dimen/space_4"
                             android:layout_marginRight="@dimen/space_4"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_notice" />
-
-                        <com.jianfanjia.cn.designer.view.layout.BadgeView
-                            android:id="@+id/product_badgeview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="top|right"
-                            android:textSize="@dimen/text_size_14" />
+                            android:src="@mipmap/icon_my_product" />
 
                     </FrameLayout>
 
@@ -162,14 +197,7 @@
                             android:layout_marginLeft="@dimen/space_4"
                             android:layout_marginRight="@dimen/space_4"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_notice" />
-
-                        <com.jianfanjia.cn.designer.view.layout.BadgeView
-                            android:id="@+id/team_badgetview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="top|right"
-                            android:textSize="@dimen/text_size_14" />
+                            android:src="@mipmap/icon_my_team" />
 
                     </FrameLayout>
 
@@ -219,7 +247,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|right"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textSize="@dimen/text_size_14"
+                            android:visibility="gone"/>
                     </FrameLayout>
 
                     <TextView
@@ -241,36 +270,105 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/clear_cache_layout"
+                android:id="@+id/designer_auth_center_layout"
                 style="@style/my_list_item_layout_style"
                 >
 
                 <ImageView
-                    android:id="@+id/clear_cache_icon"
+                    android:id="@+id/designer_auth_center_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_clean" />
+                    android:src="@mipmap/icon_designer_auth" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_10"
-                    android:layout_toRightOf="@+id/clear_cache_icon"
-                    android:text="@string/clear_cache"
+                    android:layout_toRightOf="@+id/designer_auth_center_icon"
+                    android:text="@string/designer_auth_center"
                     android:textColor="@color/light_black_color" />
 
                 <TextView
-                    android:id="@+id/cache_size"
+                    android:id="@+id/designer_auth_center_stage"
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_12"
-                    android:layout_toLeftOf="@+id/clear_cache_next"
-                    android:text="0M"
+                    android:layout_toLeftOf="@+id/designer_auth_center_next"
                     android:textColor="@color/main_color_grey" />
 
                 <ImageView
-                    android:id="@+id/clear_cache_next"
+                    android:id="@+id/designer_auth_center_next"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+
+
+            <View style="@style/divier_line" />
+
+            <RelativeLayout
+                android:id="@+id/receive_business_info_layout"
+                style="@style/my_list_item_layout_style"
+                >
+
+                <ImageView
+                    android:id="@+id/receive_business_info_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_receive_business" />
+
+                <TextView
+                    android:id="@+id/receive_business_info_text"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@+id/receive_business_info_icon"
+                    android:text="@string/receive_business_info"
+                    android:textColor="@color/light_black_color" />
+
+                <TextView
+                    android:id="@+id/receive_business_info_status"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:layout_toRightOf="@+id/receive_business_info_text"
+                    android:text="@string/receive_business_info_tip"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/small_size"/>
+
+                <ImageView
+                    android:id="@+id/receive_business_info_next"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/invite_friends_layout"
+                style="@style/my_list_item_layout_style"
+                android:layout_marginTop="@dimen/space_10">
+
+                <ImageView
+                    android:id="@+id/invite_friends_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_invite_friends" />
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_toRightOf="@+id/invite_friends_icon"
+                    android:text="@string/invite_friends"
+                    android:textColor="@color/light_black_color" />
+
+                <ImageView
                     style="@style/my_item_layout_image_style"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -288,7 +386,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_phone_number" />
+                    android:src="@mipmap/icon_feedback" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -316,7 +414,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_kefu" />
+                    android:src="@mipmap/icon_online" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -343,14 +441,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_more" />
+                    android:src="@mipmap/icon_setting" />
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/more_icon"
-                    android:text="@string/more"
+                    android:text="@string/my_setting"
                     android:textColor="@color/light_black_color" />
 
                 <ImageView
@@ -375,4 +473,4 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</LinearLayout>
