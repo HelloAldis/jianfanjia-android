@@ -20,6 +20,7 @@ import com.jianfanjia.api.request.designer.GetDesignerInfoRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
+import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.common.CommentListActivity;
@@ -62,6 +63,9 @@ public class MyNewFragment extends BaseFragment {
 
     @Bind(R.id.product_badgeview)
     public BadgeView noticeCountView = null;
+
+    @Bind(R.id.designer_auth_center_stage)
+    TextView authProductText;
 
     @Bind(R.id.comment_count_text)
     public BadgeView commentCountView = null;
@@ -196,7 +200,10 @@ public class MyNewFragment extends BaseFragment {
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
                 dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
+        authProductText.setText("已完成："+ DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) + "%");
     }
+
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {

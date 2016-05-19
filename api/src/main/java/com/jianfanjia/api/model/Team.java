@@ -1,14 +1,12 @@
 package com.jianfanjia.api.model;
 
-import java.io.Serializable;
-
 /**
  * Description: com.jianfanjia.api.model
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2016-05-19 14:41
  */
-public class Team implements Serializable{
+public class Team extends BaseModel{
 
     private static final long serialVersionUID = -1553424198123287816L;
     private String _id;

@@ -27,7 +27,17 @@ public class Designer extends BaseModel {
     private String usertype;
     private String agreee_license;
     private String auth_type;
+    private String auth_message;
+    private long auth_date;
     private String uid_auth_type;
+    private String uid_auth_message;
+    private long uid_auth_date;
+    private String email_auth_type;
+    private String email_auth_message;
+    private long email_auth_date;
+    private String work_auth_type;
+    private String work_auth_message;
+    private long work_auth_date;
     private List<String> tags;
     private int team_count;
     private int product_count;
@@ -431,5 +441,85 @@ public class Designer extends BaseModel {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public String getAuth_message() {
+        return auth_message;
+    }
+
+    public void setAuth_message(String auth_message) {
+        this.auth_message = auth_message;
+    }
+
+    public long getAuth_date() {
+        return auth_date;
+    }
+
+    public void setAuth_date(long auth_date) {
+        this.auth_date = auth_date;
+    }
+
+    public String getUid_auth_message() {
+        return uid_auth_message;
+    }
+
+    public void setUid_auth_message(String uid_auth_message) {
+        this.uid_auth_message = uid_auth_message;
+    }
+
+    public long getUid_auth_date() {
+        return uid_auth_date;
+    }
+
+    public void setUid_auth_date(long uid_auth_date) {
+        this.uid_auth_date = uid_auth_date;
+    }
+
+    public String getEmail_auth_type() {
+        return email_auth_type;
+    }
+
+    public void setEmail_auth_type(String email_auth_type) {
+        this.email_auth_type = email_auth_type;
+    }
+
+    public String getEmail_auth_message() {
+        return email_auth_message;
+    }
+
+    public void setEmail_auth_message(String email_auth_message) {
+        this.email_auth_message = email_auth_message;
+    }
+
+    public long getEmail_auth_date() {
+        return email_auth_date;
+    }
+
+    public void setEmail_auth_date(long email_auth_date) {
+        this.email_auth_date = email_auth_date;
+    }
+
+    public String getWork_auth_type() {
+        return work_auth_type;
+    }
+
+    public void setWork_auth_type(String work_auth_type) {
+        this.work_auth_type = work_auth_type;
+    }
+
+    public String getWork_auth_message() {
+        return work_auth_message;
+    }
+
+    public void setWork_auth_message(String work_auth_message) {
+        this.work_auth_message = work_auth_message;
+    }
+
+    public long getWork_auth_date() {
+        return work_auth_date;
+    }
+
+    public void setWork_auth_date(long work_auth_date) {
+        this.work_auth_date = work_auth_date;
     }
 }

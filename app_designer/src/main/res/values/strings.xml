@@ -336,8 +336,10 @@
     <string name="designer_auth">设计师认证</string>
     <string name="upload_product">上传作品</string>
     <string name="auth_success">认证成功</string>
+    <string name="auth_not_apply">未提交</string>
     <string name="auth_going">认证中</string>
     <string name="delete">删除</string>
     <string name="upload_process_team">添加施工团队</string>
     <string name="team_manager">项目经理</string>
+    <string name="view_detail">查看详情</string>
 </resources>
