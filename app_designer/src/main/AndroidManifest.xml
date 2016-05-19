@@ -212,6 +212,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
+            android:name=".ui.activity.my_info_auth.product_info.DesignerCaseInfoActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
             android:name=".ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"

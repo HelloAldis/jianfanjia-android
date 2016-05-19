@@ -16,10 +16,6 @@ public class GridItem implements Serializable {
         this.imgId = imgId;
     }
 
-    public GridItem() {
-
-    }
-
     public String getImgId() {
         return imgId;
     }

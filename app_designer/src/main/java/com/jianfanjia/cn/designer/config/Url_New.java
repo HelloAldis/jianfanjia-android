@@ -200,5 +200,18 @@ public class Url_New {
     public String UPDATE_ONE_PRODUCT = HTTPROOT + "designer/product/update";
     //设计师提交某个作品
     public String ADD_ONE_PRODUCT = HTTPROOT + "designer/product/add";
+    //获取某个作品主页
+    public String PRODUCT_HOME_PAGE = HTTPROOT + "product_home_page";
+
+    //设计师获取自己的全部作品
+    public String GET_ALL_TEAM = HTTPROOT + "designer/team/get";
+    //设计师获取自己的某个作品
+    public String GET_ONE_TEAM = HTTPROOT + "designer/team/one";
+    //设计师删除某个作品
+    public String DELETE_ONE_TEAM = HTTPROOT + "designer/team/delete";
+    //设计师修改某个作品
+    public String UPDATE_ONE_TEAM = HTTPROOT + "designer/team/update";
+    //设计师提交某个作品
+    public String ADD_ONE_TEAM = HTTPROOT + "designer/team/add";
 
 }

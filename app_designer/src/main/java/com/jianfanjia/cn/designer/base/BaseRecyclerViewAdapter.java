@@ -3,7 +3,6 @@ package com.jianfanjia.cn.designer.base;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -92,18 +91,29 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     @Override
     public RecyclerViewHolderBase onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = createView(viewGroup, viewType);
-        RecyclerViewHolderBase holder = createViewHolder(view);
+        RecyclerViewHolderBase holder = createViewHolder(viewType);
         return holder;
     }
 
     public abstract void bindView(RecyclerViewHolderBase viewHolder, int position, List<T> list);
 
-    public abstract View createView(ViewGroup viewGroup, int viewType);
 
-    public abstract RecyclerViewHolderBase createViewHolder(View view);
+    public abstract RecyclerViewHolderBase createViewHolder(int viewType);
 
-    public interface OnItemClickListener{
-        void OnItemClick(int position);
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
+
+    public interface OnItemDeleteListener {
+        void onItemDelete(int position);
+    }
+
+    public interface OnItemAddListener {
+        void onItemAdd();
+    }
+
+    public interface OnItemEditListener extends OnItemClickListener, OnItemDeleteListener, OnItemAddListener {
+
+    }
+
 }

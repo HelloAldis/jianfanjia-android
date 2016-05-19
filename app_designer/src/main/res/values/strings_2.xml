@@ -129,6 +129,7 @@
     <string name="already_binding">已绑定</string>
     <string name="not_binding">未绑定</string>
     <string name="authorize_fail">认证失败</string>
+    <string name="authorize_violation">违规屏蔽</string>
     <string name="authorize_cancel">取消认证</string>
     <string name="share_success">分享成功啦</string>
     <string name="share_failure">分享失败啦</string>

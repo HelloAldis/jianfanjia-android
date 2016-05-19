@@ -2,7 +2,6 @@ package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.ui.interf.OnItemClickListener;
 
 /**
  * Name: ProcessRecyclerViewAdapter
@@ -65,21 +63,16 @@ public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<ProcessS
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    listener.OnItemClick(position);
+                    listener.onItemClick(position);
                 }
             }
         });
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_process_view_item,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new ProcessViewHolder(view);
     }
 

@@ -2,10 +2,13 @@ package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
@@ -13,11 +16,6 @@ import com.jianfanjia.cn.designer.bean.GridItem;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.ui.interf.UploadListener;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: CheckGridViewAdapter
@@ -32,7 +30,6 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
     private ItemClickCallBack itemClickCallBack;
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_ITEM = 1;
-    private int viewType = -1;
 
     public CheckGridViewAdapter(Context context, List<GridItem> list, UploadListener listener, ItemClickCallBack
             itemClickCallBack) {
@@ -60,21 +57,20 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            viewType = TYPE_HEAD;
+            return TYPE_HEAD;
         } else {
-            viewType = TYPE_ITEM;
+            return TYPE_ITEM;
         }
-        return viewType;
     }
 
     @Override
     public int getItemCount() {
-        return list.size() + 1;
+        return list != null ? list.size() + 1 : 1;
     }
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<GridItem> list) {
-        switch (viewType) {
+        switch (getItemViewType(position)) {
             case TYPE_HEAD:
                 CheckHeadHolder checkHeadHolder = (CheckHeadHolder) viewHolder;
                 checkHeadHolder.text_title_show_pic.setText(context.getResources().getString(R.string.show_pic));
@@ -145,25 +141,14 @@ public class CheckGridViewAdapter extends BaseRecyclerViewAdapter<GridItem> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         switch (viewType) {
             case TYPE_HEAD:
                 View headView = layoutInflater.inflate(R.layout.grid_item_check_pic_tag, null);
-                return headView;
+                return new CheckHeadHolder(headView);
             case TYPE_ITEM:
                 View itemView = layoutInflater.inflate(R.layout.grid_item_check_pic, null);
-                return itemView;
-        }
-        return null;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
-        switch (viewType) {
-            case TYPE_HEAD:
-                return new CheckHeadHolder(view);
-            case TYPE_ITEM:
-                return new CheckItemViewHolder(view);
+                return new CheckItemViewHolder(itemView);
         }
         return null;
     }

@@ -10,10 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="@dimen/space_1"
+        android:listSelector="@null"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/space_1"/>
+
     <RelativeLayout
         android:id="@+id/base_info_auth_layout"
         style="@style/my_list_item_layout_style"
-        android:layout_marginTop="@dimen/space_10">
+        android:layout_marginTop="@dimen/space_10"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/base_info_auth_icon"

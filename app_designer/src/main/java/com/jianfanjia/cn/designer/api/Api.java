@@ -9,8 +9,10 @@ import com.jianfanjia.api.model.CommentList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
+import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.model.Team;
 import com.jianfanjia.api.model.UpdateVersion;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
@@ -31,13 +33,18 @@ import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
 import com.jianfanjia.api.request.designer.AddOneProductRequest;
+import com.jianfanjia.api.request.designer.AddOneTeamRequest;
 import com.jianfanjia.api.request.designer.ConfigContractRequest;
 import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
 import com.jianfanjia.api.request.designer.DeleteOneProductRequest;
+import com.jianfanjia.api.request.designer.DeleteOneTeamRequest;
 import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.api.request.designer.GetAllProductRequest;
+import com.jianfanjia.api.request.designer.GetAllTeamRequest;
+import com.jianfanjia.api.request.designer.GetDesignerInfoRequest;
 import com.jianfanjia.api.request.designer.GetOneProductRequest;
+import com.jianfanjia.api.request.designer.GetOneTeamRequest;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
@@ -46,7 +53,9 @@ import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
 import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.api.request.designer.UpdateOneProductRequest;
+import com.jianfanjia.api.request.designer.UpdateOneTeamRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
+import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
@@ -234,5 +243,35 @@ public class Api {
     public static void getOneProduct(GetOneProductRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_ONE_PRODUCT, request, apiCallback);
     }
+
+    public static void getProductHomePage(GetProductHomePageRequest request,
+                                          ApiCallback<ApiResponse<Product>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().PRODUCT_HOME_PAGE, request, apiCallback);
+    }
+
+    public static void getAllTeam(GetAllTeamRequest request, ApiCallback<ApiResponse<List<Team>>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_ALL_TEAM, request, apiCallback);
+    }
+
+    public static void addOneTeam(AddOneTeamRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_ONE_TEAM, request, apiCallback);
+    }
+
+    public static void updateOneTeam(UpdateOneTeamRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_ONE_TEAM, request, apiCallback);
+    }
+
+    public static void deleteOneTeam(DeleteOneTeamRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_ONE_TEAM, request, apiCallback);
+    }
+
+    public static void getOneTeam(GetOneTeamRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_ONE_TEAM, request, apiCallback);
+    }
+
+    public static void getDesignerInfo(GetDesignerInfoRequest request, ApiCallback<ApiResponse<Designer>> apiCallback) {
+        ApiClient.okGet(Url_New.getInstance().GET_DESIGNER_INFO, request, apiCallback);
+    }
+
 
 }

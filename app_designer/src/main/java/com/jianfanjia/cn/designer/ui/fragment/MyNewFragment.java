@@ -15,7 +15,10 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.designer.GetDesignerInfoRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -102,6 +105,40 @@ public class MyNewFragment extends BaseFragment {
         }
     }
 
+    private void getDesignerInfo(){
+        GetDesignerInfoRequest getDesignerInfoRequest = new GetDesignerInfoRequest();
+
+        Api.getDesignerInfo(getDesignerInfoRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+                Designer designer = apiResponse.getData();
+                dataManager.setDesigner(designer);
+                initMyInfo();
+                setDesignerInfoLayout();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
     private void setListener() {
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
@@ -152,7 +189,10 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        initMyInfo();
+        getDesignerInfo();
+    }
+
+    private void setDesignerInfoLayout() {
         my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
                 dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
@@ -163,6 +203,7 @@ public class MyNewFragment extends BaseFragment {
         super.onHiddenChanged(hidden);
         LogTool.d(TAG, "isHidden =" + hidden);
         if (!hidden) {
+            getDesignerInfo();
 //            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
         }
     }

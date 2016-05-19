@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,7 +32,6 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
     private static final int TYPE_HEAD_DEFAULT = 0;
     private static final int TYPE_HEAD_365 = 1;
     private static final int TYPE_ITEM = 2;
-    private int viewType = -1;
     private boolean isDetail = false;
 
     private String packageType;
@@ -71,14 +69,13 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
     public int getItemViewType(int position) {
         if (position == 0) {
             if (packageType.equals(RequirementBusiness.PACKGET_365)) {
-                viewType = TYPE_HEAD_365;
+                return TYPE_HEAD_365;
             } else {
-                viewType = TYPE_HEAD_DEFAULT;
+                return TYPE_HEAD_DEFAULT;
             }
         } else {
-            viewType = TYPE_ITEM;
+            return TYPE_ITEM;
         }
-        return viewType;
     }
 
     @Override
@@ -88,7 +85,7 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<PlanPriceDetail> list) {
-        switch (viewType) {
+        switch (getItemViewType(position)) {
             case TYPE_HEAD_365:
                 PriceDetailHead365Holder priceDetailHead365Holder = (PriceDetailHead365Holder) viewHolder;
                 priceDetailHead365Holder.project_total_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
@@ -164,30 +161,17 @@ public class PriceDetailAdapter extends BaseRecyclerViewAdapter<PlanPriceDetail>
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         switch (viewType) {
             case TYPE_HEAD_DEFAULT:
                 View headDefaultView = layoutInflater.inflate(R.layout.detail_price_head_layout, null);
-                return headDefaultView;
+                return new PriceDetailHeadHolder(headDefaultView);
             case TYPE_HEAD_365:
                 View head365View = layoutInflater.inflate(R.layout.detail_price_head_365_layout, null);
-                return head365View;
+                return new PriceDetailHead365Holder(head365View);
             case TYPE_ITEM:
                 View itemView = layoutInflater.inflate(R.layout.list_item_price_item, null);
-                return itemView;
-        }
-        return null;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
-        switch (viewType) {
-            case TYPE_HEAD_DEFAULT:
-                return new PriceDetailHeadHolder(view);
-            case TYPE_HEAD_365:
-                return new PriceDetailHead365Holder(view);
-            case TYPE_ITEM:
-                return new PriceDetailViewHolder(view);
+                return new PriceDetailViewHolder(itemView);
         }
         return null;
     }

@@ -26,6 +26,7 @@ public class DataManagerNew {
     private Requirement requirementInfo;// 需求信息
     private Process currentProcessInfo;// 当前工地信息p
     private String currentUploadImageId;// 当前上传的imageId;
+    private Designer mDesigner;
 
     public static DataManagerNew getInstance() {
         if (instance == null) {
@@ -38,6 +39,14 @@ public class DataManagerNew {
         context = MyApplication.getInstance();
         sharedPreferdata = new SharedPrefer(context, Constant.SHARED_DATA);
         sharedPreferuser = new SharedPrefer(context, Constant.SHARED_USER);
+    }
+
+    public Designer getDesigner() {
+        return mDesigner;
+    }
+
+    public void setDesigner(Designer designer) {
+        mDesigner = designer;
     }
 
     public String getPicPath() {

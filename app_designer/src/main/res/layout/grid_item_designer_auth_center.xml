@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jianfanjia.cn.designer.view.layout.SquareLayout
+    android:id="@+id/grid_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font_white"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/auth_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_my_product"/>
+
+        <TextView
+            android:id="@+id/auth_text"
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="dadsa"/>
+
+        <TextView
+            android:id="@+id/auth_status"
+            style="@style/listview_item_text_style_middle"
+            android:layout_marginTop="@dimen/space_16"
+            android:background="@drawable/bg_auth_rectangle_red"
+            android:paddingLeft="@dimen/space_16"
+            android:paddingRight="@dimen/space_16"
+            android:paddingTop="@dimen/space_6"
+            android:paddingBottom="@dimen/space_6"
+            android:text="认证成功"
+            android:textColor="@color/font_white"/>
+    </LinearLayout>
+
+
+</com.jianfanjia.cn.designer.view.layout.SquareLayout>

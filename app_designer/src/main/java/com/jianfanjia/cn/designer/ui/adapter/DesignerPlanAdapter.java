@@ -4,9 +4,12 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
@@ -16,11 +19,6 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Name: DesignerPlanAdapter
@@ -87,14 +85,9 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_plan_info,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new DesignerPlanViewHolder(view);
     }
 

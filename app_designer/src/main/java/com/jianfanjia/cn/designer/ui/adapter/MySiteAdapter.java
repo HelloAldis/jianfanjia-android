@@ -77,7 +77,7 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
         ProcessRecyclerViewAdapter adapter = new ProcessRecyclerViewAdapter(context, process.getSections(),
                 new BaseRecyclerViewAdapter.OnItemClickListener() {
                     @Override
-                    public void OnItemClick(int pos) {
+                    public void onItemClick(int pos) {
                         if (null != callBack) {
                             callBack.click(position, ManageFragment.ITEM_GOTOO_SITE);
                         }

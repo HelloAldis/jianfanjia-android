@@ -2,7 +2,6 @@ package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -50,15 +49,11 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
         });
     }
 
-    @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
-        View view = layoutInflater.inflate(R.layout.list_item_plan_view_item,
-                null);
-        return view;
-    }
 
     @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
+        View view = layoutInflater.inflate(R.layout.list_item_plan_view_item,
+                null);
         return new DesignerPlanViewHolder(view);
     }
 
