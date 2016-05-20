@@ -1,7 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+    <com.jianfanjia.cn.designer.view.MainHeadView
+        android:id="@+id/designer_auth_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_48"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <requestFocus/>
+
+            <View
+                style="@style/divier_line"
+                android:layout_marginTop="@dimen/space_10"/>
+
+            <LinearLayout
+                android:id="@+id/name_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/real_name"
+                    android:textColor="@color/light_black_color"/>
+
+                <EditText
+                    android:id="@+id/edit_real_name"
+                    style="@style/style_edit_req_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/tip_input_real_name"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+            </LinearLayout>
+
+
+            <View style="@style/divier_line"/>
+
+            <LinearLayout
+                android:id="@+id/identity_number_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/identity_number"
+                    android:textColor="@color/light_black_color"/>
+
+                <EditText
+                    android:id="@+id/edit_identity_number"
+                    style="@style/style_edit_req_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/tip_input_identity_number"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+            </LinearLayout>
+
+            <View
+                style="@style/divier_line"
+                />
+
+            <LinearLayout
+                style="@style/my_list_item_layout_style"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/space_16"
+                android:paddingTop="@dimen/space_16">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:text="@string/upload_identity_front"
+                    android:textColor="@color/light_black_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_16">
+
+                    <ImageView
+                        android:id="@+id/identity_front_example"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/img_identity_front_example"
+                        android:scaleType="fitCenter"/>
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="@dimen/space_10"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:id="@+id/identity_front"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/btn_icon_upload_add_pic"/>
+                </LinearLayout>
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:text="@string/upload_identity_background"
+                    android:textColor="@color/light_black_color"
+                    android:layout_marginTop="@dimen/space_16"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_16">
+
+                    <ImageView
+                        android:id="@+id/identity_background_example"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/img_identity_background_example"
+                        android:scaleType="fitCenter"/>
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="@dimen/space_10"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:id="@+id/identity_background"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/btn_icon_upload_add_pic"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                style="@style/divier_line"
+                />
+
+            <LinearLayout
+                android:id="@+id/bank_card_number_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/bank_card_number"
+                    android:textColor="@color/light_black_color"/>
+
+                <EditText
+                    android:id="@+id/edit_bank__card_number"
+                    style="@style/style_edit_req_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/tip_input_identity_number"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+            </LinearLayout>
+
+            <View
+                style="@style/divier_line"
+                />
+
+            <RelativeLayout
+                android:id="@+id/bank_layout"
+                style="@style/my_list_item_layout_style"
+                >
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/bank"
+                    android:textColor="@color/light_black_color"/>
+
+                <TextView
+                    android:id="@+id/bank_content"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:layout_toLeftOf="@+id/bank_goto"
+                    android:hint="@string/please_choose"
+                    android:textColor="@color/light_black_color"/>
+
+                <ImageView
+                    android:id="@+id/bank_goto"
+                    style="@style/my_item_layout_image_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_line"
+                />
+
+            <LinearLayout
+                style="@style/my_list_item_layout_style"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/space_16"
+                android:paddingTop="@dimen/space_16">
+
+                <TextView
+                    style="@style/listview_item_text_style_middle"
+                    android:text="@string/upload_identity_front"
+                    android:textColor="@color/light_black_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_16">
+
+                    <ImageView
+                        android:id="@+id/bank_card_example"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/img_identity_front_example"
+                        android:scaleType="fitCenter"/>
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="@dimen/space_10"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:id="@+id/bank_card"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/btn_icon_upload_add_pic"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/divier_line"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

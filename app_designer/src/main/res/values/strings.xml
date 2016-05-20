@@ -344,4 +344,13 @@
     <string name="view_detail">前往查看</string>
     <string name="going_auth">请前往认证</string>
     <string name="the_third_login">第三方登录</string>
+    <string name="real_name">真实姓名</string>
+    <string name="tip_input_real_name">请输入真实姓名</string>
+    <string name="identity_number">身份证号</string>
+    <string name="tip_input_identity_number">请输入正确的身份证号码</string>
+    <string name="bank">开户银行</string>
+    <string name="upload_identity_background">上传身份证背面照</string>
+    <string name="upload_identity_front">上传身份证正面照</string>
+    <string name="bank_card_number">银行卡号</string>
+    <string name="please_choose">请选择</string>
 </resources>

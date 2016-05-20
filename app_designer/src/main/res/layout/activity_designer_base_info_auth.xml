@@ -132,35 +132,6 @@
                 android:visibility="gone"/>
 
             <RelativeLayout
-                android:id="@+id/phone_layout"
-                style="@style/my_list_item_layout_style"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/account_binding"
-                    android:textColor="@color/light_black_color"/>
-
-                <TextView
-                    android:id="@+id/phoneText"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/phone_goto"
-                    android:textColor="@color/light_black_color"/>
-
-                <ImageView
-                    android:id="@+id/phone_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null"/>
-            </RelativeLayout>
-
-            <View style="@style/divier_line"/>
-
-            <RelativeLayout
                 android:id="@+id/address_layout"
                 style="@style/my_list_item_layout_style">
 

@@ -2,9 +2,16 @@ package com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 import butterknife.Bind;
@@ -17,9 +24,10 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+import com.yalantis.ucrop.UCrop;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -36,6 +44,9 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     @Bind(R.id.designerinfo_auth_head_layout)
     MainHeadView mMainHeadView;
 
+    @Bind(R.id.head_icon)
+    ImageView headView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,19 +61,47 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         mMainHeadView.setMianTitle(getString(R.string.base_info_auth));
     }
 
-    @OnClick({R.id.head_back_layout,R.id.upload_diploma_image_showview})
+    @OnClick({R.id.head_back_layout,R.id.head_layout})
     protected void click(View view){
         switch (view.getId()){
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
-            case R.id.upload_diploma_image_showview:
+            case R.id.head_layout:
                 PhotoPickerIntent intent1 = new PhotoPickerIntent(this);
-                intent1.setColumn(1);
+                intent1.setPhotoCount(1);
                 intent1.setShowGif(false);
                 intent1.setShowCamera(true);
                 startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
                 break;
+        }
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(Constant.CROP_PATH));
+        UCrop.of(source, destination)
+                .withAspectRatio(1, 1)
+                .withMaxResultSize(Global.PIC_WIDTH_UPLOAD_WIDTH, Global.PIC_WIDTH_UPLOAD_WIDTH)
+                .start(this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            Uri uri = UCrop.getOutput(result);
+            LogTool.d(TAG, "uri path: " + uri.toString() + uri.getEncodedPath());
+            Bitmap bitmap = null;
+            try {
+                InputStream is = this.getContentResolver().openInputStream(uri);
+                bitmap = BitmapFactory.decodeStream(is);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+            if (bitmap != null) {
+                upload_image(bitmap);
+            }
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            Toast.makeText(this, UCrop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -76,19 +115,28 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             case Constant.REQUESTCODE_PICKER_PIC:
                 if (data != null) {
                     List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-                    for (String path : photos) {
+                    if(photos != null && photos.size() > 0){
+                        Uri uri = Uri.fromFile(new File(photos.get(0)));
+                        if (null != uri) {
+                            beginCrop(uri);
+                        }
+                    }
+                    /*for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
                         LogTool.d(TAG, "imageBitmap: path :" + path);
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }
-                    }
+                    }*/
                 }
+                break;
+            case UCrop.REQUEST_CROP:
+                handleCrop(resultCode, data);
                 break;
         }
     }
 
-    private void upload_image(Bitmap bitmap) {
+    private void upload_image(final Bitmap bitmap) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
@@ -104,7 +152,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-
+                headView.setImageBitmap(bitmap);
             }
 
             @Override
