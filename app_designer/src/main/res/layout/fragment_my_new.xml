@@ -295,7 +295,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_12"
                     android:layout_toLeftOf="@+id/designer_auth_center_next"
-                    android:textColor="@color/main_color_grey" />
+                    android:textColor="@color/orange_color" />
 
                 <ImageView
                     android:id="@+id/designer_auth_center_next"

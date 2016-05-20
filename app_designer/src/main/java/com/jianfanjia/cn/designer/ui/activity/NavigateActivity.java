@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.ui.activity.login_and_register.LoginNewActivity;
 import com.jianfanjia.cn.designer.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.common.tool.LogTool;

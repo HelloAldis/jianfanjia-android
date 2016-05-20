@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.ui.activity;
+package com.jianfanjia.cn.designer.ui.activity.login_and_register;
 
 import android.os.Bundle;
 import android.text.Editable;

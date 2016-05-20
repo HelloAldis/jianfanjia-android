@@ -8,6 +8,8 @@ package com.jianfanjia.cn.designer.business;
  */
 public class ProductBusiness {
 
+    public static final int PRODUCT_AUTH_SUCCESS_MIN_COUNT = 3;//最少需要认证成功3个作品
+
     public static final String PRODUCT_NOT_AUTH = "0";//为审核
     public static final String PRODUCT_AUTH_SUCCESS = "1";//认证成功
     public static final String PRODUCT_AUTH_FAILURE = "2";//认证失败

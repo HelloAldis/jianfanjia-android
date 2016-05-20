@@ -41,6 +41,7 @@ public class Designer extends BaseModel {
     private List<String> tags;
     private int team_count;
     private int product_count;
+    private int authed_product_count;
     private int order_count;
     private int view_count;
     private int dec_fee_all;
@@ -61,7 +62,6 @@ public class Designer extends BaseModel {
     private String bank;
     private String bank_card;
     private String university;
-    private String authed_product_count;
     private Plan plan;//设计师方案
     private Evaluation evaluation;
     private Requirement requirement;
@@ -403,11 +403,11 @@ public class Designer extends BaseModel {
         this.university = university;
     }
 
-    public String getAuthed_product_count() {
+    public int getAuthed_product_count() {
         return authed_product_count;
     }
 
-    public void setAuthed_product_count(String authed_product_count) {
+    public void setAuthed_product_count(int authed_product_count) {
         this.authed_product_count = authed_product_count;
     }
 
@@ -522,4 +522,5 @@ public class Designer extends BaseModel {
     public void setWork_auth_date(long work_auth_date) {
         this.work_auth_date = work_auth_date;
     }
+
 }

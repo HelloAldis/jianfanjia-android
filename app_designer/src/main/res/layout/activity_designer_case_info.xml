@@ -21,6 +21,5 @@
             android:fadingEdge="none"
             android:scrollbars="none" />
 
-        <include layout="@layout/include_designer_product_info_top_layout" />
     </FrameLayout>
 </LinearLayout>

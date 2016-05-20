@@ -22,6 +22,7 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.tools.ShareUtil;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.common.CommentListActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.CustomerServiceActivity;
@@ -36,6 +37,9 @@ import com.jianfanjia.cn.designer.ui.activity.my_info_auth.team_info.DesignerTea
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.layout.BadgeView;
 import com.jianfanjia.common.tool.LogTool;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.listener.SocializeListeners;
 
 /**
  * Description:我的
@@ -70,6 +74,8 @@ public class MyNewFragment extends BaseFragment {
     @Bind(R.id.comment_count_text)
     public BadgeView commentCountView = null;
 
+    private ShareUtil mShareUtil;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +87,12 @@ public class MyNewFragment extends BaseFragment {
         initView();
         setListener();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mShareUtil = new ShareUtil(getActivity());
     }
 
     private void initMainHeadView() {
@@ -99,13 +111,25 @@ public class MyNewFragment extends BaseFragment {
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
-    private void initMyInfo() {
+    private void setMyHeadInfo() {
         String imgPath = dataManager.getUserImagePath();
         LogTool.d(TAG, "imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayImageHeadWidthThumnailImage(getActivity(), imgPath, user_head_img);
         } else {
             user_head_img.setImageResource(R.mipmap.icon_default_head);
+        }
+    }
+
+    private void setBaseInfoLayout() {
+        my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
+                dataManager.getUserName());
+        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
+
+        if(DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) == 0){
+            authProductText.setText(getString(R.string.going_auth));
+        }else{
+            authProductText.setText("已完成认证：" + DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) + "%");
         }
     }
 
@@ -127,8 +151,8 @@ public class MyNewFragment extends BaseFragment {
             public void onSuccess(ApiResponse<Designer> apiResponse) {
                 Designer designer = apiResponse.getData();
                 dataManager.setDesigner(designer);
-                initMyInfo();
-                setDesignerInfoLayout();
+                setMyHeadInfo();
+                setBaseInfoLayout();
             }
 
             @Override
@@ -149,7 +173,7 @@ public class MyNewFragment extends BaseFragment {
 
     @OnClick({R.id.frag_my_info_layout, R.id.kefu_layout, R.id.setting_layout, R.id.feedback_layout, R.id
             .call_layout, R.id.comment_layout, R.id.designer_auth_center_layout, R.id.head_notification_layout, R.id
-            .product_layout, R.id.team_layout, R.id.receive_business_info_layout})
+            .product_layout, R.id.team_layout, R.id.receive_business_info_layout,R.id.invite_friends_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.frag_my_info_layout:
@@ -185,6 +209,19 @@ public class MyNewFragment extends BaseFragment {
             case R.id.receive_business_info_layout:
                 startActivity(DesignerReceiveInfoActivity.class);
                 break;
+            case R.id.invite_friends_layout:
+                mShareUtil.shareApp(getActivity(), new SocializeListeners.SnsPostListener() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
+                        LogTool.d("onComplete", "status =" + i);
+                    }
+                });
+                break;
             default:
                 break;
         }
@@ -195,15 +232,6 @@ public class MyNewFragment extends BaseFragment {
         super.onResume();
         getDesignerInfo();
     }
-
-    private void setDesignerInfoLayout() {
-        my_name.setText(TextUtils.isEmpty(dataManager.getUserName()) ? getResources().getString(R.string.ower) :
-                dataManager.getUserName());
-        my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
-        authProductText.setText("已完成："+ DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) + "%");
-    }
-
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {

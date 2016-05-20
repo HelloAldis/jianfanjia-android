@@ -7,24 +7,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.HttpCode;
-import com.jianfanjia.cn.designer.AppManager;
-import com.jianfanjia.cn.designer.ui.Event.MessageCountEvent;
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.base.BaseActivity;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.ui.fragment.ManageFragment;
-import com.jianfanjia.cn.designer.ui.fragment.MyNewFragment;
-import com.jianfanjia.cn.designer.ui.fragment.MyOwnerFragment;
-import com.jianfanjia.cn.designer.tools.UiHelper;
-import com.jianfanjia.common.tool.LogTool;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.cn.designer.AppManager;
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.base.BaseActivity;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.Event.MessageCountEvent;
+import com.jianfanjia.cn.designer.ui.fragment.ManageFragment;
+import com.jianfanjia.cn.designer.ui.fragment.MyNewFragment;
+import com.jianfanjia.cn.designer.ui.fragment.MyOwnerFragment;
+import com.jianfanjia.common.tool.LogTool;
+import com.umeng.socialize.bean.SocializeConfig;
+import com.umeng.socialize.sso.UMSsoHandler;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -238,6 +239,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 
 

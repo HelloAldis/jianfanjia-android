@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Team;
@@ -53,6 +54,15 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
         initMainView();
         initGridView();
         getAllTeam();
+    }
+
+    @OnClick({R.id.head_back_layout})
+    protected void click(View view){
+        switch (view.getId()){
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
+        }
     }
 
     private void initGridView() {
@@ -163,6 +173,7 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.my_product));
         mMainHeadView.setRightTitle(getString(R.string.edit));
+        mMainHeadView.setRightTitleColor(R.color.grey_color);
         mMainHeadView.setRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

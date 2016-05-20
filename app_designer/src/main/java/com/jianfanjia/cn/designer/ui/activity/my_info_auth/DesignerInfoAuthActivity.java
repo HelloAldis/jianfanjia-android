@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
@@ -77,42 +76,14 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                 ImageView authImg = (ImageView) view.findViewById(R.id.auth_img);
                 TextView authTitle = (TextView) view.findViewById(R.id.auth_text);
                 TextView authStatus = (TextView) view.findViewById(R.id.auth_status);
-                authImg.setBackgroundResource(authCenterItem.getIconResId());
+                authImg.setImageResource(authCenterItem.getIconResId());
                 authTitle.setText(authCenterItem.getTitle());
                 if (position == PRODUCT_AUTH_POSITION) {
-                    authImg.setBackgroundResource(R.drawable.bg_auth_oval_green);
-                    authStatus.setText(getString(R.string.view_detail));
-                    authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_green);
+                    setProductAuthStatus(authImg, authStatus);
                 } else {
-                    switch (authCenterItem.getStatus()) {
-                        case DesignerBusiness.DESIGNER_NOT_APPLY:
-                            authImg.setBackgroundResource(R.drawable.bg_auth_oval_grey);
-                            authStatus.setText(getString(R.string.auth_not_apply));
-                            authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_grey);
-                            break;
-                        case DesignerBusiness.DESIGNER_AUTH_SUCCESS:
-                            authImg.setBackgroundResource(R.drawable.bg_auth_oval_green);
-                            authStatus.setText(getString(R.string.auth_success));
-                            authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_green);
-                            break;
-                        case DesignerBusiness.DESIGNER_AUTH_FAILURE:
-                            authImg.setBackgroundResource(R.drawable.bg_auth_oval_red);
-                            authStatus.setText(getString(R.string.authorize_fail));
-                            authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_red);
-                            break;
-                        case DesignerBusiness.DESIGNER_AUTH_VIOLATION:
-                            authImg.setBackgroundResource(R.drawable.bg_auth_oval_red);
-                            authStatus.setText(getString(R.string.authorize_violation));
-                            authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_red);
-                            break;
-                        case DesignerBusiness.DESIGNER_NOT_AUTH:
-                            authImg.setBackgroundResource(R.drawable.bg_auth_oval_blue);
-                            authStatus.setText(getString(R.string.auth_going));
-                            authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_blue);
-                            break;
-                    }
+                    setAuthStatus(authCenterItem, authImg, authStatus);
                 }
-                authStatus.setOnClickListener(new View.OnClickListener() {
+                view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         intentTo(position);
@@ -120,11 +91,60 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                 });
                 return view;
             }
+
+            private void setProductAuthStatus(ImageView authImg, TextView authStatus) {
+                if (dataManager.getDesigner().getProduct_count() == 0) {
+                    authImg.setBackgroundResource(R.drawable.bg_auth_oval_grey);
+                    authStatus.setText(getString(R.string.auth_not_apply));
+                    authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_grey);
+                } else {
+                    if (dataManager.getDesigner().getAuthed_product_count() > ProductBusiness
+                            .PRODUCT_AUTH_SUCCESS_MIN_COUNT) {
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_green);
+                        authStatus.setText(getString(R.string.view_detail));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_green);
+                    } else {
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_blue);
+                        authStatus.setText(getString(R.string.view_detail));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_blue);
+                    }
+                }
+            }
+
+            private void setAuthStatus(AuthCenterItem authCenterItem, ImageView authImg, TextView authStatus) {
+                switch (authCenterItem.getStatus()) {
+                    case DesignerBusiness.DESIGNER_NOT_APPLY:
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_grey);
+                        authStatus.setText(getString(R.string.auth_not_apply));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_grey);
+                        break;
+                    case DesignerBusiness.DESIGNER_AUTH_SUCCESS:
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_green);
+                        authStatus.setText(getString(R.string.auth_success));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_green);
+                        break;
+                    case DesignerBusiness.DESIGNER_AUTH_FAILURE:
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_red);
+                        authStatus.setText(getString(R.string.authorize_fail));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_red);
+                        break;
+                    case DesignerBusiness.DESIGNER_AUTH_VIOLATION:
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_red);
+                        authStatus.setText(getString(R.string.authorize_violation));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_red);
+                        break;
+                    case DesignerBusiness.DESIGNER_NOT_AUTH:
+                        authImg.setBackgroundResource(R.drawable.bg_auth_oval_blue);
+                        authStatus.setText(getString(R.string.auth_going));
+                        authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_blue);
+                        break;
+                }
+            }
         });
     }
 
-    private void intentTo(int position){
-        switch (position){
+    private void intentTo(int position) {
+        switch (position) {
             case BASE_INFO_AUTH_POSITION:
                 startActivity(BaseInfoAuthActicity.class);
                 break;
@@ -132,26 +152,29 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                 startActivity(DesignerIdentityAuthActivity.class);
                 break;
             case PRODUCT_AUTH_POSITION:
-
                 startActivity(DesignerProductAuthActivity.class);
                 break;
             case TEAM_AUTH_POSITION:
                 startActivity(DesignerTeamAuthActivity.class);
                 break;
             case EMAIL_AUTH_POSITION:
-//                startActivity();
+                startActivity(EmailAuthActivity.class);
                 break;
         }
-
     }
 
     private void initGridViewData() {
         Designer designer = dataManager.getDesigner();
-        mAuthCenterItems[BASE_INFO_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_my_product, getString(R.string.base_info_auth), designer.getAuth_type());
-        mAuthCenterItems[IDENTITY_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_my_product, getString(R.string.identity_auth), designer.getUid_auth_type());
-        mAuthCenterItems[PRODUCT_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_my_product, getString(R.string.product_auth), "-1");
-        mAuthCenterItems[TEAM_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_my_product, getString(R.string.process_team_auth), designer.getWork_auth_type());
-        mAuthCenterItems[EMAIL_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_my_product, getString(R.string.email_auth), designer.getEmail_auth_type());
+        mAuthCenterItems[BASE_INFO_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_auth_baseinfo, getString(R
+                .string.base_info_auth), designer.getAuth_type());
+        mAuthCenterItems[IDENTITY_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_auth_identity, getString(R.string
+                .identity_auth), designer.getUid_auth_type());
+        mAuthCenterItems[PRODUCT_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_auth_product, getString(R.string
+                .product_auth), "-1");
+        mAuthCenterItems[TEAM_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_auth_team, getString(R.string
+                .process_team_auth), designer.getWork_auth_type());
+        mAuthCenterItems[EMAIL_AUTH_POSITION] = new AuthCenterItem(R.mipmap.icon_auth_email, getString(R.string
+                .email_auth), designer.getEmail_auth_type());
     }
 
     private void initView() {
@@ -159,7 +182,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
     }
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.designer_auth));
+        mMainHeadView.setMianTitle(getString(R.string.designer_auth_center));
     }
 
     @OnClick({R.id.head_back_layout})

@@ -12,7 +12,7 @@ import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.tools.UiHelper;
-import com.jianfanjia.cn.designer.ui.activity.LoginNewActivity;
+import com.jianfanjia.cn.designer.ui.activity.login_and_register.LoginNewActivity;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;

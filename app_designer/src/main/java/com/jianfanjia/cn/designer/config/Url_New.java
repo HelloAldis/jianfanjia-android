@@ -162,8 +162,14 @@ public class Url_New {
 
     // 用户反馈 feedback
     public String FEEDBACK_URL = HTTPROOT + "feedback";
-    // 设计师获取个人信息
+    // 设计师获取个人信息和更新
     public String GET_DESIGNER_INFO = HTTPROOT + "designer/info";
+    //设计师更新接单资料信息
+    public String UPDATE_DESIGNER_BUSINESS_INFO = HTTPROOT + "designer/update_business_info";
+    //设计师更新邮箱信息
+    public String UPDATE_DESIGNER_EMAIL_INFO = HTTPROOT + "designer/email_info";
+    //设计师更新身份证银行卡信息
+    public String UPDATE_DESIGNER_IDENTITY_INFO = HTTPROOT + "designer/uid_bank_info";
     // 获取设计师的工地列表
     public String GET_DESIGNER_PROCESS = HTTPROOT
             + "/process/list";

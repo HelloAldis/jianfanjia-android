@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,10 +29,8 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.adapter.DesignerCaseAdapter;
-import com.jianfanjia.cn.designer.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description:设计师作品案例详情
@@ -45,33 +41,18 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
 
-    public static final String INTENT_FROM_HOME = "intent_from_home";
-
-    private static final int SCROLL_Y = 120;
     private int mScrollY = 0;
-    private boolean mHeaderIsShow = false;
-    private boolean isIntentFromHome = false;
 
     @Bind(R.id.head_back_layout)
     protected RelativeLayout head_back_layout = null;
 
-
     @Bind(R.id.tv_title)
     protected TextView tv_title = null;
-
-    @Bind(R.id.top_info_layout)
-    protected LinearLayout activity_case_info_top_layout = null;
 
     @Bind(R.id.designer_case_listview)
     protected RecyclerView designer_case_listview = null;
 
     private LinearLayoutManager mLayoutManager = null;
-
-    @Bind(R.id.head_img)
-    protected ImageView head_img = null;
-
-    @Bind(R.id.name_text)
-    protected TextView nameText = null;
 
     private List<String> imgs = new ArrayList<>();
 
@@ -80,15 +61,9 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        initSwipeBack();
         this.initView();
         this.getDataFromIntent(this.getIntent());
         this.setListener();
-    }
-
-    private void initSwipeBack() {
-        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.TOP);
-        swipeBackLayout.setScrollChild(designer_case_listview);
     }
 
     public void initView() {
@@ -104,10 +79,6 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         Bundle productBundle = intent.getExtras();
         if (productBundle != null) {
             productid = productBundle.getString(Global.PRODUCT_ID);
-            isIntentFromHome = productBundle.getBoolean(INTENT_FROM_HOME, false);
-            if (isIntentFromHome) {
-                initSwipeBack();
-            }
             LogTool.d(TAG, "productid=" + productid);
             getProductHomePageInfo(productid);
         }
@@ -122,76 +93,19 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     }
 
     private void setListener() {
+        mScrollY = -TDevice.dip2px(this,45);
+        tv_title.setTranslationY(mScrollY);
+        LogTool.d(this.getClass().getName(), "mScrollY =" + mScrollY);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LogTool.d(this.getClass().getName(), "dy =" + dy);
                 mScrollY += dy;
-                if (mScrollY > SCROLL_Y) {
-                    showTopHeader();
-                } else {
-                    hideTopHeader();
+                if (tv_title.getTranslationY() > 0) {
+                    tv_title.setTranslationY(mScrollY);
                 }
             }
         });
-    }
-
-    private void showTopHeader() {
-        if (!mHeaderIsShow) {
-            ViewPropertyAnimator.animate(activity_case_info_top_layout).cancel();
-            ViewPropertyAnimator.animate(activity_case_info_top_layout).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    activity_case_info_top_layout.setVisibility(View.VISIBLE);
-                    tv_title.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            }).translationY(0).setDuration(300).start();
-            mHeaderIsShow = true;
-        }
-    }
-
-    private void hideTopHeader() {
-        if (mHeaderIsShow) {
-            ViewPropertyAnimator.animate(activity_case_info_top_layout).cancel();
-            ViewPropertyAnimator.animate(activity_case_info_top_layout).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    activity_case_info_top_layout.setVisibility(View.GONE);
-                    tv_title.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            }).translationY(-SCROLL_Y).setDuration(300).start();
-            mHeaderIsShow = false;
-        }
     }
 
     @OnClick({R.id.head_back_layout})
@@ -199,23 +113,17 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
-                if (isIntentFromHome) {
-                    overridePendingTransition(0, R.anim.slide_out_to_bottom);
-                }
                 break;
             default:
                 break;
         }
     }
 
-
-
     private void getProductHomePageInfo(String productid) {
         GetProductHomePageRequest request = new GetProductHomePageRequest();
         request.set_id(productid);
         Api.getProductHomePage(request, this.getProductHomePageInfoCallback);
     }
-
 
     private ApiCallback<ApiResponse<Product>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<Product>>() {
         @Override
@@ -234,9 +142,6 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
             if (null != designerCaseInfo) {
                 tv_title.setText(designerCaseInfo.getCell());
-                nameText.setText(designerCaseInfo.getDesigner().getUsername());
-                imageShow.displayImageHeadWidthThumnailImage(DesignerCaseInfoActivity.this, designerCaseInfo
-                        .getDesigner().getImageid(), head_img);
                 List<ProductImageInfo> imgList = designerCaseInfo.getImages();
                 imgs.clear();
                 for (ProductImageInfo info : imgList) {

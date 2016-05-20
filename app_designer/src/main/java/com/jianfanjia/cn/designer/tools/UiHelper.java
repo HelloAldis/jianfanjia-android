@@ -38,7 +38,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.LoginNewActivity;
+import com.jianfanjia.cn.designer.ui.activity.login_and_register.LoginNewActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.WebViewActivity;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;

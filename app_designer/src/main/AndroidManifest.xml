@@ -182,7 +182,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.LoginNewActivity"
+            android:name=".ui.activity.login_and_register.LoginNewActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
@@ -227,7 +227,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".ui.activity.RegisterNewActivity"
+            android:name=".ui.activity.login_and_register.RegisterNewActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
@@ -265,7 +265,7 @@
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".ui.activity.ForgetPswActivity"
+            android:name=".ui.activity.login_and_register.ForgetPswActivity"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>

@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.ui.activity;
+package com.jianfanjia.cn.designer.ui.activity.login_and_register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.ui.activity.MainActivity;
 import com.jianfanjia.common.tool.LogTool;
 
 /**

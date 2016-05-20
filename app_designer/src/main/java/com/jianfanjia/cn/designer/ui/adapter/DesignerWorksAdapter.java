@@ -99,8 +99,9 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
                 holder.authStatusText.setText(context.getString(R.string.auth_success));
                 holder.authStatusText.setBackgroundResource(R.mipmap.icon_auth_success);
                 break;
-            default:
-                holder.authStatusText.setVisibility(View.GONE);
+            case ProductBusiness.PRODUCT_AUTH_VIOLATION:
+                holder.authStatusText.setText(context.getString(R.string.authorize_violation));
+                holder.authStatusText.setBackgroundResource(R.mipmap.icon_auth_fail);
                 break;
         }
 

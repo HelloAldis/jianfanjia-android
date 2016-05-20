@@ -21,6 +21,7 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.activity.login_and_register.LoginNewActivity;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;

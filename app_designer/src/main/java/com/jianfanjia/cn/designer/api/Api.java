@@ -52,6 +52,10 @@ import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
 import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
+import com.jianfanjia.api.request.designer.UpdateDesignerEmailInfoRequest;
+import com.jianfanjia.api.request.designer.UpdateDesignerIdentityInfoRequest;
+import com.jianfanjia.api.request.designer.UpdateDesignerInfoRequest;
+import com.jianfanjia.api.request.designer.UpdateDesignerReceiveInfoRequest;
 import com.jianfanjia.api.request.designer.UpdateOneProductRequest;
 import com.jianfanjia.api.request.designer.UpdateOneTeamRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
@@ -272,6 +276,27 @@ public class Api {
     public static void getDesignerInfo(GetDesignerInfoRequest request, ApiCallback<ApiResponse<Designer>> apiCallback) {
         ApiClient.okGet(Url_New.getInstance().GET_DESIGNER_INFO, request, apiCallback);
     }
+
+    public static void updateDesignerInfo(UpdateDesignerInfoRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_DESIGNER_INFO, request, apiCallback);
+    }
+
+    public static void updateDesignerBusinessInfo(UpdateDesignerReceiveInfoRequest request,
+                                                  ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_DESIGNER_BUSINESS_INFO, request, apiCallback);
+    }
+
+    public static void updateDesignerEmailInfo(UpdateDesignerEmailInfoRequest request,
+                                               ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_DESIGNER_EMAIL_INFO, request, apiCallback);
+    }
+
+    public static void updateDesignerIdentityInfo(UpdateDesignerIdentityInfoRequest request,
+                                                  ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_DESIGNER_IDENTITY_INFO, request, apiCallback);
+    }
+
 
 
 }

@@ -99,7 +99,6 @@ public class DesignerTeamAuthAdapter extends BaseRecyclerViewAdapter<Team> {
             }
         });
 
-
     }
 
     @Override
