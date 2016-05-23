@@ -75,13 +75,13 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
             public void onItemClick(int position) {
                 Product product = mProductList.get(position);
                 Bundle bundle = new Bundle();
-                bundle.putString(Global.PRODUCT_ID,product.get_id());
-                startActivity(DesignerCaseInfoActivity.class,bundle);
+                bundle.putString(Global.PRODUCT_ID, product.get_id());
+                startActivity(DesignerCaseInfoActivity.class, bundle);
             }
 
             @Override
             public void onItemAdd() {
-
+                startActivity(UploadProductActivity.class);
             }
 
             @Override
@@ -185,8 +185,8 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
     }
 
     @OnClick({R.id.head_back_layout})
-    protected void click(View view){
-        switch (view.getId()){
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;

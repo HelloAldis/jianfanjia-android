@@ -21,6 +21,7 @@
     <string name="str_addr_hint">（请您确保所填地址真实且详细）</string>
     <string name="str_edit_requirement">编辑需求</string>
     <string name="str_housetype">户型</string>
+    <string name="str_dec_housetype">装修户型</string>
     <string name="str_decoratearea">装修面积</string>
     <string name="str_sq_unit">㎡</string>
     <string name="str_decoratetype">装修类型</string>
@@ -28,6 +29,7 @@
     <string name="str_decoratebudget">装修预算</string>
     <string name="str_persons">计划常住人口</string>
     <string name="str_lovestyle">风格喜好</string>
+    <string name="str_dec_lovestyle">装修风格</string>
     <string name="strl_add_yixiang">添加意向</string>
     <string name="strl_delete_yixiang">取消意向</string>
     <string name="str_choose_plan">选定方案</string>

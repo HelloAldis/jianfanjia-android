@@ -51,6 +51,7 @@ public class Constant {
     public static final int REQUIRECODE_BUSI_DECORATETYPE = 0x05;
     public static final int REQUIRECODE_WORKTYPE = 0x06;
     public static final int REQUIRECODE_DESISEX = 0x07;
+    public static final int REQUIRECODE_DECTYPE = 0x08;
     public static final int REQUESTCODE_PICKER_PIC = 0x11;
 
     // editactivity

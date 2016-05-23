@@ -26,6 +26,8 @@ public class Product extends BaseModel {
     private int favorite_count;
     private int view_count;
     private List<ProductImageInfo> images;
+    private List<ProductImageInfo> plan_images;
+    private String cover_imageid;
     private Designer designer;
     private boolean is_my_favorite;
 
@@ -203,5 +205,21 @@ public class Product extends BaseModel {
 
     public void setIs_my_favorite(boolean is_my_favorite) {
         this.is_my_favorite = is_my_favorite;
+    }
+
+    public List<ProductImageInfo> getPlan_images() {
+        return plan_images;
+    }
+
+    public void setPlan_images(List<ProductImageInfo> plan_images) {
+        this.plan_images = plan_images;
+    }
+
+    public String getCover_imageid() {
+        return cover_imageid;
+    }
+
+    public void setCover_imageid(String cover_imageid) {
+        this.cover_imageid = cover_imageid;
     }
 }

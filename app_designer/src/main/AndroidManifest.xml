@@ -220,6 +220,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
+            android:name=".ui.activity.my_info_auth.product_info.UploadProductActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.common.EditRequirementItemActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.common.EditRequirementLovestyleActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.common.EditCityActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
             android:name=".ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"

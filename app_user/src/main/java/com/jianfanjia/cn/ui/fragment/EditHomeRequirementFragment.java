@@ -85,7 +85,6 @@ public class EditHomeRequirementFragment extends BaseFragment {
     @Bind(R.id.act_edit_req_decoratebudget_content)
     protected EditText act_edit_req_decoratebudget_content;//装修预算
 
-
     @Bind(R.id.act_edit_req_decoratebudget_365)
     protected LinearLayout budget365Layout;
 

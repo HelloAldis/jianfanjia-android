@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/upload_plan_img_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="@dimen/space_16"
+        android:background="@mipmap/bg_upload_product_add"
+        >
+
+        <ImageView
+            android:id="@+id/add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_add"/>
+
+        <TextView
+            android:id="@+id/upload_plan_img"
+            style="@style/listview_item_text_style_middle"
+            android:layout_centerHorizontal="true"
+            android:text="@string/upload_plan_img_tip"
+            android:layout_below="@+id/add_icon"
+            android:layout_margin="@dimen/space_16"
+            android:textColor="@color/middle_grey_color"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+    <View style="@style/divier_line"/>
+
+    <TextView
+        android:id="@+id/upload_plan_img_title"
+        style="@style/listview_item_text_style_middle"
+        android:layout_centerVertical="true"
+        android:text="@string/upload_plan_img"
+        android:layout_margin="@dimen/space_16"
+        android:textColor="@color/light_black_color"/>
+
+
+</LinearLayout>

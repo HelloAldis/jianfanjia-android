@@ -353,4 +353,11 @@
     <string name="upload_identity_front">上传身份证正面照</string>
     <string name="bank_card_number">银行卡号</string>
     <string name="please_choose">请选择</string>
+    <string name="example_input_cell">例：一栋二单元301室</string>
+    <string name="product_intro">作品引言</string>
+    <string name="upload_plan_img">上传平面图</string>
+    <string name="upload_effect_img">上传效果图</string>
+    <string name="please_input">请输入</string>
+    <string name="upload_plan_img_tip">请不要放置个人电话号码或者违反规定的信息</string>
+    <string name="design_space">设计空间</string>
 </resources>

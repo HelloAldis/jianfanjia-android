@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_10"
+            android:background="@color/main_layout_bg"/>
+
+
+        <LinearLayout
+            android:id="@+id/product_intro_layout"
+            style="@style/my_list_item_layout_style"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_16"
+            android:paddingTop="@dimen/space_16">
+
+            <TextView
+                android:id="@+id/product_intro"
+                style="@style/listview_item_text_style_middle"
+                android:layout_centerVertical="true"
+                android:text="@string/product_intro"
+                android:textColor="@color/light_black_color"/>
+
+            <com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText
+                android:id="@+id/product_intro_editext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_10"
+            android:background="@color/main_layout_bg"/>
+    </LinearLayout>
+
+</LinearLayout>
