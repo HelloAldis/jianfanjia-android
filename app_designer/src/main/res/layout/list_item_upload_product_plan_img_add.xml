@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/upload_plan_img_layout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_16"
         android:background="@mipmap/bg_upload_product_add"
         >
