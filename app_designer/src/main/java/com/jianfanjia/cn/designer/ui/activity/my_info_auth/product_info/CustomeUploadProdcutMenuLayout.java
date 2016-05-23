@@ -64,9 +64,9 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        settingCoverTranslitionX = (openOrCloseView.getWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 3;
-        editTranslitionX = (openOrCloseView.getWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 2;
-        clearTranslitionX = (openOrCloseView.getWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 1;
+        settingCoverTranslitionX = (openOrCloseView.getMeasuredWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 3;
+        editTranslitionX = (openOrCloseView.getMeasuredWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 2;
+        clearTranslitionX = (openOrCloseView.getMeasuredWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 1;
     }
 
     private void openMenu() {

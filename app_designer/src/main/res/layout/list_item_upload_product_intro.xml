@@ -14,7 +14,6 @@
             android:layout_height="@dimen/space_10"
             android:background="@color/main_layout_bg"/>
 
-
         <LinearLayout
             android:id="@+id/product_intro_layout"
             style="@style/my_list_item_layout_style"

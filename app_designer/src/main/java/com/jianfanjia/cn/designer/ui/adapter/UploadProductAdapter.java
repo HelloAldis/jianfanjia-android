@@ -2,6 +2,8 @@ package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +16,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.CustomeUploadProdcutMenuLayout;
 import com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText;
+import com.jianfanjia.imageshow.ImageDisplay;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.adapter
@@ -26,6 +32,9 @@ import com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText;
  * Date:2016-05-23 17:18
  */
 public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public static final int UPLOAD_TYPE_PLAN = 10;
+    public static final int UPLOAD_TYPE_EFFECT = 20;
 
     private static final int VIEW_TYPE_PRODUCT_INTRO = 0;//作品引言
     private static final int VIEW_TYPE_UPLOAD_TITLE = 1;//上传标题;
@@ -38,10 +47,29 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private Product mProduct;
+    private AddProductImageListener addProductImageListener;
 
-    public UploadProductAdapter(Context context) {
+    public UploadProductAdapter(Context context, Product product) {
         this.mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.mProduct = product;
+    }
+
+    public Product getmProduct() {
+        return mProduct;
+    }
+
+    public void setmProduct(Product mProduct) {
+        this.mProduct = mProduct;
+    }
+
+    public AddProductImageListener getAddProductImageListener() {
+        return addProductImageListener;
+    }
+
+    public void setAddProductImageListener(AddProductImageListener addProductImageListener) {
+        this.addProductImageListener = addProductImageListener;
     }
 
     @Override
@@ -49,27 +77,27 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         View view;
         switch (viewType) {
             case VIEW_TYPE_PRODUCT_INTRO:
-                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_intro, null,true);
+                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_intro, null, true);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
                 return new ProductIntroViewHolder(view);
             case VIEW_TYPE_UPLOAD_TITLE:
-                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_plan_img_title, null,true);
+                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_plan_img_title, null, true);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
                 return new UploadTitleViewHolder(view);
             case View_TYPE_UPLOAD_ADD:
-                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_plan_img_add, null,true);
+                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_plan_img_add, null, true);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
                 return new UploadAddImageViewHolder(view);
             case VIEW_TYPE_PLAN_IMG:
-                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_plan_img, null,true);
+                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_plan_img, null, true);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
                 return new UploadPlanImgViewHolder(view);
             case VIEW_TYPE_EFFECT_IMG:
-                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_effect_img, null,true);
+                view = mLayoutInflater.inflate(R.layout.list_item_upload_product_effect_img, null, true);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
                 return new UploadEffectImgViewHolder(view);
@@ -79,34 +107,91 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (getItemViewType(position)){
+        switch (getItemViewType(position)) {
             case VIEW_TYPE_PRODUCT_INTRO:
-
+                bindProductIntro((ProductIntroViewHolder) holder);
                 break;
-
             case VIEW_TYPE_UPLOAD_TITLE:
+
                 break;
 
             case View_TYPE_UPLOAD_ADD:
+                bindProductAdd((UploadAddImageViewHolder) holder, position);
                 break;
 
             case VIEW_TYPE_PLAN_IMG:
+                bindPlanImg((UploadPlanImgViewHolder) holder, position);
                 break;
 
             case VIEW_TYPE_EFFECT_IMG:
+                bindEffectImg((UploadPlanImgViewHolder) holder, position);
                 break;
 
         }
-
-
     }
 
-    public void addPlanItem(ProductImageInfo productImageInfo){
+    private void bindEffectImg(UploadPlanImgViewHolder holder, int position) {
+        String imageid = mPlanImgLists.get(position - 4 - mPlanImgLists.size()).getImageid();
+        ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext,imageid,holder.uploadProductImg);
+    }
+
+    private void bindPlanImg(UploadPlanImgViewHolder holder, int position) {
+        String imageid = mPlanImgLists.get(position - 2).getImageid();
+        ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext,imageid,holder.uploadProductImg);
+    }
+
+    private void bindProductAdd(UploadAddImageViewHolder holder, final int position) {
+
+        holder.uploadPlanImgLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (addProductImageListener != null) {
+                    if (position == mPlanImgLists.size() + 2) {
+                        addProductImageListener.addProductImage(UPLOAD_TYPE_PLAN);
+                    }else{
+                        addProductImageListener.addProductImage(UPLOAD_TYPE_EFFECT);
+                    }
+                }
+
+            }
+        });
+    }
+
+    private void bindProductIntro(ProductIntroViewHolder holder) {
+        holder.mEditProductIntroText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mProduct.setDescription(s.toString());
+            }
+        });
+    }
+
+    public void addPlanList(List<ProductImageInfo> productImageInfos) {
+        productImageInfos.addAll(productImageInfos);
+        notifyItemRangeInserted(1 + mPlanImgLists.size(), productImageInfos.size());
+    }
+
+    public void addEffectList(List<ProductImageInfo> productImageInfos) {
+        productImageInfos.addAll(productImageInfos);
+        notifyItemRangeInserted(1 + mEffectImgLists.size(), productImageInfos.size());
+    }
+
+    public void addPlanItem(ProductImageInfo productImageInfo) {
         mPlanImgLists.add(productImageInfo);
         notifyItemInserted(1 + mPlanImgLists.size());
     }
 
-    public void addEffectItem(ProductImageInfo productImageInfo){
+    public void addEffectItem(ProductImageInfo productImageInfo) {
         mEffectImgLists.add(productImageInfo);
         notifyItemInserted(2 + mPlanImgLists.size() + mEffectImgLists.size());
     }
@@ -213,5 +298,8 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    public interface AddProductImageListener {
+        public void addProductImage(int type);
+    }
 
 }

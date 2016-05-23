@@ -75,7 +75,7 @@
                 android:layout_marginRight="16dp"/>
         </RelativeLayout>
 
-        <View style="@style/divier_line"/>
+        <View style="@style/divier_line" android:layout_height="@dimen/space_1"/>
 
         <com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText
             android:id="@+id/product_intro_editext"
