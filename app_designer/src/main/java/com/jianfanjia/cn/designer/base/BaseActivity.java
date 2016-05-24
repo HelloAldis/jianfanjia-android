@@ -18,7 +18,7 @@ import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
-import com.jianfanjia.cn.view.AddPhotoDialog;
+import com.jianfanjia.cn.designer.view.AddPhotoDialog;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.analytics.MobclickAgent;
 

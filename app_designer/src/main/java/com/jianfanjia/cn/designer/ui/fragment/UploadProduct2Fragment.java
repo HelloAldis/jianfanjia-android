@@ -3,19 +3,18 @@ package com.jianfanjia.cn.designer.ui.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.OnClick;
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -26,15 +25,14 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.UploadProductActivity;
 import com.jianfanjia.cn.designer.ui.adapter.UploadProductAdapter;
+import com.jianfanjia.cn.designer.ui.interf.helper.SimpleItemTouchHelperCallback;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
-
-import java.io.File;
-import java.util.List;
+import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.fragment
@@ -47,6 +45,8 @@ public class UploadProduct2Fragment extends BaseFragment {
     private static final String TAG = UploadProduct2Fragment.class.getName();
     @Bind(R.id.upload_product_head_layout)
     MainHeadView mMainHeadView;
+
+    private ItemTouchHelper mItemTouchHelper;
 
     private UploadProductActivity mUploadProductActivity;
 
@@ -61,11 +61,8 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     public static UploadProduct2Fragment getInstance(Product product) {
         UploadProduct2Fragment uploadProduct2Fragment = new UploadProduct2Fragment();
+        uploadProduct2Fragment.setmProduct(product);
         return uploadProduct2Fragment;
-    }
-
-    public Product getmProduct() {
-        return mProduct;
     }
 
     public void setmProduct(Product mProduct) {
@@ -96,6 +93,7 @@ public class UploadProduct2Fragment extends BaseFragment {
             case R.id.head_right_title:
                 if (mUploadProductActivity != null) {
 //                    mUploadProductActivity.nextFragment();
+                    mUploadProductActivity.uploadProduct(mProduct);
                 }
                 break;
         }
@@ -108,7 +106,6 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setHasFixedSize(true);
 
         mUploadProductAdapter = new UploadProductAdapter(getContext(), mProduct);
         mRecyclerView.setAdapter(mUploadProductAdapter);
@@ -120,6 +117,10 @@ public class UploadProduct2Fragment extends BaseFragment {
                 pickPicture();
             }
         });
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mUploadProductAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void pickPicture() {
@@ -148,10 +149,10 @@ public class UploadProduct2Fragment extends BaseFragment {
             public void onSuccess(ApiResponse<String> apiResponse) {
                 ProductImageInfo productImageInfo = new ProductImageInfo();
                 productImageInfo.setImageid(apiResponse.getData());
-                if(currentAddType == UploadProductAdapter.UPLOAD_TYPE_EFFECT){
+                if (currentAddType == UploadProductAdapter.UPLOAD_TYPE_EFFECT) {
 //                    mProduct.getImages().add(productImageInfo);
                     mUploadProductAdapter.addEffectItem(productImageInfo);
-                }else {
+                } else {
 //                    mProduct.getPlan_images().add(productImageInfo);
                     mUploadProductAdapter.addPlanItem(productImageInfo);
                 }
@@ -193,7 +194,10 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.upload_product));
+        mMainHeadView.setRightTitle(getString(R.string.commit));
     }
+
+
 
     @Override
     public int getLayoutId() {

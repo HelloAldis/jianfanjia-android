@@ -34,7 +34,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
  */
 public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
 
-    @Bind(R.id.recycleview)
+    @Bind(R.id.pullrefresh_recycleview)
     PullToRefreshRecycleView mRecyclerView;
 
     @Bind(R.id.designer_product_head_layout)
@@ -55,6 +55,12 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
     private void initView() {
         initMainView();
         initRecycleView();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getAllProduct();
     }
 

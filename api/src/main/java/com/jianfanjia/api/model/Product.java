@@ -1,5 +1,6 @@
 package com.jianfanjia.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +26,8 @@ public class Product extends BaseModel {
     private String auth_type;
     private int favorite_count;
     private int view_count;
-    private List<ProductImageInfo> images;
-    private List<ProductImageInfo> plan_images;
+    private List<ProductImageInfo> images = new ArrayList<>();
+    private List<ProductImageInfo> plan_images = new ArrayList<>();
     private String cover_imageid;
     private Designer designer;
     private boolean is_my_favorite;

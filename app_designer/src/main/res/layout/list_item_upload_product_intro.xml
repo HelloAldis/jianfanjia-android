@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
     <LinearLayout
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/space_16"
-            android:paddingTop="@dimen/space_16">
+            android:paddingTop="@dimen/space_12">
 
             <TextView
                 android:id="@+id/product_intro"
@@ -33,14 +34,14 @@
                 android:id="@+id/product_intro_editext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                />
+                app:show_inputlength_limit="true"
+                app:inputlength_limit_size="240"/>
         </LinearLayout>
 
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_10"
+            android:layout_height="@dimen/space_8"
             android:background="@color/main_layout_bg"/>
     </LinearLayout>
 

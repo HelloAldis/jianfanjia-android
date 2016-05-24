@@ -122,5 +122,13 @@ public class ImageShow {
         imageDisplay.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
     }
 
+    public void loadImage(String imageid,int width,int height,ImageLoadingListener listener){
+        String imageUrl = url_new.GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "").replace(Url_New.HEIGHT,
+                height + "") + imageid;
+        imageDisplay.loadImage(imageUrl, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), listener);
+    }
+
+    
+
 
 }

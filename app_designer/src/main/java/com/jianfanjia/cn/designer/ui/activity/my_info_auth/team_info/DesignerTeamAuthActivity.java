@@ -32,7 +32,7 @@ import com.jianfanjia.common.tool.TDevice;
  */
 public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
 
-    @Bind(R.id.recycleview)
+    @Bind(R.id.pullrefresh_recycleview)
     PullToRefreshRecycleView gridView;
 
     @Bind(R.id.designer_team_head_layout)

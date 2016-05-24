@@ -30,6 +30,8 @@ public class CustomEditText extends FrameLayout {
 
     private int currentCanInputSize;
 
+    private int totalCanInputSize;
+
     private boolean isShowCurrentInputSize = false;
 
     public CustomEditText(Context context, AttributeSet attrs) {
@@ -40,7 +42,9 @@ public class CustomEditText extends FrameLayout {
 
         isShowCurrentInputSize = a.getBoolean(R.styleable.CustomEditText_show_inputlength_limit, false);
 
-        currentCanInputSize = a.getInt(R.styleable.CustomEditText_inputlength_limit_size, 0);
+        totalCanInputSize = a.getInt(R.styleable.CustomEditText_inputlength_limit_size, 0);
+
+        currentCanInputSize = totalCanInputSize;
 
         a.recycle();
 
@@ -52,13 +56,13 @@ public class CustomEditText extends FrameLayout {
 
         if (isShowCurrentInputSize) {
             lengthText.setVisibility(VISIBLE);
-            lengthText.setText(String.valueOf(currentCanInputSize));
+            lengthText.setText(String.valueOf(currentCanInputSize) + "/" + String.valueOf(totalCanInputSize));
         } else {
             lengthText.setVisibility(View.GONE);
         }
 
         if (isShowCurrentInputSize) {
-            InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(currentCanInputSize)};
+            InputFilter[] inputFilters = new InputFilter[]{new InputFilter.LengthFilter(totalCanInputSize)};
             inputText.setFilters(inputFilters);
         }
 
@@ -86,6 +90,11 @@ public class CustomEditText extends FrameLayout {
         return inputText.getEditableText().toString();
     }
 
+    public void setText(CharSequence text){
+        if(text == null) return;
+        inputText.setText(text);
+    }
+
     public void addTextChangedListener(final TextWatcher textWatcher) {
         if (textWatcher != null) {
             inputText.addTextChangedListener(new TextWatcher() {
@@ -103,9 +112,9 @@ public class CustomEditText extends FrameLayout {
                 public void afterTextChanged(Editable s) {
                     textWatcher.afterTextChanged(s);
                     if (isShowCurrentInputSize) {
-                        int leaveLenth = currentCanInputSize - s.toString().length();
-                        LogTool.d(TAG, "leaveLength =" + leaveLenth);
-                        lengthText.setText(String.valueOf(leaveLenth));
+                        currentCanInputSize = totalCanInputSize - s.toString().length();
+                        LogTool.d(TAG, "leaveLength =" + currentCanInputSize);
+                        lengthText.setText(String.valueOf(currentCanInputSize) + "/" + String.valueOf(totalCanInputSize));
                     }
                 }
             });

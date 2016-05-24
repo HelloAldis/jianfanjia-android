@@ -57,6 +57,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     private List<String> imgs = new ArrayList<>();
 
     private String productid = null;
+    private Product mProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +109,16 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         });
     }
 
-    @OnClick({R.id.head_back_layout})
+    @OnClick({R.id.head_back_layout,R.id.head_right_title})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
+                break;
+            case R.id.head_right_title:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Global.PRODUCT_INFO,mProduct);
+                startActivity(UploadProductActivity.class,bundle);
                 break;
             default:
                 break;
@@ -138,17 +144,17 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onSuccess(ApiResponse<Product> apiResponse) {
-            Product designerCaseInfo = apiResponse.getData();
-            LogTool.d(TAG, "designerCaseInfo" + designerCaseInfo);
-            if (null != designerCaseInfo) {
-                tv_title.setText(designerCaseInfo.getCell());
-                List<ProductImageInfo> imgList = designerCaseInfo.getImages();
+            mProduct = apiResponse.getData();
+            LogTool.d(TAG, "designerCaseInfo" + mProduct);
+            if (null != mProduct) {
+                tv_title.setText(mProduct.getCell());
+                List<ProductImageInfo> imgList = mProduct.getImages();
                 imgs.clear();
                 for (ProductImageInfo info : imgList) {
                     imgs.add(info.getImageid());
                 }
                 DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, imgList,
-                        designerCaseInfo, new BaseRecyclerViewAdapter.OnItemClickListener() {
+                        mProduct, new BaseRecyclerViewAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
                         LogTool.d(TAG, "position:" + position);

@@ -107,6 +107,7 @@ public class UploadProduct1Fragment extends BaseFragment {
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.upload_product));
         mMainHeadView.setRightTitle(getString(R.string.next));
+        mMainHeadView.setRigthTitleEnable(false);
     }
 
     @OnClick({R.id.head_back_layout, R.id.head_right_title})
@@ -162,7 +163,7 @@ public class UploadProduct1Fragment extends BaseFragment {
 
     @OnClick({R.id.act_edit_req_city, R.id.act_edit_req_housetype,
             R.id.act_edit_req_lovestyle,
-            R.id.act_edit_req_work_type,R.id.act_edit_req_dectype})
+            R.id.act_edit_req_work_type, R.id.act_edit_req_dectype})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
@@ -208,16 +209,16 @@ public class UploadProduct1Fragment extends BaseFragment {
      * @return
      */
     public void isAllInput() {
-        if (act_edit_req_city_content.length() > 0
-                && act_edit_req_cell_content.length() > 0
-                && act_edit_req_housetype_content.length() > 0
-                && act_edit_req_lovestyle_content.length() > 0
-                && act_edit_req_dectype_content.length() > 0
-                && act_edit_req_housearea_content.length() > 0
-                && act_edit_req_decoratebudget_content.length() > 0
-                && act_edit_req_work_type_content.length() > 0) {
+        if (!TextUtils.isEmpty(mProduct.getDistrict()) && !TextUtils.isEmpty(mProduct.getCell())
+                && !TextUtils.isEmpty(mProduct.getHouse_type()) && mProduct.getHouse_area() > 0 &&
+                !TextUtils.isEmpty(mProduct.getDec_style()) && !TextUtils.isEmpty(mProduct.getDec_type())
+                && !TextUtils.isEmpty(mProduct.getWork_type()) && mProduct.getTotal_price() > 0
+                ) {
+
+            LogTool.d(TAG, "isFisish =" + true);
             mMainHeadView.setRigthTitleEnable(true);
         } else {
+            LogTool.d(TAG, "isFisish =" + false);
             mMainHeadView.setRigthTitleEnable(false);
         }
     }
@@ -236,7 +237,7 @@ public class UploadProduct1Fragment extends BaseFragment {
             if (mProduct.getTotal_price() != 0) {
                 act_edit_req_decoratebudget_content.setText(mProduct.getTotal_price() + "");
             }
-            if(!TextUtils.isEmpty(mProduct.getCell())){
+            if (!TextUtils.isEmpty(mProduct.getCell())) {
                 act_edit_req_cell_content.setText(mProduct.getCell());
             }
             act_edit_req_housetype_content.setText(TextUtils.isEmpty(mProduct.getHouse_type()) ? "" :

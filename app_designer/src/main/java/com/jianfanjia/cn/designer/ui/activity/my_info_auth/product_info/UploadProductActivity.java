@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
+import com.jianfanjia.api.request.designer.AddOneProductRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.fragment.UploadProduct1Fragment;
@@ -65,6 +69,38 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
     public void lastFragment() {
         getSupportFragmentManager().popBackStack();
+    }
+
+    public void uploadProduct(Product product){
+        AddOneProductRequest addOneProductRequest = new AddOneProductRequest();
+        addOneProductRequest.setProduct(product);
+
+        Api.addOneProduct(addOneProductRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(UploadProductActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     @Override

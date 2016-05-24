@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.designer.view;
 
 import android.app.Dialog;
 import android.content.Context;

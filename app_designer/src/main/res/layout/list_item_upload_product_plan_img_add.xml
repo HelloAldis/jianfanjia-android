@@ -8,7 +8,10 @@
         android:id="@+id/upload_plan_img_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
         android:background="@mipmap/bg_upload_product_add"
         >
 

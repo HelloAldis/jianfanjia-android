@@ -282,6 +282,29 @@
         <item>city</item>
     </string-array>
 
+    <string-array name="arr_product_section">
+        <item>餐厅</item>
+        <item>服装店</item>
+        <item>酒吧</item>
+        <item>美容院</item>
+        <item>办公室</item>
+        <item>美发店</item>
+        <item>幼儿园</item>
+        <item>酒店</item>
+        <item>其他</item>
+        <item>厨房</item>
+        <item>客厅</item>
+        <item>卫生间</item>
+        <item>卧室</item>
+        <item>餐厅</item>
+        <item>书房</item>
+        <item>玄关</item>
+        <item>阳台</item>
+        <item>儿童房</item>
+        <item>走廊</item>
+        <item>储物间</item>
+    </string-array>
+
     <!--装修美图-->
     <string-array name="arr_section">
         <item>厨房</item>

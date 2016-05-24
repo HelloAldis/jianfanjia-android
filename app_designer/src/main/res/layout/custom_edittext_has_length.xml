@@ -2,17 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:background="@drawable/btn_orange_white_bg"
-             android:padding="@dimen/space_4">
+             >
 
     <EditText
         android:id="@+id/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_8"
         android:background="@null"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
         android:gravity="top|left"
         android:minLines="3"
+        android:hint="@string/please_input"
         android:textSize="@dimen/middle_size"/>
 
     <TextView
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:textColor="@color/orange_color"
+        android:textColor="@color/grey_color"
         android:textSize="@dimen/small_size"
         />
 
