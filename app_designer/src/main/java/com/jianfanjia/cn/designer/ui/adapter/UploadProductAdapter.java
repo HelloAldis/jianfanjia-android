@@ -27,6 +27,7 @@ import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.ChooseProductSectionUtil;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.CustomeUploadProdcutMenuLayout;
+import com.jianfanjia.cn.designer.ui.fragment.UploadProduct2Fragment;
 import com.jianfanjia.cn.designer.ui.interf.helper.ItemTouchHelperAdapter;
 import com.jianfanjia.cn.designer.ui.interf.helper.ItemTouchHelperViewHolder;
 import com.jianfanjia.cn.designer.view.ChooseProductSectionDialog;
@@ -48,6 +49,8 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public static final int UPLOAD_TYPE_PLAN = 10;
     public static final int UPLOAD_TYPE_EFFECT = 20;
+    public static final int REPLACE_TYPE_PLAN = 30;
+    public static final int REPLACE_TYPE_EFFECT = 40;
 
     private static final int VIEW_TYPE_PRODUCT_INTRO = 0;//作品引言
     private static final int VIEW_TYPE_UPLOAD_TITLE = 1;//上传标题;
@@ -56,13 +59,15 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEW_TYPE_PLAN_IMG = 4;//平面图
     private static final int VIEW_TYPE_EFFECT_IMG = 5;//效果图
 
-    private List<ProductImageInfo> mPlanImgLists;
-    private List<ProductImageInfo> mEffectImgLists;
+    List<ProductImageInfo> mPlanImgLists;
+    List<ProductImageInfo> mEffectImgLists;
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private Product mProduct;
     private AddProductImageListener addProductImageListener;
+    private ReplaceProductImageListener mReplaceProductImageListener;
+    private UploadProduct2Fragment.NotifyRightTitleEnableListener mNotifyRightTitleEnableListener;
     private android.os.Handler mHandler = new android.os.Handler();
 
     public UploadProductAdapter(Context context, Product product) {
@@ -71,10 +76,20 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.mProduct = product;
         mPlanImgLists = product.getPlan_images();
         mEffectImgLists = product.getImages();
+
     }
 
     public void setAddProductImageListener(AddProductImageListener addProductImageListener) {
         this.addProductImageListener = addProductImageListener;
+    }
+
+    public void setReplaceProductImageListener(ReplaceProductImageListener replaceProductImageListener) {
+        mReplaceProductImageListener = replaceProductImageListener;
+    }
+
+    public void setNotifyRightTitleEnableListener(UploadProduct2Fragment.NotifyRightTitleEnableListener
+                                                          notifyRightTitleEnableListener) {
+        mNotifyRightTitleEnableListener = notifyRightTitleEnableListener;
     }
 
     @Override
@@ -161,6 +176,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private void bindEffectImg(final UploadEffectImgViewHolder holder, final int position) {
         final ProductImageInfo productImageInfo = mEffectImgLists.get(position - 4 - mPlanImgLists.size());
+
         final String imageid = productImageInfo.getImageid();
         mHandler.post(new Runnable() {
             @Override
@@ -182,7 +198,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         holder.uploadProductImg.setImageBitmap(ImageUtil.getRoundedCornerBitmap(loadedImage, TDevice
-                                .dip2px(mContext,5)));
+                                .dip2px(mContext, 5)));
                     }
 
                     @Override
@@ -193,17 +209,20 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         });
 
-
-        LogTool.d(this.getClass().getName(), "product cover_imageid =" + mProduct.getCover_imageid());
-        LogTool.d(this.getClass().getName(), "productImageInfo.get_id =" + productImageInfo.get_id());
         //设置封面
+        if (!productImageInfo.isMenuOpen()) {
+            holder.btnUploadProduct.setOpenStatus();
+        } else {
+            holder.btnUploadProduct.setCloseStatus();
+        }
+
         if (!TextUtils.isEmpty(mProduct.getCover_imageid()) && mProduct.getCover_imageid().equals(productImageInfo
                 .getImageid())) {
             holder.coverView.setVisibility(View.VISIBLE);
-            holder.settingCoverView.setVisibility(View.GONE);
+            holder.settingCoverView.setEnabled(false);
         } else {
             holder.coverView.setVisibility(View.GONE);
-            holder.settingCoverView.setVisibility(View.VISIBLE);
+            holder.settingCoverView.setEnabled(true);
             holder.settingCoverView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -216,17 +235,32 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         holder.clearView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProductImageInfo deleteProductImageInfo = mEffectImgLists.get(position - 4 - mPlanImgLists.size());
                 mEffectImgLists.remove(position - 4 - mPlanImgLists.size());
                 notifyItemRemoved(position);
+                if (!TextUtils.isEmpty(mProduct.getCover_imageid())
+                        && mProduct.getCover_imageid().equals(deleteProductImageInfo.getImageid())
+                        && mEffectImgLists.size() > 1) {
+                    mProduct.setCover_imageid(mEffectImgLists.get(0).getImageid());
+                    notifyItemChanged(4 + mPlanImgLists.size());
+                }
+                mNotifyRightTitleEnableListener.notifyRightTitleEnable();
             }
         });
 
-        holder.mEditImageIntroText.setText(productImageInfo.getDescription());
-
+        holder.editView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mReplaceProductImageListener != null) {
+                    mReplaceProductImageListener.replaceProductImage(REPLACE_TYPE_EFFECT, position - 4 -
+                            mPlanImgLists.size());
+                }
+            }
+        });
         if (!TextUtils.isEmpty(productImageInfo.getSection())) {
             holder.designerSpaceView.setText(productImageInfo.getSection());
         }
-
+        holder.mEditImageIntroText.setText(productImageInfo.getDescription());
         holder.mEditImageIntroText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -235,12 +269,14 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                LogTool.d(this.getClass().getName(), "description =" + s.toString());
+                LogTool.d(this.getClass().getName(), "position =" + (position - 4 - mPlanImgLists.size()));
+//                mEffectImgLists.get(position - 4 - mPlanImgLists.size()).setDescription(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                productImageInfo.setDescription(s.toString());
+
             }
         });
 
@@ -259,16 +295,32 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void bindPlanImg(UploadPlanImgViewHolder holder, final int position) {
-        String imageid = mPlanImgLists.get(position - 2).getImageid();
+        ProductImageInfo productImageInfo = mPlanImgLists.get(position - 2);
+        String imageid = productImageInfo.getImageid();
         ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext, imageid, holder.uploadProductImg);
 
+        if (!productImageInfo.isMenuOpen()) {
+            holder.btnUploadProduct.setOpenStatus();
+        } else {
+            holder.btnUploadProduct.setCloseStatus();
+        }
         holder.settingCoverView.setVisibility(View.GONE);
+
+        holder.editView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mReplaceProductImageListener != null) {
+                    mReplaceProductImageListener.replaceProductImage(REPLACE_TYPE_PLAN, position - 2);
+                }
+            }
+        });
 
         holder.clearView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPlanImgLists.remove(position - 2);
                 notifyItemRemoved(position);
+                mNotifyRightTitleEnableListener.notifyRightTitleEnable();
             }
         });
     }
@@ -300,6 +352,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
             @Override
             public void afterTextChanged(Editable s) {
                 mProduct.setDescription(s.toString());
+                mNotifyRightTitleEnableListener.notifyRightTitleEnable();
             }
         });
     }
@@ -322,6 +375,16 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void addEffectItem(ProductImageInfo productImageInfo) {
         mEffectImgLists.add(productImageInfo);
         notifyItemInserted(3 + mPlanImgLists.size() + mEffectImgLists.size());
+    }
+
+    public void changeEffectItem(ProductImageInfo productImageInfo, int oldPosition) {
+        mEffectImgLists.set(oldPosition, productImageInfo);
+        notifyItemChanged(oldPosition + 4 + mPlanImgLists.size());
+    }
+
+    public void changePlanItem(ProductImageInfo productImageInfo, int oldPosition) {
+        mPlanImgLists.set(oldPosition, productImageInfo);
+        notifyItemChanged(2 + oldPosition);
     }
 
     @Override
@@ -492,6 +555,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         @Bind(R.id.btn_clear)
         ImageView clearView;
 
+
         private LinearLayout.LayoutParams sourceLayoutParams;
 
         public UploadEffectImgViewHolder(View view) {
@@ -514,10 +578,16 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
             btnUploadProduct.setVisibility(View.GONE);
             moveIndicationView.setVisibility(View.GONE);
         }
+
     }
 
     public interface AddProductImageListener {
         void addProductImage(int type);
     }
+
+    public interface ReplaceProductImageListener {
+        void replaceProductImage(int type, int position);
+    }
+
 
 }

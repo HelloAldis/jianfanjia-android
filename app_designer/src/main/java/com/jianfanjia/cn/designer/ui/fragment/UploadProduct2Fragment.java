@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     private int currentAddType;
 
+    private int currentPosition;
+
     private Product mProduct;
 
     public static UploadProduct2Fragment getInstance(Product product) {
@@ -93,7 +96,7 @@ public class UploadProduct2Fragment extends BaseFragment {
             case R.id.head_right_title:
                 if (mUploadProductActivity != null) {
 //                    mUploadProductActivity.nextFragment();
-                    mUploadProductActivity.uploadProduct(mProduct);
+                    mUploadProductActivity.finishProduct(mProduct);
                 }
                 break;
         }
@@ -102,6 +105,22 @@ public class UploadProduct2Fragment extends BaseFragment {
     private void initView() {
         initMainView();
         initRecyclerView();
+    }
+
+    private NotifyRightTitleEnableListener mNotifyRightTitleEnableListener = new NotifyRightTitleEnableListener() {
+        @Override
+        public void notifyRightTitleEnable() {
+            setMianHeadRightTitleEnable();
+        }
+    };
+
+    private void setMianHeadRightTitleEnable() {
+        if (!TextUtils.isEmpty(mProduct.getDescription()) && mProduct.getPlan_images().size() > 0 && mProduct
+                .getImages().size() > 0){
+            mMainHeadView.setRigthTitleEnable(true);
+        }else {
+            mMainHeadView.setRigthTitleEnable(false);
+        }
     }
 
     private void initRecyclerView() {
@@ -117,6 +136,15 @@ public class UploadProduct2Fragment extends BaseFragment {
                 pickPicture();
             }
         });
+        mUploadProductAdapter.setReplaceProductImageListener(new UploadProductAdapter.ReplaceProductImageListener() {
+            @Override
+            public void replaceProductImage(int type, int position) {
+                currentAddType = type;
+                currentPosition = position;
+                pickPicture();
+            }
+        });
+        mUploadProductAdapter.setNotifyRightTitleEnableListener(mNotifyRightTitleEnableListener);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mUploadProductAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
@@ -149,12 +177,30 @@ public class UploadProduct2Fragment extends BaseFragment {
             public void onSuccess(ApiResponse<String> apiResponse) {
                 ProductImageInfo productImageInfo = new ProductImageInfo();
                 productImageInfo.setImageid(apiResponse.getData());
-                if (currentAddType == UploadProductAdapter.UPLOAD_TYPE_EFFECT) {
-//                    mProduct.getImages().add(productImageInfo);
-                    mUploadProductAdapter.addEffectItem(productImageInfo);
-                } else {
-//                    mProduct.getPlan_images().add(productImageInfo);
-                    mUploadProductAdapter.addPlanItem(productImageInfo);
+                switch (currentAddType) {
+                    case UploadProductAdapter.UPLOAD_TYPE_EFFECT:
+                        productImageInfo.setSection(getString(R.string.keting));//默认设置为客厅
+                        if (mProduct.getImages().size() == 0) {
+                            mProduct.setCover_imageid(productImageInfo.getImageid());
+                        }
+                        mUploadProductAdapter.addEffectItem(productImageInfo);
+                        mNotifyRightTitleEnableListener.notifyRightTitleEnable();
+                        break;
+                    case UploadProductAdapter.UPLOAD_TYPE_PLAN:
+                        mUploadProductAdapter.addPlanItem(productImageInfo);
+                        mNotifyRightTitleEnableListener.notifyRightTitleEnable();
+                        break;
+                    case UploadProductAdapter.REPLACE_TYPE_EFFECT:
+                        productImageInfo.setSection(getString(R.string.keting));//默认设置为客厅
+                        if (!TextUtils.isEmpty(mProduct.getCover_imageid()) && mProduct.getCover_imageid().equals
+                                (mProduct.getImages().get(currentPosition).getImageid())) {
+                            mProduct.setCover_imageid(productImageInfo.getImageid());
+                        }
+                        mUploadProductAdapter.changeEffectItem(productImageInfo, currentPosition);
+                        break;
+                    case UploadProductAdapter.REPLACE_TYPE_PLAN:
+                        mUploadProductAdapter.changePlanItem(productImageInfo, currentPosition);
+                        break;
                 }
             }
 
@@ -195,9 +241,12 @@ public class UploadProduct2Fragment extends BaseFragment {
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.upload_product));
         mMainHeadView.setRightTitle(getString(R.string.commit));
+        setMianHeadRightTitleEnable();
     }
 
-
+    public interface NotifyRightTitleEnableListener {
+        void notifyRightTitleEnable();
+    }
 
     @Override
     public int getLayoutId() {

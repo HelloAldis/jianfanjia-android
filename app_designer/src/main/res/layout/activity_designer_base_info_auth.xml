@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/designerinfoLayout"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+<RelativeLayout
+    android:id="@+id/designerinfoLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/designerinfo_auth_head_layout"
@@ -21,13 +22,13 @@
             android:id="@+id/rootview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/space_48"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_48"
             >
 
-            <requestFocus />
+            <requestFocus/>
 
             <View style="@style/divier_line"/>
 
@@ -35,9 +36,9 @@
                 android:id="@+id/head_layout"
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
                 android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_10">
+                android:paddingTop="@dimen/space_16">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -66,38 +67,32 @@
 
             <View style="@style/divier_line"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/name_layout"
-                style="@style/my_list_item_layout_style">
+                style="@style/my_list_item_layout_style"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/act_edit_req_cell_title"
                     style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
                     android:text="@string/user_name"
                     android:textColor="@color/light_black_color"/>
 
-                <TextView
-                    android:id="@+id/nameText"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_48"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/name_goto"
-                    android:layout_toRightOf="@+id/name"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"/>
+                <EditText
+                    android:id="@+id/name_content"
+                    style="@style/style_edit_req_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/please_input"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
 
-                <ImageView
-                    android:id="@+id/name_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null"/>
-            </RelativeLayout>
-
+            </LinearLayout>
 
             <View style="@style/divier_line"/>
 
@@ -129,7 +124,7 @@
 
             <View
                 style="@style/divier_line"
-                android:visibility="gone"/>
+                />
 
             <RelativeLayout
                 android:id="@+id/address_layout"
@@ -164,27 +159,79 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16">
+                >
 
-                <TextView
-                    android:id="@+id/email_addr"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/user_home"
-                    android:textColor="@color/light_black_color"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_48"
+                    >
+
+                    <TextView
+                        android:id="@+id/email_addr"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/user_home"
+                        android:textColor="@color/light_black_color"/>
+
+                    <TextView
+                        android:id="@+id/email_addr_tip"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:text="@string/please_input"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/space_16"
+                        android:textColor="@color/middle_grey_color"/>
+                </RelativeLayout>
 
                 <com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText
                     android:id="@+id/email_addr_editext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    />
+                    android:layout_marginBottom="@dimen/space_8"/>
             </LinearLayout>
 
             <View
                 style="@style/divier_line"
                 />
+
+            <LinearLayout
+                android:id="@+id/design_concept_layout"
+                style="@style/my_list_item_layout_style"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_48">
+
+                <TextView
+                    android:id="@+id/design_concept"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/design_concept"
+                    android:textColor="@color/light_black_color"/>
+
+                    <TextView
+                        android:id="@+id/design_concept_tip"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:text="@string/please_input"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/space_16"
+                        android:textColor="@color/middle_grey_color"/>
+
+                </RelativeLayout>
+
+                <com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText
+                    android:id="@+id/design_concept_editext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_8"/>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/university_layout"
@@ -219,46 +266,37 @@
                     android:contentDescription="@null"/>
             </RelativeLayout>
 
-            <View style="@style/divier_line"/>
+            <View
+                style="@style/divier_line"
+                />
 
-
-            <RelativeLayout
-                android:id="@+id/work_year_layout"
-                style="@style/my_list_item_layout_style">
+            <LinearLayout
+                android:id="@+id/upload_diploma_image_layout"
+                style="@style/my_list_item_layout_style"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="6dp"
+                android:paddingRight="12dp"
+                >
 
                 <TextView
-                    android:id="@+id/work_year"
+                    android:id="@+id/upload_diploma_img_title"
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/work_year"
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
+                    android:layout_marginBottom="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:text="@string/upload_diploma_img"
                     android:textColor="@color/light_black_color"/>
+                <include layout="@layout/list_item_upload_product_plan_img_add"/>
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/work_yearText"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_48"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/work_year_goto"
-                    android:layout_toRightOf="@+id/work_year"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"/>
-
-                <ImageView
-                    android:id="@+id/work_year_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null"/>
-            </RelativeLayout>
-
-            <View style="@style/divier_line"/>
 
             <RelativeLayout
                 android:id="@+id/work_company_layout"
-                style="@style/my_list_item_layout_style">
+                style="@style/my_list_item_layout_style"
+                android:layout_marginTop="@dimen/space_10">
 
                 <TextView
                     android:id="@+id/work_company"
@@ -290,80 +328,67 @@
 
             <View style="@style/divier_line"/>
 
+            <RelativeLayout
+                android:id="@+id/work_year_layout"
+                style="@style/my_list_item_layout_style">
+
+                <TextView
+                    android:id="@+id/work_year"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/work_year"
+                    android:textColor="@color/light_black_color"/>
+
+                <EditText
+                    android:id="@+id/work_year_content"
+                    style="@style/style_edit_req_edit"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/please_input"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:minWidth="@dimen/space_48"
+                    android:numeric="integer" />
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/design_achievement_layout"
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_10"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp">
 
-                <TextView
-                    android:id="@+id/design_achievement"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/design_achievement"
-                    android:textColor="@color/light_black_color"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_48"
+                    >
+
+                    <TextView
+                        android:id="@+id/design_achievement"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/design_achievement"
+                        android:textColor="@color/light_black_color"/>
+
+                    <TextView
+                        android:id="@+id/design_achievement_tip"
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:text="@string/please_input"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/space_16"
+                        android:textColor="@color/middle_grey_color"/>
+                </RelativeLayout>
 
                 <com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText
                     android:id="@+id/design_achievement_editext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"/>
-            </LinearLayout>
-
-            <View
-                style="@style/divier_line"
-                />
-
-            <LinearLayout
-                android:id="@+id/design_concept_layout"
-                style="@style/my_list_item_layout_style"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16">
-
-                <TextView
-                    android:id="@+id/design_concept"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/design_concept"
-                    android:textColor="@color/light_black_color"/>
-
-                <com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText
-                    android:id="@+id/design_concept_editext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"/>
-            </LinearLayout>
-
-            <View
-                style="@style/divier_line"
-                />
-
-            <LinearLayout
-                android:id="@+id/upload_diploma_image_layout"
-                style="@style/my_list_item_layout_style"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_10">
-
-                <TextView
-                    android:id="@+id/upload_diploma_image"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/upload_diploma_image"
-                    android:textColor="@color/light_black_color"/>
-
-                <ImageView
-                    android:id="@+id/upload_diploma_image_showview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/btn_icon_upload_add_pic"
-                    android:layout_marginTop="@dimen/space_8"/>
+                    android:layout_marginBottom="@dimen/space_8"/>
             </LinearLayout>
 
             <View
@@ -375,23 +400,21 @@
                 style="@style/my_list_item_layout_style"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/space_16"
-                android:paddingTop="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_10">
+                android:paddingLeft="6dp"
+                android:paddingRight="12dp"
+                >
 
                 <TextView
-                    android:id="@+id/upload_award_details"
+                    android:id="@+id/upload_award_details_title"
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/upload_award_details"
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
+                    android:layout_marginBottom="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:text="@string/upload_award_img"
                     android:textColor="@color/light_black_color"/>
-
-                <ImageView
-                    android:id="@+id/upload_award_details_image_showview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/btn_icon_upload_add_pic"
-                    android:layout_marginTop="@dimen/space_8"/>
+                <include layout="@layout/list_item_upload_product_plan_img_add"/>
             </LinearLayout>
 
             <View

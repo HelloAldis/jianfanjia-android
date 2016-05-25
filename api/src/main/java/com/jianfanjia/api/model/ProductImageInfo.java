@@ -8,6 +8,7 @@ public class ProductImageInfo extends BaseModel {
     private String imageid;
     private String section;
     private String _id;
+    private boolean isMenuOpen = false;//
 
     public String getDescription() {
         return description;
@@ -39,5 +40,13 @@ public class ProductImageInfo extends BaseModel {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public boolean isMenuOpen() {
+        return isMenuOpen;
+    }
+
+    public void setIsMenuOpen(boolean isMenuOpen) {
+        this.isMenuOpen = isMenuOpen;
     }
 }

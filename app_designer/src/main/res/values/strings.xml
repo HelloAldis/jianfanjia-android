@@ -360,4 +360,7 @@
     <string name="please_input">请输入</string>
     <string name="upload_plan_img_tip">请不要放置个人电话号码或者违反规定的信息</string>
     <string name="design_space">设计空间</string>
+    <string name="keting">客厅</string>
+    <string name="upload_diploma_img">上传学历照片</string>
+    <string name="upload_award_img">上传获奖照片及描述</string>
 </resources>

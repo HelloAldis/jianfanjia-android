@@ -118,7 +118,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             case R.id.head_right_title:
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Global.PRODUCT_INFO,mProduct);
-                startActivity(UploadProductActivity.class,bundle);
+                startActivity(UploadProductActivity.class, bundle);
                 break;
             default:
                 break;

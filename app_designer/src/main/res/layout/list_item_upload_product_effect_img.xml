@@ -113,9 +113,7 @@
                     android:id="@+id/product_intro_editext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_12"
-                    android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
+                    android:layout_margin="@dimen/space_16"
                     app:inputlength_limit_size="120"
                     app:show_inputlength_limit="true"/>
             </LinearLayout>

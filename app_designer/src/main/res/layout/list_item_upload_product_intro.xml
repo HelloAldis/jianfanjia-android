@@ -34,6 +34,7 @@
                 android:id="@+id/product_intro_editext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
                 app:show_inputlength_limit="true"
                 app:inputlength_limit_size="240"/>
         </LinearLayout>

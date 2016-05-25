@@ -5,12 +5,15 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
 /**
@@ -21,11 +24,12 @@ import com.jianfanjia.common.tool.TDevice;
  */
 public class CustomeUploadProdcutMenuLayout extends FrameLayout {
 
-    private static final int every_indinvation = 24;
+    private static final int every_indinvation = 28;
     private static final int ANI_DURATION = 200;
 
     private boolean isOpen = false;//是否展开
     private boolean isAni = false;//是否正在动画；
+
     private ImageView openOrCloseView;
     private ImageView clearView;
     private ImageView editView;
@@ -34,6 +38,12 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
     private int editTranslitionX;
     private int settingCoverTranslitionX;
 
+    private FrameLayout.LayoutParams initLayoutParams;
+    private FrameLayout.LayoutParams clearLayoutParams;
+    private FrameLayout.LayoutParams editLayoutParams;
+    private FrameLayout.LayoutParams settingCoverLayoutParams;
+
+    private int initRightMaigin;
 
     public CustomeUploadProdcutMenuLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,6 +55,10 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
         clearView = (ImageView) findViewById(R.id.btn_clear);
         editView = (ImageView) findViewById(R.id.btn_edit);
         settingCoverView = (ImageView) findViewById(R.id.btn_setting_cover);
+
+        initRightMaigin = TDevice.dip2px(context, every_indinvation);
+        initMoveDistance();
+        setOpenStatus();
         openOrCloseView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,28 +71,87 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
                 }
             }
         });
+    }
+
+    public void setOpenStatus() {
+
+        initLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT);
+        initLayoutParams.gravity = Gravity.RIGHT;
+        initLayoutParams.rightMargin = initRightMaigin;
+
+        openOrCloseView.setLayoutParams(initLayoutParams);
+        clearView.setLayoutParams(initLayoutParams);
+        editView.setLayoutParams(initLayoutParams);
+        settingCoverView.setLayoutParams(initLayoutParams);
+
+        settingCoverView.setVisibility(INVISIBLE);
+        clearView.setVisibility(INVISIBLE);
+        editView.setVisibility(INVISIBLE);
+        isOpen = false;
+        openOrCloseView.setRotation(45);
 
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    public void setCloseStatus() {
+        initLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT);
+        initLayoutParams.gravity = Gravity.RIGHT;
+        initLayoutParams.rightMargin = initRightMaigin;
 
-        settingCoverTranslitionX = (openOrCloseView.getMeasuredWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 3;
-        editTranslitionX = (openOrCloseView.getMeasuredWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 2;
-        clearTranslitionX = (openOrCloseView.getMeasuredWidth() + TDevice.dip2px(getContext(), every_indinvation)) * 1;
+        openOrCloseView.setLayoutParams(initLayoutParams);
+
+        clearLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT);
+        clearLayoutParams.gravity = Gravity.RIGHT;
+        clearLayoutParams.rightMargin = clearTranslitionX;
+        clearView.setLayoutParams(clearLayoutParams);
+
+        editLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT);
+        editLayoutParams.gravity = Gravity.RIGHT;
+        editLayoutParams.rightMargin = editTranslitionX;
+        editView.setLayoutParams(editLayoutParams);
+
+        settingCoverLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup
+                .LayoutParams.WRAP_CONTENT);
+        settingCoverLayoutParams.gravity = Gravity.RIGHT;
+        settingCoverLayoutParams.rightMargin = settingCoverTranslitionX;
+        settingCoverView.setLayoutParams(settingCoverLayoutParams);
+
+        settingCoverView.setVisibility(VISIBLE);
+        clearView.setVisibility(VISIBLE);
+        editView.setVisibility(VISIBLE);
+        isOpen = true;
+        openOrCloseView.setRotation(0);
+    }
+
+    private void initMoveDistance() {
+        LogTool.d(this.getClass().getName(), "drawable width =" + openOrCloseView.getDrawable().getIntrinsicWidth());
+        clearTranslitionX = 2 * initRightMaigin;
+        editTranslitionX = clearTranslitionX * 2;
+        settingCoverTranslitionX = clearTranslitionX * 3;
     }
 
     private void openMenu() {
-        ViewPropertyAnimator openOrClosetranslationAni = openOrCloseView.animate().rotation(-45).setDuration(100);
+        ViewPropertyAnimator openOrClosetranslationAni = openOrCloseView.animate().rotation(0).setDuration(100);
         final ValueAnimator settingCovertranslationAni = ValueAnimator.ofInt(0, settingCoverTranslitionX);
         settingCovertranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) settingCoverView.getLayoutParams();
-                lp.rightMargin = TDevice.dip2px(getContext(), every_indinvation) + x;
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
                 settingCoverView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator setingCoverAlpha = ValueAnimator.ofFloat(0F, 1.0F);
+        setingCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                settingCoverView.setAlpha((float) animation.getAnimatedValue());
             }
         });
         final ValueAnimator edittranslationAni = ValueAnimator.ofInt(0, editTranslitionX);
@@ -86,9 +159,19 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) editView.getLayoutParams();
-                lp.rightMargin = TDevice.dip2px(getContext(), every_indinvation) + x;
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                        .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
                 editView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator editCoverAlpha = ValueAnimator.ofFloat(0F, 1.0F);
+        editCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                editView.setAlpha((float) animation.getAnimatedValue());
             }
         });
         final ValueAnimator cleartranslationAni = ValueAnimator.ofInt(0, clearTranslitionX);
@@ -96,18 +179,32 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) clearView.getLayoutParams();
-                lp.rightMargin = TDevice.dip2px(getContext(), every_indinvation) + x;
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                        .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
                 clearView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator clearCoverAlpha = ValueAnimator.ofFloat(0F, 1.0F);
+        clearCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                clearView.setAlpha((float) animation.getAnimatedValue());
             }
         });
         openOrClosetranslationAni.start();
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(ANI_DURATION);
-        animatorSet.playTogether(settingCovertranslationAni, cleartranslationAni, edittranslationAni);
+        animatorSet.playTogether(settingCovertranslationAni, setingCoverAlpha, cleartranslationAni, clearCoverAlpha,
+                edittranslationAni, editCoverAlpha);
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                clearView.setVisibility(VISIBLE);
+                editView.setVisibility(VISIBLE);
+                settingCoverView.setVisibility(VISIBLE);
                 isAni = true;
             }
 
@@ -131,15 +228,25 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
     }
 
     private void closeMenu() {
-        ViewPropertyAnimator openOrClosetranslationAni = openOrCloseView.animate().rotation(0).setDuration(100);
+        ViewPropertyAnimator openOrClosetranslationAni = openOrCloseView.animate().rotation(45).setDuration(100);
         final ValueAnimator settingCovertranslationAni = ValueAnimator.ofInt(settingCoverTranslitionX, 0);
         settingCovertranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) settingCoverView.getLayoutParams();
-                lp.rightMargin = TDevice.dip2px(getContext(), every_indinvation) + x;
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                        .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
                 settingCoverView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator setingCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
+        setingCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                settingCoverView.setAlpha((float) animation.getAnimatedValue());
             }
         });
         final ValueAnimator edittranslationAni = ValueAnimator.ofInt(editTranslitionX, 0);
@@ -147,9 +254,19 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) editView.getLayoutParams();
-                lp.rightMargin = TDevice.dip2px(getContext(), every_indinvation) + x;
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                        .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
                 editView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator editCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
+        editCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                editView.setAlpha((float) animation.getAnimatedValue());
             }
         });
         final ValueAnimator cleartranslationAni = ValueAnimator.ofInt(clearTranslitionX, 0);
@@ -157,15 +274,25 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) clearView.getLayoutParams();
-                lp.rightMargin = TDevice.dip2px(getContext(), every_indinvation) + x;
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
                 clearView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator clearCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
+        clearCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                clearView.setAlpha((float) animation.getAnimatedValue());
             }
         });
         openOrClosetranslationAni.start();
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(ANI_DURATION);
-        animatorSet.playTogether(settingCovertranslationAni, cleartranslationAni, edittranslationAni);
+        animatorSet.playTogether(settingCovertranslationAni, setingCoverAlpha, cleartranslationAni, clearCoverAlpha,
+                edittranslationAni, editCoverAlpha);
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -191,18 +318,4 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
         animatorSet.start();
 
     }
-
-    public void setClearClickListerer(OnClickListener listerer) {
-        clearView.setOnClickListener(listerer);
-    }
-
-    public void setSettingCoverListener(OnClickListener listener) {
-        settingCoverView.setOnClickListener(listener);
-    }
-
-    public void setEditListener(OnClickListener listener) {
-        editView.setOnClickListener(listener);
-    }
-
-
 }

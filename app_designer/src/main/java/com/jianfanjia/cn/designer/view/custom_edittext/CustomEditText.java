@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.designer.view.custom_edittext
@@ -91,12 +90,12 @@ public class CustomEditText extends FrameLayout {
     }
 
     public void setText(CharSequence text){
-        if(text == null) return;
         inputText.setText(text);
     }
 
     public void addTextChangedListener(final TextWatcher textWatcher) {
-        if (textWatcher != null) {
+        inputText.addTextChangedListener(textWatcher);
+     /*   if (textWatcher != null) {
             inputText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -118,7 +117,7 @@ public class CustomEditText extends FrameLayout {
                     }
                 }
             });
-        }
+        }*/
     }
 
     @Override
