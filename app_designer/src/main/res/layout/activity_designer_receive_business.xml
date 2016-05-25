@@ -1,7 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:orientation="vertical">
+
+    <com.jianfanjia.cn.designer.view.MainHeadView
+        android:id="@+id/upload_product_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/space_100"
+        android:paddingTop="@dimen/space_10">
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_city"
+            style="@style/my_list_item_layout_style"
+            android:nextFocusDown="@+id/act_edit_req_street_content">
+
+            <requestFocus/>
+
+            <TextView
+                android:id="@+id/act_edit_req_city_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_city"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_city_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_city_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:hint="@string/please_choose"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <LinearLayout
+            android:id="@+id/act_edit_req_cell"
+            style="@style/my_list_item_layout_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_cell_title"
+                style="@style/style_edit_req_title"
+                android:text="@string/str_cell"/>
+
+            <EditText
+                android:id="@+id/act_edit_req_cell_content"
+                style="@style/style_edit_req_edit"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:hint="@string/please_input"
+                android:maxLength="20"
+                android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+
+        </LinearLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <View
+            style="@style/divier_line"
+            android:layout_marginTop="@dimen/space_10"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_dectype"
+            style="@style/my_list_item_layout_style"
+           >
+
+            <TextView
+                android:id="@+id/act_edit_req_dectype_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_decoratetype"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_dectype_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_dectype_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_choose"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_housetype"
+            style="@style/my_list_item_layout_style"
+          >
+
+            <TextView
+                android:id="@+id/act_edit_req_housetype_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_dec_housetype"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_housetype_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_housetype_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_choose"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_housearea"
+            style="@style/my_list_item_layout_style"
+           >
+
+            <TextView
+                android:id="@+id/act_edit_req_housearea_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_coveredarea"/>
+
+            <EditText
+                android:id="@+id/act_edit_req_housearea_content"
+                style="@style/style_edit_req_edit"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/act_edit_req_housearea_title"
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:maxLength="4"
+                android:hint="@string/please_input"
+                android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
+                android:numeric="integer"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_lovestyle"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_lovestyle_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_dec_lovestyle"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_lovestyle_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_lovestyle_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_choose"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_work_type"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_work_type_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_work_type"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_work_type_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_work_type_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_choose"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_decoratebudget"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_decoratebudget_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_decoratebudget_with_unit"/>
+
+            <EditText
+                android:id="@+id/act_edit_req_decoratebudget_content"
+                style="@style/style_edit_req_edit"
+                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
+                android:gravity="center_vertical|right"
+                android:inputType="number"
+                android:maxLength="3"
+                android:hint="@string/please_input"
+                android:minWidth="@dimen/space_48"
+                android:numeric="integer"/>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -349,8 +349,7 @@
     <string name="identity_number">身份证号</string>
     <string name="tip_input_identity_number">请输入正确的身份证号码</string>
     <string name="bank">开户银行</string>
-    <string name="upload_identity_background">上传身份证背面照</string>
-    <string name="upload_identity_front">上传身份证正面照</string>
+    <string name="upload_identity_front">上传身份证</string>
     <string name="bank_card_number">银行卡号</string>
     <string name="please_choose">请选择</string>
     <string name="example_input_cell">例：一栋二单元301室</string>
@@ -363,4 +362,6 @@
     <string name="keting">客厅</string>
     <string name="upload_diploma_img">上传学历照片</string>
     <string name="upload_award_img">上传获奖照片及描述</string>
+    <string name="goodat_type">擅长工种</string>
+    <string name="workingon_site">正在施工工地</string>
 </resources>

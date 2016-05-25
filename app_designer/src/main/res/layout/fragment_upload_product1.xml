@@ -27,8 +27,6 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_city"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
             android:nextFocusDown="@+id/act_edit_req_street_content">
 
             <requestFocus/>
@@ -69,11 +67,9 @@
         <LinearLayout
             android:id="@+id/act_edit_req_cell"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingRight="24dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_cell_title"
@@ -104,8 +100,7 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_dectype"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_dectype_title"
@@ -142,8 +137,7 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_housetype"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_housetype_title"
@@ -179,8 +173,7 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_housearea"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_housearea_title"
@@ -212,8 +205,7 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_lovestyle"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_lovestyle_title"
@@ -250,8 +242,7 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_work_type"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_work_type_title"
@@ -289,8 +280,7 @@
         <RelativeLayout
             android:id="@+id/act_edit_req_decoratebudget"
             style="@style/my_list_item_layout_style"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
+            >
 
             <TextView
                 android:id="@+id/act_edit_req_decoratebudget_title"
