@@ -1,5 +1,6 @@
 package com.jianfanjia.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +53,8 @@ public class Designer extends BaseModel {
     private List<String> dec_districts;
     private List<String> dec_styles;
     private List<String> dec_types;
+    private List<DesignerAwardInfo> award_details = new ArrayList<>();
+    private String diploma_imageid;
     private String communication_type;
     private boolean is_block;
     private int match;
@@ -129,6 +132,22 @@ public class Designer extends BaseModel {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public List<DesignerAwardInfo> getAward_details() {
+        return award_details;
+    }
+
+    public String getDiploma_imageid() {
+        return diploma_imageid;
+    }
+
+    public void setDiploma_imageid(String diploma_imageid) {
+        this.diploma_imageid = diploma_imageid;
+    }
+
+    public void setAward_details(List<DesignerAwardInfo> award_details) {
+        this.award_details = award_details;
     }
 
     public String getUid() {

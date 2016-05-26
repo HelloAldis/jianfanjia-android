@@ -172,7 +172,7 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/work_company_layout"
                 style="@style/my_list_item_layout_style"
                 android:layout_marginTop="@dimen/space_10">
@@ -184,26 +184,16 @@
                     android:text="@string/work_company"
                     android:textColor="@color/light_black_color"/>
 
-                <TextView
-                    android:id="@+id/work_companyText"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_48"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/work_company_goto"
-                    android:layout_toRightOf="@+id/work_company"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:textColor="@color/light_black_color"/>
-
-                <ImageView
-                    android:id="@+id/work_company_goto"
-                    style="@style/my_item_layout_image_style"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@null"/>
-            </RelativeLayout>
+                <EditText
+                    android:id="@+id/work_company_content"
+                    style="@style/style_edit_req_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/please_input"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+            </LinearLayout>
 
             <View style="@style/divier_line"/>
 

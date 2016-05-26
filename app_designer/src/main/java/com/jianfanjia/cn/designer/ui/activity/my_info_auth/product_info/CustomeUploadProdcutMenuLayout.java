@@ -161,7 +161,7 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
                 int x = (Integer) animation.getAnimatedValue();
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup
-                        .LayoutParams.WRAP_CONTENT);
+                                .LayoutParams.WRAP_CONTENT);
                 lp.gravity = Gravity.RIGHT;
                 lp.rightMargin = initRightMaigin + x;
                 editView.setLayoutParams(lp);
@@ -181,7 +181,7 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
                 int x = (Integer) animation.getAnimatedValue();
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup
-                        .LayoutParams.WRAP_CONTENT);
+                                .LayoutParams.WRAP_CONTENT);
                 lp.gravity = Gravity.RIGHT;
                 lp.rightMargin = initRightMaigin + x;
                 clearView.setLayoutParams(lp);
@@ -236,7 +236,7 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
                 int x = (Integer) animation.getAnimatedValue();
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup
-                        .LayoutParams.WRAP_CONTENT);
+                                .LayoutParams.WRAP_CONTENT);
                 lp.gravity = Gravity.RIGHT;
                 lp.rightMargin = initRightMaigin + x;
                 settingCoverView.setLayoutParams(lp);
@@ -256,7 +256,7 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
                 int x = (Integer) animation.getAnimatedValue();
                 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup
-                        .LayoutParams.WRAP_CONTENT);
+                                .LayoutParams.WRAP_CONTENT);
                 lp.gravity = Gravity.RIGHT;
                 lp.rightMargin = initRightMaigin + x;
                 editView.setLayoutParams(lp);

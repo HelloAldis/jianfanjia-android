@@ -53,6 +53,9 @@ public class Constant {
     public static final int REQUIRECODE_DESISEX = 0x07;
     public static final int REQUIRECODE_DECTYPE = 0x08;
     public static final int REQUESTCODE_PICKER_PIC = 0x11;
+    public static final int REQUESTCODE_PICKER_HEAD_PIC = 0x12;
+    public static final int REQUESTCODE_PICKER_AWARD_PIC = 0x13;
+    public static final int REQUESTCODE_PICKER_CHANGE_AWARD_PIC = 0x14;
 
     // editactivity
     public static final int REQUESTCODE_EDIT_USERNAME = 4;

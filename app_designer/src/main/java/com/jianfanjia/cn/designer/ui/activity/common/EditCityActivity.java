@@ -15,7 +15,6 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.model.User;
-import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -206,39 +205,6 @@ public class EditCityActivity extends BaseSwipeBackActivity {
 
     }
 
-    // 修改设计师个人资料
-    private void put_Owner_Info() {
-        UpdateOwnerInfoRequest request = new UpdateOwnerInfoRequest();
-        request.setUser(user);
-
-//        Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
-//            @Override
-//            public void onPreLoad() {
-//                showWaitDialog();
-//            }
-//
-//            @Override
-//            public void onHttpDone() {
-//                hideWaitDialog();
-//            }
-//
-//            @Override
-//            public void onSuccess(ApiResponse<String> apiResponse) {
-//                setResultTo();
-//            }
-//
-//            @Override
-//            public void onFailed(ApiResponse<String> apiResponse) {
-//
-//            }
-//
-//            @Override
-//            public void onNetworkError(int code) {
-//
-//            }
-//        });
-    }
-
     protected void setResultTo() {
         intent.putExtra(Constant.EDIT_PROVICE, provice);
         intent.putExtra(Constant.EDIT_CITY, city);
@@ -257,10 +223,8 @@ public class EditCityActivity extends BaseSwipeBackActivity {
             case R.id.btn_confirm:
                 switch (page) {
                     case EDIT_USER_ADRESS:
-                        user.setProvince(provice);
-                        user.setCity(city);
-                        user.setDistrict(district);
 //                        put_Owner_Info();
+                        setResultTo();
                         break;
                     case EDIT_REQUIREMENT_ADRESS:
                         setResultTo();

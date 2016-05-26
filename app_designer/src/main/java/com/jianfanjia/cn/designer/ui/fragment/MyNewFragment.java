@@ -22,6 +22,7 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.ShareUtil;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.common.CommentListActivity;
@@ -177,7 +178,9 @@ public class MyNewFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.frag_my_info_layout:
-                startActivity(BaseInfoAuthActicity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Global.DESIGNER_INFO,dataManager.getDesigner());
+                startActivity(BaseInfoAuthActicity.class,bundle);
                 break;
             case R.id.head_notification_layout:
                 startActivity(NoticeActivity.class);

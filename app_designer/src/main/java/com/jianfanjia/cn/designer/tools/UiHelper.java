@@ -102,7 +102,6 @@ public class UiHelper {
         refuseDialog.show();
     }
 
-
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();
         bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);

@@ -9,6 +9,8 @@ public interface BaseInfoView {
 
     public void setName(String name);
 
+    public void setSex(String sex);
+
 
 
 

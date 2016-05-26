@@ -125,7 +125,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
                 view = mLayoutInflater.inflate(R.layout.list_item_upload_product_effect_img, null);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
-                return new UploadEffectImgViewHolder(view);
+                return new UploadEffectImgViewHolder(view,new EditTextTextWatcher());
         }
         return null;
     }
@@ -260,25 +260,10 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (!TextUtils.isEmpty(productImageInfo.getSection())) {
             holder.designerSpaceView.setText(productImageInfo.getSection());
         }
+
+        holder.mEditTextTextWatcher.updatePosition(position - 4 -
+                mPlanImgLists.size());
         holder.mEditImageIntroText.setText(productImageInfo.getDescription());
-        holder.mEditImageIntroText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                LogTool.d(this.getClass().getName(), "description =" + s.toString());
-                LogTool.d(this.getClass().getName(), "position =" + (position - 4 - mPlanImgLists.size()));
-//                mEffectImgLists.get(position - 4 - mPlanImgLists.size()).setDescription(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         holder.designerSpaceChooseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -555,12 +540,15 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         @Bind(R.id.btn_clear)
         ImageView clearView;
 
-
         private LinearLayout.LayoutParams sourceLayoutParams;
 
-        public UploadEffectImgViewHolder(View view) {
+        private EditTextTextWatcher mEditTextTextWatcher;
+
+        public UploadEffectImgViewHolder(View view,EditTextTextWatcher editTextTextWatcher) {
             super(view);
             ButterKnife.bind(this, view);
+            mEditImageIntroText.addTextChangedListener(editTextTextWatcher);
+            this.mEditTextTextWatcher = editTextTextWatcher;
             sourceLayoutParams = (LinearLayout.LayoutParams) contentLayout.getLayoutParams();
         }
 
@@ -587,6 +575,30 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public interface ReplaceProductImageListener {
         void replaceProductImage(int type, int position);
+    }
+
+    private class EditTextTextWatcher implements TextWatcher{
+
+        private int position;
+
+        public void updatePosition(int pos){
+            this.position = pos;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mEffectImgLists.get(position).setDescription(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     }
 
 
