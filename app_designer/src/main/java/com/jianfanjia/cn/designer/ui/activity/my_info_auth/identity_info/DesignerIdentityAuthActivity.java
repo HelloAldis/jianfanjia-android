@@ -108,7 +108,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
 
     private void setImageWidthHeight() {
         int width = (int)(TDevice.getScreenWidth() - TDevice.dip2px(this,42)) / 2;
-        int height = (int)(width / ((float)(542 / 342)));
+        int height = (int)(width * ((float)342 / 545));
 
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width,height);
         bankCardImageView.setLayoutParams(lp);
@@ -212,7 +212,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         }else{
             bankCardImageView.setImageResource(R.mipmap.icon_back_example);
             bankCardDeleteImageView.setVisibility(View.GONE);
-            bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {
+            bankCardImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pickPicture(REQUESTCODE_PICK_BANK);
