@@ -17,11 +17,14 @@ public class Designer extends BaseModel {
     private String design_fee_range;
     private String company;
     private String uid;
+    private String uid_image1;
+    private String uid_image2;
     private String address;
     private String district;
     private String city;
     private String sex;
     private String username;
+    private String realname;
     private String imageid;
     private String province;
     private String pass;
@@ -64,6 +67,7 @@ public class Designer extends BaseModel {
     private String email;
     private String bank;
     private String bank_card;
+    private String bank_card_image1;
     private String university;
     private Plan plan;//设计师方案
     private Evaluation evaluation;
@@ -148,6 +152,38 @@ public class Designer extends BaseModel {
 
     public void setAward_details(List<DesignerAwardInfo> award_details) {
         this.award_details = award_details;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getUid_image1() {
+        return uid_image1;
+    }
+
+    public void setUid_image1(String uid_image1) {
+        this.uid_image1 = uid_image1;
+    }
+
+    public String getUid_image2() {
+        return uid_image2;
+    }
+
+    public void setUid_image2(String uid_image2) {
+        this.uid_image2 = uid_image2;
+    }
+
+    public String getBank_card_image1() {
+        return bank_card_image1;
+    }
+
+    public void setBank_card_image1(String bank_card_image1) {
+        this.bank_card_image1 = bank_card_image1;
     }
 
     public String getUid() {

@@ -16,6 +16,7 @@ import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.bean.AuthCenterItem;
 import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.business.ProductBusiness;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAuthActicity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.identity_info.DesignerIdentityAuthActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.DesignerProductAuthActivity;
@@ -144,12 +145,14 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
     }
 
     private void intentTo(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
         switch (position) {
             case BASE_INFO_AUTH_POSITION:
-                startActivity(BaseInfoAuthActicity.class);
+                startActivity(BaseInfoAuthActicity.class, bundle);
                 break;
             case IDENTITY_AUTH_POSITION:
-                startActivity(DesignerIdentityAuthActivity.class);
+                startActivity(DesignerIdentityAuthActivity.class,bundle);
                 break;
             case PRODUCT_AUTH_POSITION:
                 startActivity(DesignerProductAuthActivity.class);

@@ -1,7 +1,36 @@
 package com.jianfanjia.cn.designer.ui.activity.my_info_auth.identity_info;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
+
+import butterknife.Bind;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.designer.UpdateDesignerIdentityInfoRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.common.tool.ImageUtil;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
+import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.activity.my_info_auth.identity_info
@@ -10,6 +39,394 @@ import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
  * Date:2016-05-18 11:25
  */
 public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
+
+    private static final String TAG = DesignerIdentityAuthActivity.class.getName();
+
+    private static final int REQUESTCODE_PICK_IDENTITY_BACK = 0;
+    private static final int REQUESTCODE_PICK_IDENTITY_FRONT = 1;
+    private static final int REQUESTCODE_PICK_BANK = 2;
+
+    @Bind(R.id.designer_auth_head_layout)
+    MainHeadView mMainHeadView;
+
+    @Bind(R.id.edit_real_name)
+    EditText nameEditText;
+
+    @Bind(R.id.edit_identity_number)
+    EditText identityNumberEditText;
+
+    @Bind(R.id.identity_front_example)
+    ImageView identityFrontImageView;
+
+    @Bind(R.id.identity_background_example)
+    ImageView identityBackgroundImageView;
+
+    @Bind(R.id.identity_front_delete)
+    ImageView identityFrontDeleteImageView;
+
+    @Bind(R.id.identity_background_delete)
+    ImageView identityBackgroundDeleteImageView;
+
+    @Bind(R.id.bank_content)
+    TextView bankContentTextView;
+
+    @Bind(R.id.bank_card_example)
+    ImageView bankCardImageView;
+
+    @Bind(R.id.bank_card_delete)
+    ImageView bankCardDeleteImageView;
+
+    @Bind(R.id.edit_bank_card_number)
+    EditText backCardNumberEditText;
+
+    private Designer mDesigner;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
+        initView();
+        initData();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            mDesigner = (Designer)bundle.getSerializable(Global.DESIGNER_INFO);
+        }
+        if(mDesigner == null){
+            mDesigner = new Designer();
+        }
+    }
+
+    private void initView(){
+        initMainView();
+
+        setImageWidthHeight();
+    }
+
+    private void setImageWidthHeight() {
+        int width = (int)(TDevice.getScreenWidth() - TDevice.dip2px(this,42)) / 2;
+        int height = (int)(width / ((float)(542 / 342)));
+
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width,height);
+        bankCardImageView.setLayoutParams(lp);
+        identityBackgroundImageView.setLayoutParams(lp);
+        identityFrontImageView.setLayoutParams(lp);
+    }
+
+    private void initData(){
+        setMianHeadRightTitleEnable();
+
+        nameEditText.setText(mDesigner.getRealname());
+        nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mDesigner.setRealname(s.toString());
+                setMianHeadRightTitleEnable();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        identityNumberEditText.setText(mDesigner.getUid());
+        identityNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mDesigner.setUid(s.toString());
+                setMianHeadRightTitleEnable();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        if(!TextUtils.isEmpty(mDesigner.getUid_image1())){
+            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this,mDesigner.getUid_image1(),identityFrontImageView);
+            identityFrontDeleteImageView.setVisibility(View.VISIBLE);
+            identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDesigner.setUid_image1(null);
+                    initData();
+                }
+            });
+        }else{
+            identityFrontImageView.setImageResource(R.mipmap.icon_identity_front_example);
+            identityFrontDeleteImageView.setVisibility(View.GONE);
+            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
+                }
+            });
+        }
+
+        if(!TextUtils.isEmpty(mDesigner.getUid_image2())){
+            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this,mDesigner.getUid_image2(),identityBackgroundImageView);
+            identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
+            identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDesigner.setUid_image2(null);
+                    initData();
+                }
+            });
+        }else{
+            identityBackgroundImageView.setImageResource(R.mipmap.icon_identity_background_example);
+            identityBackgroundDeleteImageView.setVisibility(View.GONE);
+            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
+                }
+            });
+        }
+
+        if(!TextUtils.isEmpty(mDesigner.getBank_card_image1())){
+            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this,mDesigner.getBank_card_image1(),bankCardImageView);
+            bankCardDeleteImageView.setVisibility(View.VISIBLE);
+            bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDesigner.setBank_card_image1(null);
+                    initData();
+                }
+            });
+        }else{
+            bankCardImageView.setImageResource(R.mipmap.icon_back_example);
+            bankCardDeleteImageView.setVisibility(View.GONE);
+            bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPicture(REQUESTCODE_PICK_BANK);
+                }
+            });
+        }
+
+        backCardNumberEditText.setText(mDesigner.getBank_card());
+        backCardNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mDesigner.setBank_card(s.toString());
+                setMianHeadRightTitleEnable();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        bankContentTextView.setText(mDesigner.getBank());
+    }
+
+    private void initMainView() {
+        mMainHeadView.setMianTitle(getString(R.string.base_info_auth));
+        mMainHeadView.setRightTitle(getString(R.string.commit));
+        mMainHeadView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDesignerIdentityInfo(mDesigner);
+            }
+        });
+        setMianHeadRightTitleEnable();
+    }
+
+    private void setMianHeadRightTitleEnable() {
+        if(!TextUtils.isEmpty(mDesigner.getRealname()) && !TextUtils.isEmpty(mDesigner.getUid())
+                && !TextUtils.isEmpty(mDesigner.getUid_image1()) && !TextUtils.isEmpty(mDesigner.getUid_image2())
+                && !TextUtils.isEmpty(mDesigner.getBank()) && !TextUtils.isEmpty(mDesigner.getBank_card())
+                && !TextUtils.isEmpty(mDesigner.getBank_card_image1())){
+            mMainHeadView.setRigthTitleEnable(true);
+        }else {
+            mMainHeadView.setRigthTitleEnable(false);
+        }
+    }
+
+    private void updateDesignerIdentityInfo(Designer designer){
+        UpdateDesignerIdentityInfoRequest updateDesignerIdentityInfoRequest = new UpdateDesignerIdentityInfoRequest();
+        updateDesignerIdentityInfoRequest.setDesigner(designer);
+
+        Api.updateDesignerIdentityInfo(updateDesignerIdentityInfoRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void pickPicture(int requestCode) {
+        PhotoPickerIntent intent1 = new PhotoPickerIntent(this);
+        intent1.setPhotoCount(1);
+        intent1.setShowGif(false);
+        intent1.setShowCamera(true);
+        startActivityForResult(intent1, requestCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUESTCODE_PICK_IDENTITY_BACK:
+                pickPicResult(data, identityBackApiCallback);
+                break;
+            case REQUESTCODE_PICK_IDENTITY_FRONT:
+                pickPicResult(data, identityFrontApiCallback);
+                break;
+            case REQUESTCODE_PICK_BANK:
+                pickPicResult(data, bankApiCallback);
+                break;
+        }
+    }
+
+    private ApiCallback<ApiResponse<String>> identityFrontApiCallback = new ApiCallback<ApiResponse<String>>() {
+        @Override
+        public void onPreLoad() {
+
+        }
+
+        @Override
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<String> apiResponse) {
+            mDesigner.setUid_image1(apiResponse.getData());
+            initData();
+        }
+
+        @Override
+        public void onFailed(ApiResponse<String> apiResponse) {
+
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+    };
+
+    private ApiCallback<ApiResponse<String>> identityBackApiCallback = new ApiCallback<ApiResponse<String>>() {
+        @Override
+        public void onPreLoad() {
+
+        }
+
+        @Override
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<String> apiResponse) {
+            mDesigner.setUid_image2(apiResponse.getData());
+            initData();
+        }
+
+        @Override
+        public void onFailed(ApiResponse<String> apiResponse) {
+
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+    };
+
+    private ApiCallback<ApiResponse<String>> bankApiCallback = new ApiCallback<ApiResponse<String>>() {
+        @Override
+        public void onPreLoad() {
+
+        }
+
+        @Override
+        public void onHttpDone() {
+
+        }
+
+        @Override
+        public void onSuccess(ApiResponse<String> apiResponse) {
+            mDesigner.setBank_card_image1(apiResponse.getData());
+            initData();
+        }
+
+        @Override
+        public void onFailed(ApiResponse<String> apiResponse) {
+
+        }
+
+        @Override
+        public void onNetworkError(int code) {
+
+        }
+    };
+
+    private void pickPicResult(Intent data, ApiCallback<ApiResponse<String>> apiCallback) {
+        if (data != null) {
+            List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+            for (String path : photos) {
+                Bitmap imageBitmap = ImageUtil.getImage(path);
+                LogTool.d(TAG, "imageBitmap: path :" + path);
+                if (null != imageBitmap) {
+                    upload_image(imageBitmap, apiCallback);
+                }
+            }
+        }
+    }
+
+    private void upload_image(final Bitmap bitmap, ApiCallback<ApiResponse<String>> apiCallback) {
+        UploadPicRequest uploadPicRequest = new UploadPicRequest();
+        uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
+        Api.uploadImage(uploadPicRequest, apiCallback);
+    }
+
 
     @Override
     public int getLayoutId() {

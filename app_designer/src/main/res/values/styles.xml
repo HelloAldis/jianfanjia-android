@@ -193,8 +193,8 @@
         <item name="android:layout_height">@dimen/common_item_layout_height</item>
         <item name="android:background">@drawable/my_item_layout_bg_selector</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">@dimen/space_22</item>
-        <item name="android:paddingRight">@dimen/space_28</item>
+        <item name="android:paddingLeft">@dimen/space_16</item>
+        <item name="android:paddingRight">@dimen/space_16</item>
     </style>
 
     <style name="progress_dialog" parent="@android:style/Theme.Dialog">
