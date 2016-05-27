@@ -225,7 +225,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".ui.activity.common.EditRequirementItemActivity"
+            android:name=".ui.activity.common.ChooseItemActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

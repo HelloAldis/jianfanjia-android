@@ -20,7 +20,7 @@ import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.EditRequirementItemActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.UploadProductActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
@@ -184,21 +184,21 @@ public class UploadProduct1Fragment extends BaseFragment {
             case R.id.act_edit_req_dectype:
                 Bundle personBundle = new Bundle();
                 personBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DECTYPE);
-                personBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE,mProduct.getDec_type());
-                startActivityForResult(EditRequirementItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
+                personBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE,mProduct.getDec_type());
+                startActivityForResult(ChooseItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
                 break;
             case R.id.act_edit_req_housetype:
                 Bundle houseTypeBundle = new Bundle();
                 houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
-                houseTypeBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
-                startActivityForResult(EditRequirementItemActivity.class, houseTypeBundle, Constant
+                houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
+                startActivityForResult(ChooseItemActivity.class, houseTypeBundle, Constant
                         .REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                workTypeBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
-                startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
+                workTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
+                startActivityForResult(ChooseItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
             default:

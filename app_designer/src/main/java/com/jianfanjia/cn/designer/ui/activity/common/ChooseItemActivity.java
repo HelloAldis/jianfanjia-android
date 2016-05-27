@@ -21,7 +21,7 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  * Email: jame.zhang@myjyz.com
  * Date:2015-10-15 13:19
  */
-public class EditRequirementItemActivity extends BaseSwipeBackActivity {
+public class ChooseItemActivity extends BaseSwipeBackActivity {
 
     public static final String CURRENT_CHOOSED_VALUE = "current_choosed_value";
 
@@ -66,7 +66,7 @@ public class EditRequirementItemActivity extends BaseSwipeBackActivity {
                 Intent data = getIntent();
                 data.putExtra(Global.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
                 setResult(RESULT_OK, data);
-                appManager.finishActivity(EditRequirementItemActivity.this);
+                appManager.finishActivity(ChooseItemActivity.this);
             }
         });
         requirementItemAdapter.changeShow(requestCode,currentChooseValue);

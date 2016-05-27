@@ -32,7 +32,7 @@ import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.EditRequirementItemActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
@@ -382,8 +382,8 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         Bundle bankBundle = new Bundle();
         bankBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_GOODAT_WORKOFTYPE);
         String typeOfWork = BusinessCovertUtil.getGoodAtTypeOfWorkByValue(mTeam.getGood_at());
-        bankBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, typeOfWork);
-        IntentUtil.startActivityForResult(this, EditRequirementItemActivity.class, bankBundle, Constant
+        bankBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, typeOfWork);
+        IntentUtil.startActivityForResult(this, ChooseItemActivity.class, bankBundle, Constant
                 .REQUIRECODE_GOODAT_WORKOFTYPE);
     }
 

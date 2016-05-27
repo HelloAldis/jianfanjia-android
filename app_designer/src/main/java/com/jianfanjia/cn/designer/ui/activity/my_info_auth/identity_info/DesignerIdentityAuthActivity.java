@@ -29,7 +29,7 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
-import com.jianfanjia.cn.designer.ui.activity.common.EditRequirementItemActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
@@ -290,8 +290,8 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         Bundle bankBundle = new Bundle();
         bankBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BANK);
         String bankKey = BusinessCovertUtil.getBankKeyByValue(mDesigner.getBank());
-        bankBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, bankKey);
-        IntentUtil.startActivityForResult(this, EditRequirementItemActivity.class, bankBundle, Constant
+        bankBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, bankKey);
+        IntentUtil.startActivityForResult(this, ChooseItemActivity.class, bankBundle, Constant
                 .REQUIRECODE_BANK);
     }
 

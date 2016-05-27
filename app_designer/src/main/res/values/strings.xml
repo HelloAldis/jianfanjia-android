@@ -368,4 +368,9 @@
     <string name="tip_please_input_email">请输入邮箱</string>
     <string name="send_email_validate">发送邮箱验证</string>
     <string name="tip_input_corrent_email">请输入正确的邮箱账号</string>
+    <string name="str_receive_district">接单区域</string>
+    <string name="str_receive_business_housetype">意向接单户型</string>
+    <string name="str_receive_business_design_fee">设计费报价（元/平方米）</string>
+    <string name="str_receive_business_work_fee">施工费报价（元/平方米）</string>
+    <string name="receive_business_communication">习惯沟通方式</string>
 </resources>
