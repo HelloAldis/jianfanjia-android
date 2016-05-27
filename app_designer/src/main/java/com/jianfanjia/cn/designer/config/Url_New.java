@@ -168,6 +168,8 @@ public class Url_New {
     public String UPDATE_DESIGNER_BUSINESS_INFO = HTTPROOT + "designer/update_business_info";
     //设计师更新邮箱信息
     public String UPDATE_DESIGNER_EMAIL_INFO = HTTPROOT + "designer/email_info";
+    //设计师发送邮箱认证
+    public String SEND_VERIFY_EMAIL = HTTPROOT + "send_verify_email";
     //设计师更新身份证银行卡信息
     public String UPDATE_DESIGNER_IDENTITY_INFO = HTTPROOT + "designer/uid_bank_info";
     // 获取设计师的工地列表

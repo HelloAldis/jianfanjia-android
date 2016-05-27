@@ -52,6 +52,7 @@ import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
 import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
+import com.jianfanjia.api.request.designer.SendVerifyEmailRequest;
 import com.jianfanjia.api.request.designer.UpdateDesignerEmailInfoRequest;
 import com.jianfanjia.api.request.designer.UpdateDesignerIdentityInfoRequest;
 import com.jianfanjia.api.request.designer.UpdateDesignerInfoRequest;
@@ -297,6 +298,9 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().UPDATE_DESIGNER_IDENTITY_INFO, request, apiCallback);
     }
 
+    public static void sendVerifyEmial(SendVerifyEmailRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEND_VERIFY_EMAIL, request, apiCallback);
+    }
 
 
 }
