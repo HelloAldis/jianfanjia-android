@@ -23,8 +23,12 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
  */
 public class EditRequirementItemActivity extends BaseSwipeBackActivity {
 
+    public static final String CURRENT_CHOOSED_VALUE = "current_choosed_value";
+
     //用来记录是展示那个列表
     private int requestCode;
+
+    private String  currentChooseValue;
 
     @Bind(R.id.act_edit_req_item_head)
     protected MainHeadView mainHeadView;
@@ -37,7 +41,16 @@ public class EditRequirementItemActivity extends BaseSwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getDataFromIntent();
         initView();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            currentChooseValue = bundle.getString(CURRENT_CHOOSED_VALUE);
+        }
     }
 
     public void initView() {
@@ -56,7 +69,7 @@ public class EditRequirementItemActivity extends BaseSwipeBackActivity {
                 appManager.finishActivity(EditRequirementItemActivity.this);
             }
         });
-        requirementItemAdapter.changeShow(requestCode);
+        requirementItemAdapter.changeShow(requestCode,currentChooseValue);
     }
 
     /**
@@ -90,6 +103,12 @@ public class EditRequirementItemActivity extends BaseSwipeBackActivity {
                 break;
             case Constant.REQUIRECODE_DECTYPE:
                 mainHeadView.setMianTitle(getString(R.string.str_decoratetype));
+                break;
+            case Constant.REQUIRECODE_BANK:
+                mainHeadView.setMianTitle(getString(R.string.bank));
+                break;
+            case Constant.REQUIRECODE_GOODAT_WORKOFTYPE:
+                mainHeadView.setMianTitle(getString(R.string.goodat_type));
                 break;
         }
 

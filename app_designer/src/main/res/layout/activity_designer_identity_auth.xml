@@ -68,6 +68,7 @@
                     android:gravity="center_vertical|right"
                     android:hint="@string/tip_input_identity_number"
                     android:maxLength="20"
+                    android:inputType="number"
                     android:nextFocusDown="@+id/act_edit_req_dong_content"/>
             </LinearLayout>
 
@@ -168,6 +169,7 @@
                     android:gravity="center_vertical|right"
                     android:hint="@string/tip_input_identity_number"
                     android:maxLength="20"
+                    android:inputType="number"
                     android:nextFocusDown="@+id/act_edit_req_dong_content"/>
             </LinearLayout>
 
@@ -216,7 +218,7 @@
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
-                    android:text="@string/upload_identity_front"
+                    android:text="@string/upload_bank"
                     android:textColor="@color/light_black_color"/>
 
                 <LinearLayout

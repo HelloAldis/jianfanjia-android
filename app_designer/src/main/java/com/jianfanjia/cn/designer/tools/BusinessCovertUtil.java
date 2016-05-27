@@ -21,6 +21,34 @@ import com.jianfanjia.common.tool.StringUtils;
 
 public class BusinessCovertUtil {
 
+    public static String getGoodAtTypeOfWorkByValue(String typeOfWork) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_gootat_typeofwork);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(typeOfWork)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getBankKeyByValue(String bankValue) {
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_bank);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(bankValue)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 分开装修美图keyword
      *
@@ -260,7 +288,7 @@ public class BusinessCovertUtil {
             stringBuffer.append(convertDecStyleToShow(decStyle));
             stringBuffer.append("，");
         }
-        if (houseBudget != 0){
+        if (houseBudget != 0) {
             stringBuffer.append("装修预算" + houseBudget + "万");
         }
         return stringBuffer.toString();

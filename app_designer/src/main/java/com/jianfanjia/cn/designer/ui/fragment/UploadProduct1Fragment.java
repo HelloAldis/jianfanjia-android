@@ -184,17 +184,20 @@ public class UploadProduct1Fragment extends BaseFragment {
             case R.id.act_edit_req_dectype:
                 Bundle personBundle = new Bundle();
                 personBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DECTYPE);
+                personBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE,mProduct.getDec_type());
                 startActivityForResult(EditRequirementItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
                 break;
             case R.id.act_edit_req_housetype:
                 Bundle houseTypeBundle = new Bundle();
                 houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
+                houseTypeBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
                 startActivityForResult(EditRequirementItemActivity.class, houseTypeBundle, Constant
                         .REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
+                workTypeBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
                 startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;

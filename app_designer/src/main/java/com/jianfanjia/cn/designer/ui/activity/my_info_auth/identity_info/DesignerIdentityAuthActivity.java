@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
@@ -23,8 +24,13 @@ import com.jianfanjia.api.request.designer.UpdateDesignerIdentityInfoRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.tools.IntentUtil;
+import com.jianfanjia.cn.designer.ui.activity.common.EditRequirementItemActivity;
+import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -42,9 +48,9 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
 
     private static final String TAG = DesignerIdentityAuthActivity.class.getName();
 
-    private static final int REQUESTCODE_PICK_IDENTITY_BACK = 0;
-    private static final int REQUESTCODE_PICK_IDENTITY_FRONT = 1;
-    private static final int REQUESTCODE_PICK_BANK = 2;
+    private static final int REQUESTCODE_PICK_IDENTITY_BACK = 100;
+    private static final int REQUESTCODE_PICK_IDENTITY_FRONT = 120;
+    private static final int REQUESTCODE_PICK_BANK = 140;
 
     @Bind(R.id.designer_auth_head_layout)
     MainHeadView mMainHeadView;
@@ -92,31 +98,31 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        if(bundle != null){
-            mDesigner = (Designer)bundle.getSerializable(Global.DESIGNER_INFO);
+        if (bundle != null) {
+            mDesigner = (Designer) bundle.getSerializable(Global.DESIGNER_INFO);
         }
-        if(mDesigner == null){
+        if (mDesigner == null) {
             mDesigner = new Designer();
         }
     }
 
-    private void initView(){
+    private void initView() {
         initMainView();
 
         setImageWidthHeight();
     }
 
     private void setImageWidthHeight() {
-        int width = (int)(TDevice.getScreenWidth() - TDevice.dip2px(this,42)) / 2;
-        int height = (int)(width * ((float)342 / 545));
+        int width = (int) (TDevice.getScreenWidth() - TDevice.dip2px(this, 42)) / 2;
+        int height = (int) (width * ((float) 342 / 545));
 
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width,height);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);
         bankCardImageView.setLayoutParams(lp);
         identityBackgroundImageView.setLayoutParams(lp);
         identityFrontImageView.setLayoutParams(lp);
     }
 
-    private void initData(){
+    private void initData() {
         setMianHeadRightTitleEnable();
 
         nameEditText.setText(mDesigner.getRealname());
@@ -157,8 +163,9 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             }
         });
 
-        if(!TextUtils.isEmpty(mDesigner.getUid_image1())){
-            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this,mDesigner.getUid_image1(),identityFrontImageView);
+        if (!TextUtils.isEmpty(mDesigner.getUid_image1())) {
+            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this, mDesigner.getUid_image1(),
+                    identityFrontImageView);
             identityFrontDeleteImageView.setVisibility(View.VISIBLE);
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -167,7 +174,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     initData();
                 }
             });
-        }else{
+        } else {
             identityFrontImageView.setImageResource(R.mipmap.icon_identity_front_example);
             identityFrontDeleteImageView.setVisibility(View.GONE);
             identityFrontImageView.setOnClickListener(new View.OnClickListener() {
@@ -178,8 +185,9 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             });
         }
 
-        if(!TextUtils.isEmpty(mDesigner.getUid_image2())){
-            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this,mDesigner.getUid_image2(),identityBackgroundImageView);
+        if (!TextUtils.isEmpty(mDesigner.getUid_image2())) {
+            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this, mDesigner.getUid_image2(),
+                    identityBackgroundImageView);
             identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -188,7 +196,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     initData();
                 }
             });
-        }else{
+        } else {
             identityBackgroundImageView.setImageResource(R.mipmap.icon_identity_background_example);
             identityBackgroundDeleteImageView.setVisibility(View.GONE);
             identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
@@ -199,8 +207,9 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             });
         }
 
-        if(!TextUtils.isEmpty(mDesigner.getBank_card_image1())){
-            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this,mDesigner.getBank_card_image1(),bankCardImageView);
+        if (!TextUtils.isEmpty(mDesigner.getBank_card_image1())) {
+            ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this, mDesigner.getBank_card_image1(),
+                    bankCardImageView);
             bankCardDeleteImageView.setVisibility(View.VISIBLE);
             bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -209,7 +218,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     initData();
                 }
             });
-        }else{
+        } else {
             bankCardImageView.setImageResource(R.mipmap.icon_back_example);
             bankCardDeleteImageView.setVisibility(View.GONE);
             bankCardImageView.setOnClickListener(new View.OnClickListener() {
@@ -255,17 +264,38 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     }
 
     private void setMianHeadRightTitleEnable() {
-        if(!TextUtils.isEmpty(mDesigner.getRealname()) && !TextUtils.isEmpty(mDesigner.getUid())
+        if (!TextUtils.isEmpty(mDesigner.getRealname()) && !TextUtils.isEmpty(mDesigner.getUid())
                 && !TextUtils.isEmpty(mDesigner.getUid_image1()) && !TextUtils.isEmpty(mDesigner.getUid_image2())
                 && !TextUtils.isEmpty(mDesigner.getBank()) && !TextUtils.isEmpty(mDesigner.getBank_card())
-                && !TextUtils.isEmpty(mDesigner.getBank_card_image1())){
+                && !TextUtils.isEmpty(mDesigner.getBank_card_image1())) {
             mMainHeadView.setRigthTitleEnable(true);
-        }else {
+        } else {
             mMainHeadView.setRigthTitleEnable(false);
         }
     }
 
-    private void updateDesignerIdentityInfo(Designer designer){
+    @OnClick({R.id.head_back_layout, R.id.bank_layout})
+    protected void click(View view) {
+        switch (view.getId()) {
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
+            case R.id.bank_layout:
+                intentToBankChoose();
+                break;
+        }
+    }
+
+    private void intentToBankChoose() {
+        Bundle bankBundle = new Bundle();
+        bankBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BANK);
+        String bankKey = BusinessCovertUtil.getBankKeyByValue(mDesigner.getBank());
+        bankBundle.putString(EditRequirementItemActivity.CURRENT_CHOOSED_VALUE, bankKey);
+        IntentUtil.startActivityForResult(this, EditRequirementItemActivity.class, bankBundle, Constant
+                .REQUIRECODE_BANK);
+    }
+
+    private void updateDesignerIdentityInfo(Designer designer) {
         UpdateDesignerIdentityInfoRequest updateDesignerIdentityInfoRequest = new UpdateDesignerIdentityInfoRequest();
         updateDesignerIdentityInfoRequest.setDesigner(designer);
 
@@ -311,16 +341,24 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         if (resultCode != RESULT_OK) {
             return;
         }
-        switch (requestCode) {
-            case REQUESTCODE_PICK_IDENTITY_BACK:
-                pickPicResult(data, identityBackApiCallback);
-                break;
-            case REQUESTCODE_PICK_IDENTITY_FRONT:
-                pickPicResult(data, identityFrontApiCallback);
-                break;
-            case REQUESTCODE_PICK_BANK:
-                pickPicResult(data, bankApiCallback);
-                break;
+        if (data != null) {
+            switch (requestCode) {
+                case REQUESTCODE_PICK_IDENTITY_BACK:
+                    pickPicResult(data, identityBackApiCallback);
+                    break;
+                case REQUESTCODE_PICK_IDENTITY_FRONT:
+                    pickPicResult(data, identityFrontApiCallback);
+                    break;
+                case REQUESTCODE_PICK_BANK:
+                    pickPicResult(data, bankApiCallback);
+                    break;
+                case Constant.REQUIRECODE_BANK:
+                    ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global
+                            .RESPONSE_DATA);
+                    mDesigner.setBank(itemMap.value);
+                    initData();
+                    break;
+            }
         }
     }
 
@@ -409,7 +447,6 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     };
 
     private void pickPicResult(Intent data, ApiCallback<ApiResponse<String>> apiCallback) {
-        if (data != null) {
             List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             for (String path : photos) {
                 Bitmap imageBitmap = ImageUtil.getImage(path);
@@ -418,7 +455,6 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     upload_image(imageBitmap, apiCallback);
                 }
             }
-        }
     }
 
     private void upload_image(final Bitmap bitmap, ApiCallback<ApiResponse<String>> apiCallback) {

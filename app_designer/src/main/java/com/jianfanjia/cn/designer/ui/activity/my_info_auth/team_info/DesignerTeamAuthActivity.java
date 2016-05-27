@@ -18,6 +18,8 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.IntentUtil;
 import com.jianfanjia.cn.designer.ui.adapter.DesignerTeamAuthAdapter;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
@@ -57,8 +59,8 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
     }
 
     @OnClick({R.id.head_back_layout})
-    protected void click(View view){
-        switch (view.getId()){
+    protected void click(View view) {
+        switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
@@ -82,7 +84,7 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
                 .OnItemEditListener() {
             @Override
             public void onItemClick(int position) {
-
+                intentToTeamDetail(mTeamList.get(position));
             }
 
             @Override
@@ -97,6 +99,12 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
             }
         });
         gridView.setAdapter(mDesignerTeamAuthAdapter);
+    }
+
+    private void intentToTeamDetail(Team team) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Global.TEAM_INFO, team);
+        IntentUtil.startActivity(this, DesignerEditTeamActivity.class, bundle);
     }
 
     private void getAllTeam() {

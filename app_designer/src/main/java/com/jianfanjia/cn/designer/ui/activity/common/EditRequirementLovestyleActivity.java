@@ -65,7 +65,7 @@ public class EditRequirementLovestyleActivity extends BaseSwipeBackActivity {
     protected void back(View clickView) {
         int resId = clickView.getId();
         switch (resId) {
-            case R.id.head_back:
+            case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
         }

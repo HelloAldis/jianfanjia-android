@@ -56,10 +56,10 @@ public class Constant {
     public static final int REQUESTCODE_PICKER_HEAD_PIC = 0x12;
     public static final int REQUESTCODE_PICKER_AWARD_PIC = 0x13;
     public static final int REQUESTCODE_PICKER_CHANGE_AWARD_PIC = 0x14;
+    public static final int REQUIRECODE_BANK = 0x15;
+    public static final int REQUIRECODE_GOODAT_WORKOFTYPE = 0x16;
 
     // editactivity
-    public static final int REQUESTCODE_EDIT_USERNAME = 4;
-    public static final int REQUESTCODE_EDIT_HOME = 5;
     public static final int REQUESTCODE_EDIT_ADDRESS = 9;
     public static final String EDIT_TYPE = "inputType";
     public static final String EDIT_CONTENT = "content";

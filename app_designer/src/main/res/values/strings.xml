@@ -364,4 +364,8 @@
     <string name="upload_award_img">上传获奖照片及描述</string>
     <string name="goodat_type">擅长工种</string>
     <string name="workingon_site">正在施工工地</string>
+    <string name="upload_bank">上传银行卡</string>
+    <string name="tip_please_input_email">请输入邮箱</string>
+    <string name="send_email_validate">发送邮箱验证</string>
+    <string name="tip_input_corrent_email">请输入正确的邮箱账号</string>
 </resources>

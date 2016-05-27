@@ -36,6 +36,10 @@ public class ReqItemFinderImp implements ReqItemFinder {
 
     protected String[] arr_dectype;
 
+    protected String[] arr_bank;
+
+    protected String[] arr_goodAtTypeOfWork;
+
     public ReqItemFinderImp(Context context) {
         arr_district = context.getResources().getStringArray(R.array.arr_district);
         arr_worktype = context.getResources().getStringArray(R.array.arr_worktype);
@@ -46,6 +50,8 @@ public class ReqItemFinderImp implements ReqItemFinder {
         arr_lovestyle = context.getResources().getStringArray(R.array.arr_decstyle);
         arr_desisex = context.getResources().getStringArray(R.array.arr_desisex);
         arr_busihousetype = context.getResources().getStringArray(R.array.arr_busi_housetype);
+        arr_bank = context.getResources().getStringArray(R.array.arr_bank);
+        arr_goodAtTypeOfWork = context.getResources().getStringArray(R.array.arr_gootat_typeofwork);
     }
 
     @Override
@@ -69,6 +75,10 @@ public class ReqItemFinderImp implements ReqItemFinder {
                 return getListByStringArray(arr_worktype);
             case Constant.REQUIRECODE_DECTYPE:
                 return getListByStringArray(arr_dectype);
+            case Constant.REQUIRECODE_BANK:
+                return getListByStringArray(arr_bank);
+            case Constant.REQUIRECODE_GOODAT_WORKOFTYPE:
+                return getListByStringArray(arr_goodAtTypeOfWork);
         }
         return null;
     }

@@ -1,10 +1,12 @@
 package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,13 +31,26 @@ public class RequirementItemAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
 
+    private int mChoosePos = -1;
+
     public RequirementItemAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
         reqItemFinder = new ReqItemFinderImp(context);
     }
 
-    public void changeShow(int requsetcode) {
+    public void changeShow(int requsetcode,String currentChooseItem) {
         itemMaps = reqItemFinder.findAll(requsetcode);
+        int i = 0;
+        for (ReqItemFinderImp.ItemMap itemMap : itemMaps){
+            if(TextUtils.isEmpty(currentChooseItem)){
+                mChoosePos = -1;
+            }else{
+                if(currentChooseItem.equals(itemMap.key)){
+                    mChoosePos = i;
+                }
+            }
+            i++;
+        }
         notifyDataSetChanged();
     }
 
@@ -56,6 +71,11 @@ public class RequirementItemAdapter extends BaseAdapter {
         }
 
         holder.bind(getItem(position));
+        if(mChoosePos == position){
+            holder.chooseImageView.setVisibility(View.VISIBLE);
+        }else {
+            holder.chooseImageView.setVisibility(View.GONE);
+        }
 
         return view;
     }
@@ -64,6 +84,9 @@ public class RequirementItemAdapter extends BaseAdapter {
 
         @Bind(R.id.ltm_req_simple_item)
         TextView ltm_req_simple_item;
+
+        @Bind(R.id.ltm_item_choosed)
+        ImageView chooseImageView;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

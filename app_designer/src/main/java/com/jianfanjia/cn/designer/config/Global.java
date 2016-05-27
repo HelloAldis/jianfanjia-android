@@ -53,6 +53,7 @@ public class Global {
     public static final String PHONE = "phone";
     public static final String POSITION = "position";
     public static final String MSG_ID = "msg_id";
+    public static final String TEAM_INFO = "team_info";
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论
@@ -81,18 +82,13 @@ public class Global {
     public static final String DEC_TYPE_HOME = "0";//家装
     public static final String DEC_TYPE_BUSINESS = "1";//商装
 
-    public static final String WORK_TYPE_HALF = "0";//半包
-    public static final String WORK_TYPE_ALL = "1";//全包
     public static final String WORK_TYPE_DESIGNER = "2";//纯设计
-
-    public static final String DEC_PROGRESS0 = "0";//我想看一看
-    public static final String DEC_PROGRESS1 = "1";//正在做准备
-    public static final String DEC_PROGRESS2 = "2";//已经开始装修
-
+    
     public static final String PHONE_MATCH = "^" +
             "(13[0-9]{9}|15[012356789][0-9]{8}|18[0123456789][0-9]{8}|147[0-9]{8}|170[0-9]{8}|177[0-9]{8})$";
     public static final String PASSWORD_MATCH = "^[\\@A-Za-z0-9\\!\\#\\$\\%\\^\\&\\*\\.\\~]{6,30}$";
-//    public static final String PASSWORD_MATCH = "^[a-zA-Z_]\\w{5,29}$";
+    public static final String EMAIL_MATCH = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(" +
+            "([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
     public static final int PIC_WIDTH_NODE = 100;//节点图片的缩略图宽度100dp
     public static final int PIC_WIDTH_UPLOAD_WIDTH = 600;//上传头像的宽度统一为600px
