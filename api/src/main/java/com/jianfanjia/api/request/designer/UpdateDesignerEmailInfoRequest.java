@@ -1,6 +1,5 @@
 package com.jianfanjia.api.request.designer;
 
-import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
@@ -11,13 +10,13 @@ import com.jianfanjia.api.request.BaseRequest;
  */
 public class UpdateDesignerEmailInfoRequest extends BaseRequest {
 
-    private Designer designer;
+    private String email;
 
-    public Designer getDesigner() {
-        return designer;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDesigner(Designer designer) {
-        this.designer = designer;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

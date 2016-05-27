@@ -85,7 +85,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity {
                 email = mEtLoginUserName.getText().toString().trim();
                 if (checkLoginInput(email)) {
                     mDesigner.setEmail(email);
-                    sendEmailAuth(mDesigner);
+                    sendEmailAuth(email);
                 }
                 break;
             case R.id.act_forget_password:
@@ -108,9 +108,9 @@ public class EmailAuthActivity extends BaseSwipeBackActivity {
         return true;
     }
 
-    private void sendEmailAuth(final Designer designer){
+    private void sendEmailAuth(String email){
         UpdateDesignerEmailInfoRequest updateDesignerEmailInfoRequest = new UpdateDesignerEmailInfoRequest();
-        updateDesignerEmailInfoRequest.setDesigner(designer);
+        updateDesignerEmailInfoRequest.setEmail(email);
 
         Api.updateDesignerEmailInfo(updateDesignerEmailInfoRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
@@ -125,7 +125,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                dataManager.setDesigner(designer);
+                dataManager.setDesigner(mDesigner);
                 appManager.finishActivity(EmailAuthActivity.this);
             }
 
