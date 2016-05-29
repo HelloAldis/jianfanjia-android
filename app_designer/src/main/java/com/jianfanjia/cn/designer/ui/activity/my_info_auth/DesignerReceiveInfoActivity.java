@@ -4,8 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import butterknife.Bind;
+import butterknife.OnClick;
+
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.IntentUtil;
+import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
@@ -41,6 +47,18 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
             }
         });
 //        setMianHeadRightTitleEnable();
+    }
+
+    @OnClick({R.id.act_edit_req_dectype})
+    protected void click(View view){
+        switch (view.getId()){
+            case R.id.act_edit_req_dectype:
+                Bundle personBundle = new Bundle();
+                personBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DECTYPE);
+                personBundle.putInt(ChooseItemActivity.CURRENT_CHOOSED_TYPE,ChooseItemActivity.CHOOSE_TYPE_MULTIPLE);
+                IntentUtil.startActivityForResult(this, ChooseItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
+                break;
+        }
     }
 
     private void getDataFromIntent() {
