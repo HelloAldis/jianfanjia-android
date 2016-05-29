@@ -52,10 +52,11 @@ public class Designer extends BaseModel {
     private int dec_fee_half;
     private float respond_speed;
     private float service_attitude;
-    private List<String> dec_house_types;
-    private List<String> dec_districts;
-    private List<String> dec_styles;
-    private List<String> dec_types;
+    private List<String> dec_house_types = new ArrayList<>();
+    private List<String> dec_districts = new ArrayList<>();
+    private List<String> dec_styles = new ArrayList<>();
+    private List<String> dec_types = new ArrayList<>();
+    private List<String> work_types = new ArrayList<>();
     private List<DesignerAwardInfo> award_details = new ArrayList<>();
     private String diploma_imageid;
     private String communication_type;
@@ -384,6 +385,14 @@ public class Designer extends BaseModel {
 
     public void setCommunication_type(String communication_type) {
         this.communication_type = communication_type;
+    }
+
+    public List<String> getWork_types() {
+        return work_types;
+    }
+
+    public void setWork_types(List<String> work_types) {
+        this.work_types = work_types;
     }
 
     public boolean is_block() {

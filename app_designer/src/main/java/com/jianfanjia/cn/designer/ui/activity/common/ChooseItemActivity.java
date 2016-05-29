@@ -128,6 +128,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                     Intent data = getIntent();
                     data.putExtra(Global.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
                     setResult(RESULT_OK, data);
+
                     appManager.finishActivity(ChooseItemActivity.this);
                 } else {
                     String key = requirementItemAdapter.getItemMaps().get(position).key;
@@ -164,7 +165,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                 }
 
                 Intent data = getIntent();
-//                data.put(Global.RESPONSE_DATA, choosedItemMap);
+//                data.putExtra(Global.RESPONSE_DATA, choosedItemMap);
                 setResult(RESULT_OK, data);
                 appManager.finishActivity(ChooseItemActivity.this);
             }
