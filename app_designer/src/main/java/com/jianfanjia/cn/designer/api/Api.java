@@ -301,6 +301,4 @@ public class Api {
     public static void sendVerifyEmial(SendVerifyEmailRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEND_VERIFY_EMAIL, request, apiCallback);
     }
-
-
 }
