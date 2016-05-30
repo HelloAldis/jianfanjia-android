@@ -9,8 +9,7 @@
         android:id="@+id/act_edit_req_item_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/head_layout_bg" />
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,9 +17,36 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/space_10">
 
-        <View
-            style="@style/divier_line"
-            android:background="@color/horzontal_line_color" />
+        <LinearLayout
+            android:id="@+id/choose_all_toggle_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout style="@style/my_list_item_layout_style">
+
+                <TextView
+                    android:id="@+id/act_edit_req_dectype_title"
+                    style="@style/style_edit_req_title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_choose_all" />
+
+
+                <ToggleButton
+                    android:id="@+id/choose_all_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:checked="false" />
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_line"
+                android:layout_height="@dimen/space_10"
+                android:background="@color/transparent" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/act_edit_req_item_listview"

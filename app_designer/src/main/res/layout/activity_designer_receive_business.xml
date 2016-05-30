@@ -283,7 +283,7 @@
             android:background="@color/horzontal_line_color"/>
 
         <RelativeLayout
-            android:id="@+id/receive_business_communication_style"
+            android:id="@+id/receive_business_communication_style_layout"
             style="@style/my_list_item_layout_style"
             >
 

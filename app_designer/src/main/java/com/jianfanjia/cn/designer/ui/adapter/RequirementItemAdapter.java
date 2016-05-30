@@ -31,26 +31,16 @@ public class RequirementItemAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
 
-    private int mChoosePos = -1;
+    private List<String> mChooseKyes;
 
     public RequirementItemAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
         reqItemFinder = new ReqItemFinderImp(context);
     }
 
-    public void changeShow(int requsetcode,String currentChooseItem) {
+    public void changeShow(int requsetcode,List<String> currentChooseItem) {
         itemMaps = reqItemFinder.findAll(requsetcode);
-        int i = 0;
-        for (ReqItemFinderImp.ItemMap itemMap : itemMaps){
-            if(TextUtils.isEmpty(currentChooseItem)){
-                mChoosePos = -1;
-            }else{
-                if(currentChooseItem.equals(itemMap.key)){
-                    mChoosePos = i;
-                }
-            }
-            i++;
-        }
+        this.mChooseKyes = currentChooseItem;
         notifyDataSetChanged();
     }
 
@@ -71,7 +61,15 @@ public class RequirementItemAdapter extends BaseAdapter {
         }
 
         holder.bind(getItem(position));
-        if(mChoosePos == position){
+
+        String key = itemMaps.get(position).key;
+        boolean isChoose = false;
+        for(String chooseKey : mChooseKyes){
+            if(key.equals(chooseKey)){
+                isChoose = true;
+            }
+        }
+        if(isChoose){
             holder.chooseImageView.setVisibility(View.VISIBLE);
         }else {
             holder.chooseImageView.setVisibility(View.GONE);
