@@ -1,8 +1,10 @@
 package com.jianfanjia.cn.designer.ui.activity.my_info_auth;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 
 import butterknife.Bind;
@@ -29,7 +31,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Date:2016-05-18 14:03
  */
 public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAuthingFragment.EmailAuthingCallback,
-        EmailSendAuthFragment.SendAuthCallback {
+        EmailSendAuthFragment.SendAuthCallback,EmailAuthFinishedFragment.EmailFinishedCallback {
 
     public static final String EMAIL = "email";
     private static final String AUTH_FINISHED_FRAGMENT = "auth_finish_fragment";
@@ -88,6 +90,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
     @Override
     public void updateEmil() {
         LogTool.d(this.getClass().getName(), "updateEmail");
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (mEmailSendAuthFragment == null) {
             mEmailSendAuthFragment = EmailSendAuthFragment.getInstance(email);
         } else {
@@ -95,7 +98,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
                     (SEND_AUTH_FRAGMENT);
             mEmailSendAuthFragment.setEmail(email);
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, mEmailSendAuthFragment,
+        fragmentTransaction.replace(R.id.container_layout, mEmailSendAuthFragment,
                 SEND_AUTH_FRAGMENT).addToBackStack(null).commit();
         getSupportFragmentManager().executePendingTransactions();
     }
@@ -127,6 +130,20 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // 返回上一个fragment
+            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+
+            } else {
+                appManager.finishActivity(this);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void sendEmailAuth(String email) {
@@ -163,7 +180,6 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
 
     }
 
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_email_auth;
@@ -172,17 +188,23 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
 
     @Override
     public void sendEmailAuthFinish(String email) {
-        LogTool.d(this.getClass().getName(), "updateEmail = " + email);
+        LogTool.d(this.getClass().getName(), "updateEmail = " + email + " mEmailAuthingFragment =" + mEmailAuthingFragment);
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         this.email = email;
         if (mEmailAuthingFragment == null) {
             mEmailAuthingFragment = EmailAuthingFragment.getInstance(email);
         } else {
             mEmailAuthingFragment = (EmailAuthingFragment) getSupportFragmentManager().findFragmentByTag
                     (AUTHING_FRAGMENT);
-            mEmailAuthingFragment.setEmail(email);
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, mEmailAuthingFragment,
+        fragmentTransaction.replace(R.id.container_layout, mEmailAuthingFragment,
                 AUTHING_FRAGMENT).addToBackStack(null).commit();
         getSupportFragmentManager().executePendingTransactions();
+        mEmailAuthingFragment.setEmail(email);
+    }
+
+    @Override
+    public void updateEmail() {
+
     }
 }

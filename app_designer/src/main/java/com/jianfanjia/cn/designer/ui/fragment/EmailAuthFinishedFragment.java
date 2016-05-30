@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,6 +24,8 @@ public class EmailAuthFinishedFragment extends BaseFragment {
     EditText mEtLoginUserName = null;// 邮箱
 
     private String mEmail;
+
+    private EmailFinishedCallback emailFinishedCallback;
 
     public static EmailAuthFinishedFragment getInstance(String email){
         EmailAuthFinishedFragment emailAuthFinishedFragment = new EmailAuthFinishedFragment();
@@ -51,15 +54,25 @@ public class EmailAuthFinishedFragment extends BaseFragment {
     protected void click(View view){
         switch (view.getId()){
             case R.id.tv_update_email_action:
+                emailFinishedCallback.updateEmail();
                 break;
         }
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        emailFinishedCallback.updateEmail();
+    }
 
     private void initView() {
         if(!TextUtils.isEmpty(mEmail)){
             mEtLoginUserName.setText(mEmail);
         }
+    }
+
+    public interface EmailFinishedCallback{
+        void updateEmail();
     }
 
     @Override

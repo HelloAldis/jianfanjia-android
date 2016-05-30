@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.EmailAuthActivity;
+import com.jianfanjia.common.tool.LogTool;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.fragment
@@ -50,6 +51,7 @@ public class EmailAuthingFragment extends BaseFragment {
 
     public void setEmail(String email) {
         mEmail = email;
+        initView();
     }
 
     @Override
@@ -83,8 +85,10 @@ public class EmailAuthingFragment extends BaseFragment {
 
 
     private void initView() {
+        LogTool.d(this.getClass().getName(),"initview email =" + mEmail);
         if(!TextUtils.isEmpty(mEmail)){
             mEtLoginUserName.setText(mEmail);
+            mEtLoginUserName.invalidate();
         }
     }
 
