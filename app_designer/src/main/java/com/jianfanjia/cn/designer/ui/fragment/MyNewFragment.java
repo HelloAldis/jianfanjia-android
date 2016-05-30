@@ -31,7 +31,7 @@ import com.jianfanjia.cn.designer.ui.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.DesignerInfoAuthActivity;
-import com.jianfanjia.cn.designer.ui.activity.my_info_auth.DesignerReceiveInfoActivity;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.receive_business_info.DesignerReceiveInfoActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAuthActicity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.DesignerProductAuthActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity;
@@ -210,7 +210,9 @@ public class MyNewFragment extends BaseFragment {
                 startActivity(DesignerTeamAuthActivity.class);
                 break;
             case R.id.receive_business_info_layout:
-                startActivity(DesignerReceiveInfoActivity.class);
+                Bundle receiveBundle = new Bundle();
+                receiveBundle.putSerializable(Global.DESIGNER_INFO,dataManager.getDesigner());
+                startActivity(DesignerReceiveInfoActivity.class,receiveBundle);
                 break;
             case R.id.invite_friends_layout:
                 mShareUtil.shareApp(getActivity(), new SocializeListeners.SnsPostListener() {

@@ -31,8 +31,8 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
+import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
@@ -379,12 +379,10 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
     }
 
     private void intentToEditGoodAtWork() {
-        Bundle bankBundle = new Bundle();
-        bankBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_GOODAT_WORKOFTYPE);
-        String typeOfWork = BusinessCovertUtil.getGoodAtTypeOfWorkByValue(mTeam.getGood_at());
-        bankBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, typeOfWork);
-        IntentUtil.startActivityForResult(this, ChooseItemActivity.class, bankBundle, Constant
-                .REQUIRECODE_GOODAT_WORKOFTYPE);
+        ChooseItemIntent houseTypeIntent = new ChooseItemIntent(this);
+        houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_GOODAT_WORKOFTYPE, BusinessCovertUtil
+                .getGoodAtTypeOfWorkByValue(mTeam.getGood_at()));
+        startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_GOODAT_WORKOFTYPE);
     }
 
     private void intentToEditCity() {
@@ -463,7 +461,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     }
                     break;
                 case Constant.REQUIRECODE_GOODAT_WORKOFTYPE:
-                    ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global
+                    ReqItemFinderImp.ItemMap itemMap = data.getParcelableExtra(Global
                             .RESPONSE_DATA);
                     mTeam.setGood_at(itemMap.value);
                     initData();

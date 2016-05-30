@@ -152,7 +152,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                 startActivity(BaseInfoAuthActicity.class, bundle);
                 break;
             case IDENTITY_AUTH_POSITION:
-                startActivity(DesignerIdentityAuthActivity.class,bundle);
+                startActivity(DesignerIdentityAuthActivity.class, bundle);
                 break;
             case PRODUCT_AUTH_POSITION:
                 startActivity(DesignerProductAuthActivity.class);
@@ -161,7 +161,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                 startActivity(DesignerTeamAuthActivity.class);
                 break;
             case EMAIL_AUTH_POSITION:
-                startActivity(EmailAuthActivity.class);
+                startActivity(EmailAuthActivity.class,bundle);
                 break;
         }
     }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_72"
+        android:src="@mipmap/icon_default_head"/>
+
+    <TextView
+        style="@style/listview_item_text_style_big"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_24"
+        android:text="@string/sended_an_email"
+        android:textColor="@color/light_black_color"/>
+
+    <TextView
+        style="@style/listview_item_text_style_big"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_24"
+        android:text="@string/please_going_auth"
+        android:textColor="@color/light_black_color"/>
+
+    <RelativeLayout
+        android:id="@+id/act_input_email_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginLeft="@dimen/space_36"
+        android:layout_marginRight="@dimen/space_36"
+        android:layout_marginTop="@dimen/space_32"
+        android:background="@drawable/bg_white_corner_rectangle"
+        >
+
+        <EditText
+            android:id="@+id/act_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_toLeftOf="@+id/tv_send_again"
+            android:layout_toRightOf="@+id/act_input_email_icon"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical|left"
+            android:hint="@string/tip_please_input_email"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:textColor="@color/light_black_color"
+            android:enabled="false"
+            android:textSize="@dimen/middle_size"/>
+
+        <TextView
+            android:id="@+id/tv_send_again"
+            style="@style/listview_item_text_style_middle"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/space_4"
+            android:paddingRight="@dimen/space_4"
+            android:text="@string/send_again"
+            android:textColor="@color/orange_color"
+            />
+
+        <ImageView
+            android:id="@+id/act_input_email_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/space_16"
+            android:src="@mipmap/icon_input_psw"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_48"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_24">
+
+        <TextView
+            android:id="@+id/tv_update_email_tip"
+            style="@style/listview_item_text_style_big"
+            android:layout_alignParentLeft="true"
+            android:text="@string/update_email_tip"
+            android:layout_centerVertical="true"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            android:id="@+id/tv_update_email_action"
+            style="@style/listview_item_text_style_big"
+            android:layout_height="match_parent"
+            android:text="@string/update_email"
+            android:paddingLeft="@dimen/space_8"
+            android:paddingRight="@dimen/space_8"
+            android:layout_toRightOf="@+id/tv_update_email_tip"
+            android:textColor="@color/orange_color"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

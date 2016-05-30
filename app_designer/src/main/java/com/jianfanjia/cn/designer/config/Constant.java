@@ -58,7 +58,9 @@ public class Constant {
     public static final int REQUESTCODE_PICKER_CHANGE_AWARD_PIC = 0x14;
     public static final int REQUIRECODE_BANK = 0x15;
     public static final int REQUIRECODE_GOODAT_WORKOFTYPE = 0x16;
-
+    public static final int REQUIRECODE_DISTRICT = 0x17;
+    public static final int REQUIRECODE_DESIGN_FEE = 0x18;
+    public static final int REQUIRECODE_WORK_FEE = 0x19;
     // editactivity
     public static final int REQUESTCODE_EDIT_ADDRESS = 9;
     public static final String EDIT_TYPE = "inputType";

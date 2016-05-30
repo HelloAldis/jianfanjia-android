@@ -5,13 +5,11 @@ import android.text.TextUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -177,6 +175,14 @@ public class BusinessCovertUtil {
         return decStyles[decPosition];
     }
 
+    public static String convertCommunicationStyleToShow(String communicationStyle) {
+        if (communicationStyle == null) return null;
+        int decPosition = Integer.parseInt(communicationStyle);
+        String[] communicationStyles = MyApplication.getInstance().getResources().getStringArray(R.array.arr_love_designerstyle);
+        if (decPosition < 0 || decPosition > communicationStyles.length) return null;
+        return communicationStyles[decPosition];
+    }
+
     /**
      * @param designFee
      * @return
@@ -215,44 +221,6 @@ public class BusinessCovertUtil {
             e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * 比较需求是否改变
-     *
-     * @param src
-     * @param target
-     * @return
-     */
-    public static boolean isRequirementChange(Requirement src, Requirement target) {
-        LogTool.d("isRequirementChange", "isRequirementChange");
-        try {
-            Class clazz = src.getClass();
-            Field[] fields = clazz.getDeclaredFields();
-            for (Field field : fields) {
-                LogTool.d("isRequirementChange", field.getName());
-                field.setAccessible(true);
-                Object srcValue = field.get(src);
-                Object targetValue = field.get(target);
-                if (srcValue == null && target == null) {
-                    continue;
-                }
-                if (srcValue == null && targetValue != null) {
-                    return true;
-                }
-                if (srcValue != null && targetValue == null) {
-                    return true;
-                }
-                if (srcValue == targetValue || srcValue.equals(targetValue)) {
-                    continue;
-                } else {
-                    return true;
-                }
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public static List<String> getListByResource(Context context, int resId) {

@@ -200,7 +200,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".ui.activity.my_info_auth.DesignerReceiveInfoActivity"
+            android:name=".ui.activity.my_info_auth.receive_business_info.DesignerReceiveInfoActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.my_info_auth.receive_business_info.ChooseWorkFeeActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
@@ -225,12 +230,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".ui.activity.common.ChooseItemActivity"
+            android:name=".ui.activity.common.choose_item.ChooseItemActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".ui.activity.common.EditRequirementLovestyleActivity"
+            android:name=".ui.activity.common.choose_item.ChooseItemLovestyleActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

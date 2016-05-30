@@ -104,7 +104,17 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:text="@string/str_dec_lovestyle"/>
+                android:text="@string/str_dec_goodatstyle"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_lovestyle_title_tip"
+                style="@style/style_edit_req_title"
+                android:layout_toRightOf="@+id/act_edit_req_lovestyle_title"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_alignBottom="@+id/act_edit_req_lovestyle_title"
+                android:text="@string/all_more_three"
+                android:textSize="@dimen/small_size"
+                android:textColor="@color/middle_grey_color"/>
 
 
             <ImageView
@@ -121,7 +131,9 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/act_edit_req_lovestyle_title_tip"
                 android:hint="@string/please_choose"
+                android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginRight="16dp"/>
         </RelativeLayout>
 
@@ -158,8 +170,10 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/act_edit_req_district_title"
                 android:layout_marginRight="16dp"
                 android:ellipsize="end"
+                android:layout_marginLeft="@dimen/space_8"
                 android:hint="@string/please_choose"
                 android:singleLine="true"/>
         </RelativeLayout>
@@ -196,7 +210,11 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/receive_business_housetype_title"
                 android:hint="@string/please_choose"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/space_8"
                 android:layout_marginRight="16dp"/>
         </RelativeLayout>
 

@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.ui.activity.common;
+package com.jianfanjia.cn.designer.ui.activity.common.choose_item;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,13 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
@@ -20,9 +21,6 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.adapter.RequirementItemAdapter;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description: com.jianfanjia.cn.activity
@@ -112,6 +110,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                 } else {
                     currentChooseValues.clear();
                 }
+                setMianHeadRightTitleEnable();
                 requirementItemAdapter.notifyDataSetChanged();
             }
         });
@@ -119,6 +118,8 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
     }
 
     private void initListView() {
+        setMianHeadRightTitleEnable();
+
         requirementItemAdapter = new RequirementItemAdapter(this);
         edit_req_item_listview.setAdapter(requirementItemAdapter);
         edit_req_item_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,7 +129,6 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                     Intent data = getIntent();
                     data.putExtra(Global.RESPONSE_DATA, requirementItemAdapter.getItemMaps().get(position));
                     setResult(RESULT_OK, data);
-
                     appManager.finishActivity(ChooseItemActivity.this);
                 } else {
                     String key = requirementItemAdapter.getItemMaps().get(position).key;
@@ -137,23 +137,32 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                     } else {
                         currentChooseValues.add(key);
                     }
+                    setMianHeadRightTitleEnable();
                     requirementItemAdapter.notifyDataSetChanged();
                 }
             }
         });
         requirementItemAdapter.changeShow(requestCode, currentChooseValues);
+    }
 
+    private void setMianHeadRightTitleEnable() {
+        if (chooseType == CHOOSE_TYPE_MULTIPLE) {
+            if (currentChooseValues.size() > 0) {
+                mMainHeadView.setRigthTitleEnable(true);
+            } else {
+                mMainHeadView.setRigthTitleEnable(false);
+            }
+        }
     }
 
     private void initMainView() {
         showHead(requestCode);
-        if(chooseType == CHOOSE_TYPE_SINGLE){
+        if (chooseType == CHOOSE_TYPE_SINGLE) {
             mMainHeadView.setRightTitleVisable(View.GONE);
-        }else{
-            mMainHeadView.setRightTitle(getString(R.string.commit));
+        } else {
+            mMainHeadView.setRightTitle(getString(R.string.str_save));
             mMainHeadView.setRightTitleVisable(View.VISIBLE);
         }
-        mMainHeadView.setRightTitleVisable(View.VISIBLE);
         mMainHeadView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +174,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                 }
 
                 Intent data = getIntent();
-//                data.putExtra(Global.RESPONSE_DATA, choosedItemMap);
+                data.putParcelableArrayListExtra(Global.RESPONSE_DATA, (ArrayList) choosedItemMap);
                 setResult(RESULT_OK, data);
                 appManager.finishActivity(ChooseItemActivity.this);
             }
@@ -189,7 +198,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                 mMainHeadView.setMianTitle(getString(R.string.str_persons));
                 break;
             case Constant.REQUIRECODE_LOVEDESISTYLE:
-                mMainHeadView.setMianTitle(getString(R.string.str_lovedesistyle));
+                mMainHeadView.setMianTitle(getString(R.string.receive_business_communication));
                 break;
             case Constant.REQUIRECODE_BUSI_DECORATETYPE:
                 mMainHeadView.setMianTitle(getString(R.string.str_businessdecoratetype));
@@ -208,6 +217,12 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                 break;
             case Constant.REQUIRECODE_GOODAT_WORKOFTYPE:
                 mMainHeadView.setMianTitle(getString(R.string.goodat_type));
+                break;
+            case Constant.REQUIRECODE_DESIGN_FEE:
+                mMainHeadView.setMianTitle(getString(R.string.str_receive_business_design_fee));
+                break;
+            case Constant.REQUIRECODE_DISTRICT:
+                mMainHeadView.setMianTitle(getString(R.string.str_receive_district));
                 break;
         }
 

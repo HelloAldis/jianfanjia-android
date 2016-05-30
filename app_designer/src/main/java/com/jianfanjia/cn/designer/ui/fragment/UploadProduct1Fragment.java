@@ -19,9 +19,9 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemLovestyleActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.EditRequirementLovestyleActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.UploadProductActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -171,33 +171,44 @@ public class UploadProduct1Fragment extends BaseFragment {
                 Bundle address = new Bundle();
                 address.putString(Constant.EDIT_PROVICE, "湖北省");
                 address.putString(Constant.EDIT_CITY, "武汉市");
-                address.putString(Constant.EDIT_DISTRICT, mProduct.getDistrict());
+                if (TextUtils.isEmpty(mProduct.getDistrict())) {
+                    address.putString(Constant.EDIT_DISTRICT, mProduct.getDistrict());
+                }
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);
                 startActivityForResult(EditCityActivity.class, address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovestyle:
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant
+                if (!TextUtils.isEmpty(mProduct.getDec_style())) {
+                    loveStyleBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_style());
+                }
+                startActivityForResult(ChooseItemLovestyleActivity.class, loveStyleBundle, Constant
                         .REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_dectype:
                 Bundle personBundle = new Bundle();
                 personBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_DECTYPE);
-                personBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE,mProduct.getDec_type());
+                if (!TextUtils.isEmpty(mProduct.getDec_type())) {
+                    personBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_type());
+                }
                 startActivityForResult(ChooseItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
                 break;
             case R.id.act_edit_req_housetype:
                 Bundle houseTypeBundle = new Bundle();
                 houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
-                houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
+                if (!TextUtils.isEmpty(mProduct.getHouse_type())) {
+                    houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
+                }
                 startActivityForResult(ChooseItemActivity.class, houseTypeBundle, Constant
                         .REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
                 workTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                workTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
+                if (!TextUtils.isEmpty(mProduct.getWork_type())) {
+                    workTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
+                }
                 startActivityForResult(ChooseItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
@@ -261,7 +272,7 @@ public class UploadProduct1Fragment extends BaseFragment {
             return;
         }
         if (data != null) {
-            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global
+            ReqItemFinderImp.ItemMap itemMap = data.getParcelableExtra(Global
                     .RESPONSE_DATA);
             switch (requestCode) {
                 case Constant.REQUIRECODE_CITY:

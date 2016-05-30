@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/act_input_email_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_48"
+        android:layout_marginRight="@dimen/space_48"
+        android:layout_marginTop="@dimen/space_72"
+        android:background="@drawable/bg_white_corner_rectangle">
+
+        <EditText
+            android:id="@+id/act_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="@string/tip_please_input_email"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:paddingLeft="@dimen/space_32"
+            android:paddingRight="@dimen/space_32"
+            android:singleLine="true"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/middle_size" />
+
+        <ImageView
+            android:id="@+id/act_input_email_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:padding="@dimen/space_16"
+            android:src="@mipmap/icon_input_psw" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_send"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/act_login_input_password_layout"
+        android:layout_marginLeft="@dimen/space_72"
+        android:layout_marginRight="@dimen/space_72"
+        android:layout_marginTop="@dimen/space_48"
+        android:background="@drawable/btn_selector_bg"
+        android:enabled="false"
+        android:text="@string/send_email_validate"
+        android:textColor="@color/font_white"
+        android:textSize="@dimen/text_size_16" />
+
+
+</LinearLayout>

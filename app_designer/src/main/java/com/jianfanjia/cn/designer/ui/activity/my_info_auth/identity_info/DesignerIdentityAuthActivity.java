@@ -28,8 +28,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.cn.designer.tools.IntentUtil;
-import com.jianfanjia.cn.designer.ui.activity.common.ChooseItemActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
@@ -287,12 +286,10 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     }
 
     private void intentToBankChoose() {
-        Bundle bankBundle = new Bundle();
-        bankBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BANK);
-        String bankKey = BusinessCovertUtil.getBankKeyByValue(mDesigner.getBank());
-        bankBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, bankKey);
-        IntentUtil.startActivityForResult(this, ChooseItemActivity.class, bankBundle, Constant
-                .REQUIRECODE_BANK);
+        ChooseItemIntent houseTypeIntent = new ChooseItemIntent(this);
+        houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_BANK, BusinessCovertUtil.getBankKeyByValue(mDesigner
+                .getBank()));
+        startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_BANK);
     }
 
     private void updateDesignerIdentityInfo(Designer designer) {
@@ -353,7 +350,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     pickPicResult(data, bankApiCallback);
                     break;
                 case Constant.REQUIRECODE_BANK:
-                    ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(Global
+                    ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getParcelableExtra(Global
                             .RESPONSE_DATA);
                     mDesigner.setBank(itemMap.value);
                     initData();

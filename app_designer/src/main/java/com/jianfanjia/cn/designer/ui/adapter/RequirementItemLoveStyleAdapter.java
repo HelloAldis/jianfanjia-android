@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemLovestyleActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinder;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 
@@ -34,14 +35,20 @@ public class RequirementItemLoveStyleAdapter extends BaseAdapter{
 
     private Context context;
 
-    public RequirementItemLoveStyleAdapter(Context context) {
+    private List<String> mChooseKyes;
+
+    private int mChooseType;
+
+    public RequirementItemLoveStyleAdapter(Context context,int chooseType) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+        this.mChooseType = chooseType;
         reqItemFinder = new ReqItemFinderImp(context);
     }
 
-    public void changeShow(int requsetcode){
+    public void changeShow(int requsetcode,List<String> currentChooseItem) {
         itemMaps = reqItemFinder.findAll(requsetcode);
+        this.mChooseKyes = currentChooseItem;
         notifyDataSetChanged();
     }
 
@@ -63,6 +70,26 @@ public class RequirementItemLoveStyleAdapter extends BaseAdapter{
 
         holder.bind(getItem(position));
 
+        String key = itemMaps.get(position).key;
+        boolean isChoose = false;
+        for(String chooseKey : mChooseKyes){
+            if(key.equals(chooseKey)){
+                isChoose = true;
+            }
+        }
+        if(isChoose){
+            holder.selectedView.setSelected(true);
+        }else {
+            holder.selectedView.setSelected(false);
+        }
+
+        if(mChooseType == ChooseItemLovestyleActivity.CHOOSE_TYPE_SINGLE){
+            holder.selectedView.setVisibility(View.GONE);
+        }else {
+            holder.selectedView.setVisibility(View.VISIBLE);
+            holder.selectedView.setClickable(false);
+        }
+
         return view;
     }
 
@@ -70,6 +97,9 @@ public class RequirementItemLoveStyleAdapter extends BaseAdapter{
 
         @Bind(R.id.gtm_req_image)
         ImageView gtm_req_image;
+
+        @Bind(R.id.v_selected)
+        ImageView selectedView;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this,view);

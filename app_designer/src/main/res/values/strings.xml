@@ -342,6 +342,7 @@
     <string name="upload_process_team">添加施工团队</string>
     <string name="team_manager">项目经理</string>
     <string name="view_detail">前往查看</string>
+    <string name="click_view">点击查看</string>
     <string name="going_auth">请前往认证</string>
     <string name="the_third_login">第三方登录</string>
     <string name="real_name">真实姓名</string>
@@ -370,7 +371,19 @@
     <string name="tip_input_corrent_email">请输入正确的邮箱账号</string>
     <string name="str_receive_district">接单区域</string>
     <string name="str_receive_business_housetype">意向接单户型</string>
-    <string name="str_receive_business_design_fee">设计费报价（元/平方米）</string>
-    <string name="str_receive_business_work_fee">施工费报价（元/平方米）</string>
+    <string name="str_receive_business_design_fee">设计费报价（元/㎡）</string>
+    <string name="str_receive_business_work_fee">施工费报价（元/㎡）</string>
     <string name="receive_business_communication">习惯沟通方式</string>
+    <string name="str_save">保存</string>
+    <string name="unit_yuan_of_squre">元/㎡</string>
+    <string name="work_fee_half_min">半包最少</string>
+    <string name="work_fee_all_min">全包最少</string>
+    <string name="str_dec_goodatstyle">擅长风格</string>
+    <string name="all_more_three">最多三项</string>
+    <string name="sended_an_email">我们已向您的邮箱发送了一份验证邮件</string>
+    <string name="please_going_auth">请前往查收并完成验证</string>
+    <string name="send_again">重新发送</string>
+    <string name="update_email_tip">如果您想修改邮箱，请点</string>
+    <string name="update_email">修改邮箱</string>
+    <string name="email_auth_success">您的邮箱已经认证通过</string>
 </resources>

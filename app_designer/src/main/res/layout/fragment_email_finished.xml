@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_72"
+        android:src="@mipmap/icon_default_head"/>
+
+    <TextView
+        style="@style/listview_item_text_style_big"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_24"
+        android:text="@string/email_auth_success"
+        android:textColor="@color/light_black_color"/>
+
+    <FrameLayout
+        android:id="@+id/act_input_email_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_48"
+        android:layout_marginRight="@dimen/space_48"
+        android:layout_marginTop="@dimen/space_36"
+        android:background="@drawable/bg_white_corner_rectangle">
+
+        <EditText
+            android:id="@+id/act_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="@string/tip_please_input_email"
+            android:inputType="textEmailAddress"
+            android:maxLength="30"
+            android:paddingLeft="@dimen/space_32"
+            android:paddingRight="@dimen/space_32"
+            android:singleLine="true"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/middle_size"/>
+
+        <ImageView
+            android:id="@+id/act_input_email_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:padding="@dimen/space_16"
+            android:src="@mipmap/icon_input_psw"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_update_email_action"
+        style="@style/listview_item_text_style_big"
+        android:layout_height="@dimen/space_48"
+        android:layout_marginTop="@dimen/space_24"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:background="@drawable/bg_white_corner_rectangle"
+        android:text="@string/update_email"
+        android:textColor="@color/light_black_color"/>
+
+
+</LinearLayout>
