@@ -23,7 +23,7 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.SettingContractActivity;
+import com.jianfanjia.cn.designer.ui.activity.setting_contract.SettingContractActivity;
 import com.jianfanjia.cn.designer.ui.activity.SettingMeasureDateActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.DesignerPlanListActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PingJiaInfoActivity;

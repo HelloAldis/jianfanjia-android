@@ -53,11 +53,22 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
     private static final String TAG = BaseInfoAuthActicity.class.getName();
 
+    public static final int CURRENT_STATUS_EDIT = 0;
+    public static final int CURRENT_STATUS_PRIVIEW = 1;
+
+    public static final int FROM_REGISTER_INTENT = 2;
+    public static final int FROM_MAIN_INTENT = 3;
+
+    public static final String INTENT_FROM_FLAG = "intent_from_flag";
+
     @Bind(R.id.designerinfo_auth_head_layout)
     MainHeadView mMainHeadView;
 
     @Bind(R.id.baseinfo_auth_recyclerview)
     RecyclerView mRecyclerView;
+
+    private int currentStatus = CURRENT_STATUS_PRIVIEW;//默认进来是预览状态
+    private int intentFrom;
 
     private DesignerBaseInfoAdapter mDesignerBaseInfoAdapter;
 
@@ -77,27 +88,60 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         if (bundle != null) {
             LogTool.d(this.getClass().getName(), "designer is not null");
             mDesigner = (Designer) bundle.getSerializable(Global.DESIGNER_INFO);
+            intentFrom = bundle.getInt(INTENT_FROM_FLAG, FROM_MAIN_INTENT);
         }
 
         if (mDesigner == null) {
             mDesigner = new Designer();
+        }
+        if (intentFrom == FROM_MAIN_INTENT) {
+            currentStatus = CURRENT_STATUS_PRIVIEW;
+        } else {
+            currentStatus = CURRENT_STATUS_EDIT;
         }
     }
 
     private void initView() {
         initMainView();
         initRecycleView();
+        changeViewByStatus();
+    }
+
+    private void changeViewByStatus() {
+        if (currentStatus == CURRENT_STATUS_EDIT) {
+            mMainHeadView.setRightTitle(getString(R.string.commit));
+            mMainHeadView.setRightTextListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateDesignerBaseInfo(mDesigner);
+                }
+            });
+            setMianHeadRightTitleEnable();
+        } else {
+            mMainHeadView.setRightTitle(getString(R.string.edit));
+            mMainHeadView.setRigthTitleEnable(true);
+            mMainHeadView.setRightTextListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentStatus = CURRENT_STATUS_EDIT;
+                    changeViewByStatus();
+                }
+            });
+        }
+        mDesignerBaseInfoAdapter.changeShowStatus(currentStatus);
     }
 
     public void setMianHeadRightTitleEnable() {
-        if(!TextUtils.isEmpty(mDesigner.getImageid()) && !TextUtils.isEmpty(mDesigner.getUsername())
-                && !TextUtils.isEmpty(mDesigner.getDistrict()) && !TextUtils.isEmpty(mDesigner.getAddress())
-                && !TextUtils.isEmpty(mDesigner.getPhilosophy()) && !TextUtils.isEmpty(mDesigner.getUniversity())
-                && !TextUtils.isEmpty(mDesigner.getCompany()) && !TextUtils.isEmpty(mDesigner.getAchievement())
-                && mDesigner.getWork_year() > 0){
-            mMainHeadView.setRigthTitleEnable(true);
-        }else{
-            mMainHeadView.setRigthTitleEnable(false);
+        if (currentStatus == CURRENT_STATUS_EDIT) {
+            if (!TextUtils.isEmpty(mDesigner.getImageid()) && !TextUtils.isEmpty(mDesigner.getUsername())
+                    && !TextUtils.isEmpty(mDesigner.getDistrict()) && !TextUtils.isEmpty(mDesigner.getAddress())
+                    && !TextUtils.isEmpty(mDesigner.getPhilosophy()) && !TextUtils.isEmpty(mDesigner.getUniversity())
+                    && !TextUtils.isEmpty(mDesigner.getCompany()) && !TextUtils.isEmpty(mDesigner.getAchievement())
+                    && mDesigner.getWork_year() > 0) {
+                mMainHeadView.setRigthTitleEnable(true);
+            } else {
+                mMainHeadView.setRigthTitleEnable(false);
+            }
         }
     }
 
@@ -151,21 +195,13 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.base_info_auth));
-        mMainHeadView.setRightTitle(getString(R.string.commit));
-        mMainHeadView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDesignerBaseInfo(mDesigner);
-            }
-        });
-        setMianHeadRightTitleEnable();
     }
 
     @OnClick({R.id.head_back_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                appManager.finishActivity(this);
+                navagateNext();
                 break;
         }
     }
@@ -284,7 +320,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         }
     }
 
-    private void updateDesignerBaseInfo(Designer designer){
+    private void updateDesignerBaseInfo(Designer designer) {
         UpdateDesignerInfoRequest updateDesignerInfoRequest = new UpdateDesignerInfoRequest();
         updateDesignerInfoRequest.setDesigner(designer);
 
@@ -301,7 +337,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                appManager.finishActivity(BaseInfoAuthActicity.this);
+                navagateNext();
             }
 
             @Override
@@ -314,6 +350,10 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             }
         });
+    }
+
+    private void navagateNext() {
+       appManager.finishActivity(this);
     }
 
     private void pickPicResult(Intent data, ApiCallback<ApiResponse<String>> apiCallback) {

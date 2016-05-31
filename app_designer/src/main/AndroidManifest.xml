@@ -265,6 +265,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
+            android:name=".ui.activity.login_and_register.DesignerAgreementActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
             android:name=".ui.activity.my.SettingActivity"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait"
@@ -376,7 +381,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name=".ui.activity.SettingContractActivity"
+            android:name=".ui.activity.setting_contract.SettingContractActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name=".ui.activity.setting_contract.ChooseTeamActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity

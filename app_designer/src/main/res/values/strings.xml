@@ -386,4 +386,8 @@
     <string name="update_email_tip">如果您想修改邮箱，请点</string>
     <string name="update_email">修改邮箱</string>
     <string name="email_auth_success">您的邮箱已经认证通过</string>
+    <string name="designer_agreement">设计师入驻协议</string>
+    <string name="login_fail">登录失败！</string>
+    <string name="register_fail">注册失败</string>
+    <string name="config_contract">配置合同</string>
 </resources>

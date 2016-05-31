@@ -41,6 +41,7 @@
                     android:layout_gravity="bottom|right"
                     android:src="@mipmap/icon_auth"
                     android:visibility="gone"/>
+
             </FrameLayout>
 
             <TextView
@@ -68,6 +69,19 @@
                 />
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_margin="5dip"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:padding="5dip"
+            android:id="@+id/v_selected"
+            android:layout_gravity="right"
+            android:src="@drawable/__picker_checkbox_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/deleteTeamLayout"

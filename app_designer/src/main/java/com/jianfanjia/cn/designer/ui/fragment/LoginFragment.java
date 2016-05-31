@@ -15,15 +15,18 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.designer.GetDesignerInfoRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
+import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.ui.activity.MainActivity;
+import com.jianfanjia.cn.designer.ui.activity.login_and_register.DesignerAgreementActivity;
 import com.jianfanjia.cn.designer.ui.activity.login_and_register.ForgetPswActivity;
 
 /**
@@ -139,22 +142,54 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onHttpDone() {
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+                getDesignerInfo();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    private void getDesignerInfo() {
+        GetDesignerInfoRequest getDesignerInfoRequest = new GetDesignerInfoRequest();
+
+        Api.getDesignerInfo(getDesignerInfoRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
                 hideWaitDialog();
             }
 
             @Override
             public void onSuccess(ApiResponse<Designer> apiResponse) {
                 Designer designer = apiResponse.getData();
-                designer.setPass(password);
                 DataManagerNew.loginSuccess(designer);
-
-                startActivity(MainActivity.class);
+                if (!DesignerBusiness.AGREE_LICENSE.equals(designer.getAgreee_license())) {
+                    startActivity(DesignerAgreementActivity.class);
+                } else {
+                    startActivity(MainActivity.class);
+                }
                 AppManager.getAppManager().finishActivity(getActivity());
             }
 
             @Override
             public void onFailed(ApiResponse<Designer> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
+                makeTextShort(getString(R.string.login_fail));
             }
 
             @Override

@@ -39,6 +39,7 @@ import com.jianfanjia.api.request.designer.ConfigMeaHouseTimeRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
 import com.jianfanjia.api.request.designer.DeleteOneProductRequest;
 import com.jianfanjia.api.request.designer.DeleteOneTeamRequest;
+import com.jianfanjia.api.request.designer.DesignerAgreeRequest;
 import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.api.request.designer.GetAllProductRequest;
 import com.jianfanjia.api.request.designer.GetAllTeamRequest;
@@ -300,5 +301,9 @@ public class Api {
 
     public static void sendVerifyEmial(SendVerifyEmailRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().SEND_VERIFY_EMAIL, request, apiCallback);
+    }
+
+    public static void designerAgree(DesignerAgreeRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_AGREE, request, apiCallback);
     }
 }

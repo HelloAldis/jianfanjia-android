@@ -10,8 +10,12 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.designer.GetDesignerInfoRequest;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.bean.AuthCenterItem;
 import com.jianfanjia.cn.designer.business.DesignerBusiness;
@@ -144,6 +148,44 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDesignerInfo();
+    }
+
+    private void getDesignerInfo() {
+        GetDesignerInfoRequest getDesignerInfoRequest = new GetDesignerInfoRequest();
+
+        Api.getDesignerInfo(getDesignerInfoRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+                Designer designer = apiResponse.getData();
+                dataManager.setDesigner(designer);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
     private void intentTo(int position) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
@@ -161,7 +203,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                 startActivity(DesignerTeamAuthActivity.class);
                 break;
             case EMAIL_AUTH_POSITION:
-                startActivity(EmailAuthActivity.class,bundle);
+                startActivity(EmailAuthActivity.class, bundle);
                 break;
         }
     }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Team;
 import com.jianfanjia.api.request.common.UploadPicRequest;
+import com.jianfanjia.api.request.designer.AddOneTeamRequest;
 import com.jianfanjia.api.request.designer.UpdateOneTeamRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
@@ -31,8 +33,8 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
-import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
@@ -50,6 +52,14 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * Date:2016-05-25 20:13
  */
 public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
+
+    public static final int CURRENT_STATUS_EDIT = 0;
+    public static final int CURRENT_STATUS_PRIVIEW = 1;
+
+    public static final int FROM_UPDATE_INTENT = 2;
+    public static final int FROM_ADD_INTENT = 3;
+
+    public static final String INTENT_FROM_FLAG = "intent_from_flag";
 
     private static final int REQUESTCODE_PICK_IDENTITY_BACK = 100;
     private static final int REQUESTCODE_PICK_IDENTITY_FRONT = 120;
@@ -79,8 +89,14 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
     @Bind(R.id.sex_content)
     TextView sexTextView;
 
+    @Bind(R.id.sex_layout)
+    RelativeLayout sexLayout;
+
     @Bind(R.id.address_content)
     TextView addrTextView;
+
+    @Bind(R.id.address_layout)
+    RelativeLayout addrLayout;
 
     @Bind(R.id.work_company_content)
     EditText workCompanyEditext;
@@ -94,7 +110,45 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
     @Bind(R.id.goodat_type_content)
     TextView goodAtTextView;
 
+    @Bind(R.id.goodat_type_layout)
+    RelativeLayout goodAtTypeLayout;
+
+    private int currentStatus = CURRENT_STATUS_PRIVIEW;//默认进来是预览状态
+    private int intentFrom;
+
     private Team mTeam;
+
+    private void changeViewShowEditOrPreview() {
+        if (currentStatus == CURRENT_STATUS_EDIT) {
+            nameEditText.setEnabled(true);
+            identityNumberEditText.setEnabled(true);
+            workCompanyEditext.setEnabled(true);
+            workingonSiteEditText.setEnabled(true);
+            workYearEditext.setEnabled(true);
+            workCompanyEditext.setEnabled(true);
+            identityBackgroundImageView.setEnabled(true);
+            identityFrontImageView.setSelected(true);
+            sexLayout.setEnabled(true);
+            addrLayout.setEnabled(true);
+            goodAtTypeLayout.setEnabled(true);
+            identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
+            identityFrontDeleteImageView.setVisibility(View.VISIBLE);
+        } else {
+            nameEditText.setEnabled(false);
+            identityNumberEditText.setEnabled(false);
+            workCompanyEditext.setEnabled(false);
+            workingonSiteEditText.setEnabled(false);
+            workYearEditext.setEnabled(false);
+            workCompanyEditext.setEnabled(false);
+            identityBackgroundImageView.setEnabled(false);
+            identityFrontImageView.setSelected(false);
+            sexLayout.setEnabled(false);
+            addrLayout.setEnabled(false);
+            goodAtTypeLayout.setEnabled(false);
+            identityBackgroundDeleteImageView.setVisibility(View.GONE);
+            identityFrontDeleteImageView.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +160,8 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
 
     private void initView() {
         initMainView();
+
+        changeViewByStatus();
 
         setImageWidthHeight();
     }
@@ -119,28 +175,50 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         identityFrontImageView.setLayoutParams(lp);
     }
 
+    private void changeViewByStatus() {
+        if (currentStatus == CURRENT_STATUS_EDIT) {
+            mMainHeadView.setRightTitle(getString(R.string.commit));
+            mMainHeadView.setRightTextListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (intentFrom == FROM_UPDATE_INTENT) {
+                        updateDesignerTeamInfo(mTeam);
+                    } else {
+                        addDesignerOneTeam(mTeam);
+                    }
+                }
+            });
+            setMianHeadRightTitleEnable();
+        } else {
+            mMainHeadView.setRightTitle(getString(R.string.edit));
+            mMainHeadView.setRigthTitleEnable(true);
+            mMainHeadView.setRightTextListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentStatus = CURRENT_STATUS_EDIT;
+                    changeViewByStatus();
+                }
+            });
+        }
+        changeViewShowEditOrPreview();
+    }
+
 
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.process_team_auth));
-        mMainHeadView.setRightTitle(getString(R.string.commit));
-        mMainHeadView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDesignerTeamInfo(mTeam);
-            }
-        });
-        setMianHeadRightTitleEnable();
     }
 
     private void setMianHeadRightTitleEnable() {
-        if (!TextUtils.isEmpty(mTeam.getManager()) && !TextUtils.isEmpty(mTeam.getUid())
-                && !TextUtils.isEmpty(mTeam.getUid_image1()) && !TextUtils.isEmpty(mTeam.getUid_image2())
-                && !TextUtils.isEmpty(mTeam.getDistrict()) && !TextUtils.isEmpty(mTeam.getCompany())
-                && !TextUtils.isEmpty(mTeam.getGood_at()) && !TextUtils.isEmpty(mTeam.getWorking_on())
-                && mTeam.getWork_year() > 0 && !TextUtils.isEmpty(mTeam.getSex())) {
-            mMainHeadView.setRigthTitleEnable(true);
-        } else {
-            mMainHeadView.setRigthTitleEnable(false);
+        if (currentStatus == CURRENT_STATUS_EDIT) {
+            if (!TextUtils.isEmpty(mTeam.getManager()) && !TextUtils.isEmpty(mTeam.getUid())
+                    && !TextUtils.isEmpty(mTeam.getUid_image1()) && !TextUtils.isEmpty(mTeam.getUid_image2())
+                    && !TextUtils.isEmpty(mTeam.getDistrict()) && !TextUtils.isEmpty(mTeam.getCompany())
+                    && !TextUtils.isEmpty(mTeam.getGood_at()) && !TextUtils.isEmpty(mTeam.getWorking_on())
+                    && mTeam.getWork_year() > 0 && !TextUtils.isEmpty(mTeam.getSex())) {
+                mMainHeadView.setRigthTitleEnable(true);
+            } else {
+                mMainHeadView.setRigthTitleEnable(false);
+            }
         }
     }
 
@@ -149,9 +227,16 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             mTeam = (Team) bundle.getSerializable(Global.TEAM_INFO);
+            intentFrom = bundle.getInt(INTENT_FROM_FLAG, FROM_UPDATE_INTENT);
         }
         if (mTeam == null) {
             mTeam = new Team();
+        }
+
+        if (intentFrom == FROM_UPDATE_INTENT) {
+            currentStatus = CURRENT_STATUS_PRIVIEW;
+        } else {
+            currentStatus = CURRENT_STATUS_EDIT;
         }
     }
 
@@ -344,6 +429,38 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                 intentToEditCity();
                 break;
         }
+    }
+
+    private void addDesignerOneTeam(Team team) {
+        AddOneTeamRequest addOneTeamRequest = new AddOneTeamRequest();
+        addOneTeamRequest.setTeam(team);
+
+        Api.addOneTeam(addOneTeamRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                appManager.finishActivity(DesignerEditTeamActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void updateDesignerTeamInfo(Team team) {

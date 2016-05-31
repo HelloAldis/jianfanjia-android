@@ -35,6 +35,20 @@
             android:text="@string/contract_profile"
             android:textColor="@color/light_black_color"/>
 
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_head_back_bg_selector"
+            android:gravity="center"
+            android:paddingLeft="@dimen/space_18"
+            android:paddingRight="@dimen/space_18"
+            android:textColor="@color/orange_color"
+            android:textSize="@dimen/middle_size"
+            android:text="@string/next"/>
+
         <View
             android:id="@+id/head_divier"
             style="@style/divier_line"
@@ -189,27 +203,6 @@
                     android:spinnersShown="true"
                     android:datePickerMode="spinner"/>
 
-                <View style="@style/divier_line"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/btn_confirm"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/space_40"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/space_24"
-                        android:layout_marginLeft="@dimen/space_48"
-                        android:layout_marginRight="@dimen/space_48"
-                        android:layout_marginTop="@dimen/space_24"
-                        android:background="@drawable/btn_selector_bg"
-                        android:text="@string/confirm"
-                        android:textColor="@color/font_white"
-                        android:textSize="@dimen/text_size_14"/>
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

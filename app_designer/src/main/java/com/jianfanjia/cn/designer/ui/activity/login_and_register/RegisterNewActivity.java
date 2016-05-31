@@ -17,6 +17,7 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.designer.GetDesignerInfoRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.cn.designer.R;
@@ -25,7 +26,6 @@ import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.cn.designer.bean.RegisterInfo;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.ui.activity.MainActivity;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -34,7 +34,7 @@ import com.jianfanjia.common.tool.LogTool;
  * @Description: 注册
  * @date 2015-10-27 下午12:11:23
  */
-public class RegisterNewActivity extends BaseActivity{
+public class RegisterNewActivity extends BaseActivity {
     private static final String TAG = RegisterNewActivity.class.getName();
 
     public static final int REGISTER_CODE = 0;
@@ -148,23 +148,51 @@ public class RegisterNewActivity extends BaseActivity{
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
             }
 
             @Override
             public void onSuccess(ApiResponse<Designer> apiResponse) {
-
-                Designer designer = apiResponse.getData();
-                designer.setPass(registerInfo.getPass());
-                DataManagerNew.loginSuccess(designer);
-
-                startActivity(MainActivity.class);
-                appManager.finishActivity(RegisterNewActivity.this);
+                getDesignerInfo();
             }
 
             @Override
             public void onFailed(ApiResponse<Designer> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    private void getDesignerInfo() {
+        GetDesignerInfoRequest getDesignerInfoRequest = new GetDesignerInfoRequest();
+
+        Api.getDesignerInfo(getDesignerInfoRequest, new ApiCallback<ApiResponse<Designer>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Designer> apiResponse) {
+                Designer designer = apiResponse.getData();
+                DataManagerNew.loginSuccess(designer);
+
+                startActivity(DesignerAgreementActivity.class);
+                appManager.finishActivity(RegisterNewActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Designer> apiResponse) {
+                makeTextShort(getString(R.string.register_fail));
             }
 
             @Override

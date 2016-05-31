@@ -25,8 +25,8 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAuthActicity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.CustomeUploadProdcutMenuLayout;
-import com.jianfanjia.cn.designer.ui.fragment.UploadProduct2Fragment;
 import com.jianfanjia.cn.designer.ui.interf.helper.ItemTouchHelperViewHolder;
 import com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText;
 import com.jianfanjia.common.tool.ImageUtil;
@@ -43,10 +43,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
 
-    public static final int UPLOAD_HEAD = 10;
-    public static final int UPLOAD_DIPLOMA = 20;
-    public static final int UPLOAD_AWARD = 30;
-
     private static final int VIEW_TYPE_BASE = 0;
     private static final int VIEW_TYPE_AWARD = 1;
     private static final int VIEW_TYPE_ADD = 2;
@@ -56,12 +52,10 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private Designer mDesigner;
-    private AddProductImageListener addProductImageListener;
-    private ReplaceProductImageListener mReplaceProductImageListener;
-    private UploadProduct2Fragment.NotifyRightTitleEnableListener mNotifyRightTitleEnableListener;
     private android.os.Handler mHandler = new android.os.Handler();
     private UploadAwardImgViewHolder.ItemClickAction mItemClickAction;
     private int changeAwardImagePosition;
+    int mCurrentStatus;
 
     public DesignerBaseInfoAdapter(Context context, Designer designer,UploadAwardImgViewHolder.ItemClickAction itemClickAction) {
         this.mContext = context;
@@ -69,6 +63,11 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         this.mDesigner = designer;
         this.mDesignerAwardInfoList = designer.getAward_details();
         this.mItemClickAction = itemClickAction;
+    }
+
+    public void changeShowStatus(int currentStatus){
+        this.mCurrentStatus = currentStatus;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -323,6 +322,38 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+
+        if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
+            holder.headLayout.setEnabled(true);
+            holder.nameEditText.setEnabled(true);
+            holder.sexLayout.setEnabled(true);
+            holder.addrLayout.setEnabled(true);
+            holder.emailEditText.setEnabled(true);
+            holder.designerConceptEditText.setEnabled(true);
+            holder.designAchievementEdittext.setEnabled(true);
+            holder.universityEditText.setEnabled(true);
+            holder.diplomaImageLayout.setEnabled(true);
+            holder.deleteImageView.setVisibility(View.VISIBLE);
+            holder.diplomaImageView.setEnabled(true);
+            holder.workYearEditext.setEnabled(true);
+            holder.workCompanyEditext.setEnabled(true);
+            holder.uploadDiplomaImageLayput.setEnabled(true);
+        }else {
+            holder.headLayout.setEnabled(false);
+            holder.nameEditText.setEnabled(false);
+            holder.sexLayout.setEnabled(false);
+            holder.addrLayout.setEnabled(false);
+            holder.emailEditText.setEnabled(false);
+            holder.designerConceptEditText.setEnabled(false);
+            holder.designAchievementEdittext.setEnabled(false);
+            holder.universityEditText.setEnabled(false);
+            holder.diplomaImageLayout.setEnabled(false);
+            holder.deleteImageView.setVisibility(View.GONE);
+            holder.diplomaImageView.setEnabled(false);
+            holder.workYearEditext.setEnabled(false);
+            holder.workCompanyEditext.setEnabled(false);
+            holder.uploadDiplomaImageLayput.setEnabled(false);
+        }
     }
 
     private void bingAwardViewHolder(final UploadAwardImgViewHolder holder,final int position) {
@@ -367,6 +398,8 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
 //            holder.btnUploadProduct.setCloseStatus();
 //        }
 
+        holder.ivCover.setVisibility(View.GONE);
+
         holder.clearView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -385,6 +418,14 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
 
         holder.mEditTextTextWatcher.updatePosition(position - 1);
         holder.mEditImageIntroText.setText(designerAwardInfo.getDescription());
+
+        if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
+            holder.btnUploadProduct.setVisibility(View.VISIBLE);
+            holder.mEditImageIntroText.setEnabled(true);
+        }else{
+            holder.btnUploadProduct.setVisibility(View.GONE);
+            holder.mEditImageIntroText.setEnabled(false);
+        }
 
     }
 
@@ -405,6 +446,12 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
                 mItemClickAction.uploadAwardImage();
             }
         });
+
+        if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
+            holder.uploadPlanImgLayout.setEnabled(true);
+        }else{
+            holder.uploadPlanImgLayout.setEnabled(false);
+        }
     }
 
     @Override
@@ -517,10 +564,12 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         @Bind(R.id.btn_clear)
         ImageView clearView;
 
+        @Bind(R.id.upload_product_cover)
+        ImageView ivCover;
+
         private LinearLayout.LayoutParams sourceLayoutParams;
 
         private EditTextTextWatcher mEditTextTextWatcher;
-        private ItemClickAction mItemClickAction;
 
         public UploadAwardImgViewHolder(View view, EditTextTextWatcher editTextTextWatcher) {
             super(view);

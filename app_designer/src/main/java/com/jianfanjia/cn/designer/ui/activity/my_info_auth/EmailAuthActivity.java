@@ -1,6 +1,5 @@
 package com.jianfanjia.cn.designer.ui.activity.my_info_auth;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -94,8 +93,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
         if (mEmailSendAuthFragment == null) {
             mEmailSendAuthFragment = EmailSendAuthFragment.getInstance(email);
         } else {
-            mEmailSendAuthFragment = (EmailSendAuthFragment) getSupportFragmentManager().findFragmentByTag
-                    (SEND_AUTH_FRAGMENT);
+            mEmailSendAuthFragment = (EmailSendAuthFragment) getSupportFragmentManager().findFragmentByTag(SEND_AUTH_FRAGMENT);
             mEmailSendAuthFragment.setEmail(email);
         }
         fragmentTransaction.replace(R.id.container_layout, mEmailSendAuthFragment,

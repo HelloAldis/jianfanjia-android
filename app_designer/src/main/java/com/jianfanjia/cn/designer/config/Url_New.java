@@ -50,6 +50,8 @@ public class Url_New {
     //分享的APP的logo图片链接
     public String SHARE_APP_LOGO = "http://" + SEVER_IP + "/zt/mobile/logo.png";
 
+    public String AGREEMENT_LICENSE = MOBILE_SERVER_URL + "/view/user/license.html";
+
     public static String ID = "id";
 
     //屏幕宽高
@@ -60,14 +62,6 @@ public class Url_New {
     public String LOGIN_URL = HTTPROOT + "designer_login";
     // 注册
     public String REGISTER_URL = HTTPROOT + "designer_signup";
-
-    public String BIND_URL = HTTPROOT + "device/bind";
-    // 微信登录
-    public String WEIXIN_LOGIN_URL = HTTPROOT + "user_wechat_login";
-    //业主绑定手机号
-    public String BIND_PHONE = HTTPROOT + "user_bind_phone";
-    //业主绑定微信
-    public String BIND_WEIXIN = HTTPROOT + "user_bind_wechat";
     //业主刷新session
     public String REFRESH_SESSION = HTTPROOT + "designer_refresh_session";
     //检查手机号是否被占用
@@ -82,33 +76,12 @@ public class Url_New {
     public String UPDATE_VERSION_URL = HTTPROOT
             + "device/designer_android_build_version";
     // --------------------------------------------------业主-----------------------------------------------------------
-    // 业主获取需求
-    public String REQUIREMENT = HTTPROOT + "user/requirement";
-    //业主获取需求列表(Get)
-    public String REQUIREMENT_LIST = HTTPROOT + "user_my_requirement_list";
-    //业主更新装修需求(Post)
-    public String REQUIREMENT_UPDATE = HTTPROOT + "user_update_requirement";
-    //业主预约量房
-    public String USER_ORDER_DESIGNER = HTTPROOT + "user_order_designer";
-    //业主确认设计师已量房
-    public String DESIGNER_HOUSE_CHECKED = HTTPROOT + "designer_house_checked";
-    //业主评价设计师
-    public String EVALUATE_DESIGNER_BY_USER = HTTPROOT + "user_evaluate_designer";
-    //用户获取某个方案的信息
-    public String ONE_PLAN_INFO = HTTPROOT + "one_plan";
-    //用户获取合同
-    public String ONE_CONTRACT = HTTPROOT + "one_contract";
     //用户留言评论
     public String ADD_COMMENT = HTTPROOT + "add_comment";
     //用户获取留言评论并标记为已读
     public String GET_COMMENT = HTTPROOT + "topic_comments";
-    // 业主提交装修流程 业主开启工地
-    public String PROCESS = HTTPROOT + "user/process";
     //用户删除装修节点图片
     public String DELETE_PROCESS_PIC = HTTPROOT + "process/delete_image";
-
-    // 业主获取自己的个人资料和修改个人资料
-    public String GET_OWER_INFO = HTTPROOT + "user/info";
 
     // 获取工地列表
     public String GET_PROCESS_LIST = HTTPROOT
@@ -117,9 +90,6 @@ public class Url_New {
     public String UPLOAD_IMAGE = HTTPROOT + "image/upload";
     // 用户上传图片到装修流程
     public String POST_PROCESS_IMAGE = HTTPROOT + "process/image";
-    // 评价装修流程
-    public String POST_PROCESS_COMMENT = HTTPROOT
-            + "process/comment";
     // 用户提交改期
     public String POST_RESCHDULE = HTTPROOT + "process/reschedule";
     // 用户同意改期
@@ -128,15 +98,14 @@ public class Url_New {
     // 用户拒绝改期
     public String REFUSE_RESCHDULE = HTTPROOT
             + "process/reschedule/reject";
-    // 用户获取我的改期提醒
-    public String GET_RESCHDULE_ALL = HTTPROOT
-            + "process/reschedule/all";
     // 获取图片
     public String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
     //获取缩略图,通过指定宽高
     public String GET_THUMBNAIL_IMAGE2 = HTTPROOT + "thumbnail2/" + WIDTH + "/" + HEIGHT + "/";
+
+    public String DESIGNER_AGREE = HTTPROOT + "designer/agree";
 
     // 根据工地id获取某个工地
     public String GET_PROCESSINFO_BYID = HTTPROOT + "process/"

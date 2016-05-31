@@ -1,18 +1,18 @@
-package com.jianfanjia.api.request.designer;
+package com.jianfanjia.cn.designer.bean;
 
-import com.jianfanjia.api.request.BaseRequest;
+import java.io.Serializable;
 
 /**
- * Description: com.jianfanjia.api.request.designer
+ * Description: com.jianfanjia.cn.designer.bean
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
- * Date:2016-03-31 13:45
+ * Date:2016-05-31 17:06
  */
-public class ConfigContractRequest extends BaseRequest {
+public class ConfigContractInfo implements Serializable {
 
     private String requirementid;
 
-    private long start_at;
+    private long startAt;
 
     private String manager;
 
@@ -24,12 +24,12 @@ public class ConfigContractRequest extends BaseRequest {
         this.requirementid = requirementid;
     }
 
-    public long getStart_at() {
-        return start_at;
+    public long getStartAt() {
+        return startAt;
     }
 
-    public void setStart_at(long start_at) {
-        this.start_at = start_at;
+    public void setStartAt(long startAt) {
+        this.startAt = startAt;
     }
 
     public String getManager() {

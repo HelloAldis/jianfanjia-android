@@ -31,9 +31,9 @@ import com.jianfanjia.cn.designer.ui.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.DesignerInfoAuthActivity;
-import com.jianfanjia.cn.designer.ui.activity.my_info_auth.receive_business_info.DesignerReceiveInfoActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAuthActicity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.DesignerProductAuthActivity;
+import com.jianfanjia.cn.designer.ui.activity.my_info_auth.receive_business_info.DesignerReceiveInfoActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.layout.BadgeView;
@@ -108,6 +108,9 @@ public class MyNewFragment extends BaseFragment {
         commentCountView.setVisibility(View.GONE);
         noticeCountView.setVisibility(View.GONE);
 
+        setMyHeadInfo();
+        setBaseInfoLayout();
+
         //动态计算imageview的宽高
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
@@ -127,14 +130,17 @@ public class MyNewFragment extends BaseFragment {
                 dataManager.getUserName());
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
 
-        if(DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) == 0){
-            authProductText.setText(getString(R.string.going_auth));
-        }else{
-            authProductText.setText("已完成认证：" + DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) + "%");
+        if (dataManager.getDesigner() != null) {
+            if (DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) == 0) {
+                authProductText.setText(getString(R.string.going_auth));
+            } else {
+                authProductText.setText("已完成认证：" + DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner())
+                        + "%");
+            }
         }
     }
 
-    private void getDesignerInfo(){
+    private void getDesignerInfo() {
         GetDesignerInfoRequest getDesignerInfoRequest = new GetDesignerInfoRequest();
 
         Api.getDesignerInfo(getDesignerInfoRequest, new ApiCallback<ApiResponse<Designer>>() {
@@ -174,13 +180,13 @@ public class MyNewFragment extends BaseFragment {
 
     @OnClick({R.id.frag_my_info_layout, R.id.kefu_layout, R.id.setting_layout, R.id.feedback_layout, R.id
             .call_layout, R.id.comment_layout, R.id.designer_auth_center_layout, R.id.head_notification_layout, R.id
-            .product_layout, R.id.team_layout, R.id.receive_business_info_layout,R.id.invite_friends_layout})
+            .product_layout, R.id.team_layout, R.id.receive_business_info_layout, R.id.invite_friends_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.frag_my_info_layout:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Global.DESIGNER_INFO,dataManager.getDesigner());
-                startActivity(BaseInfoAuthActicity.class,bundle);
+                bundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
+                startActivity(BaseInfoAuthActicity.class, bundle);
                 break;
             case R.id.head_notification_layout:
                 startActivity(NoticeActivity.class);
@@ -211,8 +217,8 @@ public class MyNewFragment extends BaseFragment {
                 break;
             case R.id.receive_business_info_layout:
                 Bundle receiveBundle = new Bundle();
-                receiveBundle.putSerializable(Global.DESIGNER_INFO,dataManager.getDesigner());
-                startActivity(DesignerReceiveInfoActivity.class,receiveBundle);
+                receiveBundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
+                startActivity(DesignerReceiveInfoActivity.class, receiveBundle);
                 break;
             case R.id.invite_friends_layout:
                 mShareUtil.shareApp(getActivity(), new SocializeListeners.SnsPostListener() {
@@ -243,8 +249,7 @@ public class MyNewFragment extends BaseFragment {
         super.onHiddenChanged(hidden);
         LogTool.d(TAG, "isHidden =" + hidden);
         if (!hidden) {
-            getDesignerInfo();
-//            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+
         }
     }
 

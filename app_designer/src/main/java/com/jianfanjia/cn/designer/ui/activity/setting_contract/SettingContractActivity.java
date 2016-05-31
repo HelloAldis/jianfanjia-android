@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.ui.activity;
+package com.jianfanjia.cn.designer.ui.activity.setting_contract;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,23 +12,17 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.api.request.designer.ConfigContractRequest;
-import com.jianfanjia.cn.designer.ui.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.bean.ConfigContractInfo;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
-import com.jianfanjia.common.tool.StringUtils;
 import com.jianfanjia.cn.designer.view.SwipeBackLayout;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
-import de.greenrobot.event.EventBus;
+import com.jianfanjia.common.tool.StringUtils;
 
 /**
  * Description: com.jianfanjia.cn.designer.activity
@@ -151,54 +145,31 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
         titleTimeView.setText(DateFormatTool.covertLongToStringHasChinese(calendar.getTimeInMillis()));
     }
 
-    @OnClick({R.id.head_back_layout, R.id.btn_confirm})
+    @OnClick({R.id.head_back_layout, R.id.tv_next})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
-                overridePendingTransition(0,R.anim.slide_out_to_bottom);
+                overridePendingTransition(0, R.anim.slide_out_to_bottom);
                 break;
-            case R.id.btn_confirm:
-                long startTime = chooseCalendar.getTimeInMillis();
-                LogTool.d(this.getClass().getName(), DateFormatTool.longToStringHasMini(startTime));
-                configStartTime(requirementid, startTime);
+            case R.id.tv_next:
+                navegationToNext();
                 break;
         }
     }
 
-    private void configStartTime(String requirementid, long statrAt) {
-        ConfigContractRequest configContractRequest = new ConfigContractRequest();
-        configContractRequest.setRequirementid(requirementid);
-        configContractRequest.setStart_at(statrAt);
-        Api.configContract(configContractRequest, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-                showWaitDialog();
-            }
+    private void navegationToNext() {
+        long startTime = chooseCalendar.getTimeInMillis();
+        LogTool.d(this.getClass().getName(), DateFormatTool.longToStringHasMini(startTime));
+        ConfigContractInfo configContractInfo = new ConfigContractInfo();
+        configContractInfo.setRequirementid(requirementid);
+        configContractInfo.setStartAt(startTime);
 
-            @Override
-            public void onHttpDone() {
-                hideWaitDialog();
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                appManager.finishActivity(SettingContractActivity.class);
-                overridePendingTransition(0,R.anim.slide_out_to_bottom);
-                EventBus.getDefault().post(new UpdateEvent(null));
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-            }
-        });
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ChooseTeamActivity.CONFIG_CONTRACT_INFO, configContractInfo);
+        startActivity(ChooseTeamActivity.class, bundle);
     }
+
 
     @Override
     public int getLayoutId() {

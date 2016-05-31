@@ -3,7 +3,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:focusable="false">
 
     <View
         style="@style/divier_line"
@@ -85,7 +86,7 @@
 
         <TextView
             android:id="@+id/sex_content"
-            style="@style/listview_item_text_style_small"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_8"
             android:layout_toLeftOf="@+id/sex_goto"
@@ -115,7 +116,7 @@
 
         <TextView
             android:id="@+id/address_content"
-            style="@style/listview_item_text_style_small"
+            style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/space_8"
             android:layout_toLeftOf="@+id/address_goto"
@@ -234,18 +235,17 @@
         style="@style/my_list_item_layout_style"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="6dp"
-        android:paddingRight="12dp"
-        >
+        android:paddingRight="0dp"
+        android:paddingLeft="0dp">
 
         <TextView
             android:id="@+id/upload_diploma_img_title"
             style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_12"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_12"
             android:text="@string/upload_diploma_img"
             android:textColor="@color/light_black_color"/>
 
@@ -255,9 +255,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_4"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_4"
             android:orientation="vertical">
 
             <FrameLayout
@@ -407,8 +407,8 @@
         style="@style/my_list_item_layout_style"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="6dp"
-        android:paddingRight="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         >
 
         <TextView
@@ -416,8 +416,6 @@
             style="@style/listview_item_text_style_middle"
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/space_8"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_12"
             android:text="@string/upload_award_img"
             android:textColor="@color/light_black_color"/>

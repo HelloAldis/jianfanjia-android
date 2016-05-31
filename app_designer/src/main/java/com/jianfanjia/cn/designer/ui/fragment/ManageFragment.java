@@ -23,7 +23,7 @@ import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.SettingContractActivity;
+import com.jianfanjia.cn.designer.ui.activity.setting_contract.SettingContractActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;

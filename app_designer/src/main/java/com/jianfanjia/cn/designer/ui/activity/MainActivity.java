@@ -36,6 +36,9 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
+
+    public static final String TAB_POSITION = "tab_position";
+
     @Bind(R.id.badgeView)
     ImageView badgeView;
 
@@ -63,12 +66,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        this.getDataFromIntent();
         initView();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        tab = intent.getIntExtra(TAB_POSITION, Constant.OWNER);
     }
 
     public void initView() {
         badgeView.setVisibility(View.GONE);
-        switchTab(Constant.OWNER);
+        switchTab(tab);
     }
 
     @OnClick({R.id.owner_layout, R.id.site_layout, R.id.my_layout})

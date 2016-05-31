@@ -1,17 +1,17 @@
 package com.jianfanjia.cn.designer.business;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.util.Calendar;
-import java.util.List;
 
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.model.Designer;
-import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.GeTuiManager;
 import com.jianfanjia.cn.designer.tools.SharedPrefer;
 import com.jianfanjia.common.tool.LogTool;
@@ -22,10 +22,7 @@ public class DataManagerNew {
     private Context context;
     private SharedPrefer sharedPreferdata = null;
     private SharedPrefer sharedPreferuser = null;
-    private List<Process> processLists;
     private Requirement requirementInfo;// 需求信息
-    private Process currentProcessInfo;// 当前工地信息p
-    private String currentUploadImageId;// 当前上传的imageId;
     private Designer mDesigner;
 
     public static DataManagerNew getInstance() {
@@ -42,11 +39,15 @@ public class DataManagerNew {
     }
 
     public Designer getDesigner() {
+        if (mDesigner == null) {
+            return (Designer) sharedPreferuser.getValue(Global.DESIGNER_INFO);
+        }
         return mDesigner;
     }
 
     public void setDesigner(Designer designer) {
         mDesigner = designer;
+        sharedPreferuser.setValue(Global.DESIGNER_INFO, designer);
     }
 
     public String getPicPath() {
@@ -57,76 +58,12 @@ public class DataManagerNew {
         this.sharedPreferdata.setValue(Constant.TEMP_IMG, picPath);
     }
 
-    public String getCurrentUploadImageId() {
-        return currentUploadImageId;
-    }
-
-    public void setCurrentUploadImageId(String currentUploadImageId) {
-        this.currentUploadImageId = currentUploadImageId;
-    }
-
     public Requirement getRequirementInfo() {
         return requirementInfo;
     }
 
     public void setRequirementInfo(Requirement requirementInfo) {
         this.requirementInfo = requirementInfo;
-    }
-
-    public Designer getOwnerInfoById(String ownerId) {
-        return (Designer) sharedPreferdata.getValue(ownerId);
-    }
-
-    public void setOwnerInfo(Designer ownerInfo) {
-        sharedPreferdata.setValue(ownerInfo.get_id(), ownerInfo);
-    }
-
-    public void setCurrentProcessInfo(Process currentProcessInfo) {
-        this.currentProcessInfo = currentProcessInfo;
-    }
-
-    public Process getDefaultProcessInfo() {
-        return currentProcessInfo;
-    }
-
-    public List<Process> getProcessLists() {
-        return processLists;
-    }
-
-    public void setProcessLists(List<Process> processLists) {
-        this.processLists = processLists;
-    }
-
-    public void saveProcessLists(String jsonProcessLists) {
-        sharedPreferdata.setValue(Constant.DESIGNER_PROCESS_LIST,
-                jsonProcessLists);
-    }
-
-    public int getDefaultPro() {
-        if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-            return sharedPreferuser.getValue(Constant.DEFAULT_PROCESS, 0);// 默认的工地为0
-        } else if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-            return 0;
-        }
-        return 0;
-    }
-
-    public void setDefaultPro(int defaultPro) {
-        sharedPreferuser.setValue(Constant.DEFAULT_PROCESS, defaultPro);
-    }
-
-    /**
-     * 拿工地信息
-     *
-     * @param processId
-     * @return
-     */
-    public Process getProcessInfoById(String processId) {
-        return (Process) sharedPreferdata.getValue(processId);
-    }
-
-    public void saveProcessInfo(Process processInfo) {
-        sharedPreferdata.setValue(processInfo.get_id(), processInfo);
     }
 
     public boolean isLogin() {
@@ -156,12 +93,31 @@ public class DataManagerNew {
         return isExipre;
     }
 
-    public int getCurrentList() {
-        return sharedPreferuser.getValue(Constant.CURRENT_LIST, 0);
+    public String getOldAccount() {
+        return sharedPreferuser.getValue(Constant.ACCOUNT, null);
     }
 
-    public void setCurrentList(int currentList) {
-        sharedPreferuser.setValue(Constant.CURRENT_LIST, currentList);
+    public String getOldUserId() {
+        return sharedPreferuser.getValue(Constant.USER_ID, null);
+    }
+
+    public String getOldUserName() {
+        String userName = sharedPreferuser.getValue(Constant.USERNAME, null);
+        if (TextUtils.isEmpty(userName)) {
+            return context.getString(R.string.ower);
+        }
+        return userName;
+    }
+
+    public String getOldUserImagePath() {
+        String userImagePath;
+        String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
+        if (imageId == null) {
+            userImagePath = Constant.DEFALUT_OWNER_PIC;
+        } else {
+            userImagePath = imageId;
+        }
+        return userImagePath;
     }
 
     public boolean isFirst() {
@@ -172,89 +128,44 @@ public class DataManagerNew {
         sharedPreferdata.setValue(Constant.ISFIRST, isFirst);
     }
 
-    public void setUserImagePath(String imgId) {
-        sharedPreferuser.setValue(Constant.USERIMAGE_ID, imgId);
-    }
-
-    public void saveLoginUserBean(Designer userBean) {
-        sharedPreferuser.setValue(Constant.ACCOUNT, userBean.getPhone());
-        sharedPreferuser.setValue(Constant.USERTYPE, userBean.getUsertype());
-        sharedPreferuser.setValue(Constant.USERNAME, userBean.getUsername());
-        sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
-        sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
-        sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
-
-    }
-
-    public String getWechat_unionid() {
-        return sharedPreferuser.getValue(Constant.UNION_ID, null);
-    }
-
-    public void setWechat_unionid(String wechat_unionid) {
-        sharedPreferuser.setValue(Constant.UNION_ID, wechat_unionid);
-    }
-
-    public void setWeixinFisrtLogin(boolean flag) {
-        sharedPreferdata.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, flag);
-    }
-
-    public boolean getWeixinFisrtLogin() {
-        return sharedPreferdata.getValue(Constant.IS_WEIXIN_FIRST_LOGIN, false);
-    }
-
-    public void setUserName(String userName) {
-        sharedPreferuser.setValue(Constant.USERNAME, userName);
-    }
-
-    public String getPassword() {
-        return sharedPreferuser.getValue(Constant.PASSWORD, null);
-    }
-
-    public void setAccount(String phone) {
-        sharedPreferuser.setValue(Constant.ACCOUNT, phone);
-    }
-
     public String getAccount() {
-        return sharedPreferuser.getValue(Constant.ACCOUNT, null);
-    }
-
-    public String getUserType() {
-        String userType = sharedPreferuser.getValue(Constant.USERTYPE, "1");
-        return userType;
+        if(getDesigner() != null){
+            return getDesigner().getPhone();
+        }
+        return getOldAccount();
     }
 
     public String getUserId() {
-        return sharedPreferuser.getValue(Constant.USER_ID, null);
+        if(getDesigner() != null){
+            return getDesigner().get_id();
+        }
+        return getOldUserId();
     }
 
     public String getUserName() {
-        String userName = sharedPreferuser.getValue(Constant.USERNAME, null);
-        if (userName == null) {
-            if (getUserType().equals(Constant.IDENTITY_OWNER)) {
-                return context.getString(R.string.ower);
-            } else if (getUserType().equals(Constant.IDENTITY_DESIGNER)) {
-                return context.getString(R.string.designer);
-            }
+        if(getDesigner() != null){
+            return getDesigner().getUsername();
         }
-        return userName;
+        return getOldUserName();
     }
 
     public String getUserImagePath() {
-        String userImagePath = null;
-        String imageId = sharedPreferuser.getValue(Constant.USERIMAGE_ID, null);
-        if (imageId == null) {
-            userImagePath = Constant.DEFALUT_OWNER_PIC;
-        } else {
-            userImagePath = imageId;
+        if(getDesigner() != null){
+            String userImagePath;
+            String imageId = getDesigner().getImageid();
+            if (imageId == null) {
+                userImagePath = Constant.DEFALUT_OWNER_PIC;
+            } else {
+                userImagePath = imageId;
+            }
+            return userImagePath;
         }
-        return userImagePath;
+        return getOldUserImagePath();
     }
 
     public void cleanData() {
         sharedPreferuser.clear();
-        processLists = null;
         requirementInfo = null;
-        currentProcessInfo = null;
     }
 
     /**
@@ -263,10 +174,9 @@ public class DataManagerNew {
      * @param designer
      */
     public static void loginSuccess(Designer designer) {
-        getInstance().setLogin(true);
         getInstance().savaLastLoginTime(Calendar.getInstance()
                 .getTimeInMillis());
-        getInstance().saveLoginUserBean(designer);
+        getInstance().setDesigner(designer);
         GeTuiManager.bindGeTui(MyApplication.getInstance(), getInstance().getUserId());
     }
 

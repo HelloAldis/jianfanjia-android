@@ -62,7 +62,7 @@ public class EmailAuthFinishedFragment extends BaseFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        emailFinishedCallback.updateEmail();
+        emailFinishedCallback = (EmailFinishedCallback)activity;
     }
 
     private void initView() {

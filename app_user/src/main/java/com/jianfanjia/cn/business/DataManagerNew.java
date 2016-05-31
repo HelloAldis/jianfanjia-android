@@ -77,8 +77,6 @@ public class DataManagerNew {
         return isExipre;
     }
 
-
-
     public boolean isFirst() {
         return sharedPreferApp.getValue(Constant.ISFIRST, true);
     }
