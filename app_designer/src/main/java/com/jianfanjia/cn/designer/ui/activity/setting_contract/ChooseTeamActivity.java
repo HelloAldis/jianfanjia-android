@@ -146,7 +146,7 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
     private void intentToTeamDetail(Team team) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Global.TEAM_INFO, team);
-        bundle.putInt(DesignerEditTeamActivity.INTENT_FROM_FLAG, DesignerEditTeamActivity.FROM_ADD_INTENT);
+        bundle.putInt(DesignerEditTeamActivity.INTENT_FROM_FLAG, DesignerEditTeamActivity.FROM_UPDATE_INTENT);
         IntentUtil.startActivity(this, DesignerEditTeamActivity.class, bundle);
     }
 
