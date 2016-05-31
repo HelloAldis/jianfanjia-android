@@ -62,6 +62,9 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
     @Bind(R.id.head_center_title)
     protected TextView titleHeadView;
 
+    @Bind(R.id.tv_next)
+    protected TextView nextView;
+
     private Requirement requirementInfo;
     private Plan plan;
     private String requirementid;
@@ -123,7 +126,11 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
                         }
                     });
             updateTitle(startCalendar);
+
+            nextView.setVisibility(View.VISIBLE);
         } else {
+            nextView.setVisibility(View.GONE);
+
             titleHeadView.setText(getString(R.string.contract_profile));
 
             //已经设置了开工时间，就只展示合同

@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -56,8 +57,12 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
     private List<String> imgs = new ArrayList<>();
 
+    private List<ProductImageInfo> productImageInfoList;
+
     private String productid = null;
     private Product mProduct;
+
+    private DesignerCaseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,19 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
         designer_case_listview.setHasFixedSize(true);
         designer_case_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+
+        adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, productImageInfoList, new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                LogTool.d(TAG, "position:" + position);
+                Bundle showPicBundle = new Bundle();
+                showPicBundle.putInt(Constant.CURRENT_POSITION, position);
+                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) imgs);
+                startActivity(ShowPicActivity.class, showPicBundle);
+            }
+        });
+        designer_case_listview.setAdapter(adapter);
         setListener();
     }
 
@@ -94,7 +112,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     }
 
     private void setListener() {
-        mScrollY = -TDevice.dip2px(this,45);
+        mScrollY = -TDevice.dip2px(this, 45);
         tv_title.setTranslationY(mScrollY);
         LogTool.d(this.getClass().getName(), "mScrollY =" + mScrollY);
         designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -109,7 +127,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         });
     }
 
-    @OnClick({R.id.head_back_layout,R.id.head_right_title})
+    @OnClick({R.id.head_back_layout, R.id.head_right_title})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -117,7 +135,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                 break;
             case R.id.head_right_title:
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Global.PRODUCT_INFO,mProduct);
+                bundle.putSerializable(Global.PRODUCT_INFO, mProduct);
                 startActivity(UploadProductActivity.class, bundle);
                 break;
             default:
@@ -149,23 +167,20 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             if (null != mProduct) {
                 tv_title.setText(mProduct.getCell());
                 List<ProductImageInfo> imgList = mProduct.getImages();
+                List<ProductImageInfo> planimgList = mProduct.getPlan_images();
+                productImageInfoList = new ArrayList<>();
                 imgs.clear();
+                for (ProductImageInfo info : planimgList) {
+                    imgs.add(info.getImageid());
+                    info.setSection("平面设计图");
+                    productImageInfoList.add(info);
+                }
                 for (ProductImageInfo info : imgList) {
                     imgs.add(info.getImageid());
+                    productImageInfoList.add(info);
                 }
-                DesignerCaseAdapter adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, imgList,
-                        mProduct, new BaseRecyclerViewAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        LogTool.d(TAG, "position:" + position);
-                        Bundle showPicBundle = new Bundle();
-                        showPicBundle.putInt(Constant.CURRENT_POSITION, position);
-                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                                (ArrayList<String>) imgs);
-                        startActivity(ShowPicActivity.class, showPicBundle);
-                    }
-                });
-                designer_case_listview.setAdapter(adapter);
+                adapter.setDesignerCaseInfo(mProduct);
+                adapter.setList(productImageInfoList);
             }
         }
 

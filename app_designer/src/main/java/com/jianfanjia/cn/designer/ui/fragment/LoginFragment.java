@@ -182,6 +182,7 @@ public class LoginFragment extends BaseFragment {
                 if (!DesignerBusiness.AGREE_LICENSE.equals(designer.getAgreee_license())) {
                     startActivity(DesignerAgreementActivity.class);
                 } else {
+                    dataManager.setLogin(true);
                     startActivity(MainActivity.class);
                 }
                 AppManager.getAppManager().finishActivity(getActivity());

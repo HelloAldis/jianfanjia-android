@@ -30,11 +30,18 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ProductImageInf
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_ITEM = 1;
 
-    public DesignerCaseAdapter(Context context, List<ProductImageInfo> list, Product designerCaseInfo,
+    public DesignerCaseAdapter(Context context, List<ProductImageInfo> list,
                                OnItemClickListener listener) {
         super(context, list);
-        this.designerCaseInfo = designerCaseInfo;
         this.listener = listener;
+    }
+
+    public Product getDesignerCaseInfo() {
+        return designerCaseInfo;
+    }
+
+    public void setDesignerCaseInfo(Product designerCaseInfo) {
+        this.designerCaseInfo = designerCaseInfo;
     }
 
     @Override
@@ -48,7 +55,7 @@ public class DesignerCaseAdapter extends BaseRecyclerViewAdapter<ProductImageInf
 
     @Override
     public int getItemCount() {
-        return list.size() + 1;
+        return list == null ? 0 : list.size() + 1;
     }
 
     @Override

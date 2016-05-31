@@ -203,6 +203,6 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
 
     @Override
     public void updateEmail() {
-
+        updateEmil();
     }
 }

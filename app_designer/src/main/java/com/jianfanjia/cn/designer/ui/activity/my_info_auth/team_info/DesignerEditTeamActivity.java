@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Team;
@@ -42,6 +43,7 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -284,7 +286,9 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         if (!TextUtils.isEmpty(mTeam.getUid_image1())) {
             ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this, mTeam.getUid_image1(),
                     identityFrontImageView);
-            identityFrontDeleteImageView.setVisibility(View.VISIBLE);
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                identityFrontDeleteImageView.setVisibility(View.VISIBLE);
+            }
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -306,7 +310,9 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         if (!TextUtils.isEmpty(mTeam.getUid_image2())) {
             ImageShow.getImageShow().displayHalfScreenWidthThumnailImage(this, mTeam.getUid_image2(),
                     identityBackgroundImageView);
-            identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
+            }
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

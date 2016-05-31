@@ -115,7 +115,7 @@ public class UploadProduct2Fragment extends BaseFragment {
     };
 
     private void setMianHeadRightTitleEnable() {
-        if (!TextUtils.isEmpty(mProduct.getDescription()) && mProduct.getPlan_images().size() > 0 && mProduct
+        if (!TextUtils.isEmpty(mProduct.getDescription()) && mProduct
                 .getImages().size() > 0){
             mMainHeadView.setRigthTitleEnable(true);
         }else {

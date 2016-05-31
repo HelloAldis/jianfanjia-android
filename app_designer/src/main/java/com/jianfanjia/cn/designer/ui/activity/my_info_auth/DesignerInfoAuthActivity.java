@@ -172,6 +172,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
             public void onSuccess(ApiResponse<Designer> apiResponse) {
                 Designer designer = apiResponse.getData();
                 dataManager.setDesigner(designer);
+                initGridView();
             }
 
             @Override

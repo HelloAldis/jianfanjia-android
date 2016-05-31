@@ -190,7 +190,7 @@
 
                 <TextView
                     android:id="@+id/bank_content"
-                    style="@style/listview_item_text_style_small"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/bank_goto"
