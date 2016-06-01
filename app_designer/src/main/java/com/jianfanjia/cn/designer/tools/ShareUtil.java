@@ -45,23 +45,23 @@ public class ShareUtil {
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
         mController.getConfig().setPlatformOrder(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA);
         // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(activity, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+        UMWXHandler wxHandler = new UMWXHandler(activity, "wxd4c207f7678adb78", "a4a56f5a97ec8260547f34e00662f8aa");
         wxHandler.showCompressToast(false);
         wxHandler.addToSocialSDK();
         // 支持微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(activity, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
+        UMWXHandler wxCircleHandler = new UMWXHandler(activity, "wxd4c207f7678adb78", "a4a56f5a97ec8260547f34e00662f8aa");
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.showCompressToast(false);
         wxCircleHandler.addToSocialSDK();
 
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(activity, "1104973048", "FuDs7s4vJGAEzCrz");
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(activity, "1104958443", "AIz23Ku4k5IswYeF");
         qqSsoHandler.addToSocialSDK();
         if (!AuthUtil.isQQAvilible(context)) {
             mController.getConfig().removePlatform(SHARE_MEDIA.QQ);
         }
 
         //参数1为当前Activity， 参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(activity, "1104973048", "FuDs7s4vJGAEzCrz");
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(activity, "1104958443", "AIz23Ku4k5IswYeF");
         qZoneSsoHandler.addToSocialSDK();
 
         mController.getConfig().setSsoHandler(new SinaSsoHandler());

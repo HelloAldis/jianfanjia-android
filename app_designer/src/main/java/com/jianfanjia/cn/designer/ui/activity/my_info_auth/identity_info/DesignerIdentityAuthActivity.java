@@ -17,7 +17,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Designer;
@@ -26,6 +25,7 @@ import com.jianfanjia.api.request.designer.UpdateDesignerIdentityInfoRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
@@ -36,7 +36,6 @@ import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -137,6 +136,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         } else {
             mMainHeadView.setRightTitle(getString(R.string.edit));
             mMainHeadView.setRigthTitleEnable(true);
+            mMainHeadView.setRightTitleColor(R.color.grey_color);
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -146,6 +146,12 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             });
         }
         changeViewShowEditOrPreview();
+        if (!TextUtils.isEmpty(mDesigner.getUid_auth_type()) && mDesigner.getUid_auth_type().equals(DesignerBusiness
+                .DESIGNER_NOT_AUTH)) {
+            mMainHeadView.setRightTitleVisable(View.GONE);
+        } else {
+            mMainHeadView.setRightTitleVisable(View.VISIBLE);
+        }
     }
 
     private void changeViewShowEditOrPreview() {

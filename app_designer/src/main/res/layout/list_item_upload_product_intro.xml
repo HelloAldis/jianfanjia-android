@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12"
                 app:show_inputlength_limit="true"
-                app:inputlength_limit_size="240"/>
+                app:inputlength_limit_size="140"/>
         </LinearLayout>
 
 

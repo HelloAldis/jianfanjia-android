@@ -213,7 +213,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         if (myFragment != null) {
                             if (countList.get(0) > 0) {
                                 myFragment.noticeCountView.setVisibility(View.VISIBLE);
-                                myFragment.noticeCountView.setText(countList.get(0) + "");
+//                                myFragment.noticeCountView.setText(countList.get(0) + "");
                             } else {
                                 myFragment.noticeCountView.setVisibility(View.GONE);
                             }

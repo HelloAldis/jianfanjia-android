@@ -390,4 +390,7 @@
     <string name="login_fail">登录失败！</string>
     <string name="register_fail">注册失败</string>
     <string name="config_contract">配置合同</string>
+    <string name="tip_goto_baseinfo_auth">请前往认证中心完成基本资料认证</string>
+    <string name="tip_email_finish">邮件已发送成功</string>
+    <string name="product_detail">作品详情</string>
 </resources>

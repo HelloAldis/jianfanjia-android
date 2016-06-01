@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_72"
-        android:src="@mipmap/icon_default_head"/>
+        android:src="@mipmap/icon_email_finish"/>
 
     <TextView
         style="@style/listview_item_text_style_big"
@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:padding="@dimen/space_16"
-            android:src="@mipmap/icon_input_psw"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_email_example"/>
 
     </FrameLayout>
 

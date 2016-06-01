@@ -29,6 +29,7 @@ import com.jianfanjia.api.request.designer.UpdateDesignerInfoRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
@@ -120,6 +121,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         } else {
             mMainHeadView.setRightTitle(getString(R.string.edit));
             mMainHeadView.setRigthTitleEnable(true);
+            mMainHeadView.setRightTitleColor(R.color.grey_color);
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -129,6 +131,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             });
         }
         mDesignerBaseInfoAdapter.changeShowStatus(currentStatus);
+        if (!TextUtils.isEmpty(mDesigner.getAuth_type()) && mDesigner.getAuth_type().equals(DesignerBusiness
+                .DESIGNER_NOT_AUTH)) {
+            mMainHeadView.setRightTitleVisable(View.GONE);
+        } else {
+            mMainHeadView.setRightTitleVisable(View.VISIBLE);
+        }
     }
 
     public void setMianHeadRightTitleEnable() {
@@ -353,7 +361,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     }
 
     private void navagateNext() {
-       appManager.finishActivity(this);
+        appManager.finishActivity(this);
     }
 
     private void pickPicResult(Intent data, ApiCallback<ApiResponse<String>> apiCallback) {

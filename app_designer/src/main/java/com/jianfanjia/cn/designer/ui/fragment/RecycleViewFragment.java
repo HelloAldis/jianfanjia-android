@@ -212,6 +212,9 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     public void disposeData(RequirementList requirementList) {
+        if(getView() == null){
+            return;
+        }
         errorLayout.setVisibility(View.GONE);
         switch (mNum) {
             case FIRST_FRAGMENT:

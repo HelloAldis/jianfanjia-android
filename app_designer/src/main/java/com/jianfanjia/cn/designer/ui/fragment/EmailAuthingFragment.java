@@ -88,7 +88,6 @@ public class EmailAuthingFragment extends BaseFragment {
         LogTool.d(this.getClass().getName(),"initview email =" + mEmail);
         if(!TextUtils.isEmpty(mEmail)){
             mEtLoginUserName.setText(mEmail);
-            mEtLoginUserName.invalidate();
         }
     }
 

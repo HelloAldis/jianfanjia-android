@@ -12,12 +12,7 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.request.designer.SendVerifyEmailRequest;
-import com.jianfanjia.api.request.designer.UpdateDesignerEmailInfoRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.EmailAuthActivity;
@@ -63,6 +58,7 @@ public class EmailSendAuthFragment extends BaseFragment {
 
     public void setEmail(String email) {
         mEmail = email;
+        initView();
     }
 
     @Override
@@ -91,7 +87,7 @@ public class EmailSendAuthFragment extends BaseFragment {
             case R.id.btn_send:
                 mEmail = mEtLoginUserName.getText().toString().trim();
                 if (checkLoginInput(mEmail)) {
-                    saveEamil(mEmail);
+                    mSendAuthCallback.sendEmailAuth(mEmail);
                 }
                 break;
             default:
@@ -108,70 +104,6 @@ public class EmailSendAuthFragment extends BaseFragment {
         return true;
     }
 
-    private void saveEamil(String email) {
-        UpdateDesignerEmailInfoRequest updateDesignerEmailInfoRequest = new UpdateDesignerEmailInfoRequest();
-        updateDesignerEmailInfoRequest.setEmail(email);
-
-        Api.updateDesignerEmailInfo(updateDesignerEmailInfoRequest, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-                showWaitDialog();
-            }
-
-            @Override
-            public void onHttpDone() {
-                hideWaitDialog();
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-//                dataManager.setDesigner(mDesigner);
-                sendEmailVerify();
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
-    private void sendEmailVerify(){
-        SendVerifyEmailRequest sendVerifyEmailRequest = new SendVerifyEmailRequest();
-
-        Api.sendVerifyEmial(sendVerifyEmailRequest, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                mSendAuthCallback.sendEmailAuthFinish(mEmail);
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -185,7 +117,7 @@ public class EmailSendAuthFragment extends BaseFragment {
     }
 
     public interface SendAuthCallback{
-        void sendEmailAuthFinish(String email);
+        void sendEmailAuth(String email);
     }
 
     @Override

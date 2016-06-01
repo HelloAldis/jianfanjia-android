@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/space_72"
-        android:src="@mipmap/icon_default_head"/>
+        android:background="@mipmap/icon_email_send"/>
 
     <TextView
         style="@style/listview_item_text_style_big"
@@ -54,11 +54,11 @@
 
         <TextView
             android:id="@+id/tv_send_again"
-            style="@style/listview_item_text_style_middle"
+            style="@style/listview_item_text_style_big"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:paddingLeft="@dimen/space_4"
-            android:paddingRight="@dimen/space_4"
+            android:paddingLeft="@dimen/space_8"
+            android:paddingRight="@dimen/space_8"
             android:text="@string/send_again"
             android:textColor="@color/orange_color"
             />
@@ -69,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:padding="@dimen/space_16"
-            android:src="@mipmap/icon_input_psw"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_email_example"/>
 
     </RelativeLayout>
 

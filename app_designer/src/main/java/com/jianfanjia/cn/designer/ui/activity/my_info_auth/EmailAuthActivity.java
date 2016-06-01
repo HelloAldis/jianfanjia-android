@@ -10,7 +10,9 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.request.designer.SendVerifyEmailRequest;
 import com.jianfanjia.api.request.designer.UpdateDesignerEmailInfoRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
@@ -30,7 +32,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Date:2016-05-18 14:03
  */
 public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAuthingFragment.EmailAuthingCallback,
-        EmailSendAuthFragment.SendAuthCallback,EmailAuthFinishedFragment.EmailFinishedCallback {
+        EmailSendAuthFragment.SendAuthCallback, EmailAuthFinishedFragment.EmailFinishedCallback {
 
     public static final String EMAIL = "email";
     private static final String AUTH_FINISHED_FRAGMENT = "auth_finish_fragment";
@@ -66,40 +68,141 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
             getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, mEmailAuthingFragment,
                     AUTHING_FRAGMENT).addToBackStack(null).commit();
             getSupportFragmentManager().executePendingTransactions();
+            mMainHeadView.setRightTitleVisable(View.VISIBLE);
         } else if (!TextUtils.isEmpty(initAuthStatus) && initAuthStatus.equals
                 (DesignerBusiness.DESIGNER_AUTH_SUCCESS)) {
             mEmailAuthFinishedFragment = EmailAuthFinishedFragment.getInstance(email);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, mEmailAuthFinishedFragment,
                     AUTH_FINISHED_FRAGMENT).addToBackStack(null).commit();
             getSupportFragmentManager().executePendingTransactions();
+            mMainHeadView.setRightTitleVisable(View.GONE);
         } else {
             mEmailSendAuthFragment = EmailSendAuthFragment.getInstance(email);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_layout, mEmailSendAuthFragment,
                     SEND_AUTH_FRAGMENT).addToBackStack(null).commit();
             getSupportFragmentManager().executePendingTransactions();
+            mMainHeadView.setRightTitleVisable(View.GONE);
         }
     }
 
+    private void saveEamil(final String email) {
+        this.email = email;
+        UpdateDesignerEmailInfoRequest updateDesignerEmailInfoRequest = new UpdateDesignerEmailInfoRequest();
+        updateDesignerEmailInfoRequest.setEmail(email);
+
+        Api.updateDesignerEmailInfo(updateDesignerEmailInfoRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                dataManager.getDesigner().setEmail(email);
+                dataManager.setDesigner(dataManager.getDesigner());
+                sendEmailVerify(true);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    private void sendEmailVerify(final boolean isShowAuting) {
+        SendVerifyEmailRequest sendVerifyEmailRequest = new SendVerifyEmailRequest();
+
+        Api.sendVerifyEmial(sendVerifyEmailRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                if (isShowAuting) {
+                    showAuthingFragment();
+                } else {
+                    makeTextShort(getString(R.string.tip_email_finish));
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    private void showAuthingFragment() {
+        LogTool.d(this.getClass().getName(), "updateEmail = " + email + " mEmailAuthingFragment =" +
+                mEmailAuthingFragment);
+        if (mEmailAuthingFragment == null  || mEmailAuthingFragment.getView() == null) {
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
+            mEmailAuthingFragment = EmailAuthingFragment.getInstance(email);
+            fragmentTransaction.replace(R.id.container_layout, mEmailAuthingFragment,
+                    AUTHING_FRAGMENT).addToBackStack(null).commit();
+            getSupportFragmentManager().executePendingTransactions();
+        } else {
+            getSupportFragmentManager().popBackStackImmediate();
+            mEmailAuthingFragment.setEmail(email);
+        }
+        mMainHeadView.setRightTitleVisable(View.VISIBLE);
+    }
 
     @Override
     public void sendAgain() {
-
+        sendEmailVerify(false);
     }
 
     @Override
     public void updateEmil() {
         LogTool.d(this.getClass().getName(), "updateEmail");
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (mEmailSendAuthFragment == null) {
+        showSendEmailAuth();
+    }
+
+    private void showSendEmailAuth() {
+        if (mEmailSendAuthFragment == null || mEmailSendAuthFragment.getView() == null) {
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                    .beginTransaction();
             mEmailSendAuthFragment = EmailSendAuthFragment.getInstance(email);
+            fragmentTransaction.replace(R.id.container_layout, mEmailSendAuthFragment,
+                    SEND_AUTH_FRAGMENT).addToBackStack(null).commit();
+            getSupportFragmentManager().executePendingTransactions();
         } else {
-            mEmailSendAuthFragment = (EmailSendAuthFragment) getSupportFragmentManager().findFragmentByTag(SEND_AUTH_FRAGMENT);
+            getSupportFragmentManager().popBackStackImmediate();
             mEmailSendAuthFragment.setEmail(email);
         }
-        fragmentTransaction.replace(R.id.container_layout, mEmailSendAuthFragment,
-                SEND_AUTH_FRAGMENT).addToBackStack(null).commit();
-        getSupportFragmentManager().executePendingTransactions();
+        mMainHeadView.setRightTitleVisable(View.GONE);
     }
+
+    @Override
+    public void updateEmail() {
+        showSendEmailAuth();
+    }
+
 
     private void getDataFromIntent() {
         Intent intent = this.getIntent();
@@ -117,13 +220,21 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
 
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.email_auth));
+        mMainHeadView.setRightTitle(getString(R.string.finish));
+        mMainHeadView.setRightTitleColor(R.color.grey_color);
+        mMainHeadView.setRightTextListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appManager.finishActivity(EmailAuthActivity.this);
+            }
+        });
     }
 
     @OnClick({R.id.head_back_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
-                appManager.finishActivity(this);
+                backToLast();
                 break;
             default:
                 break;
@@ -134,48 +245,18 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             // 返回上一个fragment
-            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-
-            } else {
-                appManager.finishActivity(this);
-            }
+            backToLast();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    private void sendEmailAuth(String email) {
-        UpdateDesignerEmailInfoRequest updateDesignerEmailInfoRequest = new UpdateDesignerEmailInfoRequest();
-        updateDesignerEmailInfoRequest.setEmail(email);
-
-        Api.updateDesignerEmailInfo(updateDesignerEmailInfoRequest, new ApiCallback<ApiResponse<String>>() {
-            @Override
-            public void onPreLoad() {
-                showWaitDialog();
-            }
-
-            @Override
-            public void onHttpDone() {
-                hideWaitDialog();
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<String> apiResponse) {
-                dataManager.setDesigner(mDesigner);
-                appManager.finishActivity(EmailAuthActivity.this);
-            }
-
-            @Override
-            public void onFailed(ApiResponse<String> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-
-            }
-        });
-
+    private void backToLast() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            appManager.finishActivity(this);
+        }
     }
 
     @Override
@@ -183,26 +264,10 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
         return R.layout.activity_email_auth;
     }
 
-
     @Override
-    public void sendEmailAuthFinish(String email) {
-        LogTool.d(this.getClass().getName(), "updateEmail = " + email + " mEmailAuthingFragment =" + mEmailAuthingFragment);
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        this.email = email;
-        if (mEmailAuthingFragment == null) {
-            mEmailAuthingFragment = EmailAuthingFragment.getInstance(email);
-        } else {
-            mEmailAuthingFragment = (EmailAuthingFragment) getSupportFragmentManager().findFragmentByTag
-                    (AUTHING_FRAGMENT);
-        }
-        fragmentTransaction.replace(R.id.container_layout, mEmailAuthingFragment,
-                AUTHING_FRAGMENT).addToBackStack(null).commit();
-        getSupportFragmentManager().executePendingTransactions();
-        mEmailAuthingFragment.setEmail(email);
+    public void sendEmailAuth(String email) {
+        saveEamil(email);
     }
 
-    @Override
-    public void updateEmail() {
-        updateEmil();
-    }
+
 }

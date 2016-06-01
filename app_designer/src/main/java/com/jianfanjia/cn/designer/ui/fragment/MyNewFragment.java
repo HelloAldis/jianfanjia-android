@@ -66,11 +66,11 @@ public class MyNewFragment extends BaseFragment {
     @Bind(R.id.frag_my_account)
     TextView my_account;
 
-    @Bind(R.id.product_badgeview)
-    public BadgeView noticeCountView = null;
-
     @Bind(R.id.designer_auth_center_stage)
     TextView authProductText;
+
+    @Bind(R.id.badgeView)
+    public ImageView noticeCountView;
 
     @Bind(R.id.comment_count_text)
     public BadgeView commentCountView = null;
@@ -106,12 +106,10 @@ public class MyNewFragment extends BaseFragment {
     private void initView() {
         initMainHeadView();
         commentCountView.setVisibility(View.GONE);
-        noticeCountView.setVisibility(View.GONE);
 
         setMyHeadInfo();
         setBaseInfoLayout();
 
-        //动态计算imageview的宽高
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
     }
 
@@ -184,9 +182,14 @@ public class MyNewFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.frag_my_info_layout:
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
-                startActivity(BaseInfoAuthActicity.class, bundle);
+                if (!TextUtils.isEmpty(dataManager.getDesigner().getAuth_type()) && !dataManager.getDesigner()
+                        .getAuth_type().equals(DesignerBusiness.DESIGNER_NOT_APPLY)) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
+                    startActivity(BaseInfoAuthActicity.class, bundle);
+                } else {
+                    makeTextShort(getString(R.string.tip_goto_baseinfo_auth));
+                }
                 break;
             case R.id.head_notification_layout:
                 startActivity(NoticeActivity.class);
@@ -271,7 +274,6 @@ public class MyNewFragment extends BaseFragment {
                 if (countList != null) {
                     if (countList.get(0) > 0) {
                         noticeCountView.setVisibility(View.VISIBLE);
-                        noticeCountView.setText(countList.get(0) + "");
                     } else {
                         noticeCountView.setVisibility(View.GONE);
                     }

@@ -22,9 +22,6 @@ public abstract class BaseSwipeBackActivity extends BaseActivity implements Swip
     public void setContentView(int layoutResID) {
         super.setContentView(getContainer());
         View view = LayoutInflater.from(this).inflate(layoutResID, null);
-        if(view != null){
-            view.setBackgroundColor(getResources().getColor(R.color.main_layout_bg));
-        }
         swipeBackLayout.addView(view);
         swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.LEFT);
     }

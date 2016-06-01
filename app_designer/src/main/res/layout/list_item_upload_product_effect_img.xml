@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_16"
-                    app:inputlength_limit_size="120"
+                    app:inputlength_limit_size="140"
                     app:show_inputlength_limit="true"/>
             </LinearLayout>
         </LinearLayout>

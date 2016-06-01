@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.ui.activity.wxapi;
+package com.jianfanjia.cn.designer.wxapi;
 
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.umeng.socialize.weixin.view.WXCallbackActivity;

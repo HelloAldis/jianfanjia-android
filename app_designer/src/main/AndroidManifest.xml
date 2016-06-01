@@ -37,6 +37,7 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+
     <!-- 个推的权限设置 -->
     <uses-permission android:name="getui.permission.GetuiService.com.jianfanjia.cn.designer"/>
 
@@ -404,7 +405,7 @@
             android:theme="@style/Theme.Swipe.Back"/>
         <!-- 第三方分享以及登录 -->
         <activity
-            android:name=".ui.activity.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"

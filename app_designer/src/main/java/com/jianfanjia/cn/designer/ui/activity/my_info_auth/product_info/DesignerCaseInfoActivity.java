@@ -90,6 +90,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                 startActivity(ShowPicActivity.class, showPicBundle);
             }
         });
+        tv_title.setText(getString(R.string.product_detail));
         designer_case_listview.setAdapter(adapter);
         setListener();
     }
