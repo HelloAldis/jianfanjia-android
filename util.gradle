@@ -15,8 +15,11 @@ def String bumpVersionName(String name, String type) {
     def pointVersion = Integer.parseInt(matcherVersionNumber.group(3));
     if (type.equals('a')) {
         majorVersion = majorVersion + 1;
+        minorVersion = 0;
+        pointVersion = 0;
     } else if (type.equals('b')) {
         minorVersion = minorVersion + 1;
+        pointVersion = 0;
     } else {
         pointVersion = pointVersion + 1;
     }
