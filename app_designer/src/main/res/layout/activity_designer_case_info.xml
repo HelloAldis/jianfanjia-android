@@ -6,9 +6,10 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/ic_headerbar"
-        layout="@layout/include_designer_product_head" />
+    <com.jianfanjia.cn.designer.view.MainHeadView
+        android:id="@+id/designer_product_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:layout_width="match_parent"

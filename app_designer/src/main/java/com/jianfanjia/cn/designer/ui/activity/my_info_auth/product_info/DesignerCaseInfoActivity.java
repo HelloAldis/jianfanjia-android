@@ -8,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
@@ -30,8 +28,8 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.adapter.DesignerCaseAdapter;
+import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
-import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description:设计师作品案例详情
@@ -42,13 +40,12 @@ import com.jianfanjia.common.tool.TDevice;
 public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
 
-    private int mScrollY = 0;
 
     @Bind(R.id.head_back_layout)
     protected RelativeLayout head_back_layout = null;
 
-    @Bind(R.id.tv_title)
-    protected TextView tv_title = null;
+    @Bind(R.id.designer_product_head_layout)
+    MainHeadView mMainHeadView;
 
     @Bind(R.id.designer_case_listview)
     protected RecyclerView designer_case_listview = null;
@@ -69,10 +66,10 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         super.onCreate(savedInstanceState);
         this.initView();
         this.getDataFromIntent(this.getIntent());
-        this.setListener();
     }
 
     public void initView() {
+        initMainHead();
         mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
         designer_case_listview.setLayoutManager(mLayoutManager);
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
@@ -90,9 +87,13 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                 startActivity(ShowPicActivity.class, showPicBundle);
             }
         });
-        tv_title.setText(getString(R.string.product_detail));
         designer_case_listview.setAdapter(adapter);
-        setListener();
+    }
+
+    private void initMainHead() {
+        mMainHeadView.setMianTitle(getString(R.string.product_detail));
+        mMainHeadView.setRightTitle(getString(R.string.edit));
+        mMainHeadView.setRightTitleColor(R.color.grey_color);
     }
 
     private void getDataFromIntent(Intent intent) {
@@ -108,24 +109,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
-        mScrollY = 0;
         getDataFromIntent(intent);
-    }
-
-    private void setListener() {
-        mScrollY = -TDevice.dip2px(this, 45);
-        tv_title.setTranslationY(mScrollY);
-        LogTool.d(this.getClass().getName(), "mScrollY =" + mScrollY);
-        designer_case_listview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LogTool.d(this.getClass().getName(), "dy =" + dy);
-                mScrollY += dy;
-                if (tv_title.getTranslationY() > 0) {
-                    tv_title.setTranslationY(mScrollY);
-                }
-            }
-        });
     }
 
     @OnClick({R.id.head_back_layout, R.id.head_right_title})
@@ -166,7 +150,6 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             mProduct = apiResponse.getData();
             LogTool.d(TAG, "designerCaseInfo" + mProduct);
             if (null != mProduct) {
-                tv_title.setText(mProduct.getCell());
                 List<ProductImageInfo> imgList = mProduct.getImages();
                 List<ProductImageInfo> planimgList = mProduct.getPlan_images();
                 productImageInfoList = new ArrayList<>();
