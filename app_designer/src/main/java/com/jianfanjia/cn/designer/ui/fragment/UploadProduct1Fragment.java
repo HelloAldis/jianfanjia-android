@@ -3,6 +3,7 @@ package com.jianfanjia.cn.designer.ui.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +106,7 @@ public class UploadProduct1Fragment extends BaseFragment {
     }
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.upload_product));
+        mMainHeadView.setMianTitle(Html.fromHtml("上传作品<font color=\"#fe7003\">（1/2）</font>"));
         mMainHeadView.setRightTitle(getString(R.string.next));
         mMainHeadView.setRigthTitleEnable(false);
     }

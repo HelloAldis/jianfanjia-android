@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -239,7 +240,7 @@ public class UploadProduct2Fragment extends BaseFragment {
     }
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.upload_product));
+        mMainHeadView.setMianTitle(Html.fromHtml("上传作品<font color=\"#fe7003\">（2/2）</font>"));
         mMainHeadView.setRightTitle(getString(R.string.commit));
         setMianHeadRightTitleEnable();
     }

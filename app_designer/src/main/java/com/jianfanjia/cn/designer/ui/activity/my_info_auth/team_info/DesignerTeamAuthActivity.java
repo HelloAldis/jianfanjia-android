@@ -190,7 +190,7 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
 
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.my_product));
+        mMainHeadView.setMianTitle(getString(R.string.my_team));
         mMainHeadView.setRightTitle(getString(R.string.edit));
         mMainHeadView.setRightTitleColor(R.color.grey_color);
         mMainHeadView.setRightTextListener(new View.OnClickListener() {

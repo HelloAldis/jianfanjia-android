@@ -21,7 +21,6 @@ import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
@@ -39,7 +38,6 @@ import com.jianfanjia.common.tool.LogTool;
  */
 public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = DesignerCaseInfoActivity.class.getName();
-
 
     @Bind(R.id.head_back_layout)
     protected RelativeLayout head_back_layout = null;
@@ -76,7 +74,8 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         designer_case_listview.setHasFixedSize(true);
         designer_case_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
 
-        adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this, productImageInfoList, new BaseRecyclerViewAdapter.OnItemClickListener() {
+        adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this);
+        adapter.setOnItemClickListener(new DesignerCaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 LogTool.d(TAG, "position:" + position);
@@ -164,7 +163,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                     productImageInfoList.add(info);
                 }
                 adapter.setDesignerCaseInfo(mProduct);
-                adapter.setList(productImageInfoList);
+//                adapter.setList(productImageInfoList);
             }
         }
 

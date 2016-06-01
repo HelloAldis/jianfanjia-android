@@ -485,6 +485,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         public UploadPlanImgViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            btnUploadProduct.setIsHasSettingCover(false);
             sourceLayoutParams = (FrameLayout.LayoutParams) contentLayout.getLayoutParams();
         }
 
@@ -547,6 +548,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         public UploadEffectImgViewHolder(View view,EditTextTextWatcher editTextTextWatcher) {
             super(view);
             ButterKnife.bind(this, view);
+            btnUploadProduct.setIsHasSettingCover(true);
             mEditImageIntroText.addTextChangedListener(editTextTextWatcher);
             this.mEditTextTextWatcher = editTextTextWatcher;
             sourceLayoutParams = (LinearLayout.LayoutParams) contentLayout.getLayoutParams();
@@ -566,7 +568,6 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
             btnUploadProduct.setVisibility(View.GONE);
             moveIndicationView.setVisibility(View.GONE);
         }
-
     }
 
     public interface AddProductImageListener {

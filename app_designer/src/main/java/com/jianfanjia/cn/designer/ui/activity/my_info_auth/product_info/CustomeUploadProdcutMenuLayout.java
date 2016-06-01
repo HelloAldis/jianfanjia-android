@@ -29,6 +29,7 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
 
     private boolean isOpen = false;//是否展开
     private boolean isAni = false;//是否正在动画；
+    private boolean isHasSettingCover;
 
     private ImageView openOrCloseView;
     private ImageView clearView;
@@ -58,7 +59,6 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
 
         initRightMaigin = TDevice.dip2px(context, every_indinvation);
         initMoveDistance();
-        setOpenStatus();
         openOrCloseView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +71,11 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
                 }
             }
         });
+    }
+
+    public void setIsHasSettingCover(boolean isHasSettingCover) {
+        this.isHasSettingCover = isHasSettingCover;
+        setOpenStatus();
     }
 
     public void setOpenStatus() {
@@ -90,7 +95,6 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
         editView.setVisibility(INVISIBLE);
         isOpen = false;
         openOrCloseView.setRotation(45);
-
     }
 
     public void setCloseStatus() {
@@ -118,8 +122,9 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
         settingCoverLayoutParams.gravity = Gravity.RIGHT;
         settingCoverLayoutParams.rightMargin = settingCoverTranslitionX;
         settingCoverView.setLayoutParams(settingCoverLayoutParams);
-
-        settingCoverView.setVisibility(VISIBLE);
+        if (isHasSettingCover) {
+            settingCoverView.setVisibility(VISIBLE);
+        }
         clearView.setVisibility(VISIBLE);
         editView.setVisibility(VISIBLE);
         isOpen = true;
@@ -135,76 +140,23 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
 
     private void openMenu() {
         ViewPropertyAnimator openOrClosetranslationAni = openOrCloseView.animate().rotation(0).setDuration(100);
-        final ValueAnimator settingCovertranslationAni = ValueAnimator.ofInt(0, settingCoverTranslitionX);
-        settingCovertranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.RIGHT;
-                lp.rightMargin = initRightMaigin + x;
-                settingCoverView.setLayoutParams(lp);
-            }
-        });
-        final ValueAnimator setingCoverAlpha = ValueAnimator.ofFloat(0F, 1.0F);
-        setingCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                settingCoverView.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
-        final ValueAnimator edittranslationAni = ValueAnimator.ofInt(0, editTranslitionX);
-        edittranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup
-                                .LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.RIGHT;
-                lp.rightMargin = initRightMaigin + x;
-                editView.setLayoutParams(lp);
-            }
-        });
-        final ValueAnimator editCoverAlpha = ValueAnimator.ofFloat(0F, 1.0F);
-        editCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                editView.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
-        final ValueAnimator cleartranslationAni = ValueAnimator.ofInt(0, clearTranslitionX);
-        cleartranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup
-                                .LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.RIGHT;
-                lp.rightMargin = initRightMaigin + x;
-                clearView.setLayoutParams(lp);
-            }
-        });
-        final ValueAnimator clearCoverAlpha = ValueAnimator.ofFloat(0F, 1.0F);
-        clearCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                clearView.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
         openOrClosetranslationAni.start();
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(ANI_DURATION);
-        animatorSet.playTogether(settingCovertranslationAni, setingCoverAlpha, cleartranslationAni, clearCoverAlpha,
-                edittranslationAni, editCoverAlpha);
+        if (isHasSettingCover) {
+            animatorSet.playTogether(getOpenDeleteViewAnimatorSet(), getOpenEditViewAnimatorSet(),
+                    getOpenSettingCoverViewAnimatorSet());
+        } else {
+            animatorSet.playTogether(getOpenDeleteViewAnimatorSet(), getOpenEditViewAnimatorSet());
+        }
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
                 clearView.setVisibility(VISIBLE);
                 editView.setVisibility(VISIBLE);
-                settingCoverView.setVisibility(VISIBLE);
+                if (isHasSettingCover) {
+                    settingCoverView.setVisibility(VISIBLE);
+                }
                 isAni = true;
             }
 
@@ -229,70 +181,15 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
 
     private void closeMenu() {
         ViewPropertyAnimator openOrClosetranslationAni = openOrCloseView.animate().rotation(45).setDuration(100);
-        final ValueAnimator settingCovertranslationAni = ValueAnimator.ofInt(settingCoverTranslitionX, 0);
-        settingCovertranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup
-                                .LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.RIGHT;
-                lp.rightMargin = initRightMaigin + x;
-                settingCoverView.setLayoutParams(lp);
-            }
-        });
-        final ValueAnimator setingCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
-        setingCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                settingCoverView.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
-        final ValueAnimator edittranslationAni = ValueAnimator.ofInt(editTranslitionX, 0);
-        edittranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup
-                                .LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.RIGHT;
-                lp.rightMargin = initRightMaigin + x;
-                editView.setLayoutParams(lp);
-            }
-        });
-        final ValueAnimator editCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
-        editCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                editView.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
-        final ValueAnimator cleartranslationAni = ValueAnimator.ofInt(clearTranslitionX, 0);
-        cleartranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int x = (Integer) animation.getAnimatedValue();
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.RIGHT;
-                lp.rightMargin = initRightMaigin + x;
-                clearView.setLayoutParams(lp);
-            }
-        });
-        final ValueAnimator clearCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
-        clearCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                clearView.setAlpha((float) animation.getAnimatedValue());
-            }
-        });
         openOrClosetranslationAni.start();
         AnimatorSet animatorSet = new AnimatorSet();
+        if (isHasSettingCover) {
+            animatorSet.playTogether(getCloseDeleteViewAnimatorSet(), getCloseEditViewAnimatorSet(),
+                    getCloseSettingCoverViewAnimatorSet());
+        } else {
+            animatorSet.playTogether(getCloseDeleteViewAnimatorSet(), getCloseEditViewAnimatorSet());
+        }
         animatorSet.setDuration(ANI_DURATION);
-        animatorSet.playTogether(settingCovertranslationAni, setingCoverAlpha, cleartranslationAni, clearCoverAlpha,
-                edittranslationAni, editCoverAlpha);
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -316,6 +213,160 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
             }
         });
         animatorSet.start();
-
     }
+
+    private AnimatorSet getOpenSettingCoverViewAnimatorSet() {
+        final ValueAnimator settingCovertranslationAni = ValueAnimator.ofInt(0, settingCoverTranslitionX);
+        settingCovertranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int x = (Integer) animation.getAnimatedValue();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
+                settingCoverView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator setingCoverAlpha = ValueAnimator.ofFloat(0.0f, 1.0f);
+        setingCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                settingCoverView.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(setingCoverAlpha, settingCovertranslationAni);
+        return animatorSet;
+    }
+
+    private AnimatorSet getCloseSettingCoverViewAnimatorSet() {
+        final ValueAnimator settingCovertranslationAni = ValueAnimator.ofInt(settingCoverTranslitionX, 0);
+        settingCovertranslationAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int x = (Integer) animation.getAnimatedValue();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                                .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
+                settingCoverView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator setingCoverAlpha = ValueAnimator.ofFloat(1.0f, 0f);
+        setingCoverAlpha.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                settingCoverView.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(setingCoverAlpha, settingCovertranslationAni);
+        return animatorSet;
+    }
+
+    private AnimatorSet getOpenEditViewAnimatorSet() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        final ValueAnimator editMoveAni = ValueAnimator.ofInt(0, editTranslitionX);
+        editMoveAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int x = (Integer) animation.getAnimatedValue();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                                .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
+                editView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator editAlphaAni = ValueAnimator.ofFloat(0F, 1.0F);
+        editAlphaAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                editView.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
+        animatorSet.playTogether(editAlphaAni, editMoveAni);
+        return animatorSet;
+    }
+
+    private AnimatorSet getCloseEditViewAnimatorSet() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        final ValueAnimator editMoveAni = ValueAnimator.ofInt(editTranslitionX, 0);
+        editMoveAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int x = (Integer) animation.getAnimatedValue();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                                .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
+                editView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator editAlphaAni = ValueAnimator.ofFloat(1.0F, 0F);
+        editAlphaAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                editView.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
+        animatorSet.playTogether(editAlphaAni, editMoveAni);
+        return animatorSet;
+    }
+
+    private AnimatorSet getOpenDeleteViewAnimatorSet() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        final ValueAnimator deleteMoveAni = ValueAnimator.ofInt(0, clearTranslitionX);
+        deleteMoveAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int x = (Integer) animation.getAnimatedValue();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup
+                                .LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
+                clearView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator deleteAlphaAni = ValueAnimator.ofFloat(0F, 1.0F);
+        deleteAlphaAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                clearView.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
+        animatorSet.playTogether(deleteAlphaAni, deleteMoveAni);
+        return animatorSet;
+    }
+
+    private AnimatorSet getCloseDeleteViewAnimatorSet() {
+        AnimatorSet animatorSet = new AnimatorSet();
+        final ValueAnimator deleteMoveAni = ValueAnimator.ofInt(clearTranslitionX, 0);
+        deleteMoveAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int x = (Integer) animation.getAnimatedValue();
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.RIGHT;
+                lp.rightMargin = initRightMaigin + x;
+                clearView.setLayoutParams(lp);
+            }
+        });
+        final ValueAnimator deleteAlphaAni = ValueAnimator.ofFloat(1.0F, 0F);
+        deleteAlphaAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                clearView.setAlpha((float) animation.getAnimatedValue());
+            }
+        });
+        animatorSet.playTogether(deleteAlphaAni, deleteMoveAni);
+        return animatorSet;
+    }
+
 }

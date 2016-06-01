@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.ImageShow;
-
 import java.util.List;
+
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
 
 /**
  * Name: PreviewAdapter
@@ -20,6 +20,7 @@ import java.util.List;
  * Time: 09:16
  */
 public class PreviewAdapter extends PagerAdapter {
+
     private static final String TAG = "PreviewAdapter";
     private ViewPagerClickListener listener;
     private Context context;

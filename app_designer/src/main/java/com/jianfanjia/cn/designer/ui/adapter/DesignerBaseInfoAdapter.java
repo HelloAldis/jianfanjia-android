@@ -574,6 +574,7 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         public UploadAwardImgViewHolder(View view, EditTextTextWatcher editTextTextWatcher) {
             super(view);
             ButterKnife.bind(this, view);
+            this.btnUploadProduct.setIsHasSettingCover(false);
             this.mEditTextTextWatcher = editTextTextWatcher;
             mEditImageIntroText.addTextChangedListener(editTextTextWatcher);
             sourceLayoutParams = (LinearLayout.LayoutParams) contentLayout.getLayoutParams();

@@ -22,6 +22,7 @@ import com.jianfanjia.cn.designer.config.Constant;
  * Time: 10:51
  */
 public class ProcessRecyclerViewAdapter extends BaseRecyclerViewAdapter<ProcessSection> {
+
     private static final String TAG = ProcessRecyclerViewAdapter.class.getName();
     private OnItemClickListener listener;
 

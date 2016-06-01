@@ -326,7 +326,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     }
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.base_info_auth));
+        mMainHeadView.setMianTitle(getString(R.string.identity_auth));
     }
 
     private void setMianHeadRightTitleEnable() {

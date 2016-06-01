@@ -53,7 +53,7 @@ public class MainHeadView extends RelativeLayout {
         // TODO Auto-generated constructor stub
     }
 
-    public void setMianTitle(String message) {
+    public void setMianTitle(CharSequence message) {
         if (message == null)
             return;
         mainTitle.setText(message);
