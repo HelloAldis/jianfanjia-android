@@ -171,7 +171,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                 Bundle address = new Bundle();
                 address.putString(Constant.EDIT_PROVICE, "湖北省");
                 address.putString(Constant.EDIT_CITY, "武汉市");
-                if (TextUtils.isEmpty(mProduct.getDistrict())) {
+                if (!TextUtils.isEmpty(mProduct.getDistrict())) {
                     address.putString(Constant.EDIT_DISTRICT, mProduct.getDistrict());
                 }
                 address.putInt(EditCityActivity.PAGE, EditCityActivity.EDIT_REQUIREMENT_ADRESS);

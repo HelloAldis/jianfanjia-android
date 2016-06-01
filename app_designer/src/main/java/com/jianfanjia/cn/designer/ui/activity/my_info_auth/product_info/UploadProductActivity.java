@@ -49,15 +49,12 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
     private void getDataFromIntent() {
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            mProduct = (Product) bundle.getSerializable(Global.PRODUCT_INFO);
-            if(mProduct == null){
-                intent_type = PUBLISH;
-                mProduct = new Product();
-            }else {
-                intent_type = EDIT;
-            }
+        mProduct = (Product) intent.getSerializableExtra(Global.PRODUCT_INFO);
+        if (mProduct == null) {
+            intent_type = PUBLISH;
+            mProduct = new Product();
+        } else {
+            intent_type = EDIT;
         }
     }
 
@@ -79,15 +76,15 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
         getSupportFragmentManager().popBackStack();
     }
 
-    public void finishProduct(Product product){
-        if(intent_type == PUBLISH){
+    public void finishProduct(Product product) {
+        if (intent_type == PUBLISH) {
             uploadProduct(product);
-        }else {
+        } else {
             updateProduct(product);
         }
     }
 
-    public void updateProduct(Product product){
+    public void updateProduct(Product product) {
         UpdateOneProductRequest updateOneProductRequest = new UpdateOneProductRequest();
         updateOneProductRequest.setProduct(product);
 
@@ -118,7 +115,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
         });
     }
 
-    public void uploadProduct(Product product){
+    public void uploadProduct(Product product) {
         AddOneProductRequest addOneProductRequest = new AddOneProductRequest();
         addOneProductRequest.setProduct(product);
 

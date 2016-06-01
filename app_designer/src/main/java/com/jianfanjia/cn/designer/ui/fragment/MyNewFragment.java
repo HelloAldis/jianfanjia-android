@@ -129,11 +129,11 @@ public class MyNewFragment extends BaseFragment {
         my_account.setText(TextUtils.isEmpty(dataManager.getAccount()) ? "" : "手机号：" + dataManager.getAccount());
 
         if (dataManager.getDesigner() != null) {
-            if (DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner()) == 0) {
+            int finishAuthPercent = DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner());
+            if (finishAuthPercent == 0) {
                 authProductText.setText(getString(R.string.going_auth));
             } else {
-                authProductText.setText("已完成认证：" + DesignerBusiness.getAuthProcessPercent(dataManager.getDesigner())
-                        + "%");
+                authProductText.setText("已完成认证：" + finishAuthPercent+ "%");
             }
         }
     }
