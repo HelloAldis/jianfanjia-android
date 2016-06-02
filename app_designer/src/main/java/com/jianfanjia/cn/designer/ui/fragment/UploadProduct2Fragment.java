@@ -233,8 +233,6 @@ public class UploadProduct2Fragment extends BaseFragment {
             if (null != imageBitmap) {
                 upload_image(imageBitmap);
             }
-        } else {
-            mUploadProductAdapter.
         }
     }
 
