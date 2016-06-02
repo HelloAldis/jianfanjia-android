@@ -74,7 +74,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
     private void bindContentView(final int position, Product product, DesignerWorksViewHolder holder) {
-        imageShow.displayScreenWidthThumnailImage(context, product.getImages().get(0).getImageid(), holder
+        imageShow.displayScreenWidthThumnailImage(context, product.getCover_imageid(), holder
                 .itemwWorksView);
         holder.itemXiaoQuText.setText(product.getCell());
         String decType = product.getDec_type();

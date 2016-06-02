@@ -11,7 +11,7 @@
         android:id="@+id/ic_headerbar"
         layout="@layout/ic_headerbar" />
 
-    <com.jianfanjia.cn.view.layout.ScrollableLayout
+    <com.jianfanjia.cn.activity.view.layout.ScrollableLayout
         android:id="@+id/sl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dip">
 
-                <com.jianfanjia.cn.view.layout.CircleImageView
+                <com.jianfanjia.cn.activity.view.layout.CircleImageView
                     android:id="@+id/designerinfo_head_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -176,6 +176,6 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.jianfanjia.cn.view.layout.ScrollableLayout>
+    </com.jianfanjia.cn.activity.view.layout.ScrollableLayout>
 
 </LinearLayout>

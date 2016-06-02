@@ -4,14 +4,14 @@
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.MainHeadView
+    <com.jianfanjia.cn.activity.view.MainHeadView
         android:id="@+id/act_collect_budget_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
 
-    <com.jianfanjia.cn.view.gridview.MyGridView
+    <com.jianfanjia.cn.activity.view.gridview.MyGridView
         android:id="@+id/act_collect_gridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

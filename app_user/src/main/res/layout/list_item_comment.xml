@@ -53,7 +53,7 @@
             android:ellipsize="end"
             android:textColor="@color/light_black_color" />
 
-        <com.jianfanjia.cn.view.layout.CircleImageView
+        <com.jianfanjia.cn.activity.view.layout.CircleImageView
             android:id="@+id/list_item_comment_userhead"
             android:layout_width="60dp"
             android:layout_height="60dp"

@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.jianfanjia.cn.view.viewpager.auto_view_pager.AutoScrollViewPager
+    <com.jianfanjia.cn.activity.view.viewpager.auto_view_pager.AutoScrollViewPager
         android:id="@+id/viewPager_lib"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

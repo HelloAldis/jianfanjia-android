@@ -3,6 +3,7 @@ package com.jianfanjia.cn.designer.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.common.tool.TDevice;
 
 
 /**
@@ -114,14 +116,21 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" +
                         BusinessCovertUtil.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" +
                         BusinessCovertUtil.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" +
-                        BusinessCovertUtil
-                                .convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
+                        BusinessCovertUtil.convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(),
                         designerCaseInfoHeadHolder.designerinfo_head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                     designerCaseInfoHeadHolder.designerinfo_auth.setVisibility(View.VISIBLE);
                 } else {
                     designerCaseInfoHeadHolder.designerinfo_auth.setVisibility(View.GONE);
+                }
+                String decType = BusinessCovertUtil.convertDectypeToShow(designerCaseInfo.getDec_type());
+                if (!TextUtils.isEmpty(decType)) {
+                    designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(decType + "，" + designerCaseInfo
+                            .getTotal_price() + context.getString(R.string.unit_million));
+                } else {
+                    designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(designerCaseInfo.getTotal_price() +
+                            context.getString(R.string.unit_million));
                 }
                 designerCaseInfoHeadHolder.itemTitleText.setText("设计简介");
                 designerCaseInfoHeadHolder.itemProduceText.setText(designerCaseInfo.getDescription());
@@ -142,7 +151,8 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener != null) {
-                            mOnItemClickListener.onItemClick(lastPos);
+                            mOnItemClickListener.onItemClick(lastPos + (mPlanImgLists != null ? mPlanImgLists.size()
+                                    : 0));
                         }
                     }
                 });
@@ -177,6 +187,9 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView itemTitleText;
         @Bind(R.id.produceText)
         TextView itemProduceText;
+
+        @Bind(R.id.tv_dectype_and_totalprice)
+        TextView tvDecTypeAndTotalPrice;
 
         public DesignerCaseInfoHeadHolder(View itemView) {
             super(itemView);
@@ -214,7 +227,7 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         void onItemClick(int position);
     }
 
-    static class PlanImageAdapter extends RecyclerView.Adapter {
+    class PlanImageAdapter extends RecyclerView.Adapter {
 
         private List<ProductImageInfo> mProductImageInfos;
         private LayoutInflater mLayoutInflater;
@@ -231,16 +244,23 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = mLayoutInflater.inflate(R.layout.list_item_designer_case_plan_item, null);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+            int width = (int) TDevice.getScreenWidth() - TDevice.dip2px(context, 24);
+            view.setLayoutParams(new ViewGroup.LayoutParams(width, ViewGroup
                     .LayoutParams.WRAP_CONTENT));
             return new PlanImageItemViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             PlanImageItemViewHolder planImageItemViewHolder = (PlanImageItemViewHolder) holder;
             mImageShow.displayScreenWidthThumnailImage(mContext, mProductImageInfos.get(position).getImageid(),
                     planImageItemViewHolder.ivPlanImg);
+            planImageItemViewHolder.ivPlanImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(position);
+                }
+            });
         }
 
         @Override
