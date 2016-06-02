@@ -389,7 +389,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             }
         });
         dialog.show();
-        dialog.show();
     }
 
     // 提交改期

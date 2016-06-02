@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/main_layout_bg">
+              android:background="@color/main_layout_bg"
+              android:orientation="vertical">
 
     <com.jianfanjia.cn.designer.view.MainHeadView
         android:id="@+id/designer_auth_head_layout"
@@ -12,7 +12,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,8 +68,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|right"
                     android:hint="@string/tip_input_identity_number"
-                    android:maxLength="20"
                     android:inputType="number"
+                    android:maxLength="20"
                     android:nextFocusDown="@+id/act_edit_req_dong_content"/>
             </LinearLayout>
 
@@ -110,10 +111,10 @@
                             android:id="@+id/identity_front_delete"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:scaleType="centerInside"
-                            android:src="@mipmap/icon_upload_product_delete"
                             android:layout_gravity="bottom|right"
-                            android:layout_margin="@dimen/space_8"/>
+                            android:layout_margin="@dimen/space_8"
+                            android:scaleType="centerInside"
+                            android:src="@mipmap/icon_upload_product_delete"/>
 
                     </FrameLayout>
 
@@ -138,10 +139,10 @@
                             android:id="@+id/identity_background_delete"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:scaleType="centerInside"
-                            android:src="@mipmap/icon_upload_product_delete"
                             android:layout_gravity="bottom|right"
-                            android:layout_margin="@dimen/space_8"/>
+                            android:layout_margin="@dimen/space_8"
+                            android:scaleType="centerInside"
+                            android:src="@mipmap/icon_upload_product_delete"/>
                     </FrameLayout>
 
 
@@ -167,9 +168,9 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical|right"
-                    android:hint="@string/tip_input_identity_number"
-                    android:maxLength="20"
+                    android:hint="@string/tip_input_bank_number"
                     android:inputType="number"
+                    android:maxLength="20"
                     android:nextFocusDown="@+id/act_edit_req_dong_content"/>
             </LinearLayout>
 
@@ -244,10 +245,10 @@
                             android:id="@+id/bank_card_delete"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:scaleType="centerInside"
-                            android:src="@mipmap/icon_upload_product_delete"
                             android:layout_gravity="bottom|right"
-                            android:layout_margin="@dimen/space_8"/>
+                            android:layout_margin="@dimen/space_8"
+                            android:scaleType="centerInside"
+                            android:src="@mipmap/icon_upload_product_delete"/>
 
                     </FrameLayout>
 
@@ -262,8 +263,6 @@
 
 
                     </FrameLayout>
-
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -274,5 +273,4 @@
         </LinearLayout>
 
     </ScrollView>
-
 </LinearLayout>

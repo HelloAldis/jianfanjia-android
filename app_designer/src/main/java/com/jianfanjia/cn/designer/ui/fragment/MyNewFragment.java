@@ -31,7 +31,6 @@ import com.jianfanjia.cn.designer.ui.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.SettingActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.DesignerInfoAuthActivity;
-import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAuthActicity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.DesignerProductAuthActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.receive_business_info.DesignerReceiveInfoActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity;
@@ -133,7 +132,7 @@ public class MyNewFragment extends BaseFragment {
             if (finishAuthPercent == 0) {
                 authProductText.setText(getString(R.string.going_auth));
             } else {
-                authProductText.setText("已完成认证：" + finishAuthPercent+ "%");
+                authProductText.setText("已完成认证" + finishAuthPercent + "%");
             }
         }
     }
@@ -176,12 +175,12 @@ public class MyNewFragment extends BaseFragment {
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
-    @OnClick({R.id.frag_my_info_layout, R.id.kefu_layout, R.id.setting_layout, R.id.feedback_layout, R.id
+    @OnClick({R.id.kefu_layout, R.id.setting_layout, R.id.feedback_layout, R.id
             .call_layout, R.id.comment_layout, R.id.designer_auth_center_layout, R.id.head_notification_layout, R.id
             .product_layout, R.id.team_layout, R.id.receive_business_info_layout, R.id.invite_friends_layout})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.frag_my_info_layout:
+           /* case R.id.frag_my_info_layout:
                 if (!TextUtils.isEmpty(dataManager.getDesigner().getAuth_type()) && !dataManager.getDesigner()
                         .getAuth_type().equals(DesignerBusiness.DESIGNER_NOT_APPLY)) {
                     Bundle bundle = new Bundle();
@@ -190,7 +189,7 @@ public class MyNewFragment extends BaseFragment {
                 } else {
                     makeTextShort(getString(R.string.tip_goto_baseinfo_auth));
                 }
-                break;
+                break;*/
             case R.id.head_notification_layout:
                 startActivity(NoticeActivity.class);
                 break;

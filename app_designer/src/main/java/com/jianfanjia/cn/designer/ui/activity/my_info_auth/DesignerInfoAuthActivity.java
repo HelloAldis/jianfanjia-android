@@ -192,6 +192,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
         bundle.putSerializable(Global.DESIGNER_INFO, dataManager.getDesigner());
         switch (position) {
             case BASE_INFO_AUTH_POSITION:
+                bundle.putSerializable(BaseInfoAuthActicity.INTENT_FROM_FLAG, BaseInfoAuthActicity.FROM_MAIN_INTENT);
                 startActivity(BaseInfoAuthActicity.class, bundle);
                 break;
             case IDENTITY_AUTH_POSITION:

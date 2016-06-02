@@ -96,7 +96,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             mDesigner = new Designer();
         }
         if (intentFrom == FROM_MAIN_INTENT) {
-            currentStatus = CURRENT_STATUS_PRIVIEW;
+            if (!TextUtils.isEmpty(mDesigner.getAuth_type()) && mDesigner.getAuth_type().equals(DesignerBusiness
+                    .DESIGNER_NOT_APPLY)) {
+                currentStatus = CURRENT_STATUS_EDIT;
+            } else {
+                currentStatus = CURRENT_STATUS_PRIVIEW;
+            }
         } else {
             currentStatus = CURRENT_STATUS_EDIT;
         }

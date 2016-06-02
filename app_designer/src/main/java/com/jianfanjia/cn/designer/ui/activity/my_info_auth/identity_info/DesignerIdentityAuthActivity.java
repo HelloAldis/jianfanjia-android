@@ -113,6 +113,11 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         if (mDesigner == null) {
             mDesigner = new Designer();
         }
+        if(!TextUtils.isEmpty(mDesigner.getUid_auth_type()) && mDesigner.getUid_auth_type().equals(DesignerBusiness.DESIGNER_NOT_APPLY)){
+            currentStatus = CURRENT_STATUS_EDIT;
+        }else{
+            currentStatus = CURRENT_STATUS_PRIVIEW;
+        }
     }
 
     private void initView() {
