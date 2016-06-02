@@ -63,6 +63,8 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     private Product mProduct;
 
+    private List<String> photos;
+
     public static UploadProduct2Fragment getInstance(Product product) {
         UploadProduct2Fragment uploadProduct2Fragment = new UploadProduct2Fragment();
         uploadProduct2Fragment.setmProduct(product);
@@ -154,7 +156,7 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     private void pickPicture() {
         PhotoPickerIntent intent1 = new PhotoPickerIntent(getContext());
-        intent1.setPhotoCount(1);
+        intent1.setPhotoCount(9);
         intent1.setShowGif(false);
         intent1.setShowCamera(true);
         startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
@@ -163,6 +165,7 @@ public class UploadProduct2Fragment extends BaseFragment {
     private void upload_image(final Bitmap bitmap) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
+        bitmap.recycle();
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
@@ -203,18 +206,34 @@ public class UploadProduct2Fragment extends BaseFragment {
                         mUploadProductAdapter.changePlanItem(productImageInfo, currentPosition);
                         break;
                 }
+
+                UploadProduct2Fragment.this.uploadImageSync();
             }
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
+                UploadProduct2Fragment.this.uploadImageSync();
             }
 
             @Override
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                UploadProduct2Fragment.this.uploadImageSync();
             }
         });
+    }
+
+    public void uploadImageSync() {
+        if (!this.photos.isEmpty()) {
+            String path = this.photos.get(0);
+            this.photos.remove(0);
+            Bitmap imageBitmap = ImageUtil.getImage(path);
+            LogTool.d(TAG, "imageBitmap: path :" + path);
+            if (null != imageBitmap) {
+                upload_image(imageBitmap);
+            }
+        }
     }
 
     @Override
@@ -226,14 +245,9 @@ public class UploadProduct2Fragment extends BaseFragment {
         switch (requestCode) {
             case Constant.REQUESTCODE_PICKER_PIC:
                 if (data != null) {
-                    List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-                    for (String path : photos) {
-                        Bitmap imageBitmap = ImageUtil.getImage(path);
-                        LogTool.d(TAG, "imageBitmap: path :" + path);
-                        if (null != imageBitmap) {
-                            upload_image(imageBitmap);
-                        }
-                    }
+                    this.photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                    LogTool.d(TAG, "all path :" + this.photos);
+                    this.uploadImageSync();
                 }
                 break;
         }
