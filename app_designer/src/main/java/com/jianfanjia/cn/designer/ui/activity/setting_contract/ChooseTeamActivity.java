@@ -72,6 +72,11 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
     private void initView() {
         initMainView();
         initGridView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getAllTeam();
     }
 

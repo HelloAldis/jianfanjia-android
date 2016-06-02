@@ -201,17 +201,20 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.act_edit_req_dectype:
                 ChooseItemIntent decTypeIntent = new ChooseItemIntent(this);
-                decTypeIntent.setMultipleChoose(Constant.REQUIRECODE_DECTYPE, mDesigner.getDec_types());
+                decTypeIntent.setMultipleChoose(Constant.REQUIRECODE_DECTYPE, mDesigner.getDec_types(), getString(R
+                        .string.str_decoratetype));
                 startActivityForResult(decTypeIntent, Constant.REQUIRECODE_DECTYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 ChooseItemIntent workTypeIntent = new ChooseItemIntent(this);
-                workTypeIntent.setMultipleChoose(Constant.REQUIRECODE_WORKTYPE, mDesigner.getWork_types());
+                workTypeIntent.setMultipleChoose(Constant.REQUIRECODE_WORKTYPE, mDesigner.getWork_types(), getString
+                        (R.string.str_work_type));
                 startActivityForResult(workTypeIntent, Constant.REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovestyle:
                 ChooseItemLoveStyleIntent chooseItemLoveStyleIntent = new ChooseItemLoveStyleIntent(this);
-                chooseItemLoveStyleIntent.setMultipleChoose(Constant.REQUIRECODE_LOVESTYLE, mDesigner.getDec_styles());
+                chooseItemLoveStyleIntent.setMultipleChoose(Constant.REQUIRECODE_LOVESTYLE, mDesigner.getDec_styles()
+                        , getString(R.string.str_dec_goodatstyle));
                 startActivityForResult(chooseItemLoveStyleIntent, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_district:
@@ -227,17 +230,20 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                         i++;
                     }
                 }
-                districtIntent.setMultipleChoose(Constant.REQUIRECODE_DISTRICT, chooseDistrictKey);
+                districtIntent.setMultipleChoose(Constant.REQUIRECODE_DISTRICT, chooseDistrictKey, getString(R.string
+                        .str_receive_district));
                 startActivityForResult(districtIntent, Constant.REQUIRECODE_DISTRICT);
                 break;
             case R.id.receive_business_housetype_layout:
                 ChooseItemIntent houseTypeIntent = new ChooseItemIntent(this);
-                houseTypeIntent.setMultipleChoose(Constant.REQUIRECODE_HOUSETYPE, mDesigner.getDec_house_types());
+                houseTypeIntent.setMultipleChoose(Constant.REQUIRECODE_HOUSETYPE, mDesigner.getDec_house_types(),
+                        getString(R.string.str_receive_business_housetype));
                 startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.receive_business_design_fee_layout:
                 ChooseItemIntent designFeeIntent = new ChooseItemIntent(this);
-                designFeeIntent.setSingleChoose(Constant.REQUIRECODE_DESIGN_FEE, mDesigner.getDesign_fee_range());
+                designFeeIntent.setSingleChoose(Constant.REQUIRECODE_DESIGN_FEE, mDesigner.getDesign_fee_range(),
+                        getString(R.string.str_receive_business_design_fee));
                 startActivityForResult(designFeeIntent, Constant.REQUIRECODE_DESIGN_FEE);
                 break;
             case R.id.receive_business_work_fee_layout:
@@ -252,7 +258,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
             case R.id.receive_business_communication_style_layout:
                 ChooseItemIntent communicationIntent = new ChooseItemIntent(this);
                 communicationIntent.setSingleChoose(Constant.REQUIRECODE_LOVEDESISTYLE, mDesigner
-                        .getCommunication_type());
+                        .getCommunication_type(), getString(R.string.receive_business_communication));
                 startActivityForResult(communicationIntent, Constant.REQUIRECODE_LOVEDESISTYLE);
                 break;
         }

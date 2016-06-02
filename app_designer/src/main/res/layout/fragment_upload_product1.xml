@@ -296,8 +296,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
                 android:gravity="center_vertical|right"
-                android:inputType="number"
-                android:maxLength="3"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
                 android:hint="@string/please_input"
                 android:minWidth="@dimen/space_48"
                 android:numeric="integer"/>

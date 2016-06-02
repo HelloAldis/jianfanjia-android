@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemActivity;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.activity.common
@@ -42,17 +41,19 @@ public class ChooseItemIntent extends Intent {
         super(packageContext, ChooseItemActivity.class);
     }
 
-    public void setSingleChoose(int requestCode, String currentChooseValue) {
+    public void setSingleChoose(int requestCode, String currentChooseValue,String title) {
         this.putExtra(Global.REQUIRE_DATA, requestCode);
         this.putExtra(ChooseItemActivity.CURRENT_CHOOSED_TYPE, ChooseItemActivity.CHOOSE_TYPE_SINGLE);
+        this.putExtra(ChooseItemActivity.TITLE,title);
         if (!TextUtils.isEmpty(currentChooseValue)) {
             this.putExtra(ChooseItemActivity.CURRENT_CHOOSED_VALUE, currentChooseValue);
         }
     }
 
-    public void setMultipleChoose(int requestCode, List<String> currentChooseValueList) {
+    public void setMultipleChoose(int requestCode, List<String> currentChooseValueList,String title) {
         this.putExtra(Global.REQUIRE_DATA, requestCode);
         this.putExtra(ChooseItemActivity.CURRENT_CHOOSED_TYPE, ChooseItemActivity.CHOOSE_TYPE_MULTIPLE);
+        this.putExtra(ChooseItemActivity.TITLE,title);
         if (currentChooseValueList != null) {
             this.putStringArrayListExtra(ChooseItemActivity.CURRENT_CHOOSED_VALUE, (ArrayList) currentChooseValueList);
         }

@@ -119,9 +119,9 @@ public class UploadProduct2Fragment extends BaseFragment {
 
     private void setMianHeadRightTitleEnable() {
         if (!TextUtils.isEmpty(mProduct.getDescription()) && mProduct
-                .getImages().size() > 0){
+                .getImages().size() > 0) {
             mMainHeadView.setRigthTitleEnable(true);
-        }else {
+        } else {
             mMainHeadView.setRigthTitleEnable(false);
         }
     }
@@ -136,7 +136,7 @@ public class UploadProduct2Fragment extends BaseFragment {
             @Override
             public void addProductImage(int type) {
                 currentAddType = type;
-                pickPicture();
+                pickPicture(9);
             }
         });
         mUploadProductAdapter.setReplaceProductImageListener(new UploadProductAdapter.ReplaceProductImageListener() {
@@ -144,7 +144,7 @@ public class UploadProduct2Fragment extends BaseFragment {
             public void replaceProductImage(int type, int position) {
                 currentAddType = type;
                 currentPosition = position;
-                pickPicture();
+                pickPicture(1);
             }
         });
         mUploadProductAdapter.setNotifyRightTitleEnableListener(mNotifyRightTitleEnableListener);
@@ -154,9 +154,9 @@ public class UploadProduct2Fragment extends BaseFragment {
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
-    private void pickPicture() {
+    private void pickPicture(int totalCount) {
         PhotoPickerIntent intent1 = new PhotoPickerIntent(getContext());
-        intent1.setPhotoCount(9);
+        intent1.setPhotoCount(totalCount);
         intent1.setShowGif(false);
         intent1.setShowCamera(true);
         startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
@@ -165,16 +165,15 @@ public class UploadProduct2Fragment extends BaseFragment {
     private void upload_image(final Bitmap bitmap) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
-        bitmap.recycle();
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-
+                showWaitDialog();
             }
 
             @Override
             public void onHttpDone() {
-
+                hideWaitDialog();
             }
 
             @Override

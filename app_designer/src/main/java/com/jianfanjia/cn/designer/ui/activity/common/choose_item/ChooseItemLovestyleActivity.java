@@ -31,15 +31,17 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
     public static final String CURRENT_CHOOSED_TYPE = "current_choosed_type";
     public static final int MAX_CHOOSE_THREE = 3;//最多选择三项
 
+    public static final String TITLE = "title";
+
     public static final int CHOOSE_TYPE_SINGLE = 0;//单选，
     public static final int CHOOSE_TYPE_MULTIPLE = 1;//多选
-
 
 
     //用来记录是展示那个列表
     private int requestCode;
 
     private String currentChooseValue;
+    private String title;
     private List<String> currentChooseValues;
     private List<ReqItemFinderImp.ItemMap> choosedItemMap;
     private int chooseType;
@@ -59,12 +61,13 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
         initView();
     }
 
-    private void getDataFromIntent(){
+    private void getDataFromIntent() {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             requestCode = bundle.getInt(Global.REQUIRE_DATA, 0);
             chooseType = bundle.getInt(CURRENT_CHOOSED_TYPE, CHOOSE_TYPE_SINGLE);
+            title = bundle.getString(TITLE, null);
             if (chooseType == CHOOSE_TYPE_SINGLE) {
                 currentChooseValues = new ArrayList<>();
                 currentChooseValue = bundle.getString(CURRENT_CHOOSED_TYPE);
@@ -84,7 +87,7 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
         initMainView();
 
         setMianHeadRightTitleEnable();
-        requirementItemLoveStyleAdapter = new RequirementItemLoveStyleAdapter(this,chooseType);
+        requirementItemLoveStyleAdapter = new RequirementItemLoveStyleAdapter(this, chooseType);
         gridView.setAdapter(requirementItemLoveStyleAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -99,9 +102,9 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
                     if (currentChooseValues.contains(key)) {
                         currentChooseValues.remove(key);
                     } else {
-                        if(currentChooseValues.size() >= MAX_CHOOSE_THREE){
+                        if (currentChooseValues.size() >= MAX_CHOOSE_THREE) {
                             makeTextShort(getString(R.string.all_more_three));
-                        }else {
+                        } else {
                             currentChooseValues.add(key);
                         }
                     }
@@ -110,7 +113,7 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
                 }
             }
         });
-        requirementItemLoveStyleAdapter.changeShow(requestCode,currentChooseValues);
+        requirementItemLoveStyleAdapter.changeShow(requestCode, currentChooseValues);
     }
 
     private void setMianHeadRightTitleEnable() {
@@ -124,10 +127,10 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
     }
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.style));
-        if(chooseType == CHOOSE_TYPE_SINGLE){
+        mMainHeadView.setMianTitle(title);
+        if (chooseType == CHOOSE_TYPE_SINGLE) {
             mMainHeadView.setRightTitleVisable(View.GONE);
-        }else{
+        } else {
             mMainHeadView.setRightTitle(getString(R.string.str_save));
             mMainHeadView.setRightTitleVisable(View.VISIBLE);
         }

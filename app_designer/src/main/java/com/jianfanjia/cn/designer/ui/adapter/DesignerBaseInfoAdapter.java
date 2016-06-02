@@ -307,7 +307,7 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             holder.deleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mDesigner.setDiploma_imageid(null);
+                    mDesigner.setDiploma_imageid("");
                     notifyItemChanged(0);
                 }
             });
@@ -392,11 +392,11 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         });
 
         //设置封面
-//        if (!designerAwardInfo.isMenuOpen()) {
-//            holder.btnUploadProduct.setOpenStatus();
-//        } else {
-//            holder.btnUploadProduct.setCloseStatus();
-//        }
+        if (!designerAwardInfo.isMenuOpen()) {
+            holder.btnUploadProduct.setOpenStatus();
+        } else {
+            holder.btnUploadProduct.setCloseStatus();
+        }
 
         holder.ivCover.setVisibility(View.GONE);
 
@@ -405,6 +405,7 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 mDesignerAwardInfoList.remove(position - 1);
                 notifyItemRemoved(position);
+                notifyItemRangeChanged(position,mDesignerAwardInfoList.size());
             }
         });
 

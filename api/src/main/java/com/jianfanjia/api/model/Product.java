@@ -17,7 +17,7 @@ public class Product extends BaseModel {
     private String dec_style;
     private String dec_type;
     private String work_type;
-    private int total_price;
+    private float total_price;
     private String description;
     private String designerid;
     private int __v;
@@ -112,11 +112,11 @@ public class Product extends BaseModel {
         this.work_type = work_type;
     }
 
-    public int getTotal_price() {
+    public float getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(int total_price) {
+    public void setTotal_price(float total_price) {
         this.total_price = total_price;
     }
 

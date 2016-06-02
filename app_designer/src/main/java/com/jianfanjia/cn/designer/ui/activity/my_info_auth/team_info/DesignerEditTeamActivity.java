@@ -292,7 +292,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mTeam.setUid_image1(null);
+                    mTeam.setUid_image1("");
                     initData();
                 }
             });
@@ -316,7 +316,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mTeam.setUid_image2(null);
+                    mTeam.setUid_image2("");
                     initData();
                 }
             });
@@ -504,7 +504,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
     private void intentToEditGoodAtWork() {
         ChooseItemIntent houseTypeIntent = new ChooseItemIntent(this);
         houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_GOODAT_WORKOFTYPE, BusinessCovertUtil
-                .getGoodAtTypeOfWorkByValue(mTeam.getGood_at()));
+                .getGoodAtTypeOfWorkByValue(mTeam.getGood_at()),getString(R.string.goodat_type));
         startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_GOODAT_WORKOFTYPE);
     }
 

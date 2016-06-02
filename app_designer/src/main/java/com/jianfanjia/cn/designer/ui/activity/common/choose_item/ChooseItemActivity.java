@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ToggleButton;
@@ -16,7 +15,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.adapter.RequirementItemAdapter;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
@@ -32,6 +30,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
 
     public static final String CURRENT_CHOOSED_VALUE = "current_choosed_value";
     public static final String CURRENT_CHOOSED_TYPE = "current_choosed_type";
+    public static final String TITLE = "title";
 
     public static final int CHOOSE_TYPE_SINGLE = 0;//单选，
     public static final int CHOOSE_TYPE_MULTIPLE = 1;//多选
@@ -40,6 +39,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
     private int requestCode;
 
     private String currentChooseValue;
+    private String title;
     private List<String> currentChooseValues;
     private List<ReqItemFinderImp.ItemMap> choosedItemMap;
     private int chooseType;
@@ -71,11 +71,12 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
         if (bundle != null) {
             requestCode = bundle.getInt(Global.REQUIRE_DATA, 0);
             chooseType = bundle.getInt(CURRENT_CHOOSED_TYPE, CHOOSE_TYPE_SINGLE);
+            title = bundle.getString(TITLE, null);
             if (chooseType == CHOOSE_TYPE_SINGLE) {
                 currentChooseValues = new ArrayList<>();
-                currentChooseValue = bundle.getString(CURRENT_CHOOSED_TYPE);
+                currentChooseValue = bundle.getString(CURRENT_CHOOSED_VALUE);
                 if (currentChooseValue != null) {
-                    currentChooseValues.add(bundle.getString(CURRENT_CHOOSED_VALUE));
+                    currentChooseValues.add(currentChooseValue);
                 }
             } else {
                 currentChooseValues = bundle.getStringArrayList(CURRENT_CHOOSED_VALUE);
@@ -98,10 +99,10 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
         } else {
             chooseAllToggleLayout.setVisibility(View.VISIBLE);
         }
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View v) {
+                if (toggleButton.isChecked()) {
                     for (ReqItemFinderImp.ItemMap itemMap : requirementItemAdapter.getItemMaps()) {
                         if (!currentChooseValues.contains(itemMap.key)) {
                             currentChooseValues.add(itemMap.key);
@@ -114,13 +115,11 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
                 requirementItemAdapter.notifyDataSetChanged();
             }
         });
-
     }
 
     private void initListView() {
-        setMianHeadRightTitleEnable();
-
         requirementItemAdapter = new RequirementItemAdapter(this);
+
         edit_req_item_listview.setAdapter(requirementItemAdapter);
         edit_req_item_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -143,6 +142,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
             }
         });
         requirementItemAdapter.changeShow(requestCode, currentChooseValues);
+        setMianHeadRightTitleEnable();
     }
 
     private void setMianHeadRightTitleEnable() {
@@ -152,11 +152,16 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
             } else {
                 mMainHeadView.setRigthTitleEnable(false);
             }
+            if (currentChooseValues.size() == requirementItemAdapter.getItemMaps().size()) {
+                toggleButton.setChecked(true);
+            } else {
+                toggleButton.setChecked(false);
+            }
         }
     }
 
     private void initMainView() {
-        showHead(requestCode);
+        mMainHeadView.setMianTitle(title);
         if (chooseType == CHOOSE_TYPE_SINGLE) {
             mMainHeadView.setRightTitleVisable(View.GONE);
         } else {
@@ -181,52 +186,6 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
         });
     }
 
-    /**
-     * 根据requestcode动态展示头部显示的文字
-     *
-     * @param requestcode
-     */
-    private void showHead(int requestcode) {
-        switch (requestcode) {
-            case Constant.REQUIRECODE_CITY:
-                mMainHeadView.setMianTitle(getString(R.string.str_district));
-                break;
-            case Constant.REQUIRECODE_HOUSETYPE:
-                mMainHeadView.setMianTitle(getString(R.string.str_housetype));
-                break;
-            case Constant.REQUIRECODE_PERSONS:
-                mMainHeadView.setMianTitle(getString(R.string.str_persons));
-                break;
-            case Constant.REQUIRECODE_LOVEDESISTYLE:
-                mMainHeadView.setMianTitle(getString(R.string.receive_business_communication));
-                break;
-            case Constant.REQUIRECODE_BUSI_DECORATETYPE:
-                mMainHeadView.setMianTitle(getString(R.string.str_businessdecoratetype));
-                break;
-            case Constant.REQUIRECODE_WORKTYPE:
-                mMainHeadView.setMianTitle(getResources().getString(R.string.str_work_type));
-                break;
-            case Constant.REQUIRECODE_DESISEX:
-                mMainHeadView.setMianTitle(getString(R.string.str_lovedesisex));
-                break;
-            case Constant.REQUIRECODE_DECTYPE:
-                mMainHeadView.setMianTitle(getString(R.string.str_decoratetype));
-                break;
-            case Constant.REQUIRECODE_BANK:
-                mMainHeadView.setMianTitle(getString(R.string.bank));
-                break;
-            case Constant.REQUIRECODE_GOODAT_WORKOFTYPE:
-                mMainHeadView.setMianTitle(getString(R.string.goodat_type));
-                break;
-            case Constant.REQUIRECODE_DESIGN_FEE:
-                mMainHeadView.setMianTitle(getString(R.string.str_receive_business_design_fee));
-                break;
-            case Constant.REQUIRECODE_DISTRICT:
-                mMainHeadView.setMianTitle(getString(R.string.str_receive_district));
-                break;
-        }
-
-    }
 
     @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {

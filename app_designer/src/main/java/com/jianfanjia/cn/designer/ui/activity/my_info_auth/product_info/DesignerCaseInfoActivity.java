@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
@@ -16,12 +17,14 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.designer.business.ProductBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -62,12 +65,13 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.initView();
         this.getDataFromIntent(this.getIntent());
+        this.initView();
     }
 
     public void initView() {
         initMainHead();
+
         mLayoutManager = new LinearLayoutManager(DesignerCaseInfoActivity.this);
         designer_case_listview.setLayoutManager(mLayoutManager);
         designer_case_listview.setItemAnimator(new DefaultItemAnimator());
@@ -100,15 +104,20 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         if (productBundle != null) {
             productid = productBundle.getString(Global.PRODUCT_ID);
             LogTool.d(TAG, "productid=" + productid);
-            getProductHomePageInfo(productid);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getProductHomePageInfo(productid);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
-        getDataFromIntent(intent);
+//        getDataFromIntent(intent);
     }
 
     @OnClick({R.id.head_back_layout, R.id.head_right_title})
@@ -124,6 +133,15 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                 break;
             default:
                 break;
+        }
+    }
+
+    private void setMainRightTitleShow(Product product){
+        if (!TextUtils.isEmpty(product.getAuth_type()) && !product.getAuth_type().equals(ProductBusiness
+                .PRODUCT_NOT_AUTH)) {
+            mMainHeadView.setRightTitleVisable(View.VISIBLE);
+        }else{
+            mMainHeadView.setRightTitleVisable(View.GONE);
         }
     }
 
@@ -149,6 +167,8 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             mProduct = apiResponse.getData();
             LogTool.d(TAG, "designerCaseInfo" + mProduct);
             if (null != mProduct) {
+                setMainRightTitleShow(mProduct);
+
                 List<ProductImageInfo> imgList = mProduct.getImages();
                 List<ProductImageInfo> planimgList = mProduct.getPlan_images();
                 productImageInfoList = new ArrayList<>();
@@ -167,12 +187,12 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onFailed(ApiResponse<Product> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 

@@ -20,9 +20,9 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemLovestyleActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.UploadProductActivity;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -145,9 +145,9 @@ public class UploadProduct1Fragment extends BaseFragment {
             .AFTER_TEXT_CHANGED)
     protected void decoratebudgetAfterChanged(CharSequence charSequence) {
         if (!TextUtils.isEmpty(charSequence.toString())) {
-            mProduct.setTotal_price(Integer.parseInt(charSequence.toString()));
+            mProduct.setTotal_price(Float.parseFloat(charSequence.toString()));
         } else {
-            mProduct.setTotal_price(0);
+            mProduct.setTotal_price(0.0f);
         }
         isAllInput();
     }
@@ -182,8 +182,9 @@ public class UploadProduct1Fragment extends BaseFragment {
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
                 if (!TextUtils.isEmpty(mProduct.getDec_style())) {
-                    loveStyleBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_style());
+                    loveStyleBundle.putString(ChooseItemLovestyleActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_style());
                 }
+                loveStyleBundle.putString(ChooseItemLovestyleActivity.TITLE,getString(R.string.str_lovestyle));
                 startActivityForResult(ChooseItemLovestyleActivity.class, loveStyleBundle, Constant
                         .REQUIRECODE_LOVESTYLE);
                 break;
@@ -193,6 +194,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                 if (!TextUtils.isEmpty(mProduct.getDec_type())) {
                     personBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_type());
                 }
+                personBundle.putString(ChooseItemActivity.TITLE,getString(R.string.str_decoratetype));
                 startActivityForResult(ChooseItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
                 break;
             case R.id.act_edit_req_housetype:
@@ -201,6 +203,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                 if (!TextUtils.isEmpty(mProduct.getHouse_type())) {
                     houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
                 }
+                houseTypeBundle.putString(ChooseItemActivity.TITLE,getString(R.string.str_dec_housetype));
                 startActivityForResult(ChooseItemActivity.class, houseTypeBundle, Constant
                         .REQUIRECODE_HOUSETYPE);
                 break;
@@ -210,6 +213,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                 if (!TextUtils.isEmpty(mProduct.getWork_type())) {
                     workTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
                 }
+                workTypeBundle.putString(ChooseItemActivity.TITLE,getString(R.string.str_work_type));
                 startActivityForResult(ChooseItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
@@ -249,7 +253,7 @@ public class UploadProduct1Fragment extends BaseFragment {
             if (mProduct.getHouse_area() != 0) {
                 act_edit_req_housearea_content.setText(mProduct.getHouse_area() + "");
             }
-            if (mProduct.getTotal_price() != 0) {
+            if (mProduct.getTotal_price() > 0) {
                 act_edit_req_decoratebudget_content.setText(mProduct.getTotal_price() + "");
             }
             if (!TextUtils.isEmpty(mProduct.getCell())) {

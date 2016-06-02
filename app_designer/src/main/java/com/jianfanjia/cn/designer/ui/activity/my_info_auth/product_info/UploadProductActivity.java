@@ -101,6 +101,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
+                startActivity(DesignerProductAuthActivity.class);
                 appManager.finishActivity(UploadProductActivity.this);
             }
 

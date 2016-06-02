@@ -125,7 +125,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
                 view = mLayoutInflater.inflate(R.layout.list_item_upload_product_effect_img, null);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
-                return new UploadEffectImgViewHolder(view,new EditTextTextWatcher());
+                return new UploadEffectImgViewHolder(view, new EditTextTextWatcher());
         }
         return null;
     }
@@ -175,6 +175,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void bindEffectImg(final UploadEffectImgViewHolder holder, final int position) {
+        LogTool.d(this.getClass().getName(), "effect pos" + position);
         final ProductImageInfo productImageInfo = mEffectImgLists.get(position - 4 - mPlanImgLists.size());
 
         final String imageid = productImageInfo.getImageid();
@@ -235,15 +236,23 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         holder.clearView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductImageInfo deleteProductImageInfo = mEffectImgLists.get(position - 4 - mPlanImgLists.size());
-                mEffectImgLists.remove(position - 4 - mPlanImgLists.size());
+
+
+                mEffectImgLists.remove(productImageInfo);
                 notifyItemRemoved(position);
-                if (!TextUtils.isEmpty(mProduct.getCover_imageid())
-                        && mProduct.getCover_imageid().equals(deleteProductImageInfo.getImageid())
-                        && mEffectImgLists.size() > 1) {
-                    mProduct.setCover_imageid(mEffectImgLists.get(0).getImageid());
-                    notifyItemChanged(4 + mPlanImgLists.size());
-                }
+                notifyItemRangeChanged(4 + mPlanImgLists.size(), mEffectImgLists.size());
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!TextUtils.isEmpty(mProduct.getCover_imageid())
+                                && mProduct.getCover_imageid().equals(productImageInfo.getImageid())
+                                && mEffectImgLists.size() > 0) {
+                            mProduct.setCover_imageid(mEffectImgLists.get(0).getImageid());
+                            notifyItemChanged(4 + mPlanImgLists.size());
+                        }
+                    }
+                });
                 mNotifyRightTitleEnableListener.notifyRightTitleEnable();
             }
         });
@@ -545,7 +554,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         private EditTextTextWatcher mEditTextTextWatcher;
 
-        public UploadEffectImgViewHolder(View view,EditTextTextWatcher editTextTextWatcher) {
+        public UploadEffectImgViewHolder(View view, EditTextTextWatcher editTextTextWatcher) {
             super(view);
             ButterKnife.bind(this, view);
             btnUploadProduct.setIsHasSettingCover(true);
@@ -578,11 +587,11 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         void replaceProductImage(int type, int position);
     }
 
-    private class EditTextTextWatcher implements TextWatcher{
+    private class EditTextTextWatcher implements TextWatcher {
 
         private int position;
 
-        public void updatePosition(int pos){
+        public void updatePosition(int pos) {
             this.position = pos;
         }
 

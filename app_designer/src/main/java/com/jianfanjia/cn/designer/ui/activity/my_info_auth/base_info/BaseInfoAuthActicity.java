@@ -22,6 +22,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerAwardInfo;
 import com.jianfanjia.api.request.common.UploadPicRequest;
@@ -74,6 +75,8 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     private DesignerBaseInfoAdapter mDesignerBaseInfoAdapter;
 
     private Designer mDesigner;
+
+    private List<String> photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +174,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             @Override
             public void uploadHead() {
-                pickPicture(Constant.REQUESTCODE_PICKER_HEAD_PIC);
+                pickPicture(Constant.REQUESTCODE_PICKER_HEAD_PIC, 1);
             }
 
             @Override
@@ -192,15 +195,15 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             @Override
             public void uploadDiplomaImage() {
-                pickPicture(Constant.REQUESTCODE_PICKER_PIC);
+                pickPicture(Constant.REQUESTCODE_PICKER_PIC, 1);
             }
 
             public void uploadAwardImage() {
-                pickPicture(Constant.REQUESTCODE_PICKER_AWARD_PIC);
+                pickPicture(Constant.REQUESTCODE_PICKER_AWARD_PIC, 9);
             }
 
             public void updateAwardImage() {
-                pickPicture(Constant.REQUESTCODE_PICKER_CHANGE_AWARD_PIC);
+                pickPicture(Constant.REQUESTCODE_PICKER_CHANGE_AWARD_PIC, 1);
             }
         });
         mRecyclerView.setAdapter(mDesignerBaseInfoAdapter);
@@ -251,9 +254,9 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         commonDialog.show();
     }
 
-    private void pickPicture(int requestCode) {
+    private void pickPicture(int requestCode, int totalCount) {
         PhotoPickerIntent intent1 = new PhotoPickerIntent(this);
-        intent1.setPhotoCount(1);
+        intent1.setPhotoCount(totalCount);
         intent1.setShowGif(false);
         intent1.setShowCamera(true);
         startActivityForResult(intent1, requestCode);
@@ -309,7 +312,10 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
                 pickPicResult(data, uploadDiplomaImage);
                 break;
             case Constant.REQUESTCODE_PICKER_AWARD_PIC:
-                pickPicResult(data, uploadAwardImage);
+                if (data != null) {
+                    photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+                    this.uploadImageSync();
+                }
                 break;
             case Constant.REQUESTCODE_PICKER_CHANGE_AWARD_PIC:
                 pickPicResult(data, changeAwardImage);
@@ -365,13 +371,25 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         });
     }
 
+    public void uploadImageSync() {
+        if (!this.photos.isEmpty()) {
+            String path = this.photos.get(0);
+            this.photos.remove(0);
+            Bitmap imageBitmap = ImageUtil.getImage(path);
+            LogTool.d(TAG, "imageBitmap: path :" + path);
+            if (null != imageBitmap) {
+                upload_image(imageBitmap, uploadAwardImage);
+            }
+        }
+    }
+
     private void navagateNext() {
         appManager.finishActivity(this);
     }
 
     private void pickPicResult(Intent data, ApiCallback<ApiResponse<String>> apiCallback) {
         if (data != null) {
-            List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+            photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             for (String path : photos) {
                 Bitmap imageBitmap = ImageUtil.getImage(path);
                 LogTool.d(TAG, "imageBitmap: path :" + path);
@@ -385,12 +403,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<String>> uploadHeadImage = new ApiCallback<ApiResponse<String>>() {
         @Override
         public void onPreLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void onHttpDone() {
-
+            hideWaitDialog();
         }
 
         @Override
@@ -401,24 +419,24 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
     private ApiCallback<ApiResponse<String>> uploadDiplomaImage = new ApiCallback<ApiResponse<String>>() {
         @Override
         public void onPreLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void onHttpDone() {
-
+            hideWaitDialog();
         }
 
         @Override
@@ -429,12 +447,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 
@@ -442,12 +460,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onPreLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void onHttpDone() {
-
+            hideWaitDialog();
         }
 
         @Override
@@ -456,16 +474,22 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             designerAwardInfo.setAward_imageid(apiResponse.getData());
             mDesigner.getAward_details().add(designerAwardInfo);
             mDesignerBaseInfoAdapter.notifyItemInserted(1 + mDesigner.getAward_details().size());
+
+            BaseInfoAuthActicity.this.uploadImageSync();
         }
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
 
+            BaseInfoAuthActicity.this.uploadImageSync();
         }
 
         @Override
         public void onNetworkError(int code) {
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
 
+            BaseInfoAuthActicity.this.uploadImageSync();
         }
     };
 
@@ -473,12 +497,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onPreLoad() {
-
+            showWaitDialog();
         }
 
         @Override
         public void onHttpDone() {
-
+            hideWaitDialog();
         }
 
         @Override
@@ -490,12 +514,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
 

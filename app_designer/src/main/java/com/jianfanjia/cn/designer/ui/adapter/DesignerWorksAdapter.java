@@ -2,6 +2,7 @@ package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -106,9 +107,12 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         }
 
         if (isEdit) {
-            holder.deleteLayout.setVisibility(View.VISIBLE);
-            holder.itemwWorksView.setColorFilter(Color.parseColor("#55000000"));
-            holder.itemView.setOnClickListener(null);
+            if (!TextUtils.isEmpty(product.getAuth_type()) && !product.getAuth_type().equals(ProductBusiness
+                    .PRODUCT_NOT_AUTH)) {
+                holder.deleteLayout.setVisibility(View.VISIBLE);
+                holder.itemwWorksView.setColorFilter(Color.parseColor("#55000000"));
+                holder.itemView.setOnClickListener(null);
+            }
         } else {
             holder.deleteLayout.setVisibility(View.GONE);
             holder.itemwWorksView.clearColorFilter();

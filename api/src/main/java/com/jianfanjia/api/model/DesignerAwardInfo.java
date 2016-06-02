@@ -12,6 +12,8 @@ public class DesignerAwardInfo extends BaseModel {
 
     private String description;
 
+    private boolean isMenuOpen;
+
     public String getAward_imageid() {
         return award_imageid;
     }
@@ -22,6 +24,14 @@ public class DesignerAwardInfo extends BaseModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isMenuOpen() {
+        return isMenuOpen;
+    }
+
+    public void setIsMenuOpen(boolean isMenuOpen) {
+        this.isMenuOpen = isMenuOpen;
     }
 
     public void setDescription(String description) {

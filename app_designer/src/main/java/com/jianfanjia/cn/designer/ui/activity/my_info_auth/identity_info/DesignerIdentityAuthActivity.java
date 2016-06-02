@@ -113,9 +113,10 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         if (mDesigner == null) {
             mDesigner = new Designer();
         }
-        if(!TextUtils.isEmpty(mDesigner.getUid_auth_type()) && mDesigner.getUid_auth_type().equals(DesignerBusiness.DESIGNER_NOT_APPLY)){
+        if (!TextUtils.isEmpty(mDesigner.getUid_auth_type()) && mDesigner.getUid_auth_type().equals(DesignerBusiness
+                .DESIGNER_NOT_APPLY)) {
             currentStatus = CURRENT_STATUS_EDIT;
-        }else{
+        } else {
             currentStatus = CURRENT_STATUS_PRIVIEW;
         }
     }
@@ -245,7 +246,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mDesigner.setUid_image1(null);
+                    mDesigner.setUid_image1("");
                     initData();
                 }
             });
@@ -269,7 +270,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mDesigner.setUid_image2(null);
+                    mDesigner.setUid_image2("");
                     initData();
                 }
             });
@@ -293,7 +294,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mDesigner.setBank_card_image1(null);
+                    mDesigner.setBank_card_image1("");
                     initData();
                 }
             });
@@ -362,7 +363,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     private void intentToBankChoose() {
         ChooseItemIntent houseTypeIntent = new ChooseItemIntent(this);
         houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_BANK, BusinessCovertUtil.getBankKeyByValue(mDesigner
-                .getBank()));
+                .getBank()), getString(R.string.bank));
         startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_BANK);
     }
 
