@@ -4,7 +4,7 @@
              android:layout_height="wrap_content"
              >
 
-    <com.jianfanjia.cn.view.ProcessDetailHeadStateView
+    <com.jianfanjia.cn.activity.view.ProcessDetailHeadStateView
         android:id="@+id/process_headstateview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top">
 
-        <com.jianfanjia.cn.view.viewpager.MyViewPager
+        <com.jianfanjia.cn.activity.view.viewpager.MyViewPager
             android:id="@+id/process_viewpager"
             android:layout_width="match_parent"
             android:layout_height="120dp"

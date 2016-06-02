@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
 
-                <com.jianfanjia.cn.view.layout.CircleImageView
+                <com.jianfanjia.cn.activity.view.layout.CircleImageView
                     android:id="@+id/ltm_req_owner_head"
                     android:layout_width="60dp"
                     android:layout_height="60dp"

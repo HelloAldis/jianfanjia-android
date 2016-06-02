@@ -155,7 +155,6 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                 imgs.clear();
                 for (ProductImageInfo info : planimgList) {
                     imgs.add(info.getImageid());
-                    info.setSection("平面设计图");
                     productImageInfoList.add(info);
                 }
                 for (ProductImageInfo info : imgList) {
@@ -163,7 +162,6 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                     productImageInfoList.add(info);
                 }
                 adapter.setDesignerCaseInfo(mProduct);
-//                adapter.setList(productImageInfoList);
             }
         }
 

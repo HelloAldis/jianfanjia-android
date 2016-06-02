@@ -12,7 +12,7 @@
         android:layout_height="@dimen/space_48"
         android:background="@color/head_layout_bg">
 
-        <com.jianfanjia.cn.view.viewpager.ViewPagerIndicator
+        <com.jianfanjia.cn.activity.view.viewpager.ViewPagerIndicator
             android:id="@+id/viewpager_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

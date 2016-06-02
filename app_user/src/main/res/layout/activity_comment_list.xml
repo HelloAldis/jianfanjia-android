@@ -6,7 +6,7 @@
     android:background="@color/main_layout_bg"
     android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.MainHeadView
+    <com.jianfanjia.cn.activity.view.MainHeadView
         android:id="@+id/common_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

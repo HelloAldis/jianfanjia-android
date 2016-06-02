@@ -59,7 +59,7 @@
     <permission android:name="android.permission.WRITE_APN_SETTINGS"/>
 
     <application
-        android:name="com.jianfanjia.cn.application.MyApplication"
+        android:name=".application.MyApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:persistent="true"
@@ -96,7 +96,7 @@
 
         <!-- 配置第三方Receiver -->
         <receiver
-            android:name="com.jianfanjia.cn.receiver.PushMsgReceiver"
+            android:name=".receiver.PushMsgReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.${GETUI_PUSH_APPID}"/>
@@ -139,7 +139,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.SearchActivity"
+            android:name=".ui.activity.home.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateVisible"/>
@@ -196,85 +196,85 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.loginandreg.LoginNewActivity"
+            android:name=".ui.activity.loginandreg.LoginNewActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.loginandreg.RegisterNewActivity"
+            android:name=".ui.activity.loginandreg.RegisterNewActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.AboutActivity"
+            android:name=".ui.activity.my.AboutActivity"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.CheckActivity"
+            android:name=".ui.activity.requirement.CheckActivity"
             android:label="@string/title_activity_check"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.common.CommentActivity"
+            android:name=".ui.activity.common.CommentActivity"
             android:label="@string/title_activity_comment"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.EditOwnerInfoActivity"
+            android:name=".ui.activity.my.EditOwnerInfoActivity"
             android:label="@string/title_activity_edit_info"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.FeedBackActivity"
+            android:name=".ui.activity.my.FeedBackActivity"
             android:label="@string/title_activity_feed_back"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.loginandreg.ForgetPswActivity"
+            android:name=".ui.activity.loginandreg.ForgetPswActivity"
             android:label="@string/title_activity_forget_psw"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.MyDesignerActivity"
+            android:name=".ui.activity.requirement.MyDesignerActivity"
             android:label="@string/title_activity_my_designer"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.welcome.NavigateActivity"
+            android:name=".ui.activity.welcome.NavigateActivity"
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.common.ShowPicActivity"
+            android:name=".ui.activity.common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.ShowProcessPicActivity"
+            android:name=".ui.activity.requirement.ShowProcessPicActivity"
             android:label="@string/title_activity_show_pic"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.UserInfoActivity"
+            android:name=".ui.activity.my.UserInfoActivity"
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.AboutWeiBoActivity"
+            android:name=".ui.activity.my.AboutWeiBoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.welcome.WelcomeActivity"
+            android:name=".ui.activity.welcome.WelcomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -284,127 +284,127 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.AppointHighPointDesignerActivity"
+            android:name=".ui.activity.requirement.AppointHighPointDesignerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.PreviewHomeRequirementActivity"
+            android:name=".ui.activity.requirement.PreviewHomeRequirementActivity"
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.EditRequirementItemActivity"
+            android:name=".ui.activity.requirement.EditRequirementItemActivity"
             android:label="EditRequirementItemActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.EditRequirementLovestyleActivity"
+            android:name=".ui.activity.requirement.EditRequirementLovestyleActivity"
             android:label="EditRequirementLovestyleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
 
-        <service android:name="com.jianfanjia.cn.service.UpdateService"/>
+        <service android:name=".service.UpdateService"/>
 
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity"
+            android:name=".ui.activity.home.DesignerInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
 
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity"
+            android:name=".ui.activity.home.DesignerCaseInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.AppointDesignerActivity"
+            android:name=".ui.activity.requirement.AppointDesignerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.PingjiaActivity"
+            android:name=".ui.activity.requirement.PingjiaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.ContractActivity"
+            android:name=".ui.activity.requirement.ContractActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity"
+            android:name=".ui.activity.requirement.MyProcessDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.DesignerPlanListActivity"
+            android:name=".ui.activity.requirement.DesignerPlanListActivity"
             android:label="@string/title_activity_designer_plan_list"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity"
+            android:name=".ui.activity.requirement.PreviewDesignerPlanActivity"
             android:label="@string/title_activity_preview_designer_plan"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.PingJiaInfoActivity"
+            android:name=".ui.activity.requirement.PingJiaInfoActivity"
             android:label="@string/title_activity_ping_jia_info"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.DetailPriceActivity"
+            android:name=".ui.activity.requirement.DetailPriceActivity"
             android:label="@string/title_activity_detail_price"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.ReplaceDesignerActivity"
+            android:name=".ui.activity.requirement.ReplaceDesignerActivity"
             android:label="@string/title_activity_replace_designer"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.EditCityActivity"
+            android:name=".ui.activity.my.EditCityActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.CollectActivity"
+            android:name=".ui.activity.my.CollectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.beautifulpic.PreviewDecorationActivity"
+            android:name=".ui.activity.beautifulpic.PreviewDecorationActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.welcome.NewUserCollectLoveStyleActivity"
+            android:name=".ui.activity.welcome.NewUserCollectLoveStyleActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.welcome.NewUserCollectPersonActivity"
+            android:name=".ui.activity.welcome.NewUserCollectPersonActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.welcome.NewUserCollectDecStageActivity"
+            android:name=".ui.activity.welcome.NewUserCollectDecStageActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity"
+            android:name=".ui.activity.requirement.PublishRequirementActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.PreviewBusinessRequirementActivity"
+            android:name=".ui.activity.requirement.PreviewBusinessRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.UpdateRequirementActivity"
+            android:name=".ui.activity.requirement.UpdateRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.BindingPhoneActivity"
+            android:name=".ui.activity.my.BindingPhoneActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.BindingAccountActivity"
+            android:name=".ui.activity.my.BindingAccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
 
         <!-- 第三方分享以及登录 -->
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -438,49 +438,49 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <!-- 第三方分享以及登录 -->
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.CustomerServiceActivity"
+            android:name=".ui.activity.my.CustomerServiceActivity"
             android:label="@string/title_activity_customer_service"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.WebViewActivity"
+            android:name=".ui.activity.home.WebViewActivity"
             android:label="@string/title_activity_decorate_strategy"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
 
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.WebViewPackage365Activity"
+            android:name=".ui.activity.home.WebViewPackage365Activity"
             android:label="@string/title_activity_decorate_strategy"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.DesignerListActivity"
+            android:name=".ui.activity.home.DesignerListActivity"
             android:label="@string/title_activity_designer_list"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.DesignerCaseListActivity"
+            android:name=".ui.activity.home.DesignerCaseListActivity"
             android:label="@string/title_activity_designer_case_list"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.common.CommentListActivity"
+            android:name=".ui.activity.common.CommentListActivity"
             android:label="@string/title_activity_designer_case_list"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.NoticeActivity"
+            android:name=".ui.activity.my.NoticeActivity"
             android:label="@string/title_activity_notice"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.home.DecorateLiveActivity"
+            android:name=".ui.activity.home.DecorateLiveActivity"
             android:label="@string/title_activity_notice"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.my.NoticeDetailActivity"
+            android:name=".ui.activity.my.NoticeDetailActivity"
             android:label="@string/title_activity_notice_detail"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>

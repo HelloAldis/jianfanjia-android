@@ -20,11 +20,20 @@
         android:layout_marginTop="8dip"
         android:textColor="@color/home_page_text_color" />
 
+    <TextView
+        android:id="@+id/tv_dectype_and_totalprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stylelName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dip"
+        android:textColor="@color/home_page_text_color"/>
+
     <FrameLayout
         android:id="@+id/imageLayout"
         android:layout_width="60dip"
         android:layout_height="60dip"
-        android:layout_below="@id/stylelName"
+        android:layout_below="@id/tv_dectype_and_totalprice"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dip">
 
@@ -65,5 +74,7 @@
         android:layout_marginRight="15dip"
         android:textColor="@color/main_color_grey"
         android:textSize="14sp" />
+
+
 
 </RelativeLayout>

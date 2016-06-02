@@ -39,7 +39,7 @@
         android:layout_height="match_parent"
         android:background="@color/main_layout_bg">
 
-        <com.jianfanjia.cn.view.pullrefresh.PullToRefreshScrollViewNew
+        <com.jianfanjia.cn.activity.view.pullrefresh.PullToRefreshScrollViewNew
             android:id="@+id/pullrefresh_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

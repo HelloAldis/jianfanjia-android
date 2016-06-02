@@ -40,7 +40,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true">
 
-                <com.jianfanjia.cn.view.layout.CircleImageView
+                <com.jianfanjia.cn.activity.view.layout.CircleImageView
                     android:id="@+id/head_image"
                     android:layout_width="60dip"
                     android:layout_height="60dip"

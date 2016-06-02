@@ -38,7 +38,7 @@
             android:layout_height="60dip"
             android:layout_centerVertical="true">
 
-            <com.jianfanjia.cn.view.layout.CircleImageView
+            <com.jianfanjia.cn.activity.view.layout.CircleImageView
                 android:id="@+id/ltm_myfavdesi_head"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

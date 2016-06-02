@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_48">
 
-        <com.jianfanjia.cn.view.MainHeadView
+        <com.jianfanjia.cn.activity.view.MainHeadView
             android:id="@+id/my_contract_head_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
     </RelativeLayout>
 
 
-    <com.jianfanjia.cn.view.webview.ProgressWebView
+    <com.jianfanjia.cn.activity.view.webview.ProgressWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

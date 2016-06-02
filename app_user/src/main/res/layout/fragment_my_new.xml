@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.jianfanjia.cn.designer.fragment.MyFragment">
 
-    <com.jianfanjia.cn.view.scrollview.PullZoomScrollView
+    <com.jianfanjia.cn.activity.view.scrollview.PullZoomScrollView
         android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
 
-                    <com.jianfanjia.cn.view.layout.CircleImageView
+                    <com.jianfanjia.cn.activity.view.layout.CircleImageView
                         android:id="@+id/user_head_img"
                         android:layout_width="90dip"
                         android:layout_height="90dip"
@@ -94,7 +94,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true">
 
-                        <com.jianfanjia.cn.view.layout.CircleImageView
+                        <com.jianfanjia.cn.activity.view.layout.CircleImageView
                             android:id="@+id/ltm_req_designer_head0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                             android:scaleType="centerCrop"
                             android:src="@mipmap/icon_notify_big" />
 
-                        <com.jianfanjia.cn.view.layout.BadgeView
+                        <com.jianfanjia.cn.activity.view.layout.BadgeView
                             android:id="@+id/notify_count_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true">
 
-                        <com.jianfanjia.cn.view.layout.CircleImageView
+                        <com.jianfanjia.cn.activity.view.layout.CircleImageView
                             android:id="@+id/ltm_req_designer_head1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true">
 
-                        <com.jianfanjia.cn.view.layout.CircleImageView
+                        <com.jianfanjia.cn.activity.view.layout.CircleImageView
                             android:id="@+id/ltm_req_designer_head2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                             android:scaleType="centerCrop"
                             android:src="@mipmap/icon_comment_big" />
 
-                        <com.jianfanjia.cn.view.layout.BadgeView
+                        <com.jianfanjia.cn.activity.view.layout.BadgeView
                             android:id="@+id/comment_count_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -356,5 +356,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </com.jianfanjia.cn.view.scrollview.PullZoomScrollView>
+    </com.jianfanjia.cn.activity.view.scrollview.PullZoomScrollView>
 </FrameLayout>
