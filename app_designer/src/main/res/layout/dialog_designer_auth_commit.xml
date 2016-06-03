@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_white_corner_rectangle"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/space_24"
+        android:paddingRight="@dimen/space_24"
+        android:paddingTop="@dimen/space_32"
+        android:paddingBottom="@dimen/space_24">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/icon_email_finish"/>
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_32"
+            android:text="@string/auth_commit_success"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="@string/auth_success_tip"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="@string/auth_success_next"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            style="@style/listview_item_text_style_big"
+            android:layout_height="@dimen/space_40"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/space_32"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_selector_bg"
+            android:text="@string/confirm"
+            android:textColor="@color/font_white"/>
+
+    </LinearLayout>
+
+</LinearLayout>

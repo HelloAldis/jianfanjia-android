@@ -3,6 +3,7 @@ package com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -15,6 +16,7 @@ import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.fragment.UploadProduct1Fragment;
 import com.jianfanjia.cn.designer.ui.fragment.UploadProduct2Fragment;
+import com.jianfanjia.cn.designer.view.DesignerAuthCommitDialog;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info
@@ -101,8 +103,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                startActivity(DesignerProductAuthActivity.class);
-                appManager.finishActivity(UploadProductActivity.this);
+                showAuthTipDialog();
             }
 
             @Override
@@ -114,6 +115,18 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
             }
         });
+    }
+
+    private void showAuthTipDialog(){
+        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(DesignerProductAuthActivity.class);
+                appManager.finishActivity(UploadProductActivity.this);
+            }
+        });
+        designerAuthCommitDialog.show();
     }
 
     public void uploadProduct(Product product) {
@@ -133,7 +146,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                appManager.finishActivity(UploadProductActivity.this);
+                showAuthTipDialog();
             }
 
             @Override

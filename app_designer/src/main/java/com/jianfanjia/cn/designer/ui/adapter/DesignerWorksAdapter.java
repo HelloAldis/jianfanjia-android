@@ -72,6 +72,24 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
                 listener.onItemAdd();
             }
         });
+
+        viewHolder.tvProductAuthTip.setVisibility(View.VISIBLE);
+        if (list == null || list.size() == 0) {
+            viewHolder.tvProductAuthTip.setText(context.getString(R.string.product_auth_canbe_appoint_count));
+        } else {
+            int authSuccessCount = 0;
+            for (Product product : list) {
+                if (product.getAuth_type().equals(ProductBusiness.PRODUCT_AUTH_SUCCESS)) {
+                    authSuccessCount++;
+                }
+            }
+            if (authSuccessCount >= 3) {
+                viewHolder.tvProductAuthTip.setVisibility(View.GONE);
+            } else {
+                viewHolder.tvProductAuthTip.setText(String.format(context.getString(R.string
+                        .product_auth_canbe_appoint_count_left), 3 - authSuccessCount));
+            }
+        }
     }
 
     private void bindContentView(final int position, Product product, DesignerWorksViewHolder holder) {
@@ -195,6 +213,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         @Bind(R.id.auth_status)
         TextView authStatusText;
 
+
         @Bind(R.id.deleteLayout)
         RelativeLayout deleteLayout;
 
@@ -207,6 +226,9 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
     static class DesignerWorksViewHolderHead extends RecyclerViewHolderBase {
         @Bind(R.id.upload_product_layout)
         FrameLayout uploadLayout;
+
+        @Bind(R.id.product_auth_tip)
+        TextView tvProductAuthTip;
 
         public DesignerWorksViewHolderHead(View itemView) {
             super(itemView);

@@ -238,7 +238,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         if (showImages.size() == 2) {
 
         } else if (showImages.size() == 1) {
-            position = 1;
+            position = 0;
         } else {
             return;
         }
@@ -306,7 +306,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     identityFrontImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 identityFrontDeleteImageView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 identityFrontDeleteImageView.setVisibility(View.GONE);
             }
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
@@ -326,7 +326,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     identityBackgroundImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 identityBackgroundDeleteImageView.setVisibility(View.GONE);
             }
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
@@ -346,7 +346,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                     bankCardImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 bankCardDeleteImageView.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 bankCardDeleteImageView.setVisibility(View.GONE);
             }
             bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {

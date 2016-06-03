@@ -20,7 +20,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -46,7 +45,6 @@ import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -229,20 +227,20 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         changeViewShowEditOrPreview();
     }
 
-    private void showIdentityBigImage(int position){
+    private void showIdentityBigImage(int position) {
         List<String> showImages = new ArrayList<>();
-        if(!TextUtils.isEmpty(mTeam.getUid_image1())){
+        if (!TextUtils.isEmpty(mTeam.getUid_image1())) {
             showImages.add(mTeam.getUid_image1());
         }
-        if(!TextUtils.isEmpty(mTeam.getUid_image2())){
+        if (!TextUtils.isEmpty(mTeam.getUid_image2())) {
             showImages.add(mTeam.getUid_image2());
         }
 
-        if(showImages.size() == 2){
+        if (showImages.size() == 2) {
 
-        }else if(showImages.size() == 1){
-            position = 1;
-        }else{
+        } else if (showImages.size() == 1) {
+            position = 0;
+        } else {
             return;
         }
 
@@ -340,7 +338,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     identityFrontImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 identityFrontDeleteImageView.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 identityFrontDeleteImageView.setVisibility(View.GONE);
             }
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
@@ -361,7 +359,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     identityBackgroundImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 identityBackgroundDeleteImageView.setVisibility(View.GONE);
             }
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
@@ -550,7 +548,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
     private void intentToEditGoodAtWork() {
         ChooseItemIntent houseTypeIntent = new ChooseItemIntent(this);
         houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_GOODAT_WORKOFTYPE, BusinessCovertUtil
-                .getGoodAtTypeOfWorkByValue(mTeam.getGood_at()),getString(R.string.goodat_type));
+                .getGoodAtTypeOfWorkByValue(mTeam.getGood_at()), getString(R.string.goodat_type));
         startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_GOODAT_WORKOFTYPE);
     }
 

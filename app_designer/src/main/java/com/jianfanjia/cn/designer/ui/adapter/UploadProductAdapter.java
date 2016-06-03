@@ -175,6 +175,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             }
         });
+
     }
 
     private void bindEffectImg(final UploadEffectImgViewHolder holder, final int position) {
