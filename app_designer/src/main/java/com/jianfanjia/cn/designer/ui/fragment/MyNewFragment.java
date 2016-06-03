@@ -132,7 +132,7 @@ public class MyNewFragment extends BaseFragment {
             if (finishAuthPercent == 0) {
                 authProductText.setText(getString(R.string.going_auth));
             } else {
-                authProductText.setText("已完成认证" + finishAuthPercent + "%");
+                authProductText.setText("已完成认证 " + finishAuthPercent + "%");
             }
         }
     }

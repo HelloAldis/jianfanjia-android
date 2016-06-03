@@ -118,11 +118,11 @@ public class ChooseItemLovestyleActivity extends BaseSwipeBackActivity {
 
     private void setMianHeadRightTitleEnable() {
         if (chooseType == CHOOSE_TYPE_MULTIPLE) {
-            if (currentChooseValues.size() > 0) {
+            /*if (currentChooseValues.size() > 0) {
                 mMainHeadView.setRigthTitleEnable(true);
             } else {
                 mMainHeadView.setRigthTitleEnable(false);
-            }
+            }*/
         }
     }
 

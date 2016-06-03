@@ -394,4 +394,6 @@
     <string name="tip_email_finish">邮件已发送成功</string>
     <string name="product_detail">作品详情</string>
     <string name="tip_input_bank_number">请输入正确的银行卡号</string>
+    <string name="add_team_auth">添加施工团队</string>
+    <string name="update_team_auth">更新施工团队</string>
 </resources>

@@ -135,11 +135,11 @@ public class ChooseWorkFeeActivity extends BaseSwipeBackActivity {
     }
 
     private void setMianHeadRightTitleEnable() {
-        if (mWorkFeeInfo.getWork_fee_half_min() > 0 && mWorkFeeInfo.getWork_fee_all_min() > 0) {
+        /*if (mWorkFeeInfo.getWork_fee_half_min() > 0 && mWorkFeeInfo.getWork_fee_all_min() > 0) {
             mMainHeadView.setRigthTitleEnable(true);
         } else {
             mMainHeadView.setRigthTitleEnable(false);
-        }
+        }*/
     }
 
 

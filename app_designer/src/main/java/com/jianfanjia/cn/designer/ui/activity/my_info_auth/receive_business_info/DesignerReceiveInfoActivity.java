@@ -111,6 +111,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                 return;
             }
             act_edit_req_housetype_content.setText(sb.substring(0, sb.length() - 1));
+        }else {
+            act_edit_req_housetype_content.setText(null);
         }
     }
 
@@ -123,6 +125,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
         }
         if (sb.length() > 0) {
             act_edit_req_lovestyle_content.setText(sb.substring(0, sb.length() - 1));
+        }else{
+            act_edit_req_lovestyle_content.setText(null);
         }
     }
 
@@ -135,6 +139,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
         }
         if (sb.length() > 0) {
             act_edit_req_work_type_content.setText(sb.substring(0, sb.length() - 1));
+        }else{
+            act_edit_req_work_type_content.setText(null);
         }
     }
 
@@ -147,6 +153,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
         }
         if (sb.length() > 0) {
             act_edit_req_dectype_content.setText(sb.substring(0, sb.length() - 1));
+        }else {
+            act_edit_req_dectype_content.setText(null);
         }
     }
 
@@ -154,6 +162,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
         if (!TextUtils.isEmpty(mDesigner.getDesign_fee_range())) {
             receive_business_design_fee_content.setText(BusinessCovertUtil.convertDesignFeeToShow(mDesigner
                     .getDesign_fee_range()));
+        }else {
+            receive_business_design_fee_content.setText(null);
         }
     }
 
@@ -174,6 +184,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                 return;
             }
             act_edit_req_district_content.setText(sb.substring(0, sb.length() - 1));
+        }else {
+            act_edit_req_district_content.setText(null);
         }
     }
 
@@ -181,6 +193,8 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
         if (!TextUtils.isEmpty(mDesigner.getCommunication_type())) {
             receive_business_communication_content.setText(BusinessCovertUtil.convertCommunicationStyleToShow
                     (mDesigner.getCommunication_type()));
+        }else{
+            receive_business_communication_content.setText(null);
         }
     }
 
@@ -290,7 +304,6 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 dataManager.setDesigner(mDesigner);
-                makeTextShort(getString(R.string.save_success));
             }
 
             @Override

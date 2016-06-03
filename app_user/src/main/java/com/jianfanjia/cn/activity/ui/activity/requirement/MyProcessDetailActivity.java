@@ -18,14 +18,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.activity.application.MyApplication;
-import com.jianfanjia.cn.activity.config.Global;
-import com.jianfanjia.cn.activity.tools.UiHelper;
-import com.jianfanjia.cn.activity.ui.activity.my.NoticeActivity;
-import com.jianfanjia.cn.activity.ui.adapter.SectionItemAdapter;
-import com.jianfanjia.cn.activity.view.dialog.CommonDialog;
-import com.jianfanjia.cn.activity.view.dialog.DateWheelDialog;
-import com.jianfanjia.cn.activity.view.dialog.DialogHelper;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -38,17 +30,25 @@ import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.ui.activity.common.CommentActivity;
 import com.jianfanjia.cn.activity.api.Api;
+import com.jianfanjia.cn.activity.application.MyApplication;
 import com.jianfanjia.cn.activity.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.activity.config.Constant;
+import com.jianfanjia.cn.activity.config.Global;
 import com.jianfanjia.cn.activity.constant.IntentConstant;
-import com.jianfanjia.cn.activity.ui.interf.ItemClickCallBack;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.cn.activity.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.activity.tools.UiHelper;
+import com.jianfanjia.cn.activity.ui.activity.common.CommentActivity;
+import com.jianfanjia.cn.activity.ui.activity.my.NoticeActivity;
+import com.jianfanjia.cn.activity.ui.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.activity.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.activity.view.MainHeadView;
 import com.jianfanjia.cn.activity.view.ProcessDetailHeadView;
+import com.jianfanjia.cn.activity.view.dialog.CommonDialog;
+import com.jianfanjia.cn.activity.view.dialog.DateWheelDialog;
+import com.jianfanjia.cn.activity.view.dialog.DialogHelper;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -61,7 +61,7 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-public class MyProcessDetailActivity extends BaseSwipeBackActivity implements ItemClickCallBack{
+public class MyProcessDetailActivity extends BaseSwipeBackActivity implements ItemClickCallBack {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -137,7 +137,12 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
                     loadCurrentProcess(true);
                 } else {
-                    detailNodeListView.onRefreshComplete();
+                    new android.os.Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            detailNodeListView.onRefreshComplete();
+                        }
+                    });
                 }
             }
         });
@@ -206,8 +211,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 break;
             case R.id.head_notification_layout:
                 Bundle noticeBundle = new Bundle();
-                noticeBundle.putInt(NoticeActivity.TAB_TYPE,NoticeActivity.TAB_TYPE_PROCESS);
-                startActivity(NoticeActivity.class,noticeBundle);
+                noticeBundle.putInt(NoticeActivity.TAB_TYPE, NoticeActivity.TAB_TYPE_PROCESS);
+                startActivity(NoticeActivity.class, noticeBundle);
                 break;
             case R.id.site_list_head_delay:
                 delayDialog();

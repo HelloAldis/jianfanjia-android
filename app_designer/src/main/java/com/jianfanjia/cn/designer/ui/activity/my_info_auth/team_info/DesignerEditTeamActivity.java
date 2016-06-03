@@ -194,6 +194,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         } else {
             mMainHeadView.setRightTitle(getString(R.string.edit));
             mMainHeadView.setRigthTitleEnable(true);
+            mMainHeadView.setRightTitleColor(R.color.grey_color);
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -207,7 +208,11 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
 
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.process_team_auth));
+        if (intentFrom == FROM_UPDATE_INTENT) {
+            mMainHeadView.setMianTitle(getString(R.string.update_team_auth));
+        } else {
+            mMainHeadView.setMianTitle(getString(R.string.add_team_auth));
+        }
     }
 
     private void setMianHeadRightTitleEnable() {
@@ -349,7 +354,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         } else {
             String province = mTeam.getProvince();
             String district = mTeam.getDistrict();
-            addrTextView.setText(province + city + (TextUtils.isEmpty(district) ? ""
+            addrTextView.setText(province + " " + city + " " + (TextUtils.isEmpty(district) ? ""
                     : district));
         }
 

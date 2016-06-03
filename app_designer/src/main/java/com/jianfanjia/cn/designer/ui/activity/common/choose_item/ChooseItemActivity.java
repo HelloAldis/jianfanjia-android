@@ -147,11 +147,11 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
 
     private void setMianHeadRightTitleEnable() {
         if (chooseType == CHOOSE_TYPE_MULTIPLE) {
-            if (currentChooseValues.size() > 0) {
+           /* if (currentChooseValues.size() > 0) {
                 mMainHeadView.setRigthTitleEnable(true);
             } else {
                 mMainHeadView.setRigthTitleEnable(false);
-            }
+            }*/
             if (currentChooseValues.size() == requirementItemAdapter.getItemMaps().size()) {
                 toggleButton.setChecked(true);
             } else {
@@ -168,7 +168,7 @@ public class ChooseItemActivity extends BaseSwipeBackActivity {
             mMainHeadView.setRightTitle(getString(R.string.str_save));
             mMainHeadView.setRightTitleVisable(View.VISIBLE);
         }
-        mMainHeadView.setOnClickListener(new View.OnClickListener() {
+        mMainHeadView.setRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choosedItemMap = new ArrayList<>();

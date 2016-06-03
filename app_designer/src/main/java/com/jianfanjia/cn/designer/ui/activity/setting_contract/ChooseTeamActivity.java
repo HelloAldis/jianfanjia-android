@@ -126,6 +126,8 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
             public void chooseItem(int position) {
                 if (mChooseTeamAdapter.getCurrentChoosePos() != position) {
                     mChooseTeamAdapter.setCurrentChoosePos(position);
+                }else{
+                    mChooseTeamAdapter.setCurrentChoosePos(-1);
                 }
                 setMianHeadRightTitleEnable();
             }

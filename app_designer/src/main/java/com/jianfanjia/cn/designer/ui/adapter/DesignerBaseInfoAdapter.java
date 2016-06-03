@@ -174,7 +174,7 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         } else {
             String province = mDesigner.getProvince();
             String district = mDesigner.getDistrict();
-            holder.addrTextView.setText(province + city + (TextUtils.isEmpty(district) ? ""
+            holder.addrTextView.setText(province + " " + city + " " + (TextUtils.isEmpty(district) ? ""
                     : district));
         }
 

@@ -27,7 +27,8 @@
             style="@style/style_edit_req_edit"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/work_fee_half_min_unit"
-            android:maxLength="4"
+            android:maxLength="6"
+            android:inputType="number"
             android:nextFocusDown="@+id/act_edit_req_dong_content"/>
 
         <TextView
@@ -58,7 +59,8 @@
             style="@style/style_edit_req_edit"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/work_fee_all_min_unit"
-            android:maxLength="4"
+            android:maxLength="6"
+            android:inputType="number"
             android:nextFocusDown="@+id/act_edit_req_dong_content"/>
 
         <TextView

@@ -247,7 +247,7 @@ public class UploadProduct1Fragment extends BaseFragment {
         if (mProduct != null) {
             if (!TextUtils.isEmpty(mProduct.getProvince()) && !TextUtils.isEmpty(mProduct.getCity()
             ) && !TextUtils.isEmpty(mProduct.getDistrict())) {
-                act_edit_req_city_content.setText(mProduct.getProvince() + mProduct.getCity() +
+                act_edit_req_city_content.setText(mProduct.getProvince() + " " + mProduct.getCity() + " " +
                         mProduct.getDistrict());
             }
             if (mProduct.getHouse_area() != 0) {

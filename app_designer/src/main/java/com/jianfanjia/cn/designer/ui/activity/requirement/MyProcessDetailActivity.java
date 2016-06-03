@@ -31,17 +31,17 @@ import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.FinishSectionItemRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.common.CommentActivity;
-import com.jianfanjia.cn.designer.ui.activity.my.NoticeActivity;
-import com.jianfanjia.cn.designer.ui.adapter.SectionItemAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.activity.common.CommentActivity;
+import com.jianfanjia.cn.designer.ui.activity.my.NoticeActivity;
+import com.jianfanjia.cn.designer.ui.adapter.SectionItemAdapter;
+import com.jianfanjia.cn.designer.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.ProcessDetailHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
@@ -68,6 +68,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
     @Bind(R.id.process__listview)
     PullToRefreshListView detailNodeListView;
+
     @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
 
@@ -133,7 +134,17 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadCurrentProcess(true);
+                if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
+                    loadCurrentProcess(true);
+                } else {
+                    LogTool.d(TAG, "degfault process refresh finish");
+                    new android.os.Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            detailNodeListView.onRefreshComplete();
+                        }
+                    });
+                }
             }
         });
     }
@@ -354,7 +365,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         String dateStr = DateFormatTool.longToString(((DateWheelDialog) dialog)
-                                        .getChooseCalendar().getTimeInMillis());
+                                .getChooseCalendar().getTimeInMillis());
                         LogTool.d(TAG, "dateStr:" + dateStr);
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),

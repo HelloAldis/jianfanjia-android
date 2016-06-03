@@ -82,6 +82,17 @@
                 android:text="100平米"
                 android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12"/>
+
+            <TextView
+                android:id="@+id/list_item_works_dectype_totalprice_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/list_item_works_produce_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_5"
+                android:text="100平米"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12"/>
         </RelativeLayout>
 
     </FrameLayout>

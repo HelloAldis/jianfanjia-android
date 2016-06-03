@@ -85,6 +85,14 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
                 + "，" + BusinessCovertUtil.convertHouseTypeToShow(house_type) + "，" + BusinessCovertUtil
                 .convertDecStyleToShow(dec_style) + "风格");
 
+        if (!TextUtils.isEmpty(decType)) {
+            holder.itemDecTypeAndTotalPriceText.setText(BusinessCovertUtil.convertDectypeToShow(decType) + "，" + product
+                    .getTotal_price() + context.getString(R.string.unit_million));
+        } else {
+            holder.itemDecTypeAndTotalPriceText.setText(product.getTotal_price() +
+                    context.getString(R.string.unit_million));
+        }
+
         String status = product.getAuth_type();
         holder.authStatusText.setVisibility(View.VISIBLE);
         switch (status) {
@@ -182,6 +190,8 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         TextView itemXiaoQuText;
         @Bind(R.id.list_item_works_produce_text)
         TextView itemProduceText;
+        @Bind(R.id.list_item_works_dectype_totalprice_text)
+        TextView itemDecTypeAndTotalPriceText;
         @Bind(R.id.auth_status)
         TextView authStatusText;
 

@@ -71,11 +71,10 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_margin="5dip"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:clickable="true"
-            android:padding="5dip"
+            android:padding="16dip"
             android:id="@+id/v_selected"
             android:layout_gravity="right"
             android:src="@drawable/__picker_checkbox_bg"

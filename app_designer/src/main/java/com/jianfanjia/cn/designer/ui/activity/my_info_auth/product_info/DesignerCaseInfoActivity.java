@@ -91,6 +91,8 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             }
         });
         designer_case_listview.setAdapter(adapter);
+
+        getProductHomePageInfo(productid);
     }
 
     private void initMainHead() {
@@ -108,16 +110,11 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        getProductHomePageInfo(productid);
-    }
-
-    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         LogTool.d(TAG, "onNewIntent");
-//        getDataFromIntent(intent);
+        getDataFromIntent(intent);
+        getProductHomePageInfo(productid);
     }
 
     @OnClick({R.id.head_back_layout, R.id.head_right_title})
