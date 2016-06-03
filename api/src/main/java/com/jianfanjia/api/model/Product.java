@@ -13,6 +13,7 @@ public class Product extends BaseModel {
     private String district;
     private String cell;
     private String house_type;
+    private String business_house_type;
     private int house_area;
     private String dec_style;
     private String dec_type;
@@ -222,5 +223,13 @@ public class Product extends BaseModel {
 
     public void setCover_imageid(String cover_imageid) {
         this.cover_imageid = cover_imageid;
+    }
+
+    public String getBusiness_house_type() {
+        return business_house_type;
+    }
+
+    public void setBusiness_house_type(String business_house_type) {
+        this.business_house_type = business_house_type;
     }
 }

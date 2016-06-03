@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -27,6 +28,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.UploadProductActivity;
 import com.jianfanjia.cn.designer.ui.adapter.UploadProductAdapter;
 import com.jianfanjia.cn.designer.ui.interf.helper.SimpleItemTouchHelperCallback;
@@ -64,6 +66,8 @@ public class UploadProduct2Fragment extends BaseFragment {
     private Product mProduct;
 
     private List<String> photos;
+
+    private List<String> showImages;
 
     public static UploadProduct2Fragment getInstance(Product product) {
         UploadProduct2Fragment uploadProduct2Fragment = new UploadProduct2Fragment();
@@ -145,6 +149,27 @@ public class UploadProduct2Fragment extends BaseFragment {
                 currentAddType = type;
                 currentPosition = position;
                 pickPicture(1);
+            }
+        });
+        mUploadProductAdapter.setShowProductBigImageListener(new UploadProductAdapter.ShowProductBigImageListener() {
+            @Override
+            public void showProductBigImage(int type, int position) {
+                showImages = new ArrayList<>();
+                if (type == UploadProductAdapter.SHOW_TYPE_PLAN) {
+                    for (ProductImageInfo productImageInfo : mProduct.getPlan_images()) {
+                        showImages.add(productImageInfo.getImageid());
+                    }
+                } else {
+                    for (ProductImageInfo productImageInfo : mProduct.getImages()) {
+                        showImages.add(productImageInfo.getImageid());
+                    }
+                }
+
+                Bundle showPicBundle = new Bundle();
+                showPicBundle.putInt(Constant.CURRENT_POSITION, position);
+                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) showImages);
+                startActivity(ShowPicActivity.class, showPicBundle);
             }
         });
         mUploadProductAdapter.setNotifyRightTitleEnableListener(mNotifyRightTitleEnableListener);

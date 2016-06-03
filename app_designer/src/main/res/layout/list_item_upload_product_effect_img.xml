@@ -29,11 +29,16 @@
                     android:layout_marginTop="@dimen/space_10"
                     android:background="@drawable/bg_upload_product_rectangle_plan_img">
 
-                    <ImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/upload_product_img"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"
+                        app:riv_corner_radius="5dip"
+                        app:riv_mutate_background="true"
+                        app:riv_tile_mode="clamp"
+                        app:riv_oval="false"
                         />
 
                     <ImageView

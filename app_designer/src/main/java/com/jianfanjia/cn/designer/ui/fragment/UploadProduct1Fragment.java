@@ -20,6 +20,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemLovestyleActivity;
@@ -40,6 +41,7 @@ public class UploadProduct1Fragment extends BaseFragment {
 
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
+    protected String[] arr_businesshousetype;
     protected String[] arr_worktype;
     private String[] arr_dectype;
 
@@ -52,11 +54,17 @@ public class UploadProduct1Fragment extends BaseFragment {
     @Bind(R.id.act_edit_req_cell_content)
     protected EditText act_edit_req_cell_content;//小区
 
+    @Bind(R.id.act_edit_req_cell_title)
+    protected TextView act_edit_req_cell_title;//小区标题
+
     @Bind(R.id.act_edit_req_dectype_content)
     protected TextView act_edit_req_dectype_content;//装修类型
 
     @Bind(R.id.act_edit_req_housetype_content)
     protected TextView act_edit_req_housetype_content;//户型
+
+    @Bind(R.id.act_edit_req_housetype_title)
+    protected TextView act_edit_req_housetype_title;//户型标题
 
     @Bind(R.id.act_edit_req_lovestyle_content)
     protected TextView act_edit_req_lovestyle_content;//风格喜好
@@ -89,6 +97,7 @@ public class UploadProduct1Fragment extends BaseFragment {
     private void initStringArray() {
         arr_lovestyle = getResources().getStringArray(R.array.arr_decstyle);
         arr_housetype = getResources().getStringArray(R.array.arr_housetype);
+        arr_businesshousetype = getResources().getStringArray(R.array.arr_busi_housetype);
         arr_worktype = getResources().getStringArray(R.array.arr_worktype);
         arr_dectype = getResources().getStringArray(R.array.arr_dectype);
     }
@@ -125,10 +134,6 @@ public class UploadProduct1Fragment extends BaseFragment {
                 }
                 break;
         }
-    }
-
-    public Product getProduct() {
-        return mProduct;
     }
 
     public void setProduct(Product product) {
@@ -182,9 +187,10 @@ public class UploadProduct1Fragment extends BaseFragment {
                 Bundle loveStyleBundle = new Bundle();
                 loveStyleBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
                 if (!TextUtils.isEmpty(mProduct.getDec_style())) {
-                    loveStyleBundle.putString(ChooseItemLovestyleActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_style());
+                    loveStyleBundle.putString(ChooseItemLovestyleActivity.CURRENT_CHOOSED_VALUE, mProduct
+                            .getDec_style());
                 }
-                loveStyleBundle.putString(ChooseItemLovestyleActivity.TITLE,getString(R.string.str_lovestyle));
+                loveStyleBundle.putString(ChooseItemLovestyleActivity.TITLE, getString(R.string.str_lovestyle));
                 startActivityForResult(ChooseItemLovestyleActivity.class, loveStyleBundle, Constant
                         .REQUIRECODE_LOVESTYLE);
                 break;
@@ -194,18 +200,31 @@ public class UploadProduct1Fragment extends BaseFragment {
                 if (!TextUtils.isEmpty(mProduct.getDec_type())) {
                     personBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getDec_type());
                 }
-                personBundle.putString(ChooseItemActivity.TITLE,getString(R.string.str_decoratetype));
+                personBundle.putString(ChooseItemActivity.TITLE, getString(R.string.str_decoratetype));
                 startActivityForResult(ChooseItemActivity.class, personBundle, Constant.REQUIRECODE_DECTYPE);
                 break;
             case R.id.act_edit_req_housetype:
                 Bundle houseTypeBundle = new Bundle();
-                houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
-                if (!TextUtils.isEmpty(mProduct.getHouse_type())) {
-                    houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
+                if (TextUtils.isEmpty(mProduct.getDec_type()) || !mProduct.getDec_type().equals(Global
+                        .DEC_TYPE_BUSINESS)) {
+                    houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_HOUSETYPE);
+                    if (!TextUtils.isEmpty(mProduct.getHouse_type())) {
+                        houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getHouse_type());
+                    }
+                    houseTypeBundle.putString(ChooseItemActivity.TITLE, getString(R.string.str_dec_housetype));
+                    startActivityForResult(ChooseItemActivity.class, houseTypeBundle, Constant
+                            .REQUIRECODE_HOUSETYPE);
+                } else {
+                    houseTypeBundle.putInt(Global.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
+                    if (!TextUtils.isEmpty(mProduct
+                            .getBusiness_house_type())) {
+                        houseTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct
+                                .getBusiness_house_type());
+                    }
+                    houseTypeBundle.putString(ChooseItemActivity.TITLE, getString(R.string.str_businessdecoratetype));
+                    startActivityForResult(ChooseItemActivity.class, houseTypeBundle, Constant
+                            .REQUIRECODE_BUSI_DECORATETYPE);
                 }
-                houseTypeBundle.putString(ChooseItemActivity.TITLE,getString(R.string.str_dec_housetype));
-                startActivityForResult(ChooseItemActivity.class, houseTypeBundle, Constant
-                        .REQUIRECODE_HOUSETYPE);
                 break;
             case R.id.act_edit_req_work_type:
                 Bundle workTypeBundle = new Bundle();
@@ -213,7 +232,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                 if (!TextUtils.isEmpty(mProduct.getWork_type())) {
                     workTypeBundle.putString(ChooseItemActivity.CURRENT_CHOOSED_VALUE, mProduct.getWork_type());
                 }
-                workTypeBundle.putString(ChooseItemActivity.TITLE,getString(R.string.str_work_type));
+                workTypeBundle.putString(ChooseItemActivity.TITLE, getString(R.string.str_work_type));
                 startActivityForResult(ChooseItemActivity.class, workTypeBundle, Constant
                         .REQUIRECODE_WORKTYPE);
                 break;
@@ -259,14 +278,32 @@ public class UploadProduct1Fragment extends BaseFragment {
             if (!TextUtils.isEmpty(mProduct.getCell())) {
                 act_edit_req_cell_content.setText(mProduct.getCell());
             }
-            act_edit_req_housetype_content.setText(TextUtils.isEmpty(mProduct.getHouse_type()) ? "" :
-                    arr_housetype[Integer.parseInt(mProduct.getHouse_type())]);
             act_edit_req_lovestyle_content.setText(TextUtils.isEmpty(mProduct.getDec_style()) ? "" :
                     arr_lovestyle[Integer.parseInt(mProduct.getDec_style())]);
             act_edit_req_work_type_content.setText(TextUtils.isEmpty(mProduct.getWork_type()) ? "" :
                     arr_worktype[Integer.parseInt(mProduct.getWork_type())]);
             act_edit_req_dectype_content.setText(TextUtils.isEmpty(mProduct.getDec_type()) ? "" :
                     arr_dectype[Integer.parseInt(mProduct.getDec_type())]);
+
+            showViewByDecType(mProduct.getDec_type());
+        }
+    }
+
+    private void showViewByDecType(String decType) {
+        if (TextUtils.isEmpty(decType) || !decType.equals(Global.DEC_TYPE_BUSINESS)) {
+            act_edit_req_cell_title.setText(getString(R.string.str_cell));
+            act_edit_req_housetype_title.setText(getString(R.string.str_housetype));
+            act_edit_req_housetype_content.setText(TextUtils.isEmpty(mProduct.getHouse_type()) ? "" :
+                    arr_housetype[Integer.parseInt(mProduct.getHouse_type())]);
+        } else {
+            act_edit_req_cell_title.setText(getString(R.string.str_business_company));
+            act_edit_req_housetype_title.setText(getString(R.string.str_businessdecoratetype));
+            if (!TextUtils.isEmpty(mProduct.getBusiness_house_type())) {
+                act_edit_req_housetype_content.setText(BusinessCovertUtil.convertBusinessHouseTypeToShow(mProduct
+                        .getBusiness_house_type()));
+            } else {
+                act_edit_req_housetype_content.setText("");
+            }
         }
     }
 
@@ -294,6 +331,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                 case Constant.REQUIRECODE_DECTYPE:
                     act_edit_req_dectype_content.setText(itemMap.value);
                     mProduct.setDec_type(itemMap.key);
+                    showViewByDecType(itemMap.key);
                     break;
                 case Constant.REQUIRECODE_LOVESTYLE:
                     act_edit_req_lovestyle_content.setText(itemMap.value);
@@ -302,6 +340,10 @@ public class UploadProduct1Fragment extends BaseFragment {
                 case Constant.REQUIRECODE_HOUSETYPE:
                     act_edit_req_housetype_content.setText(itemMap.value);
                     mProduct.setHouse_type(itemMap.key);
+                    break;
+                case Constant.REQUIRECODE_BUSI_DECORATETYPE:
+                    act_edit_req_housetype_content.setText(itemMap.value);
+                    mProduct.setBusiness_house_type(itemMap.key);
                     break;
                 case Constant.REQUIRECODE_WORKTYPE:
                     act_edit_req_work_type_content.setText(arr_worktype[Integer.parseInt(itemMap.key)]);

@@ -100,12 +100,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/identity_front_example"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_identity_front_example"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_identity_front_example"/>
+                            app:riv_corner_radius="5dip"
+                            app:riv_mutate_background="true"
+                            app:riv_tile_mode="clamp"
+                            app:riv_oval="false"
+                            />
 
                         <ImageView
                             android:id="@+id/identity_front_delete"
@@ -127,13 +133,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/identity_background_example"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_identity_background_example"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_identity_background_example"/>
+                            app:riv_corner_radius="5dip"
+                            app:riv_mutate_background="true"
+                            app:riv_tile_mode="clamp"
+                            app:riv_oval="false"
+                            />
 
                         <ImageView
                             android:id="@+id/identity_background_delete"
@@ -234,12 +245,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/bank_card_example"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_back_example"/>
+                            android:src="@mipmap/icon_back_example"                            android:scaleType="centerCrop"
+                            app:riv_corner_radius="5dip"
+                            app:riv_mutate_background="true"
+                            app:riv_tile_mode="clamp"
+                            app:riv_oval="false"
+                            />
 
                         <ImageView
                             android:id="@+id/bank_card_delete"

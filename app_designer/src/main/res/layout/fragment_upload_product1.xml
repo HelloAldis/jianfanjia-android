@@ -64,39 +64,6 @@
             style="@style/divier_line"
             android:background="@color/horzontal_line_color"/>
 
-        <LinearLayout
-            android:id="@+id/act_edit_req_cell"
-            style="@style/my_list_item_layout_style"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:id="@+id/act_edit_req_cell_title"
-                style="@style/style_edit_req_title"
-                android:text="@string/str_cell"/>
-
-            <EditText
-                android:id="@+id/act_edit_req_cell_content"
-                style="@style/style_edit_req_edit"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:hint="@string/please_input"
-                android:maxLength="20"
-                android:nextFocusDown="@+id/act_edit_req_dong_content"/>
-
-        </LinearLayout>
-
-        <View
-            style="@style/divier_line"
-            android:background="@color/horzontal_line_color"/>
-
-        <View
-            style="@style/divier_line"
-            android:layout_marginTop="@dimen/space_10"
-            android:background="@color/horzontal_line_color"/>
-
         <RelativeLayout
             android:id="@+id/act_edit_req_dectype"
             style="@style/my_list_item_layout_style"
@@ -125,9 +92,43 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:hint="@string/please_choose"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:hint="@string/please_choose"/>
         </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <View
+            style="@style/divier_line"
+            android:layout_marginTop="@dimen/space_10"
+            android:background="@color/horzontal_line_color"/>
+
+        <LinearLayout
+            android:id="@+id/act_edit_req_cell"
+            style="@style/my_list_item_layout_style"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_cell_title"
+                style="@style/style_edit_req_title"
+                android:text="@string/str_cell"/>
+
+            <EditText
+                android:id="@+id/act_edit_req_cell_content"
+                style="@style/style_edit_req_edit"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:hint="@string/please_input"
+                android:maxLength="20"
+                android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+
+        </LinearLayout>
 
         <View
             style="@style/divier_line"
@@ -162,8 +163,8 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:hint="@string/please_choose"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:hint="@string/please_choose"/>
         </RelativeLayout>
 
         <View
@@ -189,9 +190,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/act_edit_req_housearea_title"
                 android:gravity="center_vertical|right"
+                android:hint="@string/please_input"
                 android:inputType="number"
                 android:maxLength="4"
-                android:hint="@string/please_input"
                 android:nextFocusDown="@+id/act_edit_req_decoratebudget_content"
                 android:numeric="integer"/>
 
@@ -230,8 +231,8 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:hint="@string/please_choose"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:hint="@string/please_choose"/>
         </RelativeLayout>
 
         <View
@@ -267,8 +268,8 @@
                 style="@style/style_edit_req_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:hint="@string/please_choose"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:hint="@string/please_choose"/>
         </RelativeLayout>
 
 
@@ -296,9 +297,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_toLeftOf="@+id/act_edit_req_decoratebudget_unit"
                 android:gravity="center_vertical|right"
+                android:hint="@string/please_input"
                 android:inputType="numberDecimal"
                 android:maxLength="6"
-                android:hint="@string/please_input"
                 android:minWidth="@dimen/space_48"
                 android:numeric="integer"/>
 

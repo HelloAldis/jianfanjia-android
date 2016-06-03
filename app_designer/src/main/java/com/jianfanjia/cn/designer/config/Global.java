@@ -81,6 +81,7 @@ public class Global {
 
     public static final String DEC_TYPE_HOME = "0";//家装
     public static final String DEC_TYPE_BUSINESS = "1";//商装
+    public static final String DEC_TYPE_SOFT = "2";//软装
 
     public static final String WORK_TYPE_DESIGNER = "2";//纯设计
     

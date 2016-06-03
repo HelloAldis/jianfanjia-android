@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -32,11 +31,8 @@ import com.jianfanjia.cn.designer.ui.interf.helper.ItemTouchHelperAdapter;
 import com.jianfanjia.cn.designer.ui.interf.helper.ItemTouchHelperViewHolder;
 import com.jianfanjia.cn.designer.view.ChooseProductSectionDialog;
 import com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText;
-import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.adapter
@@ -51,6 +47,8 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     public static final int UPLOAD_TYPE_EFFECT = 20;
     public static final int REPLACE_TYPE_PLAN = 30;
     public static final int REPLACE_TYPE_EFFECT = 40;
+    public static final int SHOW_TYPE_PLAN = 50;
+    public static final int SHOW_TYPE_EFFECT = 60;
 
     private static final int VIEW_TYPE_PRODUCT_INTRO = 0;//作品引言
     private static final int VIEW_TYPE_UPLOAD_TITLE = 1;//上传标题;
@@ -67,6 +65,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Product mProduct;
     private AddProductImageListener addProductImageListener;
     private ReplaceProductImageListener mReplaceProductImageListener;
+    private ShowProductBigImageListener mShowProductBigImageListener;
     private UploadProduct2Fragment.NotifyRightTitleEnableListener mNotifyRightTitleEnableListener;
     private android.os.Handler mHandler = new android.os.Handler();
 
@@ -85,6 +84,10 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setReplaceProductImageListener(ReplaceProductImageListener replaceProductImageListener) {
         mReplaceProductImageListener = replaceProductImageListener;
+    }
+
+    public void setShowProductBigImageListener(ShowProductBigImageListener showProductBigImageListener) {
+        mShowProductBigImageListener = showProductBigImageListener;
     }
 
     public void setNotifyRightTitleEnableListener(UploadProduct2Fragment.NotifyRightTitleEnableListener
@@ -179,34 +182,11 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         final ProductImageInfo productImageInfo = mEffectImgLists.get(position - 4 - mPlanImgLists.size());
 
         final String imageid = productImageInfo.getImageid();
-        mHandler.post(new Runnable() {
+        ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext, imageid, holder.uploadProductImg);
+        holder.uploadProductImg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                LogTool.d(this.getClass().getName(), "img width = " + holder.uploadProductImg.getWidth() + ",height =" +
-                        holder.uploadProductImg.getHeight());
-                ImageShow.getImageShow().loadImage(imageid, holder.uploadProductImg.getWidth(), holder.uploadProductImg
-                        .getHeight(), new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        holder.uploadProductImg.setImageBitmap(ImageUtil.getRoundedCornerBitmap(loadedImage, TDevice
-                                .dip2px(mContext, 5)));
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-
-                    }
-                });
+            public void onClick(View v) {
+                mShowProductBigImageListener.showProductBigImage(SHOW_TYPE_EFFECT,position - 4 - mPlanImgLists.size());
             }
         });
 
@@ -292,6 +272,12 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         ProductImageInfo productImageInfo = mPlanImgLists.get(position - 2);
         String imageid = productImageInfo.getImageid();
         ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext, imageid, holder.uploadProductImg);
+        holder.uploadProductImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShowProductBigImageListener.showProductBigImage(SHOW_TYPE_PLAN, position - 2);
+            }
+        });
 
         if (!productImageInfo.isMenuOpen()) {
             holder.btnUploadProduct.setOpenStatus();
@@ -308,6 +294,8 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             }
         });
+
+
 
         holder.clearView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -585,6 +573,10 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public interface ReplaceProductImageListener {
         void replaceProductImage(int type, int position);
+    }
+
+    public interface ShowProductBigImageListener{
+        void showProductBigImage(int type,int position);
     }
 
     private class EditTextTextWatcher implements TextWatcher {

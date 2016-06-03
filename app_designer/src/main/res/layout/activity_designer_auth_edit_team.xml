@@ -34,7 +34,7 @@
                     android:id="@+id/name"
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/real_name"
+                    android:text="@string/team_manager"
                     android:textColor="@color/light_black_color"/>
 
                 <EditText
@@ -87,7 +87,7 @@
                 <TextView
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/user_address"
+                    android:text="@string/user_address_district"
                     android:textColor="@color/light_black_color"/>
 
                 <TextView
@@ -156,12 +156,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/identity_front_example"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_identity_front_example"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_identity_front_example"/>
+                            app:riv_corner_radius="5dip"
+                            app:riv_mutate_background="true"
+                            app:riv_tile_mode="clamp"
+                            app:riv_oval="false"
+                            />
 
                         <ImageView
                             android:id="@+id/identity_front_delete"
@@ -184,12 +190,18 @@
                         android:layout_weight="1">
 
 
-                        <ImageView
+                        <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/identity_background_example"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_identity_background_example"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_identity_background_example"/>
+                            app:riv_corner_radius="5dip"
+                            app:riv_mutate_background="true"
+                            app:riv_tile_mode="clamp"
+                            app:riv_oval="false"
+                            />
 
                         <ImageView
                             android:id="@+id/identity_background_delete"
@@ -238,7 +250,7 @@
                     android:id="@+id/work_year"
                     style="@style/listview_item_text_style_middle"
                     android:layout_centerVertical="true"
-                    android:text="@string/work_year"
+                    android:text="@string/entire_period"
                     android:textColor="@color/light_black_color"/>
 
                 <EditText
@@ -254,35 +266,11 @@
 
             </RelativeLayout>
 
-            <View style="@style/divier_line"/>
-            <LinearLayout
-                android:id="@+id/workingon_site_layout"
-                style="@style/my_list_item_layout_style"
-                android:layout_marginTop="@dimen/space_10">
-
-                <TextView
-                    android:id="@+id/workingon_site"
-                    style="@style/listview_item_text_style_middle"
-                    android:layout_centerVertical="true"
-                    android:text="@string/workingon_site"
-                    android:textColor="@color/light_black_color"/>
-
-                <EditText
-                    android:id="@+id/workingon_site_content"
-                    style="@style/style_edit_req_edit"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|right"
-                    android:hint="@string/please_input"
-                    android:maxLength="20"
-                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
-            </LinearLayout>
-
-            <View style="@style/divier_line"/>
 
             <RelativeLayout
                 android:id="@+id/goodat_type_layout"
-                style="@style/my_list_item_layout_style">
+                style="@style/my_list_item_layout_style"
+                android:layout_marginTop="@dimen/space_10">
 
                 <TextView
                     style="@style/listview_item_text_style_middle"
@@ -306,6 +294,33 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"/>
             </RelativeLayout>
+
+            <View style="@style/divier_line"/>
+
+            <LinearLayout
+                android:id="@+id/workingon_site_layout"
+                style="@style/my_list_item_layout_style"
+                >
+
+                <TextView
+                    android:id="@+id/workingon_site"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_centerVertical="true"
+                    android:text="@string/workingon_site"
+                    android:textColor="@color/light_black_color"/>
+
+                <EditText
+                    android:id="@+id/workingon_site_content"
+                    style="@style/style_edit_req_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:hint="@string/please_input"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/act_edit_req_dong_content"/>
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

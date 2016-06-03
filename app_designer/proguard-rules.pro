@@ -45,6 +45,9 @@
 -keep class com.j256.ormlite.field.** { *; }
 -keep class com.j256.ormlite.stmt.** { *; }
 
+-dontwarn com.makeramen.roundedimageview.**
+-keep class com.makeramen.roundedimageview.** {* ;}
+
 #butterknife混淆
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**

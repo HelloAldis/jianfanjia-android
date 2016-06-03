@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -22,6 +23,7 @@ import butterknife.OnClick;
 
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Team;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.AddOneTeamRequest;
@@ -35,6 +37,7 @@ import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -128,13 +131,23 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             workingonSiteEditText.setEnabled(true);
             workYearEditext.setEnabled(true);
             workCompanyEditext.setEnabled(true);
-            identityBackgroundImageView.setEnabled(true);
-            identityFrontImageView.setSelected(true);
+            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
+                }
+            });
+            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
+                }
+            });
             sexLayout.setEnabled(true);
             addrLayout.setEnabled(true);
             goodAtTypeLayout.setEnabled(true);
-            identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
-            identityFrontDeleteImageView.setVisibility(View.VISIBLE);
+            identityBackgroundDeleteImageView.setEnabled(true);
+            identityFrontDeleteImageView.setEnabled(true);
         } else {
             nameEditText.setEnabled(false);
             identityNumberEditText.setEnabled(false);
@@ -142,13 +155,23 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             workingonSiteEditText.setEnabled(false);
             workYearEditext.setEnabled(false);
             workCompanyEditext.setEnabled(false);
-            identityBackgroundImageView.setEnabled(false);
-            identityFrontImageView.setSelected(false);
+            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showIdentityBigImage(1);
+                }
+            });
+            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showIdentityBigImage(0);
+                }
+            });
             sexLayout.setEnabled(false);
             addrLayout.setEnabled(false);
             goodAtTypeLayout.setEnabled(false);
-            identityBackgroundDeleteImageView.setVisibility(View.GONE);
-            identityFrontDeleteImageView.setVisibility(View.GONE);
+            identityBackgroundDeleteImageView.setEnabled(false);
+            identityFrontDeleteImageView.setEnabled(false);
         }
     }
 
@@ -204,6 +227,30 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             });
         }
         changeViewShowEditOrPreview();
+    }
+
+    private void showIdentityBigImage(int position){
+        List<String> showImages = new ArrayList<>();
+        if(!TextUtils.isEmpty(mTeam.getUid_image1())){
+            showImages.add(mTeam.getUid_image1());
+        }
+        if(!TextUtils.isEmpty(mTeam.getUid_image2())){
+            showImages.add(mTeam.getUid_image2());
+        }
+
+        if(showImages.size() == 2){
+
+        }else if(showImages.size() == 1){
+            position = 1;
+        }else{
+            return;
+        }
+
+        Bundle showPicBundle = new Bundle();
+        showPicBundle.putInt(Constant.CURRENT_POSITION, position);
+        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                (ArrayList<String>) showImages);
+        startActivity(ShowPicActivity.class, showPicBundle);
     }
 
 
@@ -293,6 +340,8 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     identityFrontImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 identityFrontDeleteImageView.setVisibility(View.VISIBLE);
+            }else {
+                identityFrontDeleteImageView.setVisibility(View.GONE);
             }
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -301,15 +350,10 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     initData();
                 }
             });
+
         } else {
             identityFrontImageView.setImageResource(R.mipmap.icon_identity_front_example);
             identityFrontDeleteImageView.setVisibility(View.GONE);
-            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
-                }
-            });
         }
 
         if (!TextUtils.isEmpty(mTeam.getUid_image2())) {
@@ -317,6 +361,8 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     identityBackgroundImageView);
             if (currentStatus == CURRENT_STATUS_EDIT) {
                 identityBackgroundDeleteImageView.setVisibility(View.VISIBLE);
+            }else {
+                identityBackgroundDeleteImageView.setVisibility(View.GONE);
             }
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -325,15 +371,10 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                     initData();
                 }
             });
+
         } else {
             identityBackgroundImageView.setImageResource(R.mipmap.icon_identity_background_example);
             identityBackgroundDeleteImageView.setVisibility(View.GONE);
-            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
-                }
-            });
         }
 
         String sexInfo = mTeam.getSex();
@@ -464,12 +505,12 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }
@@ -501,7 +542,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

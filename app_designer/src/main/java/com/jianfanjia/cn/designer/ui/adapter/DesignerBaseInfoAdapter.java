@@ -1,7 +1,6 @@
 package com.jianfanjia.cn.designer.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -29,11 +28,7 @@ import com.jianfanjia.cn.designer.ui.activity.my_info_auth.base_info.BaseInfoAut
 import com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info.CustomeUploadProdcutMenuLayout;
 import com.jianfanjia.cn.designer.ui.interf.helper.ItemTouchHelperViewHolder;
 import com.jianfanjia.cn.designer.view.custom_edittext.CustomEditText;
-import com.jianfanjia.common.tool.ImageUtil;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.adapter
@@ -360,36 +355,8 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         final DesignerAwardInfo designerAwardInfo = mDesignerAwardInfoList.get(position - 1);
 
         final String imageid = designerAwardInfo.getAward_imageid();
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                LogTool.d(this.getClass().getName(), "img width = " + holder.uploadProductImg.getWidth() + ",height =" +
-                        holder.uploadProductImg.getHeight());
-                ImageShow.getImageShow().loadImage(imageid, holder.uploadProductImg.getWidth(), holder.uploadProductImg
-                        .getHeight(), new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
 
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        holder.uploadProductImg.setImageBitmap(ImageUtil.getRoundedCornerBitmap(loadedImage, TDevice
-                                .dip2px(mContext, 5)));
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-
-                    }
-                });
-            }
-        });
+        ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext, imageid, holder.uploadProductImg);
 
         //设置封面
         if (!designerAwardInfo.isMenuOpen()) {
@@ -632,11 +599,4 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface AddProductImageListener {
-        void addProductImage(int type);
-    }
-
-    public interface ReplaceProductImageListener {
-        void replaceProductImage(int type, int position);
-    }
 }

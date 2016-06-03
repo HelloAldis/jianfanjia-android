@@ -161,6 +161,15 @@ public class BusinessCovertUtil {
         return housetypes[housePosition];
     }
 
+    public static String convertBusinessHouseTypeToShow(String busi_house_type){
+        if (busi_house_type == null) return null;
+        int housePosition = Integer.parseInt(busi_house_type);
+        String[] housetypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_busi_housetype);
+        if(housePosition == 9999) return housetypes[housetypes.length - 1];//商装最后一项是9999；
+        if (housePosition < 0 || housePosition > housetypes.length) return null;
+        return housetypes[housePosition];
+    }
+
     /**
      * 拿到显示的风格喜好
      *
