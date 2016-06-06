@@ -308,11 +308,7 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             });
         }else {
             holder.diplomaImageView.setImageResource(R.mipmap.icon_default_pic);
-            if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
-                holder.uploadDiplomaImageLayput.setVisibility(View.VISIBLE);
-            }else {
-                holder.uploadDiplomaImageLayput.setVisibility(View.GONE);
-            }
+            holder.uploadDiplomaImageLayput.setVisibility(View.VISIBLE);
             holder.diplomaImageLayout.setVisibility(View.GONE);
             holder.uploadDiplomaImageLayput.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -337,6 +333,7 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             holder.workYearEditext.setEnabled(true);
             holder.workCompanyEditext.setEnabled(true);
             holder.uploadDiplomaImageLayput.setEnabled(true);
+
             holder.ivHeadGoto.setVisibility(View.VISIBLE);
             holder.ivSexGoto.setVisibility(View.VISIBLE);
             holder.ivAddressGoto.setVisibility(View.VISIBLE);
@@ -427,9 +424,15 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         });
 
         if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
+            holder.uploadPlanImgLayout.setEnabled(true);
             holder.uploadPlanImgLayout.setVisibility(View.VISIBLE);
         }else{
-            holder.uploadPlanImgLayout.setVisibility(View.GONE);
+            holder.uploadPlanImgLayout.setEnabled(false);
+            if(mDesignerAwardInfoList.size() > 0){
+                holder.uploadPlanImgLayout.setVisibility(View.GONE);
+            }else {
+                holder.uploadPlanImgLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 
