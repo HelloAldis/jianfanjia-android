@@ -3,7 +3,6 @@ package com.jianfanjia.cn.activity.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductImageInfo;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.business.ProductBusiness;
 import com.jianfanjia.cn.activity.config.Constant;
-import com.jianfanjia.cn.activity.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.activity.tools.ImageShow;
 import com.jianfanjia.cn.activity.tools.UiHelper;
 import com.jianfanjia.common.tool.TDevice;
@@ -114,10 +113,8 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case TYPE_HEAD:
                 DesignerCaseInfoHeadHolder designerCaseInfoHeadHolder = (DesignerCaseInfoHeadHolder) viewHolder;
                 designerCaseInfoHeadHolder.cellNameText.setText(designerCaseInfo.getCell());
-                designerCaseInfoHeadHolder.stylelNameText.setText(designerCaseInfo.getHouse_area() + "㎡，" +
-                        BusinessCovertUtil.convertDectypeToShow(designerCaseInfo.getDec_type()) + "，" +
-                        BusinessCovertUtil.convertHouseTypeToShow(designerCaseInfo.getHouse_type()) + "，" +
-                        BusinessCovertUtil.convertDecStyleToShow(designerCaseInfo.getDec_style()) + "风格");
+                designerCaseInfoHeadHolder.stylelNameText.setText(ProductBusiness.getProductBaseShowLine1(designerCaseInfo));
+                designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(ProductBusiness.getProductBaseShowLine2(designerCaseInfo));
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(),
                         designerCaseInfoHeadHolder.designerinfo_head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
@@ -125,14 +122,7 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 } else {
                     designerCaseInfoHeadHolder.designerinfo_auth.setVisibility(View.GONE);
                 }
-                String decType = BusinessCovertUtil.convertDectypeToShow(designerCaseInfo.getDec_type());
-                if (!TextUtils.isEmpty(decType)) {
-                    designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(decType + "，" + designerCaseInfo
-                            .getTotal_price() + context.getString(R.string.unit_million));
-                } else {
-                    designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(designerCaseInfo.getTotal_price() +
-                            context.getString(R.string.unit_million));
-                }
+
                 designerCaseInfoHeadHolder.designerinfo_head_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -196,7 +186,7 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Bind(R.id.produceText)
         TextView itemProduceText;
 
-        @Bind(R.id.tv_dectype_and_totalprice)
+        @Bind(R.id.tv_worktype_and_totalprice)
         TextView tvDecTypeAndTotalPrice;
 
         public DesignerCaseInfoHeadHolder(View itemView) {

@@ -1,25 +1,18 @@
-package com.jianfanjia.cn.designer.business;
+package com.jianfanjia.cn.activity.business;
 
 import android.text.TextUtils;
 
 import com.jianfanjia.api.model.Product;
-import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.activity.config.Global;
+import com.jianfanjia.cn.activity.tools.BusinessCovertUtil;
 
 /**
- * Description: com.jianfanjia.cn.designer.business
+ * Description: com.jianfanjia.cn.activity.business
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
- * Date:2016-05-18 17:59
+ * Date:2016-06-06 15:13
  */
 public class ProductBusiness {
-
-    public static final int PRODUCT_AUTH_SUCCESS_MIN_COUNT = 3;//最少需要认证成功3个作品
-
-    public static final String PRODUCT_NOT_AUTH = "0";//为审核
-    public static final String PRODUCT_AUTH_SUCCESS = "1";//认证成功
-    public static final String PRODUCT_AUTH_FAILURE = "2";//认证失败
-    public static final String PRODUCT_AUTH_VIOLATION = "3";//违规屏蔽
 
     public static String getProductBaseShowLine1(Product product) {
         StringBuilder stringBuilder = new StringBuilder();

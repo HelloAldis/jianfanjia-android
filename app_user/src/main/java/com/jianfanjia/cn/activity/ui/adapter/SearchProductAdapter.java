@@ -7,15 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.activity.base.RecyclerViewHolderBase;
-import com.jianfanjia.api.model.Product;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.activity.ui.interf.RecyclerViewOnItemClickListener;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Product;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.activity.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.activity.business.ProductBusiness;
+import com.jianfanjia.cn.activity.ui.interf.RecyclerViewOnItemClickListener;
 
 /**
  * Name: ProductAdapter
@@ -37,10 +36,8 @@ public class SearchProductAdapter extends BaseLoadMoreRecycleAdapter<Product> {
         Product product = mDatas.get(position);
         final ProductViewHolder holder = (ProductViewHolder) viewHolder;
         holder.itemXiaoQuText.setText(product.getCell());
-        String houseType = product.getHouse_type();
-        String decStyle = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessCovertUtil.convertHouseTypeToShow
-                (houseType) + "，" + BusinessCovertUtil.convertDecStyleToShow(decStyle));
+        holder.itemProduceText.setText(ProductBusiness.getProductBaseShowLine1(product));
+        holder.tvDecTypeAndTotalPrice.setText(ProductBusiness.getProductBaseShowLine2(product));
         imageShow.displayScreenWidthThumnailImage(context, product.getCover_imageid(), holder
                 .itemProductView);
         imageShow.displayImageHeadWidthThumnailImage(context, product.getDesigner().getImageid(), holder.itemHeadView);
@@ -78,6 +75,9 @@ public class SearchProductAdapter extends BaseLoadMoreRecycleAdapter<Product> {
         TextView itemXiaoQuText;
         @Bind(R.id.list_item_produce_text)
         TextView itemProduceText;
+
+        @Bind(R.id.tv_worktype_and_totalprice)
+        TextView tvDecTypeAndTotalPrice;
 
         public ProductViewHolder(View itemView) {
             super(itemView);

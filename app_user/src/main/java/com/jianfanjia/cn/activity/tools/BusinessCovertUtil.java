@@ -109,6 +109,15 @@ public class BusinessCovertUtil {
         return dectypes[decPosition];
     }
 
+    public static String convertBusinessHouseTypeToShow(String busi_house_type){
+        if (busi_house_type == null) return null;
+        int housePosition = Integer.parseInt(busi_house_type);
+        String[] housetypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_busi_housetype);
+        if(housePosition == 9999) return housetypes[housetypes.length - 1];//商装最后一项是9999；
+        if (housePosition < 0 || housePosition > housetypes.length) return null;
+        return housetypes[housePosition];
+    }
+
 
     /**
      * 拿到显示的房子类型
@@ -163,6 +172,19 @@ public class BusinessCovertUtil {
         if (sectionPosition < 0 || sectionPosition > sectionList.length) return null;
         return sectionList[sectionPosition];
     }
+
+    /**
+     * @param
+     * @return
+     */
+    public static String convertWorktypeToShow(String workType) {
+        if (workType == null) return null;
+        int decPosition = Integer.parseInt(workType);
+        String[] dectypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_worktype);
+        if (decPosition < 0 || decPosition > dectypes.length) return null;
+        return dectypes[decPosition];
+    }
+
 
     /**
      * @param decTypeText
