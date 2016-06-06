@@ -117,6 +117,15 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
     @Bind(R.id.goodat_type_layout)
     RelativeLayout goodAtTypeLayout;
 
+    @Bind(R.id.goodat_type_goto)
+    ImageView ivGoodAtGotoGoto;
+
+    @Bind(R.id.sex_goto)
+    ImageView ivSexGoto;
+
+    @Bind(R.id.address_goto)
+    ImageView ivAddressGoto;
+
     private int currentStatus = CURRENT_STATUS_PRIVIEW;//默认进来是预览状态
     private int intentFrom;
 
@@ -147,6 +156,10 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             goodAtTypeLayout.setEnabled(true);
             identityBackgroundDeleteImageView.setEnabled(true);
             identityFrontDeleteImageView.setEnabled(true);
+
+            ivSexGoto.setVisibility(View.VISIBLE);
+            ivAddressGoto.setVisibility(View.VISIBLE);
+            ivGoodAtGotoGoto.setVisibility(View.VISIBLE);
         } else {
             nameEditText.setEnabled(false);
             identityNumberEditText.setEnabled(false);
@@ -171,6 +184,10 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             goodAtTypeLayout.setEnabled(false);
             identityBackgroundDeleteImageView.setEnabled(false);
             identityFrontDeleteImageView.setEnabled(false);
+
+            ivSexGoto.setVisibility(View.INVISIBLE);
+            ivAddressGoto.setVisibility(View.INVISIBLE);
+            ivGoodAtGotoGoto.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -40,4 +40,13 @@ public class DesignerBusiness {
         }
         return authprocess;
     }
+
+    public static boolean isFinishBaseAuth(Designer designer){
+        if(!TextUtils.isEmpty(designer.getAuth_type()) && designer.getAuth_type().equals(DESIGNER_AUTH_SUCCESS)
+                && designer.getAuthed_product_count() >= 3){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

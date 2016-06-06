@@ -96,6 +96,9 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     @Bind(R.id.bank_layout)
     RelativeLayout bankLayout;
 
+    @Bind(R.id.bank_goto)
+    ImageView ivBankGoto;
+
     private Designer mDesigner;
     private int currentStatus = CURRENT_STATUS_PRIVIEW;//默认进来是预览状态
 
@@ -190,6 +193,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                 }
             });
             bankLayout.setEnabled(true);
+            ivBankGoto.setVisibility(View.VISIBLE);
         } else {
             nameEditText.setEnabled(false);
             identityNumberEditText.setEnabled(false);
@@ -224,6 +228,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             bankCardDeleteImageView.setEnabled(false);
             backCardNumberEditText.setEnabled(false);
             bankLayout.setEnabled(false);
+            ivBankGoto.setVisibility(View.INVISIBLE);
         }
     }
 

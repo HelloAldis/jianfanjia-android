@@ -308,7 +308,11 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             });
         }else {
             holder.diplomaImageView.setImageResource(R.mipmap.icon_default_pic);
-            holder.uploadDiplomaImageLayput.setVisibility(View.VISIBLE);
+            if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
+                holder.uploadDiplomaImageLayput.setVisibility(View.VISIBLE);
+            }else {
+                holder.uploadDiplomaImageLayput.setVisibility(View.GONE);
+            }
             holder.diplomaImageLayout.setVisibility(View.GONE);
             holder.uploadDiplomaImageLayput.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -333,6 +337,9 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             holder.workYearEditext.setEnabled(true);
             holder.workCompanyEditext.setEnabled(true);
             holder.uploadDiplomaImageLayput.setEnabled(true);
+            holder.ivHeadGoto.setVisibility(View.VISIBLE);
+            holder.ivSexGoto.setVisibility(View.VISIBLE);
+            holder.ivAddressGoto.setVisibility(View.VISIBLE);
         }else {
             holder.headLayout.setEnabled(false);
             holder.nameEditText.setEnabled(false);
@@ -348,6 +355,10 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             holder.workYearEditext.setEnabled(false);
             holder.workCompanyEditext.setEnabled(false);
             holder.uploadDiplomaImageLayput.setEnabled(false);
+
+            holder.ivHeadGoto.setVisibility(View.INVISIBLE);
+            holder.ivSexGoto.setVisibility(View.INVISIBLE);
+            holder.ivAddressGoto.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -416,9 +427,9 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         });
 
         if(mCurrentStatus == BaseInfoAuthActicity.CURRENT_STATUS_EDIT){
-            holder.uploadPlanImgLayout.setEnabled(true);
+            holder.uploadPlanImgLayout.setVisibility(View.VISIBLE);
         }else{
-            holder.uploadPlanImgLayout.setEnabled(false);
+            holder.uploadPlanImgLayout.setVisibility(View.GONE);
         }
     }
 
@@ -489,6 +500,15 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
 
         @Bind(R.id.design_achievement_editext)
         CustomEditText designAchievementEdittext;
+
+        @Bind(R.id.head_goto)
+        ImageView ivHeadGoto;
+
+        @Bind(R.id.sex_goto)
+        ImageView ivSexGoto;
+
+        @Bind(R.id.address_goto)
+        ImageView ivAddressGoto;
 
 
         public BaseInfoViewHolder(View view) {

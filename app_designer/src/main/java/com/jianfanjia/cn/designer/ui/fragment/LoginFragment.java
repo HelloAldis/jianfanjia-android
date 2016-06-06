@@ -23,6 +23,7 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.business.DesignerBusiness;
+import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.ui.activity.MainActivity;
@@ -151,11 +152,13 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<Designer> apiResponse) {
+                hideWaitDialog();
                 makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
+                hideWaitDialog();
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
@@ -183,7 +186,13 @@ public class LoginFragment extends BaseFragment {
                     startActivity(DesignerAgreementActivity.class);
                 } else {
                     dataManager.setLogin(true);
-                    startActivity(MainActivity.class);
+                    if (!DesignerBusiness.isFinishBaseAuth(designer)) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(MainActivity.TAB_POSITION, Constant.MORE);
+                        startActivity(MainActivity.class, bundle);
+                    } else {
+                        startActivity(MainActivity.class);
+                    }
                 }
                 AppManager.getAppManager().finishActivity(getActivity());
             }
