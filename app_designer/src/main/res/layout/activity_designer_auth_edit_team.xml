@@ -320,8 +320,6 @@
                     android:nextFocusDown="@+id/act_edit_req_dong_content"/>
             </LinearLayout>
 
-
-
         </LinearLayout>
 
     </ScrollView>
