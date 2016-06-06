@@ -18,7 +18,6 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.designer.business.ProductBusiness;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 
 
 /**
@@ -96,20 +95,9 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
         imageShow.displayScreenWidthThumnailImage(context, product.getCover_imageid(), holder
                 .itemwWorksView);
         holder.itemXiaoQuText.setText(product.getCell());
-        String decType = product.getDec_type();
-        String house_type = product.getHouse_type();
-        String dec_style = product.getDec_style();
-        holder.itemProduceText.setText(product.getHouse_area() + "㎡，" + BusinessCovertUtil.convertDectypeToShow(decType)
-                + "，" + BusinessCovertUtil.convertHouseTypeToShow(house_type) + "，" + BusinessCovertUtil
-                .convertDecStyleToShow(dec_style) + "风格");
 
-        if (!TextUtils.isEmpty(decType)) {
-            holder.itemDecTypeAndTotalPriceText.setText(BusinessCovertUtil.convertDectypeToShow(decType) + "，" + product
-                    .getTotal_price() + context.getString(R.string.unit_million));
-        } else {
-            holder.itemDecTypeAndTotalPriceText.setText(product.getTotal_price() +
-                    context.getString(R.string.unit_million));
-        }
+        holder.itemProduceText.setText(ProductBusiness.getProductBaseShowLine1(product));
+        holder.itemDecTypeAndTotalPriceText.setText(ProductBusiness.getProductBaseShowLine2(product));
 
         String status = product.getAuth_type();
         holder.authStatusText.setVisibility(View.VISIBLE);

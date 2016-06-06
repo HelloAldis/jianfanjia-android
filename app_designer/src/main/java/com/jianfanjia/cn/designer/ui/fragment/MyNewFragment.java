@@ -100,6 +100,7 @@ public class MyNewFragment extends BaseFragment {
         mainHeadView.setBackgroundTransparent();
         mainHeadView.setRightTitleVisable(View.GONE);
         mainHeadView.setBackLayoutVisable(View.GONE);
+
     }
 
     private void initView() {

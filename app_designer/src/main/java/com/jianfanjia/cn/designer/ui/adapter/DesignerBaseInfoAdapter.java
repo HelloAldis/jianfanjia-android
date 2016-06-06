@@ -47,7 +47,6 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private Designer mDesigner;
-    private android.os.Handler mHandler = new android.os.Handler();
     private UploadAwardImgViewHolder.ItemClickAction mItemClickAction;
     private int changeAwardImagePosition;
     int mCurrentStatus;
@@ -335,7 +334,6 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             holder.universityEditText.setEnabled(true);
             holder.diplomaImageLayout.setEnabled(true);
             holder.deleteImageView.setVisibility(View.VISIBLE);
-            holder.diplomaImageView.setEnabled(true);
             holder.workYearEditext.setEnabled(true);
             holder.workCompanyEditext.setEnabled(true);
             holder.uploadDiplomaImageLayput.setEnabled(true);
@@ -354,7 +352,6 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             holder.universityEditText.setEnabled(false);
             holder.diplomaImageLayout.setEnabled(false);
             holder.deleteImageView.setVisibility(View.GONE);
-            holder.diplomaImageView.setEnabled(false);
             holder.workYearEditext.setEnabled(false);
             holder.workCompanyEditext.setEnabled(false);
             holder.uploadDiplomaImageLayput.setEnabled(false);
