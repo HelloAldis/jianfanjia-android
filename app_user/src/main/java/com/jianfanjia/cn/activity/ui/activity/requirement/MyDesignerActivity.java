@@ -128,8 +128,10 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         break;
                     case VIEW_CONTRACT:
                         Bundle contractBundle = new Bundle();
-                        contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, orderDesignerInfo
-                                .getRequirement());
+                        Requirement requirement = orderDesignerInfo.getRequirement();
+                        requirement.setWork_type(requirementInfo.getWork_type());
+                        contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirement);
+                        LogTool.d(TAG,orderDesignerInfo.getRequirement() + "is null");
                         contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
                                 .DESIGNER_LIST_INTENT);
                         startActivity(ContractActivity.class, contractBundle);

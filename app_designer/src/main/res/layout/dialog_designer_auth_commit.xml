@@ -42,17 +42,30 @@
             android:text="@string/auth_success_next"
             android:textColor="@color/light_black_color"/>
 
-        <TextView
-            android:id="@+id/tv_confirm"
-            style="@style/listview_item_text_style_big"
-            android:layout_height="@dimen/space_40"
+        <LinearLayout
+            android:id="@+id/button_bar"
             android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_marginTop="@dimen/space_32"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_selector_bg"
-            android:text="@string/confirm"
-            android:textColor="@color/font_white"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/dialog_button_cancel"
+                android:visibility="visible"
+                android:text="@string/str_cancel"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/space_12"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/dialog_button_ok"
+                android:visibility="visible"
+                android:text="@string/confirm"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

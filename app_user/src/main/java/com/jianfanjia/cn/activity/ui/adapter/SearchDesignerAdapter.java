@@ -96,7 +96,7 @@ public class SearchDesignerAdapter extends BaseLoadMoreRecycleAdapter<Designer> 
                 listener.OnViewClick(position);
             }
         });
-        holder.productSumView.setText(designerInfo.getAuthed_product_count());
+        holder.productSumView.setText(designerInfo.getAuthed_product_count() + "");
         holder.designerFeeView.setText(BusinessCovertUtil.convertDesignFeeToShow(designerInfo.getDesign_fee_range()));
         holder.appointSumView.setText(designerInfo.getOrder_count() + "");
 

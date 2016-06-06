@@ -25,21 +25,22 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jianfanjia.cn.activity.AppManager;
-import com.jianfanjia.cn.activity.application.MyApplication;
-import com.jianfanjia.cn.activity.config.Global;
-import com.jianfanjia.cn.activity.service.UpdateService;
-import com.jianfanjia.cn.activity.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
-import com.jianfanjia.cn.activity.ui.activity.loginandreg.LoginNewActivity;
+import com.jianfanjia.cn.activity.AppManager;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.ui.activity.home.WebViewPackage365Activity;
 import com.jianfanjia.cn.activity.api.Api;
+import com.jianfanjia.cn.activity.application.MyApplication;
 import com.jianfanjia.cn.activity.business.DataManagerNew;
 import com.jianfanjia.cn.activity.config.Constant;
+import com.jianfanjia.cn.activity.config.Global;
 import com.jianfanjia.cn.activity.config.Url_New;
+import com.jianfanjia.cn.activity.service.UpdateService;
+import com.jianfanjia.cn.activity.ui.activity.home.WebViewPackage365Activity;
+import com.jianfanjia.cn.activity.ui.activity.loginandreg.LoginNewActivity;
+import com.jianfanjia.cn.activity.view.recycleview.itemdecoration.HorizontalDividerDecoration;
+import com.jianfanjia.cn.activity.view.recycleview.itemdecoration.VerticalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -120,6 +121,16 @@ public class UiHelper {
      */
     public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
         return new HorizontalDividerDecoration(TDevice.dip2px(context, 10));
+    }
+
+    /**
+     * 生成一个默认的分割线
+     *
+     * @param context
+     * @return
+     */
+    public static VerticalDividerDecoration buildDefaultWidthDecoration(Context context) {
+        return new VerticalDividerDecoration(TDevice.dip2px(context, 10));
     }
 
     /**

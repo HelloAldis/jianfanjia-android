@@ -247,14 +247,44 @@ public class UploadProduct1Fragment extends BaseFragment {
      * @return
      */
     public void isAllInput() {
+        if (!TextUtils.isEmpty(mProduct.getDec_type())) {
+            if (!TextUtils.isEmpty(mProduct.getDistrict()) && !TextUtils.isEmpty(mProduct.getCell())
+                    && !TextUtils.isEmpty(mProduct.getHouse_type()) && mProduct.getHouse_area() > 0 &&
+                    !TextUtils.isEmpty(mProduct.getDec_style()) && !TextUtils.isEmpty(mProduct.getDec_type())
+                    && !TextUtils.isEmpty(mProduct.getWork_type()) && mProduct.getTotal_price() > 0
+                    ) {
+
+                LogTool.d(TAG, "isFisish =" + true);
+                mMainHeadView.setRigthTitleEnable(true);
+            }
+
+        } else {
+            LogTool.d(TAG, "isFisish =" + false);
+            mMainHeadView.setRigthTitleEnable(false);
+        }
+
         if (!TextUtils.isEmpty(mProduct.getDistrict()) && !TextUtils.isEmpty(mProduct.getCell())
-                && !TextUtils.isEmpty(mProduct.getHouse_type()) && mProduct.getHouse_area() > 0 &&
+                && mProduct.getHouse_area() > 0 &&
                 !TextUtils.isEmpty(mProduct.getDec_style()) && !TextUtils.isEmpty(mProduct.getDec_type())
                 && !TextUtils.isEmpty(mProduct.getWork_type()) && mProduct.getTotal_price() > 0
                 ) {
-
-            LogTool.d(TAG, "isFisish =" + true);
-            mMainHeadView.setRigthTitleEnable(true);
+            if (mProduct.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
+                if (!TextUtils.isEmpty(mProduct.getBusiness_house_type())) {
+                    LogTool.d(TAG, "isFisish =" + true);
+                    mMainHeadView.setRigthTitleEnable(true);
+                }else {
+                    LogTool.d(TAG, "isFisish =" + false);
+                    mMainHeadView.setRigthTitleEnable(false);
+                }
+            } else {
+                if (!TextUtils.isEmpty(mProduct.getHouse_type())) {
+                    LogTool.d(TAG, "isFisish =" + true);
+                    mMainHeadView.setRigthTitleEnable(true);
+                }else {
+                    LogTool.d(TAG, "isFisish =" + false);
+                    mMainHeadView.setRigthTitleEnable(false);
+                }
+            }
         } else {
             LogTool.d(TAG, "isFisish =" + false);
             mMainHeadView.setRigthTitleEnable(false);
@@ -322,7 +352,7 @@ public class UploadProduct1Fragment extends BaseFragment {
                     String city = data.getStringExtra(Constant.EDIT_CITY);
                     String district = data.getStringExtra(Constant.EDIT_DISTRICT);
                     if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(district)) {
-                        act_edit_req_city_content.setText(provice + city + district);
+                        act_edit_req_city_content.setText(provice + " " + city + " " + district);
                         mProduct.setProvince(provice);
                         mProduct.setCity(city);
                         mProduct.setDistrict(district);

@@ -20,6 +20,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.common.tool.TDevice;
 
 
@@ -169,6 +170,7 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
                 false);
         viewHolder.mRecyclerView.setLayoutManager(linearLayoutManager);
+        viewHolder.mRecyclerView.addItemDecoration(UiHelper.buildDefaultWidthDecoration(context));
         viewHolder.mRecyclerView.setAdapter(new PlanImageAdapter(context, mPlanImgLists));
     }
 
@@ -244,7 +246,12 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = mLayoutInflater.inflate(R.layout.list_item_designer_case_plan_item, null);
-            int width = (int) TDevice.getScreenWidth() - TDevice.dip2px(context, 24);
+            int width;
+            if (mProductImageInfos.size() > 1) {
+                width = (int) TDevice.getScreenWidth() - TDevice.dip2px(context, 24);
+            } else {
+                width = (int) TDevice.getScreenWidth();
+            }
             view.setLayoutParams(new ViewGroup.LayoutParams(width, ViewGroup
                     .LayoutParams.WRAP_CONTENT));
             return new PlanImageItemViewHolder(view);

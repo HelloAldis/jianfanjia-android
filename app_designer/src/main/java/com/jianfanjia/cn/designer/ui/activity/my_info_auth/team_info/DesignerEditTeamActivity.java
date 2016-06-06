@@ -39,6 +39,7 @@ import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
+import com.jianfanjia.cn.designer.view.DesignerAuthCommitDialog;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -204,11 +205,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (intentFrom == FROM_UPDATE_INTENT) {
-                        updateDesignerTeamInfo(mTeam);
-                    } else {
-                        addDesignerOneTeam(mTeam);
-                    }
+                    showAuthTipDialog();
                 }
             });
             setMianHeadRightTitleEnable();
@@ -226,6 +223,21 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         }
         changeViewShowEditOrPreview();
     }
+
+    private void showAuthTipDialog(){
+        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (intentFrom == FROM_UPDATE_INTENT) {
+                    updateDesignerTeamInfo(mTeam);
+                } else {
+                    addDesignerOneTeam(mTeam);
+                }
+            }
+        });
+        designerAuthCommitDialog.show();
+    }
+
 
     private void showIdentityBigImage(int position) {
         List<String> showImages = new ArrayList<>();

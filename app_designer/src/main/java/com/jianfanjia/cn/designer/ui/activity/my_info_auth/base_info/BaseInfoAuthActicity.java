@@ -36,6 +36,7 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
 import com.jianfanjia.cn.designer.ui.adapter.DesignerBaseInfoAdapter;
+import com.jianfanjia.cn.designer.view.DesignerAuthCommitDialog;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -122,7 +123,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateDesignerBaseInfo(mDesigner);
+                    showAuthTipDialog();
                 }
             });
             setMianHeadRightTitleEnable();
@@ -221,6 +222,17 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
                 break;
         }
     }
+
+    private void showAuthTipDialog(){
+        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                updateDesignerBaseInfo(mDesigner);
+            }
+        });
+        designerAuthCommitDialog.show();
+    }
+
 
     private void showSexChooseDialog() {
         CommonDialog commonDialog = DialogHelper

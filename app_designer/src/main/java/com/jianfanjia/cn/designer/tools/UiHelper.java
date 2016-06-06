@@ -38,17 +38,18 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.login_and_register.LoginNewActivity;
-import com.jianfanjia.cn.designer.ui.activity.common.WebViewActivity;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.config.Url_New;
-import com.jianfanjia.cn.designer.ui.interf.RefuseRequirementCallback;
 import com.jianfanjia.cn.designer.service.UpdateService;
+import com.jianfanjia.cn.designer.ui.activity.common.WebViewActivity;
+import com.jianfanjia.cn.designer.ui.activity.login_and_register.LoginNewActivity;
+import com.jianfanjia.cn.designer.ui.interf.RefuseRequirementCallback;
 import com.jianfanjia.cn.designer.view.baseview.HorizontalDividerDecoration;
+import com.jianfanjia.cn.designer.view.baseview.VerticalDividerDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.FileUtil;
@@ -133,6 +134,16 @@ public class UiHelper {
      */
     public static HorizontalDividerDecoration buildDefaultHeightDecoration(Context context) {
         return new HorizontalDividerDecoration(TDevice.dip2px(context, 10));
+    }
+
+    /**
+     * 生成一个默认的分割线
+     *
+     * @param context
+     * @return
+     */
+    public static VerticalDividerDecoration buildDefaultWidthDecoration(Context context) {
+        return new VerticalDividerDecoration(TDevice.dip2px(context, 10));
     }
 
     /**

@@ -79,11 +79,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
     }
 
     public void finishProduct(Product product) {
-        if (intent_type == PUBLISH) {
-            uploadProduct(product);
-        } else {
-            updateProduct(product);
-        }
+        showAuthTipDialog(product);
     }
 
     public void updateProduct(Product product) {
@@ -103,7 +99,8 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                showAuthTipDialog();
+                startActivity(DesignerProductAuthActivity.class);
+                appManager.finishActivity(UploadProductActivity.this);
             }
 
             @Override
@@ -117,13 +114,15 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
         });
     }
 
-    private void showAuthTipDialog(){
+    private void showAuthTipDialog(final Product product){
         DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
-                startActivity(DesignerProductAuthActivity.class);
-                appManager.finishActivity(UploadProductActivity.this);
+                if (intent_type == PUBLISH) {
+                    uploadProduct(product);
+                } else {
+                    updateProduct(product);
+                }
             }
         });
         designerAuthCommitDialog.show();
@@ -146,7 +145,8 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                showAuthTipDialog();
+                startActivity(DesignerProductAuthActivity.class);
+                appManager.finishActivity(UploadProductActivity.this);
             }
 
             @Override

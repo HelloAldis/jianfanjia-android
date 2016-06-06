@@ -7,7 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.jianfanjia.cn.designer.R;
 
@@ -39,11 +39,19 @@ public class DesignerAuthCommitDialog extends Dialog {
     }
 
     private void setListener(final View.OnClickListener listener) {
-        TextView tvConfirm = (TextView) findViewById(R.id.tv_confirm);
-        tvConfirm.setOnClickListener(new View.OnClickListener() {
+        Button btnConfirm = (Button) findViewById(R.id.btn_confirm);
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(v);
+                DesignerAuthCommitDialog.this.dismiss();
+            }
+        });
+
+        Button btnCancel = (Button) findViewById(R.id.btn_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 DesignerAuthCommitDialog.this.dismiss();
             }
         });

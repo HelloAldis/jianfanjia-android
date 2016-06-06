@@ -34,6 +34,7 @@ import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
+import com.jianfanjia.cn.designer.view.DesignerAuthCommitDialog;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -137,7 +138,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateDesignerIdentityInfo(mDesigner);
+                    showAuthTipDialog();
                 }
             });
             setMianHeadRightTitleEnable();
@@ -418,6 +419,16 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_BANK, BusinessCovertUtil.getBankKeyByValue(mDesigner
                 .getBank()), getString(R.string.bank));
         startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_BANK);
+    }
+
+    private void showAuthTipDialog(){
+        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                updateDesignerIdentityInfo(mDesigner);
+            }
+        });
+        designerAuthCommitDialog.show();
     }
 
     private void updateDesignerIdentityInfo(Designer designer) {

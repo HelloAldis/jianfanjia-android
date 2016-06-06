@@ -398,7 +398,7 @@
     <string name="update_team_auth">更新施工团队</string>
     <string name="user_address_district">所在地区</string>
     <string name="entire_period">从业年限</string>
-    <string name="auth_commit_success">已成功为您提交认证申请</string>
+    <string name="auth_commit_success">您是否提交本次认证申请</string>
     <string name="auth_success_tip">我们的工作人员会在12小时之内为您认证</string>
     <string name="auth_success_next">您也可以前往认证中心完成其他资料认证</string>
     <string name="product_auth_canbe_appoint_count">认证条件：您至少需要认证 3 个以上的作品，才可以被预约</string>
