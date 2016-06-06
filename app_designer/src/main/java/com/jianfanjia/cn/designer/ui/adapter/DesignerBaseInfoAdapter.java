@@ -306,6 +306,12 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
                     notifyItemChanged(0);
                 }
             });
+            holder.diplomaImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemClickAction.showDiplomaBigImage();
+                }
+            });
         }else {
             holder.diplomaImageView.setImageResource(R.mipmap.icon_default_pic);
             holder.uploadDiplomaImageLayput.setVisibility(View.VISIBLE);
@@ -365,6 +371,12 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
         final String imageid = designerAwardInfo.getAward_imageid();
 
         ImageShow.getImageShow().displayScreenWidthThumnailImage(mContext, imageid, holder.uploadProductImg);
+        holder.uploadProductImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mItemClickAction.showAwardBigImage(position - 1);
+            }
+        });
 
         //设置封面
         if (!designerAwardInfo.isMenuOpen()) {
@@ -579,6 +591,8 @@ public class DesignerBaseInfoAdapter extends RecyclerView.Adapter {
             void uploadDiplomaImage();
             void uploadAwardImage();
             void updateAwardImage();
+            void showAwardBigImage(int position);
+            void showDiplomaBigImage();
         }
 
         @Override

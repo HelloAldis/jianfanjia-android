@@ -8,33 +8,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.jianfanjia.cn.activity.AppManager;
-import com.jianfanjia.cn.activity.base.BaseFragment;
-import com.jianfanjia.cn.activity.business.DataManagerNew;
-import com.jianfanjia.cn.activity.config.Constant;
-import com.jianfanjia.cn.activity.config.Global;
-import com.jianfanjia.cn.activity.ui.activity.MainActivity;
-import com.jianfanjia.cn.activity.ui.activity.loginandreg.ForgetPswActivity;
-import com.jianfanjia.cn.activity.ui.activity.loginandreg.LoginNewActivity;
-import com.jianfanjia.cn.activity.ui.activity.welcome.NewUserCollectDecStageActivity;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.guest.LoginRequest;
 import com.jianfanjia.api.request.guest.WeiXinRegisterRequest;
+import com.jianfanjia.cn.activity.AppManager;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.api.Api;
+import com.jianfanjia.cn.activity.base.BaseFragment;
+import com.jianfanjia.cn.activity.business.DataManagerNew;
+import com.jianfanjia.cn.activity.config.Constant;
+import com.jianfanjia.cn.activity.config.Global;
 import com.jianfanjia.cn.activity.tools.AuthUtil;
+import com.jianfanjia.cn.activity.ui.activity.MainActivity;
+import com.jianfanjia.cn.activity.ui.activity.loginandreg.ForgetPswActivity;
+import com.jianfanjia.cn.activity.ui.activity.loginandreg.LoginNewActivity;
+import com.jianfanjia.cn.activity.ui.activity.welcome.NewUserCollectDecStageActivity;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.listener.SocializeListeners;
-
-import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Description: com.jianfanjia.cn.fragment
@@ -221,7 +220,6 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
                 User loginUserBean = apiResponse.getData();
-                loginUserBean.setPass(password);
                 DataManagerNew.loginSuccess(loginUserBean);
 
                 startActivity(MainActivity.class);

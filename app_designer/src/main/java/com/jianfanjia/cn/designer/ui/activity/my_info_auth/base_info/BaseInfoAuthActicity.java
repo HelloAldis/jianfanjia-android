@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,6 +36,7 @@ import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.IntentUtil;
 import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.adapter.DesignerBaseInfoAdapter;
 import com.jianfanjia.cn.designer.view.DesignerAuthCommitDialog;
 import com.jianfanjia.cn.designer.view.MainHeadView;
@@ -205,6 +207,30 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             public void updateAwardImage() {
                 pickPicture(Constant.REQUESTCODE_PICKER_CHANGE_AWARD_PIC, 1);
+            }
+
+            @Override
+            public void showAwardBigImage(int position) {
+                List<String> showImages = new ArrayList<>();
+                for(DesignerAwardInfo designerAwardInfo : mDesigner.getAward_details()){
+                    showImages.add(designerAwardInfo.getAward_imageid());
+                }
+                Bundle showPicBundle = new Bundle();
+                showPicBundle.putInt(Constant.CURRENT_POSITION, position);
+                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) showImages);
+                startActivity(ShowPicActivity.class, showPicBundle);
+            }
+
+            @Override
+            public void showDiplomaBigImage() {
+                List<String> showImages = new ArrayList<>();
+                showImages.add(mDesigner.getDiploma_imageid());
+                Bundle showPicBundle = new Bundle();
+                showPicBundle.putInt(Constant.CURRENT_POSITION, 0);
+                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                        (ArrayList<String>) showImages);
+                startActivity(ShowPicActivity.class, showPicBundle);
             }
         });
         mRecyclerView.setAdapter(mDesignerBaseInfoAdapter);

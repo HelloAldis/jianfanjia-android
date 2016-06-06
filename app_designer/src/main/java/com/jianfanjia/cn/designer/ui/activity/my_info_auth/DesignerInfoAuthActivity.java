@@ -103,7 +103,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
                     authStatus.setText(getString(R.string.auth_not_apply));
                     authStatus.setBackgroundResource(R.drawable.bg_auth_rectangle_grey);
                 } else {
-                    if (dataManager.getDesigner().getAuthed_product_count() > ProductBusiness
+                    if (dataManager.getDesigner().getAuthed_product_count() >= ProductBusiness
                             .PRODUCT_AUTH_SUCCESS_MIN_COUNT) {
                         authImg.setBackgroundResource(R.drawable.bg_auth_oval_green);
                         authStatus.setText(getString(R.string.view_detail));

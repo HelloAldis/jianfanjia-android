@@ -144,7 +144,6 @@ public class RegisterNewActivity extends BaseActivity {
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
                 User loginUserBean = apiResponse.getData();
-                loginUserBean.setPass(registerInfo.getPass());
                 DataManagerNew.loginSuccess(loginUserBean);
 
                 startActivity(NewUserCollectDecStageActivity.class);

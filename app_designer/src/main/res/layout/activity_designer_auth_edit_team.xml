@@ -285,6 +285,7 @@
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/goodat_type_goto"
                     android:hint="@string/please_choose"
+                    android:gravity="center_vertical|right"
                     android:textColor="@color/light_black_color"/>
 
                 <ImageView

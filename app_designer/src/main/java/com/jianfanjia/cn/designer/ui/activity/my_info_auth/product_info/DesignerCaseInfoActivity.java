@@ -152,6 +152,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         @Override
         public void onPreLoad() {
             showWaitDialog(R.string.loading);
+            mMainHeadView.setRightTitleVisable(View.GONE);
         }
 
         @Override
@@ -164,6 +165,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             mProduct = apiResponse.getData();
             LogTool.d(TAG, "designerCaseInfo" + mProduct);
             if (null != mProduct) {
+                mMainHeadView.setRightTitleVisable(View.VISIBLE);
                 setMainRightTitleShow(mProduct);
 
                 List<ProductImageInfo> imgList = mProduct.getImages();

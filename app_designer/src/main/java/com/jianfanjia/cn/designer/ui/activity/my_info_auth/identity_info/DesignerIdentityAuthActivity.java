@@ -153,6 +153,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onClick(View v) {
                     currentStatus = CURRENT_STATUS_EDIT;
+                    initData();
                     changeViewByStatus();
                 }
             });
@@ -170,59 +171,15 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         if (currentStatus == CURRENT_STATUS_EDIT) {
             nameEditText.setEnabled(true);
             identityNumberEditText.setEnabled(true);
-            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
-                }
-            });
-            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
-                }
-            });
             identityBackgroundDeleteImageView.setEnabled(true);
             identityFrontDeleteImageView.setEnabled(true);
             bankCardDeleteImageView.setEnabled(true);
             backCardNumberEditText.setEnabled(true);
-            bankCardImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_BANK);
-                }
-            });
             bankLayout.setEnabled(true);
             ivBankGoto.setVisibility(View.VISIBLE);
         } else {
             nameEditText.setEnabled(false);
             identityNumberEditText.setEnabled(false);
-            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showIdentityBigImage(1);
-                }
-            });
-            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showIdentityBigImage(0);
-                }
-            });
-            bankCardImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!TextUtils.isEmpty(mDesigner.getBank_card_image1())) {
-                        List<String> showImages = new ArrayList<>();
-                        showImages.add(mDesigner.getBank_card_image1());
-                        Bundle showPicBundle = new Bundle();
-                        showPicBundle.putInt(Constant.CURRENT_POSITION, 0);
-                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                                (ArrayList<String>) showImages);
-                        startActivity(ShowPicActivity.class, showPicBundle);
-                    }
-                }
-            });
             identityBackgroundDeleteImageView.setEnabled(false);
             identityFrontDeleteImageView.setEnabled(false);
             bankCardDeleteImageView.setEnabled(false);
@@ -315,6 +272,14 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             } else {
                 identityFrontDeleteImageView.setVisibility(View.GONE);
             }
+
+            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showIdentityBigImage(0);
+                }
+            });
+
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -323,6 +288,18 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                 }
             });
         } else {
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
+                    }
+                });
+            } else {
+                identityFrontImageView.setOnClickListener(null);
+            }
+
+
             identityFrontImageView.setImageResource(R.mipmap.icon_identity_front_example);
             identityFrontDeleteImageView.setVisibility(View.GONE);
         }
@@ -335,6 +312,12 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             } else {
                 identityBackgroundDeleteImageView.setVisibility(View.GONE);
             }
+            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showIdentityBigImage(1);
+                }
+            });
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -343,6 +326,16 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                 }
             });
         } else {
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
+                    }
+                });
+            } else {
+                identityBackgroundImageView.setOnClickListener(null);
+            }
             identityBackgroundImageView.setImageResource(R.mipmap.icon_identity_background_example);
             identityBackgroundDeleteImageView.setVisibility(View.GONE);
         }
@@ -355,6 +348,20 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             } else {
                 bankCardDeleteImageView.setVisibility(View.GONE);
             }
+            bankCardImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(mDesigner.getBank_card_image1())) {
+                        List<String> showImages = new ArrayList<>();
+                        showImages.add(mDesigner.getBank_card_image1());
+                        Bundle showPicBundle = new Bundle();
+                        showPicBundle.putInt(Constant.CURRENT_POSITION, 0);
+                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                                (ArrayList<String>) showImages);
+                        startActivity(ShowPicActivity.class, showPicBundle);
+                    }
+                }
+            });
             bankCardDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -363,6 +370,16 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
                 }
             });
         } else {
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                bankCardImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pickPicture(REQUESTCODE_PICK_BANK);
+                    }
+                });
+            } else {
+                bankCardImageView.setOnClickListener(null);
+            }
             bankCardImageView.setImageResource(R.mipmap.icon_back_example);
             bankCardDeleteImageView.setVisibility(View.GONE);
 

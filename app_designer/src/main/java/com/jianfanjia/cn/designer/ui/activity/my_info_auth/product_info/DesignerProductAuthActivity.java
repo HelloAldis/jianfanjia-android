@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,8 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.designer.view.MainHeadView;
+import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
+import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 
@@ -92,11 +95,33 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onItemDelete(int position) {
-                Product product = mProductList.get(position);
-                deleteOneProduct(product.get_id(), position);
+                showTipDialog(position);
             }
         });
         mRecyclerView.setAdapter(mDesignerWorksAdapter);
+    }
+
+    //显示放弃提交提醒
+    protected void showTipDialog(final int position) {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip_delete_product_title);
+        commonDialog.setMessage(getString(R.string.tip_delete_product));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Product product = mProductList.get(position);
+                deleteOneProduct(product.get_id(), position);
+
+            }
+        });
+        commonDialog.show();
     }
 
     private void deleteOneProduct(String productId, final int position) {

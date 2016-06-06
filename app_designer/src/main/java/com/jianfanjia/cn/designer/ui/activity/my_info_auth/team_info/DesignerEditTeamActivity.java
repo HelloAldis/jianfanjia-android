@@ -39,7 +39,6 @@ import com.jianfanjia.cn.designer.ui.activity.common.EditCityActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.designer.ui.interf.cutom_annotation.ReqItemFinderImp;
-import com.jianfanjia.cn.designer.view.DesignerAuthCommitDialog;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
@@ -139,18 +138,6 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             workingonSiteEditText.setEnabled(true);
             workYearEditext.setEnabled(true);
             workCompanyEditext.setEnabled(true);
-            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
-                }
-            });
-            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
-                }
-            });
             sexLayout.setEnabled(true);
             addrLayout.setEnabled(true);
             goodAtTypeLayout.setEnabled(true);
@@ -167,18 +154,8 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             workingonSiteEditText.setEnabled(false);
             workYearEditext.setEnabled(false);
             workCompanyEditext.setEnabled(false);
-            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showIdentityBigImage(1);
-                }
-            });
-            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showIdentityBigImage(0);
-                }
-            });
+
+
             sexLayout.setEnabled(false);
             addrLayout.setEnabled(false);
             goodAtTypeLayout.setEnabled(false);
@@ -222,7 +199,11 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             mMainHeadView.setRightTextListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showAuthTipDialog();
+                    if (intentFrom == FROM_UPDATE_INTENT) {
+                        updateDesignerTeamInfo(mTeam);
+                    } else {
+                        addDesignerOneTeam(mTeam);
+                    }
                 }
             });
             setMianHeadRightTitleEnable();
@@ -234,27 +215,13 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onClick(View v) {
                     currentStatus = CURRENT_STATUS_EDIT;
+                    initData();
                     changeViewByStatus();
                 }
             });
         }
         changeViewShowEditOrPreview();
     }
-
-    private void showAuthTipDialog(){
-        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (intentFrom == FROM_UPDATE_INTENT) {
-                    updateDesignerTeamInfo(mTeam);
-                } else {
-                    addDesignerOneTeam(mTeam);
-                }
-            }
-        });
-        designerAuthCommitDialog.show();
-    }
-
 
     private void showIdentityBigImage(int position) {
         List<String> showImages = new ArrayList<>();
@@ -370,6 +337,12 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             } else {
                 identityFrontDeleteImageView.setVisibility(View.GONE);
             }
+            identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showIdentityBigImage(0);
+                }
+            });
             identityFrontDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -379,6 +352,16 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             });
 
         } else {
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                identityFrontImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pickPicture(REQUESTCODE_PICK_IDENTITY_FRONT);
+                    }
+                });
+            } else {
+                identityFrontImageView.setOnClickListener(null);
+            }
             identityFrontImageView.setImageResource(R.mipmap.icon_identity_front_example);
             identityFrontDeleteImageView.setVisibility(View.GONE);
         }
@@ -391,6 +374,12 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             } else {
                 identityBackgroundDeleteImageView.setVisibility(View.GONE);
             }
+            identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showIdentityBigImage(1);
+                }
+            });
             identityBackgroundDeleteImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -400,6 +389,16 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
             });
 
         } else {
+            if (currentStatus == CURRENT_STATUS_EDIT) {
+                identityBackgroundImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pickPicture(REQUESTCODE_PICK_IDENTITY_BACK);
+                    }
+                });
+            } else {
+                identityBackgroundImageView.setOnClickListener(null);
+            }
             identityBackgroundImageView.setImageResource(R.mipmap.icon_identity_background_example);
             identityBackgroundDeleteImageView.setVisibility(View.GONE);
         }

@@ -111,7 +111,6 @@ public class DataManagerNew {
         sharedPreferuser.setValue(Constant.USERNAME, userBean.getUsername());
         sharedPreferuser.setValue(Constant.USERIMAGE_ID, userBean.getImageid());
         sharedPreferuser.setValue(Constant.USER_ID, userBean.get_id());
-        sharedPreferuser.setValue(Constant.PASSWORD, userBean.getPass());
         sharedPreferuser.setValue(Constant.OPEN_ID, userBean.getWechat_openid());
         sharedPreferuser.setValue(Constant.UNION_ID, userBean.getWechat_unionid());
         sharedPreferuser.setValue(Constant.IS_WEIXIN_FIRST_LOGIN, userBean.is_wechat_first_login());

@@ -17,23 +17,26 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.activity.api.Api;
 import com.jianfanjia.cn.activity.application.MyApplication;
 import com.jianfanjia.cn.activity.base.BaseFragment;
+import com.jianfanjia.cn.activity.config.Constant;
 import com.jianfanjia.cn.activity.tools.UiHelper;
+import com.jianfanjia.cn.activity.ui.activity.common.CommentListActivity;
 import com.jianfanjia.cn.activity.ui.activity.my.AboutActivity;
+import com.jianfanjia.cn.activity.ui.activity.my.CollectActivity;
+import com.jianfanjia.cn.activity.ui.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.activity.ui.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.activity.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.activity.ui.activity.my.UserInfoActivity;
 import com.jianfanjia.cn.activity.view.dialog.CommonDialog;
 import com.jianfanjia.cn.activity.view.dialog.DialogHelper;
 import com.jianfanjia.cn.activity.view.layout.BadgeView;
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.ui.activity.common.CommentListActivity;
-import com.jianfanjia.cn.activity.ui.activity.my.CollectActivity;
-import com.jianfanjia.cn.activity.ui.activity.my.CustomerServiceActivity;
-import com.jianfanjia.cn.activity.config.Constant;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
@@ -114,6 +117,9 @@ public class MyNewFragment extends BaseFragment {
         head_img.setLayoutParams(new FrameLayout.LayoutParams((int) TDevice.getScreenWidth(), (int) (880 / (1242 /
                 TDevice.getScreenWidth()))));
         getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
+
+        updateUserInfo();
+        updateUserHeader();
     }
 
     protected void updateUserHeader() {
@@ -170,8 +176,40 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateUserHeader();
-        updateUserInfo();
+        getUserInfo();
+    }
+
+    private void getUserInfo(){
+        UserByOwnerInfoRequest userByOwnerInfoRequest = new UserByOwnerInfoRequest();
+
+        Api.getUserInfo(userByOwnerInfoRequest, new ApiCallback<ApiResponse<User>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<User> apiResponse) {
+                dataManager.saveLoginUserBean(apiResponse.getData());
+                updateUserInfo();
+                updateUserHeader();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<User> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     private void updateUserInfo() {
@@ -186,7 +224,7 @@ public class MyNewFragment extends BaseFragment {
         LogTool.d(TAG, "isHidden =" + hidden);
         if (!hidden) {
 //            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
-            updateUserInfo();
+//            updateUserInfo();
         }
     }
 

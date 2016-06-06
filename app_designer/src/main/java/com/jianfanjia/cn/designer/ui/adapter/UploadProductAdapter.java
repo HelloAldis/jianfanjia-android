@@ -187,7 +187,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         holder.uploadProductImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mShowProductBigImageListener.showProductBigImage(SHOW_TYPE_EFFECT,position - 4 - mPlanImgLists.size());
+                mShowProductBigImageListener.showProductBigImage(SHOW_TYPE_EFFECT, position - 4 - mPlanImgLists.size());
             }
         });
 
@@ -201,18 +201,17 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (!TextUtils.isEmpty(mProduct.getCover_imageid()) && mProduct.getCover_imageid().equals(productImageInfo
                 .getImageid())) {
             holder.coverView.setVisibility(View.VISIBLE);
-            holder.settingCoverView.setEnabled(false);
         } else {
             holder.coverView.setVisibility(View.GONE);
-            holder.settingCoverView.setEnabled(true);
-            holder.settingCoverView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mProduct.setCover_imageid(productImageInfo.getImageid());
-                    notifyItemRangeChanged(4 + mPlanImgLists.size(), mEffectImgLists.size());
-                }
-            });
         }
+
+        holder.settingCoverView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mProduct.setCover_imageid(productImageInfo.getImageid());
+                notifyItemRangeChanged(4 + mPlanImgLists.size(), mEffectImgLists.size());
+            }
+        });
 
         holder.clearView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,7 +294,6 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             }
         });
-
 
 
         holder.clearView.setOnClickListener(new View.OnClickListener() {
@@ -576,8 +574,8 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         void replaceProductImage(int type, int position);
     }
 
-    public interface ShowProductBigImageListener{
-        void showProductBigImage(int type,int position);
+    public interface ShowProductBigImageListener {
+        void showProductBigImage(int type, int position);
     }
 
     private class EditTextTextWatcher implements TextWatcher {

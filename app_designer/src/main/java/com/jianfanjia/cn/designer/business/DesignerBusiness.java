@@ -35,7 +35,7 @@ public class DesignerBusiness {
                 (DESIGNER_AUTH_SUCCESS)) {
             authprocess += 20;
         }
-        if (designer.getAuthed_product_count() > ProductBusiness.PRODUCT_AUTH_SUCCESS_MIN_COUNT) {
+        if (designer.getAuthed_product_count() >= ProductBusiness.PRODUCT_AUTH_SUCCESS_MIN_COUNT) {
             authprocess += 20;
         }
         return authprocess;
