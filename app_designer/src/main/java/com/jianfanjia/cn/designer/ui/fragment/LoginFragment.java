@@ -25,7 +25,6 @@ import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.business.DesignerBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.AuthUtil;
 import com.jianfanjia.cn.designer.ui.activity.MainActivity;
 import com.jianfanjia.cn.designer.ui.activity.login_and_register.DesignerAgreementActivity;
 import com.jianfanjia.cn.designer.ui.activity.login_and_register.ForgetPswActivity;
@@ -48,12 +47,9 @@ public class LoginFragment extends BaseFragment {
     private String mUserName = null;// 用户名
     private String mPassword = null;// 密码
 
-    private AuthUtil authUtil = null;
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        authUtil = AuthUtil.getInstance(getActivity());
     }
 
     @Override
@@ -80,8 +76,7 @@ public class LoginFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.btn_login, R.id.act_forget_password, R.id
-            .btn_login_weixin_layout})
+    @OnClick({R.id.btn_login, R.id.act_forget_password})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:

@@ -146,7 +146,7 @@ pgyer {
     _api_key = PGY_API_KEY
     uKey = PGY_UKEY
 }
-/*task configPgy() {
+task configPgy() {
     doLast {
         apks {
             andtest {
@@ -157,18 +157,18 @@ pgyer {
             }
         }
     }
-}*/
-task configReleasePgy() {
+}
+/*task configReleasePgy() {
     doLast {
         apks {
             release {
 //                def app = getLastReleasePgyapp(appName);
 //                if (app != null) {
-                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release/2.8.9/designer-Default_20160607_0_99_2.8.9.apk")
+                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release/2.8.10/designer-Default_20160607_0_100_2.8.10.apk")
 //                }
             }
         }
     }
-}
-tasks.uploadPgyer.dependsOn(configReleasePgy);
+}*/
+tasks.uploadPgyer.dependsOn(configPgy);
 tasks.uploadPgyer.shouldRunAfter(tag);
