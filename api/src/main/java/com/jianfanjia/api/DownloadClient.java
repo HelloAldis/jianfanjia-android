@@ -38,7 +38,6 @@ public class DownloadClient {
             networkError(downloadRequest, apiCallback, HttpCode.NO_NETWORK_ERROR_CODE);
             return;
         }
-
         CLIENT.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

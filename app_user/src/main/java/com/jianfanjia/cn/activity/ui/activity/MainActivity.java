@@ -49,7 +49,6 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.my_layout)
     LinearLayout myLayout;
 
-
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;

@@ -7,8 +7,6 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.jianfanjia.cn.activity.application.MyApplication;
-import com.jianfanjia.cn.activity.config.Global;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.UpdateVersion;
@@ -17,11 +15,13 @@ import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.activity.api.Api;
+import com.jianfanjia.cn.activity.application.MyApplication;
 import com.jianfanjia.cn.activity.base.BaseActivity;
+import com.jianfanjia.cn.activity.config.Global;
 import com.jianfanjia.cn.activity.tools.GeTuiManager;
 import com.jianfanjia.cn.activity.tools.UiHelper;
-import com.jianfanjia.cn.activity.ui.activity.loginandreg.LoginNewActivity;
 import com.jianfanjia.cn.activity.ui.activity.MainActivity;
+import com.jianfanjia.cn.activity.ui.activity.loginandreg.LoginNewActivity;
 import com.jianfanjia.cn.activity.view.dialog.CommonDialog;
 import com.jianfanjia.cn.activity.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.FileUtil;
@@ -202,7 +202,6 @@ public class WelcomeActivity extends BaseActivity {
                     appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     LogTool.d(TAG, "expire");
-//                    ApiClient.clearCookie();
                     refreshSession();
                 }
             }

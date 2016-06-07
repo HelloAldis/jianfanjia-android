@@ -20,32 +20,32 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.activity.base.BaseFragment;
-import com.jianfanjia.cn.activity.config.Global;
-import com.jianfanjia.cn.activity.ui.activity.home.DecorateLiveActivity;
-import com.jianfanjia.cn.activity.ui.activity.home.DesignerListActivity;
-import com.jianfanjia.cn.activity.ui.activity.home.WebViewActivity;
-import com.jianfanjia.cn.activity.ui.activity.requirement.PublishRequirementActivity;
-import com.jianfanjia.cn.activity.ui.adapter.HomeProductPagerAdapter;
-import com.jianfanjia.cn.activity.view.GestureGuideView;
-import com.jianfanjia.cn.activity.view.pullrefresh.PullToRefreshScrollViewNew;
-import com.jianfanjia.cn.activity.view.scrollview.MainScrollView;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.activity.ui.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.activity.ui.activity.home.DesignerCaseListActivity;
-import com.jianfanjia.cn.activity.ui.activity.home.SearchActivity;
-import com.jianfanjia.cn.activity.ui.activity.home.WebViewPackage365Activity;
-import com.jianfanjia.cn.activity.ui.activity.my.BindingPhoneActivity;
-import com.jianfanjia.cn.activity.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.activity.api.Api;
+import com.jianfanjia.cn.activity.base.BaseFragment;
+import com.jianfanjia.cn.activity.config.Global;
 import com.jianfanjia.cn.activity.config.Url_New;
 import com.jianfanjia.cn.activity.constant.IntentConstant;
+import com.jianfanjia.cn.activity.ui.activity.home.DecorateLiveActivity;
+import com.jianfanjia.cn.activity.ui.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.activity.ui.activity.home.DesignerCaseListActivity;
+import com.jianfanjia.cn.activity.ui.activity.home.DesignerListActivity;
+import com.jianfanjia.cn.activity.ui.activity.home.SearchActivity;
+import com.jianfanjia.cn.activity.ui.activity.home.WebViewActivity;
+import com.jianfanjia.cn.activity.ui.activity.home.WebViewPackage365Activity;
+import com.jianfanjia.cn.activity.ui.activity.my.BindingPhoneActivity;
+import com.jianfanjia.cn.activity.ui.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.activity.ui.adapter.HomeProductPagerAdapter;
+import com.jianfanjia.cn.activity.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.activity.ui.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.activity.view.GestureGuideView;
+import com.jianfanjia.cn.activity.view.pullrefresh.PullToRefreshScrollViewNew;
+import com.jianfanjia.cn.activity.view.scrollview.MainScrollView;
 import com.jianfanjia.cn.activity.view.viewpager.auto_view_pager.AutoScrollViewPager;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.common.tool.LogTool;
@@ -60,7 +60,7 @@ import com.jianfanjia.common.tool.TDevice;
 public class HomeNewFragment extends BaseFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
-    private int BANNER_ICON[] = {R.mipmap.bg_home_banner3,R.mipmap.bg_home_banner1,
+    private int BANNER_ICON[] = {R.mipmap.bg_home_banner3, R.mipmap.bg_home_banner1,
             R.mipmap.bg_home_banner2};
 
     @Bind(R.id.viewPager_lib)
@@ -173,7 +173,7 @@ public class HomeNewFragment extends BaseFragment {
             LogTool.d(TAG, "productid:" + productid);
             Bundle productBundle = new Bundle();
             productBundle.putString(IntentConstant.PRODUCT_ID, productid);
-            productBundle.putBoolean(DesignerCaseInfoActivity.INTENT_FROM_HOME,true);
+            productBundle.putBoolean(DesignerCaseInfoActivity.INTENT_FROM_HOME, true);
             startActivity(DesignerCaseInfoActivity.class, productBundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, 0);
         }
@@ -233,6 +233,7 @@ public class HomeNewFragment extends BaseFragment {
 
             @Override
             public void onSuccess(ApiResponse<List<Product>> apiResponse) {
+                if (getView() == null) return;
                 productNews = apiResponse.getData();
                 if (mPagerAdapter == null) {
                     mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout
