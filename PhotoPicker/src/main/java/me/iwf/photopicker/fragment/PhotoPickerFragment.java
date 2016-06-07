@@ -32,8 +32,11 @@ import me.iwf.photopicker.utils.MediaStoreHelper;
 
 import static android.app.Activity.RESULT_OK;
 import static me.iwf.photopicker.PhotoPickerActivity.DEFAULT_COLUMN_NUMBER;
+import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_IS_SINGLE;
+import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_MAX_COUNT;
 import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
 import static me.iwf.photopicker.utils.MediaStoreHelper.INDEX_ALL_PHOTOS;
+
 /**
  * Created by donglua on 15/5/31.
  */
@@ -45,20 +48,23 @@ public class PhotoPickerFragment extends Fragment {
     private PopupDirectoryListAdapter listAdapter;
     private List<PhotoDirectory> directories;
 
-    private int SCROLL_THRESHOLD = 30;
     int column;
+    int maxCount;
+
+    private boolean isSingle;
 
     private final static String EXTRA_CAMERA = "camera";
     private final static String EXTRA_COLUMN = "column";
     private final static String EXTRA_COUNT = "count";
     private final static String EXTRA_GIF = "gif";
 
-    public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount) {
+    public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount,boolean isSingle) {
         Bundle args = new Bundle();
         args.putBoolean(EXTRA_CAMERA, showCamera);
         args.putBoolean(EXTRA_GIF, showGif);
         args.putInt(EXTRA_COLUMN, column);
         args.putInt(EXTRA_COUNT, maxCount);
+        args.putBoolean(EXTRA_IS_SINGLE, isSingle);
         PhotoPickerFragment fragment = new PhotoPickerFragment();
         fragment.setArguments(args);
         return fragment;
@@ -71,6 +77,8 @@ public class PhotoPickerFragment extends Fragment {
         directories = new ArrayList<>();
 
         column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
+        maxCount = getArguments().getInt(EXTRA_MAX_COUNT, DEFAULT_COLUMN_NUMBER);
+        isSingle = getArguments().getBoolean(EXTRA_IS_SINGLE, false);
         boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
 
         photoGridAdapter = new PhotoGridAdapter(getActivity(), directories, column);
@@ -93,13 +101,6 @@ public class PhotoPickerFragment extends Fragment {
 
         captureManager = new ImageCaptureManager(getActivity().getApplicationContext());
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity().getApplicationContext());
-//        refWatcher.watch(this);
     }
 
     @Override
@@ -142,22 +143,25 @@ public class PhotoPickerFragment extends Fragment {
                 photoGridAdapter.notifyDataSetChanged();
             }
         });
-
+        photoGridAdapter.setIsSingleOrMultiple(isSingle);
         photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
             @Override
             public void onClick(View v, int position, boolean showCamera) {
+
                 final int index = showCamera ? position - 1 : position;
+                if (!isSingle) {
 
-                List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
+                    List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
 
-                int[] screenLocation = new int[2];
-                v.getLocationOnScreen(screenLocation);
-       /* ImagePagerFragment imagePagerFragment =
-                ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
-                        v.getHeight());*/
+                    int[] screenLocation = new int[2];
+                    v.getLocationOnScreen(screenLocation);
 
-//        ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
-                ((PhotoPickerActivity) getActivity()).showImagePagerFragment(photos, index);
+                    ((PhotoPickerActivity) getActivity()).showImagePagerFragment(photos, index);
+                } else {
+                    photoGridAdapter.toggleSelection(photoGridAdapter.getCurrentPhotos().get(index));
+                    ((PhotoPickerActivity) getActivity()).setResultIntent();
+
+                }
             }
         });
 

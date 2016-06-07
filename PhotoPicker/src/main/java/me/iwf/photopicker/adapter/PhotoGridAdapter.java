@@ -35,7 +35,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
     private LayoutInflater inflater;
 
-    private Context mContext;
+    private boolean isSingleOrMultiple;
 
     private OnItemCheckListener onItemCheckListener = null;
     private OnPhotoClickListener onPhotoClickListener = null;
@@ -52,9 +52,14 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
     public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories) {
         this.photoDirectories = photoDirectories;
-        this.mContext = context;
         inflater = LayoutInflater.from(context);
         setColumnNumber(context, columnNumber);
+    }
+
+
+    public void setIsSingleOrMultiple(boolean isSingleOrMultiple) {
+        this.isSingleOrMultiple = isSingleOrMultiple;
+        notifyDataSetChanged();
     }
 
     public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories, int colNum) {
@@ -116,74 +121,66 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
                 photo = photos.get(position);
             }
 
-//            ImageDisplay.getInstance().loadImage(Uri.fromFile(new File(Uri.decode(photo.getPath()))).toString(),
-//                    DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new ImageLoadingListener() {
-//                        @Override
-//                        public void onLoadingStarted(String imageUri, View view) {
-//                            holder.ivPhoto.setImageResource(R.drawable.icon_default_pic);
-//                        }
-//
-//                        @Override
-//                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-//                            Log.e(this.getClass().getName(), "onLoadingFailed imageuri =" + imageUri + " failReason " +
-//                                    "=" + failReason.getType().toString());
-//                        }
-//
-//                        @Override
-//                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                            Log.e(this.getClass().getName(), "onLoadingComplete imageuri =" + imageUri);
-//                            holder.ivPhoto.setImageBitmap(loadedImage);
-//                        }
-//
-//                        @Override
-//                        public void onLoadingCancelled(String imageUri, View view) {
-//
-//                        }
-//                    });
-
             ImageLoader.getInstance().displayImage(Uri.fromFile(new File(photo.getPath())).toString(), holder
-                    .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new ImageLoadingListener() {
+                    .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new
+                    ImageLoadingListener() {
 
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
+                        @Override
+                        public void onLoadingStarted(String imageUri, View view) {
 
-                }
+                        }
 
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    holder.vSelected.setVisibility(View.GONE);
-                }
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            holder.vSelected.setVisibility(View.GONE);
+                            holder.ivPhoto.setOnClickListener(null);
+                        }
 
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    holder.vSelected.setVisibility(View.VISIBLE);
-                }
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            if (!isSingleOrMultiple) {
+                                holder.vSelected.setVisibility(View.VISIBLE);
+                            }
+                        }
 
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
+                        @Override
+                        public void onLoadingCancelled(String imageUri, View view) {
 
-                }
-            });
+                        }
+                    });
 
-//            Glide.with(mContext)
-//                    .load(new File(photo.getPath()))
-//                    .centerCrop()
-//                    .dontAnimate()
-//                    .thumbnail(0.5f)
-//                    .override(imageSize, imageSize)
-//                    .placeholder(R.drawable.ic_photo_black_48dp)
-//                    .error(R.drawable.ic_broken_image_black_48dp)
-//                    .into(holder.ivPhoto);
+            if (isSingleOrMultiple) {
+                holder.vSelected.setVisibility(View.GONE);
 
-            final boolean isChecked = isSelected(photo);
-
-            holder.ivPhoto.setSelected(isChecked);
-
-            holder.vSelected.setSelected(isChecked);
-            if (isChecked) {
-                holder.ivPhoto.setColorFilter(Color.parseColor("#77000000"));
             } else {
-                holder.ivPhoto.setColorFilter(null);
+
+                final boolean isChecked = isSelected(photo);
+                holder.ivPhoto.setSelected(isChecked);
+
+                holder.vSelected.setSelected(isChecked);
+                if (isChecked) {
+                    holder.ivPhoto.setColorFilter(Color.parseColor("#77000000"));
+                } else {
+                    holder.ivPhoto.setColorFilter(null);
+                }
+
+                holder.vSelected.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        boolean isEnable = true;
+
+                        if (onItemCheckListener != null) {
+                            isEnable = onItemCheckListener.OnItemCheck(position, photo, isChecked,
+                                    getSelectedPhotos().size());
+                        }
+                        if (isEnable) {
+                            toggleSelection(photo);
+                            notifyItemChanged(position);
+                        }
+                    }
+                });
+
             }
 
             holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
@@ -191,22 +188,6 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
                 public void onClick(View view) {
                     if (onPhotoClickListener != null) {
                         onPhotoClickListener.onClick(view, position, showCamera());
-                    }
-                }
-            });
-            holder.vSelected.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    boolean isEnable = true;
-
-                    if (onItemCheckListener != null) {
-                        isEnable = onItemCheckListener.OnItemCheck(position, photo, isChecked,
-                                getSelectedPhotos().size());
-                    }
-                    if (isEnable) {
-                        toggleSelection(photo);
-                        notifyItemChanged(position);
                     }
                 }
             });

@@ -30,6 +30,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     public final static String EXTRA_SHOW_GIF = "SHOW_GIF";
     public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
     public final static String EXTRA_GRID_COLUMN = "column";
+    public final static String EXTRA_IS_SINGLE = "isSingle";
 
     private MenuItem menuDoneItem;
 
@@ -37,6 +38,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
     public final static int DEFAULT_COLUMN_NUMBER = 3;
 
     private int maxCount = DEFAULT_MAX_COUNT;
+
+    private boolean isSingle;
 
     /**
      * to prevent multiple calls to inflate menu
@@ -71,7 +74,13 @@ public class PhotoPickerActivity extends AppCompatActivity {
         maxCount = getIntent().getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
         columnNumber = getIntent().getIntExtra(EXTRA_GRID_COLUMN, DEFAULT_COLUMN_NUMBER);
 
-        pickerFragment = PhotoPickerFragment.newInstance(showCamera, showGif, columnNumber, maxCount);
+        if (maxCount == 1) {
+            isSingle = true;
+        } else {
+            isSingle = false;
+        }
+
+        pickerFragment = PhotoPickerFragment.newInstance(showCamera, showGif, columnNumber, maxCount,isSingle);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, pickerFragment)
@@ -108,29 +117,6 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Overriding this method allows us to run our exit animation first, then exiting
-     * the activity when it complete.
-     */
-    @Override
-    public void onBackPressed() {
-       /* if (imagePagerFragment != null && imagePagerFragment.isVisible()) {
-            imagePagerFragment.runExitAnimation(new Runnable() {
-                public void run() {
-                    if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-//                        getSupportFragmentManager().popBackStack();
-                        FragmentTransaction transaction = getSupportFragmentManager()
-                                .beginTransaction();
-                        transaction.detach(imagePagerFragment);
-                        transaction.commit();
-                    }
-                }
-            });
-        } else {*/
-            super.onBackPressed();
-//        }
-    }
-
     public void addImagePagerFragment(ImagePagerFragment imagePagerFragment) {
         this.imagePagerFragment = imagePagerFragment;
         getSupportFragmentManager()
@@ -143,21 +129,24 @@ public class PhotoPickerActivity extends AppCompatActivity {
     public void showImagePagerFragment(List<String> photos, int index) {
         Intent intent = new Intent(this, PhotoPagerActivity.class);
         intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, index);
-        intent.putStringArrayListExtra(PhotoPagerActivity.EXTRA_PHOTOS, (ArrayList)photos);
+        intent.putStringArrayListExtra(PhotoPagerActivity.EXTRA_PHOTOS, (ArrayList) photos);
         intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false);
         startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!menuIsInflated) {
-            getMenuInflater().inflate(R.menu.menu_picker, menu);
-            menuDoneItem = menu.findItem(R.id.done);
-            menuDoneItem.setEnabled(false);
-            menuIsInflated = true;
+        if (!isSingle) {
+            if (!menuIsInflated) {
+                getMenuInflater().inflate(R.menu.menu_picker, menu);
+                menuDoneItem = menu.findItem(R.id.done);
+                menuDoneItem.setEnabled(false);
+                menuIsInflated = true;
+                return true;
+            }
             return true;
         }
-        return false;
+        return true;
     }
 
 
@@ -169,15 +158,19 @@ public class PhotoPickerActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.done) {
-            Intent intent = new Intent();
-            ArrayList<String> selectedPhotos = pickerFragment.getPhotoGridAdapter().getSelectedPhotoPaths();
-            intent.putStringArrayListExtra(KEY_SELECTED_PHOTOS, selectedPhotos);
-            setResult(RESULT_OK, intent);
-            finish();
+            setResultIntent();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setResultIntent() {
+        Intent intent = new Intent();
+        ArrayList<String> selectedPhotos = pickerFragment.getPhotoGridAdapter().getSelectedPhotoPaths();
+        intent.putStringArrayListExtra(KEY_SELECTED_PHOTOS, selectedPhotos);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     public PhotoPickerActivity getActivity() {
