@@ -26,6 +26,7 @@
 -keep class me.iwf.photopicker.** {*;}
 
 #个推混淆
+
 -dontwarn com.igexin.**
 -dontwarn android.support.**
 -keep class com.igexin.**{*;}

@@ -301,6 +301,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
             public void onClick(View v) {
                 mPlanImgLists.remove(position - 2);
                 notifyItemRemoved(position);
+                notifyItemRangeChanged(2, mPlanImgLists.size());
                 mNotifyRightTitleEnableListener.notifyRightTitleEnable();
             }
         });
