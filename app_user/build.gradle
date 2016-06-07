@@ -177,17 +177,17 @@ task configPgy() {
     }
 }
 
-task configReleasePgy() {
+/*task configReleasePgy() {
     doLast {
         apks {
             andtest {
-                def app = getLastReleasePgyapp(appName);
-                if (app != null) {
-                    sourceFile = file(app);
-                }
+//                def app = getLastReleasePgyapp(appName);
+//                if (app != null) {
+                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release/2.8.5/jianfanjia-Default_20160607_0_94_2.8.5.apk")
+//                }
             }
         }
     }
-}
-tasks.uploadPgyer.dependsOn(configReleasePgy);
+}*/
+tasks.uploadPgyer.dependsOn(configPgy);
 tasks.uploadPgyer.shouldRunAfter(tag);
