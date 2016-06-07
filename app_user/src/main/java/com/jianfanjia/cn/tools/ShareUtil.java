@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.tools;
+package com.jianfanjia.cn.tools;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.text.TextUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.config.Url_New;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -24,7 +24,6 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
-import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -34,43 +33,43 @@ import com.jianfanjia.common.tool.TDevice;
  */
 public class ShareUtil {
     private Url_New url_new = null;
-    private int width = 0;
     private Context context;
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
     public ShareUtil(Activity activity) {
         url_new = Url_New.getInstance();
-        width = (int) TDevice.getScreenWidth() / 2;
         context = activity.getApplicationContext();
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
-        mController.getConfig().removePlatform(SHARE_MEDIA.SINA);
-        mController.getConfig().setPlatformOrder(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE);
+        mController.getConfig().setPlatformOrder(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ,
+                SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA);
         // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(activity, "wxd4c207f7678adb78", "a4a56f5a97ec8260547f34e00662f8aa");
+        UMWXHandler wxHandler = new UMWXHandler(context, "wx391daabfce27e728", "f7c8e3e1b5910dd93be2744dacb3a1cc");
         wxHandler.showCompressToast(false);
         wxHandler.addToSocialSDK();
         // 支持微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(activity, "wxd4c207f7678adb78", "a4a56f5a97ec8260547f34e00662f8aa");
+        UMWXHandler wxCircleHandler = new UMWXHandler(context, "wx391daabfce27e728",
+                "f7c8e3e1b5910dd93be2744dacb3a1cc");
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.showCompressToast(false);
         wxCircleHandler.addToSocialSDK();
 
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(activity, "1104958443", "AIz23Ku4k5IswYeF");
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(activity, "1104973048", "FuDs7s4vJGAEzCrz");
         qqSsoHandler.addToSocialSDK();
         if (!AuthUtil.isQQAvilible(context)) {
             mController.getConfig().removePlatform(SHARE_MEDIA.QQ);
         }
 
         //参数1为当前Activity， 参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(activity, "1104958443", "AIz23Ku4k5IswYeF");
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(activity, "1104973048", "FuDs7s4vJGAEzCrz");
         qZoneSsoHandler.addToSocialSDK();
 
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
-        SinaSsoHandler sinaSsoHandler = new SinaSsoHandler(activity);
-        sinaSsoHandler.addToSocialSDK();
+//        SinaSsoHandler sinaSsoHandler = new SinaSsoHandler(activity);
+//        sinaSsoHandler.addToSocialSDK();
     }
 
-    public void shareImage(Activity activity, String title, String style, String tag, String imgId, SocializeListeners.SnsPostListener listener) {
+    public void shareImage(Activity activity, String title, String style, String tag, String imgId,
+                           SocializeListeners.SnsPostListener listener) {
         String desc = context.getString(R.string.share_image_des);
         if (!TextUtils.isEmpty(style) && !TextUtils.isEmpty(tag)) {
             desc = String.format(desc, BusinessCovertUtil.convertDecStyleToShow(style), tag);
@@ -142,20 +141,20 @@ public class ShareUtil {
     public void shareApp(Activity activity, SocializeListeners.SnsPostListener listener) {
         LogTool.d(this.getClass().getName(), context.getPackageResourcePath());
         UMImage image = new UMImage(context, url_new.SHARE_APP_LOGO);
-        setShareContent(image, context.getString(R.string.share_app_title), context.getString(R.string.share_app_des)
-                , context.getString(R.string.share_app_url));
+        setShareContent(image, context.getString(R.string.share_app_title), context.getString(R.string.share_app_des),
+                context.getString(R.string.share_app_url));
         mController.registerListener(listener);
         mController.openShare(activity, false);
     }
 
-    public void shareUrl(Activity activity, String imageUrl, String title, String description, String url, SocializeListeners.SnsPostListener listener) {
+    public void shareUrl(Activity activity, String imageUrl, String title, String description, String url,
+                         SocializeListeners.SnsPostListener listener) {
         LogTool.d(this.getClass().getName(), "share the url " + url);
         UMImage image = new UMImage(context, imageUrl);
         setShareContent(image, title, description, url);
         mController.registerListener(listener);
         mController.openShare(activity, false);
     }
-
 
 }
 
