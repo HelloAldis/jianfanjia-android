@@ -4,3 +4,7 @@ mi#小米应用市场
 baidu#百度应用市场
 yingyongbao#应用宝
 huawei#华为
+vivo#vivo应用市场
+oppo#oppo应用市场
+wandoujia#豌豆荚应用市场
+meizu#魅族应用市场

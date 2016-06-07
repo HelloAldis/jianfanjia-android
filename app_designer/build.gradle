@@ -158,6 +158,18 @@ task configPgy() {
         }
     }
 }
+task configReleasePgy() {
+    doLast {
+        apks {
+            andtest {
+                def app = getLastReleasePgyapp(appName);
+                if (app != null) {
+                    sourceFile = file(app);
+                }
+            }
+        }
+    }
+}
 tasks.uploadPgyer.dependsOn(configPgy);
 tasks.uploadPgyer.shouldRunAfter(tag);
 

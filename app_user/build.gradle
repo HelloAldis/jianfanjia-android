@@ -177,17 +177,17 @@ task configPgy() {
     }
 }
 
-//task configReleasePgy() {
-//    doLast {
-//        apks {
-//            andtest {
-//                def app = getLatestPgyapp(appName);
-//                if (app != null) {
-//                    sourceFile = file(app);
-//                }
-//            }
-//        }
-//    }
-//}
-tasks.uploadPgyer.dependsOn(configPgy);
+task configReleasePgy() {
+    doLast {
+        apks {
+            andtest {
+                def app = getLastReleasePgyapp(appName);
+                if (app != null) {
+                    sourceFile = file(app);
+                }
+            }
+        }
+    }
+}
+tasks.uploadPgyer.dependsOn(configReleasePgy);
 tasks.uploadPgyer.shouldRunAfter(tag);
