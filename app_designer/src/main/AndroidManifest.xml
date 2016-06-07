@@ -189,17 +189,19 @@
             android:name=".ui.activity.login_and_register.LoginNewActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.activity.my_info_auth.base_info.BaseInfoAuthActicity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".ui.activity.my_info_auth.DesignerInfoAuthActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".ui.activity.my_info_auth.receive_business_info.DesignerReceiveInfoActivity"
             android:label="@string/title_activity_login"
@@ -214,13 +216,15 @@
             android:name=".ui.activity.my_info_auth.identity_info.DesignerIdentityAuthActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".ui.activity.my_info_auth.product_info.DesignerProductAuthActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".ui.activity.my_info_auth.product_info.DesignerCaseInfoActivity"
             android:label="@string/title_activity_login"
@@ -230,7 +234,9 @@
             android:name=".ui.activity.my_info_auth.product_info.UploadProductActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        />
         <activity
             android:name=".ui.activity.common.choose_item.ChooseItemActivity"
             android:label="@string/title_activity_login"
@@ -250,12 +256,14 @@
             android:name=".ui.activity.my_info_auth.team_info.DesignerTeamAuthActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".ui.activity.my_info_auth.team_info.DesignerEditTeamActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".ui.activity.my_info_auth.EmailAuthActivity"
             android:label="@string/title_activity_login"
