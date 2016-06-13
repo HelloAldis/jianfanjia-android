@@ -403,4 +403,8 @@
     <string name="decoratebudget_high_point_title">您完全符合我们“匠心定制包”的标准\n我们的设计师将会为您提供全程定制化的服务</string>
     <string name="str_goto_order_high_point">请点击前往预约1名匠心定制设计师</string>
     <string name="designer_high_point">匠心定制设计师</string>
+    <string name="main_tab_home">首页</string>
+    <string name="main_tab_beautifulimg">装修美图</string>
+    <string name="main_tab_daily">装修日志</string>
+    <string name="main_tab_requirement">我要装修</string>
 </resources>

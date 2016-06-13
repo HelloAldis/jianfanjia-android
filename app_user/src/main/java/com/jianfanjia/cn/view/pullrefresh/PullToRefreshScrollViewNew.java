@@ -24,7 +24,7 @@ import android.widget.ScrollView;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.pulltorefresh.library.OverscrollHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.view.scrollview.MainScrollView;
+import com.jianfanjia.cn.view.scrollview.HomeScrollView;
 
 public class PullToRefreshScrollViewNew extends PullToRefreshBase<ScrollView> {
 
@@ -43,17 +43,17 @@ public class PullToRefreshScrollViewNew extends PullToRefreshBase<ScrollView> {
 
 	@Override
 	protected ScrollView createRefreshableView(Context context, AttributeSet attrs) {
-		ScrollView scrollView = new MainScrollView(context,attrs);
+		ScrollView scrollView = new HomeScrollView(context,attrs);
 		scrollView.setId(R.id.scrollview);
 		return scrollView;
 	}
 
-	public void setScrollPullUpListener(MainScrollView.ScrollPullUpListener scrollPullUpListener){
-		((MainScrollView)getRefreshableView()).setScrollPullUpListener(scrollPullUpListener);
+	public void setScrollPullUpListener(HomeScrollView.ScrollPullUpListener scrollPullUpListener){
+		((HomeScrollView)getRefreshableView()).setScrollPullUpListener(scrollPullUpListener);
 	}
 
-	public void setShowGuideListener(MainScrollView.ShowGuideListener showGuideListener){
-		((MainScrollView)getRefreshableView()).setShowGuideListener(showGuideListener);
+	public void setShowGuideListener(HomeScrollView.ShowGuideListener showGuideListener){
+		((HomeScrollView)getRefreshableView()).setShowGuideListener(showGuideListener);
 	}
 
 	@Override

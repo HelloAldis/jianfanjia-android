@@ -40,7 +40,6 @@ public class MainScrollView extends ScrollView {
     //ScrollView的子View， 也是ScrollView的唯一一个子View
     private View contentView;
 
-
     //用于记录正常的布局位置
     private Rect originalRect = new Rect();
 
@@ -68,6 +67,12 @@ public class MainScrollView extends ScrollView {
         totaloffset = contentView.findViewById(R.id.head_layout).getMeasuredHeight();
 
         LogTool.d(this.getClass().getName(), "totaloffset =" + totaloffset);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        LogTool.d(TAG, "h = " + h + ",oldh =" + oldh);
     }
 
     @Override

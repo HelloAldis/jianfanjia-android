@@ -6,15 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import java.util.List;
 
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.tools.ImageShow;
-import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
-import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
 
@@ -25,22 +22,11 @@ public class HomeProductPagerAdapter extends PagerAdapter {
     private List<Product> productList;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private ViewPagerClickListener viewPagerClickListener;
-    private int width;
-    private int height;
 
-    public HomeProductPagerAdapter(Context context, List<Product> products, ViewPagerClickListener
-            viewPagerClickListener, int width, int height) {
+    public HomeProductPagerAdapter(Context context, List<Product> products) {
         this.mContext = context;
         this.productList = products;
         mLayoutInflater = LayoutInflater.from(mContext);
-        this.viewPagerClickListener = viewPagerClickListener;
-        this.width = width;
-        this.height = height;
-        LogTool.d(this.getClass().getName(), " statusBar height =" + TDevice.getStatusBarHeight(context));
-        LogTool.d(this.getClass().getName(), " NavigationBar height =" + TDevice.getNavigationBarHeight(context));
-        LogTool.d(this.getClass().getName(), "width =" + width + "height =" + height);
-        LogTool.d(this.getClass().getName(), "TDevide height =" + TDevice.getScreenHeight());
     }
 
     public void setProductList(List<Product> productList) {
@@ -52,26 +38,10 @@ public class HomeProductPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.viewpager_item_home, container, false);
         ImageView imageView = (ImageView) itemView.findViewById(R.id.viewpager_home_item_pic);
-        imageView.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
         Product productNew = productList.get(position);
-//        String uri = Url_New.getInstance().GET_THUMBNAIL_IMAGE2.replace(Url_New.WIDTH, width + "") + height + "/" +
-// imageInfo.getImageid();
-//        LogTool.d(this.getClass().getName(), " uri =" + uri);
-        ImageShow.getImageShow().displayThumbnailImageByHeightAndWidth(productNew.getCover_imageid(), imageView, width,
-                height);
-//        Picasso.with(mContext).load(uri).resize(width, height)
-//                .placeholder(R.mipmap.icon_default_pic)
-//                .error(R.mipmap.icon_default_pic)
-//                .into(imageView);
-
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (viewPagerClickListener != null) {
-//                    viewPagerClickListener.onClickItem(position);
-//                }
-//            }
-//        });
+        ImageShow.getImageShow().displayThumbnailImageByHeightAndWidth(productNew.getCover_imageid(), imageView,
+                (int) TDevice.getScreenWidth(),
+                (int) TDevice.getScreenHeight());
         container.addView(itemView);
         return itemView;
     }

@@ -31,6 +31,7 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.ui.activity.home.DecorateLiveActivity;
 import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.ui.activity.home.DesignerCaseListActivity;
@@ -45,9 +46,8 @@ import com.jianfanjia.cn.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.view.GestureGuideView;
 import com.jianfanjia.cn.view.pullrefresh.PullToRefreshScrollViewNew;
-import com.jianfanjia.cn.view.scrollview.MainScrollView;
+import com.jianfanjia.cn.view.scrollview.HomeScrollView;
 import com.jianfanjia.cn.view.viewpager.auto_view_pager.AutoScrollViewPager;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
@@ -127,14 +127,14 @@ public class HomeNewFragment extends BaseFragment {
                 getProduct(TOTAL_COUNT);
             }
         });
-        pullToRefreshScrollView.setScrollPullUpListener(new MainScrollView.ScrollPullUpListener() {
+        pullToRefreshScrollView.setScrollPullUpListener(new HomeScrollView.ScrollPullUpListener() {
             @Override
             public void scrollPullUp() {
                 intentToProduct();
             }
         });
 
-        pullToRefreshScrollView.setShowGuideListener(new MainScrollView.ShowGuideListener() {
+        pullToRefreshScrollView.setShowGuideListener(new HomeScrollView.ShowGuideListener() {
             @Override
             public void showGuideView() {
                 if (dataManager.isShowGuide()) {
@@ -236,8 +236,7 @@ public class HomeNewFragment extends BaseFragment {
                 if (getView() == null) return;
                 productNews = apiResponse.getData();
                 if (mPagerAdapter == null) {
-                    mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews, null, coordinatorLayout
-                            .getWidth(), coordinatorLayout.getHeight());
+                    mPagerAdapter = new HomeProductPagerAdapter(getContext(), productNews);
                     contentViewPager.setAdapter(mPagerAdapter);
                 } else {
                     mPagerAdapter.setProductList(productNews);
