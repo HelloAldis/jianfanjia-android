@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
 import com.jianfanjia.cn.config.Global;
@@ -130,12 +131,12 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
     }

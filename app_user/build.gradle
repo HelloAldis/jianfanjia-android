@@ -163,19 +163,19 @@ pgyer {
     uKey = PGY_UKEY
 }
 
-task configPgy() {
+/*task configPgy() {
     doLast {
         apks {
             andtest {
-                def app = getLatestPgyapp(appName);
-                if (app != null) {
-                    sourceFile = file(app);
-//                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest/2.8.2/pgyapp.apk")
-                }
+//                def app = getLatestPgyapp(appName);
+//                if (app != null) {
+//                    sourceFile = file(app);
+                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest/2.8.6/pgyapp.apk")
+//                }
             }
         }
     }
-}
+}*/
 
 task configReleasePgy() {
     doLast {
