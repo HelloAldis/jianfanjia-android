@@ -3,7 +3,6 @@ package com.jianfanjia.cn.ui.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -12,11 +11,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
@@ -85,14 +83,9 @@ public class FavoriteDesignerAdapter extends BaseRecyclerViewAdapter<Designer> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_my_favorite_designer,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new FavoriteDesignerViewHolder(view);
     }
 

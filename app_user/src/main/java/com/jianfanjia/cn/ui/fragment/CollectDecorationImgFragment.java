@@ -16,11 +16,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.ui.Event.CollectBeautyImageEvent;
-import com.jianfanjia.cn.ui.activity.beautifulpic.PreviewDecorationActivity;
-import com.jianfanjia.cn.ui.adapter.DecorationAdapter;
-import com.jianfanjia.cn.view.recycleview.itemdecoration.SpacesItemDecoration;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -29,11 +24,16 @@ import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.OnItemClickListener;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.ui.Event.CollectBeautyImageEvent;
+import com.jianfanjia.cn.ui.activity.beautifulpic.PreviewDecorationActivity;
+import com.jianfanjia.cn.ui.adapter.DecorationAdapter;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.SpacesItemDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
@@ -182,9 +182,9 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                         if (null != beautyImgList && beautyImgList.size() > 0) {
                             if (null == decorationImgAdapter) {
                                 decorationImgAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
-                                        OnItemClickListener() {
+                                        BaseRecyclerViewAdapter.OnItemClickListener() {
                                             @Override
-                                            public void OnItemClick(int position) {
+                                            public void onItemClick(int position) {
                                                 LogTool.d(TAG, "position:" + position);
                                                 currentPos = position;
                                                 LogTool.d(TAG, "currentPos====" + currentPos);
