@@ -39,7 +39,7 @@ public class BusinessCovertUtil {
         return stringBuffer.toString();
     }
 
-    public static String getWorkType(String workType) {
+    public static String convertWorkTypeToShow(String workType) {
         if(workType == null) return null;
         String str = null;
         if (workType.equals("0")) {
@@ -223,6 +223,20 @@ public class BusinessCovertUtil {
             String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_decstyle);
             for (int i = 0; i < items.length; i++) {
                 if (items[i].equals(decStyleText)) {
+                    return i + "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getFamilyDesByText(String familyDes){
+        try {
+            String[] items = MyApplication.getInstance().getResources().getStringArray(R.array.arr_person);
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(familyDes)) {
                     return i + "";
                 }
             }

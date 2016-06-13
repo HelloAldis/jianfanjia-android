@@ -14,23 +14,23 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.ui.adapter.DesignerWorksAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.OnItemClickListener;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.ScrollableHelper;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.ui.adapter.DesignerWorksAdapter;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -160,9 +160,10 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                     if (null != worksInfo) {
                         if (null == adapter) {
                             productList.addAll(worksInfo.getProducts());
-                            adapter = new DesignerWorksAdapter(getActivity(), productList, new OnItemClickListener() {
+                            adapter = new DesignerWorksAdapter(getActivity(), productList, new
+                                    BaseRecyclerViewAdapter.OnItemClickListener() {
                                 @Override
-                                public void OnItemClick(int position) {
+                                public void onItemClick(int position) {
                                     Product product = productList.get(position);
                                     String productid = product.get_id();
                                     LogTool.d(TAG, "productid:" + productid);

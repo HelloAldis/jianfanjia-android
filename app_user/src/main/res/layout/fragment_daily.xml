@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:background="@color/head_layout_bg">
+
+        <TextView
+            style="@style/head_title_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/main_tab_daily"/>
+
+        <ImageButton
+            android:id="@+id/imgbtn_add_daily"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_head_back_bg_selector"
+            android:src="@mipmap/icon_add_high_point"/>
+
+        <View
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView
+            android:id="@+id/daily_pullfefresh"
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrHeaderTextColor="#344a5d"/>
+
+        <include
+            android:id="@+id/empty_include"
+            layout="@layout/view_empty_layout"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/error_include"
+            layout="@layout/view_error_layout"
+            android:visibility="gone" />
+    </FrameLayout>
+
+
+</LinearLayout>

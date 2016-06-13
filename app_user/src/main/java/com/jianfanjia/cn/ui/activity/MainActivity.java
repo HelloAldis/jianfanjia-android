@@ -15,6 +15,7 @@ import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.MessageCountEvent;
+import com.jianfanjia.cn.ui.fragment.DiaryFragment;
 import com.jianfanjia.cn.ui.fragment.MyNewFragment;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -49,10 +50,14 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.my_layout)
     LinearLayout myLayout;
 
+    @Bind(R.id.daily_layout)
+    LinearLayout dailyLayout;
+
     private HomeNewFragment homeFragment = null;
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private MyNewFragment myFragment = null;
+    private DiaryFragment mDiaryFragment = null;
     private long mExitTime = 0L;
 
     @Override
@@ -133,7 +138,7 @@ public class MainActivity extends BaseActivity {
                 }
             };
 
-    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout})
+    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout,R.id.daily_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_layout:
@@ -148,6 +153,9 @@ public class MainActivity extends BaseActivity {
             case R.id.my_layout:
                 switchTab(Constant.MY);
                 break;
+            case R.id.daily_layout:
+                switchTab(Constant.DAILY);
+                break;
         }
     }
 
@@ -158,24 +166,35 @@ public class MainActivity extends BaseActivity {
                 beautyLayout.setSelected(false);
                 reqLayout.setSelected(false);
                 myLayout.setSelected(false);
+                dailyLayout.setSelected(false);
                 break;
             case Constant.DECORATE:
                 homeLayout.setSelected(false);
                 beautyLayout.setSelected(true);
                 reqLayout.setSelected(false);
                 myLayout.setSelected(false);
+                dailyLayout.setSelected(false);
                 break;
             case Constant.MANAGE:
                 homeLayout.setSelected(false);
                 beautyLayout.setSelected(false);
                 reqLayout.setSelected(true);
                 myLayout.setSelected(false);
+                dailyLayout.setSelected(false);
                 break;
             case Constant.MY:
                 homeLayout.setSelected(false);
                 beautyLayout.setSelected(false);
                 reqLayout.setSelected(false);
                 myLayout.setSelected(true);
+                dailyLayout.setSelected(false);
+                break;
+            case Constant.DAILY:
+                homeLayout.setSelected(false);
+                beautyLayout.setSelected(false);
+                reqLayout.setSelected(false);
+                myLayout.setSelected(true);
+                dailyLayout.setSelected(true);
                 break;
         }
         setTabSelection(index);
@@ -218,6 +237,14 @@ public class MainActivity extends BaseActivity {
                     transaction.add(R.id.tablayout, myFragment);
                 }
                 break;
+            case Constant.DAILY:
+                if (mDiaryFragment != null) {
+                    transaction.show(mDiaryFragment);
+                } else {
+                    mDiaryFragment = new DiaryFragment();
+                    transaction.add(R.id.tablayout, mDiaryFragment);
+                }
+                break;
             default:
                 break;
         }
@@ -237,6 +264,9 @@ public class MainActivity extends BaseActivity {
         }
         if (myFragment != null) {
             ft.hide(myFragment);
+        }
+        if(mDiaryFragment != null){
+            ft.hide(mDiaryFragment);
         }
     }
 

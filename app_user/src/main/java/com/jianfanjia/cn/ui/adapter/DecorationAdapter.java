@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -10,13 +9,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageDetail;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.interf.OnItemClickListener;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.common.tool.TDevice;
 
 /**
@@ -57,7 +54,7 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautifulImage> {
                 @Override
                 public void onClick(View v) {
                     if (null != listener) {
-                        listener.OnItemClick(holder.getLayoutPosition());
+                        listener.onItemClick(holder.getLayoutPosition());
                     }
                 }
             });
@@ -74,14 +71,9 @@ public class DecorationAdapter extends BaseRecyclerViewAdapter<BeautifulImage> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewtype) {
         View view = layoutInflater.inflate(R.layout.list_item_decoration,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new DecorationViewHolder(view);
     }
 

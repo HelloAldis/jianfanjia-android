@@ -14,15 +14,15 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.ui.activity.requirement.EditRequirementItemActivity;
-import com.jianfanjia.cn.ui.activity.requirement.EditRequirementLovestyleActivity;
-import com.jianfanjia.cn.ui.interf.NotifyActivityStatusChange;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.my.EditCityActivity;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.ui.activity.common.choose_item.ChooseItemIntent;
+import com.jianfanjia.cn.ui.activity.common.choose_item.ChooseItemLoveStyleIntent;
+import com.jianfanjia.cn.ui.activity.my.EditCityActivity;
+import com.jianfanjia.cn.ui.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -176,34 +176,35 @@ public class EditBussinessRequirementFragment extends BaseFragment {
                 startActivityForResult(EditCityActivity.class, address, Constant.REQUIRECODE_CITY);
                 break;
             case R.id.act_edit_req_lovedesistyle:
-                Bundle loveDesignerBundle = new Bundle();
-                loveDesignerBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_LOVEDESISTYLE);
-                startActivityForResult(EditRequirementItemActivity.class, loveDesignerBundle, Constant
-                        .REQUIRECODE_LOVEDESISTYLE);
+                ChooseItemIntent loveDesignerStyleIntent = new ChooseItemIntent(getContext());
+                loveDesignerStyleIntent.setSingleChoose(Constant.REQUIRECODE_LOVEDESISTYLE, requirementInfo
+                        .getCommunication_type(), getString(R.string.str_lovedesistyle));
+                startActivityForResult(loveDesignerStyleIntent, Constant.REQUIRECODE_LOVEDESISTYLE);
                 break;
             case R.id.act_edit_req_lovestyle:
-                Bundle loveStyleBundle = new Bundle();
-                loveStyleBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_LOVESTYLE);
-                startActivityForResult(EditRequirementLovestyleActivity.class, loveStyleBundle, Constant
-                        .REQUIRECODE_LOVESTYLE);
+                ChooseItemLoveStyleIntent loveStyleIntent = new ChooseItemLoveStyleIntent(getContext());
+                loveStyleIntent.setSingleChoose(Constant.REQUIRECODE_LOVESTYLE, requirementInfo
+                        .getCommunication_type(), getString(R.string.str_lovestyle));
+                startActivityForResult(loveStyleIntent, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_decoratetype:
-                Bundle decorateTypeBundle = new Bundle();
-                decorateTypeBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_BUSI_DECORATETYPE);
-                startActivityForResult(EditRequirementItemActivity.class, decorateTypeBundle, Constant
-                        .REQUIRECODE_BUSI_DECORATETYPE);
+                ChooseItemIntent houseTypeIntent = new ChooseItemIntent(getContext());
+                houseTypeIntent.setSingleChoose(Constant.REQUIRECODE_BUSI_DECORATETYPE, requirementInfo
+                                .getBusiness_house_type(),
+                        getString(R.string.str_businessdecoratetype));
+                startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_BUSI_DECORATETYPE);
                 break;
             case R.id.act_edit_req_work_type:
-                Bundle workTypeBundle = new Bundle();
-                workTypeBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_WORKTYPE);
-                startActivityForResult(EditRequirementItemActivity.class, workTypeBundle, Constant
-                        .REQUIRECODE_WORKTYPE);
+                ChooseItemIntent workTypeIntent = new ChooseItemIntent(getContext());
+                workTypeIntent.setSingleChoose(Constant.REQUIRECODE_WORKTYPE, requirementInfo.getWork_type(),
+                        getString(R.string.str_work_type));
+                startActivityForResult(workTypeIntent, Constant.REQUIRECODE_WORKTYPE);
                 break;
             case R.id.act_edit_req_lovedesisex:
-                Bundle loveDesiSexBundle = new Bundle();
-                loveDesiSexBundle.putInt(IntentConstant.REQUIRE_DATA, Constant.REQUIRECODE_DESISEX);
-                startActivityForResult(EditRequirementItemActivity.class, loveDesiSexBundle, Constant
-                        .REQUIRECODE_DESISEX);
+                ChooseItemIntent loveDesignerSexIntent = new ChooseItemIntent(getContext());
+                loveDesignerSexIntent.setSingleChoose(Constant.REQUIRECODE_DESISEX, requirementInfo.getWork_type(),
+                        getString(R.string.str_lovedesisex));
+                startActivityForResult(loveDesignerSexIntent, Constant.REQUIRECODE_DESISEX);
                 break;
             default:
                 break;
@@ -263,7 +264,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
             return;
         }
         if (data != null) {
-            ReqItemFinderImp.ItemMap itemMap = (ReqItemFinderImp.ItemMap) data.getSerializableExtra(IntentConstant
+            ReqItemFinderImp.ItemMap itemMap = data.getParcelableExtra(IntentConstant
                     .RESPONSE_DATA);
             switch (requestCode) {
                 case Constant.REQUIRECODE_CITY:

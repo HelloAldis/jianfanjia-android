@@ -390,6 +390,7 @@
     <string name="decoratebudget_365_individuation">个性化费用</string>
     <string name="decoratebudget_365_total">装修总预算</string>
     <string name="str_coveredarea">建筑面积（㎡）</string>
+    <string name="str_area">面积（㎡）</string>
     <string name="str_decoratebudget_with_unit">装修总预算（万元）</string>
     <string name="money_alias">￥</string>
     <string name="create_my_requirement">我要装修</string>
@@ -406,5 +407,14 @@
     <string name="main_tab_home">首页</string>
     <string name="main_tab_beautifulimg">装修美图</string>
     <string name="main_tab_daily">装修日志</string>
-    <string name="main_tab_requirement">我要装修</string>
+    <string name="str_delete">删除</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_area">请输入面积</string>
+    <string name="please_choose">请选择</string>
+    <string name="str_decorate_style">装修风格</string>
+    <string name="diary_info">日志信息</string>
+    <string name="save">保存</string>
+    <string name="all_more_three">最多三项</string>
+    <string name="create_diary">新建日志</string>
+    <string name="delete">删除</string>
 </resources>

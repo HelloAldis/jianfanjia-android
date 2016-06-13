@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.ProductBusiness;
-import com.jianfanjia.cn.ui.interf.OnItemClickListener;
 
 /**
  * Name: DesignerWorksAdapter
@@ -44,21 +42,16 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
             @Override
             public void onClick(View v) {
                 if (null != listener) {
-                    listener.OnItemClick(position);
+                    listener.onItemClick(position);
                 }
             }
         });
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_designer_works,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new DesignerWorksViewHolder(view);
     }
 

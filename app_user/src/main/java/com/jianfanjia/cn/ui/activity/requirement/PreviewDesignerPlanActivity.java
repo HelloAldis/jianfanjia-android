@@ -146,7 +146,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             }
             if (!TextUtils.isEmpty(requirementInfo.getWork_type())) {
                 decorateTypeLayout.setVisibility(View.VISIBLE);
-                decorateType.setText(BusinessCovertUtil.getWorkType(requirementInfo.getWork_type()));
+                decorateType.setText(BusinessCovertUtil.convertWorkTypeToShow(requirementInfo.getWork_type()));
             }
             totalDate.setText(planDetailInfo.getDuration() + "天");
             price.setText(planDetailInfo.getTotal_price() + "元");

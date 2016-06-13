@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -17,13 +16,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.ui.interf.CheckListener;
 import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.ui.activity.home.DesignerListActivity;
+import com.jianfanjia.cn.ui.interf.CheckListener;
 
 /**
  * Name: DesignerByAppointOrReplaceAdapter
@@ -54,16 +53,15 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     @Override
     public int getItemViewType(int position) {
         if (splitList.contains(list.get(position))) {
-            viewType = TYPE_TAG;
+            return TYPE_TAG;
         } else {
-            viewType = TYPE_TITLE;
+            return TYPE_TITLE;
         }
-        return viewType;
     }
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Map<String, Object>> list) {
-        switch (viewHolder.getItemViewType()) {
+        switch (getItemViewType(position)) {
             case TYPE_TAG:
                 DesignerByAppointOrReplaceTagViewHolder tagViewHolder = (DesignerByAppointOrReplaceTagViewHolder)
                         viewHolder;
@@ -162,24 +160,14 @@ public class DesignerByAppointOrReplaceAdapter extends BaseRecyclerViewAdapter<M
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
+        View view;
         switch (viewType) {
             case TYPE_TAG:
-                View tagView = layoutInflater.inflate(R.layout.list_item_designer_by_appoint_tag, null);
-                return tagView;
-            case TYPE_TITLE:
-                View titleView = layoutInflater.inflate(R.layout.list_item_designer_by_appoint_info, null);
-                return titleView;
-        }
-        return null;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
-        switch (viewType) {
-            case TYPE_TAG:
+                view = layoutInflater.inflate(R.layout.list_item_designer_by_appoint_tag, null);
                 return new DesignerByAppointOrReplaceTagViewHolder(view);
             case TYPE_TITLE:
+                view = layoutInflater.inflate(R.layout.list_item_designer_by_appoint_info, null);
                 return new DesignerByAppointOrReplaceViewHolder(view);
         }
         return null;

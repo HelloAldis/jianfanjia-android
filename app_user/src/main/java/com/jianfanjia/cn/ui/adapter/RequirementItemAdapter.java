@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,13 +30,16 @@ public class RequirementItemAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
 
+    private List<String> mChooseKyes;
+
     public RequirementItemAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
         reqItemFinder = new ReqItemFinderImp(context);
     }
 
-    public void changeShow(int requsetcode) {
+    public void changeShow(int requsetcode,List<String> currentChooseItem) {
         itemMaps = reqItemFinder.findAll(requsetcode);
+        this.mChooseKyes = currentChooseItem;
         notifyDataSetChanged();
     }
 
@@ -57,6 +61,19 @@ public class RequirementItemAdapter extends BaseAdapter {
 
         holder.bind(getItem(position));
 
+        String key = itemMaps.get(position).key;
+        boolean isChoose = false;
+        for(String chooseKey : mChooseKyes){
+            if(key.equals(chooseKey)){
+                isChoose = true;
+            }
+        }
+        if(isChoose){
+            holder.chooseImageView.setVisibility(View.VISIBLE);
+        }else {
+            holder.chooseImageView.setVisibility(View.GONE);
+        }
+
         return view;
     }
 
@@ -64,6 +81,9 @@ public class RequirementItemAdapter extends BaseAdapter {
 
         @Bind(R.id.ltm_req_simple_item)
         TextView ltm_req_simple_item;
+
+        @Bind(R.id.ltm_item_choosed)
+        ImageView chooseImageView;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

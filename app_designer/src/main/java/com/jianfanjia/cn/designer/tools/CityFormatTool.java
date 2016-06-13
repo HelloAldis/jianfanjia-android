@@ -126,21 +126,21 @@ public class CityFormatTool {
                     JSONArray jsonArray = jsonObject.getJSONArray(id);
                     provice.setName((String) jsonArray.get(0));
                     LogTool.d(TAG, "id = " + id + " name =" + provice.getName());
-                    proviceList.icon_add(provice);
+                    proviceList.icon_auth_add(provice);
                 }else if(id.endsWith("00") && !id.endsWith("0000")){
                     city = new City();
                     city.setId(id);
                     JSONArray jsonArray = jsonObject.getJSONArray(id);
                     city.setName((String) jsonArray.get(0));
                     LogTool.d(TAG, "id = " + id + " name =" + city.getName());
-                    cityList.icon_add(city);
+                    cityList.icon_auth_add(city);
                 }else{
                     district = new District();
                     district.setId(id);
                     JSONArray jsonArray = jsonObject.getJSONArray(id);
                     district.setName((String) jsonArray.get(0));
                     LogTool.d(TAG, "id = " + id + " name =" + district.getName());
-                    districtList.icon_add(district);
+                    districtList.icon_auth_add(district);
                 }
             }
         } catch (JSONException e) {

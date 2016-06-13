@@ -1,13 +1,15 @@
 package com.jianfanjia.cn.ui.interf.cutom_annotation;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.config.Constant;
+
 
 /**
  * Description: com.jianfanjia.cn.interf.cutom_annotation
@@ -16,8 +18,6 @@ import com.jianfanjia.cn.activity.R;
  * Date:2015-10-16 09:44
  */
 public class ReqItemFinderImp implements ReqItemFinder {
-
-    protected String[] arr_district;
 
     protected String[] arr_worktype;
 
@@ -33,15 +33,24 @@ public class ReqItemFinderImp implements ReqItemFinder {
 
     protected String[] arr_busihousetype;
 
+    protected String[] arr_dectype;
+
+    protected String[] arr_design_fee_range;
+
+    protected String[] arr_district;
+
     public ReqItemFinderImp(Context context) {
         arr_district = context.getResources().getStringArray(R.array.arr_district);
-        arr_worktype = context.getResources().getStringArray(R.array.arr_show_worktype);
+        arr_worktype = context.getResources().getStringArray(R.array.arr_worktype);
+        arr_dectype = context.getResources().getStringArray(R.array.arr_dectype);
         arr_housetype = context.getResources().getStringArray(R.array.arr_housetype);
         arr_person = context.getResources().getStringArray(R.array.arr_person);
         arr_love_designerstyle = context.getResources().getStringArray(R.array.arr_love_designerstyle);
         arr_lovestyle = context.getResources().getStringArray(R.array.arr_decstyle);
         arr_desisex = context.getResources().getStringArray(R.array.arr_desisex);
         arr_busihousetype = context.getResources().getStringArray(R.array.arr_busi_housetype);
+        arr_design_fee_range = context.getResources().getStringArray(R.array.arr_fee);
+        arr_district = context.getResources().getStringArray(R.array.arr_district);
     }
 
     @Override
@@ -91,13 +100,47 @@ public class ReqItemFinderImp implements ReqItemFinder {
     }
 
 
-    public static class ItemMap implements Serializable {
-        public final String key;
-        public final String value;
+    public static class ItemMap implements Parcelable {
+        public String key;
+        public String value;
 
         public ItemMap(String key, String value) {
             this.key = key;
             this.value = value;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(key);
+            dest.writeString(value);
+        }
+
+        public static final Parcelable.Creator<ItemMap> CREATOR = new Parcelable.Creator<ItemMap>()
+        {
+            public ItemMap createFromParcel(Parcel in)
+            {
+                return new ItemMap(in);
+            }
+
+            public ItemMap[] newArray(int size)
+            {
+                return new ItemMap[size];
+            }
+        };
+
+        public ItemMap(Parcel in){
+            this.key = in.readString();
+            this.value = in.readString();
+        }
+
+        public ItemMap(){
+
+        }
+
     }
 }

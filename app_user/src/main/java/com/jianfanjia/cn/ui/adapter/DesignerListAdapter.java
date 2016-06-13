@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -11,14 +10,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
 
 /**
  * Name: DesignerListAdapter
@@ -95,14 +94,9 @@ public class DesignerListAdapter extends BaseRecyclerViewAdapter<Designer> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.list_item_designer_common,
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
+        View view = layoutInflater.inflate(R.layout.list_item_designer_common,
                 null);
-        return itemView;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new DesignerListViewHolder(view);
     }
 

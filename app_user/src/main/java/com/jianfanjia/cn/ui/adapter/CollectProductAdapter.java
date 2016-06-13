@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,17 +51,11 @@ public class CollectProductAdapter extends BaseRecyclerViewAdapter<Product> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_collect_product,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new ProductViewHolder(view);
     }
-
 
     static class ProductViewHolder extends RecyclerViewHolderBase {
         @Bind(R.id.list_item_product_img)

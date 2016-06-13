@@ -3,7 +3,6 @@ package com.jianfanjia.cn.ui.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,10 +10,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
@@ -67,14 +66,9 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
     }
 
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_comment,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new CommentViewHolder(view);
     }
 

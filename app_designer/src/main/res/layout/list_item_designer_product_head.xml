@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/space_16"
-                android:src="@mipmap/icon_add"/>
+                android:src="@mipmap/icon_auth_add"/>
 
         </FrameLayout>
 

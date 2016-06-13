@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+    >
 
-    <TextView
-        android:id="@+id/ltm_req_simple_item"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/my_item_layout_bg_selector"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="ltm_req_simple_item" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_item_layout_bg_selector">
+
+        <TextView
+            android:id="@+id/ltm_req_simple_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_toLeftOf="@+id/ltm_item_choosed"
+            android:gravity="center_vertical|left"
+            android:minHeight="@dimen/space_48"
+            />
+
+        <ImageView
+            android:id="@+id/ltm_item_choosed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/space_16"
+            android:src="@mipmap/icon_ok"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -10,9 +9,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.TDevice;
 
@@ -52,16 +51,11 @@ public class DesignerPlanRecyclerViewAdapter extends BaseRecyclerViewAdapter<Str
             }
         });
     }
-
+    
     @Override
-    public View createView(ViewGroup viewGroup, int viewType) {
+    public RecyclerViewHolderBase createViewHolder(int viewType) {
         View view = layoutInflater.inflate(R.layout.list_item_plan_view_item,
                 null);
-        return view;
-    }
-
-    @Override
-    public RecyclerViewHolderBase createViewHolder(View view) {
         return new DesignerPlanViewHolder(view);
     }
 

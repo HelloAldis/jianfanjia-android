@@ -69,8 +69,8 @@ public class DecorateLiveAdapter extends BaseLoadMoreRecycleAdapter<DecorateLive
         if (!TextUtils.isEmpty(BusinessCovertUtil.convertDectypeToShow(decorateLiveInfo.getDec_type()))) {
             sb.append(BusinessCovertUtil.convertDectypeToShow(decorateLiveInfo.getDec_type()) + " ");
         }
-        if (!TextUtils.isEmpty(BusinessCovertUtil.getWorkType(decorateLiveInfo.getWork_type()))) {
-            sb.append(BusinessCovertUtil.getWorkType(decorateLiveInfo.getWork_type()));
+        if (!TextUtils.isEmpty(BusinessCovertUtil.convertWorkTypeToShow(decorateLiveInfo.getWork_type()))) {
+            sb.append(BusinessCovertUtil.convertWorkTypeToShow(decorateLiveInfo.getWork_type()));
         }
         viewHolder.descriptionText.setText(sb.toString());
 

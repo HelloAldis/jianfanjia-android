@@ -169,13 +169,6 @@ public class MainScrollView extends ScrollView {
         return super.onTouchEvent(ev);
     }
 
-    @Override
-    public void onWindowSystemUiVisibilityChanged(int visible) {
-        super.onWindowSystemUiVisibilityChanged(visible);
-        LogTool.d(TAG, "isvisible = " + visible);
-    }
-
-
     /**
      * 在触摸事件中, 处理上拉和下拉的逻辑
      */

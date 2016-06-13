@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_24"
-            android:src="@mipmap/icon_add"/>
+            android:src="@mipmap/icon_auth_add"/>
 
         <TextView
             android:id="@+id/upload_plan_img"

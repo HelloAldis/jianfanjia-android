@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.jianfanjia.cn.activity"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    package="com.jianfanjia.cn.activity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -293,16 +294,6 @@
             android:label="PreviewRequirementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
-        <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.EditRequirementItemActivity"
-            android:label="EditRequirementItemActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
-        <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.EditRequirementLovestyleActivity"
-            android:label="EditRequirementLovestyleActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
 
         <service android:name="com.jianfanjia.cn.service.UpdateService"/>
 
@@ -382,8 +373,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
             android:name="com.jianfanjia.cn.ui.activity.requirement.PreviewBusinessRequirementActivity"
@@ -399,6 +390,22 @@
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
             android:name="com.jianfanjia.cn.ui.activity.my.BindingAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+
+        <activity
+            android:name="com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name="com.jianfanjia.cn.ui.activity.common.choose_item.ChooseItemActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
+        <activity
+            android:name="com.jianfanjia.cn.ui.activity.common.choose_item.ChooseItemLovestyleActivity"
+            android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
 
