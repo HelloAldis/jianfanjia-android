@@ -180,7 +180,7 @@ public class WelcomeActivity extends BaseActivity{
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            if (!first) {
+//            if (!first) {
                 isLogin = dataManager.isLogin();
                 isLoginExpire = dataManager.isLoginExpire();
                 LogTool.d(TAG, "not first");
@@ -200,11 +200,11 @@ public class WelcomeActivity extends BaseActivity{
                         refreshSession();
                     }
                 }
-            } else {
-                LogTool.d(TAG, "启动导航");
-                startActivity(NavigateActivity.class);
-                appManager.finishActivity(WelcomeActivity.this);
-            }
+//            } else {
+//                LogTool.d(TAG, "启动导航");
+//                startActivity(NavigateActivity.class);
+//                appManager.finishActivity(WelcomeActivity.this);
+//            }
         }
     };
 
