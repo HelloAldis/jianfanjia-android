@@ -9,11 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.RegisterInfo;
-import com.jianfanjia.cn.business.DataManagerNew;
-import com.jianfanjia.cn.ui.Event.BindingPhoneEvent;
-import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -23,11 +21,12 @@ import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.user.BindPhoneRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.constant.IntentConstant;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
+import com.jianfanjia.cn.ui.Event.BindingPhoneEvent;
+import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.ui.activity.welcome.NewUserCollectDecStageActivity;
 import de.greenrobot.event.EventBus;
 
