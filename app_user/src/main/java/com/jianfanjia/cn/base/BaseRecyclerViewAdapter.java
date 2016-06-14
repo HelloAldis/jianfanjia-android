@@ -30,6 +30,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     public void setList(List<T> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     public void add(T t) {
