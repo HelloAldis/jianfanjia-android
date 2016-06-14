@@ -31,15 +31,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/space_16">
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginBottom="@dimen/space_8">
 
                 <TextView
                     android:id="@+id/ltm_diary_cellname"
                     style="@style/listview_item_text_style_big"
                     android:ellipsize="end"
-                    android:maxWidth="150dp"
+                    android:maxWidth="120dp"
                     android:singleLine="true"
-                    android:text="@string/str_cell"
+                    android:text="大家大家撒大家撒打开打开"
                     android:textColor="@color/orange_color"
                     android:textStyle="bold"
                     />
@@ -48,18 +50,27 @@
                     android:id="@+id/ltm_diary_stage"
                     style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diary_cellname"
-                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginLeft="@dimen/space_8"
                     android:layout_toRightOf="@+id/ltm_diary_cellname"
                     android:text="@string/kai_gong"
+                    android:textColor="@color/grey_color"/>
+
+                <TextView
+                    android:id="@+id/ltm_diary_baseinfo"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_alignParentRight="true"
+                    android:text="3分钟前"
+                    android:layout_alignBaseline="@+id/ltm_diary_cellname"
                     android:textColor="@color/grey_color"/>
 
                 <TextView
                     android:id="@+id/ltm_diary_delte"
                     style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diary_cellname"
-                    android:layout_alignParentRight="true"
+                    android:layout_toLeftOf="@+id/ltm_diary_baseinfo"
                     android:text="@string/str_delete"
-                    android:textColor="@color/blue_color"/>
+                    android:textColor="@color/blue_color"
+                    android:layout_marginRight="@dimen/space_8"/>
 
                 <TextView
                     android:id="@+id/ltm_diary_goingtime"
@@ -133,27 +144,17 @@
             android:layout_weight="1"
             android:background="@drawable/my_item_layout_bg_selector">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
 
-                <ImageView
-                    android:id="@+id/iv_comment_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_no_comment"/>
 
                 <TextView
                     android:id="@+id/tv_comment_count"
-                    style="@style/listview_item_text_style_big"
+                    style="@style/listview_item_text_style_small"
                     android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/space_12"
-                    android:layout_toRightOf="@+id/iv_comment_icon"
+                    android:drawableLeft="@mipmap/btn_icon_comment_normal"
                     android:text="0"/>
 
-            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
