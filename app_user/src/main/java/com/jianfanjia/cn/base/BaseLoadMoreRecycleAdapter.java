@@ -33,6 +33,7 @@ public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter
     public static final int STATE_INIT = 0x114;//初始状态
     public static final int STATE_NETWORK_ERROR = 0x115;//数据加载错误
 
+
     //正常条目
     protected static final int TYPE_NORMAL_ITEM = 0x116;//正常item
     //加载条目
@@ -130,7 +131,7 @@ public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter
     }
 
     public ArrayList<T> getData() {
-        return mDatas == null ? (mDatas = new ArrayList<T>()) : mDatas;
+        return mDatas == null ? (mDatas = new ArrayList<>()) : mDatas;
     }
 
     public void addData(List<T> data) {

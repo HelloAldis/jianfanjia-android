@@ -9,37 +9,38 @@
         android:layout_height="wrap_content"
         android:background="@color/head_layout_bg" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/add_comment_layout"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/font_white"
-        android:padding="@dimen/space_8">
+        android:padding="@dimen/space_8"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <EditText
             android:id="@+id/add_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
             android:layout_marginRight="@dimen/space_8"
-            android:layout_toLeftOf="@+id/btn_send"
             android:background="@drawable/edit_comment_bg"
-            android:minHeight="40dp"
             android:padding="@dimen/space_8"
+            android:maxLines="3"
+            android:minHeight="@dimen/space_40"
             android:textColorHint="@color/horzontal_line_color" />
 
         <Button
             android:id="@+id/btn_send"
-            android:layout_width="96dp"
+            android:layout_width="72dp"
             android:layout_height="40dp"
-            android:layout_alignBottom="@+id/add_comment"
-            android:layout_alignParentRight="true"
+            android:layout_gravity="right|bottom"
             android:background="@drawable/btn_selector_bg"
             android:text="@string/send"
             android:textColor="@color/font_white"
             android:textSize="16sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

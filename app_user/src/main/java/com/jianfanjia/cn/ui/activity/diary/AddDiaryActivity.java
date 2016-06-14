@@ -100,7 +100,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_add_diary;
+        return R.layout.activity_diary_add;
     }
 
     @Override

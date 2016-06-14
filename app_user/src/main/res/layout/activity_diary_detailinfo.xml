@@ -1,13 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_layout_bg">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
-    <com.jianfanjia.cn.designer.view.MainHeadView
-        android:id="@+id/my_comment_head_layout"
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/mainhv_diary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg" />
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/diary_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mainhv_diary"
+        android:scrollbars="none" />
 
     <LinearLayout
         android:id="@+id/add_comment_layout"
@@ -26,9 +33,9 @@
             android:layout_weight="1"
             android:layout_marginRight="@dimen/space_8"
             android:background="@drawable/edit_comment_bg"
+            android:minHeight="40dp"
             android:padding="@dimen/space_8"
             android:maxLines="3"
-            android:minHeight="@dimen/space_40"
             android:textColorHint="@color/horzontal_line_color" />
 
         <Button
@@ -41,20 +48,5 @@
             android:textColor="@color/font_white"
             android:textSize="16sp" />
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/add_comment_layout"
-        android:layout_below="@+id/my_comment_head_layout">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/comment_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_10"
-            android:scrollbars="none" />
-    </FrameLayout>
 
 </RelativeLayout>

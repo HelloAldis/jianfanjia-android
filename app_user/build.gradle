@@ -163,7 +163,7 @@ pgyer {
     uKey = PGY_UKEY
 }
 
-/*task configPgy() {
+task configPgy() {
     doLast {
         apks {
             andtest {
@@ -175,7 +175,7 @@ pgyer {
             }
         }
     }
-}*/
+}
 
 /*task configReleasePgy() {
     doLast {

@@ -121,5 +121,8 @@ public class MainHeadView extends RelativeLayout {
     }
 
 
+    public void setRightTitleColor(int resColor){
+        rigthTitle.setTextColor(getResources().getColor(resColor));
+    }
 }
 

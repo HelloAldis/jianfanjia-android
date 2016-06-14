@@ -417,4 +417,6 @@
     <string name="all_more_three">最多三项</string>
     <string name="create_diary">新建日志</string>
     <string name="delete">删除</string>
+    <string name="tip_delete_diary_title">删除日志提示</string>
+    <string name="tip_delete_diary">您确认删除该日志吗</string>
 </resources>
