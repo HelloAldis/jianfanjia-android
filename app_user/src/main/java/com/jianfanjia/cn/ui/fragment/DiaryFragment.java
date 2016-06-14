@@ -18,6 +18,7 @@ import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.activity.diary.DiaryInfoActivity;
 import com.jianfanjia.cn.ui.adapter.DiaryAdapter;
 
 /**
@@ -85,6 +86,7 @@ public class DiaryFragment extends BaseFragment {
     protected void onClick(View view){
         switch (view.getId()){
             case R.id.imgbtn_add_daily:
+                startActivity(DiaryInfoActivity.class);
                 break;
         }
     }
