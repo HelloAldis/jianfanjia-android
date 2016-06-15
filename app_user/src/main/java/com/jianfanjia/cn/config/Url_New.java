@@ -223,4 +223,26 @@ public class Url_New {
     public String SEARCH_USER_COMMENT = HTTPROOT + "search_user_comment";
     //用户获取装修直播列表
     public String SEARCH_SHARE = HTTPROOT + "search_share";
+
+    //用户添加日记集
+    public String ADD_DIARYSET = HTTPROOT + "add_diary_set";
+    //用户更新日记集
+    public String UPDATE_DIARYSET = HTTPROOT + "update_diary_set";
+    //用户获取我的日记集
+    public String GET_MY_DIARYSET = HTTPROOT + "my_diary_set";
+    //用户添加日记
+    public String ADD_DIARY = HTTPROOT + "add_diary";
+    //用户删除日记
+    public String DELETE_DIARY = HTTPROOT + "delete_diary";
+
+    //游客搜索日记集
+    public String SEARCH_DIARY_SET = HTTPROOT + "search_diary_set";
+    //游客搜索日记
+    public String SEARCH_DIARY = HTTPROOT + "search_diary";
+    //游客获取日记更新数据
+    public String GET_DIARY_CHANGES = HTTPROOT + "get_diary_changes";
+    //游客获取日记详情
+    public String GET_DIARY_INFO = HTTPROOT + "diary_info";
+    //游客获取日记集详情
+    public String GET_DIARY_SET_INFO = HTTPROOT + "diary_set_info";
 }

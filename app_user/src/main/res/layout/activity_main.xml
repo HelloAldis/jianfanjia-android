@@ -92,7 +92,7 @@
                 android:layout_weight="1">
 
                 <LinearLayout
-                    android:id="@+id/daily_layout"
+                    android:id="@+id/diary_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"

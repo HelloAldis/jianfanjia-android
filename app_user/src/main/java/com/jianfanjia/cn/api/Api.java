@@ -11,6 +11,11 @@ import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerCanOrderList;
 import com.jianfanjia.api.model.DesignerList;
+import com.jianfanjia.api.model.DiaryInfo;
+import com.jianfanjia.api.model.DiaryInfoList;
+import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.model.DiarySetInfoList;
+import com.jianfanjia.api.model.DiaryUpdateInfo;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.Product;
@@ -23,17 +28,21 @@ import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.AddDiaryRequest;
+import com.jianfanjia.api.request.common.AddDiarySetRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.DeleteCollectionRequest;
+import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.api.request.common.GetMsgDetailRequest;
+import com.jianfanjia.api.request.common.GetMyDiarySetRequest;
 import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
@@ -41,9 +50,13 @@ import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
+import com.jianfanjia.api.request.common.UpdateDiarySetRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.DesignerHomePageRequest;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
+import com.jianfanjia.api.request.guest.GetDiaryInfoRequest;
+import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
+import com.jianfanjia.api.request.guest.GetDiaryUpdateRequest;
 import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
@@ -51,6 +64,8 @@ import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerRequest;
+import com.jianfanjia.api.request.guest.SearchDiaryRequest;
+import com.jianfanjia.api.request.guest.SearchDiarySetRequest;
 import com.jianfanjia.api.request.guest.SendVerificationRequest;
 import com.jianfanjia.api.request.guest.UpdatePasswordRequest;
 import com.jianfanjia.api.request.guest.VerifyPhoneRequest;
@@ -355,5 +370,49 @@ public class Api {
     public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
+    }
+
+    public static void searchDiarySet(SearchDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfoList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DIARY_SET, request, apiCallback);
+    }
+
+    public static void searchDiary(SearchDiaryRequest request, ApiCallback<ApiResponse<DiaryInfoList>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DIARY, request, apiCallback);
+    }
+
+    public static void getDiaryChanges(GetDiaryUpdateRequest request, ApiCallback<ApiResponse<List<DiaryUpdateInfo>>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_DIARY_CHANGES, request, apiCallback);
+    }
+
+    public static void getDiaryInfo(GetDiaryInfoRequest request, ApiCallback<ApiResponse<DiaryInfo>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_DIARY_INFO, request, apiCallback);
+    }
+
+    public static void getDiarySetInfo(GetDiarySetInfoRequest request, ApiCallback<ApiResponse<DiarySetInfo>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_DIARY_SET_INFO, request, apiCallback);
+    }
+
+    public static void addDiaryInfo(AddDiaryRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_DIARY, request, apiCallback);
+    }
+
+    public static void addDiarySetInfo(AddDiarySetRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET, request, apiCallback);
+    }
+
+    public static void updateDiarySetInfo(UpdateDiarySetRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_DIARYSET, request, apiCallback);
+    }
+
+    public static void deleteDiaryInfo(DeleteDiaryRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_DIARY, request, apiCallback);
+    }
+
+    public static void getMyDiarySetList(GetMyDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfoList>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().GET_MY_DIARYSET, request, apiCallback);
     }
 }

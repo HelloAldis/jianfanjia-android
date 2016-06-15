@@ -394,6 +394,11 @@
             android:theme="@style/Theme.Swipe.Back"/>
 
         <activity
+            android:name="com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
             android:name="com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
@@ -404,12 +409,12 @@
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.diary.DiaryInfoActivity"
+            android:name="com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.diary.DiaryListActivity"
+            android:name="com.jianfanjia.cn.ui.activity.diary.DiarySetListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
             android:windowSoftInputMode="stateHidden"/>

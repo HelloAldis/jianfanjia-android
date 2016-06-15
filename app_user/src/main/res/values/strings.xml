@@ -408,15 +408,19 @@
     <string name="main_tab_beautifulimg">装修美图</string>
     <string name="main_tab_daily">装修日志</string>
     <string name="str_delete">删除</string>
-    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_title">请输入日记标题</string>
     <string name="please_input_area">请输入面积</string>
     <string name="please_choose">请选择</string>
     <string name="str_decorate_style">装修风格</string>
-    <string name="diary_info">日志信息</string>
+    <string name="diary_info">日记信息</string>
     <string name="save">保存</string>
     <string name="all_more_three">最多三项</string>
     <string name="create_diary">新建日志</string>
     <string name="delete">删除</string>
     <string name="tip_delete_diary_title">删除日志提示</string>
     <string name="tip_delete_diary">您确认删除该日志吗</string>
+    <string name="my">我的</string>
+    <string name="str_diary_title">日记标题</string>
+    <string name="write_diary">写日记</string>
+    <string name="search_no_diary">暂时没有装修日记</string>
 </resources>

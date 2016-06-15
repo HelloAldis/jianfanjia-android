@@ -6,17 +6,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import com.jianfanjia.api.model.DailyInfo;
+import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.adapter.DiaryInfoAdapter;
+import com.jianfanjia.cn.ui.adapter.DiarySetListAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -27,7 +28,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
  * Email: jame.zhang@myjyz.com
  * Date:2016-06-13 15:45
  */
-public class DiaryListActivity extends BaseSwipeBackActivity {
+public class DiarySetListActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.mainhv_diary)
     MainHeadView mMainHeadView;
@@ -37,8 +38,8 @@ public class DiaryListActivity extends BaseSwipeBackActivity {
 
     private boolean isEditStatus = false;//判断当前页面是否是编辑页面
 
-    private DiaryInfoAdapter mDiaryInfoAdapter;
-    private List<DailyInfo> mDailyInfoList;
+    private DiarySetListAdapter mDiarySetListAdapter;
+    private List<DiaryInfo> mDiaryInfoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class DiaryListActivity extends BaseSwipeBackActivity {
             @Override
             public void onClick(View v) {
                 isEditStatus = !isEditStatus;
-                mDiaryInfoAdapter.setIsEdit(isEditStatus);
-                mDiaryInfoAdapter.notifyDataSetChanged();
+                mDiarySetListAdapter.setIsEdit(isEditStatus);
+                mDiarySetListAdapter.notifyDataSetChanged();
                 if (isEditStatus) {
                     mMainHeadView.setRightTitle(getString(R.string.finish));
                 } else {
@@ -83,6 +84,8 @@ public class DiaryListActivity extends BaseSwipeBackActivity {
     }
 
     private void initRecycleView() {
+        mDiaryInfoList = new ArrayList<>();
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -93,16 +96,16 @@ public class DiaryListActivity extends BaseSwipeBackActivity {
             }
         });
         mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
-        mDiaryInfoAdapter = new DiaryInfoAdapter(this, mDailyInfoList, new BaseRecyclerViewAdapter
+        mDiarySetListAdapter = new DiarySetListAdapter(this, mDiaryInfoList, new BaseRecyclerViewAdapter
                 .OnItemEditListener() {
             @Override
             public void onItemClick(int position) {
-
+                startActivity(DiarySetInfoActivity.class);
             }
 
             @Override
             public void onItemAdd() {
-                startActivity(AddDiaryActivity.class);
+                startActivity(AddDiarySetActivity.class);
             }
 
             @Override
@@ -110,7 +113,10 @@ public class DiaryListActivity extends BaseSwipeBackActivity {
                 showTipDialog(position);
             }
         });
-        mRecyclerView.setAdapter(mDiaryInfoAdapter);
+        mRecyclerView.setAdapter(mDiarySetListAdapter);
+
+        mDiarySetListAdapter.add(new DiaryInfo());
+        mDiarySetListAdapter.add(new DiaryInfo());
     }
 
     //显示放弃提交提醒
@@ -128,7 +134,7 @@ public class DiaryListActivity extends BaseSwipeBackActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                DailyInfo dailyInfo = mDailyInfoList.get(position);
+                DiaryInfo diaryInfo = mDiaryInfoList.get(position);
 //                deleteOneProduct(product.get_id(), position);
             }
         });

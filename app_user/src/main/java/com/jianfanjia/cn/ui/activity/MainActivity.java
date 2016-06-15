@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.my_layout)
     LinearLayout myLayout;
 
-    @Bind(R.id.daily_layout)
+    @Bind(R.id.diary_layout)
     LinearLayout dailyLayout;
 
     private HomeNewFragment homeFragment = null;
@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity {
                 }
             };
 
-    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout,R.id.daily_layout})
+    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout,R.id.diary_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_layout:
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity {
             case R.id.my_layout:
                 switchTab(Constant.MY);
                 break;
-            case R.id.daily_layout:
+            case R.id.diary_layout:
                 switchTab(Constant.DAILY);
                 break;
         }

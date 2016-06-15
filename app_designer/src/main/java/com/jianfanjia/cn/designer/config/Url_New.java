@@ -191,4 +191,5 @@ public class Url_New {
     //设计师提交某个作品
     public String ADD_ONE_TEAM = HTTPROOT + "designer/team/add";
 
+
 }

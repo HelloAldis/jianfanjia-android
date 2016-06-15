@@ -13,14 +13,16 @@ import android.view.View;
 public class HorizontalDividerDecoration extends RecyclerView.ItemDecoration {
 
     private int space;
-    private int firstAndLastSpace;
+    private int firstSpace;
+    private int lastSpace;
 
     public HorizontalDividerDecoration(int space) {
-        this(space,space);
+        this(space,space,space);
     }
 
-    public HorizontalDividerDecoration(int dividerSpace,int firstAndLastSpace){
-        this.firstAndLastSpace = firstAndLastSpace;
+    public HorizontalDividerDecoration(int dividerSpace,int firstSpace,int lastSpace){
+        this.firstSpace = firstSpace;
+        this.lastSpace = lastSpace;
         this.space = dividerSpace;
     }
 
@@ -30,12 +32,13 @@ public class HorizontalDividerDecoration extends RecyclerView.ItemDecoration {
         outRect.left = 0;
         outRect.right = 0;
         if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = firstAndLastSpace;
+            outRect.top = firstSpace;
         }else{
             outRect.top = 0;
         }
+        outRect.bottom = space;
         if(parent.getChildAdapterPosition(view) == state.getItemCount() -1){
-            outRect.bottom = firstAndLastSpace;
+            outRect.bottom = lastSpace;
         }else{
             outRect.bottom = space;
         }

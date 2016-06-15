@@ -31,20 +31,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginBottom="@dimen/space_8">
+                android:layout_marginTop="@dimen/space_8">
 
                 <TextView
                     android:id="@+id/ltm_diary_cellname"
                     style="@style/listview_item_text_style_big"
                     android:ellipsize="end"
+                    android:gravity="left"
                     android:maxWidth="120dp"
                     android:singleLine="true"
                     android:text="大家大家撒大家撒打开打开"
                     android:textColor="@color/orange_color"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/ltm_diary_stage"
@@ -58,19 +58,19 @@
                 <TextView
                     android:id="@+id/ltm_diary_baseinfo"
                     style="@style/listview_item_text_style_middle"
+                    android:layout_alignBaseline="@+id/ltm_diary_cellname"
                     android:layout_alignParentRight="true"
                     android:text="3分钟前"
-                    android:layout_alignBaseline="@+id/ltm_diary_cellname"
                     android:textColor="@color/grey_color"/>
 
                 <TextView
                     android:id="@+id/ltm_diary_delte"
                     style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diary_cellname"
+                    android:layout_marginRight="@dimen/space_8"
                     android:layout_toLeftOf="@+id/ltm_diary_baseinfo"
                     android:text="@string/str_delete"
-                    android:textColor="@color/blue_color"
-                    android:layout_marginRight="@dimen/space_8"/>
+                    android:textColor="@color/blue_color"/>
 
                 <TextView
                     android:id="@+id/ltm_diary_goingtime"
@@ -93,6 +93,57 @@
             android:gravity="left"
             android:maxLines="5"
             android:text="这个装修效果真的不错，我很喜欢"/>
+
+        <ImageView
+            android:id="@+id/iv_diary_single_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/space_16"
+            android:src="@mipmap/bg_home_banner1"/>
+
+        <GridLayout
+            android:id="@+id/gl_diary_multiple_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:orientation="horizontal"
+            android:useDefaultMargins="false"
+            android:clickable="false"
+            android:layout_marginTop="@dimen/space_16">
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+        </GridLayout>
     </LinearLayout>
 
     <View style="@style/divier_line"/>
@@ -115,27 +166,21 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
 
-                <ImageView
-                    android:id="@+id/iv_like_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_ok"/>
-
                 <TextView
                     android:id="@+id/tv_like_count"
-                    style="@style/listview_item_text_style_big"
+                    style="@style/listview_item_text_style_small"
                     android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/space_12"
-                    android:layout_toRightOf="@+id/iv_like_icon"
+                    android:drawableLeft="@mipmap/btn_icon_comment_normal"
                     android:text="0"/>
 
             </RelativeLayout>
-
-
         </RelativeLayout>
 
-        <View style="@style/vertical_divier_line"/>
+        <View style="@style/vertical_divier_line"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_4"/>
 
         <RelativeLayout
             android:id="@+id/ltm_diary_comment_layout"
@@ -144,16 +189,14 @@
             android:layout_weight="1"
             android:background="@drawable/my_item_layout_bg_selector">
 
-
-
-                <TextView
-                    android:id="@+id/tv_comment_count"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_width="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:drawableLeft="@mipmap/btn_icon_comment_normal"
-                    android:text="0"/>
+            <TextView
+                android:id="@+id/tv_comment_count"
+                style="@style/listview_item_text_style_small"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/space_12"
+                android:drawableLeft="@mipmap/btn_icon_comment_normal"
+                android:text="0"/>
 
         </RelativeLayout>
     </LinearLayout>

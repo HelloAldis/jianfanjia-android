@@ -17,9 +17,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.ui.adapter.CommentAdapter;
-import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -30,9 +27,12 @@ import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.ui.adapter.CommentAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
@@ -91,7 +91,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         commentListView.setItemAnimator(new DefaultItemAnimator());
         commentListView.setHasFixedSize(true);
         commentListView.addItemDecoration(new HorizontalDividerDecoration(TDevice.dip2px(this, 1),
-                TDevice.dip2px(this, 10)));
+                TDevice.dip2px(this, 10), TDevice.dip2px(this, 10)));
         btnSend.setEnabled(false);
     }
 

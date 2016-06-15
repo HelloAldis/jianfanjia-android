@@ -12,7 +12,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.Comment;
-import com.jianfanjia.api.model.DailyInfo;
+import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
@@ -33,7 +33,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     public static final int DIARY_DETAIL_TYPE = 0;//日历详情
     public static final int COMMENT_TYPE = 1;//评论
 
-    public DiaryDetailInfoAdapter(Context context, DailyInfo dailyInfo) {
+    public DiaryDetailInfoAdapter(Context context, DiaryInfo diaryInfo) {
         super(context, null);
     }
 

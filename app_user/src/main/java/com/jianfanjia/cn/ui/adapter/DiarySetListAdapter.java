@@ -12,7 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.jianfanjia.api.model.DailyInfo;
+import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
@@ -24,7 +24,7 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
  * Date: 2015-10-15
  * Time: 13:44
  */
-public class DiaryInfoAdapter extends BaseRecyclerViewAdapter<DailyInfo> {
+public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
 
     private OnItemEditListener listener;
 
@@ -33,7 +33,7 @@ public class DiaryInfoAdapter extends BaseRecyclerViewAdapter<DailyInfo> {
 
     private boolean isEdit = false;
 
-    public DiaryInfoAdapter(Context context, List<DailyInfo> list, OnItemEditListener listener) {
+    public DiarySetListAdapter(Context context, List<DiaryInfo> list, OnItemEditListener listener) {
         super(context, list);
         this.listener = listener;
     }
@@ -47,12 +47,12 @@ public class DiaryInfoAdapter extends BaseRecyclerViewAdapter<DailyInfo> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DailyInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DiaryInfo> list) {
         switch (getItemViewType(position)) {
             case CONTENT_TYPE:
-                DailyInfo dailyInfo = list.get(position - 1);
+                DiaryInfo diaryInfo = list.get(position - 1);
                 DesignerWorksViewHolder holder = (DesignerWorksViewHolder) viewHolder;
-                bindContentView(position - 1, dailyInfo, holder);
+                bindContentView(position - 1, diaryInfo, holder);
                 break;
             case HEAD_TYPE:
                 DesignerWorksViewHolderHead holderHead = (DesignerWorksViewHolderHead) viewHolder;
@@ -71,7 +71,7 @@ public class DiaryInfoAdapter extends BaseRecyclerViewAdapter<DailyInfo> {
         });
     }
 
-    private void bindContentView(final int position, DailyInfo dailyInfo, DesignerWorksViewHolder holder) {
+    private void bindContentView(final int position, DiaryInfo diaryInfo, DesignerWorksViewHolder holder) {
 
 
         if (isEdit) {

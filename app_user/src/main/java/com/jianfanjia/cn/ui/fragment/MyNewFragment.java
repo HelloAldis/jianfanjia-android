@@ -28,12 +28,14 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.activity.common.CommentListActivity;
+import com.jianfanjia.cn.ui.activity.diary.DiarySetListActivity;
 import com.jianfanjia.cn.ui.activity.my.AboutActivity;
 import com.jianfanjia.cn.ui.activity.my.CollectActivity;
 import com.jianfanjia.cn.ui.activity.my.CustomerServiceActivity;
 import com.jianfanjia.cn.ui.activity.my.FeedBackActivity;
 import com.jianfanjia.cn.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.ui.activity.my.UserInfoActivity;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.layout.BadgeView;
@@ -50,8 +52,8 @@ public class MyNewFragment extends BaseFragment {
     private static final String TAG = MyNewFragment.class.getName();
     public static final int REQUESTCODE_USERINFO = 0;
 
-    @Bind(R.id.notify_layout)
-    RelativeLayout notifyLayout;
+    @Bind(R.id.my_head_layout)
+    MainHeadView mMainHeadView;
 
     @Bind(R.id.collect_layout)
     RelativeLayout my_collect_layout;
@@ -110,6 +112,8 @@ public class MyNewFragment extends BaseFragment {
     }
 
     public void initView() {
+        initMainView();
+
         commentCountView.setVisibility(View.GONE);
         noticeCountView.setVisibility(View.GONE);
         cacheSizeView.setText(UiHelper.caculateCacheSize());
@@ -120,6 +124,10 @@ public class MyNewFragment extends BaseFragment {
 
         updateUserInfo();
         updateUserHeader();
+    }
+
+    private void initMainView() {
+        mMainHeadView.setMianTitle(getString(R.string.my));
     }
 
     protected void updateUserHeader() {
@@ -134,11 +142,15 @@ public class MyNewFragment extends BaseFragment {
     }
 
     @OnClick({R.id.notify_layout, R.id.collect_layout, R.id.frag_my_info_layout, R.id.kefu_layout, R.id
-            .setting_layout, R.id.feedback_layout, R.id.clear_cache_layout, R.id.call_layout, R.id.comment_layout})
+            .setting_layout, R.id.feedback_layout, R.id.clear_cache_layout, R.id.call_layout, R.id.comment_layout,
+            R.id.diary_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.notify_layout:
                 startActivity(NoticeActivity.class);
+                break;
+            case R.id.diary_layout:
+                startActivity(DiarySetListActivity.class);
                 break;
             case R.id.collect_layout:
                 startActivity(CollectActivity.class);
@@ -179,7 +191,7 @@ public class MyNewFragment extends BaseFragment {
         getUserInfo();
     }
 
-    private void getUserInfo(){
+    private void getUserInfo() {
         UserByOwnerInfoRequest userByOwnerInfoRequest = new UserByOwnerInfoRequest();
 
         Api.getUserInfo(userByOwnerInfoRequest, new ApiCallback<ApiResponse<User>>() {
