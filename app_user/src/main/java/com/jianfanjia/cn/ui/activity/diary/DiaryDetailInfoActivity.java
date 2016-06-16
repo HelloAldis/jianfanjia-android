@@ -19,6 +19,10 @@ import com.jianfanjia.cn.view.MainHeadView;
  */
 public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
+    public static final String IntentFlag = "intent_flag";
+    public static final int intentFromComment = 0;
+    public static final int intentFromBaseinfo = 1;
+
 
     @Bind(R.id.mainhv_diary)
     MainHeadView mMainHeadView;

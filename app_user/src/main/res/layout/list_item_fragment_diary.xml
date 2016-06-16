@@ -5,15 +5,15 @@
               android:background="@color/font_white"
               android:orientation="vertical">
 
-    <View style="@style/divier_line"/>
-
     <LinearLayout
+        android:id="@+id/ll_diary_detail_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/space_16">
 
         <LinearLayout
+            android:id="@+id/ll_diaryset_baseinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -31,9 +31,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/space_8"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8">
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginBottom="@dimen/space_6"
+                android:layout_marginTop="@dimen/space_6">
 
                 <TextView
                     android:id="@+id/ltm_diary_cellname"
@@ -42,7 +42,6 @@
                     android:gravity="left"
                     android:maxWidth="120dp"
                     android:singleLine="true"
-                    android:text="大家大家撒大家撒打开打开"
                     android:textColor="@color/orange_color"
                     android:textStyle="bold"/>
 
@@ -56,7 +55,7 @@
                     android:textColor="@color/grey_color"/>
 
                 <TextView
-                    android:id="@+id/ltm_diary_baseinfo"
+                    android:id="@+id/ltm_diary_goingtime"
                     style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diary_cellname"
                     android:layout_alignParentRight="true"
@@ -66,17 +65,16 @@
                 <TextView
                     android:id="@+id/ltm_diary_delte"
                     style="@style/listview_item_text_style_middle"
-                    android:layout_alignBaseline="@+id/ltm_diary_cellname"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:layout_toLeftOf="@+id/ltm_diary_baseinfo"
+                    android:layout_alignBaseline="@+id/ltm_diary_baseinfo"
+                    android:layout_alignParentRight="true"
                     android:text="@string/str_delete"
+                    android:visibility="gone"
                     android:textColor="@color/blue_color"/>
 
                 <TextView
-                    android:id="@+id/ltm_diary_goingtime"
+                    android:id="@+id/ltm_diary_baseinfo"
                     style="@style/listview_item_text_style_middle"
                     android:layout_alignParentBottom="true"
-                    android:text="3分钟前"
                     android:textColor="@color/grey_color"/>
 
             </RelativeLayout>
@@ -87,11 +85,9 @@
             android:id="@+id/ltm_diary_content"
             style="@style/listview_item_text_style_middle"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/space_16"
-            android:ellipsize="end"
             android:gravity="left"
-            android:maxLines="5"
+            android:lineSpacingMultiplier = "1.5"
+            android:layout_marginTop="@dimen/space_16"
             android:text="这个装修效果真的不错，我很喜欢"/>
 
         <ImageView
@@ -100,45 +96,55 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:scaleType="centerCrop"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/space_16"
+            android:visibility="gone"
             android:src="@mipmap/bg_home_banner1"/>
 
         <GridLayout
             android:id="@+id/gl_diary_multiple_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="3"
-            android:orientation="horizontal"
-            android:useDefaultMargins="false"
             android:clickable="false"
-            android:layout_marginTop="@dimen/space_16">
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_16"
+            android:rowCount="3"
+            android:useDefaultMargins="false"
+            android:visibility="gone"
+            >
 
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
+
             <ImageView
                 style="@style/listViewMultiImageView"
                 android:src="@mipmap/bg_home_banner1"/>
@@ -178,9 +184,10 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <View style="@style/vertical_divier_line"
-            android:layout_marginTop="@dimen/space_4"
-            android:layout_marginBottom="@dimen/space_4"/>
+        <View
+            style="@style/vertical_divier_line"
+            android:layout_marginBottom="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_4"/>
 
         <RelativeLayout
             android:id="@+id/ltm_diary_comment_layout"
@@ -201,5 +208,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <View style="@style/divier_line"/>
 </LinearLayout>

@@ -66,4 +66,7 @@ public class IntentConstant {
     public static final int SEARCH_BEAUTY_FRAGMENT = 3;//装修美图搜索
 
     public static final String DIARY_INFO = "diary_info";
+
+    public static final String DIARYSET_INFO = "diaryset_info";
+    public static final String DIARYSET_INFO_LIST = "diaryset_info_list";
 }

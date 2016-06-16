@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity {
                 homeLayout.setSelected(false);
                 beautyLayout.setSelected(false);
                 reqLayout.setSelected(false);
-                myLayout.setSelected(true);
+                myLayout.setSelected(false);
                 dailyLayout.setSelected(true);
                 break;
         }

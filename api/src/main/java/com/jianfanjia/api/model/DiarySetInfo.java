@@ -1,5 +1,7 @@
 package com.jianfanjia.api.model;
 
+import java.util.List;
+
 /**
  * Description: com.jianfanjia.api.model
  * Author: zhanghao
@@ -15,10 +17,13 @@ public class DiarySetInfo extends BaseModel {
     private String title;
     private int house_area;
     private String house_type;
-    private String dec_type;
+    private String dec_style;
+    private String work_type;
     private long create_at;
     private long lastupdate;
     private int view_count;
+    private String latest_section_label;
+    private List<DiaryInfo> diaries;
 
     public String get_id() {
         return _id;
@@ -76,12 +81,20 @@ public class DiarySetInfo extends BaseModel {
         this.house_type = house_type;
     }
 
-    public String getDec_type() {
-        return dec_type;
+    public String getDec_style() {
+        return dec_style;
     }
 
-    public void setDec_type(String dec_type) {
-        this.dec_type = dec_type;
+    public void setDec_style(String dec_style) {
+        this.dec_style = dec_style;
+    }
+
+    public String getWork_type() {
+        return work_type;
+    }
+
+    public void setWork_type(String work_type) {
+        this.work_type = work_type;
     }
 
     public long getCreate_at() {
@@ -106,5 +119,21 @@ public class DiarySetInfo extends BaseModel {
 
     public void setView_count(int view_count) {
         this.view_count = view_count;
+    }
+
+    public String getLatest_section_label() {
+        return latest_section_label;
+    }
+
+    public void setLatest_section_label(String latest_section_label) {
+        this.latest_section_label = latest_section_label;
+    }
+
+    public List<DiaryInfo> getDiaries() {
+        return diaries;
+    }
+
+    public void setDiaries(List<DiaryInfo> diaries) {
+        this.diaries = diaries;
     }
 }

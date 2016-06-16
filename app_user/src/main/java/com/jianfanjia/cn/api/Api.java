@@ -395,11 +395,11 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().GET_DIARY_SET_INFO, request, apiCallback);
     }
 
-    public static void addDiaryInfo(AddDiaryRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+    public static void addDiaryInfo(AddDiaryRequest request, ApiCallback<ApiResponse<DiaryInfo>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().ADD_DIARY, request, apiCallback);
     }
 
-    public static void addDiarySetInfo(AddDiarySetRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+    public static void addDiarySetInfo(AddDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfo>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET, request, apiCallback);
     }
 

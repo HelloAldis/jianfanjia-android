@@ -22,6 +22,9 @@ public class DiaryInfo extends BaseModel {
     private int favorite_count;
     private int comment_count;
     private List<DiaryImageDetailInfo> images;
+    private DiarySetInfo diarySet;
+    private boolean is_my_favorite;
+    private User author;
 
     public String get_id() {
         return _id;
@@ -117,6 +120,30 @@ public class DiaryInfo extends BaseModel {
 
     public void setImages(List<DiaryImageDetailInfo> images) {
         this.images = images;
+    }
+
+    public DiarySetInfo getDiarySet() {
+        return diarySet;
+    }
+
+    public void setDiarySet(DiarySetInfo diarySet) {
+        this.diarySet = diarySet;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public boolean is_my_favorite() {
+        return is_my_favorite;
+    }
+
+    public void setIs_my_favorite(boolean is_my_favorite) {
+        this.is_my_favorite = is_my_favorite;
     }
 }
 

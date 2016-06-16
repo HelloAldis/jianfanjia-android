@@ -390,7 +390,7 @@
     <string name="decoratebudget_365_individuation">个性化费用</string>
     <string name="decoratebudget_365_total">装修总预算</string>
     <string name="str_coveredarea">建筑面积（㎡）</string>
-    <string name="str_area">面积（㎡）</string>
+    <string name="str_area">面积</string>
     <string name="str_decoratebudget_with_unit">装修总预算（万元）</string>
     <string name="money_alias">￥</string>
     <string name="create_my_requirement">我要装修</string>
@@ -415,7 +415,7 @@
     <string name="diary_info">日记信息</string>
     <string name="save">保存</string>
     <string name="all_more_three">最多三项</string>
-    <string name="create_diary">新建日志</string>
+    <string name="create_diary">新建日记</string>
     <string name="delete">删除</string>
     <string name="tip_delete_diary_title">删除日志提示</string>
     <string name="tip_delete_diary">您确认删除该日志吗</string>
@@ -423,4 +423,8 @@
     <string name="str_diary_title">日记标题</string>
     <string name="write_diary">写日记</string>
     <string name="search_no_diary">暂时没有装修日记</string>
+    <string name="tip_input_diary">记录和分享您的装修之路</string>
+    <string name="str_decorate_stage">装修阶段</string>
+    <string name="str_now_diaryset">当前日记本</string>
+    <string name="add_diary">新建日记</string>
 </resources>

@@ -1,7 +1,10 @@
 package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -10,16 +13,35 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.aldis.hud.Hud;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DiaryImageDetailInfo;
 import com.jianfanjia.api.model.DiaryInfo;
+import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.business.DataManagerNew;
+import com.jianfanjia.cn.business.DiaryBusiness;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
+import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+import com.jianfanjia.common.tool.ToastUtil;
 
 /**
  * Description: com.jianfanjia.cn.ui.adapter
@@ -40,19 +62,86 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DiaryViewHolder diaryViewHolder = (DiaryViewHolder) holder;
-        DiaryInfo diaryInfo = mDatas.get(position);
+        final DiaryInfo diaryInfo = mDatas.get(position);
         LogTool.d(this.getClass().getName(), "diaryInfo =" + diaryInfo);
 
+        final DiarySetInfo diarySetInfo = diaryInfo.getDiarySet();
+        User author = diaryInfo.getAuthor();
+        if (author != null) {
+            if (!TextUtils.isEmpty(author.getImageid())) {
+                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDailyHead);
+            } else {
+                diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+            }
+            if (author.get_id().equals(DataManagerNew.getInstance().getUserId())) {
+                diaryViewHolder.tvDailtDelete.setVisibility(View.VISIBLE);
+                diaryViewHolder.tvDailtDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteDiary(position);
+                    }
+                });
+            } else {
+                diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
+            }
+        } else {
+            diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
+            diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+        }
+
+        if (diarySetInfo != null) {
+            diaryViewHolder.tvCellName.setText(diarySetInfo.getTitle());
+            diaryViewHolder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
+        }
+        diaryViewHolder.tvDailyStage.setText(diaryInfo.getSection_label());
+        diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
         diaryViewHolder.tvCommentCount.setText(diaryInfo.getComment_count() + "");
         diaryViewHolder.tvLikeCount.setText(diaryInfo.getFavorite_count() + "");
-        diaryViewHolder.tvDailyContent.setText(diaryInfo.getContent());
+        setContentText(diaryViewHolder.tvDailyContent, diaryInfo.getContent());
+        diaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
+            }
+        });
+        diaryViewHolder.rlDailyLikeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        diaryViewHolder.llDiarySet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoDiarySetInfo(diarySetInfo);
+            }
+        });
+        diaryViewHolder.llDiaryDetailInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
+            }
+        });
 
         buildPic(diaryViewHolder, diaryInfo);
     }
 
-    private void buildPic(DiaryViewHolder diaryViewHolder, DiaryInfo diaryInfo) {
+    private void gotoDiaryInfo(DiaryInfo diaryInfo, int intentFlag) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
+        bundle.putInt(DiaryDetailInfoActivity.IntentFlag, intentFlag);
+        IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
+    }
+
+    private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
+        IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
+    }
+
+    private void buildPic(DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
         int imageCount;
         if (diaryInfo.getImages() == null || (imageCount = diaryInfo.getImages().size()) == 0) {
             diaryViewHolder.glMultiplePic.setVisibility(View.GONE);
@@ -61,6 +150,12 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             if (imageCount == 1) {
                 diaryViewHolder.glMultiplePic.setVisibility(View.GONE);
                 buildSinglePic(diaryInfo.getImages().get(0), diaryViewHolder.ivSinglerPic);
+                diaryViewHolder.ivSinglerPic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoShowBigPic(0, diaryInfo.getImages());
+                    }
+                });
             } else {
                 diaryViewHolder.ivSinglerPic.setVisibility(View.GONE);
                 buildMultiPic(imageCount, diaryInfo.getImages(), diaryViewHolder.glMultiplePic);
@@ -80,10 +175,10 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         if (bitmapWidth > bitmapHeight) {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) * 2 / 3;
-            viewHeight = viewWidth * (bitmapHeight / bitmapWidth);
+            viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));
         } else if (bitmapWidth < bitmapHeight) {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) / 2;
-            viewHeight = viewWidth * (bitmapHeight / bitmapWidth);
+            viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));
         } else {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) / 2;
             viewHeight = viewWidth;
@@ -94,6 +189,20 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         ivSinglerPic.setLayoutParams(layoutParams);
 
         imageShow.displayScreenWidthThumnailImage(context, imageid, ivSinglerPic);
+    }
+
+    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos) {
+        List<String> imgs = new ArrayList<>();
+        for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
+            imgs.add(diaryImageDetailInfo.getImageid());
+        }
+
+        LogTool.d(this.getClass().getName(), "position:" + position);
+        Bundle showPicBundle = new Bundle();
+        showPicBundle.putInt(Constant.CURRENT_POSITION, position);
+        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
+                (ArrayList<String>) imgs);
+        IntentUtil.startActivity(context, ShowPicActivity.class, showPicBundle);
     }
 
     protected void buildMultiPic(int imageCount, final List<DiaryImageDetailInfo> diaryImageDetailInfos, final
@@ -110,7 +219,7 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    gotoShowBigPic(finalI, diaryImageDetailInfos);
                 }
             });
         }
@@ -171,6 +280,65 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         }
     }
 
+    protected void setContentText(final TextView textView, final String content) {
+        textView.setText(content);
+        if(TextUtils.isEmpty(content)){
+            textView.setVisibility(View.GONE);
+        }else {
+            textView.setVisibility(View.VISIBLE);
+            textView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
+                                           int
+                                                   oldRight, int oldBottom) {
+                    textView.removeOnLayoutChangeListener(this);
+
+                    int lineCount = textView.getLineCount();
+                    if (lineCount > 6) {
+                        int end = textView.getLayout().getLineEnd(5);
+                        LogTool.d(this.getClass().getName(), "end =" + end);
+                        CharSequence charSequence = content.subSequence(0, end - 3);
+                        textView.setText(Html.fromHtml(charSequence + "<font color=\"#05b9fc\">...全文</font>"));
+//                        textView.requestLayout();
+                    }
+                }
+            });
+        }
+    }
+
+    protected void deleteDiary(final int position) {
+        DeleteDiaryRequest deleteDiaryRequest = new DeleteDiaryRequest();
+        deleteDiaryRequest.setDiaryid(mDatas.get(position).get_id());
+
+        Api.deleteDiaryInfo(deleteDiaryRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                Hud.show(context);
+            }
+
+            @Override
+            public void onHttpDone() {
+                Hud.dismiss();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                mDatas.remove(position);
+                notifyItemRemoved(position);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                ToastUtil.showShortTost(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                ToastUtil.showShortTost(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
     static class DiaryViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.diary_head)
@@ -184,6 +352,9 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
         @Bind(R.id.ltm_diary_delte)
         TextView tvDailtDelete;
+
+        @Bind(R.id.ltm_diary_baseinfo)
+        TextView tvDiaryBaseInfo;
 
         @Bind(R.id.ltm_diary_content)
         TextView tvDailyContent;
@@ -209,9 +380,16 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         @Bind(R.id.iv_diary_single_pic)
         ImageView ivSinglerPic;
 
+        @Bind(R.id.ll_diaryset_baseinfo)
+        LinearLayout llDiarySet;
+
+        @Bind(R.id.ll_diary_detail_info)
+        LinearLayout llDiaryDetailInfo;
+
         public DiaryViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
+
         }
     }
 }

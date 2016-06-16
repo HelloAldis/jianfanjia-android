@@ -369,7 +369,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             case R.id.act_edit_req_lovestyle:
                 ChooseItemLoveStyleIntent loveStyleIntent = new ChooseItemLoveStyleIntent(getContext());
                 loveStyleIntent.setSingleChoose(Constant.REQUIRECODE_LOVESTYLE, requirementInfo
-                        .getCommunication_type(), getString(R.string.str_lovestyle));
+                        .getDec_style(), getString(R.string.str_lovestyle));
                 startActivityForResult(loveStyleIntent, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.act_edit_req_persons:
