@@ -427,4 +427,6 @@
     <string name="str_decorate_stage">装修阶段</string>
     <string name="str_now_diaryset">当前日记本</string>
     <string name="add_diary">新建日记</string>
+    <string name="str_publish">发布</string>
+    <string name="diaryset">日记本</string>
 </resources>

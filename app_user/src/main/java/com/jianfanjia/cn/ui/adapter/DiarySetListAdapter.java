@@ -1,58 +1,50 @@
 package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.jianfanjia.api.model.DiaryInfo;
+import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.DiaryBusiness;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity;
+import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
 
 
 /**
- * Name: DesignerWorksAdapter
- * User: fengliang
+ * Name: DiarySetInfoAdapter 日记集列表
+ * User: zhanghao
  * Date: 2015-10-15
  * Time: 13:44
  */
-public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
-
-    private OnItemEditListener listener;
+public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
 
     private static final int HEAD_TYPE = 0;
     private static final int CONTENT_TYPE = 1;
 
-    private boolean isEdit = false;
-
-    public DiarySetListAdapter(Context context, List<DiaryInfo> list, OnItemEditListener listener) {
+    public DiarySetListAdapter(Context context, List<DiarySetInfo> list) {
         super(context, list);
-        this.listener = listener;
-    }
-
-    public boolean isEdit() {
-        return isEdit;
-    }
-
-    public void setIsEdit(boolean isEdit) {
-        this.isEdit = isEdit;
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DiaryInfo> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DiarySetInfo> list) {
         switch (getItemViewType(position)) {
             case CONTENT_TYPE:
-                DiaryInfo diaryInfo = list.get(position - 1);
+                DiarySetInfo diarySetInfo = list.get(position - 1);
                 DesignerWorksViewHolder holder = (DesignerWorksViewHolder) viewHolder;
-                bindContentView(position - 1, diaryInfo, holder);
+                bindContentView(position - 1, diarySetInfo, holder);
                 break;
             case HEAD_TYPE:
                 DesignerWorksViewHolderHead holderHead = (DesignerWorksViewHolderHead) viewHolder;
@@ -66,35 +58,35 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         viewHolder.uploadLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemAdd();
+                gotoAddDiarySet(null);
             }
         });
     }
 
-    private void bindContentView(final int position, DiaryInfo diaryInfo, DesignerWorksViewHolder holder) {
+    private void gotoAddDiarySet(DiarySetInfo diarySetInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
+        IntentUtil.startActivity(context, AddDiarySetActivity.class, bundle);
+    }
 
+    private void gotoDiarySetInfo(DiarySetInfo diarySetInfo){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST,(Serializable)list);
+        IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
+    }
 
-        if (isEdit) {
-            holder.deleteLayout.setVisibility(View.VISIBLE);
-            holder.itemwWorksView.setColorFilter(Color.parseColor("#55000000"));
-            holder.itemView.setOnClickListener(null);
-        } else {
-            holder.deleteLayout.setVisibility(View.GONE);
-            holder.itemwWorksView.clearColorFilter();
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (null != listener) {
-                        listener.onItemClick(position);
-                    }
-                }
-            });
-        }
+    private void bindContentView(final int position,final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
 
-        holder.deleteLayout.setOnClickListener(new View.OnClickListener() {
+        holder.tvDiarySetDec.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
+        holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
+
+        holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemDelete(position);
+                gotoDiarySetInfo(diarySetInfo);
             }
         });
 
@@ -127,11 +119,11 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         View view;
         switch (viewType) {
             case CONTENT_TYPE:
-                view = layoutInflater.inflate(R.layout.list_item_diary_info,
+                view = layoutInflater.inflate(R.layout.list_item_diaryset_list_info,
                         null);
                 return new DesignerWorksViewHolder(view);
             case HEAD_TYPE:
-                view = layoutInflater.inflate(R.layout.list_item_diary_info_head,
+                view = layoutInflater.inflate(R.layout.list_item_diaryset_list_head,
                         null);
                 return new DesignerWorksViewHolderHead(view);
         }
@@ -140,16 +132,19 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
 
     static class DesignerWorksViewHolder extends RecyclerViewHolderBase {
 
-        @Bind(R.id.list_item_works_img)
-        ImageView itemwWorksView;
-        @Bind(R.id.list_item_works_xiaoqu_text)
-        TextView itemXiaoQuText;
-        @Bind(R.id.list_item_works_produce_text)
-        TextView itemProduceText;
-        @Bind(R.id.list_item_works_dectype_totalprice_text)
-        TextView itemDecTypeAndTotalPriceText;
-        @Bind(R.id.deleteLayout)
-        RelativeLayout deleteLayout;
+        @Bind(R.id.iv_diaryset_cover_pic)
+        ImageView ivDiarySetCoverPic;
+        @Bind(R.id.tv_diaryset_title)
+        TextView tvDiarySetTitle;
+        @Bind(R.id.tv_diaryset_dec)
+        TextView tvDiarySetDec;
+        @Bind(R.id.tv_like_count)
+        TextView tvLikeCount;
+        @Bind(R.id.tv_view_count)
+        TextView tvViewCount;
+
+        @Bind(R.id.tv_diaryset_stage)
+        TextView tvDiarySetStage;
 
         public DesignerWorksViewHolder(View itemView) {
             super(itemView);

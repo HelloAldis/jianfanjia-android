@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/font_white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_diary_detail_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_16">
+
+        <LinearLayout
+            android:id="@+id/ll_diaryset_baseinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ltm_diary_stage"
+                style="@style/listview_item_text_style_middle"
+                android:text="@string/kai_gong"
+                android:textColor="@color/light_black_color"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/ltm_diary_goingtime"
+                style="@style/listview_item_text_style_middle"
+                android:layout_alignBaseline="@+id/ltm_diary_stage"
+                android:layout_marginLeft="@dimen/space_16"
+                android:text="3分钟前"
+                android:textColor="@color/grey_color"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ltm_diary_content"
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/space_16"
+            android:gravity="left"
+            android:lineSpacingMultiplier="1.5"
+            android:text="这个装修效果真的不错，我很喜欢"/>
+
+        <ImageView
+            android:id="@+id/iv_diary_single_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/space_16"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_home_banner1"
+            android:visibility="gone"/>
+
+        <GridLayout
+            android:id="@+id/gl_diary_multiple_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:clickable="false"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3"
+            android:useDefaultMargins="false"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+        </GridLayout>
+    </LinearLayout>
+
+    <View style="@style/divier_line"/>
+
+    <LinearLayout
+        android:id="@+id/ltm_diary_action_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/ltm_diary_like_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/my_item_layout_bg_selector">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/space_12"
+                    android:drawableLeft="@mipmap/btn_icon_comment_normal"
+                    android:text="0"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <View
+            style="@style/vertical_divier_line"
+            android:layout_marginBottom="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_4"/>
+
+        <RelativeLayout
+            android:id="@+id/ltm_diary_comment_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/my_item_layout_bg_selector">
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                style="@style/listview_item_text_style_small"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/space_12"
+                android:drawableLeft="@mipmap/btn_icon_comment_normal"
+                android:text="0"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

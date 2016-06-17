@@ -141,7 +141,7 @@
                             android:layout_marginLeft="@dimen/space_4"
                             android:layout_marginRight="@dimen/space_4"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_notify_big"/>
+                            android:src="@mipmap/icon_my_diaryset"/>
 
                         <com.jianfanjia.cn.view.layout.BadgeView
                             android:id="@+id/notify_count_text"
@@ -162,7 +162,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:singleLine="true"
-                        android:text="@string/my_notice"
+                        android:text="@string/diaryset"
                         android:textColor="@color/light_black_color"
                         android:textSize="@dimen/middle_size"/>
 

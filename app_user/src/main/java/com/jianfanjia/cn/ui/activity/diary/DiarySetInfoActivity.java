@@ -9,10 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
+import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.common.tool.TDevice;
@@ -30,7 +36,13 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
     private DiarySetInfoAdapter mDiaryAdapter;
 
-    private List<DiarySetInfo> mDiarySetInfoList;
+    private List<DiaryInfo> mDiaryInfoList;
+
+    private ArrayList<DiarySetInfo> mDiarySetInfoList;
+
+    private DiarySetInfo mDiarySetInfo;
+
+    private String diarySetId;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -38,7 +50,23 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getDataFromIntent();
         initView();
+    }
+
+    private void getDataFromIntent() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            mDiarySetInfo = (DiarySetInfo) bundle.getSerializable(IntentConstant.DIARYSET_INFO);
+            mDiarySetInfoList = (ArrayList<DiarySetInfo>) bundle.getSerializable(IntentConstant.DIARYSET_INFO_LIST);
+            if (mDiarySetInfo != null) {
+                diarySetId = mDiarySetInfo.get_id();
+            }
+        }
+    }
+
+    public ArrayList<DiarySetInfo> getDiarySetInfoList() {
+        return mDiarySetInfoList;
     }
 
     private void initView() {
@@ -48,33 +76,48 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initRecyclerView();
+
+        getDiarySetDetail();
+    }
+
+    private void getDiarySetDetail() {
+        if (diarySetId == null) return;
+        GetDiarySetInfoRequest getDiarySetInfoRequest = new GetDiarySetInfoRequest();
+        getDiarySetInfoRequest.setDiarySetid(diarySetId);
+
+        Api.getDiarySetInfo(getDiarySetInfoRequest, new ApiCallback<ApiResponse<DiarySetInfo>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DiarySetInfo> apiResponse) {
+                DiarySetInfo diarySetInfo = apiResponse.getData();
+                mDiarySetInfo.setDiaries(diarySetInfo.getDiaries());
+                mDiarySetInfo.setView_count(diarySetInfo.getView_count());
+                mDiaryAdapter.setDiarySetInfo(mDiarySetInfo);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DiarySetInfo> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
     }
 
     private void initRecyclerView() {
-        mDiarySetInfoList = new ArrayList<>();
-        mDiaryAdapter = new DiarySetInfoAdapter(this, mDiarySetInfoList, new BaseRecyclerViewAdapter.OnItemEditListener() {
-
-
-            @Override
-            public void onItemAdd() {
-                startActivity(AddDiaryActivity.class);
-            }
-
-            @Override
-            public void onItemClick(int position) {
-
-            }
-
-            @Override
-            public void onItemDelete(int position) {
-
-            }
-        });
-        mDiaryAdapter.add(new DiarySetInfo());
-        mDiaryAdapter.add(new DiarySetInfo());
-        mDiaryAdapter.add(new DiarySetInfo());
-        mDiaryAdapter.add(new DiarySetInfo());
-        mDiaryAdapter.add(new DiarySetInfo());
+        mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new HorizontalDividerDecoration(TDevice.dip2px(this, 10),

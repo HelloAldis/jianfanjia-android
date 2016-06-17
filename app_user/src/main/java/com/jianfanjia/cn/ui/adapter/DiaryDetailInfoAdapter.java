@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
- * Name: CommentAdapter
+ * Name: DiaryDetailInfoAdapter 日记详情
  * User: fengliang
  * Date: 2015-10-28
  * Time: 17:10
@@ -107,7 +106,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             case DIARY_DETAIL_TYPE:
                 view = layoutInflater.inflate(R.layout.list_item_fragment_diary,
                         null);
-                return new DailyViewHolder(view);
+                return new DiaryDynamicAdapter.DiaryViewHolder(view);
             case COMMENT_TYPE:
                 view = layoutInflater.inflate(R.layout.list_item_comment,
                         null);
@@ -133,41 +132,6 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             ButterKnife.bind(this, itemView);
         }
     }
-
-    static class DailyViewHolder extends RecyclerViewHolderBase {
-
-        @Bind(R.id.diary_head)
-        ImageView ivDailyHead;
-
-        @Bind(R.id.ltm_diary_stage)
-        TextView tvDailyStage;
-
-        @Bind(R.id.ltm_diary_cellname)
-        TextView tvCellName;
-
-        @Bind(R.id.ltm_diary_delte)
-        TextView tvDailtDelete;
-
-        @Bind(R.id.ltm_diary_content)
-        TextView tvDailyContent;
-
-        @Bind(R.id.ltm_diary_goingtime)
-        TextView tvDailyGoingTime;
-
-        @Bind(R.id.ltm_diary_comment_layout)
-        RelativeLayout rlDailyCommentLayout;
-
-        @Bind(R.id.ltm_diary_like_layout)
-        RelativeLayout rlDailyLikeLayout;
-
-        @Bind(R.id.tv_like_count)
-        TextView tvLikeCount;
-
-        @Bind(R.id.tv_comment_count)
-        TextView tvCommentCount;
-
-        public DailyViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 }
+
+

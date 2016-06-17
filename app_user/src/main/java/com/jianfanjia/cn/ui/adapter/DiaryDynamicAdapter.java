@@ -30,6 +30,7 @@ import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
@@ -44,14 +45,14 @@ import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.common.tool.ToastUtil;
 
 /**
- * Description: com.jianfanjia.cn.ui.adapter
+ * Description: com.jianfanjia.cn.ui.adapter 日记动态
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
  * Date:2016-06-13 10:50
  */
-public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
+public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
-    public DiaryAdapter(Context context, RecyclerView recyclerView) {
+    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
     }
 
@@ -339,7 +340,7 @@ public class DiaryAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         });
     }
 
-    static class DiaryViewHolder extends RecyclerView.ViewHolder {
+    static class DiaryViewHolder extends RecyclerViewHolderBase {
 
         @Bind(R.id.diary_head)
         ImageView ivDailyHead;

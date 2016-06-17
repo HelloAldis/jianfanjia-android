@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/mainvh_diary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/space_10"
+        android:background="@color/font_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_36"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_zhunbei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_zhunbei_normal"/>
+            <Space
+                android:layout_width="@dimen/space_16"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/iv_kaigong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_kaigong_normal"/>
+            <Space
+                android:layout_width="@dimen/space_16"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/iv_chaigai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_chaigai_normal"/>
+            <Space
+                android:layout_width="@dimen/space_16"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/iv_shuidian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_shuidian_normal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_36"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_nimu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_nimu_normal"/>
+            <Space
+                android:layout_width="@dimen/space_16"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/iv_youqu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_youqi_normal"/>
+            <Space
+                android:layout_width="@dimen/space_16"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/iv_anzhuang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_anzhuang_normal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_36"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_jungong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_jungong_normal"/>
+            <Space
+                android:layout_width="@dimen/space_16"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/iv_ruanzhuang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_ruanzhuang_normal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_36"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_ruzhu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_add_diary_ruzhu_selected"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

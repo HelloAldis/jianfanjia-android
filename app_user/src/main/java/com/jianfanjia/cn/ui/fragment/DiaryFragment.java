@@ -26,7 +26,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
-import com.jianfanjia.cn.ui.adapter.DiaryAdapter;
+import com.jianfanjia.cn.ui.adapter.DiaryDynamicAdapter;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -47,7 +47,7 @@ public class DiaryFragment extends BaseFragment {
     @Bind(R.id.error_include)
     RelativeLayout errorLayout;
 
-    private DiaryAdapter mDiaryAdapter;
+    private DiaryDynamicAdapter mDiaryDynamicAdapter;
     private int total = 0;
 
     @Override
@@ -60,7 +60,7 @@ public class DiaryFragment extends BaseFragment {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_diary));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
 
-        mDiaryAdapter = new DiaryAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView());
+        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView());
 
         mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
@@ -70,16 +70,16 @@ public class DiaryFragment extends BaseFragment {
                 getAllUpdateDiary();
             }
         });
-        mDiaryAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
+        mDiaryDynamicAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
 
             }
         });
-        mDiaryAdapter.setErrorView(errorLayout);
-        mDiaryAdapter.setEmptyView(emptyLayout);
+        mDiaryDynamicAdapter.setErrorView(errorLayout);
+        mDiaryDynamicAdapter.setEmptyView(emptyLayout);
 
-        mPullToRefreshRecycleView.setAdapter(mDiaryAdapter);
+        mPullToRefreshRecycleView.setAdapter(mDiaryDynamicAdapter);
     }
 
     @Override
@@ -117,16 +117,16 @@ public class DiaryFragment extends BaseFragment {
                     if (total > 0) {
                         LogTool.d(TAG, "total size =" + total);
                         LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
-                                mDiaryAdapter.getData().size());
-                        mDiaryAdapter.addData(diaryInfoList.getDiaries());
-                        if (total > mDiaryAdapter.getData().size()) {
-                            mDiaryAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
+                                mDiaryDynamicAdapter.getData().size());
+                        mDiaryDynamicAdapter.addData(diaryInfoList.getDiaries());
+                        if (total > mDiaryDynamicAdapter.getData().size()) {
+                            mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
                         } else {
-                            mDiaryAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
+                            mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
                         }
-                        mDiaryAdapter.hideErrorAndEmptyView();
+                        mDiaryDynamicAdapter.hideErrorAndEmptyView();
                     } else {
-                        mDiaryAdapter.setEmptyViewShow();
+                        mDiaryDynamicAdapter.setEmptyViewShow();
                     }
                 }
             }
@@ -139,8 +139,8 @@ public class DiaryFragment extends BaseFragment {
             @Override
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-                mDiaryAdapter.setErrorViewShow();
-                mDiaryAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                mDiaryDynamicAdapter.setErrorViewShow();
+                mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
             }
         });
     }

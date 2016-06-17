@@ -11,5 +11,6 @@
         android:useLevel="false"
         />
 
+    <corners android:radius="@dimen/space_5"/>
 
 </shape>
