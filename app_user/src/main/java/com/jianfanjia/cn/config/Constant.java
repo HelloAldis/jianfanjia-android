@@ -54,6 +54,7 @@ public class Constant {
     public static final int REQUIRECODE_WORKTYPE = 0x06;
     public static final int REQUIRECODE_DESISEX = 0x07;
     public static final int REQUESTCODE_PICKER_PIC = 0x11;
+    public static final int REQUESTCODE_CHOOSE_DIARY_STAGE = 0x12;
 
 
     // editactivity

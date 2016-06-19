@@ -4,6 +4,18 @@
     <string name="pro">省份：</string>
     <string name="city">城市：</string>
     <string name="district">地区：</string>
+    <string-array name="diary_stage">
+        <item>准备</item>
+        <item>开工</item>
+        <item>拆改</item>
+        <item>水电</item>
+        <item>泥木</item>
+        <item>油漆</item>
+        <item>安装</item>
+        <item>竣工</item>
+        <item>软装</item>
+        <item>入住</item>
+    </string-array>
     <string-array name="site_procedure">
         <item>开工</item>
         <item>拆改</item>

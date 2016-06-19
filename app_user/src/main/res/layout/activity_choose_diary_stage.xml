@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/main_layout_bg"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_layout_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/mainvh_diary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg"/>
+        android:background="@color/head_layout_bg" />
 
     <LinearLayout
+        android:id="@+id/ll_choose_stage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/space_10"
@@ -26,35 +27,53 @@
             android:layout_marginTop="@dimen/space_36"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/iv_zhunbei"
+            <TextView
+                android:id="@+id/tv_zhunbei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_zhunbei_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_zhunbei_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/zhun_bei" />
+
             <Space
                 android:layout_width="@dimen/space_16"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_kaigong"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_kaigong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_kaigong_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_kaigong_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/kai_gong" />
+
             <Space
                 android:layout_width="@dimen/space_16"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_chaigai"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_chaigai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_chaigai_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_chaigai_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/chai_gai" />
+
             <Space
                 android:layout_width="@dimen/space_16"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_shuidian"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_shuidian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_shuidian_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_shuidian_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/shui_dian" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,27 +83,40 @@
             android:layout_marginTop="@dimen/space_36"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/iv_nimu"
+            <TextView
+                android:id="@+id/tv_nimu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_nimu_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_nimu_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/ni_mu" />
+
             <Space
                 android:layout_width="@dimen/space_16"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_youqu"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_youqi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_youqi_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_youqi_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/you_qi" />
+
             <Space
                 android:layout_width="@dimen/space_16"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_anzhuang"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_anzhuang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_anzhuang_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_anzhuang_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/an_zhuang" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,19 +126,27 @@
             android:layout_marginTop="@dimen/space_36"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/iv_jungong"
+            <TextView
+                android:id="@+id/tv_jungong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_jungong_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_jungong_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/jun_gong" />
+
             <Space
                 android:layout_width="@dimen/space_16"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:id="@+id/iv_ruanzhuang"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_ruanzhuang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_ruanzhuang_normal"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_ruanzhuang_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/ruan_zhuang" />
         </LinearLayout>
 
         <LinearLayout
@@ -116,11 +156,14 @@
             android:layout_marginTop="@dimen/space_36"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/iv_ruzhu"
+            <TextView
+                android:id="@+id/tv_ruzhu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_add_diary_ruzhu_selected"/>
+                android:drawablePadding="@dimen/space_8"
+                android:drawableTop="@mipmap/icon_add_diary_ruzhu_selected"
+                android:gravity="center_horizontal"
+                android:text="@string/ruan_zhuang" />
         </LinearLayout>
 
 

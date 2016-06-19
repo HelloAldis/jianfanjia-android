@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -33,6 +34,8 @@ import com.jianfanjia.cn.ui.adapter.AddDiaryGridViewAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
+
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -242,6 +245,23 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         }
     }
 
+    @OnClick({R.id.rl_add_diary_dec_stage, R.id.rl_add_diary_now_diaryset})
+    protected void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_add_diary_dec_stage:
+                gotoChooseDiaryStage();
+                break;
+            case R.id.rl_add_diary_now_diaryset:
+                break;
+        }
+    }
+
+    private void gotoChooseDiaryStage() {
+        Bundle bundle = new Bundle();
+        bundle.putString(ChooseDiaryStageActivity.CURRENT_CHOOSE_VALUE, mDiaryInfo.getSection_label());
+        startActivityForResult(ChooseDiaryStageActivity.class, bundle, Constant.REQUESTCODE_CHOOSE_DIARY_STAGE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -255,6 +275,11 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                     LogTool.d(TAG, "all path :" + this.photos);
                     this.uploadImageSync();
                 }
+                break;
+            case Constant.REQUESTCODE_CHOOSE_DIARY_STAGE:
+                String chooseVluae = data.getStringExtra(ChooseDiaryStageActivity.CURRENT_CHOOSE_VALUE);
+                mDiaryInfo.setSection_label(chooseVluae);
+                setDecStage();
                 break;
         }
 
