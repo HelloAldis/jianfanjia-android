@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.request.common.AddDiaryRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -148,7 +150,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         mMainHeadView.setRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addDiary(mDiaryInfo);
             }
         });
         mMainHeadView.setBackListener(new View.OnClickListener() {
@@ -160,7 +162,8 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void setMianHeadRightTitleEnable() {
-        if (true) {
+        if (!TextUtils.isEmpty(mDiaryInfo.getContent()) && !TextUtils.isEmpty(mDiaryInfo.getSection_label()) &&
+                !TextUtils.isEmpty(mDiaryInfo.getDiarySetid())) {
             mMainHeadView.setRigthTitleEnable(true);
         } else {
             mMainHeadView.setRigthTitleEnable(false);
@@ -206,7 +209,6 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             currentDiarySetTitle = bundle.getString(CURRENT_DIARYSET_TITLE);
             mDiarySetInfoList = (ArrayList<DiarySetInfo>) bundle.getSerializable(IntentConstant.DIARYSET_INFO_LIST);
 
-
             if (currentDiarySetTitle == null) {//没有传当前的日记本，默认选择最后一个日记本
                 chooseCurrentDiarySet();
             } else {
@@ -226,6 +228,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void setCurrentDiaryBelongDiarySet(String currentDiarySetTitle) {
+        this.currentDiarySetTitle = currentDiarySetTitle;
         for (DiarySetInfo diarySetInfo : mDiarySetInfoList) {
             if (currentDiarySetTitle.equals(diarySetInfo.getTitle())) {
                 currentDiarySet = diarySetInfo;
@@ -266,9 +269,9 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private void gotoChooseDiarySetTitle() {
         Bundle bundle = new Bundle();
-        bundle.putString(ChooseNowDiarySetActivity.CURRENT_CHOOSE_VALUE, mDiaryInfo.getSection_label());
+        bundle.putString(ChooseNowDiarySetActivity.CURRENT_CHOOSE_VALUE, currentDiarySet.getTitle());
         bundle.putStringArrayList(ChooseNowDiarySetActivity.ALL_CAN_CHOOSE_VALUES, (ArrayList) mDiarySetTitleList);
-        startActivityForResult(ChooseDiaryStageActivity.class, bundle, Constant.REQUESTCODE_CHOOSE_DIARY_STAGE);
+        startActivityForResult(ChooseNowDiarySetActivity.class, bundle, Constant.REQUESTCODE_CHOOSE_DIARY_TITLE);
     }
 
     private void gotoChooseDiaryStage() {
@@ -296,12 +299,44 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 mDiaryInfo.setSection_label(chooseValue);
                 setDecStage();
                 break;
-            case Constant.REQUESTCODE_CHOOSE_DIARY_Title:
+            case Constant.REQUESTCODE_CHOOSE_DIARY_TITLE:
                 String chooseTitle = data.getStringExtra(IntentConstant.RESPONSE_DATA);
                 resetDiaryBelongDiarySet(chooseTitle);
                 break;
         }
 
+    }
+
+    private void addDiary(DiaryInfo diaryInfo) {
+        AddDiaryRequest addDiaryRequest = new AddDiaryRequest();
+        addDiaryRequest.setDiary(diaryInfo);
+
+        Api.addDiaryInfo(addDiaryRequest, new ApiCallback<ApiResponse<DiaryInfo>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DiaryInfo> apiResponse) {
+                appManager.finishActivity(AddDiaryActivity.this);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DiaryInfo> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
     }
 
     private void resetDiaryBelongDiarySet(String chooseTitle) {
@@ -310,7 +345,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         mDiaryInfo.setDiarySetid(currentDiarySet.get_id());
         mDiaryInfo.setSection_label(currentDiarySet.getLatest_section_label());
         setDecStage();
-        setDecStage();
+        setNowDiarySetTitle();
     }
 
     private void upload_image(final Bitmap bitmap) {
@@ -337,7 +372,6 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                     imageUrlList.add(apiResponse.getData());
                 }
                 mAddDiaryGridViewAdapter.notifyDataSetChanged();
-
                 AddDiaryActivity.this.uploadImageSync();
             }
 

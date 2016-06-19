@@ -21,6 +21,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
+import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
 /**
@@ -98,10 +99,11 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<DiarySetInfo> apiResponse) {
-                DiarySetInfo diarySetInfo = apiResponse.getData();
+                DiarySetInfo diarySetInfo = apiResponse.getData().getDiarySet();
+                LogTool.d(this.getClass().getName(),"diarysetinfo has diary.size(） = "+ diarySetInfo.getDiaries().size());
                 mDiarySetInfo.setDiaries(diarySetInfo.getDiaries());
                 mDiarySetInfo.setView_count(diarySetInfo.getView_count());
-                mDiaryAdapter.setDiarySetInfo(mDiarySetInfo);
+                mDiaryAdapter.setDiarySetInfo(diarySetInfo);
             }
 
             @Override

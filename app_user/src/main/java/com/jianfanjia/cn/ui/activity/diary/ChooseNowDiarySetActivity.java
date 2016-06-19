@@ -30,7 +30,7 @@ public class ChooseNowDiarySetActivity extends BaseSwipeBackActivity {
 
     private ChooseDiarySetTitleAdapter chooseDiarySetTitleAdapter;
 
-    @Bind(R.id.act_edit_req_item_head)
+    @Bind(R.id.mainhv_diary)
     protected MainHeadView mMainHeadView;
 
     @Bind(R.id.act_edit_req_item_listview)

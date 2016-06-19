@@ -32,6 +32,15 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:text="3分钟前"
                 android:textColor="@color/grey_color"/>
+
+            <TextView
+                android:id="@+id/ltm_diary_delte"
+                style="@style/listview_item_text_style_middle"
+                android:layout_alignBaseline="@+id/ltm_diary_stage"
+                android:layout_alignParentRight="true"
+                android:text="@string/str_delete"
+                android:visibility="gone"
+                android:textColor="@color/blue_color"/>
         </LinearLayout>
 
         <TextView

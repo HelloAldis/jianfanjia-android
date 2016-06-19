@@ -93,7 +93,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
 
     private void bindContentView(final int position, final DiaryInfo diaryInfo, DiaryViewHolder diaryViewHolder) {
 
-        User author = diaryInfo.getAuthor();
+    /*    User author = diaryInfo.getAuthor();
         if (author != null) {
             if (author.get_id().equals(DataManagerNew.getInstance().getUserId())) {
                 diaryViewHolder.tvDailtDelete.setVisibility(View.VISIBLE);
@@ -108,7 +108,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             }
         } else {
             diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
-        }
+        }*/
 
         diaryViewHolder.tvDailyStage.setText(diaryInfo.getSection_label());
         diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
