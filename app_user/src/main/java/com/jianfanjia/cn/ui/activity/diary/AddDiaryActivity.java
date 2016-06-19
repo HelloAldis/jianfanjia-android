@@ -210,12 +210,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             if (currentDiarySetTitle == null) {//没有传当前的日记本，默认选择最后一个日记本
                 chooseCurrentDiarySet();
             } else {
-                for (DiarySetInfo diarySetInfo : mDiarySetInfoList) {
-                    if (currentDiarySetTitle.equals(diarySetInfo.getTitle())) {
-                        currentDiarySet = diarySetInfo;
-                        break;
-                    }
-                }
+                setCurrentDiaryBelongDiarySet(currentDiarySetTitle);
             }
             LogTool.d(TAG, "currentDiarySetTitle =" + currentDiarySetTitle);
 
@@ -225,7 +220,17 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             }
 
             mDiaryInfo = new DiaryInfo();
+            mDiaryInfo.setDiarySetid(currentDiarySet.get_id());
             mDiaryInfo.setSection_label(currentDiarySet.getLatest_section_label());
+        }
+    }
+
+    private void setCurrentDiaryBelongDiarySet(String currentDiarySetTitle) {
+        for (DiarySetInfo diarySetInfo : mDiarySetInfoList) {
+            if (currentDiarySetTitle.equals(diarySetInfo.getTitle())) {
+                currentDiarySet = diarySetInfo;
+                break;
+            }
         }
     }
 
@@ -252,8 +257,18 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 gotoChooseDiaryStage();
                 break;
             case R.id.rl_add_diary_now_diaryset:
+                if (mDiarySetTitleList.size() > 1) {
+                    gotoChooseDiarySetTitle();
+                }
                 break;
         }
+    }
+
+    private void gotoChooseDiarySetTitle() {
+        Bundle bundle = new Bundle();
+        bundle.putString(ChooseNowDiarySetActivity.CURRENT_CHOOSE_VALUE, mDiaryInfo.getSection_label());
+        bundle.putStringArrayList(ChooseNowDiarySetActivity.ALL_CAN_CHOOSE_VALUES, (ArrayList) mDiarySetTitleList);
+        startActivityForResult(ChooseDiaryStageActivity.class, bundle, Constant.REQUESTCODE_CHOOSE_DIARY_STAGE);
     }
 
     private void gotoChooseDiaryStage() {
@@ -277,12 +292,25 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 }
                 break;
             case Constant.REQUESTCODE_CHOOSE_DIARY_STAGE:
-                String chooseVluae = data.getStringExtra(ChooseDiaryStageActivity.CURRENT_CHOOSE_VALUE);
-                mDiaryInfo.setSection_label(chooseVluae);
+                String chooseValue = data.getStringExtra(IntentConstant.RESPONSE_DATA);
+                mDiaryInfo.setSection_label(chooseValue);
                 setDecStage();
+                break;
+            case Constant.REQUESTCODE_CHOOSE_DIARY_Title:
+                String chooseTitle = data.getStringExtra(IntentConstant.RESPONSE_DATA);
+                resetDiaryBelongDiarySet(chooseTitle);
                 break;
         }
 
+    }
+
+    private void resetDiaryBelongDiarySet(String chooseTitle) {
+        setCurrentDiaryBelongDiarySet(chooseTitle);
+
+        mDiaryInfo.setDiarySetid(currentDiarySet.get_id());
+        mDiaryInfo.setSection_label(currentDiarySet.getLatest_section_label());
+        setDecStage();
+        setDecStage();
     }
 
     private void upload_image(final Bitmap bitmap) {

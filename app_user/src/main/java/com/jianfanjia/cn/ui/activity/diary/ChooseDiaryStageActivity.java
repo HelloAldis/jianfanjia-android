@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -67,7 +68,7 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
         String chooseValue = ((TextView) view).getText().toString();
         LogTool.d(this.getClass().getName(), "chooseVulue =" + chooseValue);
         Intent intent = getIntent();
-        intent.putExtra(CURRENT_CHOOSE_VALUE, chooseValue);
+        intent.putExtra(IntentConstant.RESPONSE_DATA, chooseValue);
         setResult(RESULT_OK, intent);
         appManager.finishActivity(this);
     }
