@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -17,15 +19,21 @@ import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DiaryInfoList;
+import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.model.DiarySetInfoList;
+import com.jianfanjia.api.request.common.GetMyDiarySetRequest;
 import com.jianfanjia.api.request.guest.SearchDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
+import com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity;
+import com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity;
 import com.jianfanjia.cn.ui.adapter.DiaryDynamicAdapter;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -35,9 +43,9 @@ import com.jianfanjia.common.tool.LogTool;
  * Email: jame.zhang@myjyz.com
  * Date:2016-06-12 17:41
  */
-public class DiaryFragment extends BaseFragment {
+public class DiaryDynamicFragment extends BaseFragment {
 
-    private static final String TAG = DiaryFragment.class.getClass().getName();
+    private static final String TAG = DiaryDynamicFragment.class.getClass().getName();
     @Bind(R.id.daily_pullfefresh)
     PullToRefreshRecycleView mPullToRefreshRecycleView;
 
@@ -149,9 +157,65 @@ public class DiaryFragment extends BaseFragment {
     protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgbtn_add_daily:
-                startActivity(DiarySetInfoActivity.class);
+                addDiaryAction();
                 break;
         }
+    }
+
+    private void addDiaryAction() {
+        getAllDiarySet();
+    }
+
+    private void gotoAddDiary(List<DiarySetInfo> diarySetInfos) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST, (ArrayList) diarySetInfos);
+        IntentUtil.startActivity(getActivity(), AddDiaryActivity.class, bundle);
+    }
+
+    private void gotoAddDiarySet() {
+        Bundle bundle = new Bundle();
+        IntentUtil.startActivity(getActivity(), AddDiarySetActivity.class, bundle);
+    }
+
+    private void getAllDiarySet() {
+        GetMyDiarySetRequest getMyDiarySetRequest = new GetMyDiarySetRequest();
+
+        Api.getMyDiarySetList(getMyDiarySetRequest, new ApiCallback<ApiResponse<DiarySetInfoList>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DiarySetInfoList> apiResponse) {
+                DiarySetInfoList diarySetInfoList = apiResponse.getData();
+                if (diarySetInfoList != null) {
+                    List<DiarySetInfo> mDiaryInfoList = diarySetInfoList.getDiarySets();
+                    if (mDiaryInfoList.size() > 0) {
+                        gotoAddDiary(mDiaryInfoList);
+                    } else {
+                        gotoAddDiarySet();
+                    }
+                } else {
+                    gotoAddDiarySet();
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DiarySetInfoList> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
     }
 
     @Override

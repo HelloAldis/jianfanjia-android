@@ -97,7 +97,9 @@
 
                         <TextView
                             android:id="@+id/ltm_diary_goingtime"
-                            style="@style/listview_item_text_style_middle"
+                            style="@style
+
+                            /listview_item_text_style_middle"
                             android:layout_alignParentBottom="true"
                             android:text="3分钟前"
                             android:textColor="@color/grey_color"/>
@@ -155,26 +157,6 @@
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_writediary"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_48"
-            android:background="@color/font_white"
-            app:layout_scrollFlags="scroll">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawableLeft="@mipmap/icon_auth_add"
-                android:drawablePadding="@dimen/space_16"
-                android:text="@string/write_diary"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/big_size"
-                android:textColor="@color/orange_color"/>
-
-        </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 

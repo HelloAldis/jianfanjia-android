@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Description: com.jianfanjia.cn.ui.activity.diary
@@ -63,7 +62,8 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
     }
 
 
-    @OnClick({R.id.tv_zhunbei, R.id.tv_kaigong, R.id.tv_chaigai, R.id.tv_shuidian, R.id.tv_nimu, R.id.tv_youqi, R.id.tv_anzhuang, R.id.tv_jungong, R.id.tv_ruanzhuang, R.id.tv_ruzhu})
+    @OnClick({R.id.tv_zhunbei, R.id.tv_kaigong, R.id.tv_chaigai, R.id.tv_shuidian, R.id.tv_nimu, R.id.tv_youqi, R.id
+            .tv_anzhuang, R.id.tv_jungong, R.id.tv_ruanzhuang, R.id.tv_ruzhu})
     protected void click(View view) {
         String chooseValue = ((TextView) view).getText().toString();
         LogTool.d(this.getClass().getName(), "chooseVulue =" + chooseValue);

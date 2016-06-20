@@ -65,10 +65,10 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getAllDiary();
+        getAllDiarySet();
     }
 
-    private void getAllDiary(){
+    private void getAllDiarySet(){
         GetMyDiarySetRequest getMyDiarySetRequest = new GetMyDiarySetRequest();
 
         Api.getMyDiarySetList(getMyDiarySetRequest, new ApiCallback<ApiResponse<DiarySetInfoList>>() {
@@ -112,7 +112,7 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
         mRecyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getAllDiary();
+                getAllDiarySet();
             }
         });
         mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));

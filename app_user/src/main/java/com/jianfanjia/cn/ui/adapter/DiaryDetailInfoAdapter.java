@@ -54,7 +54,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
         switch (getItemViewType(position)) {
             case DIARY_DETAIL_TYPE:
-                bindDiary();
+                bindDiary((DiaryDynamicAdapter.DiaryViewHolder)viewHolder);
                 break;
             case COMMENT_TYPE:
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
@@ -62,7 +62,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
     }
 
-    private void bindDiary() {
+    private void bindDiary(DiaryDynamicAdapter.DiaryViewHolder viewHolder) {
 
     }
 

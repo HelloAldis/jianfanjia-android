@@ -100,10 +100,11 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
             @Override
             public void onSuccess(ApiResponse<DiarySetInfo> apiResponse) {
                 DiarySetInfo diarySetInfo = apiResponse.getData().getDiarySet();
-                LogTool.d(this.getClass().getName(),"diarysetinfo has diary.size(） = "+ diarySetInfo.getDiaries().size());
+                LogTool.d(this.getClass().getName(), "diarysetinfo has diary.size(） = " + diarySetInfo.getDiaries()
+                        .size());
                 mDiarySetInfo.setDiaries(diarySetInfo.getDiaries());
                 mDiarySetInfo.setView_count(diarySetInfo.getView_count());
-                mDiaryAdapter.setDiarySetInfo(diarySetInfo);
+                mDiaryAdapter.setDiarySetInfo(mDiarySetInfo);
             }
 
             @Override
@@ -121,10 +122,27 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     private void initRecyclerView() {
         mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(new HorizontalDividerDecoration(TDevice.dip2px(this, 10),
                 0, TDevice.dip2px(this, 10)));
         mRecyclerView.setAdapter(mDiaryAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LogTool.d(this.getClass().getName(), "dy =" + dy);
+                LogTool.d(this.getClass().getName(), "first complete visible item position =" + linearLayoutManager
+                        .findFirstCompletelyVisibleItemPosition());
+                LogTool.d(this.getClass().getName(), "first visible item position =" + linearLayoutManager
+                        .findFirstVisibleItemPosition());
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
     }
 
     @Override

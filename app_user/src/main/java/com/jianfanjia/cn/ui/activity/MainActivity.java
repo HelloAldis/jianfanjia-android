@@ -15,7 +15,7 @@ import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.MessageCountEvent;
-import com.jianfanjia.cn.ui.fragment.DiaryFragment;
+import com.jianfanjia.cn.ui.fragment.DiaryDynamicFragment;
 import com.jianfanjia.cn.ui.fragment.MyNewFragment;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
     private DecorationFragment decorationFragment = null;
     private XuQiuFragment xuqiuFragment = null;
     private MyNewFragment myFragment = null;
-    private DiaryFragment mDiaryFragment = null;
+    private DiaryDynamicFragment mDiaryDynamicFragment = null;
     private long mExitTime = 0L;
 
     @Override
@@ -238,11 +238,11 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
             case Constant.DAILY:
-                if (mDiaryFragment != null) {
-                    transaction.show(mDiaryFragment);
+                if (mDiaryDynamicFragment != null) {
+                    transaction.show(mDiaryDynamicFragment);
                 } else {
-                    mDiaryFragment = new DiaryFragment();
-                    transaction.add(R.id.tablayout, mDiaryFragment);
+                    mDiaryDynamicFragment = new DiaryDynamicFragment();
+                    transaction.add(R.id.tablayout, mDiaryDynamicFragment);
                 }
                 break;
             default:
@@ -265,8 +265,8 @@ public class MainActivity extends BaseActivity {
         if (myFragment != null) {
             ft.hide(myFragment);
         }
-        if(mDiaryFragment != null){
-            ft.hide(mDiaryFragment);
+        if(mDiaryDynamicFragment != null){
+            ft.hide(mDiaryDynamicFragment);
         }
     }
 

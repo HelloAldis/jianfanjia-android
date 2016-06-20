@@ -6,15 +6,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.List;
+
+import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.ui.adapter.ChooseDiarySetTitleAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import java.util.List;
-
-import butterknife.Bind;
 
 /**
  * Created by asus on 2016/6/19.
