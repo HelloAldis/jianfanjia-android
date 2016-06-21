@@ -54,7 +54,8 @@
                     android:layout_toRightOf="@+id/tv_view_count"
                     android:drawableLeft="@mipmap/btn_icon_comment_normal"
                     android:text="0"
-                    android:textColor="@color/font_white"/>
+                    android:textColor="@color/font_white"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

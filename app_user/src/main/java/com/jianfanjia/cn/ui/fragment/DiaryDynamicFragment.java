@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.ui.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
@@ -68,7 +71,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_diary));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
 
-        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView());
+        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView(),this);
 
         mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
@@ -216,6 +219,19 @@ public class DiaryDynamicFragment extends BaseFragment {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != Activity.RESULT_OK){
+            return;
+        }
+        switch (requestCode){
+            case Constant.REQUESTCODE_SHOW_DIARYINFO:
+
+                break;
+        }
     }
 
     @Override

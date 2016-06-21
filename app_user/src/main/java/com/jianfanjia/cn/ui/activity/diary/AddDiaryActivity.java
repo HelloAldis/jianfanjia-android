@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -36,8 +36,6 @@ import com.jianfanjia.cn.ui.adapter.AddDiaryGridViewAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -200,7 +198,8 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void setDecStage() {
-        tvAddDiaryDecStageContent.setText(mDiaryInfo.getSection_label());
+        LogTool.d(TAG,"section_label =" + mDiaryInfo.getSection_label());
+        tvAddDiaryDecStageContent.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
     }
 
     private void getDataFromIntent() {

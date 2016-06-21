@@ -15,6 +15,7 @@ public class Global {
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论
+    public static final String TOPIC_DIARY = "2";//日记评论
 
     public static final String PLAN_STATUS0 = "0";//已预约但没有响应
     public static final String PLAN_STATUS1 = "1";//已拒绝业主

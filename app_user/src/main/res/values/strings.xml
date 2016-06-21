@@ -432,4 +432,6 @@
     <string name="zhun_bei">准备</string>
     <string name="ruan_zhuang">软装</string>
     <string name="ru_zhu">入住</string>
+    <string name="str_update_cover">修改封面</string>
+    <string name="diary_content">日记正文</string>
 </resources>

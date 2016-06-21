@@ -2,6 +2,7 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
@@ -52,8 +53,11 @@ import com.jianfanjia.common.tool.ToastUtil;
  */
 public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
-    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView) {
+    private Fragment mFragment;
+
+    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView,Fragment fragment) {
         super(context, recyclerView);
+        this.mFragment = fragment;
     }
 
     @Override
@@ -133,7 +137,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
         bundle.putInt(DiaryDetailInfoActivity.IntentFlag, intentFlag);
-        IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
+        IntentUtil.startActivityForResult(mFragment, DiaryDetailInfoActivity.class, bundle, Constant.REQUESTCODE_SHOW_DIARYINFO);
     }
 
     private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {

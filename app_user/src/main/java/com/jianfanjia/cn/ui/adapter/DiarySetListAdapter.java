@@ -2,7 +2,9 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,17 +71,18 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
         IntentUtil.startActivity(context, AddDiarySetActivity.class, bundle);
     }
 
-    private void gotoDiarySetInfo(DiarySetInfo diarySetInfo){
+    private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST,(Serializable)list);
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST, (Serializable) list);
         IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
     }
 
-    private void bindContentView(final int position,final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
+    private void bindContentView(final int position, final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
 
         holder.tvDiarySetDec.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
+        holder.tvDiarySetStage.setText(DiaryBusiness.getShowDiarySectionLabel(diarySetInfo.getLatest_section_label()));
 
         holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
 
@@ -90,6 +93,12 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
             }
         });
 
+        if (!TextUtils.isEmpty(diarySetInfo.getCover_imageid())) {
+            imageShow.displayScreenWidthThumnailImage(context, diarySetInfo.getCover_imageid(), holder
+                    .ivDiarySetCoverPic);
+        } else {
+            holder.ivDiarySetCoverPic.setImageResource(R.mipmap.bg_fragment_my);
+        }
 
     }
 
@@ -121,6 +130,8 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
             case CONTENT_TYPE:
                 view = layoutInflater.inflate(R.layout.list_item_diaryset_list_info,
                         null);
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                        .LayoutParams.WRAP_CONTENT));
                 return new DesignerWorksViewHolder(view);
             case HEAD_TYPE:
                 view = layoutInflater.inflate(R.layout.list_item_diaryset_list_head,
@@ -138,8 +149,8 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
         TextView tvDiarySetTitle;
         @Bind(R.id.tv_diaryset_dec)
         TextView tvDiarySetDec;
-        @Bind(R.id.tv_like_count)
-        TextView tvLikeCount;
+        //        @Bind(R.id.tv_like_count)
+//        TextView tvLikeCount;
         @Bind(R.id.tv_view_count)
         TextView tvViewCount;
 

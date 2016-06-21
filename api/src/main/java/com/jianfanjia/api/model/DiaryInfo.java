@@ -25,6 +25,7 @@ public class DiaryInfo extends BaseModel {
     private DiarySetInfo diarySet;
     private boolean is_my_favorite;
     private User author;
+    private boolean is_deleted;
 
     public String get_id() {
         return _id;
@@ -144,6 +145,14 @@ public class DiaryInfo extends BaseModel {
 
     public void setIs_my_favorite(boolean is_my_favorite) {
         this.is_my_favorite = is_my_favorite;
+    }
+
+    public boolean is_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }
 

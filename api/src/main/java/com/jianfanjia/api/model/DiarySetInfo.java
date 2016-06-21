@@ -24,7 +24,7 @@ public class DiarySetInfo extends BaseModel {
     private int view_count;
     private String latest_section_label;
     private List<DiaryInfo> diaries;
-    private DiarySetInfo diarySet;
+    private User author;
 
     public String get_id() {
         return _id;
@@ -138,11 +138,11 @@ public class DiarySetInfo extends BaseModel {
         this.diaries = diaries;
     }
 
-    public DiarySetInfo getDiarySet() {
-        return diarySet;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setDiarySet(DiarySetInfo diarySet) {
-        this.diarySet = diarySet;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

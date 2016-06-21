@@ -12,11 +12,11 @@
         android:orientation="vertical"
         android:padding="@dimen/space_16">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_diaryset_baseinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            >
 
             <TextView
                 android:id="@+id/ltm_diary_stage"
@@ -30,6 +30,7 @@
                 style="@style/listview_item_text_style_middle"
                 android:layout_alignBaseline="@+id/ltm_diary_stage"
                 android:layout_marginLeft="@dimen/space_16"
+                android:layout_toRightOf="@+id/ltm_diary_stage"
                 android:text="3分钟前"
                 android:textColor="@color/grey_color"/>
 
@@ -37,11 +38,11 @@
                 android:id="@+id/ltm_diary_delte"
                 style="@style/listview_item_text_style_middle"
                 android:layout_alignBaseline="@+id/ltm_diary_stage"
-                android:layout_alignParentRight="true"
                 android:text="@string/str_delete"
+                android:layout_alignParentRight="true"
                 android:visibility="gone"
                 android:textColor="@color/blue_color"/>
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/ltm_diary_content"

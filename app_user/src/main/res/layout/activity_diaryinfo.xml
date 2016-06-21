@@ -1,169 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_layout_bg"
-    android:fitsSystemWindows="true"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/main_layout_bg"
+             android:fitsSystemWindows="true"
     >
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:orientation="vertical">
-
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            >
-
-            <ImageView
-                android:id="@+id/main.backdrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/bg_fragment_my"
-                app:layout_collapseMode="parallax"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical"
-                android:padding="@dimen/space_16"
-                app:layout_collapseMode="none"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.jianfanjia.cn.view.layout.CircleImageView
-                        android:id="@+id/diary_head"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/icon_default_head"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/space_16">
-
-                        <TextView
-                            android:id="@+id/ltm_diary_cellname"
-                            style="@style/listview_item_text_style_big"
-                            android:ellipsize="end"
-                            android:maxWidth="150dp"
-                            android:singleLine="true"
-                            android:text="@string/str_cell"
-                            android:textColor="@color/orange_color"
-                            android:textStyle="bold"
-                            />
-
-                        <TextView
-                            android:id="@+id/ltm_diary_stage"
-                            style="@style/listview_item_text_style_middle"
-                            android:layout_alignBaseline="@+id/ltm_diary_cellname"
-                            android:layout_marginLeft="@dimen/space_16"
-                            android:layout_toRightOf="@+id/ltm_diary_cellname"
-                            android:text="@string/kai_gong"
-                            android:textColor="@color/grey_color"/>
-
-                        <TextView
-                            android:id="@+id/ltm_diary_delte"
-                            style="@style/listview_item_text_style_middle"
-                            android:layout_alignBaseline="@+id/ltm_diary_cellname"
-                            android:layout_alignParentRight="true"
-                            android:text="@string/str_delete"
-                            android:textColor="@color/blue_color"/>
-
-                        <TextView
-                            android:id="@+id/ltm_diary_goingtime"
-                            style="@style
-
-                            /listview_item_text_style_middle"
-                            android:layout_alignParentBottom="true"
-                            android:text="3分钟前"
-                            android:textColor="@color/grey_color"/>
-
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:orientation="horizontal"
-                    >
-
-                    <RelativeLayout
-                        android:id="@+id/toolbar_collect_layout"
-                        android:layout_width="@dimen/space_40"
-                        android:layout_height="match_parent"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/toolbar_collect"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_margin="@dimen/space_10"
-                            android:background="@drawable/icon_collect_bg"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/toolbar_share_layout"
-                        android:layout_width="@dimen/space_40"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/space_10">
-
-                        <ImageView
-                            android:id="@+id/toolbar_share"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_margin="@dimen/space_10"
-                            android:background="@mipmap/icon_share"/>
-                    </RelativeLayout>
-                </LinearLayout>
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/diary_recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        />
 
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_head_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_48">
+
+            <RelativeLayout
+                android:id="@+id/head_back_layout"
+                android:layout_width="@dimen/space_60"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                >
+
+                <ImageView
+                    android:id="@+id/head_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:src="@mipmap/icon_register_back"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/toolbar_collect_layout"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/toolbar_collect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/space_10"
+                        android:background="@drawable/icon_collect_bg"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/toolbar_share_layout"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/space_10">
+
+                    <ImageView
+                        android:id="@+id/toolbar_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/space_10"
+                        android:background="@mipmap/icon_share"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_writediary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:background="@color/font_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@mipmap/icon_auth_add"
+                    android:drawablePadding="@dimen/space_16"
+                    android:gravity="center_vertical"
+                    android:text="@string/write_diary"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/big_size"/>
+
+            </RelativeLayout>
+
+            <View style="@style/divier_line"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
