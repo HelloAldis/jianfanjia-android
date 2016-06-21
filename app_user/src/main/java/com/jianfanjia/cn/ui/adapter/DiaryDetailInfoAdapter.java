@@ -98,42 +98,42 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         User author = mDiaryInfo.getAuthor();
         if (author != null) {
             if (!TextUtils.isEmpty(author.getImageid())) {
-                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDailyHead);
+                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDiaryHead);
             } else {
-                diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+                diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
             }
             if (author.get_id().equals(DataManagerNew.getInstance().getUserId())) {
-                diaryViewHolder.tvDailtDelete.setVisibility(View.VISIBLE);
-                diaryViewHolder.tvDailtDelete.setOnClickListener(new View.OnClickListener() {
+                diaryViewHolder.tvDiaryDelete.setVisibility(View.VISIBLE);
+                diaryViewHolder.tvDiaryDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         deleteDiary();
                     }
                 });
             } else {
-                diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
+                diaryViewHolder.tvDiaryDelete.setVisibility(View.GONE);
             }
         } else {
-            diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
-            diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+            diaryViewHolder.tvDiaryDelete.setVisibility(View.GONE);
+            diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
         }
 
         if (diarySetInfo != null) {
-            diaryViewHolder.tvCellName.setText(diarySetInfo.getTitle());
+            diaryViewHolder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
             diaryViewHolder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         }
-        diaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
-        diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(mDiaryInfo.getCreate_at()));
+        diaryViewHolder.tvDiaryStage.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
+        diaryViewHolder.tvDiaryGoingTime.setText(DateFormatTool.getHumReadDateString(mDiaryInfo.getCreate_at()));
         diaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(mDiaryInfo.getComment_count()));
         diaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(mDiaryInfo.getFavorite_count()));
-        diaryViewHolder.tvDailyContent.setText(mDiaryInfo.getContent());
-        diaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
+        diaryViewHolder.tvDiaryContent.setText(mDiaryInfo.getContent());
+        diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        diaryViewHolder.rlDailyLikeLayout.setOnClickListener(new View.OnClickListener() {
+        diaryViewHolder.rlDiaryLikeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

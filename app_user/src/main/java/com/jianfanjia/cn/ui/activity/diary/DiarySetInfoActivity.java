@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -40,6 +41,8 @@ import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.yalantis.ucrop.UCrop;
+
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -92,7 +95,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
             if (mDiarySetInfo != null) {
                 diarySetId = mDiarySetInfo.get_id();
             }
-            LogTool.d(TAG,"userid =" + dataManager.getUserId());
+            LogTool.d(TAG, "userid =" + dataManager.getUserId());
         }
     }
 
@@ -227,7 +230,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         });
     }
 
-    private void edieDiarySetInfo(){
+    private void edieDiarySetInfo() {
         UpdateDiarySetRequest updateDiarySetRequest = new UpdateDiarySetRequest();
         updateDiarySetRequest.setDiary_set(mDiarySetInfo);
 
@@ -257,6 +260,18 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
+    }
+
+    @OnClick({R.id.head_back_layout, R.id.rl_writediary})
+    protected void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_writediary:
+                mDiaryAdapter.gotoAddDiary();
+                break;
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
+        }
     }
 
     @Override

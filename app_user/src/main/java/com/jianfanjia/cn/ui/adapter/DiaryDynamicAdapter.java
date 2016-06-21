@@ -76,42 +76,42 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         User author = diaryInfo.getAuthor();
         if (author != null) {
             if (!TextUtils.isEmpty(author.getImageid())) {
-                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDailyHead);
+                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDiaryHead);
             } else {
-                diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+                diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
             }
             if (author.get_id().equals(DataManagerNew.getInstance().getUserId())) {
-                diaryViewHolder.tvDailtDelete.setVisibility(View.VISIBLE);
-                diaryViewHolder.tvDailtDelete.setOnClickListener(new View.OnClickListener() {
+                diaryViewHolder.tvDiaryDelete.setVisibility(View.VISIBLE);
+                diaryViewHolder.tvDiaryDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         deleteDiary(position);
                     }
                 });
             } else {
-                diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
+                diaryViewHolder.tvDiaryDelete.setVisibility(View.GONE);
             }
         } else {
-            diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
-            diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+            diaryViewHolder.tvDiaryDelete.setVisibility(View.GONE);
+            diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
         }
 
         if (diarySetInfo != null) {
-            diaryViewHolder.tvCellName.setText(diarySetInfo.getTitle());
+            diaryViewHolder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
             diaryViewHolder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         }
-        diaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(diaryInfo.getSection_label()));
-        diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
+        diaryViewHolder.tvDiaryStage.setText(DiaryBusiness.getShowDiarySectionLabel(diaryInfo.getSection_label()));
+        diaryViewHolder.tvDiaryGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
         diaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(diaryInfo.getComment_count()));
         diaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(diaryInfo.getFavorite_count()));
-        setContentText(diaryViewHolder.tvDailyContent, diaryInfo.getContent());
-        diaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
+        setContentText(diaryViewHolder.tvDiaryContent, diaryInfo.getContent());
+        diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
             }
         });
-        diaryViewHolder.rlDailyLikeLayout.setOnClickListener(new View.OnClickListener() {
+        diaryViewHolder.rlDiaryLikeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -347,31 +347,31 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     static class DiaryViewHolder extends RecyclerViewHolderBase {
 
         @Bind(R.id.diary_head)
-        ImageView ivDailyHead;
+        ImageView ivDiaryHead;
 
         @Bind(R.id.ltm_diary_stage)
-        TextView tvDailyStage;
+        TextView tvDiaryStage;
 
-        @Bind(R.id.ltm_diary_cellname)
-        TextView tvCellName;
+        @Bind(R.id.ltm_diaryset_title)
+        TextView tvDiarySetTitle;
 
         @Bind(R.id.ltm_diary_delte)
-        TextView tvDailtDelete;
+        TextView tvDiaryDelete;
 
         @Bind(R.id.ltm_diary_baseinfo)
         TextView tvDiaryBaseInfo;
 
         @Bind(R.id.ltm_diary_content)
-        TextView tvDailyContent;
+        TextView tvDiaryContent;
 
         @Bind(R.id.ltm_diary_goingtime)
-        TextView tvDailyGoingTime;
+        TextView tvDiaryGoingTime;
 
         @Bind(R.id.ltm_diary_comment_layout)
-        RelativeLayout rlDailyCommentLayout;
+        RelativeLayout rlDiaryCommentLayout;
 
         @Bind(R.id.ltm_diary_like_layout)
-        RelativeLayout rlDailyLikeLayout;
+        RelativeLayout rlDiaryLikeLayout;
 
         @Bind(R.id.tv_like_count)
         TextView tvLikeCount;

@@ -234,7 +234,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         IntentUtil.startActivity(context, AddDiarySetActivity.class, bundle);
     }
 
-    private void gotoAddDiary() {
+    public void gotoAddDiary() {
         Bundle bundle = new Bundle();
         DiarySetInfoActivity diarySetInfoActivity = (DiarySetInfoActivity) context;
         bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST, diarySetInfoActivity.getDiarySetInfoList());
