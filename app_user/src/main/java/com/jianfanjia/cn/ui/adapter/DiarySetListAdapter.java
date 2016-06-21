@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
@@ -46,7 +47,7 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
             case CONTENT_TYPE:
                 DiarySetInfo diarySetInfo = list.get(position - 1);
                 DesignerWorksViewHolder holder = (DesignerWorksViewHolder) viewHolder;
-                bindContentView(position - 1, diarySetInfo, holder);
+                bindContentView(diarySetInfo, holder);
                 break;
             case HEAD_TYPE:
                 DesignerWorksViewHolderHead holderHead = (DesignerWorksViewHolderHead) viewHolder;
@@ -78,11 +79,16 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
         IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
     }
 
-    private void bindContentView(final int position, final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
+    private void bindContentView( final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
 
         holder.tvDiarySetDec.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
         holder.tvDiarySetStage.setText(DiaryBusiness.getShowDiarySectionLabel(diarySetInfo.getLatest_section_label()));
+        if (DiaryBusiness.isDiarySetStageFinish(diarySetInfo.getLatest_section_label())) {
+            holder.tvDiarySetStage.setBackgroundResource(R.drawable.bg_diaryset_list_item_stage_green);
+        } else {
+            holder.tvDiarySetStage.setBackgroundResource(R.drawable.bg_diaryset_list_item_stage_blue);
+        }
 
         holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
 

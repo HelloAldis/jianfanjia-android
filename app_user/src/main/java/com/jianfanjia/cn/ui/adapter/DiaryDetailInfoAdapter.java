@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -57,7 +58,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     private DiaryInfo mDiaryInfo;
     private AddCommentListener mAddCommentListener;
 
-    public DiaryDetailInfoAdapter(Context context,List<Comment> commentList, DiaryInfo diaryInfo) {
+    public DiaryDetailInfoAdapter(Context context, List<Comment> commentList, DiaryInfo diaryInfo) {
         super(context, commentList);
         this.mDiaryInfo = diaryInfo;
     }
@@ -84,7 +85,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
         switch (getItemViewType(position)) {
             case DIARY_DETAIL_TYPE:
-                bindDiary((DiaryDynamicAdapter.DiaryViewHolder)viewHolder);
+                bindDiary((DiaryDynamicAdapter.DiaryViewHolder) viewHolder);
                 break;
             case COMMENT_TYPE:
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
@@ -121,10 +122,10 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             diaryViewHolder.tvCellName.setText(diarySetInfo.getTitle());
             diaryViewHolder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         }
-        diaryViewHolder.tvDailyStage.setText(mDiaryInfo.getSection_label());
+        diaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
         diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(mDiaryInfo.getCreate_at()));
-        diaryViewHolder.tvCommentCount.setText(mDiaryInfo.getComment_count() + "");
-        diaryViewHolder.tvLikeCount.setText(mDiaryInfo.getFavorite_count() + "");
+        diaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(mDiaryInfo.getComment_count()));
+        diaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(mDiaryInfo.getFavorite_count()));
         diaryViewHolder.tvDailyContent.setText(mDiaryInfo.getContent());
         diaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -372,7 +373,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAddCommentListener != null){
+                if (mAddCommentListener != null) {
                     mAddCommentListener.addCommentListener(commentInfo.getByUser());
                 }
             }
@@ -413,7 +414,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
     }
 
-    public interface AddCommentListener{
+    public interface AddCommentListener {
         void addCommentListener(User toUser);
     }
 }

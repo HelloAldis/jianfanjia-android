@@ -100,10 +100,10 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             diaryViewHolder.tvCellName.setText(diarySetInfo.getTitle());
             diaryViewHolder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         }
-        diaryViewHolder.tvDailyStage.setText(diaryInfo.getSection_label());
+        diaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(diaryInfo.getSection_label()));
         diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
-        diaryViewHolder.tvCommentCount.setText(diaryInfo.getComment_count() + "");
-        diaryViewHolder.tvLikeCount.setText(diaryInfo.getFavorite_count() + "");
+        diaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(diaryInfo.getComment_count()));
+        diaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(diaryInfo.getFavorite_count()));
         setContentText(diaryViewHolder.tvDailyContent, diaryInfo.getContent());
         diaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

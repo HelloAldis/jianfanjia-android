@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.business;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
@@ -35,6 +36,23 @@ public class DiaryBusiness {
 
     public static String getShowDiarySectionLabel(String sectionLabel) {
         return sectionLabel + "阶段";
+    }
+
+    public static boolean isDiarySetStageFinish(String section) {
+        if (!TextUtils.isEmpty(section) && section.equals("入住")) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String getCommentCountShow(int count) {
+        if (count == 0) return "评论";
+        return count + "";
+    }
+
+    public static String getFavoriteCountShow(int count) {
+        if (count == 0) return "点赞";
+        return count + "";
     }
 
 }

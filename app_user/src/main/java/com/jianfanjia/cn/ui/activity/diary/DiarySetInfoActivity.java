@@ -27,6 +27,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.request.common.UpdateDiarySetRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
 import com.jianfanjia.cn.activity.R;
@@ -226,6 +227,38 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         });
     }
 
+    private void edieDiarySetInfo(){
+        UpdateDiarySetRequest updateDiarySetRequest = new UpdateDiarySetRequest();
+        updateDiarySetRequest.setDiary_set(mDiarySetInfo);
+
+        Api.updateDiarySetInfo(updateDiarySetRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                mDiaryAdapter.notifyItemChanged(0);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -306,7 +339,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         @Override
         public void onSuccess(ApiResponse<String> apiResponse) {
             mDiarySetInfo.setCover_imageid(apiResponse.getData());
-            mDiaryAdapter.notifyItemChanged(0);
+            edieDiarySetInfo();
         }
 
         @Override
