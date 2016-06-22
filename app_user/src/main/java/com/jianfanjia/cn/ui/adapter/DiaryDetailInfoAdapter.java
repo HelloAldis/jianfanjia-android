@@ -33,11 +33,8 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
-import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
@@ -141,31 +138,8 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 addFavorite();
             }
         });
-        diaryViewHolder.llDiarySet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoDiarySetInfo(diarySetInfo);
-            }
-        });
-        diaryViewHolder.llDiaryDetailInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoDiaryInfo(mDiaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
-            }
-        });
 
         buildPic(diaryViewHolder, mDiaryInfo);
-    }
-
-    private void gotoDiaryInfo(DiaryInfo diaryInfo, int intentFlag) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
-        bundle.putInt(DiaryDetailInfoActivity.IntentFlag, intentFlag);
-        IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
-    }
-
-    private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
-        DiarySetInfoActivity.intentToDiarySet(context, diarySetInfo);
     }
 
     private void buildPic(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {

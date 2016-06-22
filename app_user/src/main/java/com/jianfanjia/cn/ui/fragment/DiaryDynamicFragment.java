@@ -19,10 +19,13 @@ import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiaryInfoList;
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.api.model.DiarySetInfoList;
+import com.jianfanjia.api.model.DiaryUpdateInfo;
 import com.jianfanjia.api.request.common.GetMyDiarySetRequest;
+import com.jianfanjia.api.request.guest.GetDiaryUpdateRequest;
 import com.jianfanjia.api.request.guest.SearchDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -77,13 +80,13 @@ public class DiaryDynamicFragment extends BaseFragment {
         mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getAllUpdateDiary();
+                pullRefreshMoreData();
             }
         });
         mDiaryDynamicAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-
+                loadMoreOldData();
             }
         });
         mDiaryDynamicAdapter.setErrorView(errorLayout);
@@ -95,64 +98,7 @@ public class DiaryDynamicFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getAllUpdateDiary();
-    }
-
-    private void getAllUpdateDiary() {
-        SearchDiaryRequest searchDiaryRequest = new SearchDiaryRequest();
-        Map<String, Object> create = new HashMap<>();
-        create.put("$gt", 0);
-        Map<String, Object> param = new HashMap<>();
-        param.put("create_at", create);
-        searchDiaryRequest.setQuery(param);
-
-        Api.searchDiary(searchDiaryRequest, new ApiCallback<ApiResponse<DiaryInfoList>>() {
-            @Override
-            public void onPreLoad() {
-
-            }
-
-            @Override
-            public void onHttpDone() {
-                mPullToRefreshRecycleView.onRefreshComplete();
-            }
-
-            @Override
-            public void onSuccess(ApiResponse<DiaryInfoList> apiResponse) {
-                DiaryInfoList diaryInfoList = apiResponse.getData();
-
-                LogTool.d(TAG, "diaryInfoList:" + diaryInfoList);
-                if (null != diaryInfoList) {
-                    total = diaryInfoList.getTotal();
-                    if (total > 0) {
-                        LogTool.d(TAG, "total size =" + total);
-                        LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
-                                mDiaryDynamicAdapter.getData().size());
-                        mDiaryDynamicAdapter.addData(diaryInfoList.getDiaries());
-                        if (total > mDiaryDynamicAdapter.getData().size()) {
-                            mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
-                        } else {
-                            mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
-                        }
-                        mDiaryDynamicAdapter.hideErrorAndEmptyView();
-                    } else {
-                        mDiaryDynamicAdapter.setEmptyViewShow();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailed(ApiResponse<DiaryInfoList> apiResponse) {
-                makeTextShort(apiResponse.getErr_msg());
-            }
-
-            @Override
-            public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-                mDiaryDynamicAdapter.setErrorViewShow();
-                mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
-            }
-        });
+        pullRefreshMoreData();
     }
 
     @OnClick({R.id.imgbtn_add_diary})
@@ -214,6 +160,167 @@ public class DiaryDynamicFragment extends BaseFragment {
             @Override
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    private void pullRefreshMoreData() {
+        if (mDiaryDynamicAdapter.getData().size() == 0) {
+            loadMoreData(System.currentTimeMillis(), 0);
+        } else {
+            refreshNewData(mDiaryDynamicAdapter.getData().get(0).getCreate_at());
+        }
+    }
+
+    private void loadMoreOldData() {
+        int lastSize = mDiaryDynamicAdapter.getData().size() - 1;
+        DiaryInfo oldestDiaryIngo = mDiaryDynamicAdapter.getData().get(lastSize);
+        loadMoreData(oldestDiaryIngo.getCreate_at(),lastSize);
+    }
+
+
+    private void refreshNewData(long lastCreateAt) {
+        SearchDiaryRequest searchDiaryRequest = new SearchDiaryRequest();
+        Map<String, Object> create = new HashMap<>();
+        create.put("$gt", lastCreateAt);
+        Map<String, Object> param = new HashMap<>();
+        param.put("create_at", create);
+        searchDiaryRequest.setQuery(param);
+
+        Api.searchDiary(searchDiaryRequest, new ApiCallback<ApiResponse<DiaryInfoList>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+                mPullToRefreshRecycleView.onRefreshComplete();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DiaryInfoList> apiResponse) {
+                DiaryInfoList diaryInfoList = apiResponse.getData();
+
+                LogTool.d(TAG, "diaryInfoList:" + diaryInfoList);
+                if (null != diaryInfoList) {
+                    total = diaryInfoList.getTotal();
+                    if (total > 0) {
+                        LogTool.d(TAG, "total size =" + total);
+                        LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
+                                mDiaryDynamicAdapter.getData().size());
+                        setRefreshTime(diaryInfoList.getDiaries());
+                        mDiaryDynamicAdapter.addData(mDiaryDynamicAdapter.getData().size(), diaryInfoList.getDiaries());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DiaryInfoList> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void refreshNowDataStatus(List<String> diaryIdList) {
+        GetDiaryUpdateRequest getDiaryUpdateRequest = new GetDiaryUpdateRequest();
+        getDiaryUpdateRequest.setDiaryids(diaryIdList);
+
+        Api.getDiaryChanges(getDiaryUpdateRequest, new ApiCallback<ApiResponse<List<DiaryUpdateInfo>>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<DiaryUpdateInfo>> apiResponse) {
+
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<DiaryUpdateInfo>> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void setRefreshTime(List<DiaryInfo> diaryInfoList) {
+        for (DiaryInfo diaryInfo : diaryInfoList) {
+            diaryInfo.setRefreshTime(System.currentTimeMillis());
+        }
+    }
+
+    private void loadMoreData(long oldestCreateAt, int from) {
+        SearchDiaryRequest searchDiaryRequest = new SearchDiaryRequest();
+        Map<String, Object> create = new HashMap<>();
+        create.put("$lt", oldestCreateAt);
+        Map<String, Object> param = new HashMap<>();
+        param.put("create_at", create);
+        searchDiaryRequest.setQuery(param);
+        searchDiaryRequest.setFrom(from);
+        searchDiaryRequest.setLimit(Constant.HOME_PAGE_LIMIT);
+
+        Api.searchDiary(searchDiaryRequest, new ApiCallback<ApiResponse<DiaryInfoList>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+                mPullToRefreshRecycleView.onRefreshComplete();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<DiaryInfoList> apiResponse) {
+                DiaryInfoList diaryInfoList = apiResponse.getData();
+
+                LogTool.d(TAG, "diaryInfoList:" + diaryInfoList);
+                if (null != diaryInfoList) {
+                    total = diaryInfoList.getTotal();
+                    if (total > 0) {
+                        LogTool.d(TAG, "total size =" + total);
+                        LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
+                                mDiaryDynamicAdapter.getData().size());
+                        mDiaryDynamicAdapter.addData(diaryInfoList.getDiaries());
+                        setRefreshTime(diaryInfoList.getDiaries());
+                        if (total == Constant.HOME_PAGE_LIMIT) {
+                            mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
+                        } else {
+                            mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
+                        }
+                        mDiaryDynamicAdapter.hideErrorAndEmptyView();
+                    } else {
+                        mDiaryDynamicAdapter.setEmptyViewShow();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(ApiResponse<DiaryInfoList> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                mDiaryDynamicAdapter.setErrorViewShow();
+                mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
             }
         });
     }

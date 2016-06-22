@@ -1,7 +1,9 @@
 package com.jianfanjia.cn.ui.activity.diary;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -32,6 +34,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.adapter.DiaryDetailInfoAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -70,6 +73,31 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private String to;//评论发送给谁
     private String replayHint = "";//回复谁
     private String content;//回复的类容
+    private int intentFrom;
+
+    public static void intentToDiaryDetailInfoFromActivityForResult(Activity activity, DiaryInfo diaryInfo, int
+            intentFromFlag, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
+        bundle.putSerializable(IntentFlag, intentFromFlag);
+        IntentUtil.startActivityForResult(activity, DiaryDetailInfoActivity.class, bundle, requestCode);
+    }
+
+    public static void intentToDiaryDetailInfo(Activity activity, DiaryInfo diaryInfo, int
+            intentFromFlag) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
+        bundle.putSerializable(IntentFlag, intentFromFlag);
+        IntentUtil.startActivity(activity, DiaryDetailInfoActivity.class, bundle);
+    }
+
+    public static void intentToDiaryDetailInfoFromFragmentForResult(Fragment fragment, DiaryInfo diaryInfo, int
+            intentFromFlag, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
+        bundle.putSerializable(IntentFlag, intentFromFlag);
+        IntentUtil.startActivityForResult(fragment, DiaryDetailInfoActivity.class, bundle, requestCode);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +107,9 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     }
 
     private void getDataFromIntent() {
-        mDiaryInfo = (DiaryInfo) getIntent().getSerializableExtra(IntentConstant.DIARY_INFO);
+        Intent intent = getIntent();
+        mDiaryInfo = (DiaryInfo) intent.getSerializableExtra(IntentConstant.DIARY_INFO);
+        intentFrom = intent.getIntExtra(IntentFlag, intentFromBaseinfo);
         if (mDiaryInfo != null) {
             diaryId = mDiaryInfo.get_id();
         }

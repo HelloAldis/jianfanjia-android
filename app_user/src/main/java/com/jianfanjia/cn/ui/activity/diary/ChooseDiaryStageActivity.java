@@ -54,7 +54,8 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
                 View view = linearLayout.getChildAt(j);
                 if (view instanceof TextView) {
                     if (((TextView) view).getText().equals(currentChooseValue)) {
-                        view.setEnabled(true);
+                        LogTool.d(this.getClass().getName(),"chooseTextView");
+                        view.setSelected(true);
                     }
                 }
             }

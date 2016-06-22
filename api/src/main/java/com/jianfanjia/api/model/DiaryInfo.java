@@ -26,6 +26,7 @@ public class DiaryInfo extends BaseModel {
     private boolean is_my_favorite;
     private User author;
     private boolean is_deleted;
+    private long refreshTime;
 
     public String get_id() {
         return _id;
@@ -153,6 +154,14 @@ public class DiaryInfo extends BaseModel {
 
     public void setIs_deleted(boolean is_deleted) {
         this.is_deleted = is_deleted;
+    }
+
+    public long getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(long refreshTime) {
+        this.refreshTime = refreshTime;
     }
 }
 

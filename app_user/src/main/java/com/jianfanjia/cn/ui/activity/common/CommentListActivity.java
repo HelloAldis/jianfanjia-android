@@ -8,14 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
-import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.ui.adapter.MyCommentInfoAdapter;
+import butterknife.Bind;
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -27,15 +21,21 @@ import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.SearchUserCommentRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
+import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
+import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
+import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.ui.adapter.MyCommentInfoAdapter;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -103,15 +103,20 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         switch (viewType) {
                             case MyCommentInfoAdapter.PLAN_TYPE:
                                 bundle.putString(IntentConstant.TO, noticeInfo.getPlan().getDesignerid());
+                                startActivity(CommentActivity.class, bundle);
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
-                                bundle.putString(IntentConstant.TO,noticeInfo.getProcess().getFinal_designerid());
+                                bundle.putString(IntentConstant.TO, noticeInfo.getProcess().getFinal_designerid());
                                 bundle.putString(IntentConstant.SECTION, noticeInfo.getSection());
                                 bundle.putString(IntentConstant.ITEM, noticeInfo.getItem());
+                                startActivity(CommentActivity.class, bundle);
+                                break;
+                            case MyCommentInfoAdapter.DIARY_TYPE:
+                                DiaryDetailInfoActivity.intentToDiaryDetailInfo
+                                        (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
+                                                .intentFromComment);
                                 break;
                         }
-                        startActivity(CommentActivity.class, bundle);
-
                     }
 
                     @Override
@@ -123,6 +128,11 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
                                 startProcessDetailActivity(noticeInfo.getProcess());
+                                break;
+                            case MyCommentInfoAdapter.DIARY_TYPE:
+                                DiaryDetailInfoActivity.intentToDiaryDetailInfo
+                                        (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
+                                                .intentFromBaseinfo);
                                 break;
                         }
                     }

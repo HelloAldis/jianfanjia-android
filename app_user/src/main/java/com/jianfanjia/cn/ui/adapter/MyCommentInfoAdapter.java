@@ -141,6 +141,25 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         holder.tvDiaryContent.setText(diaryInfo.getContent());
         setFirstDiaryPic(holder.ivDiaryFirstPic, diaryInfo.getImages());
 
+        //回复
+        holder.responseView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemCallback != null) {
+                    onItemCallback.onResponse(noticeInfo, DIARY_TYPE);
+                }
+            }
+        });
+
+        holder.contentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemCallback != null) {
+                    onItemCallback.showDetail(noticeInfo, DIARY_TYPE);
+                }
+            }
+        });
+
     }
 
     private void setFirstDiaryPic(ImageView ivDiaryFirstPic, List<DiaryImageDetailInfo> images) {
@@ -401,6 +420,9 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         TextView tvDiaryBaseInfo;
         @Bind(R.id.ltm_diary_content)
         TextView tvDiaryContent;
+
+        @Bind(R.id.item_layout)
+        RelativeLayout contentLayout;
 
         public DiaryCommentViewHolder(View itemView) {
             super(itemView);
