@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.IntentUtil;
@@ -71,7 +69,8 @@ public class DiaryDynamicFragment extends BaseFragment {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_diary));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
 
-        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView(),this);
+        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView(),
+                this);
 
         mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
@@ -170,9 +169,7 @@ public class DiaryDynamicFragment extends BaseFragment {
     }
 
     private void gotoAddDiary(List<DiarySetInfo> diarySetInfos) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST, (ArrayList) diarySetInfos);
-        IntentUtil.startActivity(getActivity(), AddDiaryActivity.class, bundle);
+        AddDiaryActivity.intentToAddDiary(getContext(), diarySetInfos, null);
     }
 
     private void gotoAddDiarySet() {
@@ -224,10 +221,10 @@ public class DiaryDynamicFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != Activity.RESULT_OK){
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        switch (requestCode){
+        switch (requestCode) {
             case Constant.REQUESTCODE_SHOW_DIARYINFO:
 
                 break;

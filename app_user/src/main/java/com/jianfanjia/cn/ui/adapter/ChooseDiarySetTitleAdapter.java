@@ -8,14 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.interf.cutom_annotation.ReqItemFinder;
-import com.jianfanjia.cn.ui.interf.cutom_annotation.ReqItemFinderImp;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.cn.activity.R;
 
 /**
  * Description: com.jianfanjia.cn.adapter
@@ -27,11 +25,11 @@ public class ChooseDiarySetTitleAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
 
-    private List<String> mChooseValues;
+    private List<DiarySetInfo> mChooseValues;
 
     private String currentChooseValue;
 
-    public ChooseDiarySetTitleAdapter(Context context, List<String> chooseValues, String currentChooseValue) {
+    public ChooseDiarySetTitleAdapter(Context context, List<DiarySetInfo> chooseValues, String currentChooseValue) {
         this.layoutInflater = LayoutInflater.from(context);
         this.mChooseValues = chooseValues;
         this.currentChooseValue = currentChooseValue;
@@ -49,11 +47,12 @@ public class ChooseDiarySetTitleAdapter extends BaseAdapter {
             view.setTag(holder);
         }
 
-        String key = mChooseValues.get(position);
-        holder.ltm_req_simple_item.setText(key);
+        String diaryId = mChooseValues.get(position).get_id();
+        String title = mChooseValues.get(position).getTitle();
+        holder.ltm_req_simple_item.setText(title);
 
         boolean isChoose = false;
-        if (currentChooseValue.equals(key)) {
+        if (currentChooseValue.equals(diaryId)) {
             isChoose = true;
         }
         if (isChoose) {

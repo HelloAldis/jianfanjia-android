@@ -101,12 +101,13 @@
 
 
         <ImageView
-            android:id="@+id/act_edit_req_work_type_goto"
+            android:id="@+id/iv_add_diary_now_diaryset_goto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:visibility="gone"
             android:src="@mipmap/icon_next"/>
 
         <TextView
@@ -115,6 +116,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
+            android:textColor="@color/orange_color"
             android:hint="@string/please_choose"/>
     </RelativeLayout>
 

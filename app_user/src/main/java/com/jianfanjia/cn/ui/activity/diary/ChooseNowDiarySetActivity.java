@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
@@ -25,7 +27,7 @@ public class ChooseNowDiarySetActivity extends BaseSwipeBackActivity {
     public static final String ALL_CAN_CHOOSE_VALUES = "all_can_choose_values";
 
     private String currentChoosedValue;
-    private List<String> mDiarySetTitleList;
+    private List<DiarySetInfo> mDiarySetInfoList;
 
     private ChooseDiarySetTitleAdapter chooseDiarySetTitleAdapter;
 
@@ -45,13 +47,13 @@ public class ChooseNowDiarySetActivity extends BaseSwipeBackActivity {
     private void initView() {
         mMainHeadView.setMianTitle(getString(R.string.str_now_diaryset));
 
-        chooseDiarySetTitleAdapter = new ChooseDiarySetTitleAdapter(this, mDiarySetTitleList, currentChoosedValue);
+        chooseDiarySetTitleAdapter = new ChooseDiarySetTitleAdapter(this, mDiarySetInfoList, currentChoosedValue);
         edit_req_item_listview.setAdapter(chooseDiarySetTitleAdapter);
         edit_req_item_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent data = getIntent();
-                data.putExtra(IntentConstant.RESPONSE_DATA, mDiarySetTitleList.get(position));
+                data.putExtra(IntentConstant.RESPONSE_DATA, mDiarySetInfoList.get(position));
                 setResult(RESULT_OK, data);
                 appManager.finishActivity(ChooseNowDiarySetActivity.class);
             }
@@ -60,7 +62,7 @@ public class ChooseNowDiarySetActivity extends BaseSwipeBackActivity {
 
     private void getDataFromIntent() {
         currentChoosedValue = getIntent().getStringExtra(CURRENT_CHOOSE_VALUE);
-        mDiarySetTitleList = getIntent().getStringArrayListExtra(ALL_CAN_CHOOSE_VALUES);
+        mDiarySetInfoList = (ArrayList) getIntent().getSerializableExtra(ALL_CAN_CHOOSE_VALUES);
     }
 
     @Override

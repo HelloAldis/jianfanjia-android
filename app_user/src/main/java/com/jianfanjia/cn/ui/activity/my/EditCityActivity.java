@@ -14,16 +14,16 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.CityFormatTool;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.CityFormatTool;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -62,9 +62,9 @@ public class EditCityActivity extends BaseSwipeBackActivity {
     private String district;
     private int page;
 
-    private int currentPro = 0;
-    private int currentCity = 0;
-    private int currentDistrict = 0;
+    private int currentPro;
+    private int currentCity;
+    private int currentDistrict;
 
     private boolean isInit = false;
 
@@ -185,28 +185,39 @@ public class EditCityActivity extends BaseSwipeBackActivity {
                 break;
         }
         if (!TextUtils.isEmpty(provice) && !TextUtils.isEmpty(city)) {
-            currentPro = provinces.indexOf(provice);
-            citys = cityMap.get(provice);
-            currentCity = citys.indexOf(city);
-            districts = districtMap.get(city);
-            if (!TextUtils.isEmpty(district)) {
-                currentDistrict = districts.indexOf(district);
-            } else {
-                currentDistrict = 0;
+            try {
+                currentPro = provinces.indexOf(provice);
+                citys = cityMap.get(provice);
+                currentCity = citys.indexOf(city);
+                districts = districtMap.get(city);
+                if (!TextUtils.isEmpty(district)) {
+                    currentDistrict = districts.indexOf(district);
+                } else {
+                    currentDistrict = 0;
+                }
+                district = districts.get(currentDistrict);
+                isInit = true;
+            } catch (Exception e) {
+                initDefaultProviceCityDistrict();
             }
-            district = districts.get(currentDistrict);
-            isInit = true;
         } else {
-            provice = provinces.get(currentPro);
-            citys = cityMap.get(provice);
-            city = citys.get(currentCity);
-            districts = districtMap.get(city);
-            district = districts.get(currentDistrict);
+            initDefaultProviceCityDistrict();
         }
 
 
         LogTool.d(TAG, provice + "= " + city + "= " + district);
 
+    }
+
+    private void initDefaultProviceCityDistrict() {
+        currentPro = 16;
+        currentCity = 0;
+        currentCity = 0;
+        provice = provinces.get(currentPro);
+        citys = cityMap.get(provice);
+        city = citys.get(currentCity);
+        districts = districtMap.get(city);
+        district = districts.get(currentDistrict);
     }
 
     // 修改设计师个人资料

@@ -162,9 +162,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     }
 
     private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
-        IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
+        DiarySetInfoActivity.intentToDiarySet(context, diarySetInfo);
     }
 
     private void buildPic(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {

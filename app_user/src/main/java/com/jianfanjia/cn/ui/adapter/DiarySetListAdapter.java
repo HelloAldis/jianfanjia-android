@@ -9,7 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
@@ -72,10 +71,7 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
     }
 
     private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST, (Serializable) list);
-        IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
+        DiarySetInfoActivity.intentToDiarySet(context, diarySetInfo);
     }
 
     private void bindContentView(final int position, final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {

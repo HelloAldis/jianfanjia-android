@@ -28,6 +28,7 @@ import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
 import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
+import com.jianfanjia.api.request.common.AddDiaryFavoriteRequest;
 import com.jianfanjia.api.request.common.AddDiaryRequest;
 import com.jianfanjia.api.request.common.AddDiarySetRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
@@ -414,5 +415,9 @@ public class Api {
     public static void getMyDiarySetList(GetMyDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfoList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_MY_DIARYSET, request, apiCallback);
+    }
+
+    public static void addDiaryFavorite(AddDiaryFavoriteRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().FAVORITE_DIARY_ADD, request, apiCallback);
     }
 }

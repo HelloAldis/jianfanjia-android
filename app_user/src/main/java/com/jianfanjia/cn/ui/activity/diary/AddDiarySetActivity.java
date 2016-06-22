@@ -265,9 +265,7 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
     }
 
     private void gotoDiarySetInfo(DiarySetInfo data) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO, data);
-        startActivity(DiarySetInfoActivity.class, bundle);
+        DiarySetInfoActivity.intentToDiarySet(this, data);
         appManager.finishActivity(this);
     }
 

@@ -38,7 +38,6 @@ import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity;
 import com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
-import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -160,7 +159,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         viewHolder.rlWirteDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoAddDiary();
+                AddDiaryActivity.intentToAddDiary(context,null,mDiarySetInfo);
             }
         });
     }
@@ -220,14 +219,6 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARYSET_INFO, mDiarySetInfo);
         IntentUtil.startActivity(context, AddDiarySetActivity.class, bundle);
-    }
-
-    private void gotoAddDiary() {
-        Bundle bundle = new Bundle();
-        DiarySetInfoActivity diarySetInfoActivity = (DiarySetInfoActivity) context;
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO_LIST, diarySetInfoActivity.getDiarySetInfoList());
-        bundle.putString(AddDiaryActivity.CURRENT_DIARYSET_TITLE, mDiarySetInfo.getTitle());
-        IntentUtil.startActivity(context, AddDiaryActivity.class, bundle);
     }
 
     private void buildPic(DiarySetDiaryViewHolder diarySetDiaryViewHolder, final DiaryInfo diaryInfo) {

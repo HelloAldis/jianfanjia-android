@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.ui.activity.diary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,6 +36,7 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -76,6 +78,12 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     @Bind(R.id.toolbar_share_layout)
     RelativeLayout rlShareLayout;
 
+    public static void intentToDiarySet(Context context,DiarySetInfo diarySetInfo){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO,diarySetInfo);
+        IntentUtil.startActivity(context,DiarySetInfoActivity.class,bundle);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,16 +95,11 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             mDiarySetInfo = (DiarySetInfo) bundle.getSerializable(IntentConstant.DIARYSET_INFO);
-            mDiarySetInfoList = (ArrayList<DiarySetInfo>) bundle.getSerializable(IntentConstant.DIARYSET_INFO_LIST);
             if (mDiarySetInfo != null) {
                 diarySetId = mDiarySetInfo.get_id();
             }
             LogTool.d(TAG,"userid =" + dataManager.getUserId());
         }
-    }
-
-    public ArrayList<DiarySetInfo> getDiarySetInfoList() {
-        return mDiarySetInfoList;
     }
 
     private void initView() {

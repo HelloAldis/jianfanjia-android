@@ -234,6 +234,8 @@ public class Url_New {
     public String ADD_DIARY = HTTPROOT + "add_diary";
     //用户删除日记
     public String DELETE_DIARY = HTTPROOT + "delete_diary";
+    //用户点赞日记
+    public String FAVORITE_DIARY_ADD = HTTPROOT + "favorite/diary/add";
 
     //游客搜索日记集
     public String SEARCH_DIARY_SET = HTTPROOT + "search_diary_set";
