@@ -62,8 +62,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     @Bind(R.id.btn_send)
     protected Button btnSend = null;
 
-    private boolean isUpdate = false;
-
     private List<Comment> mCommentList = new ArrayList<>();
 
     private DiaryDetailInfoAdapter mDiaryDetailInfoAdapter;
@@ -262,7 +260,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             mDiaryDetailInfoAdapter.notifyItemInserted(1);
             mRecyclerView.scrollToPosition(0);
             commentEdit.setText("");
-            isUpdate = true;
         }
 
         @Override

@@ -125,15 +125,27 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                         gotoEditDiarySet();
                     }
                 });
-                diaryViewHolder.tvDiarysetUpdateCover.setVisibility(View.VISIBLE);
-                diaryViewHolder.tvDiarysetUpdateCover.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mUploadDiarySetCoverPicListener != null) {
-                            mUploadDiarySetCoverPicListener.uploadDiarySetCoverPic();
+                if (!TextUtils.isEmpty(mDiarySetInfo.getCover_imageid())) {//当前日记集的作者为当前用户，才可以修改封面
+                    diaryViewHolder.tvDiarysetUpdateCover.setVisibility(View.GONE);
+                    diaryViewHolder.ivDiarysetCover.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mUploadDiarySetCoverPicListener != null) {
+                                mUploadDiarySetCoverPicListener.uploadDiarySetCoverPic();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    diaryViewHolder.tvDiarysetUpdateCover.setVisibility(View.VISIBLE);
+                    diaryViewHolder.tvDiarysetUpdateCover.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mUploadDiarySetCoverPicListener != null) {
+                                mUploadDiarySetCoverPicListener.uploadDiarySetCoverPic();
+                            }
+                        }
+                    });
+                }
             } else {
                 diaryViewHolder.ivDiarysetEdit.setVisibility(View.GONE);
                 diaryViewHolder.tvDiarysetUpdateCover.setVisibility(View.GONE);
@@ -152,14 +164,14 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         }
 
         diaryViewHolder.tvDiarysetTitle.setText(mDiarySetInfo.getTitle());
-        diaryViewHolder.tvDiarysetGoingTime.setText(DateFormatTool.getHumReadDateString(mDiarySetInfo.getCreate_at()));
+        diaryViewHolder.tvDiarysetGoingTime.setText(DiaryBusiness.getDiarySetDes(mDiarySetInfo));
     }
 
     private void bindHeadView(DiarySetInfoWriteDiaryViewHolder viewHolder) {
         viewHolder.rlWirteDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddDiaryActivity.intentToAddDiary(context,null,mDiarySetInfo);
+                AddDiaryActivity.intentToAddDiary(context, null, mDiarySetInfo);
             }
         });
     }
@@ -182,8 +194,8 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         diarySetDiaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(diaryInfo
                 .getSection_label()));
         diarySetDiaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
-        diarySetDiaryViewHolder.tvCommentCount.setText(diaryInfo.getComment_count() + "");
-        diarySetDiaryViewHolder.tvLikeCount.setText(diaryInfo.getFavorite_count() + "");
+        diarySetDiaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(diaryInfo.getComment_count()));
+        diarySetDiaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(diaryInfo.getFavorite_count()));
         diarySetDiaryViewHolder.tvDailyContent.setText(diaryInfo.getContent());
         diarySetDiaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

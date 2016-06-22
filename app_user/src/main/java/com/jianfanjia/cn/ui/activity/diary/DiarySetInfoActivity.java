@@ -23,11 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.request.common.UpdateDiarySetRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
 import com.jianfanjia.cn.activity.R;
@@ -41,6 +43,8 @@ import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.yalantis.ucrop.UCrop;
+
+import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -98,7 +102,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
             if (mDiarySetInfo != null) {
                 diarySetId = mDiarySetInfo.get_id();
             }
-            LogTool.d(TAG,"userid =" + dataManager.getUserId());
+            LogTool.d(TAG, "userid =" + dataManager.getUserId());
         }
     }
 
@@ -229,6 +233,50 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         });
     }
 
+    private void edieDiarySetInfo() {
+        UpdateDiarySetRequest updateDiarySetRequest = new UpdateDiarySetRequest();
+        updateDiarySetRequest.setDiary_set(mDiarySetInfo);
+
+        Api.updateDiarySetInfo(updateDiarySetRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                mDiaryAdapter.notifyItemChanged(0);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            }
+        });
+    }
+
+    @OnClick({R.id.head_back_layout, R.id.rl_writediary})
+    protected void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_writediary:
+                mDiaryAdapter.gotoAddDiary();
+                break;
+            case R.id.head_back_layout:
+                appManager.finishActivity(this);
+                break;
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -309,7 +357,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         @Override
         public void onSuccess(ApiResponse<String> apiResponse) {
             mDiarySetInfo.setCover_imageid(apiResponse.getData());
-            mDiaryAdapter.notifyItemChanged(0);
+            edieDiarySetInfo();
         }
 
         @Override

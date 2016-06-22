@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -57,7 +58,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     private DiaryInfo mDiaryInfo;
     private AddCommentListener mAddCommentListener;
 
-    public DiaryDetailInfoAdapter(Context context,List<Comment> commentList, DiaryInfo diaryInfo) {
+    public DiaryDetailInfoAdapter(Context context, List<Comment> commentList, DiaryInfo diaryInfo) {
         super(context, commentList);
         this.mDiaryInfo = diaryInfo;
     }
@@ -84,7 +85,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
         switch (getItemViewType(position)) {
             case DIARY_DETAIL_TYPE:
-                bindDiary((DiaryDynamicAdapter.DiaryViewHolder)viewHolder);
+                bindDiary((DiaryDynamicAdapter.DiaryViewHolder) viewHolder);
                 break;
             case COMMENT_TYPE:
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
@@ -97,42 +98,42 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         User author = mDiaryInfo.getAuthor();
         if (author != null) {
             if (!TextUtils.isEmpty(author.getImageid())) {
-                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDailyHead);
+                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDiaryHead);
             } else {
-                diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+                diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
             }
             if (author.get_id().equals(DataManagerNew.getInstance().getUserId())) {
-                diaryViewHolder.tvDailtDelete.setVisibility(View.VISIBLE);
-                diaryViewHolder.tvDailtDelete.setOnClickListener(new View.OnClickListener() {
+                diaryViewHolder.tvDiaryDelete.setVisibility(View.VISIBLE);
+                diaryViewHolder.tvDiaryDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         deleteDiary();
                     }
                 });
             } else {
-                diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
+                diaryViewHolder.tvDiaryDelete.setVisibility(View.GONE);
             }
         } else {
-            diaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
-            diaryViewHolder.ivDailyHead.setImageResource(R.mipmap.icon_default_head);
+            diaryViewHolder.tvDiaryDelete.setVisibility(View.GONE);
+            diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
         }
 
         if (diarySetInfo != null) {
-            diaryViewHolder.tvCellName.setText(diarySetInfo.getTitle());
+            diaryViewHolder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
             diaryViewHolder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         }
-        diaryViewHolder.tvDailyStage.setText(mDiaryInfo.getSection_label());
-        diaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(mDiaryInfo.getCreate_at()));
-        diaryViewHolder.tvCommentCount.setText(mDiaryInfo.getComment_count() + "");
-        diaryViewHolder.tvLikeCount.setText(mDiaryInfo.getFavorite_count() + "");
-        diaryViewHolder.tvDailyContent.setText(mDiaryInfo.getContent());
-        diaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
+        diaryViewHolder.tvDiaryStage.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
+        diaryViewHolder.tvDiaryGoingTime.setText(DateFormatTool.getHumReadDateString(mDiaryInfo.getCreate_at()));
+        diaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(mDiaryInfo.getComment_count()));
+        diaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(mDiaryInfo.getFavorite_count()));
+        diaryViewHolder.tvDiaryContent.setText(mDiaryInfo.getContent());
+        diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        diaryViewHolder.rlDailyLikeLayout.setOnClickListener(new View.OnClickListener() {
+        diaryViewHolder.rlDiaryLikeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -370,7 +371,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAddCommentListener != null){
+                if (mAddCommentListener != null) {
                     mAddCommentListener.addCommentListener(commentInfo.getByUser());
                 }
             }
@@ -411,7 +412,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
     }
 
-    public interface AddCommentListener{
+    public interface AddCommentListener {
         void addCommentListener(User toUser);
     }
 }
