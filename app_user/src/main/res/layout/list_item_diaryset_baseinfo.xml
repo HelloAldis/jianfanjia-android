@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/tv_diaryset_update_cover"
-        style="@style/listview_item_text_style_big"
+        style="@style/listview_item_text_style_middle"
         android:text="@string/str_update_cover"
         android:layout_gravity="center"
         android:paddingLeft="@dimen/space_16"
@@ -65,9 +65,7 @@
 
                 <TextView
                     android:id="@+id/tv_diaryset_title"
-                    style="@style/listview_item_text_style_big"
-                    android:ellipsize="end"
-                    android:maxWidth="150dp"
+                    style="@style/listview_item_text_style_middle"
                     android:singleLine="true"
                     android:text="@string/str_cell"
                     android:textColor="@color/font_white"
@@ -78,15 +76,15 @@
                     android:id="@+id/iv_diaryset_edit"
                     android:layout_width="@dimen/space_48"
                     android:layout_height="@dimen/space_48"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:src="@mipmap/icon_download"
+                    android:layout_alignParentBottom="true"
+                    android:src="@mipmap/icon_edit_diary"
                     android:scaleType="center"
                     android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tv_diaryset_goingtime"
-                    style="@style/listview_item_text_style_middle"
+                    style="@style/listview_item_text_style_small"
                     android:layout_alignParentBottom="true"
                     android:text="3分钟前"
                     android:textColor="@color/font_white"/>

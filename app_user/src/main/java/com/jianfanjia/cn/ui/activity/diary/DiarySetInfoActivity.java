@@ -19,11 +19,10 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-
+import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -43,8 +42,6 @@ import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.yalantis.ucrop.UCrop;
-
-import butterknife.OnClick;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -67,8 +64,6 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
     private List<DiaryInfo> mDiaryInfoList;
 
-    private ArrayList<DiarySetInfo> mDiarySetInfoList;
-
     private DiarySetInfo mDiarySetInfo;
 
     private String diarySetId;
@@ -82,10 +77,10 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     @Bind(R.id.toolbar_share_layout)
     RelativeLayout rlShareLayout;
 
-    public static void intentToDiarySet(Context context,DiarySetInfo diarySetInfo){
+    public static void intentToDiarySet(Context context, DiarySetInfo diarySetInfo) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARYSET_INFO,diarySetInfo);
-        IntentUtil.startActivity(context,DiarySetInfoActivity.class,bundle);
+        bundle.putSerializable(IntentConstant.DIARYSET_INFO, diarySetInfo);
+        IntentUtil.startActivity(context, DiarySetInfoActivity.class, bundle);
     }
 
     @Override
@@ -269,7 +264,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.rl_writediary:
-                mDiaryAdapter.gotoAddDiary();
+                AddDiaryActivity.intentToAddDiary(this, null, mDiarySetInfo);
                 break;
             case R.id.head_back_layout:
                 appManager.finishActivity(this);

@@ -178,6 +178,35 @@ public class UiHelper {
      * @param view
      * @param listener
      */
+    public static void imageAddFavoriteAnim(View view, Animator.AnimatorListener listener) {
+        Keyframe kf0 = Keyframe.ofFloat(0f, 1.0f);
+        Keyframe kf1 = Keyframe.ofFloat(0.17f, 1.1f);
+        Keyframe kf2 = Keyframe.ofFloat(0.34f, 1.2f);
+        Keyframe kf3 = Keyframe.ofFloat(0.45f, 1.4f);
+        Keyframe kf4 = Keyframe.ofFloat(0.51f, 1.6f);
+        Keyframe kf5 = Keyframe.ofFloat(0.68f, 1.3f);
+        Keyframe kf6 = Keyframe.ofFloat(0.85f, 1.12f);
+        Keyframe kf7 = Keyframe.ofFloat(1.0f, 1.0f);
+        PropertyValuesHolder propertyValuesHolderScaleXHolder = PropertyValuesHolder.ofKeyframe("scaleX", kf0, kf1,
+                kf2, kf3, kf4, kf5, kf6,kf7);
+        PropertyValuesHolder propertyValuesHolderScaleYHolder = PropertyValuesHolder.ofKeyframe("scaleY", kf0, kf1,
+                kf2, kf3, kf4, kf5, kf6,kf7);
+        ObjectAnimator rotaAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
+                propertyValuesHolderScaleXHolder, propertyValuesHolderScaleYHolder);
+        rotaAnimator.setDuration(300);
+        rotaAnimator.setInterpolator(new AccelerateInterpolator());
+        if (listener != null) {
+            rotaAnimator.addListener(listener);
+        }
+        rotaAnimator.start();
+    }
+
+    /**
+     * 对按钮进行做点击效果的
+     *
+     * @param view
+     * @param listener
+     */
     public static void imageButtonAnim(View view, Animator.AnimatorListener listener) {
         Keyframe kf0 = Keyframe.ofFloat(0f, 1.0f);
         Keyframe kf1 = Keyframe.ofFloat(0.17f, 1.4f);

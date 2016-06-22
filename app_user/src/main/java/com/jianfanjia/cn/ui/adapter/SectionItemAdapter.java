@@ -208,13 +208,13 @@ public class SectionItemAdapter extends BaseAdapter {
             viewHolder.openComment.setText(commentCount + "");
             viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                     context.getResources().getDrawable(
-                            R.mipmap.btn_icon_comment_pressed), null,
+                            R.mipmap.icon_comment_pressed), null,
                     null, null);
         } else {
             viewHolder.openComment.setText(R.string.commentText);
             viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
                     context.getResources().getDrawable(
-                            R.mipmap.btn_icon_comment_normal), null,
+                            R.mipmap.icon_comment_normal), null,
                     null, null);
         }
 

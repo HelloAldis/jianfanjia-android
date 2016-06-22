@@ -16,16 +16,21 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.DiaryImageDetailInfo;
+import com.jianfanjia.api.model.DiaryInfo;
+import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.api.model.SuperVisor;
+import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.business.ProcessBusiness;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
@@ -40,6 +45,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
 
     public static final int PLAN_TYPE = 0;//方案的评论
     public static final int NODE_TYPE = 1;//节点的评论
+    public static final int DIARY_TYPE = 2;//日记的评论
 
     private OnItemCallback onItemCallback;
 
@@ -58,6 +64,9 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
             if (mDatas.get(position).getMessage_type().equals(Constant.TYPE_SECTION_COMMENT_MSG)) {
                 return NODE_TYPE;
             }
+            if (mDatas.get(position).getMessage_type().equals(Constant.TYPE_DIARY_COMMENT_MSG)) {
+                return DIARY_TYPE;
+            }
         }
         return super.getItemViewType(position);
     }
@@ -72,6 +81,9 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
             case NODE_TYPE:
                 view = LayoutInflater.from(context).inflate(R.layout.list_item_commentinfo_type2, null);
                 return new ProcessCommentViewHolder(view);
+            case DIARY_TYPE:
+                view = LayoutInflater.from(context).inflate(R.layout.list_item_commentinfo_type3, null);
+                return new DiaryCommentViewHolder(view);
         }
         return null;
     }
@@ -88,24 +100,24 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
                 ProcessCommentViewHolder processHolder = (ProcessCommentViewHolder) viewHolder;
                 onBindProcessCommentViewHolder(noticeInfo, processHolder);
                 break;
+            case DIARY_TYPE:
+                DiaryCommentViewHolder diaryCommentViewHolder = (DiaryCommentViewHolder) viewHolder;
+                onBindDiaryCommentViewHolder(noticeInfo, diaryCommentViewHolder);
+                break;
         }
     }
 
-    private void onBindPlanCommentViewHolder(final UserMessage noticeInfo, PlanCommentViewHolder holder) {
+    private void onBindDiaryCommentViewHolder(final UserMessage noticeInfo, DiaryCommentViewHolder holder) {
 
-        //设计师的名字
-        Designer designer = noticeInfo.getDesigner();
-        SuperVisor superVisor = noticeInfo.getSupervisor();
+        User user = noticeInfo.getUser();
         String imageid = null;
-        if(designer != null){
-            imageid = designer.getImageid();
-            String designerName = designer.getUsername();
-            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.designer) : designerName);
-        }else if(superVisor != null){
-            imageid = superVisor.getImageid();
-            String superVisorName = superVisor.getUsername();
-            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) : superVisorName);
+        if (user != null) {
+            imageid = user.getImageid();
+            String designerName = user.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.ower) :
+                    designerName);
         }
+
         //留言人的头像
         if (!TextUtils.isEmpty(imageid)) {
             LogTool.d(this.getClass().getName(), "imageid=" + imageid);
@@ -114,7 +126,58 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
         }
 
+        //评论时间
+        holder.dateText.setText(DateFormatTool.longToStringHasMini(noticeInfo.getCreate_at()));
+        //评论内容
+        holder.contentText.setText(noticeInfo.getContent());
 
+        DiaryInfo diaryInfo = noticeInfo.getDiary();
+        final DiarySetInfo diarySetInfo = diaryInfo.getDiarySet();
+
+        if (diarySetInfo != null) {
+            holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
+            holder.tvDiaryBaseInfo.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
+        }
+        holder.tvDiaryContent.setText(diaryInfo.getContent());
+        setFirstDiaryPic(holder.ivDiaryFirstPic, diaryInfo.getImages());
+
+    }
+
+    private void setFirstDiaryPic(ImageView ivDiaryFirstPic, List<DiaryImageDetailInfo> images) {
+        if (images == null || images.size() == 0) {
+            ivDiaryFirstPic.setVisibility(View.GONE);
+        } else {
+            ivDiaryFirstPic.setVisibility(View.VISIBLE);
+            imageShow.displayHalfScreenWidthThumnailImage(context, images.get(0).getImageid(), ivDiaryFirstPic);
+        }
+    }
+
+
+    private void onBindPlanCommentViewHolder(final UserMessage noticeInfo, PlanCommentViewHolder holder) {
+
+        //设计师的名字
+        Designer designer = noticeInfo.getDesigner();
+        SuperVisor superVisor = noticeInfo.getSupervisor();
+        String imageid = null;
+        if (designer != null) {
+            imageid = designer.getImageid();
+            String designerName = designer.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.designer) :
+                    designerName);
+        } else if (superVisor != null) {
+            imageid = superVisor.getImageid();
+            String superVisorName = superVisor.getUsername();
+            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) :
+                    superVisorName);
+        }
+
+        //留言人的头像
+        if (!TextUtils.isEmpty(imageid)) {
+            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
+            imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
+        } else {
+            imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
+        }
         holder.cellText.setText(noticeInfo.getRequirement().getBasic_address());
 
         holder.numText.setText(noticeInfo.getPlan().getName());
@@ -178,14 +241,16 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         Designer designer = noticeInfo.getDesigner();
         SuperVisor superVisor = noticeInfo.getSupervisor();
         String imageid = null;
-        if(designer != null){
+        if (designer != null) {
             imageid = designer.getImageid();
             String designerName = designer.getUsername();
-            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.designer) : designerName);
-        }else if(superVisor != null){
+            holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.designer) :
+                    designerName);
+        } else if (superVisor != null) {
             imageid = superVisor.getImageid();
             String superVisorName = superVisor.getUsername();
-            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) : superVisorName);
+            holder.nameView.setText(TextUtils.isEmpty(superVisorName) ? context.getString(R.string.supervisor) :
+                    superVisorName);
         }
         if (!TextUtils.isEmpty(imageid)) {
             LogTool.d(this.getClass().getName(), "imageid=" + imageid);
@@ -312,6 +377,32 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         public RelativeLayout itemLayout;
 
         public ProcessCommentViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    static class DiaryCommentViewHolder extends RecyclerViewHolderBase {
+        @Bind(R.id.ltm_cominfo_head)
+        public ImageView itemHeadView;
+        @Bind(R.id.ltm_cominfo_designer_name)
+        public TextView nameView;
+        @Bind(R.id.ltm_cominfo_designer_date)
+        public TextView dateText;
+        @Bind(R.id.ltm_cominfo_response)
+        public TextView responseView;
+        @Bind(R.id.ltm_cominfo_content)
+        public TextView contentText;
+        @Bind(R.id.ltm_diaryset_title)
+        TextView tvDiarySetTitle;
+        @Bind(R.id.iv_diary_first_pic)
+        ImageView ivDiaryFirstPic;
+        @Bind(R.id.ltm_diary_baseinfo)
+        TextView tvDiaryBaseInfo;
+        @Bind(R.id.ltm_diary_content)
+        TextView tvDiaryContent;
+
+        public DiaryCommentViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

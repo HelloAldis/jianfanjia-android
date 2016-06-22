@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View style="@style/divier_line"/>
+
+    <LinearLayout
+        android:id="@+id/ltm_diary_action_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/font_white">
+
+            <LinearLayout
+                android:id="@+id/ltm_diary_like_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/tv_like_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/space_10"
+                    android:src="@mipmap/icon_diary_favorite0"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/add_favorite"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            style="@style/vertical_divier_line"
+            android:layout_marginBottom="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_4"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/font_white">
+
+            <LinearLayout
+                android:id="@+id/ltm_diary_comment_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/tv_comment_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/space_10"
+                    android:src="@mipmap/icon_diary_comment"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_comment_count"
+                    style="@style/listview_item_text_style_small"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/commentText"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -15,7 +15,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -25,6 +24,7 @@ import com.jianfanjia.api.model.DiaryImageDetailInfo;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.AddDiaryFavoriteRequest;
 import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -38,6 +38,7 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
+import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -133,10 +134,11 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
 
             }
         });
-        diaryViewHolder.rlDiaryLikeLayout.setOnClickListener(new View.OnClickListener() {
+        DiaryBusiness.setFavoriteAction(diaryViewHolder.tvLikeIcon, diaryViewHolder.rlDiaryLikeLayout, mDiaryInfo
+                .is_my_favorite(), new AddFavoriteCallback() {
             @Override
-            public void onClick(View v) {
-
+            public void addFavoriteAction() {
+                addFavorite();
             }
         });
         diaryViewHolder.llDiarySet.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +216,40 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         ivSinglerPic.setLayoutParams(layoutParams);
 
         imageShow.displayScreenWidthThumnailImage(context, imageid, ivSinglerPic);
+    }
+
+    private void addFavorite() {
+        AddDiaryFavoriteRequest addDiaryFavoriteRequest = new AddDiaryFavoriteRequest();
+        addDiaryFavoriteRequest.setDiaryid(mDiaryInfo.get_id());
+
+        Api.addDiaryFavorite(addDiaryFavoriteRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                mDiaryInfo.setIs_my_favorite(true);
+                mDiaryInfo.setFavorite_count(mDiaryInfo.getFavorite_count() + 1);
+                notifyItemChanged(0);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     protected void deleteDiary() {

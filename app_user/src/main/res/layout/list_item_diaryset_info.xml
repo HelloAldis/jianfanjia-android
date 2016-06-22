@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/ltm_diary_goingtime"
-                style="@style/listview_item_text_style_middle"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignBaseline="@+id/ltm_diary_stage"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/ltm_diary_stage"
@@ -36,17 +36,17 @@
 
             <TextView
                 android:id="@+id/ltm_diary_delte"
-                style="@style/listview_item_text_style_middle"
+                style="@style/listview_item_text_style_small"
                 android:layout_alignBaseline="@+id/ltm_diary_stage"
-                android:text="@string/str_delete"
                 android:layout_alignParentRight="true"
-                android:visibility="gone"
-                android:textColor="@color/blue_color"/>
+                android:text="@string/str_delete"
+                android:textColor="@color/blue_color"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <TextView
             android:id="@+id/ltm_diary_content"
-            style="@style/listview_item_text_style_middle"
+            style="@style/listview_item_text_style_small"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/space_16"
             android:gravity="left"
@@ -115,60 +115,6 @@
         </GridLayout>
     </LinearLayout>
 
-    <View style="@style/divier_line"/>
-
-    <LinearLayout
-        android:id="@+id/ltm_diary_action_layout"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:id="@+id/ltm_diary_like_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/my_item_layout_bg_selector">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
-
-                <TextView
-                    android:id="@+id/tv_like_count"
-                    style="@style/listview_item_text_style_small"
-                    android:layout_width="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/space_12"
-                    android:drawableLeft="@mipmap/btn_icon_comment_normal"
-                    android:text="0"/>
-
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <View
-            style="@style/vertical_divier_line"
-            android:layout_marginBottom="@dimen/space_4"
-            android:layout_marginTop="@dimen/space_4"/>
-
-        <RelativeLayout
-            android:id="@+id/ltm_diary_comment_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/my_item_layout_bg_selector">
-
-            <TextView
-                android:id="@+id/tv_comment_count"
-                style="@style/listview_item_text_style_small"
-                android:layout_width="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/space_12"
-                android:drawableLeft="@mipmap/btn_icon_comment_normal"
-                android:text="0"/>
-
-        </RelativeLayout>
-    </LinearLayout>
+    <include layout="@layout/include_favorite_and_comment"/>
 
 </LinearLayout>

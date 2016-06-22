@@ -104,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:src="@drawable/tab_selector_img" />
+                        android:src="@drawable/tab_selector_diary" />
 
                     <TextView
                         android:id="@+id/daily_text"

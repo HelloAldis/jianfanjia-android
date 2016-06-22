@@ -143,7 +143,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private void initGridView() {
         imageUrlList = new ArrayList<>();
-        imageUrlList.add(Constant.HOME_ADD_PIC);
+        imageUrlList.add(Constant.DEFALUT_ADD_DIARY_PIC );
         mAddDiaryGridViewAdapter = new AddDiaryGridViewAdapter(this, imageUrlList);
         gvAddDiaryPic.setAdapter(mAddDiaryGridViewAdapter);
         gvAddDiaryPic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -152,7 +152,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 String data = imageUrlList.get(position);
                 Log.i(this.getClass().getName(), "data:" + data);
                 Log.i(this.getClass().getName(), "imageUrlList size=" + imageUrlList.size());
-                if (data.equals(Constant.HOME_ADD_PIC)) {
+                if (data.equals(Constant.DEFALUT_ADD_DIARY_PIC)) {
                     pickPicture();
                 } else {
                     showImageBig(position);
@@ -164,7 +164,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     private void showImageBig(int position) {
         showImageUrlList.clear();
         for (String imageUrl : imageUrlList) {
-            if (!imageUrl.equals(Constant.HOME_ADD_PIC)) {
+            if (!imageUrl.equals(Constant.DEFALUT_ADD_DIARY_PIC)) {
                 showImageUrlList.add(imageUrl);
             }
         }

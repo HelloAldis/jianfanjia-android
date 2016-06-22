@@ -34,8 +34,8 @@ public class AddDiaryGridViewAdapter extends BaseListAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
-            holder.img.setImageResource(R.mipmap.btn_icon_home_add);
+        if (imgUrl.equals(Constant.DEFALUT_ADD_DIARY_PIC)) {
+            holder.img.setImageResource(R.mipmap.icon_diary_add_pic);
             holder.tvDiaryDelete.setVisibility(View.GONE);
         } else {
             holder.tvDiaryDelete.setVisibility(View.VISIBLE);
@@ -45,8 +45,8 @@ public class AddDiaryGridViewAdapter extends BaseListAdapter<String> {
                 public void onClick(View v) {
                     if (list.size() == DiaryBusiness.UPLOAD_MAX_PIC_COUNT) {
                         list.remove(position);
-                        if (!list.contains(Constant.HOME_ADD_PIC)) {
-                            list.add(Constant.HOME_ADD_PIC);
+                        if (!list.contains(Constant.DEFALUT_ADD_DIARY_PIC )) {
+                            list.add(Constant.DEFALUT_ADD_DIARY_PIC );
                         }
                     } else {
                         list.remove(position);

@@ -29,6 +29,7 @@ public class UserMessage extends BaseModel {
     private User user;
     private SuperVisor supervisor;
     private Reschedule reschedule;
+    private DiaryInfo diary;
 
     public String get_id() {
         return _id;
@@ -220,5 +221,13 @@ public class UserMessage extends BaseModel {
 
     public void setSupervisor(SuperVisor supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public DiaryInfo getDiary() {
+        return diary;
+    }
+
+    public void setDiary(DiaryInfo diary) {
+        this.diary = diary;
     }
 }

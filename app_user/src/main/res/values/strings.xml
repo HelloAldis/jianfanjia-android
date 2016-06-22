@@ -169,7 +169,7 @@
     <string name="intentionDesignerText">意向设计师</string>
     <string name="moreText">更多</string>
     <string name="replaceText">替换</string>
-    <string name="commentText">留言</string>
+    <string name="commentText">评论</string>
     <string name="planText">的方案</string>
     <string name="designerPlanText">方案</string>
     <string name="pingjiaText">评价设计师</string>
@@ -346,7 +346,7 @@
     <string name="hint_choose_plan_str">您确定要选定此方案吗？</string>
     <string name="hint_contract_text">确认合同</string>
     <string name="hint_contract_str">您确定要确认合同吗？</string>
-    <string name="my_comment">我的留言</string>
+    <string name="my_comment">评论</string>
     <string name="call_phone">咨询热线：400-8515-167</string>
     <string name="title_activity_notice">NoticeActivity</string>
 
@@ -373,7 +373,7 @@
     <string name="agree_str">已同意</string>
     <string name="reject_str">已拒绝</string>
     <string name="create_my_process">创建我的工地</string>
-    <string name="search_no_commnet">目前还没有任何留言</string>
+    <string name="search_no_commnet">目前还没有任何评论</string>
     <string name="plan_list">方案列表</string>
     <string name="online_kefu">在线客服</string>
     <string name="follow_weixin">关注官方微信：jianfanjia</string>
@@ -406,7 +406,7 @@
     <string name="designer_high_point">匠心定制设计师</string>
     <string name="main_tab_home">首页</string>
     <string name="main_tab_beautifulimg">装修美图</string>
-    <string name="main_tab_daily">装修日志</string>
+    <string name="main_tab_daily">装修日记</string>
     <string name="str_delete">删除</string>
     <string name="please_input_title">请输入日记标题</string>
     <string name="please_input_area">请输入面积</string>
@@ -423,7 +423,7 @@
     <string name="str_diary_title">日记标题</string>
     <string name="write_diary">写日记</string>
     <string name="search_no_diary">暂时没有装修日记</string>
-    <string name="tip_input_diary">记录和分享您的装修之路</string>
+    <string name="tip_input_diary">记录和分享您的装修之路，请最少输入15个字</string>
     <string name="str_decorate_stage">装修阶段</string>
     <string name="str_now_diaryset">当前日记本</string>
     <string name="add_diary">新建日记</string>
@@ -434,4 +434,5 @@
     <string name="ru_zhu">入住</string>
     <string name="str_update_cover">修改封面</string>
     <string name="diary_content">日记正文</string>
+    <string name="add_favorite">点赞</string>
 </resources>

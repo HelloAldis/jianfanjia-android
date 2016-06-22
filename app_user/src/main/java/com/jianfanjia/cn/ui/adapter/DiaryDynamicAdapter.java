@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ import com.jianfanjia.api.model.DiaryImageDetailInfo;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.AddDiaryFavoriteRequest;
 import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -40,6 +40,7 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
+import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -55,7 +56,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
     private Fragment mFragment;
 
-    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView,Fragment fragment) {
+    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView, Fragment fragment) {
         super(context, recyclerView);
         this.mFragment = fragment;
     }
@@ -104,17 +105,19 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         diaryViewHolder.tvDiaryGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
         diaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(diaryInfo.getComment_count()));
         diaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(diaryInfo.getFavorite_count()));
+        DiaryBusiness.setFavoriteAction(diaryViewHolder.tvLikeIcon, diaryViewHolder.rlDiaryLikeLayout, diaryInfo
+                .is_my_favorite(), new AddFavoriteCallback() {
+            @Override
+            public void addFavoriteAction() {
+                addFavorite(position);
+            }
+        });
+
         setContentText(diaryViewHolder.tvDiaryContent, diaryInfo.getContent());
         diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
-            }
-        });
-        diaryViewHolder.rlDiaryLikeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
         diaryViewHolder.llDiarySet.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +140,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
         bundle.putInt(DiaryDetailInfoActivity.IntentFlag, intentFlag);
-        IntentUtil.startActivityForResult(mFragment, DiaryDetailInfoActivity.class, bundle, Constant.REQUESTCODE_SHOW_DIARYINFO);
+        IntentUtil.startActivityForResult(mFragment, DiaryDetailInfoActivity.class, bundle, Constant
+                .REQUESTCODE_SHOW_DIARYINFO);
     }
 
     private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
@@ -285,9 +289,9 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
     protected void setContentText(final TextView textView, final String content) {
         textView.setText(content);
-        if(TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             textView.setVisibility(View.GONE);
-        }else {
+        } else {
             textView.setVisibility(View.VISIBLE);
             textView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @Override
@@ -307,6 +311,42 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 }
             });
         }
+    }
+
+    private void addFavorite(final int position) {
+        final DiaryInfo diaryInfo = mDatas.get(position);
+
+        AddDiaryFavoriteRequest addDiaryFavoriteRequest = new AddDiaryFavoriteRequest();
+        addDiaryFavoriteRequest.setDiaryid(diaryInfo.get_id());
+
+        Api.addDiaryFavorite(addDiaryFavoriteRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                diaryInfo.setIs_my_favorite(true);
+                diaryInfo.setFavorite_count(diaryInfo.getFavorite_count() + 1);
+                notifyItemChanged(position);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
     }
 
     protected void deleteDiary(final int position) {
@@ -366,13 +406,16 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         TextView tvDiaryGoingTime;
 
         @Bind(R.id.ltm_diary_comment_layout)
-        RelativeLayout rlDiaryCommentLayout;
+        LinearLayout rlDiaryCommentLayout;
 
         @Bind(R.id.ltm_diary_like_layout)
-        RelativeLayout rlDiaryLikeLayout;
+        LinearLayout rlDiaryLikeLayout;
 
         @Bind(R.id.tv_like_count)
         TextView tvLikeCount;
+
+        @Bind(R.id.tv_like_icon)
+        ImageView tvLikeIcon;
 
         @Bind(R.id.tv_comment_count)
         TextView tvCommentCount;

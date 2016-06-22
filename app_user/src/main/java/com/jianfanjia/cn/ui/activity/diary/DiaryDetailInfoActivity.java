@@ -154,7 +154,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             mDiaryInfo.setIs_deleted(true);
             backBecauseOfDelete();
         } else {
-            to = diaryInfo.get_id();//默认是回复作者的
+            to = diaryInfo.getAuthorid();//默认是回复作者的
             getCommentList(mDiaryInfo.get_id(), 0, Constant.HOME_PAGE_LIMIT);
         }
     }
@@ -256,7 +256,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
             Comment commentInfo = createCommentInfo(content);
-            mCommentList.add(1, commentInfo);
+            mCommentList.add(0, commentInfo);
             mDiaryDetailInfoAdapter.notifyItemInserted(1);
             mRecyclerView.scrollToPosition(0);
             commentEdit.setText("");

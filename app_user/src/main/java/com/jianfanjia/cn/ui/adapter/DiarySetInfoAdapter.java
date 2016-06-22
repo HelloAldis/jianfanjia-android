@@ -24,6 +24,7 @@ import com.jianfanjia.api.model.DiaryImageDetailInfo;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.common.AddDiaryFavoriteRequest;
 import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -38,6 +39,7 @@ import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity;
 import com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
+import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -203,12 +205,15 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                 gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
             }
         });
-        diarySetDiaryViewHolder.rlDailyLikeLayout.setOnClickListener(new View.OnClickListener() {
+        DiaryBusiness.setFavoriteAction(diarySetDiaryViewHolder.tvLikeIcon, diarySetDiaryViewHolder
+                .rlDailyLikeLayout, diaryInfo
+                .is_my_favorite(), new AddFavoriteCallback() {
             @Override
-            public void onClick(View v) {
-
+            public void addFavoriteAction() {
+                addFavorite(position);
             }
         });
+
 
         diarySetDiaryViewHolder.llDiaryDetailInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,8 +225,11 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         buildPic(diarySetDiaryViewHolder, diaryInfo);
     }
 
+
     private void gotoDiaryInfo(DiaryInfo diaryInfo, int intentFlag) {
         Bundle bundle = new Bundle();
+        diaryInfo.setDiarySet(mDiarySetInfo);
+        diaryInfo.setAuthor(mDiarySetInfo.getAuthor());
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
         bundle.putInt(DiaryDetailInfoActivity.IntentFlag, intentFlag);
         IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
@@ -372,6 +380,41 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         }
     }
 
+    private void addFavorite(final int position) {
+        final DiaryInfo diaryInfo = list.get(position);
+
+        AddDiaryFavoriteRequest addDiaryFavoriteRequest = new AddDiaryFavoriteRequest();
+        addDiaryFavoriteRequest.setDiaryid(diaryInfo.get_id());
+
+        Api.addDiaryFavorite(addDiaryFavoriteRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                diaryInfo.setIs_my_favorite(true);
+                diaryInfo.setFavorite_count(diaryInfo.getFavorite_count() + 1);
+                notifyItemChanged(position + headViewCount);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
 
     protected void deleteDiary(final int position) {
         DeleteDiaryRequest deleteDiaryRequest = new DeleteDiaryRequest();
@@ -477,13 +520,16 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         TextView tvDailyGoingTime;
 
         @Bind(R.id.ltm_diary_comment_layout)
-        RelativeLayout rlDailyCommentLayout;
+        LinearLayout rlDailyCommentLayout;
 
         @Bind(R.id.ltm_diary_like_layout)
-        RelativeLayout rlDailyLikeLayout;
+        LinearLayout rlDailyLikeLayout;
 
         @Bind(R.id.tv_like_count)
         TextView tvLikeCount;
+
+        @Bind(R.id.tv_like_icon)
+        ImageView tvLikeIcon;
 
         @Bind(R.id.tv_comment_count)
         TextView tvCommentCount;

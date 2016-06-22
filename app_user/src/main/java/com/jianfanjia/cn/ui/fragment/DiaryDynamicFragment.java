@@ -155,10 +155,10 @@ public class DiaryDynamicFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.imgbtn_add_daily})
+    @OnClick({R.id.imgbtn_add_diary})
     protected void onClick(View view) {
         switch (view.getId()) {
-            case R.id.imgbtn_add_daily:
+            case R.id.imgbtn_add_diary:
                 addDiaryAction();
                 break;
         }
@@ -233,6 +233,6 @@ public class DiaryDynamicFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_daily;
+        return R.layout.fragment_dynamic_diary;
     }
 }
