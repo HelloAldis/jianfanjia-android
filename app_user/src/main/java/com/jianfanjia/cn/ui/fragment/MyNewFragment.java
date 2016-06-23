@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -54,30 +53,6 @@ public class MyNewFragment extends BaseFragment {
 
     @Bind(R.id.my_head_layout)
     MainHeadView mMainHeadView;
-
-    @Bind(R.id.collect_layout)
-    RelativeLayout my_collect_layout;
-
-    @Bind(R.id.setting_layout)
-    RelativeLayout setting_layout;
-
-    @Bind(R.id.kefu_layout)
-    RelativeLayout kefu_layout;
-
-    @Bind(R.id.frag_my_info_layout)
-    RelativeLayout my_info_layout;
-
-    @Bind(R.id.feedback_layout)
-    RelativeLayout feedback_layout;
-
-    @Bind(R.id.clear_cache_layout)
-    RelativeLayout clearCacheLayout;
-
-    @Bind(R.id.call_layout)
-    RelativeLayout callPhoneLayout;
-
-    @Bind(R.id.comment_layout)
-    RelativeLayout commentLayout;
 
     @Bind(R.id.cache_size)
     TextView cacheSizeView;
