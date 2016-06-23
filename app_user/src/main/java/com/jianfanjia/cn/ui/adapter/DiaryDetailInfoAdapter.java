@@ -35,6 +35,7 @@ import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
@@ -42,6 +43,7 @@ import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.common.tool.ToastUtil;
+import de.greenrobot.event.EventBus;
 
 /**
  * Name: DiaryDetailInfoAdapter 日记详情
@@ -104,30 +106,13 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
     }
 
-   /* @Override
-    public void onViewAttachedToWindow(final RecyclerViewHolderBase holder) {
-        super.onViewAttachedToWindow(holder);
-        if (holder instanceof CommentViewHolder) {
-            ((CommentViewHolder) holder).itemView.addOnLayoutChangeListener(new View
-                    .OnLayoutChangeListener() {
-
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
-                                           int oldRight, int oldBottom) {
-                    ((CommentViewHolder) holder).itemView.removeOnLayoutChangeListener(this);
-                    rootViewHeight = ((CommentViewHolder) holder).itemView.getMeasuredHeight();
-                }
-            });
-        }
-    }*/
-
     private void bindFooter(FooterViewHolder viewHolder) {
 //        DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder = (DiaryDynamicAdapter.DiaryViewHolder) mRecyclerView
 // .getRecycledViewPool().
 //                .findViewHolderForLayoutPosition(0);
 //        LogTool.d(this.getClass().getName(), "headview height =" + rootViewHeight);
         int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
-                (context, 48);
+                (context, 58);
 //        int totalItemHeight = (rootViewHeight + TDevice.dip2px(context, 10)) * list.size();
 //        if (totalHeight < totalItemHeight) {
 //            return;
@@ -174,7 +159,13 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                LogTool.d(this.getClass().getName(), "mRecyclerView.scrollToPosition(1)");
+                mRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecyclerView.scrollToPosition(1);
+                    }
+                });
             }
         });
         DiaryBusiness.setFavoriteAction(diaryViewHolder.tvLikeIcon, diaryViewHolder.rlDiaryLikeLayout, mDiaryInfo
@@ -186,13 +177,6 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         });
 
         buildPic(diaryViewHolder, mDiaryInfo);
-
-        /*diaryViewHolder.itemView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, 100);*/
     }
 
     private void buildPic(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
@@ -265,6 +249,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 mDiaryInfo.setIs_my_favorite(true);
                 mDiaryInfo.setFavorite_count(mDiaryInfo.getFavorite_count() + 1);
                 notifyItemChanged(0);
+                EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
             }
 
             @Override

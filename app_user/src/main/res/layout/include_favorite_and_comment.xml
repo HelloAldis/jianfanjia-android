@@ -20,8 +20,8 @@
 
             <LinearLayout
                 android:id="@+id/ltm_diary_like_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
 
@@ -39,7 +39,8 @@
                     style="@style/listview_item_text_style_small"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/add_favorite"/>
+                    android:text="@string/add_favorite"
+                    />
             </LinearLayout>
         </RelativeLayout>
 
@@ -56,8 +57,8 @@
 
             <LinearLayout
                 android:id="@+id/ltm_diary_comment_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
 

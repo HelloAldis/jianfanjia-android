@@ -97,8 +97,8 @@ public class MyNewFragment extends BaseFragment {
     @Bind(R.id.frag_my_account)
     TextView my_account;
 
-    @Bind(R.id.notify_count_text)
-    public BadgeView noticeCountView;
+    @Bind(R.id.badgeView)
+    public ImageView noticeCountView;
 
     @Bind(R.id.comment_count_text)
     public BadgeView commentCountView;
@@ -258,7 +258,6 @@ public class MyNewFragment extends BaseFragment {
                 if (countList != null) {
                     if (countList.get(0) > 0) {
                         noticeCountView.setVisibility(View.VISIBLE);
-                        noticeCountView.setText(countList.get(0) + "");
                     } else {
                         noticeCountView.setVisibility(View.GONE);
                     }

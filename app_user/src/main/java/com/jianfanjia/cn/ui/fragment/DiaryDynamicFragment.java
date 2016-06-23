@@ -140,12 +140,10 @@ public class DiaryDynamicFragment extends BaseFragment {
         Api.getMyDiarySetList(getMyDiarySetRequest, new ApiCallback<ApiResponse<DiarySetInfoList>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
             }
 
             @Override
@@ -293,12 +291,11 @@ public class DiaryDynamicFragment extends BaseFragment {
     }
 
     private void refreshOldDataSuccess(List<DiaryUpdateInfo> data) {
-        if(data == null) return;
         List<Integer> requireRefreshItemPos = new ArrayList<>();
         int i = 0;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
             for (DiaryUpdateInfo diaryUpdateInfo : data) {
-                if (diaryInfo.get_id().equals(diaryUpdateInfo.get_id())) {
+                if (diaryUpdateInfo != null && diaryInfo.get_id().equals(diaryUpdateInfo.get_id())) {
                     diaryInfo.setFavorite_count(diaryUpdateInfo.getFavorite_count());
                     diaryInfo.setView_count(diaryUpdateInfo.getView_count());
                     diaryInfo.setComment_count(diaryUpdateInfo.getComment_count());
@@ -444,6 +441,7 @@ public class DiaryDynamicFragment extends BaseFragment {
                 } else {
                     diaryInfo.setComment_count(resultDiaryInfo.getComment_count());
                     diaryInfo.setIs_my_favorite(resultDiaryInfo.is_my_favorite());
+                    diaryInfo.setFavorite_count(resultDiaryInfo.getFavorite_count());
                     mDiaryDynamicAdapter.notifyItemChanged(pos);
                     break;
                 }

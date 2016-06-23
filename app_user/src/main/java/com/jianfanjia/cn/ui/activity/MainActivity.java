@@ -112,7 +112,6 @@ public class MainActivity extends BaseActivity {
                         if (myFragment != null) {
                             if (countList.get(0) > 0) {
                                 myFragment.noticeCountView.setVisibility(View.VISIBLE);
-                                myFragment.noticeCountView.setText(countList.get(0) + "");
                             } else {
                                 myFragment.noticeCountView.setVisibility(View.GONE);
                             }

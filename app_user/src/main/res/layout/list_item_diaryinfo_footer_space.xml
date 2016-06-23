@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/space_24"
             android:text="评论已加载完毕"
             android:textColor="@color/middle_grey_color"
             />
