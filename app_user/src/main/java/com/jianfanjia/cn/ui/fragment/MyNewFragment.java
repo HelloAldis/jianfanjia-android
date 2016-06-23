@@ -128,6 +128,7 @@ public class MyNewFragment extends BaseFragment {
 
     private void initMainView() {
         mMainHeadView.setMianTitle(getString(R.string.my));
+        mMainHeadView.setBackLayoutVisable(View.GONE);
     }
 
     protected void updateUserHeader() {
