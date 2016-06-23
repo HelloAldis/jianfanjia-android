@@ -163,7 +163,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 mRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mRecyclerView.scrollToPosition(1);
+                        mRecyclerView.smoothScrollToPosition(1);
                     }
                 });
             }
