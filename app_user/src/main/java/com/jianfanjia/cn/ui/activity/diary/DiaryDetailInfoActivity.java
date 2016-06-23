@@ -296,7 +296,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             Comment commentInfo = createCommentInfo(content);
             mCommentList.add(0, commentInfo);
             mDiaryDetailInfoAdapter.notifyItemInserted(1);
-            mRecyclerView.scrollToPosition(0);
+            mRecyclerView.scrollToPosition(1);
             commentEdit.setText("");
             EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
         }
