@@ -269,11 +269,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private void setDiarySetInfo() {
         mDiaryInfo.setDiarySetid(currentDiarySet.get_id());
-        if (!TextUtils.isEmpty(currentDiarySet.getLatest_section_label())) {
-            mDiaryInfo.setSection_label(currentDiarySet.getLatest_section_label());
-        } else {
-            mDiaryInfo.setSection_label("准备");
-        }
+        mDiaryInfo.setSection_label(DiaryBusiness.getNextSectionLable(currentDiarySet.getLatest_section_label()));
 
         setNowDiarySetTitle();
         setDecStage();

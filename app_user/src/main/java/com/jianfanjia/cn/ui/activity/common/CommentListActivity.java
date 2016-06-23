@@ -30,6 +30,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
+import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
@@ -114,7 +115,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                             case MyCommentInfoAdapter.DIARY_TYPE:
                                 DiaryDetailInfoActivity.intentToDiaryDetailInfo
                                         (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
-                                                .intentFromComment);
+                                                .intentFromComment,noticeInfo.getUser());
                                 break;
                         }
                     }
@@ -132,7 +133,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                             case MyCommentInfoAdapter.DIARY_TYPE:
                                 DiaryDetailInfoActivity.intentToDiaryDetailInfo
                                         (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
-                                                .intentFromBaseinfo);
+                                                .intentFromBaseinfo,null);
                                 break;
                         }
                     }
@@ -294,6 +295,10 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         LogTool.d(this.getClass().getName(), "onEventMainThread");
         currentnNoticeInfo.getPlan().setStatus(Global.PLAN_STATUS5);
         myCommentInfoAdapter.updateItem(currentnNoticeInfo);
+    }
+
+    public void onEventMainThread(RefreshDiaryInfoEvent refreshDiaryInfoEvent) {
+        getMyCommentInfo(Constant.FROM_START, pullDownCallback);
     }
 
     @Override

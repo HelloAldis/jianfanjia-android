@@ -2,6 +2,7 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,12 +55,17 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
 
     public static final int DIARY_DETAIL_TYPE = 0;//日历详情
     public static final int COMMENT_TYPE = 1;//评论
+    public static final int FOOTER_TYPE = 2;//底部视图;
     private DiaryInfo mDiaryInfo;
     private AddCommentListener mAddCommentListener;
+    RecyclerView mRecyclerView;
+    private int rootViewHeight;
 
-    public DiaryDetailInfoAdapter(Context context, List<Comment> commentList, DiaryInfo diaryInfo) {
+    public DiaryDetailInfoAdapter(Context context, List<Comment> commentList, DiaryInfo diaryInfo, RecyclerView
+            recyclerView) {
         super(context, commentList);
         this.mDiaryInfo = diaryInfo;
+        this.mRecyclerView = recyclerView;
     }
 
     public void setAddCommentListener(AddCommentListener addCommentListener) {
@@ -68,16 +74,19 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
 
     @Override
     public int getItemCount() {
-        return super.getItemCount() + 1;
+        return super.getItemCount() + 2;
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
             return DIARY_DETAIL_TYPE;
-        } else {
+        } else if (position >= 1 && position < list.size() + 1) {
             return COMMENT_TYPE;
+        } else if (position == list.size() + 1) {
+            return FOOTER_TYPE;
         }
+        return -1;
     }
 
     @Override
@@ -89,10 +98,46 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             case COMMENT_TYPE:
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
                 break;
+            case FOOTER_TYPE:
+                bindFooter((FooterViewHolder) viewHolder);
+                break;
         }
     }
 
-    private void bindDiary(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder) {
+   /* @Override
+    public void onViewAttachedToWindow(final RecyclerViewHolderBase holder) {
+        super.onViewAttachedToWindow(holder);
+        if (holder instanceof CommentViewHolder) {
+            ((CommentViewHolder) holder).itemView.addOnLayoutChangeListener(new View
+                    .OnLayoutChangeListener() {
+
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
+                                           int oldRight, int oldBottom) {
+                    ((CommentViewHolder) holder).itemView.removeOnLayoutChangeListener(this);
+                    rootViewHeight = ((CommentViewHolder) holder).itemView.getMeasuredHeight();
+                }
+            });
+        }
+    }*/
+
+    private void bindFooter(FooterViewHolder viewHolder) {
+//        DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder = (DiaryDynamicAdapter.DiaryViewHolder) mRecyclerView
+// .getRecycledViewPool().
+//                .findViewHolderForLayoutPosition(0);
+//        LogTool.d(this.getClass().getName(), "headview height =" + rootViewHeight);
+        int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
+                (context, 48);
+//        int totalItemHeight = (rootViewHeight + TDevice.dip2px(context, 10)) * list.size();
+//        if (totalHeight < totalItemHeight) {
+//            return;
+//        } else {
+        viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
+                .MATCH_PARENT, totalHeight));
+//        }
+    }
+
+    private void bindDiary(final DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder) {
         final DiarySetInfo diarySetInfo = mDiaryInfo.getDiarySet();
         User author = mDiaryInfo.getAuthor();
         if (author != null) {
@@ -141,6 +186,13 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         });
 
         buildPic(diaryViewHolder, mDiaryInfo);
+
+        /*diaryViewHolder.itemView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 100);*/
     }
 
     private void buildPic(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
@@ -403,6 +455,11 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 view = layoutInflater.inflate(R.layout.list_item_comment,
                         null);
                 return new CommentViewHolder(view);
+            case FOOTER_TYPE:
+                view = layoutInflater.inflate(R.layout.list_item_diaryinfo_footer_space, null);
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                        .LayoutParams.WRAP_CONTENT));
+                return new FooterViewHolder(view);
         }
         return null;
     }
@@ -423,6 +480,22 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    class FooterViewHolder extends RecyclerViewHolderBase {
+
+        @Bind(R.id.tv_footer_load_no_more)
+        TextView tvFooterLoadNoMore;
+
+        @Bind(R.id.ll_footer_load_no_more)
+        LinearLayout llFooterLoadNoMore;
+
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+
     }
 
     public interface AddCommentListener {

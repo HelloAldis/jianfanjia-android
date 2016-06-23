@@ -162,7 +162,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             imageShow.displayScreenWidthThumnailImage(context, mDiarySetInfo.getCover_imageid(), diaryViewHolder
                     .ivDiarysetCover);
         } else {
-            diaryViewHolder.ivDiarysetCover.setImageResource(R.mipmap.bg_fragment_my);
+            diaryViewHolder.ivDiarysetCover.setImageResource(R.mipmap.bg_diary_cover);
         }
 
         diaryViewHolder.tvDiarysetTitle.setText(mDiarySetInfo.getTitle());

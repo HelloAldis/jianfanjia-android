@@ -293,6 +293,7 @@ public class DiaryDynamicFragment extends BaseFragment {
     }
 
     private void refreshOldDataSuccess(List<DiaryUpdateInfo> data) {
+        if(data == null) return;
         List<Integer> requireRefreshItemPos = new ArrayList<>();
         int i = 0;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {

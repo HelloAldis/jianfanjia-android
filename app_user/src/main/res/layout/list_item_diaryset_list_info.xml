@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_fragment_my"
+            android:src="@mipmap/bg_diary_cover"
             app:riv_corner_radius="5dip"
             app:riv_mutate_background="true"
             app:riv_oval="false"

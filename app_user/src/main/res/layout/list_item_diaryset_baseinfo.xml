@@ -9,7 +9,7 @@
         android:layout_height="200dp"
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg_fragment_my"
+        android:src="@mipmap/bg_diary_cover"
         />
 
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_height="200dp"
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
-        android:background="@drawable/bg_diaryset_list_item"
+        android:background="@drawable/bg_diaryset_head"
         />
 
     <TextView

@@ -113,7 +113,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
+                gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromComment);
             }
         });
         diaryViewHolder.llDiarySet.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     }
 
     private void gotoDiaryInfo(DiaryInfo diaryInfo, int intentFlag) {
-        DiaryDetailInfoActivity.intentToDiaryDetailInfo(context, diaryInfo, intentFlag);
+        DiaryDetailInfoActivity.intentToDiaryDetailInfo(context, diaryInfo, intentFlag, null);
     }
 
     private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
@@ -297,7 +297,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                         int end = textView.getLayout().getLineEnd(5);
                         LogTool.d(this.getClass().getName(), "end =" + end);
                         CharSequence charSequence = content.subSequence(0, end - 3);
-                        textView.setText(Html.fromHtml(charSequence.toString() + "<font color=\"#05b9fc\">...全文</font>"));
+                        textView.setText(Html.fromHtml(charSequence.toString() + "<font " +
+                                "color=\"#05b9fc\">...全文</font>"));
 //                        textView.requestLayout();
                     }
                 }
@@ -375,6 +376,9 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     }
 
     static class DiaryViewHolder extends RecyclerViewHolderBase {
+
+        @Bind(R.id.ll_rootview)
+        LinearLayout llRootView;
 
         @Bind(R.id.diary_head)
         ImageView ivDiaryHead;

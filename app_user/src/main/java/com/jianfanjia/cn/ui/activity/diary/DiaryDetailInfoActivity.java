@@ -50,6 +50,7 @@ import de.greenrobot.event.EventBus;
 public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
     public static final String IntentFlag = "intent_flag";
+    public static final String BY_USER = "byUser";
     public static final int intentFromComment = 0;
     public static final int intentFromBaseinfo = 1;
     private static final String TAG = DiaryDetailInfoActivity.class.getName();
@@ -75,12 +76,14 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private String replayHint = "";//回复谁
     private String content;//回复的类容
     private int intentFrom;
+    private User byUser;//我被谁评论过
 
     public static void intentToDiaryDetailInfo(Context context, DiaryInfo diaryInfo, int
-            intentFromFlag) {
+            intentFromFlag, User byUser) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
         bundle.putSerializable(IntentFlag, intentFromFlag);
+        bundle.putSerializable(BY_USER, byUser);
         IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
     }
 
@@ -94,7 +97,8 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         Intent intent = getIntent();
         mDiaryInfo = (DiaryInfo) intent.getSerializableExtra(IntentConstant.DIARY_INFO);
-        intentFrom = intent.getIntExtra(IntentFlag, intentFromBaseinfo);
+        intentFrom = intent.getIntExtra(IntentFlag, -1);
+        byUser = (User) intent.getSerializableExtra(BY_USER);
         if (mDiaryInfo != null) {
             diaryId = mDiaryInfo.get_id();
         }
@@ -108,11 +112,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
-        mRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-            }
-        });
     }
 
     @OnTextChanged(R.id.add_comment)
@@ -149,7 +148,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
             }
 
             @Override
@@ -159,11 +157,13 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<DiaryInfo> apiResponse) {
+                hideWaitDialog();
                 makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
+                hideWaitDialog();
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
@@ -174,7 +174,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             deleteDiarySuccess();
         } else {
             refreshDiarySomeData(diaryInfo);
-            to = diaryInfo.getAuthorid();//默认是回复作者的
             getCommentList(mDiaryInfo.get_id(), 0, Constant.HOME_PAGE_LIMIT);
         }
     }
@@ -198,7 +197,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog(R.string.loading);
         }
 
         @Override
@@ -213,7 +211,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             if (null != commentList) {
                 mCommentList = commentList.getComments();
                 mDiaryDetailInfoAdapter = new DiaryDetailInfoAdapter(DiaryDetailInfoActivity.this, mCommentList,
-                        mDiaryInfo);
+                        mDiaryInfo, mRecyclerView);
                 mDiaryDetailInfoAdapter.setAddCommentListener(new DiaryDetailInfoAdapter.AddCommentListener() {
                     @Override
                     public void addCommentListener(User toUser) {
@@ -221,6 +219,12 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                     }
                 });
                 mRecyclerView.setAdapter(mDiaryDetailInfoAdapter);
+                if (intentFrom == intentFromComment) {
+                    prepareAddComment(byUser);
+                    mRecyclerView.scrollToPosition(1);
+                } else {
+                    to = mDiaryInfo.getAuthorid();//默认是回复作者的
+                }
             }
         }
 
@@ -236,16 +240,19 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     };
 
     private void prepareAddComment(User toUser) {
-        if (toUser.get_id().equals(diaryId)) {
-            return;
-        }
-        to = toUser.get_id();
-        if (!TextUtils.isEmpty(toUser.getUsername())) {
-            replayHint = "回复 " + toUser.getUsername() + " ：";
+        if (toUser != null && !toUser.get_id().equals(mDiaryInfo.getAuthor().get_id()) && !toUser.get_id().equals
+                (dataManager.getUserId())) {
+            to = toUser.get_id();
+            if (!TextUtils.isEmpty(toUser.getUsername())) {
+                replayHint = "回复 " + toUser.getUsername() + " ：";
+            } else {
+                replayHint = "回复 业主 ：";
+            }
+            commentEdit.setHint(replayHint);
         } else {
-            replayHint = "回复 业主 ：";
+            to = mDiaryInfo.getAuthor().get_id();
         }
-        commentEdit.setHint(replayHint);
+        LogTool.d(this.getClass().getName(), " to = " + to);
     }
 
     @OnClick({R.id.btn_send, R.id.head_back_layout})

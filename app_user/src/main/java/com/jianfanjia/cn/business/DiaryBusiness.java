@@ -103,4 +103,20 @@ public class DiaryBusiness {
         }
     }
 
+    public static String getNextSectionLable(String section) {
+        String[] dectypes = MyApplication.getInstance().getResources().getStringArray(R.array.arr_diary_stage);
+        if (TextUtils.isEmpty(section)) return dectypes[0];
+        int choosePos = 0;
+        for (int i = 0; i < dectypes.length; i++) {
+            if (section.equals(dectypes[i])) {
+                choosePos = i + 1;
+                break;
+            }
+        }
+        if (choosePos > dectypes.length - 1) {
+            choosePos = dectypes.length - 1;
+        }
+        return dectypes[choosePos];
+    }
+
 }

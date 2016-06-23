@@ -99,7 +99,7 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
             imageShow.displayScreenWidthThumnailImage(context, diarySetInfo.getCover_imageid(), holder
                     .ivDiarySetCoverPic);
         } else {
-            holder.ivDiarySetCoverPic.setImageResource(R.mipmap.bg_fragment_my);
+            holder.ivDiarySetCoverPic.setImageResource(R.mipmap.bg_diary_cover);
         }
 
     }

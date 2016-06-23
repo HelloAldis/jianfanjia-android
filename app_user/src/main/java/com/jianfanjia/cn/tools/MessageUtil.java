@@ -11,21 +11,20 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.jianfanjia.cn.ui.activity.my.NoticeDetailActivity;
+import static com.jianfanjia.common.tool.JsonParser.jsonToBean;
+
 import com.jianfanjia.api.model.NotifyMessage;
 import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.ui.Event.MessageCountEvent;
-import com.jianfanjia.cn.ui.activity.MainActivity;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.common.CommentListActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.ui.Event.MessageCountEvent;
+import com.jianfanjia.cn.ui.activity.MainActivity;
+import com.jianfanjia.cn.ui.activity.common.CommentListActivity;
+import com.jianfanjia.cn.ui.activity.my.NoticeDetailActivity;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
-
 import de.greenrobot.event.EventBus;
-
-import static com.jianfanjia.common.tool.JsonParser.jsonToBean;
 
 /**
  * Description: com.jianfanjia.cn.tools
@@ -65,7 +64,8 @@ public class MessageUtil {
         Intent targetIntent = null;
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (type.equals(Constant.TYPE_SECTION_COMMENT_MSG) || type.equals(Constant
-                .TYPE_PLAN_COMMENT_MSG)) {
+                .TYPE_PLAN_COMMENT_MSG) || type.equals(Constant
+                .TYPE_DIARY_COMMENT_MSG)) {
             targetIntent = new Intent(context, CommentListActivity.class);
         } else {
             targetIntent = new Intent(context, NoticeDetailActivity.class);
