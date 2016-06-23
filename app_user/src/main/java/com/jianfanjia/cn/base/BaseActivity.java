@@ -98,11 +98,11 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     protected void makeTextShort(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     protected void makeTextLong(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     // 通过Class跳转界面

@@ -143,7 +143,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private void initGridView() {
         imageUrlList = new ArrayList<>();
-        imageUrlList.add(Constant.DEFALUT_ADD_DIARY_PIC );
+        imageUrlList.add(Constant.DEFALUT_ADD_DIARY_PIC);
         mAddDiaryGridViewAdapter = new AddDiaryGridViewAdapter(this, imageUrlList);
         gvAddDiaryPic.setAdapter(mAddDiaryGridViewAdapter);
         gvAddDiaryPic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -188,7 +188,8 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void setMianHeadRightTitleEnable() {
-        if (!TextUtils.isEmpty(mDiaryInfo.getContent()) && !TextUtils.isEmpty(mDiaryInfo.getSection_label()) &&
+        if (!TextUtils.isEmpty(mDiaryInfo.getContent()) && mDiaryInfo.getContent().length() > 15 && !TextUtils
+                .isEmpty(mDiaryInfo.getSection_label()) &&
                 !TextUtils.isEmpty(mDiaryInfo.getDiarySetid())) {
             mMainHeadView.setRigthTitleEnable(true);
         } else {
@@ -221,11 +222,13 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private void setNowDiarySetTitle() {
         tvAddDiaryNowDiarySetContent.setText(currentDiarySetTitle);
+        setMianHeadRightTitleEnable();
     }
 
     private void setDecStage() {
         LogTool.d(TAG, "section_label =" + mDiaryInfo.getSection_label());
         tvAddDiaryDecStageContent.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
+        setMianHeadRightTitleEnable();
     }
 
     private void getDataFromIntent() {
@@ -266,7 +269,11 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private void setDiarySetInfo() {
         mDiaryInfo.setDiarySetid(currentDiarySet.get_id());
-        mDiaryInfo.setSection_label(currentDiarySet.getLatest_section_label());
+        if (!TextUtils.isEmpty(currentDiarySet.getLatest_section_label())) {
+            mDiaryInfo.setSection_label(currentDiarySet.getLatest_section_label());
+        } else {
+            mDiaryInfo.setSection_label("准备");
+        }
 
         setNowDiarySetTitle();
         setDecStage();

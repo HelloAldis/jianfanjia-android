@@ -1,9 +1,8 @@
 package com.jianfanjia.cn.ui.activity.diary;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -36,9 +35,11 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiaryDetailInfoAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
+import de.greenrobot.event.EventBus;
 
 /**
  * Description: com.jianfanjia.cn.ui.activity.diary
@@ -75,28 +76,12 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private String content;//回复的类容
     private int intentFrom;
 
-    public static void intentToDiaryDetailInfoFromActivityForResult(Activity activity, DiaryInfo diaryInfo, int
-            intentFromFlag, int requestCode) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
-        bundle.putSerializable(IntentFlag, intentFromFlag);
-        IntentUtil.startActivityForResult(activity, DiaryDetailInfoActivity.class, bundle, requestCode);
-    }
-
-    public static void intentToDiaryDetailInfo(Activity activity, DiaryInfo diaryInfo, int
+    public static void intentToDiaryDetailInfo(Context context, DiaryInfo diaryInfo, int
             intentFromFlag) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
         bundle.putSerializable(IntentFlag, intentFromFlag);
-        IntentUtil.startActivity(activity, DiaryDetailInfoActivity.class, bundle);
-    }
-
-    public static void intentToDiaryDetailInfoFromFragmentForResult(Fragment fragment, DiaryInfo diaryInfo, int
-            intentFromFlag, int requestCode) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
-        bundle.putSerializable(IntentFlag, intentFromFlag);
-        IntentUtil.startActivityForResult(fragment, DiaryDetailInfoActivity.class, bundle, requestCode);
+        IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
     }
 
     @Override
@@ -123,6 +108,11 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
     }
 
     @OnTextChanged(R.id.add_comment)
@@ -181,18 +171,27 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
     private void setInitData(DiaryInfo diaryInfo) {
         if (diaryInfo.is_deleted()) {
-            mDiaryInfo.setIs_deleted(true);
-            backBecauseOfDelete();
+            deleteDiarySuccess();
         } else {
+            refreshDiarySomeData(diaryInfo);
             to = diaryInfo.getAuthorid();//默认是回复作者的
             getCommentList(mDiaryInfo.get_id(), 0, Constant.HOME_PAGE_LIMIT);
         }
     }
 
-    private void backBecauseOfDelete() {
-        Intent intent = getIntent();
-        intent.putExtra(IntentConstant.DIARY_INFO, mDiaryInfo);
-        setResult(RESULT_OK, intent);
+    private void refreshDiarySomeData(DiaryInfo diaryInfo) {
+        mDiaryInfo.setComment_count(diaryInfo.getComment_count());
+        mDiaryInfo.setIs_my_favorite(diaryInfo.is_my_favorite());
+        mDiaryInfo.setFavorite_count(diaryInfo.getFavorite_count());
+        mDiaryInfo.setView_count(diaryInfo.getView_count());
+
+        EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
+    }
+
+    public void deleteDiarySuccess() {
+        mDiaryInfo.setIs_deleted(true);
+        makeTextShort("该日记已经被删除");
+        EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
         appManager.finishActivity(this);
     }
 
@@ -257,7 +256,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                 addComment();
                 break;
             case R.id.head_back_layout:
-                backBecauseOfDelete();
+                appManager.finishActivity(this);
                 break;
         }
     }
@@ -285,11 +284,14 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
+            mDiaryInfo.setComment_count(mDiaryInfo.getComment_count() + 1);
+            mDiaryDetailInfoAdapter.notifyItemChanged(0);
             Comment commentInfo = createCommentInfo(content);
             mCommentList.add(0, commentInfo);
             mDiaryDetailInfoAdapter.notifyItemInserted(1);
             mRecyclerView.scrollToPosition(0);
             commentEdit.setText("");
+            EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
         }
 
         @Override

@@ -2,7 +2,6 @@ package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
@@ -35,7 +34,6 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
@@ -54,11 +52,9 @@ import com.jianfanjia.common.tool.ToastUtil;
  */
 public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
-    private Fragment mFragment;
 
-    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView, Fragment fragment) {
+    public DiaryDynamicAdapter(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
-        this.mFragment = fragment;
     }
 
     @Override
@@ -137,11 +133,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     }
 
     private void gotoDiaryInfo(DiaryInfo diaryInfo, int intentFlag) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
-        bundle.putInt(DiaryDetailInfoActivity.IntentFlag, intentFlag);
-        IntentUtil.startActivityForResult(mFragment, DiaryDetailInfoActivity.class, bundle, Constant
-                .REQUESTCODE_SHOW_DIARYINFO);
+        DiaryDetailInfoActivity.intentToDiaryDetailInfo(context, diaryInfo, intentFlag);
     }
 
     private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
@@ -216,7 +208,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     GridLayout gridLayout) {
         gridLayout.setVisibility(View.VISIBLE);
 
-        final int count = imageCount;
+        final int count = imageCount > 9 ? 9 : imageCount;
         for (int i = 0; i < count; i++) {
             final ImageView pic = (ImageView) gridLayout.getChildAt(i);
             pic.setVisibility(View.VISIBLE);
@@ -305,7 +297,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                         int end = textView.getLayout().getLineEnd(5);
                         LogTool.d(this.getClass().getName(), "end =" + end);
                         CharSequence charSequence = content.subSequence(0, end - 3);
-                        textView.setText(Html.fromHtml(charSequence + "<font color=\"#05b9fc\">...全文</font>"));
+                        textView.setText(Html.fromHtml(charSequence.toString() + "<font color=\"#05b9fc\">...全文</font>"));
 //                        textView.requestLayout();
                     }
                 }

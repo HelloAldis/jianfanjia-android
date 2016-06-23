@@ -309,7 +309,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
     GridLayout gridLayout) {
         gridLayout.setVisibility(View.VISIBLE);
 
-        final int count = imageCount;
+        final int count = imageCount > 9 ? 9 : imageCount;
         for (int i = 0; i < count; i++) {
             final ImageView pic = (ImageView) gridLayout.getChildAt(i);
             pic.setVisibility(View.VISIBLE);

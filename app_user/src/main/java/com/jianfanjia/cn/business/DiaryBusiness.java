@@ -22,6 +22,7 @@ import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 public class DiaryBusiness {
 
     public static final int UPLOAD_MAX_PIC_COUNT = 9;//上传最大的图片数为9张
+    public static final int REQUIRE_REFRESH_TIME = 1000 * 60 * 5;//老数据刷新时间间隔
 
     public static String getDiarySetDes(DiarySetInfo diarySetInfo) {
         StringBuilder stringBuilder = new StringBuilder();

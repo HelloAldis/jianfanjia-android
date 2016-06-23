@@ -296,6 +296,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         }
     }
 
+
     private void pickPicture(int requestCode, int totalCount) {
         PhotoPickerIntent intent1 = new PhotoPickerIntent(this);
         intent1.setPhotoCount(totalCount);

@@ -35,6 +35,7 @@ import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
@@ -243,6 +244,8 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
+                DiaryDetailInfoActivity diaryDetailInfoActivity = (DiaryDetailInfoActivity) context;
+                diaryDetailInfoActivity.deleteDiarySuccess();
             }
 
             @Override
@@ -275,7 +278,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     GridLayout gridLayout) {
         gridLayout.setVisibility(View.VISIBLE);
 
-        final int count = imageCount;
+        final int count = imageCount > 9 ? 9 : imageCount;
         for (int i = 0; i < count; i++) {
             final ImageView pic = (ImageView) gridLayout.getChildAt(i);
             pic.setVisibility(View.VISIBLE);
