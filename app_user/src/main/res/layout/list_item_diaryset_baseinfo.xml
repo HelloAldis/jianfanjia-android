@@ -81,6 +81,7 @@
                     android:layout_alignParentBottom="true"
                     android:src="@mipmap/icon_edit_diary"
                     android:scaleType="center"
+                    android:tint="@color/font_white"
                     android:visibility="gone"/>
 
                 <TextView

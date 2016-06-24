@@ -123,6 +123,6 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_diarylist;
+        return R.layout.activity_diaryset_list;
     }
 }

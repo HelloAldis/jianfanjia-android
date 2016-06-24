@@ -76,6 +76,10 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     @Bind(R.id.toolbar_share)
     ImageView ivShare;
 
+    @Bind(R.id.head_back)
+    ImageView ivBackView;
+
+
     @Bind(R.id.toolbar_share_layout)
     RelativeLayout rlShareLayout;
 
@@ -370,6 +374,6 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_diaryinfo;
+        return R.layout.activity_diarysetinfo;
     }
 }

@@ -239,6 +239,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
     public void showSoftKeyBoard() {
         commentEdit.requestFocus();
+        mRecyclerView.scrollToPosition(1);
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
     }
@@ -246,7 +247,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private void initViewShowAndData() {
         if (intentFrom == intentFromComment) {
             prepareAddComment(byUser);
-            mRecyclerView.scrollToPosition(1);
+            showSoftKeyBoard();
         } else {
             to = mDiaryInfo.getAuthorid();//默认是回复作者的
         }

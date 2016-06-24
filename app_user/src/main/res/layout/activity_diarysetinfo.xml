@@ -35,7 +35,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_20"
-                    android:src="@mipmap/icon_register_back"/>
+                    android:src="@mipmap/icon_register_back"
+                    android:tint="@color/font_white"/>
             </RelativeLayout>
 
             <LinearLayout
