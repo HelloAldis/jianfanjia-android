@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/ltm_diary_delte"
-                style="@style/listview_item_text_style_small"
+                style="@style/listview_item_text_style_middle"
                 android:layout_alignBaseline="@+id/ltm_diary_stage"
                 android:layout_alignParentRight="true"
                 android:text="@string/str_delete"

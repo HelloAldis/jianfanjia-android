@@ -818,8 +818,8 @@ public class ImageUtil {
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
-        float hh = 600f;// 这里设置高度为800f
-        float ww = 600f;// 这里设置宽度为480f
+        float hh = TDevice.getScreenHeight();// 这里设置高度为800f
+        float ww = TDevice.getScreenWidth();// 这里设置宽度为480f
         // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;// be=1表示不缩放
         if (w > h && w > ww) {
@@ -836,6 +836,7 @@ public class ImageUtil {
             LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
             LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
             LogTool.d("fjg", "after scaled newOpts height:" + newOpts.outHeight);
+            LogTool.d("fjg", "after scaled bitmap size:" + bitmap.getByteCount());
         }
         return bitmap;// 压缩好比例大小后再进行质量压缩
     }

@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.api.model.DiaryImageDetailInfo;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.api.request.common.AddDiaryRequest;
@@ -93,6 +94,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
     private List<String> imageUrlList;
     private List<String> showImageUrlList = new ArrayList<>();
+    private List<DiaryImageDetailInfo> mDiaryImageDetailInfoLists = new ArrayList<>();
 
     public static void intentToAddDiary(Context context, List<DiarySetInfo> diarySetInfoList, DiarySetInfo
             diarySetInfo) {
@@ -130,6 +132,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         mMainHeadView.setRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDiaryInfo.setImages(mDiaryImageDetailInfoLists);
                 addDiary(mDiaryInfo);
             }
         });
@@ -145,6 +148,21 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         imageUrlList = new ArrayList<>();
         imageUrlList.add(Constant.DEFALUT_ADD_DIARY_PIC);
         mAddDiaryGridViewAdapter = new AddDiaryGridViewAdapter(this, imageUrlList);
+        mAddDiaryGridViewAdapter.setDeleteListener(new AddDiaryGridViewAdapter.DeleteListener() {
+            @Override
+            public void delete(int position) {
+                deleteImageToDiaryData(imageUrlList.get(position));
+                if (imageUrlList.size() == DiaryBusiness.UPLOAD_MAX_PIC_COUNT) {
+                    imageUrlList.remove(position);
+                    if (!imageUrlList.contains(Constant.DEFALUT_ADD_DIARY_PIC)) {
+                        imageUrlList.add(Constant.DEFALUT_ADD_DIARY_PIC);
+                    }
+                } else {
+                    imageUrlList.remove(position);
+                }
+                mAddDiaryGridViewAdapter.notifyDataSetChanged();
+            }
+        });
         gvAddDiaryPic.setAdapter(mAddDiaryGridViewAdapter);
         gvAddDiaryPic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,6 +177,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 }
             }
         });
+
     }
 
     private void showImageBig(int position) {
@@ -383,13 +402,10 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                if (imageUrlList.size() != DiaryBusiness.UPLOAD_MAX_PIC_COUNT) {
-                    imageUrlList.add(imageUrlList.size() - 1, apiResponse.getData());
-                } else {
-                    imageUrlList.remove(DiaryBusiness.UPLOAD_MAX_PIC_COUNT - 1);
-                    imageUrlList.add(apiResponse.getData());
-                }
-                mAddDiaryGridViewAdapter.notifyDataSetChanged();
+                String imageid = apiResponse.getData();
+                addImageToShow(imageid);
+                addImageToDiaryData(imageid, bitmap.getWidth(), bitmap.getHeight());
+
                 AddDiaryActivity.this.uploadImageSync();
             }
 
@@ -405,6 +421,36 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 AddDiaryActivity.this.uploadImageSync();
             }
         });
+    }
+
+    private void deleteImageToDiaryData(String imageid) {
+        int pos = 0;
+        for (DiaryImageDetailInfo diaryImageDetailInfo : mDiaryImageDetailInfoLists) {
+            if (diaryImageDetailInfo.getImageid().equals(imageid)) {
+                mDiaryImageDetailInfoLists.remove(pos);
+                break;
+            }
+            pos++;
+        }
+    }
+
+    private void addImageToDiaryData(String imageid, int width, int height) {
+        DiaryImageDetailInfo diaryImageDetailInfo = new DiaryImageDetailInfo();
+        diaryImageDetailInfo.setImageid(imageid);
+        diaryImageDetailInfo.setWidth(width);
+        diaryImageDetailInfo.setHeight(height);
+
+        mDiaryImageDetailInfoLists.add(diaryImageDetailInfo);
+    }
+
+    private void addImageToShow(String imageid) {
+        if (imageUrlList.size() != DiaryBusiness.UPLOAD_MAX_PIC_COUNT) {
+            imageUrlList.add(imageUrlList.size() - 1, imageid);
+        } else {
+            imageUrlList.remove(DiaryBusiness.UPLOAD_MAX_PIC_COUNT - 1);
+            imageUrlList.add(imageid);
+        }
+        mAddDiaryGridViewAdapter.notifyDataSetChanged();
     }
 
     public void uploadImageSync() {

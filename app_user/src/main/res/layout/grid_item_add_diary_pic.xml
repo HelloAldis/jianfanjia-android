@@ -14,13 +14,13 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/icon_default_pic"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/ltm_diary_delte"
-        style="@style/listview_item_text_style_middle"
-        android:layout_alignBaseline="@+id/ltm_diary_baseinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:padding="@dimen/space_6"
-        android:text="@string/str_delete"
-        android:textColor="@color/blue_color"/>
+        android:scaleType="center"
+        android:src="@mipmap/icon_check_delete"/>
 
 </com.jianfanjia.cn.view.layout.SquareLayout>

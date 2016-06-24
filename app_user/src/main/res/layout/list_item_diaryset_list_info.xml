@@ -73,7 +73,6 @@
                 android:paddingLeft="@dimen/space_16"
                 android:paddingRight="@dimen/space_16"
                 android:paddingTop="@dimen/space_4"
-                android:text="@string/chai_gai"
                 android:textColor="@color/font_white"/>
 
             <RelativeLayout
