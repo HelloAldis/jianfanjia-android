@@ -195,7 +195,8 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         LogTool.d(this.getClass().getName(), diaryInfo.getContent());
         diarySetDiaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(diaryInfo
                 .getSection_label()));
-        diarySetDiaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.getHumReadDateString(diaryInfo.getCreate_at()));
+        diarySetDiaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.covertLongToStringHasMiniAndChinese(diaryInfo
+                .getCreate_at()));
         diarySetDiaryViewHolder.tvCommentCount.setText(DiaryBusiness.getCommentCountShow(diaryInfo.getComment_count()));
         diarySetDiaryViewHolder.tvLikeCount.setText(DiaryBusiness.getFavoriteCountShow(diaryInfo.getFavorite_count()));
         diarySetDiaryViewHolder.tvDailyContent.setText(diaryInfo.getContent());

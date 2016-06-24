@@ -43,6 +43,7 @@ public class DiaryBusiness {
     }
 
     public static String getShowDiarySectionLabel(String sectionLabel) {
+        if (TextUtils.isEmpty(sectionLabel)) return "准备阶段";
         return sectionLabel + "阶段";
     }
 

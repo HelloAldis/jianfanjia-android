@@ -44,11 +44,12 @@
                     android:maxWidth="120dp"
                     android:singleLine="true"
                     android:textColor="@color/light_black_color"
+                    android:textSize="@dimen/space_15"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/ltm_diary_stage"
-                    style="@style/listview_item_text_style_small"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diaryset_title"
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_toRightOf="@+id/ltm_diaryset_title"
@@ -57,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/ltm_diary_goingtime"
-                    style="@style/listview_item_text_style_small"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diaryset_title"
                     android:layout_alignParentRight="true"
                     android:text="3分钟前"
@@ -65,7 +66,7 @@
 
                 <TextView
                     android:id="@+id/ltm_diary_delte"
-                    style="@style/listview_item_text_style_small"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignBaseline="@+id/ltm_diary_baseinfo"
                     android:layout_alignParentRight="true"
                     android:text="@string/str_delete"
@@ -74,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/ltm_diary_baseinfo"
-                    style="@style/listview_item_text_style_small"
+                    style="@style/listview_item_text_style_middle"
                     android:layout_alignParentBottom="true"
                     android:textColor="@color/grey_color"/>
 
@@ -84,7 +85,7 @@
 
         <TextView
             android:id="@+id/ltm_diary_content"
-            style="@style/listview_item_text_style_small"
+            style="@style/listview_item_text_style_middle"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/space_16"
             android:gravity="left"

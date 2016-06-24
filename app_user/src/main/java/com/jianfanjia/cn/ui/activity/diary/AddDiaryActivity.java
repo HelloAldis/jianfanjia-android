@@ -125,7 +125,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void initMianView() {
-        mMainHeadView.setMianTitle(getString(R.string.add_diary));
+        mMainHeadView.setMianTitle(getString(R.string.create_diary));
         mMainHeadView.setRightTitle(getString(R.string.str_publish));
         mMainHeadView.setRightTextListener(new View.OnClickListener() {
             @Override
@@ -188,7 +188,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void setMianHeadRightTitleEnable() {
-        if (!TextUtils.isEmpty(mDiaryInfo.getContent()) && mDiaryInfo.getContent().length() > 15 && !TextUtils
+        if (!TextUtils.isEmpty(mDiaryInfo.getContent()) && mDiaryInfo.getContent().length() >= 15 && !TextUtils
                 .isEmpty(mDiaryInfo.getSection_label()) &&
                 !TextUtils.isEmpty(mDiaryInfo.getDiarySetid())) {
             mMainHeadView.setRigthTitleEnable(true);

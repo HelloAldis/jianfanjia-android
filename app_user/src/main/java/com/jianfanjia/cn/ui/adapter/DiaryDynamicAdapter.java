@@ -297,6 +297,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                         int end = textView.getLayout().getLineEnd(5);
                         LogTool.d(this.getClass().getName(), "end =" + end);
                         CharSequence charSequence = content.subSequence(0, end - 3);
+                        LogTool.d(this.getClass().getName(),charSequence.toString() + ",");
                         textView.setText(Html.fromHtml(charSequence.toString() + "<font " +
                                 "color=\"#05b9fc\">...全文</font>"));
 //                        textView.requestLayout();

@@ -76,6 +76,12 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
 
     private void initView() {
         mainHeadView.setMianTitle(getString(R.string.dec_stage));
+        mainHeadView.setBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appManager.finishActivity(ChooseDiaryStageActivity.this);
+            }
+        });
     }
 
     @Override

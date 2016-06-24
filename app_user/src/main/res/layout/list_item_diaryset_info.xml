@@ -27,12 +27,12 @@
 
             <TextView
                 android:id="@+id/ltm_diary_goingtime"
-                style="@style/listview_item_text_style_small"
+                style="@style/listview_item_text_style_middle"
                 android:layout_alignBaseline="@+id/ltm_diary_stage"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_toRightOf="@+id/ltm_diary_stage"
                 android:text="3分钟前"
-                android:textColor="@color/grey_color"/>
+                android:textColor="@color/light_black_color"/>
 
             <TextView
                 android:id="@+id/ltm_diary_delte"
@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/ltm_diary_content"
-            style="@style/listview_item_text_style_small"
+            style="@style/listview_item_text_style_middle"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/space_16"
             android:gravity="left"

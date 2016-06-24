@@ -115,7 +115,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                             case MyCommentInfoAdapter.DIARY_TYPE:
                                 DiaryDetailInfoActivity.intentToDiaryDetailInfo
                                         (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
-                                                .intentFromComment,noticeInfo.getUser());
+                                                .intentFromComment, noticeInfo.getUser());
                                 break;
                         }
                     }
@@ -133,7 +133,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                             case MyCommentInfoAdapter.DIARY_TYPE:
                                 DiaryDetailInfoActivity.intentToDiaryDetailInfo
                                         (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
-                                                .intentFromBaseinfo,null);
+                                                .intentFromBaseinfo, null);
                                 break;
                         }
                     }

@@ -219,12 +219,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                     }
                 });
                 mRecyclerView.setAdapter(mDiaryDetailInfoAdapter);
-                if (intentFrom == intentFromComment) {
-                    prepareAddComment(byUser);
-                    mRecyclerView.scrollToPosition(1);
-                } else {
-                    to = mDiaryInfo.getAuthorid();//默认是回复作者的
-                }
+                initViewShowAndData();
             }
         }
 
@@ -239,6 +234,15 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         }
     };
 
+    private void initViewShowAndData() {
+        if (intentFrom == intentFromComment) {
+            prepareAddComment(byUser);
+            mRecyclerView.scrollToPosition(1);
+        } else {
+            to = mDiaryInfo.getAuthorid();//默认是回复作者的
+        }
+    }
+
     private void prepareAddComment(User toUser) {
         if (toUser != null && !toUser.get_id().equals(mDiaryInfo.getAuthor().get_id()) && !toUser.get_id().equals
                 (dataManager.getUserId())) {
@@ -248,10 +252,11 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             } else {
                 replayHint = "回复 业主 ：";
             }
-            commentEdit.setHint(replayHint);
         } else {
             to = mDiaryInfo.getAuthor().get_id();
+            replayHint = "";
         }
+        commentEdit.setHint(replayHint);
         LogTool.d(this.getClass().getName(), " to = " + to);
     }
 
@@ -291,14 +296,8 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
-            mDiaryInfo.setComment_count(mDiaryInfo.getComment_count() + 1);
-            mDiaryDetailInfoAdapter.notifyItemChanged(0);
-            Comment commentInfo = createCommentInfo(content);
-            mCommentList.add(0, commentInfo);
-            mDiaryDetailInfoAdapter.notifyItemInserted(1);
-            mRecyclerView.scrollToPosition(1);
-            commentEdit.setText("");
-            EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
+            updateCommentCountShow();
+            nativeAddCommentShow();
         }
 
         @Override
@@ -312,6 +311,19 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         }
     };
 
+    private void updateCommentCountShow() {
+        mDiaryInfo.setComment_count(mDiaryInfo.getComment_count() + 1);
+        mDiaryDetailInfoAdapter.notifyItemChanged(0);
+        EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
+    }
+
+    private void nativeAddCommentShow() {
+        Comment commentInfo = createCommentInfo(content);
+        mCommentList.add(0, commentInfo);
+        mDiaryDetailInfoAdapter.notifyItemInserted(1);
+        commentEdit.setText("");
+    }
+
     protected Comment createCommentInfo(String content) {
         Comment commentInfo = new Comment();
         commentInfo.setTopicid(diaryId);
@@ -322,6 +334,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         User user = new User();
         user.setUsername(dataManager.getUserName());
         user.setImageid(dataManager.getUserImagePath());
+        user.set_id(dataManager.getUserId());
         commentInfo.setByUser(user);
         return commentInfo;
     }

@@ -167,7 +167,7 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
     }
 
     private void initMianView() {
-        mMainHeadView.setMianTitle(getString(R.string.diary_info));
+        mMainHeadView.setMianTitle(getString(R.string.diaryset_info));
         mMainHeadView.setRightTitle(getString(R.string.save));
         mMainHeadView.setRightTextListener(new View.OnClickListener() {
             @Override
@@ -210,7 +210,7 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
             case R.id.rl_add_diary_style:
                 ChooseItemLoveStyleIntent loveStyleIntent = new ChooseItemLoveStyleIntent(this);
                 loveStyleIntent.setSingleChoose(Constant.REQUIRECODE_LOVESTYLE, mDiarySetInfo.getDec_style(),
-                        getString(R.string.str_lovestyle));
+                        getString(R.string.str_decorate_style));
                 startActivityForResult(loveStyleIntent, Constant.REQUIRECODE_LOVESTYLE);
                 break;
             case R.id.rl_add_diary_work_type:

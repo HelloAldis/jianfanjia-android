@@ -41,7 +41,7 @@ public class DesignerPlanAdapter extends BaseRecyclerViewAdapter<Plan> {
         final DesignerPlanViewHolder holder = (DesignerPlanViewHolder) viewHolder;
         holder.numText.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
         holder.dateText.setText(DateFormatTool.longToString(info.getLast_status_update_time()));
-        holder.commentText.setText("留言(" + info.getComment_count() + ")");
+        holder.commentText.setText("评论(" + info.getComment_count() + ")");
         String status = info.getStatus();
         if (status.equals(Global.PLAN_STATUS3)) {
             holder.statusText.setTextColor(context.getResources().getColor(R.color.blue_color));

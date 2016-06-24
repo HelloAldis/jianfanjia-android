@@ -31,7 +31,7 @@
         <TextView
             android:id="@+id/tv_add_diary_title"
             style="@style/style_edit_req_title"
-            android:text="@string/str_diary_title"/>
+            android:text="@string/str_diaryset_title"/>
 
         <EditText
             android:id="@+id/et_add_dairy_title_content"
