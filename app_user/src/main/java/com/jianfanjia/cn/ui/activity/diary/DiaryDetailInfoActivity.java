@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -174,7 +175,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             deleteDiarySuccess();
         } else {
             refreshDiarySomeData(diaryInfo);
-            getCommentList(mDiaryInfo.get_id(), 0, Constant.HOME_PAGE_LIMIT);
+            getCommentList(mDiaryInfo.get_id(), 0, 1000);
         }
     }
 
@@ -189,7 +190,9 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
     public void deleteDiarySuccess() {
         mDiaryInfo.setIs_deleted(true);
-        makeTextShort("该日记已经被删除");
+        if (!mDiaryInfo.getAuthor().get_id().equals(dataManager.getUserId())) {
+            makeTextShort(getString(R.string.tip_diary_delte));
+        }
         EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
         appManager.finishActivity(this);
     }
@@ -234,6 +237,12 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         }
     };
 
+    public void showSoftKeyBoard() {
+        commentEdit.requestFocus();
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
     private void initViewShowAndData() {
         if (intentFrom == intentFromComment) {
             prepareAddComment(byUser);
@@ -244,7 +253,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     }
 
     private void prepareAddComment(User toUser) {
-        if (toUser != null && !toUser.get_id().equals(mDiaryInfo.getAuthor().get_id()) && !toUser.get_id().equals
+        if (toUser != null  && !toUser.get_id().equals
                 (dataManager.getUserId())) {
             to = toUser.get_id();
             if (!TextUtils.isEmpty(toUser.getUsername())) {
@@ -286,12 +295,10 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog(R.string.loading);
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
         }
 
         @Override
@@ -321,6 +328,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         Comment commentInfo = createCommentInfo(content);
         mCommentList.add(0, commentInfo);
         mDiaryDetailInfoAdapter.notifyItemInserted(1);
+        mRecyclerView.scrollToPosition(1);
         commentEdit.setText("");
     }
 

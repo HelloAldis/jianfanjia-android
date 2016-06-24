@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.ui.activity.diary;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,6 +29,8 @@ import com.jianfanjia.cn.ui.activity.common.choose_item.ChooseItemIntent;
 import com.jianfanjia.cn.ui.activity.common.choose_item.ChooseItemLoveStyleIntent;
 import com.jianfanjia.cn.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 
 /**
  * Description: com.jianfanjia.cn.ui.activity.diary
@@ -182,7 +185,17 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
         mMainHeadView.setBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appManager.finishActivity(AddDiarySetActivity.this);
+                if (currentStatus == CURRENT_STATUS_ADD) {
+                    if (!TextUtils.isEmpty(mDiarySetInfo.getTitle()) || !TextUtils.isEmpty(mDiarySetInfo.getWork_type
+                            ()) ||
+                            !TextUtils.isEmpty(mDiarySetInfo.getHouse_type()) || !TextUtils.isEmpty(mDiarySetInfo
+                            .getDec_style())
+                            || mDiarySetInfo.getHouse_area() > 0) {
+                        showTipDialog();
+                    }
+                } else {
+                    appManager.finishActivity(AddDiarySetActivity.this);
+                }
             }
         });
     }
@@ -196,6 +209,26 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
         } else {
             mMainHeadView.setRigthTitleEnable(false);
         }
+    }
+
+    protected void showTipDialog() {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip_confirm);
+        commonDialog.setMessage(getString(R.string.abandon_diaryset_write));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                appManager.finishActivity(AddDiarySetActivity.this);
+            }
+        });
+        commonDialog.show();
     }
 
     @OnClick({R.id.rl_add_diary_housetype, R.id.rl_add_diary_style, R.id.rl_add_diary_work_type})

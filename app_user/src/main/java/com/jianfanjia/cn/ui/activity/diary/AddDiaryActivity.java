@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.ui.activity.diary;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.adapter.AddDiaryGridViewAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -139,7 +142,11 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         mMainHeadView.setBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appManager.finishActivity(AddDiaryActivity.class);
+                if (mDiaryImageDetailInfoLists.size() > 0 || !TextUtils.isEmpty(mDiaryInfo.getContent())) {
+                    showTipDialog();
+                } else {
+                    appManager.finishActivity(AddDiaryActivity.class);
+                }
             }
         });
     }
@@ -178,6 +185,26 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             }
         });
 
+    }
+
+    protected void showTipDialog() {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(this);
+        commonDialog.setTitle(R.string.tip_confirm);
+        commonDialog.setMessage(getString(R.string.abandon_diary_write));
+        commonDialog.setNegativeButton(getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                appManager.finishActivity(AddDiaryActivity.this);
+            }
+        });
+        commonDialog.show();
     }
 
     private void showImageBig(int position) {

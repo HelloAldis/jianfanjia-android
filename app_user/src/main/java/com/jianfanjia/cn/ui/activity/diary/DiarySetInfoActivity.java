@@ -38,10 +38,12 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.yalantis.ucrop.UCrop;
+import de.greenrobot.event.EventBus;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
@@ -135,10 +137,9 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
                 DiarySetInfo diarySetInfo = apiResponse.getData();
                 LogTool.d(this.getClass().getName(), "diarysetinfo has diary.size(） = " + diarySetInfo.getDiaries()
                         .size());
-                mDiarySetInfo.setDiaries(diarySetInfo.getDiaries());
-                mDiarySetInfo.setView_count(diarySetInfo.getView_count());
-                mDiarySetInfo.setAuthor(diarySetInfo.getAuthor());
-                mDiaryAdapter.setDiarySetInfo(mDiarySetInfo);
+                mDiarySetInfo = diarySetInfo;
+                mDiaryAdapter.setDiarySetInfo(diarySetInfo);
+                EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
             }
 
             @Override

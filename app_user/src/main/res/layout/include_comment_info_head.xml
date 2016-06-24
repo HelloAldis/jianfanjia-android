@@ -5,8 +5,8 @@
               android:background="@color/font_white"
               android:orientation="vertical"
               android:paddingBottom="8dip"
-              android:paddingLeft="20dip"
-              android:paddingRight="20dip"
+              android:paddingLeft="16dip"
+              android:paddingRight="16dip"
               android:paddingTop="8dip">
 
     <RelativeLayout
@@ -55,11 +55,18 @@
                 android:textColor="@color/grey_color"/>
         </RelativeLayout>
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/ltm_cominfo_response"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/space_8"
+            android:paddingRight="@dimen/space_8"
+            android:paddingBottom="@dimen/space_16">
+
+        <TextView
             style="@style/listview_item_text_style_middle"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
             android:background="@drawable/btn_grey_white_bg"
             android:paddingBottom="@dimen/space_4"
             android:paddingLeft="@dimen/space_12"
@@ -67,6 +74,8 @@
             android:paddingTop="@dimen/space_4"
             android:text="@string/reply"
             android:textColor="@color/grey_color"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

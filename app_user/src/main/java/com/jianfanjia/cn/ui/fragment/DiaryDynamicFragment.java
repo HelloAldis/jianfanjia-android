@@ -37,6 +37,7 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
+import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity;
 import com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity;
 import com.jianfanjia.cn.ui.adapter.DiaryDynamicAdapter;
@@ -422,12 +423,31 @@ public class DiaryDynamicFragment extends BaseFragment {
         refreshOneDiaryStatus(resultDiaryInfo);
     }
 
+    public void onEventMainThread(RefreshDiarySetInfoEvent refreshDiarySetInfoEvent) {
+        DiarySetInfo resultDiarySetInfo = refreshDiarySetInfoEvent.getDiarySetInfo();
+        if (resultDiarySetInfo != null) {
+            LogTool.d(this.getClass().getName(), "result diary id =" + resultDiarySetInfo.get_id());
+        }
+        refreshOneDiarySetStatus(resultDiarySetInfo);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
+    private void refreshOneDiarySetStatus(DiarySetInfo resultDiarySetInfo) {
+        int pos = 0;
+        for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
+            if (diaryInfo.getDiarySet().get_id().equals(resultDiarySetInfo.get_id())) {
+                LogTool.d(this.getClass().getName(), "diaryset get lastest id =" + resultDiarySetInfo.get_id());
+                diaryInfo.setDiarySet(resultDiarySetInfo);
+                mDiaryDynamicAdapter.notifyItemChanged(pos);
+            }
+            pos++;
+        }
+    }
 
     private void refreshOneDiaryStatus(DiaryInfo resultDiaryInfo) {
         int pos = 0;

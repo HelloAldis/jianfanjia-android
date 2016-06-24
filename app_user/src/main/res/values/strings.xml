@@ -434,4 +434,5 @@
     <string name="str_update_cover">修改封面</string>
     <string name="diary_content">日记正文</string>
     <string name="add_favorite">点赞</string>
+    <string name="tip_diary_delte">该日记已被删除</string>
 </resources>

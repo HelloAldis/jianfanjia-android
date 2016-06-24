@@ -159,13 +159,8 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogTool.d(this.getClass().getName(), "mRecyclerView.scrollToPosition(1)");
-                mRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRecyclerView.smoothScrollToPosition(1);
-                    }
-                });
+                LogTool.d(this.getClass().getName(), "showSoftKeyBoard");
+                ((DiaryDetailInfoActivity) context).showSoftKeyBoard();
             }
         });
         DiaryBusiness.setFavoriteAction(diaryViewHolder.tvLikeIcon, diaryViewHolder.rlDiaryLikeLayout, mDiaryInfo
@@ -411,7 +406,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             userName = commentInfo.getBySupervisor().getUsername();
         }
         holder.itemNameView.setText(userName);
-        holder.itemTimeView.setText(DateFormatTool.longToStringHasMini(commentInfo.getDate()));
+        holder.itemTimeView.setText(DateFormatTool.getHumReadDateString(commentInfo.getDate()));
         LogTool.d(TAG, "imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);

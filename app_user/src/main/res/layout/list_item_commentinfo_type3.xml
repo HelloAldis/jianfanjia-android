@@ -26,7 +26,6 @@
             style="@style/listview_item_text_style_middle"
             android:ellipsize="end"
             android:gravity="left"
-            android:maxWidth="120dp"
             android:singleLine="true"
             android:layout_alignWithParentIfMissing="true"
             android:layout_toRightOf="@+id/iv_diary_first_pic"

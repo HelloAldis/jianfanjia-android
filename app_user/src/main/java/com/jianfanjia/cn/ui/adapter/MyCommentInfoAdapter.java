@@ -350,7 +350,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         @Bind(R.id.ltm_cominfo_designer_name)
         public TextView nameView;
         @Bind(R.id.ltm_cominfo_response)
-        public TextView responseView;
+        public RelativeLayout responseView;
         @Bind(R.id.ltm_cominfo_designer_date)
         public TextView dateText;
         @Bind(R.id.ltm_cominfo_content)
@@ -379,7 +379,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         @Bind(R.id.ltm_cominfo_designer_date)
         public TextView dateText;
         @Bind(R.id.ltm_cominfo_response)
-        public TextView responseView;
+        public RelativeLayout responseView;
         @Bind(R.id.ltm_cominfo_content)
         public TextView contentText;
         @Bind(R.id.node_name)
@@ -409,7 +409,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         @Bind(R.id.ltm_cominfo_designer_date)
         public TextView dateText;
         @Bind(R.id.ltm_cominfo_response)
-        public TextView responseView;
+        public RelativeLayout responseView;
         @Bind(R.id.ltm_cominfo_content)
         public TextView contentText;
         @Bind(R.id.ltm_diaryset_title)

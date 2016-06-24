@@ -111,6 +111,8 @@
     <string name="my_favorite_designer">我的意向设计师</string>
     <string name="tip_confirm">发布提醒</string>
     <string name="abandon_confirm_req">您的需求没有提交，您要放弃提交吗？</string>
+    <string name="abandon_diary_write">您的日记信息没有提交，您要放弃提交吗？</string>
+    <string name="abandon_diaryset_write">您的日记本信息没有提交，您要放弃提交吗？</string>
     <string name="dec_stage">您现在所处的装修阶段</string>
     <string name="dec_stage_scan">我想看一看</string>
     <string name="dec_stage_prepare">正在准备中</string>
