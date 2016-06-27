@@ -187,11 +187,12 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
             public void onClick(View v) {
                 if (currentStatus == CURRENT_STATUS_ADD) {
                     if (!TextUtils.isEmpty(mDiarySetInfo.getTitle()) || !TextUtils.isEmpty(mDiarySetInfo.getWork_type
-                            ()) ||
-                            !TextUtils.isEmpty(mDiarySetInfo.getHouse_type()) || !TextUtils.isEmpty(mDiarySetInfo
+                            ()) || !TextUtils.isEmpty(mDiarySetInfo.getHouse_type()) || !TextUtils.isEmpty(mDiarySetInfo
                             .getDec_style())
                             || mDiarySetInfo.getHouse_area() > 0) {
                         showTipDialog();
+                    }else {
+                        appManager.finishActivity(AddDiarySetActivity.this);
                     }
                 } else {
                     appManager.finishActivity(AddDiarySetActivity.this);

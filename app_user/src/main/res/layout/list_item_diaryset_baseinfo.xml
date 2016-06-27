@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_diaryset_cover_pic"
@@ -15,21 +15,21 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@drawable/bg_diaryset_head"
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
-        android:background="@drawable/bg_diaryset_head"
         />
 
     <TextView
         android:id="@+id/tv_diaryset_update_cover"
         style="@style/listview_item_text_style_middle"
-        android:text="@string/str_update_cover"
         android:layout_gravity="center"
+        android:background="@drawable/bg_update_diaryset_cover"
+        android:paddingBottom="@dimen/space_4"
         android:paddingLeft="@dimen/space_16"
         android:paddingRight="@dimen/space_16"
         android:paddingTop="@dimen/space_4"
-        android:paddingBottom="@dimen/space_4"
-        android:background="@drawable/bg_update_diaryset_cover"
+        android:text="@string/str_update_cover"
         android:textColor="@color/font_white"
         android:visibility="gone"/>
 
@@ -59,14 +59,18 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_6"
                 android:layout_marginBottom="@dimen/space_6"
-                android:layout_marginLeft="@dimen/space_12">
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6">
 
                 <TextView
                     android:id="@+id/tv_diaryset_title"
                     style="@style/listview_item_text_style_middle"
+                    android:layout_width="match_parent"
+                    android:layout_toLeftOf="@+id/iv_diaryset_edit"
+                    android:gravity="left"
                     android:singleLine="true"
+                    android:ellipsize="end"
                     android:text="@string/str_cell"
                     android:textColor="@color/font_white"
                     android:textSize="@dimen/space_15"
@@ -77,12 +81,12 @@
                     android:id="@+id/iv_diaryset_edit"
                     android:layout_width="@dimen/space_48"
                     android:layout_height="@dimen/space_48"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:src="@mipmap/icon_edit_diary"
+                    android:layout_alignParentRight="true"
                     android:scaleType="center"
+                    android:src="@mipmap/icon_edit_diary"
                     android:tint="@color/font_white"
-                    android:visibility="gone"/>
+                    />
 
                 <TextView
                     android:id="@+id/tv_diaryset_goingtime"

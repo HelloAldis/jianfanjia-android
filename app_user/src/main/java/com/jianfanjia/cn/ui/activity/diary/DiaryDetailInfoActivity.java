@@ -2,6 +2,7 @@ package com.jianfanjia.cn.ui.activity.diary;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,11 +36,11 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiaryDetailInfoAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -110,9 +111,24 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         initMainView();
         btnSend.setEnabled(false);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+
+            int topSpace = TDevice.dip2px(DiaryDetailInfoActivity.this, 10);
+            int space = TDevice.dip2px(DiaryDetailInfoActivity.this, 1);
+
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.left = 0;
+                outRect.right = 0;
+                if (parent.getChildAdapterPosition(view) == 0 || parent.getChildAdapterPosition(view) == 1) {
+                    outRect.top = topSpace;
+                } else {
+                    outRect.top = space;
+                }
+            }
+        });
     }
 
     @OnTextChanged(R.id.add_comment)
@@ -241,7 +257,14 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         commentEdit.requestFocus();
         mRecyclerView.scrollToPosition(1);
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
+        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    public void hideSoftKeyBorad(){
+        commentEdit.clearFocus();
+        commentEdit.setText("");
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(commentEdit.getWindowToken(),0);
     }
 
     private void initViewShowAndData() {
@@ -254,7 +277,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     }
 
     private void prepareAddComment(User toUser) {
-        if (toUser != null  && !toUser.get_id().equals
+        if (toUser != null && !toUser.get_id().equals
                 (dataManager.getUserId())) {
             to = toUser.get_id();
             if (!TextUtils.isEmpty(toUser.getUsername())) {
@@ -262,6 +285,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             } else {
                 replayHint = "回复 业主 ：";
             }
+            showSoftKeyBoard();
         } else {
             to = mDiaryInfo.getAuthor().get_id();
             replayHint = "";
@@ -300,12 +324,14 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onHttpDone() {
+
         }
 
         @Override
         public void onSuccess(ApiResponse<Object> apiResponse) {
             updateCommentCountShow();
             nativeAddCommentShow();
+            hideSoftKeyBorad();
         }
 
         @Override
@@ -330,7 +356,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         mCommentList.add(0, commentInfo);
         mDiaryDetailInfoAdapter.notifyItemInserted(1);
         mRecyclerView.scrollToPosition(1);
-        commentEdit.setText("");
     }
 
     protected Comment createCommentInfo(String content) {

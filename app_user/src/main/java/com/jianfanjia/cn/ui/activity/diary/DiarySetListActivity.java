@@ -53,7 +53,7 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
     }
 
     private void initMainView() {
-        mMainHeadView.setMianTitle(getString(R.string.my_diary));
+        mMainHeadView.setMianTitle(getString(R.string.my_diaryset));
         mMainHeadView.setBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

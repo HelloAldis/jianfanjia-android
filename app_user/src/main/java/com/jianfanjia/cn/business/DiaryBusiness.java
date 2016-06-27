@@ -3,8 +3,8 @@ package com.jianfanjia.cn.business;
 import android.animation.Animator;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
@@ -66,42 +66,43 @@ public class DiaryBusiness {
         return count + "";
     }
 
-    public static void setFavoriteAction(final ImageView imageView, LinearLayout canClickLayout, boolean isfavorite,
+    public static void setFavoriteAction(final ImageView imageView, ViewGroup canClickLayout, boolean isfavorite,
                                          final AddFavoriteCallback addFavoriteCallback) {
         if (isfavorite) {
             imageView.setImageResource(R.mipmap.icon_diary_favorite1);
-            canClickLayout.setOnClickListener(null);
+            canClickLayout.setEnabled(false);
         } else {
             imageView.setImageResource(R.mipmap.icon_diary_favorite0);
-            canClickLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    UiHelper.imageAddFavoriteAnim(imageView, new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            imageView.setImageResource(R.mipmap.icon_diary_favorite1);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            if (addFavoriteCallback != null) {
-                                addFavoriteCallback.addFavoriteAction();
-                            }
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-                }
-            });
+            canClickLayout.setEnabled(true);
         }
+        canClickLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UiHelper.imageAddFavoriteAnim(imageView, new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        imageView.setImageResource(R.mipmap.icon_diary_favorite1);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (addFavoriteCallback != null) {
+                            addFavoriteCallback.addFavoriteAction();
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+            }
+        });
     }
 
     public static String getNextSectionLable(String section) {

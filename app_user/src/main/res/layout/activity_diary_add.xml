@@ -107,17 +107,21 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"
-            android:src="@mipmap/icon_next"/>
+            android:src="@mipmap/icon_next"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_add_diary_now_diaryset_content"
             style="@style/style_edit_req_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:textColor="@color/orange_color"
-            android:hint="@string/please_choose"/>
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_toRightOf="@+id/tv_add_diary_now_diaryset_title"
+            android:ellipsize="end"
+            android:hint="@string/please_choose"
+            android:singleLine="true"
+            android:textColor="@color/orange_color"/>
     </RelativeLayout>
 
 

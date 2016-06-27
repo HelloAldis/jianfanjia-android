@@ -19,6 +19,8 @@
     <string name="share_app_url">http://www.jianfanjia.com/zt/mobile/index.html</string>
     <string name="share_image_des">我在简繁家发现一张%1$s风格的%2$s美图，感觉还不错，分享给大家！</string>
 
+    <string name="share_diaryset_des">我在简繁家发现了一个不错的日记，分享给大家</string>
+
     <!-- Error View -->
     <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
     <string name="error_view_no_data">暂无美图</string>
@@ -152,7 +154,7 @@
     <string name="fisrt_page">首页</string>
     <string name="my_designer">我的设计师</string>
     <string name="my_decoration_site">我的工地</string>
-    <string name="my_diary">我的日记本</string>
+    <string name="my_diaryset">我的日记本</string>
     <string name="my_favorite">我的收藏</string>
     <string name="my_setting">设置</string>
     <string name="my_tip">我的提醒</string>
@@ -408,14 +410,14 @@
     <string name="main_tab_beautifulimg">装修美图</string>
     <string name="main_tab_daily">装修日记</string>
     <string name="str_delete">删除</string>
-    <string name="please_input_title">请输入日记标题</string>
+    <string name="please_input_diaryset_title">请输入日记本标题</string>
     <string name="please_input_area">请输入面积</string>
     <string name="please_choose">请选择</string>
     <string name="str_decorate_style">装修风格</string>
     <string name="diaryset_info">日记本信息</string>
     <string name="save">保存</string>
     <string name="all_more_three">最多三项</string>
-    <string name="create_diary">新建日记本</string>
+    <string name="create_diary">新建日记</string>
     <string name="delete">删除</string>
     <string name="tip_delete_diary_title">删除日记提示</string>
     <string name="tip_delete_diary">您确认删除该日记吗</string>
@@ -425,6 +427,7 @@
     <string name="search_no_diary">暂时没有装修日记</string>
     <string name="tip_input_diary">记录和分享您的装修之路，请最少输入15个字</string>
     <string name="str_decorate_stage">装修阶段</string>
+    <string name="str_decorate_stage_choose">装修阶段选择</string>
     <string name="str_now_diaryset">当前日记本</string>
     <string name="str_publish">发布</string>
     <string name="diaryset">日记本</string>
@@ -435,4 +438,5 @@
     <string name="diary_content">日记正文</string>
     <string name="add_favorite">点赞</string>
     <string name="tip_diary_delte">该日记已被删除</string>
+    <string name="create_diaryset">新建日记本</string>
 </resources>

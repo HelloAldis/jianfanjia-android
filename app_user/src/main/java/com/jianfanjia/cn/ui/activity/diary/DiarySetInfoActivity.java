@@ -2,12 +2,14 @@ package com.jianfanjia.cn.ui.activity.diary;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -34,14 +36,21 @@ import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeConfig;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.yalantis.ucrop.UCrop;
 import de.greenrobot.event.EventBus;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -79,9 +88,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     @Bind(R.id.head_back)
     ImageView ivBackView;
 
-
-    @Bind(R.id.toolbar_share_layout)
-    RelativeLayout rlShareLayout;
+    private ShareUtil mShareUtil;
 
     public static void intentToDiarySet(Context context, DiarySetInfo diarySetInfo) {
         Bundle bundle = new Bundle();
@@ -94,6 +101,8 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         super.onCreate(savedInstanceState);
         getDataFromIntent();
         initView();
+
+        mShareUtil = new ShareUtil(this);
     }
 
     private void getDataFromIntent() {
@@ -198,11 +207,13 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
             private void setHeadViewShowOrHidden() {
                 int alpha = (int) (((float) totalOffsetY / TDevice.dip2px(DiarySetInfoActivity.this, 152)) * 255);
-                alpha = alpha > 230 ? 230 : alpha;
-                if (alpha == 0) {
-                    ivShare.setImageResource(R.mipmap.icon_share);
+                alpha = alpha > 245 ? 245 : alpha;
+                if (alpha <= 20) {
+                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.WHITE));
+                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.WHITE));
                 } else {
-                    ivShare.setImageResource(R.mipmap.icon_share2);
+                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.GRAY));
+                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.GRAY));
                 }
                 rlHeadView.setBackgroundColor(Color.argb(alpha, 240, 240, 240));
 
@@ -265,7 +276,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         });
     }
 
-    @OnClick({R.id.head_back_layout, R.id.rl_writediary})
+    @OnClick({R.id.head_back_layout, R.id.rl_writediary, R.id.share_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.rl_writediary:
@@ -274,7 +285,25 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
                 break;
+            case R.id.share_layout:
+                showPopwindow();
+                break;
         }
+    }
+
+    private void showPopwindow() {
+        mShareUtil.shareDiarySet(this, mDiarySetInfo.getTitle() + "（" + DiaryBusiness.getDiarySetDes(mDiarySetInfo) +
+                "）", diarySetId, new SocializeListeners.SnsPostListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
+
+            }
+        });
     }
 
     @Override
@@ -282,6 +311,10 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
             return;
+        }
+        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
         switch (requestCode) {
             case Constant.REQUESTCODE_PICKER_HEAD_PIC:
@@ -371,6 +404,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
             makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
         }
     };
+
 
     @Override
     public int getLayoutId() {

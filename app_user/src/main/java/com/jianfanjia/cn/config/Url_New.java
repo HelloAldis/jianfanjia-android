@@ -63,6 +63,9 @@ public class Url_New {
     //365基础包详情页
     public String PACKGET365_DETAIL_URL= "/view/zt/365package/index.html";
 
+    //日记本分享
+    public String DIARY_SET_SHARE_URL =MOBILE_SERVER_URL +  "/tpl/diary/book/";
+
     public static String ID = "id";
 
     //屏幕宽高

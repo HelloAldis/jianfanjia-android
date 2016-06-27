@@ -1,9 +1,11 @@
 package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -39,6 +41,8 @@ import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
 import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -61,13 +65,16 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     private DiaryInfo mDiaryInfo;
     private AddCommentListener mAddCommentListener;
     RecyclerView mRecyclerView;
-    private int rootViewHeight;
+    private SparseArray<Integer> itemHeight;
+    private boolean isFisrtBind;
 
     public DiaryDetailInfoAdapter(Context context, List<Comment> commentList, DiaryInfo diaryInfo, RecyclerView
             recyclerView) {
         super(context, commentList);
         this.mDiaryInfo = diaryInfo;
         this.mRecyclerView = recyclerView;
+        itemHeight = new SparseArray<>(commentList.size());
+        isFisrtBind = true;
     }
 
     public void setAddCommentListener(AddCommentListener addCommentListener) {
@@ -99,27 +106,46 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 break;
             case COMMENT_TYPE:
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
+                viewHolder.itemView.measure(0, 0);
+                LogTool.d(this.getClass().getName(), "commentItemHeight height =" + viewHolder.itemView
+                        .getMeasuredHeight());
+                itemHeight.put(position - 1, viewHolder.itemView.getMeasuredHeight());
                 break;
             case FOOTER_TYPE:
-                bindFooter((FooterViewHolder) viewHolder);
+                if (isFisrtBind) {
+                    bindFooter((FooterViewHolder) viewHolder);
+                    isFisrtBind = false;
+                }
                 break;
         }
     }
 
     private void bindFooter(FooterViewHolder viewHolder) {
-//        DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder = (DiaryDynamicAdapter.DiaryViewHolder) mRecyclerView
-// .getRecycledViewPool().
-//                .findViewHolderForLayoutPosition(0);
-//        LogTool.d(this.getClass().getName(), "headview height =" + rootViewHeight);
+        if(list.size() == 0){
+            viewHolder.tvFooterLoadNoMore.setText("当前还没有任何评论");
+        }else {
+            viewHolder.tvFooterLoadNoMore.setText("评论已加载完毕");
+        }
+
         int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
-                (context, 58);
-//        int totalItemHeight = (rootViewHeight + TDevice.dip2px(context, 10)) * list.size();
-//        if (totalHeight < totalItemHeight) {
-//            return;
-//        } else {
-        viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
-                .MATCH_PARENT, totalHeight));
-//        }
+                (context, 48);
+        LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
+        int commentItemHeight = 0;
+        for (int i = 0; i < itemHeight.size(); i++) {
+            commentItemHeight += itemHeight.get(i);
+        }
+        LogTool.d(this.getClass().getName(), "commentItemTotalHeight height =" + commentItemHeight);
+        int defaultFootHeight = TDevice.dip2px(context, 96);
+        if (commentItemHeight - totalHeight >= 0) {
+            viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, defaultFootHeight));
+        } else if (commentItemHeight - totalHeight > -defaultFootHeight && commentItemHeight - totalHeight < 0) {
+            viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, defaultFootHeight + commentItemHeight - totalHeight));
+        } else {
+            viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
+                    .MATCH_PARENT, totalHeight - commentItemHeight));
+        }
     }
 
     private void bindDiary(final DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder) {
@@ -136,7 +162,8 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 diaryViewHolder.tvDiaryDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteDiary();
+//                        deleteDiary();
+                        showTipDialog(context);
                     }
                 });
             } else {
@@ -172,6 +199,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         });
 
         buildPic(diaryViewHolder, mDiaryInfo);
+
     }
 
     private void buildPic(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
@@ -258,6 +286,27 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             }
         });
     }
+
+    protected void showTipDialog(Context context) {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(context);
+        commonDialog.setTitle(R.string.tip_delete_diary_title);
+        commonDialog.setMessage(context.getString(R.string.tip_delete_diary));
+        commonDialog.setNegativeButton(context.getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteDiary();
+            }
+        });
+        commonDialog.show();
+    }
+
 
     protected void deleteDiary() {
         DeleteDiaryRequest deleteDiaryRequest = new DeleteDiaryRequest();

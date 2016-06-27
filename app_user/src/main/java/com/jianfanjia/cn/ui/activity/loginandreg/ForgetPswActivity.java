@@ -3,13 +3,14 @@ package com.jianfanjia.cn.ui.activity.loginandreg;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.jianfanjia.cn.config.Global;
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -18,12 +19,9 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.RegisterInfo;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.UiHelper;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 public class ForgetPswActivity extends BaseActivity {
 
@@ -48,8 +46,6 @@ public class ForgetPswActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initView();
     }
 

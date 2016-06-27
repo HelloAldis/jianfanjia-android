@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,6 +41,8 @@ import com.jianfanjia.cn.ui.activity.diary.AddDiaryActivity;
 import com.jianfanjia.cn.ui.activity.diary.AddDiarySetActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -185,7 +188,8 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             diarySetDiaryViewHolder.tvDailtDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteDiary(position);
+//                    deleteDiary(position);
+                    showTipDialog(context,position);
                 }
             });
         } else {
@@ -203,7 +207,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         diarySetDiaryViewHolder.rlDailyCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromBaseinfo);
+                gotoDiaryInfo(diaryInfo, DiaryDetailInfoActivity.intentFromComment);
             }
         });
         DiaryBusiness.setFavoriteAction(diarySetDiaryViewHolder.tvLikeIcon, diarySetDiaryViewHolder
@@ -414,6 +418,27 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         });
     }
 
+    protected void showTipDialog(Context context, final int position) {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(context);
+        commonDialog.setTitle(R.string.tip_delete_diary_title);
+        commonDialog.setMessage(context.getString(R.string.tip_delete_diary));
+        commonDialog.setNegativeButton(context.getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteDiary(position);
+            }
+        });
+        commonDialog.show();
+    }
+
+
     protected void deleteDiary(final int position) {
         DeleteDiaryRequest deleteDiaryRequest = new DeleteDiaryRequest();
         deleteDiaryRequest.setDiaryid(list.get(position).get_id());
@@ -518,10 +543,10 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         TextView tvDailyGoingTime;
 
         @Bind(R.id.ltm_diary_comment_layout)
-        LinearLayout rlDailyCommentLayout;
+        RelativeLayout rlDailyCommentLayout;
 
         @Bind(R.id.ltm_diary_like_layout)
-        LinearLayout rlDailyLikeLayout;
+        RelativeLayout rlDailyLikeLayout;
 
         @Bind(R.id.tv_like_count)
         TextView tvLikeCount;

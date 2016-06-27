@@ -10,12 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/space_16">
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        >
 
         <RelativeLayout
             android:id="@+id/ll_diaryset_baseinfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_48"
             >
 
             <TextView
@@ -23,7 +26,8 @@
                 style="@style/listview_item_text_style_middle"
                 android:text="@string/kai_gong"
                 android:textColor="@color/light_black_color"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/space_16"/>
 
             <TextView
                 android:id="@+id/ltm_diary_goingtime"
@@ -37,9 +41,12 @@
             <TextView
                 android:id="@+id/ltm_diary_delte"
                 style="@style/listview_item_text_style_middle"
-                android:layout_alignBaseline="@+id/ltm_diary_stage"
                 android:layout_alignParentRight="true"
                 android:text="@string/str_delete"
+                android:layout_height="@dimen/space_60"
+                android:layout_width="match_parent"
+                android:gravity="top|right"
+                android:paddingTop="@dimen/space_16"
                 android:textColor="@color/blue_color"
                 android:visibility="gone"/>
         </RelativeLayout>
@@ -48,7 +55,6 @@
             android:id="@+id/ltm_diary_content"
             style="@style/listview_item_text_style_middle"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/space_16"
             android:gravity="left"
             android:lineSpacingMultiplier="1.5"
             android:text="这个装修效果真的不错，我很喜欢"/>

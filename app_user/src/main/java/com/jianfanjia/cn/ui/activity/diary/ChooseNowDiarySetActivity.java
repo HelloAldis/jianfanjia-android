@@ -46,6 +46,12 @@ public class ChooseNowDiarySetActivity extends BaseSwipeBackActivity {
 
     private void initView() {
         mMainHeadView.setMianTitle(getString(R.string.str_now_diaryset));
+        mMainHeadView.setBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appManager.finishActivity(ChooseNowDiarySetActivity.this);
+            }
+        });
 
         chooseDiarySetTitleAdapter = new ChooseDiarySetTitleAdapter(this, mDiarySetInfoList, currentChoosedValue);
         edit_req_item_listview.setAdapter(chooseDiarySetTitleAdapter);

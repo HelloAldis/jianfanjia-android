@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +13,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.ui.fragment.LoginFragment;
 import com.jianfanjia.cn.ui.fragment.RegisterFragment;
-import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.view.viewpager.ViewPagerIndicator;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.sso.UMSsoHandler;
@@ -48,8 +47,6 @@ public class LoginNewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initView();
         initData();
     }

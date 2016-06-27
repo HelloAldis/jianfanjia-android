@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -19,7 +20,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,15 +39,38 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.ui.activity.home.WebViewPackage365Activity;
 import com.jianfanjia.cn.ui.activity.loginandreg.LoginNewActivity;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.VerticalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+import com.jianfanjia.common.tool.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
+
+    protected void showTipDialog(Context context) {
+        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(context);
+        commonDialog.setTitle(R.string.tip_delete_diary_title);
+        commonDialog.setMessage(context.getString(R.string.tip_delete_diary));
+        commonDialog.setNegativeButton(context.getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        commonDialog.setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        commonDialog.show();
+    }
 
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();
@@ -64,7 +87,7 @@ public class UiHelper {
     public static void copy(String content, Context context) {
         ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
-        showShortToast(context.getString(R.string.follow_weixin_success));
+        ToastUtil.showShortTost(context.getString(R.string.follow_weixin_success));
     }
 
     /**
@@ -142,16 +165,7 @@ public class UiHelper {
         MyApplication.getInstance().startActivity(intent);
         AppManager.getAppManager().finishAllActivity();
         DataManagerNew.loginOut();
-        showShortToast("登录过期，请重新登录！");
-    }
-
-    /**
-     * 显示toast
-     *
-     * @param text
-     */
-    public static void showShortToast(String text) {
-        Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
+        ToastUtil.showShortTost("登录过期，请重新登录！");
     }
 
     /**
