@@ -112,39 +112,39 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 itemHeight.put(position - 1, viewHolder.itemView.getMeasuredHeight());
                 break;
             case FOOTER_TYPE:
-                if (isFisrtBind) {
-                    bindFooter((FooterViewHolder) viewHolder);
-                    isFisrtBind = false;
-                }
+                bindFooter((FooterViewHolder) viewHolder);
                 break;
         }
     }
 
     private void bindFooter(FooterViewHolder viewHolder) {
-        if(list.size() == 0){
+        if (list.size() == 0) {
             viewHolder.tvFooterLoadNoMore.setText("当前还没有任何评论");
-        }else {
+        } else {
             viewHolder.tvFooterLoadNoMore.setText("评论已加载完毕");
         }
-
-        int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
-                (context, 48);
-        LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
-        int commentItemHeight = 0;
-        for (int i = 0; i < itemHeight.size(); i++) {
-            commentItemHeight += itemHeight.get(i);
-        }
-        LogTool.d(this.getClass().getName(), "commentItemTotalHeight height =" + commentItemHeight);
-        int defaultFootHeight = TDevice.dip2px(context, 96);
-        if (commentItemHeight - totalHeight >= 0) {
-            viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
-                    .MATCH_PARENT, defaultFootHeight));
-        } else if (commentItemHeight - totalHeight > -defaultFootHeight && commentItemHeight - totalHeight < 0) {
-            viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
-                    .MATCH_PARENT, defaultFootHeight + commentItemHeight - totalHeight));
-        } else {
-            viewHolder.llFooterLoadNoMore.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
-                    .MATCH_PARENT, totalHeight - commentItemHeight));
+        if (isFisrtBind) {
+            int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
+                    (context, 48);
+            LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
+            int commentItemHeight = 0;
+            for (int i = 0; i < itemHeight.size(); i++) {
+                commentItemHeight += itemHeight.get(i);
+            }
+            LogTool.d(this.getClass().getName(), "commentItemTotalHeight height =" + commentItemHeight);
+            int defaultFootHeight = TDevice.dip2px(context, 96);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewHolder.llFooterLoadNoMore
+                    .getLayoutParams();
+            if (commentItemHeight - totalHeight >= 0) {
+                layoutParams.height = defaultFootHeight;
+                viewHolder.llFooterLoadNoMore.setLayoutParams(layoutParams);
+            } else if (commentItemHeight - totalHeight > -defaultFootHeight && commentItemHeight - totalHeight < 0) {
+                layoutParams.height = defaultFootHeight + commentItemHeight - totalHeight;
+            } else {
+                layoutParams.height = totalHeight - commentItemHeight;
+            }
+            viewHolder.llFooterLoadNoMore.setLayoutParams(layoutParams);
+            isFisrtBind = false;
         }
     }
 
