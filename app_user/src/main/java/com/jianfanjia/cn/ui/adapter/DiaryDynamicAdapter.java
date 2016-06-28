@@ -289,7 +289,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     }
 
     protected void setContentText(final TextView textView, final DiaryInfo diaryInfo) {
-        if (TextUtils.isEmpty(diaryInfo.getShowContent())) {
+        if (diaryInfo.getShowHeight() == 0) {
             String content = diaryInfo.getContent();
             StaticLayout staticLayout = new StaticLayout(content, textView.getPaint(), (int) TDevice.getScreenWidth()
                     - TDevice.dip2px(context, 32), Layout
@@ -297,7 +297,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             if (staticLayout.getLineCount() > 5) {
                 int end = staticLayout.getLineEnd(5);
                 LogTool.d(this.getClass().getName(), "end =" + end);
-                String endElp = "...    全文";
+                String endElp = "...     全文";
                 CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
                 LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
 
