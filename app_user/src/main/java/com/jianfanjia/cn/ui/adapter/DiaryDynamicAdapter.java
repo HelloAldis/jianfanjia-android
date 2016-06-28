@@ -351,17 +351,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             }
         });*/
         } else {
-            textView.post(new Runnable() {
-                @Override
-                public void run() {
-                    textView.setText(diaryInfo.getShowContent());
-                   /* FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) textView.getLayoutParams();
-                    lp.height = diaryInfo.getShowHeight();
-                    LogTool.d(this.getClass().getName(), "textView.getshowheight =" + diaryInfo.getShowHeight());
-                    textView.setLayoutParams(lp);*/
-//                    textView.invalidate();
-                }
-            });
+            textView.setText(diaryInfo.getShowContent());
         }
     }
 
