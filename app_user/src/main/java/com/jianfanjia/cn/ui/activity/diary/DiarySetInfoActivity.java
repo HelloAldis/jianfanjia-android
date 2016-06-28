@@ -46,6 +46,7 @@ import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+import com.jianfanjia.common.tool.ToastUtil;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -286,7 +287,11 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.share_layout:
-                showPopwindow();
+                if(mDiarySetInfo.getDiaries() != null && mDiarySetInfo.getDiaries().size() > 0){
+                    showPopwindow();
+                }else {
+                    ToastUtil.showShortTost("您还没有发布装修日记哦");
+                }
                 break;
         }
     }

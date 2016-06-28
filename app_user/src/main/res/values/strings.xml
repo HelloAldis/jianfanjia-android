@@ -420,7 +420,7 @@
     <string name="create_diary">新建日记</string>
     <string name="delete">删除</string>
     <string name="tip_delete_diary_title">删除日记提示</string>
-    <string name="tip_delete_diary">您确认删除该日记吗</string>
+    <string name="tip_delete_diary">您确定删除该日记吗？</string>
     <string name="my">我的</string>
     <string name="str_diaryset_title">日记本标题</string>
     <string name="write_diary">写日记</string>

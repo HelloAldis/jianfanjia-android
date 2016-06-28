@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -39,8 +38,6 @@ import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.service.UpdateService;
 import com.jianfanjia.cn.ui.activity.home.WebViewPackage365Activity;
 import com.jianfanjia.cn.ui.activity.loginandreg.LoginNewActivity;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.HorizontalDividerDecoration;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.VerticalDividerDecoration;
 import com.jianfanjia.common.tool.FileUtil;
@@ -51,26 +48,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class UiHelper {
     private static final String TAG = UiHelper.class.getName();
-
-    protected void showTipDialog(Context context) {
-        CommonDialog commonDialog = DialogHelper.getPinterestDialogCancelable(context);
-        commonDialog.setTitle(R.string.tip_delete_diary_title);
-        commonDialog.setMessage(context.getString(R.string.tip_delete_diary));
-        commonDialog.setNegativeButton(context.getString(R.string.str_cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        commonDialog.setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-
-            }
-        });
-        commonDialog.show();
-    }
 
     public static void intentToPackget365Detail(Context context) {
         Bundle bundle = new Bundle();

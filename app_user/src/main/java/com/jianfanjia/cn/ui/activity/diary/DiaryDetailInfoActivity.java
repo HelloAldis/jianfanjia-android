@@ -260,7 +260,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         commentEdit.requestFocus();
         mRecyclerView.scrollToPosition(1);
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        inputMethodManager.showSoftInput(commentEdit, InputMethodManager.SHOW_FORCED);
     }
 
     public void hideSoftKeyBorad(){

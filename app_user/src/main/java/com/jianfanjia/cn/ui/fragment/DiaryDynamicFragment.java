@@ -300,6 +300,7 @@ public class DiaryDynamicFragment extends BaseFragment {
                     diaryInfo.setFavorite_count(diaryUpdateInfo.getFavorite_count());
                     diaryInfo.setView_count(diaryUpdateInfo.getView_count());
                     diaryInfo.setComment_count(diaryUpdateInfo.getComment_count());
+                    diaryInfo.setRefreshTime(System.currentTimeMillis());
                     requireRefreshItemPos.add(i);
                     break;
                 }
@@ -462,6 +463,7 @@ public class DiaryDynamicFragment extends BaseFragment {
                     diaryInfo.setComment_count(resultDiaryInfo.getComment_count());
                     diaryInfo.setIs_my_favorite(resultDiaryInfo.is_my_favorite());
                     diaryInfo.setFavorite_count(resultDiaryInfo.getFavorite_count());
+                    diaryInfo.setRefreshTime(System.currentTimeMillis());
                     mDiaryDynamicAdapter.notifyItemChanged(pos);
                     break;
                 }

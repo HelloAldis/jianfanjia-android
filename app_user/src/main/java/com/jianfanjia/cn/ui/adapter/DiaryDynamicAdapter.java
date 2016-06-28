@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -288,38 +289,33 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     }
 
     protected void setContentText(final TextView textView, final DiaryInfo diaryInfo) {
-
         if (TextUtils.isEmpty(diaryInfo.getShowContent())) {
-            final String content = diaryInfo.getContent();
-            textView.setText(content);
+            String content = diaryInfo.getContent();
+            StaticLayout staticLayout = new StaticLayout(content, textView.getPaint(), (int) TDevice.getScreenWidth()
+                    - TDevice.dip2px(context, 32), Layout
+                    .Alignment.ALIGN_NORMAL, 1.5f, 0, false);
+            if (staticLayout.getLineCount() > 5) {
+                int end = staticLayout.getLineEnd(5);
+                LogTool.d(this.getClass().getName(), "end =" + end);
+                String endElp = "...    全文";
+                CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
+                LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
+
+                String showContent = charSequence + endElp;
+                SpannableString spannableStringBuilder = new SpannableString(showContent);
+                spannableStringBuilder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R
+                                .color.blue_color)),
+                        showContent.length() - 2, showContent.length(), Spannable
+                                .SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                textView.setText(spannableStringBuilder);
+                diaryInfo.setShowContent(spannableStringBuilder);
+            } else {
+                textView.setText(content);
+                diaryInfo.setShowContent(new SpannableString(content));
+            }
             textView.post(new Runnable() {
                 @Override
-                public void run() {
-                    if (textView.getLayout().getLineCount() > 5) {
-                        int end = textView.getLayout().getLineEnd(5);
-                        LogTool.d(this.getClass().getName(), "end =" + end);
-                        String endElp = "...    全文";
-                        CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
-                        LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
-
-                        String showContent = charSequence + endElp;
-                        SpannableString spannableStringBuilder = new SpannableString(showContent);
-                        spannableStringBuilder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R
-                                        .color.blue_color)),
-                                showContent.length() - 2, showContent.length(), Spannable
-                                        .SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        textView.setText(spannableStringBuilder);
-                        diaryInfo.setShowContent(spannableStringBuilder);
-                    } else {
-                        diaryInfo.setShowContent(new SpannableString(content));
-                    }
-
-                }
-            });
-            textView.post(new Runnable() {
-                @Override
-
                 public void run() {
                     diaryInfo.setShowHeight(textView.getMeasuredHeight());
                     LogTool.d(this.getClass().getName(), "textView.getMeasuredHeight() =" + textView
@@ -327,27 +323,43 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 }
             });
 
-            /*textView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
-                        oldTop, int oldRight, int oldBottom) {
-                    textView.removeOnLayoutChangeListener(this);
 
-                    int lineCount = textView.getLineCount();
-                    if (lineCount > 5) {
+        /*final String content = diaryInfo.getContent();
+        textView.setText(content);*/
+    /*    textView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (textView.getLayout().getLineCount() > 5) {
+                    int end = textView.getLayout().getLineEnd(5);
+                    LogTool.d(this.getClass().getName(), "end =" + end);
+                    String endElp = "...    全文";
+                    CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
+                    LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
 
-                    }
+                    String showContent = charSequence + endElp;
+                    SpannableString spannableStringBuilder = new SpannableString(showContent);
+                    spannableStringBuilder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R
+                                    .color.blue_color)),
+                            showContent.length() - 2, showContent.length(), Spannable
+                                    .SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    textView.setText(spannableStringBuilder);
+                    diaryInfo.setShowContent(spannableStringBuilder);
+                } else {
+                    diaryInfo.setShowContent(new SpannableString(content));
                 }
-            });*/
+            }
+        });*/
         } else {
             textView.post(new Runnable() {
                 @Override
                 public void run() {
                     textView.setText(diaryInfo.getShowContent());
-                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) textView.getLayoutParams();
+                   /* FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) textView.getLayoutParams();
                     lp.height = diaryInfo.getShowHeight();
                     LogTool.d(this.getClass().getName(), "textView.getshowheight =" + diaryInfo.getShowHeight());
-                    textView.setLayoutParams(lp);
+                    textView.setLayoutParams(lp);*/
+//                    textView.invalidate();
                 }
             });
         }
