@@ -5,11 +5,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
-import android.text.SpannableStringBuilder;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -116,7 +117,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             }
         });
 
-        setContentText(diaryViewHolder.tvDiaryContent, diaryInfo.getContent());
+        setContentText(diaryViewHolder.tvDiaryContent, diaryInfo);
         diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -286,34 +287,70 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         }
     }
 
-    protected void setContentText(final TextView textView, final String content) {
-        textView.setText(content);
-        textView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
-                                       int
-                                               oldRight, int oldBottom) {
-                textView.removeOnLayoutChangeListener(this);
+    protected void setContentText(final TextView textView, final DiaryInfo diaryInfo) {
 
-                int lineCount = textView.getLineCount();
-                if (lineCount > 5) {
-                    int end = textView.getLayout().getLineEnd(5);
-                    LogTool.d(this.getClass().getName(), "end =" + end);
-                    String endElp = "...    全文";
-                    CharSequence charSequence = content.subSequence(0, end - 2 * (endElp.length() + 2));
-                    LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
+        if (TextUtils.isEmpty(diaryInfo.getShowContent())) {
+            final String content = diaryInfo.getContent();
+            textView.setText(content);
+            textView.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (textView.getLayout().getLineCount() > 5) {
+                        int end = textView.getLayout().getLineEnd(5);
+                        LogTool.d(this.getClass().getName(), "end =" + end);
+                        String endElp = "...    全文";
+                        CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
+                        LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
 
-                    String showContent = charSequence + endElp;
-                    SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(showContent);
-                    spannableStringBuilder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R
-                            .color.blue_color)), showContent.length() - 2, showContent.length(), Spannable
-                            .SPAN_EXCLUSIVE_EXCLUSIVE);
+                        String showContent = charSequence + endElp;
+                        SpannableString spannableStringBuilder = new SpannableString(showContent);
+                        spannableStringBuilder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R
+                                        .color.blue_color)),
+                                showContent.length() - 2, showContent.length(), Spannable
+                                        .SPAN_EXCLUSIVE_EXCLUSIVE);
 
-                    textView.setText("");
-                    textView.setText(spannableStringBuilder);
+                        textView.setText(spannableStringBuilder);
+                        diaryInfo.setShowContent(spannableStringBuilder);
+                    } else {
+                        diaryInfo.setShowContent(new SpannableString(content));
+                    }
+
                 }
-            }
-        });
+            });
+            textView.post(new Runnable() {
+                @Override
+
+                public void run() {
+                    diaryInfo.setShowHeight(textView.getMeasuredHeight());
+                    LogTool.d(this.getClass().getName(), "textView.getMeasuredHeight() =" + textView
+                            .getMeasuredHeight());
+                }
+            });
+
+            /*textView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int
+                        oldTop, int oldRight, int oldBottom) {
+                    textView.removeOnLayoutChangeListener(this);
+
+                    int lineCount = textView.getLineCount();
+                    if (lineCount > 5) {
+
+                    }
+                }
+            });*/
+        } else {
+            textView.post(new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(diaryInfo.getShowContent());
+                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) textView.getLayoutParams();
+                    lp.height = diaryInfo.getShowHeight();
+                    LogTool.d(this.getClass().getName(), "textView.getshowheight =" + diaryInfo.getShowHeight());
+                    textView.setLayoutParams(lp);
+                }
+            });
+        }
     }
 
     private void addFavorite(final int position) {
@@ -405,63 +442,63 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         });
     }
 
-static class DiaryViewHolder extends RecyclerViewHolderBase {
+    static class DiaryViewHolder extends RecyclerViewHolderBase {
 
-    @Bind(R.id.ll_rootview)
-    LinearLayout llRootView;
+        @Bind(R.id.ll_rootview)
+        LinearLayout llRootView;
 
-    @Bind(R.id.diary_head)
-    ImageView ivDiaryHead;
+        @Bind(R.id.diary_head)
+        ImageView ivDiaryHead;
 
-    @Bind(R.id.ltm_diary_stage)
-    TextView tvDiaryStage;
+        @Bind(R.id.ltm_diary_stage)
+        TextView tvDiaryStage;
 
-    @Bind(R.id.ltm_diaryset_title)
-    TextView tvDiarySetTitle;
+        @Bind(R.id.ltm_diaryset_title)
+        TextView tvDiarySetTitle;
 
-    @Bind(R.id.ltm_diary_delte)
-    TextView tvDiaryDelete;
+        @Bind(R.id.ltm_diary_delte)
+        TextView tvDiaryDelete;
 
-    @Bind(R.id.ltm_diary_baseinfo)
-    TextView tvDiaryBaseInfo;
+        @Bind(R.id.ltm_diary_baseinfo)
+        TextView tvDiaryBaseInfo;
 
-    @Bind(R.id.ltm_diary_content)
-    TextView tvDiaryContent;
+        @Bind(R.id.ltm_diary_content)
+        TextView tvDiaryContent;
 
-    @Bind(R.id.ltm_diary_goingtime)
-    TextView tvDiaryGoingTime;
+        @Bind(R.id.ltm_diary_goingtime)
+        TextView tvDiaryGoingTime;
 
-    @Bind(R.id.ltm_diary_comment_layout)
-    RelativeLayout rlDiaryCommentLayout;
+        @Bind(R.id.ltm_diary_comment_layout)
+        RelativeLayout rlDiaryCommentLayout;
 
-    @Bind(R.id.ltm_diary_like_layout)
-    RelativeLayout rlDiaryLikeLayout;
+        @Bind(R.id.ltm_diary_like_layout)
+        RelativeLayout rlDiaryLikeLayout;
 
-    @Bind(R.id.tv_like_count)
-    TextView tvLikeCount;
+        @Bind(R.id.tv_like_count)
+        TextView tvLikeCount;
 
-    @Bind(R.id.tv_like_icon)
-    ImageView tvLikeIcon;
+        @Bind(R.id.tv_like_icon)
+        ImageView tvLikeIcon;
 
-    @Bind(R.id.tv_comment_count)
-    TextView tvCommentCount;
+        @Bind(R.id.tv_comment_count)
+        TextView tvCommentCount;
 
-    @Bind(R.id.gl_diary_multiple_pic)
-    GridLayout glMultiplePic;
+        @Bind(R.id.gl_diary_multiple_pic)
+        GridLayout glMultiplePic;
 
-    @Bind(R.id.iv_diary_single_pic)
-    ImageView ivSinglerPic;
+        @Bind(R.id.iv_diary_single_pic)
+        ImageView ivSinglerPic;
 
-    @Bind(R.id.ll_diaryset_baseinfo)
-    LinearLayout llDiarySet;
+        @Bind(R.id.ll_diaryset_baseinfo)
+        LinearLayout llDiarySet;
 
-    @Bind(R.id.ll_diary_detail_info)
-    LinearLayout llDiaryDetailInfo;
+        @Bind(R.id.ll_diary_detail_info)
+        LinearLayout llDiaryDetailInfo;
 
-    public DiaryViewHolder(View itemView) {
-        super(itemView);
-        ButterKnife.bind(this, itemView);
+        public DiaryViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
 
+        }
     }
-}
 }

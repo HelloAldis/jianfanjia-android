@@ -254,7 +254,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mDiaryInfo.setContent(s.toString());
+                mDiaryInfo.setContent(s.toString().trim());
                 setMianHeadRightTitleEnable();
             }
 

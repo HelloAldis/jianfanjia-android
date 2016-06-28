@@ -1,5 +1,7 @@
 package com.jianfanjia.api.model;
 
+import android.text.SpannableString;
+
 import java.util.List;
 
 /**
@@ -27,6 +29,8 @@ public class DiaryInfo extends BaseModel {
     private User author;
     private boolean is_deleted;
     private long refreshTime;
+    private transient SpannableString showContent;
+    private transient int showHeight;
 
     public String get_id() {
         return _id;
@@ -162,6 +166,23 @@ public class DiaryInfo extends BaseModel {
 
     public void setRefreshTime(long refreshTime) {
         this.refreshTime = refreshTime;
+    }
+
+
+    public int getShowHeight() {
+        return showHeight;
+    }
+
+    public void setShowHeight(int showHeight) {
+        this.showHeight = showHeight;
+    }
+
+    public SpannableString getShowContent() {
+        return showContent;
+    }
+
+    public void setShowContent(SpannableString showContent) {
+        this.showContent = showContent;
     }
 }
 

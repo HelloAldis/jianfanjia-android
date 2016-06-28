@@ -17,7 +17,9 @@ import java.util.List;
 
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.ui.interf.PauseOnScrollListenter;
 import com.jianfanjia.common.tool.LogTool;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Description: com.jianfanjia.cn.base
@@ -379,7 +381,8 @@ public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter
      * @param recyclerView recycleView
      */
     private void setScrollListener(RecyclerView recyclerView) {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new PauseOnScrollListenter(ImageLoader.getInstance(), true, true, new
+                RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -396,6 +399,6 @@ public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter
                     }
                 }
             }
-        });
+        }));
     }
 }
