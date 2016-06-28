@@ -38,9 +38,11 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiaryDetailInfoAdapter;
+import com.jianfanjia.cn.ui.interf.PauseOnScrollListenter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -129,6 +131,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                 }
             }
         });
+        mRecyclerView.addOnScrollListener(new PauseOnScrollListenter(ImageLoader.getInstance(),true,true));
     }
 
     @OnTextChanged(R.id.add_comment)
