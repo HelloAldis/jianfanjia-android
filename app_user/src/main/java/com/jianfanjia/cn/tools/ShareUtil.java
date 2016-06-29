@@ -2,6 +2,7 @@ package com.jianfanjia.cn.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -147,14 +148,17 @@ public class ShareUtil {
         mController.openShare(activity, false);
     }
 
-    public void shareDiarySet(Activity activity, String diarySetTitle, String diarysetid, SocializeListeners
-            .SnsPostListener listener) {
+    public void shareDiarySet(Activity activity, Bitmap bitmap, String diarySetTitle, String diarysetid,
+                              SocializeListeners.SnsPostListener listener) {
         LogTool.d(this.getClass().getName(), context.getPackageResourcePath());
-        UMImage image = new UMImage(context, url_new.SHARE_APP_LOGO);
+        UMImage image = new UMImage(context, bitmap);
         setShareContent(image, diarySetTitle, context.getString(R.string.share_diaryset_des),
                 Url_New.getInstance().DIARY_SET_SHARE_URL + diarysetid);
         mController.registerListener(listener);
         mController.openShare(activity, false);
+        if (bitmap.isRecycled()) {
+            bitmap.recycle();
+        }
     }
 
     public void shareUrl(Activity activity, String imageUrl, String title, String description, String url,

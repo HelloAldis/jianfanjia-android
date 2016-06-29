@@ -583,10 +583,10 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         }
     }
 
-    class DiarySetInfoBaseInfoViewHolder extends RecyclerViewHolderBase {
+    public static class DiarySetInfoBaseInfoViewHolder extends RecyclerViewHolderBase {
 
         @Bind(R.id.iv_diaryset_cover_pic)
-        ImageView ivDiarysetCover;
+        public ImageView ivDiarysetCover;
 
         @Bind(R.id.tv_diaryset_update_cover)
         TextView tvDiarysetUpdateCover;

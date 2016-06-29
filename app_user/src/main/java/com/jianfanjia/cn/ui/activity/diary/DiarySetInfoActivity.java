@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
@@ -44,6 +45,7 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
+import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.common.tool.ToastUtil;
@@ -287,17 +289,31 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.share_layout:
-                if(mDiarySetInfo.getDiaries() != null && mDiarySetInfo.getDiaries().size() > 0){
-                    showPopwindow();
-                }else {
-                    ToastUtil.showShortTost("您还没有发布装修日记哦");
-                }
+                shareDiarySet();
                 break;
         }
     }
 
+    private void shareDiarySet() {
+        if (mDiaryAdapter != null && mDiaryAdapter.getItemCount() > 0) {
+            if (mDiarySetInfo.getDiaries() != null && mDiarySetInfo.getDiaries().size() > 0) {
+                showPopwindow();
+            } else {
+                ToastUtil.showShortTost("您还没有发布装修日记哦");
+            }
+        }
+
+    }
+
     private void showPopwindow() {
-        mShareUtil.shareDiarySet(this, mDiarySetInfo.getTitle() + "（" + DiaryBusiness.getDiarySetDes(mDiarySetInfo) +
+
+        DiarySetInfoAdapter.DiarySetInfoBaseInfoViewHolder viewHolder = (DiarySetInfoAdapter
+                .DiarySetInfoBaseInfoViewHolder) mRecyclerView.findViewHolderForAdapterPosition(0);
+        Drawable drawableDiarySetCover = viewHolder.ivDiarysetCover.getDrawable();
+        Bitmap bitmapDiarySetCover = ImageUtil.drawableToBitmap(drawableDiarySetCover);
+
+        mShareUtil.shareDiarySet(this, bitmapDiarySetCover, mDiarySetInfo.getTitle() + "（" + DiaryBusiness
+                .getDiarySetDes(mDiarySetInfo) +
                 "）", diarySetId, new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
