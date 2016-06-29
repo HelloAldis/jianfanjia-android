@@ -47,9 +47,8 @@ public class DesignerTeamAuthAdapter extends BaseRecyclerViewAdapter<Team> {
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Team> list) {
         switch (getItemViewType(position)) {
             case CONTENT_TYPE:
-                Team team = list.get(position - 1);
                 DesignerTeamViewHolder holder = (DesignerTeamViewHolder) viewHolder;
-                bindContentView(position - 1, team, holder);
+                bindContentView(position - 1, holder);
                 break;
             case HEAD_TYPE:
                 DesignerWorksViewHolderHead holderHead = (DesignerWorksViewHolderHead) viewHolder;
@@ -68,7 +67,8 @@ public class DesignerTeamAuthAdapter extends BaseRecyclerViewAdapter<Team> {
         });
     }
 
-    private void bindContentView(final int position, Team team, DesignerTeamViewHolder holder) {
+    private void bindContentView(final int position, DesignerTeamViewHolder holder) {
+        Team team = list.get(position);
 
         holder.teamManagerText.setText(TextUtils.isEmpty(team.getManager()) ? "" : team.getManager());
 
@@ -106,6 +106,7 @@ public class DesignerTeamAuthAdapter extends BaseRecyclerViewAdapter<Team> {
         if (list == null) return;
         list.remove(position);
         notifyItemRemoved(position + 1);
+        notifyDataSetChanged();
     }
 
     @Override

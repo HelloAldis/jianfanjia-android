@@ -250,7 +250,7 @@ public class RecycleViewFragment extends BaseFragment {
     }
 
     public void onNetError(){
-        if (myHandledRequirementAdapter.getItemCount() == 0) {
+        if (myHandledRequirementAdapter != null && myHandledRequirementAdapter.getItemCount() == 0) {
             errorLayout.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
         }
