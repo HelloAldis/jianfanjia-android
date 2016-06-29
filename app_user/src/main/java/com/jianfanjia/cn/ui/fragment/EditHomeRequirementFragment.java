@@ -392,7 +392,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
                 break;
             case R.id.act_edit_req_lovedesisex:
                 ChooseItemIntent loveDesignerSexIntent = new ChooseItemIntent(getContext());
-                loveDesignerSexIntent.setSingleChoose(Constant.REQUIRECODE_DESISEX, requirementInfo.getWork_type(),
+                loveDesignerSexIntent.setSingleChoose(Constant.REQUIRECODE_DESISEX, requirementInfo.getPrefer_sex(),
                         getString(R.string.str_lovedesisex));
                 startActivityForResult(loveDesignerSexIntent, Constant.REQUIRECODE_DESISEX);
                 break;

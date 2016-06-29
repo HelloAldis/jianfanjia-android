@@ -259,6 +259,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
 
     private Requirement getSourceRequirement(String type) {
         Requirement requirement = new Requirement();
+        requirement.setCommunication_type("0");
         switch (type) {
             case Global.DEC_TYPE_HOME:
                 RequirementBusiness.initHomeRequirement(requirement);
