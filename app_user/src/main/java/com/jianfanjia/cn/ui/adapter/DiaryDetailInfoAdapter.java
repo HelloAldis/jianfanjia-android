@@ -99,17 +99,19 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     }
 
     @Override
-    public void bindView(RecyclerViewHolderBase viewHolder, int position, List<Comment> list) {
+    public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<Comment> list) {
         switch (getItemViewType(position)) {
             case DIARY_DETAIL_TYPE:
                 bindDiary((DiaryDynamicAdapter.DiaryViewHolder) viewHolder);
                 break;
             case COMMENT_TYPE:
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
-                viewHolder.itemView.measure(0, 0);
-                LogTool.d(this.getClass().getName(), "commentItemHeight height =" + viewHolder.itemView
+
+                ((CommentViewHolder) viewHolder).itemView.measure(0, 0);
+                LogTool.d(this.getClass().getName(), "commentItemHeight height =" + ((CommentViewHolder)
+                        viewHolder).itemView
                         .getMeasuredHeight());
-                itemHeight.put(position - 1, viewHolder.itemView.getMeasuredHeight());
+                itemHeight.put(position - 1, ((CommentViewHolder) viewHolder).itemView.getMeasuredHeight());
                 break;
             case FOOTER_TYPE:
                 bindFooter((FooterViewHolder) viewHolder);

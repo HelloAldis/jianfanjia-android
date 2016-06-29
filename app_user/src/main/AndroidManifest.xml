@@ -412,7 +412,7 @@
             android:name="com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name="com.jianfanjia.cn.ui.activity.diary.DiarySetListActivity"
             android:screenOrientation="portrait"
