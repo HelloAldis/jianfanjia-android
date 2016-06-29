@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.ui.adapter;
+package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;

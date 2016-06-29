@@ -85,7 +85,6 @@ dependencies {
    //  compile 'com.mcxiaoke.gradle:packer-helper:1.0.4'
     compile project(':hud')
     compile project(':api')
-    compile files('libs/commons-codec-1.10.jar')
     compile files('libs/SocialSDK_WeiXin_1.jar')
     compile files('libs/SocialSDK_WeiXin_2.jar')
     compile files('libs/umeng_social_sdk.jar')

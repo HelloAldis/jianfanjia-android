@@ -31,22 +31,21 @@ import okhttp3.RequestBody;
 
 /**
  * 各个接口执行顺序一般为下面三类
- *
+ * <p/>
  * 1. 成功
  * BaseApiCallbackImpl.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
  * -> BaseApiCallbackImpl.onHttpDone() -> apiCallback.onHttpDone()
  * -> BaseApiCallbackImpl.onSuccess() -> apiCallback.onSuccess()
- *
+ * <p/>
  * 2. 业务失败
  * BaseApiCallbackImpl.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
  * -> BaseApiCallbackImpl.onHttpDone() -> apiCallback.onHttpDone()
  * -> BaseApiCallbackImpl.onFailed() -> apiCallback.onFailed()
- *
+ * <p/>
  * 3. 网络失败
  * BaseApiCallbackImpl.onPreLoad() -> apiCallback.onPreLoad() -> http请求 -> http返回
  * -> BaseApiCallbackImpl.onHttpDone() -> apiCallback.onHttpDone()
  * -> BaseApiCallbackImpl.onNetworkError() -> apiCallback.onNetworkError()
- *
  */
 public class ApiClient {
 
@@ -54,7 +53,7 @@ public class ApiClient {
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType IMAGE_MEDIA_TYPE = MediaType.parse("image/jpeg");
 
-    private static  ApiCallback BASE_API_CALLBACK = null;
+    private static ApiCallback BASE_API_CALLBACK = null;
     private static CookieStore COOKIE_STORE = null;
     private static OkHttpClient CLIENT = null;
     private static String USER_AGENT = null;
@@ -91,7 +90,7 @@ public class ApiClient {
                 httpDone(baseRequest, apiCallback);
 
                 if (response.isSuccessful()) {
-                    String json = response.body().string();
+                    String json = StringUtils.unEscapeHtmp(response.body().string());
                     response.body().close();
                     logResponseBody(json);
                     ApiResponse apiResponse = getApiResponse(json, apiCallback);
@@ -137,7 +136,8 @@ public class ApiClient {
         });
     }
 
-    private static void success(final BaseRequest baseRequest, final ApiCallback apiCallback, final ApiResponse apiResponse) {
+    private static void success(final BaseRequest baseRequest, final ApiCallback apiCallback, final ApiResponse
+            apiResponse) {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
@@ -151,7 +151,8 @@ public class ApiClient {
         });
     }
 
-    private static void failed(final BaseRequest baseRequest, final ApiCallback apiCallback, final ApiResponse apiResponse) {
+    private static void failed(final BaseRequest baseRequest, final ApiCallback apiCallback, final ApiResponse
+            apiResponse) {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {

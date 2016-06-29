@@ -14,7 +14,7 @@ import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.designer.ui.adapter.RequirementItemLoveStyleAdapter;
+import com.jianfanjia.cn.ui.adapter.RequirementItemLoveStyleAdapter;
 import com.jianfanjia.cn.ui.interf.cutom_annotation.ReqItemFinderImp;
 import com.jianfanjia.cn.view.MainHeadView;
 

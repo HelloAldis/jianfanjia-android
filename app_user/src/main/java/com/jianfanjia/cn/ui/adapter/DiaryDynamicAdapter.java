@@ -298,7 +298,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 int end = staticLayout.getLineEnd(5);
                 LogTool.d(this.getClass().getName(), "end =" + end);
                 String endElp = "...     全文";
-                CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
+                CharSequence charSequence = content.subSequence(0, end - endElp.length());
                 LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
 
                 String showContent = charSequence + endElp;
