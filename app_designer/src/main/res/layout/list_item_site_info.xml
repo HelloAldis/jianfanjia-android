@@ -16,8 +16,8 @@
         android:layout_below="@id/top_line"
         android:background="@drawable/my_item_layout_bg_selector"
         android:paddingBottom="@dimen/space_16"
-        android:paddingLeft="@dimen/space_26"
-        android:paddingRight="@dimen/space_26"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
         android:paddingTop="@dimen/space_16">
 
         <com.jianfanjia.cn.designer.view.layout.CircleImageView

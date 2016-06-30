@@ -21,12 +21,12 @@ import com.jianfanjia.cn.designer.business.ProductBusiness;
 
 
 /**
- * Name: DesignerWorksAdapter
+ * Name: DesignerProductAdapter
  * User: fengliang
  * Date: 2015-10-15
  * Time: 13:44
  */
-public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
+public class DesignerProductAdapter extends BaseRecyclerViewAdapter<Product> {
 
     private OnItemEditListener listener;
 
@@ -35,7 +35,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
 
     private boolean isEdit = false;
 
-    public DesignerWorksAdapter(Context context, List<Product> list, OnItemEditListener listener) {
+    public DesignerProductAdapter(Context context, List<Product> list, OnItemEditListener listener) {
         super(context, list);
         this.listener = listener;
     }
@@ -72,8 +72,8 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
             }
         });
 
-        viewHolder.tvProductAuthTip.setVisibility(View.VISIBLE);
         if (list == null || list.size() == 0) {
+            viewHolder.tvProductAuthTip.setVisibility(View.VISIBLE);
             viewHolder.tvProductAuthTip.setText(context.getString(R.string.product_auth_canbe_appoint_count));
         } else {
             int authSuccessCount = 0;
@@ -85,6 +85,7 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
             if (authSuccessCount >= 3) {
                 viewHolder.tvProductAuthTip.setVisibility(View.GONE);
             } else {
+                viewHolder.tvProductAuthTip.setVisibility(View.VISIBLE);
                 viewHolder.tvProductAuthTip.setText(String.format(context.getString(R.string
                         .product_auth_canbe_appoint_count_left), 3 - authSuccessCount));
             }
@@ -154,7 +155,8 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
     public void remove(int position) {
         if (list == null) return;
         list.remove(position);
-        notifyItemRemoved(position + 1);
+        notifyItemChanged(position + 1);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -223,4 +225,5 @@ public class DesignerWorksAdapter extends BaseRecyclerViewAdapter<Product> {
             ButterKnife.bind(this, itemView);
         }
     }
+
 }

@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/space_8"
-            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
             >
 
             <TextView
@@ -42,8 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="@dimen/space_8"
-            android:paddingTop="@dimen/space_8"
+            android:layout_marginBottom="@dimen/space_8"
             />
 
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info;
 
 import android.content.DialogInterface;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,13 +22,13 @@ import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseRecyclerViewAdapter;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.tools.UiHelper;
-import com.jianfanjia.cn.designer.ui.adapter.DesignerWorksAdapter;
+import com.jianfanjia.cn.designer.ui.adapter.DesignerProductAdapter;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.common.tool.TDevice;
 
 /**
  * Description: com.jianfanjia.cn.designer.ui.activity.my_info_auth.product_info
@@ -43,7 +44,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
     @Bind(R.id.designer_product_head_layout)
     MainHeadView mMainHeadView;
 
-    DesignerWorksAdapter mDesignerWorksAdapter;
+    DesignerProductAdapter mDesignerProductAdapter;
 
     private List<Product> mProductList;
 
@@ -77,8 +78,22 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
                 getAllProduct();
             }
         });
-        mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
-        mDesignerWorksAdapter = new DesignerWorksAdapter(this, mProductList, new BaseRecyclerViewAdapter
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+
+            int space = TDevice.dip2px(getApplicationContext(), 10);
+
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.right = 0;
+                outRect.left = 0;
+                outRect.bottom = space;
+                outRect.top = 0;
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    outRect.bottom = 0;
+                }
+            }
+        });
+        mDesignerProductAdapter = new DesignerProductAdapter(this, mProductList, new BaseRecyclerViewAdapter
                 .OnItemEditListener() {
             @Override
             public void onItemClick(int position) {
@@ -98,7 +113,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
                 showTipDialog(position);
             }
         });
-        mRecyclerView.setAdapter(mDesignerWorksAdapter);
+        mRecyclerView.setAdapter(mDesignerProductAdapter);
     }
 
     //显示放弃提交提醒
@@ -141,7 +156,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                mDesignerWorksAdapter.remove(position);
+                mDesignerProductAdapter.remove(position);
             }
 
             @Override
@@ -178,7 +193,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
                 ProductList productList = apiResponse.getData();
                 if (productList != null) {
                     mProductList = productList.getProducts();
-                    mDesignerWorksAdapter.setList(mProductList);
+                    mDesignerProductAdapter.setList(mProductList);
                 }
 
             }
@@ -203,8 +218,8 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
             @Override
             public void onClick(View v) {
                 isEditStatus = !isEditStatus;
-                mDesignerWorksAdapter.setIsEdit(isEditStatus);
-                mDesignerWorksAdapter.notifyDataSetChanged();
+                mDesignerProductAdapter.setIsEdit(isEditStatus);
+                mDesignerProductAdapter.notifyDataSetChanged();
                 if (isEditStatus) {
                     mMainHeadView.setRightTitle(getString(R.string.finish));
                 } else {

@@ -148,7 +148,7 @@
 
         <provider
             android:name="com.igexin.download.DownloadProvider"
-            android:authorities="downloads.com.jianfanjia.designer.activity"
+            android:authorities="downloads.com.jianfanjia.cn.designer"
             android:process=":pushservice"/>
         <!-- android:authorities="downloads.第三方包名" -->
         <activity

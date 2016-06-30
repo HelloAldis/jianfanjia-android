@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -23,17 +22,17 @@ import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.request.designer.GetProcessListRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.setting_contract.SettingContractActivity;
+import com.jianfanjia.cn.designer.api.Api;
+import com.jianfanjia.cn.designer.base.BaseFragment;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewHomeRequirementActivity;
+import com.jianfanjia.cn.designer.ui.activity.setting_contract.SettingContractActivity;
 import com.jianfanjia.cn.designer.ui.adapter.MySiteAdapter;
-import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.interf.ClickCallBack;
-import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
@@ -70,9 +69,6 @@ public class ManageFragment extends BaseFragment {
 
     @Bind(R.id.frag_req_rootview)
     LinearLayout rootLayout;
-
-    @Bind(R.id.process_tip_text)
-    TextView process_tip_text;
 
     private String[] proTitle = null;
     private List<Process> processList;

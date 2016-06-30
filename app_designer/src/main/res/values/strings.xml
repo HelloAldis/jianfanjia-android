@@ -88,7 +88,7 @@
     <string name="marchDesignerText">匹配的设计师</string>
     <string name="intentionDesignerText">意向设计师</string>
     <string name="replaceText">替换</string>
-    <string name="commentText">留言</string>
+    <string name="commentText">评论</string>
     <string name="planText">我的方案</string>
     <string name="designerPlanText">方案</string>
     <string name="designerPlan">方案详情</string>
@@ -112,7 +112,6 @@
     <string name="add_comment">添加评论</string>
     <string name="add_feedback">请添加您想说的内容</string>
     <string name="userinfo">个人信息</string>
-    <string name="commentList">留言</string>
     <string name="check">阶段验收</string>
     <string name="back">返回</string>
     <string name="send">发送</string>
@@ -273,7 +272,7 @@
     <string name="no_more_data">没有更多了</string>
 
     <string name="all_finish">已竣工</string>
-    <string name="my_comment">我的留言</string>
+    <string name="my_comment">我的评论</string>
     <string name="my_notice">我的通知</string>
     <string name="my_notice_detail">通知详情</string>
     <string name="all_notice">全部</string>
