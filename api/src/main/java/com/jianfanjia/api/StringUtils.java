@@ -2,8 +2,6 @@ package com.jianfanjia.api;
 
 import android.text.TextUtils;
 
-import com.jianfanjia.common.tool.LogTool;
-
 /**
  * Description: com.jianfanjia.api
  * Author: zhanghao
@@ -14,7 +12,6 @@ public class StringUtils {
 
     public static String unEscapeHtmp(String src) {
         if (TextUtils.isEmpty(src)) return null;
-        LogTool.d(StringUtils.class.getName(), src);
         if (src.contains("&quot;")) {
             src = src.replace("&quot;", "\"");
         }
