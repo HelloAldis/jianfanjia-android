@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.bean.AnimationRect;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
@@ -149,7 +151,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         DiarySetInfoActivity.intentToDiarySet(context, diarySetInfo);
     }
 
-    private void buildPic(DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
+    private void buildPic(final DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
         int imageCount;
         if (diaryInfo.getImages() == null || (imageCount = diaryInfo.getImages().size()) == 0) {
             diaryViewHolder.glMultiplePic.setVisibility(View.GONE);
@@ -161,7 +163,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 diaryViewHolder.ivSinglerPic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gotoShowBigPic(0, diaryInfo.getImages());
+                        gotoShowBigPic(0, diaryInfo.getImages(), diaryViewHolder.ivSinglerPic);
                     }
                 });
             } else {
@@ -199,18 +201,20 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         imageShow.displayScreenWidthThumnailImage(context, imageid, ivSinglerPic);
     }
 
-    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos) {
+    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos,ImageView srcImageView) {
         List<String> imgs = new ArrayList<>();
         for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
-
+        AnimationRect animationRect = AnimationRect.buildFromImageView(srcImageView);
         LogTool.d(this.getClass().getName(), "position:" + position);
         Bundle showPicBundle = new Bundle();
         showPicBundle.putInt(Constant.CURRENT_POSITION, position);
         showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                 (ArrayList<String>) imgs);
+        showPicBundle.putParcelable(Constant.ANIMATION_RECT,animationRect);
         IntentUtil.startActivity(context, ShowPicActivity.class, showPicBundle);
+        ((Activity)context).overridePendingTransition(0,0);
     }
 
     protected void buildMultiPic(int imageCount, final List<DiaryImageDetailInfo> diaryImageDetailInfos, final
@@ -227,7 +231,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gotoShowBigPic(finalI, diaryImageDetailInfos);
+                    gotoShowBigPic(finalI, diaryImageDetailInfos,pic);
                 }
             });
         }

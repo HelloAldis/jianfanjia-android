@@ -6,16 +6,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.ui.adapter.ShowPicPagerAdapter;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.bean.AnimationRect;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.ui.adapter.ShowPicPagerAdapter;
+import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
 
 public class ShowPicActivity extends BaseSwipeBackActivity implements
         ViewPagerClickListener, OnPageChangeListener {
@@ -32,6 +32,7 @@ public class ShowPicActivity extends BaseSwipeBackActivity implements
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
     private String tipText = null;
+    private AnimationRect mAnimationRect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class ShowPicActivity extends BaseSwipeBackActivity implements
         if (bundle != null) {
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
+            mAnimationRect = bundle.getParcelable(Constant.ANIMATION_RECT);
             totalCount = imageList.size();
         }
     }
@@ -55,7 +57,7 @@ public class ShowPicActivity extends BaseSwipeBackActivity implements
     }
 
     public void initView() {
-        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
+        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this,mAnimationRect);
         viewPager.setAdapter(showPicPagerAdapter);
         viewPager.setCurrentItem(currentPosition);
         viewPager.setOnPageChangeListener(this);

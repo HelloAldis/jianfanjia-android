@@ -75,7 +75,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
     }
 
     private void initData(){
-        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this);
+        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this,null);
         showPicPagerAdapter.setOnLongClickListener(this);
         viewPager.setAdapter(showPicPagerAdapter);
         viewPager.setCurrentItem(currentPosition);

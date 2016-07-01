@@ -89,6 +89,11 @@ public class PreImgPagerAdapter extends PagerAdapter {
                     viewPagerClickListener.onClickItem(position);
                 }
             }
+
+            @Override
+            public void onOutsidePhotoTap() {
+
+            }
         });
         container.addView(view, 0);
         return view;

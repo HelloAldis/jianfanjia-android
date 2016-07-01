@@ -162,6 +162,7 @@ public class Constant {
             + R.mipmap.pix_default;
 
     public static final String CURRENT_POSITION = "current_position";// 当前位置
+    public static final String ANIMATION_RECT = "animation_rect";
     public static final String IMAGE_LIST = "image_list";
     public static final String PROCESS_INFO = "process";
     public static final String SECTION = "section";

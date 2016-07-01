@@ -76,7 +76,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_diary));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
 
-        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView());
+        mDiaryDynamicAdapter = new DiaryDynamicAdapter(getActivity(), mPullToRefreshRecycleView.getRefreshableView());
 
         mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
