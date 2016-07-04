@@ -163,6 +163,7 @@ public class Constant {
 
     public static final String CURRENT_POSITION = "current_position";// 当前位置
     public static final String ANIMATION_RECT = "animation_rect";
+    public static final String ANIMATION_RECT_LIST = "animation_rect_list";
     public static final String IMAGE_LIST = "image_list";
     public static final String PROCESS_INFO = "process";
     public static final String SECTION = "section";

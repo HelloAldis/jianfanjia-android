@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
@@ -26,6 +27,7 @@ import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.ui.fragment.CommonShowPicFragment;
+import com.jianfanjia.cn.view.viewpager.transfrom.ScaleInOutTransfromer;
 
 /**
  * Description: com.jianfanjia.cn.ui.activity.common
@@ -35,11 +37,11 @@ import com.jianfanjia.cn.ui.fragment.CommonShowPicFragment;
  */
 public class CommonShowPicActivity extends BaseActivity {
 
-    private AnimationRect mAnimationRect;
-    private ArrayList<String> imageList = new ArrayList<String>();
+    private List<AnimationRect> mAnimationRect;
+    private ArrayList<String> imageList = new ArrayList<>();
 
     @Bind(R.id.content_container)
-    private View backgroundView;
+    View backgroundView;
 
     @Bind(R.id.showpicPager)
     ViewPager viewPager;
@@ -52,12 +54,12 @@ public class CommonShowPicActivity extends BaseActivity {
 
     private ColorDrawable backgroundColor;
 
-    public static Intent newIntent(ArrayList<String> imageList, AnimationRect rect,
+    public static Intent newIntent(ArrayList<String> imageList, ArrayList<AnimationRect> animationRectList,
                                    int initPosition) {
         Intent intent = new Intent(MyApplication.getInstance(), CommonShowPicActivity.class);
         intent.putExtra(Constant.IMAGE_LIST, imageList);
+        intent.putParcelableArrayListExtra(Constant.ANIMATION_RECT_LIST, animationRectList);
         intent.putExtra(Constant.CURRENT_POSITION, initPosition);
-        intent.putExtra(Constant.ANIMATION_RECT, rect);
         return intent;
     }
 
@@ -66,6 +68,38 @@ public class CommonShowPicActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getDataFromIntent();
+        this.initView(savedInstanceState);
+    }
+
+    private void initView(Bundle savedInstanceState) {
+        viewPager.setAdapter(new ImagePagerAdapter(getSupportFragmentManager()));
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                CommonShowPicActivity.this.tipView.setText(String.valueOf(position + 1));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int scrollState) {
+                if (scrollState != ViewPager.SCROLL_STATE_IDLE) {
+                    final int childCount = viewPager.getChildCount();
+                    for (int i = 0; i < childCount; i++) {
+                        View child = viewPager.getChildAt(i);
+                        if (child.getLayerType() != View.LAYER_TYPE_NONE) {
+                            child.setLayerType(View.LAYER_TYPE_NONE, null);
+                        }
+                    }
+                }
+            }
+        });
+        viewPager.setCurrentItem(initPosition);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setPageTransformer(true, new ScaleInOutTransfromer());
+
+        if (savedInstanceState != null) {
+            showBackgroundImmediately();
+        }
     }
 
     private void getDataFromIntent() {
@@ -73,7 +107,7 @@ public class CommonShowPicActivity extends BaseActivity {
         if (bundle != null) {
             initPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
-            mAnimationRect = bundle.getParcelable(Constant.ANIMATION_RECT);
+            mAnimationRect = bundle.getParcelableArrayList(Constant.ANIMATION_RECT_LIST);
             totalCount = imageList.size();
         }
     }
@@ -81,26 +115,26 @@ public class CommonShowPicActivity extends BaseActivity {
     public void showBackgroundImmediately() {
         if (backgroundView.getBackground() == null) {
             backgroundColor = new ColorDrawable(Color.BLACK);
-            backgroundView.setBackground(backgroundColor);
+            backgroundView.setBackgroundColor(backgroundColor.getColor());
         }
     }
 
     public ObjectAnimator showBackgroundAnimate() {
         backgroundColor = new ColorDrawable(Color.BLACK);
-        backgroundView.setBackground(backgroundColor);
+        backgroundView.setBackgroundColor(backgroundColor.getColor());
         ObjectAnimator bgAnim = ObjectAnimator
                 .ofInt(backgroundColor, "alpha", 0, 255);
         bgAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                backgroundView.setBackground(backgroundColor);
+                backgroundView.setBackgroundColor(backgroundColor.getColor());
             }
         });
         return bgAnim;
     }
 
     private HashMap<Integer, CommonShowPicFragment> fragmentMap
-            = new HashMap<Integer, CommonShowPicFragment>();
+            = new HashMap<>();
 
     private boolean alreadyAnimateIn = false;
 
@@ -118,7 +152,7 @@ public class CommonShowPicActivity extends BaseActivity {
 
                 boolean animateIn = (initPosition == position) && !alreadyAnimateIn;
                 fragment = CommonShowPicFragment
-                        .getInstance(imageList.get(position), mAnimationRect, animateIn);
+                        .getInstance(imageList.get(position), mAnimationRect.get(position), animateIn);
                 alreadyAnimateIn = true;
                 fragmentMap.put(position, fragment);
             }
@@ -153,7 +187,7 @@ public class CommonShowPicActivity extends BaseActivity {
             bgAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    backgroundView.setBackground(backgroundColor);
+                    backgroundView.setBackgroundColor(backgroundColor.getColor());
                 }
             });
             bgAnim.addListener(new AnimatorListenerAdapter() {

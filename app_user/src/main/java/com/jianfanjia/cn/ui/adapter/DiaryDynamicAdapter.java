@@ -3,7 +3,7 @@ package com.jianfanjia.cn.ui.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.text.Spannable;
@@ -41,9 +41,7 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.bean.AnimationRect;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.IntentUtil;
-import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
@@ -163,7 +161,10 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 diaryViewHolder.ivSinglerPic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gotoShowBigPic(0, diaryInfo.getImages(), diaryViewHolder.ivSinglerPic);
+                        ArrayList<AnimationRect> animationRectArrayList
+                                = new ArrayList<>();
+                        animationRectArrayList.add(AnimationRect.buildFromImageView(diaryViewHolder.ivSinglerPic));
+                        gotoShowBigPic(0, diaryInfo.getImages(), animationRectArrayList);
                     }
                 });
             } else {
@@ -186,35 +187,29 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         if (bitmapWidth > bitmapHeight) {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) * 2 / 3;
             viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));
-        } else if (bitmapWidth < bitmapHeight) {
-            viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) / 2;
-            viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));
         } else {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) / 2;
-            viewHeight = viewWidth;
+            viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));
         }
         layoutParams.width = viewWidth;
         layoutParams.height = viewHeight;
         LogTool.d(this.getClass().getName(), "ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
         ivSinglerPic.setLayoutParams(layoutParams);
 
-        imageShow.displayScreenWidthThumnailImage(context, imageid, ivSinglerPic);
+        imageShow.displayThumbnailImageByHeightAndWidth(imageid, ivSinglerPic, viewWidth, viewHeight);
     }
 
-    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos,ImageView srcImageView) {
+    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos, List<AnimationRect>
+            animationRectList) {
         List<String> imgs = new ArrayList<>();
         for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
-        AnimationRect animationRect = AnimationRect.buildFromImageView(srcImageView);
         LogTool.d(this.getClass().getName(), "position:" + position);
-        Bundle showPicBundle = new Bundle();
-        showPicBundle.putInt(Constant.CURRENT_POSITION, position);
-        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                (ArrayList<String>) imgs);
-        showPicBundle.putParcelable(Constant.ANIMATION_RECT,animationRect);
-        IntentUtil.startActivity(context, ShowPicActivity.class, showPicBundle);
-        ((Activity)context).overridePendingTransition(0,0);
+        Intent intent = CommonShowPicActivity.newIntent((ArrayList<String>) imgs, (ArrayList<AnimationRect>)
+                animationRectList, position);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(0, 0);
     }
 
     protected void buildMultiPic(int imageCount, final List<DiaryImageDetailInfo> diaryImageDetailInfos, final
@@ -222,16 +217,42 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         gridLayout.setVisibility(View.VISIBLE);
 
         final int count = imageCount > 9 ? 9 : imageCount;
+
         for (int i = 0; i < count; i++) {
             final ImageView pic = (ImageView) gridLayout.getChildAt(i);
             pic.setVisibility(View.VISIBLE);
-            imageShow.displayScreenWidthThumnailImage(context, diaryImageDetailInfos.get(i).getImageid(), pic);
+            /*int viewWidth = TDevice.dip2px(context, 100);
+            int bitmapWidth = diaryImageDetailInfos.get(i).getWidth();
+            int bitmapHeight = diaryImageDetailInfos.get(i).getHeight();
+            int loadThumbnailWidth;
+            int loadThumbnailHeight;
+            if (bitmapHeight < bitmapWidth) {
+                loadThumbnailWidth = viewWidth;
+                loadThumbnailHeight = (int) ((((float) bitmapHeight) / bitmapWidth) * viewWidth);
+            } else {
+                loadThumbnailHeight = viewWidth;
+                loadThumbnailWidth = (int) ((((float) bitmapWidth) / bitmapHeight) * viewWidth);
+            }
+            LogTool.d(this.getClass().getName(), "bitmapWidth =" + bitmapWidth + ",bitmapHeight =" + bitmapHeight);
+            LogTool.d(this.getClass().getName(), "loadThumbnailWidth =" + loadThumbnailWidth + ",loadThumbnailHeight " +
+                    "=" + loadThumbnailHeight);
+            imageShow.displayThumbnailImageByHeightAndWidth(diaryImageDetailInfos.get(i).getImageid(), pic,
+                    loadThumbnailWidth, loadThumbnailHeight);*/
+            imageShow.displayScreenWidthThumnailImage(context,diaryImageDetailInfos.get(i).getImageid(),pic);
 
             final int finalI = i;
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gotoShowBigPic(finalI, diaryImageDetailInfos,pic);
+                    ArrayList<AnimationRect> animationRectArrayList
+                            = new ArrayList<>();
+                    for (int i = 0; i < count; i++) {
+                        if (pic.getVisibility() == View.VISIBLE) {
+                            AnimationRect rect = AnimationRect.buildFromImageView(pic);
+                            animationRectArrayList.add(rect);
+                        }
+                    }
+                    gotoShowBigPic(finalI, diaryImageDetailInfos, animationRectArrayList);
                 }
             });
         }
@@ -326,34 +347,6 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                             .getMeasuredHeight());
                 }
             });
-
-
-        /*final String content = diaryInfo.getContent();
-        textView.setText(content);*/
-    /*    textView.post(new Runnable() {
-            @Override
-            public void run() {
-                if (textView.getLayout().getLineCount() > 5) {
-                    int end = textView.getLayout().getLineEnd(5);
-                    LogTool.d(this.getClass().getName(), "end =" + end);
-                    String endElp = "...    全文";
-                    CharSequence charSequence = content.subSequence(0, end - (endElp.length() + 2));
-                    LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
-
-                    String showContent = charSequence + endElp;
-                    SpannableString spannableStringBuilder = new SpannableString(showContent);
-                    spannableStringBuilder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R
-                                    .color.blue_color)),
-                            showContent.length() - 2, showContent.length(), Spannable
-                                    .SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                    textView.setText(spannableStringBuilder);
-                    diaryInfo.setShowContent(spannableStringBuilder);
-                } else {
-                    diaryInfo.setShowContent(new SpannableString(content));
-                }
-            }
-        });*/
         } else {
             textView.setText(diaryInfo.getShowContent());
         }

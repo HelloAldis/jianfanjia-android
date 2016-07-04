@@ -16,9 +16,10 @@ import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.bean.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
+import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.utils.AnimationUtility;
 import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Description: com.jianfanjia.cn.ui.fragment
@@ -67,7 +68,22 @@ public class CommonShowPicFragment extends BaseFragment {
             return;
         }
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
         if (animationIn) {
+            ObjectAnimator animator = ((CommonShowPicActivity) getActivity()).showBackgroundAnimate();
+            animator.start();
+        } else {
+            ((CommonShowPicActivity) getActivity()).showBackgroundImmediately();
+        }
+
+        if (animationIn) {
+
             mPhotoView.getViewTreeObserver()
                     .addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                         @Override
@@ -116,17 +132,6 @@ public class CommonShowPicFragment extends BaseFragment {
             getArguments().putBoolean(ANIMATION_IN, false);
         }
 
-        mPhotoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float x, float y) {
-
-            }
-
-            @Override
-            public void onOutsidePhotoTap() {
-
-            }
-        });
     }
 
     @Override
@@ -141,6 +146,7 @@ public class CommonShowPicFragment extends BaseFragment {
             return;
         }
 
+        getActivity().overridePendingTransition(0, 0);
         animateClose(backgroundAnimator);
     }
 
@@ -159,6 +165,7 @@ public class CommonShowPicFragment extends BaseFragment {
             return;
         }
 
+
         float startScale;
         if ((float) finalBounds.width() / finalBounds.height()
                 > (float) startBounds.width() / startBounds.height()) {
@@ -166,8 +173,8 @@ public class CommonShowPicFragment extends BaseFragment {
         } else {
             startScale = (float) startBounds.width() / finalBounds.width();
         }
-
-        final float startScaleFinal = startScale;
+        LogTool.d(this.getClass().getName(), "finalBounds.width() =" + finalBounds.width() + ",finalBounds.height() =" +
+                " " + finalBounds.height());
 
         int deltaTop = startBounds.top - finalBounds.top;
         int deltaLeft = startBounds.left - finalBounds.left;
@@ -176,8 +183,9 @@ public class CommonShowPicFragment extends BaseFragment {
         mPhotoView.setPivotX((mPhotoView.getWidth() - finalBounds.width()) / 2);
 
         mPhotoView.animate().translationX(deltaLeft).translationY(deltaTop)
-                .scaleY(startScaleFinal)
-                .scaleX(startScaleFinal).setDuration(ANIMATION_DURATION)
+                .scaleY(startScale)
+                .scaleX(startScale)
+                .setDuration(ANIMATION_DURATION)
                 .setInterpolator(new AccelerateDecelerateInterpolator())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -201,6 +209,7 @@ public class CommonShowPicFragment extends BaseFragment {
                     }
                 })
                 .start();
+
 
         backgroundAnimator.start();
 

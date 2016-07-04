@@ -8,6 +8,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
 
+import com.jianfanjia.common.tool.LogTool;
+
 /**
  * User: qii
  * Date: 14-4-1
@@ -208,6 +210,11 @@ public class AnimationRect implements Parcelable {
 
                 break;
         }
+
+        LogTool.d("AnimationRect.clase", "scaledBitmapRect.top =" + scaledBitmapRect.top + "scaledBitmapRect.left ="
+                + scaledBitmapRect.left +
+                "scaledBitmapRect.right =" + scaledBitmapRect.right + "scaledBitmapRect.bottom =" + scaledBitmapRect
+                .bottom);
 
         rect.scaledBitmapRect = scaledBitmapRect;
 
