@@ -10,11 +10,10 @@ import java.net.CookieStore;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.BaseApiCallbackImpl;
-import com.jianfanjia.common.tool.DataCleanTool;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.common.base.application.BaseApplication;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.jianfanjia.common.tool.DataCleanTool;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -71,7 +70,6 @@ public class MyApplication extends BaseApplication {
         config.denyCacheImageMultipleSizesInMemory();
         config.threadPoolSize(3);
         config.memoryCache(new WeakMemoryCache());
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
         config.memoryCacheSize(2 * 1024 * 1024);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);

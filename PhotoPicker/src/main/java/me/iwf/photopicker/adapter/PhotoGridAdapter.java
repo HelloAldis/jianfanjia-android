@@ -120,34 +120,38 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
             } else {
                 photo = photos.get(position);
             }
+            File file = new File(photo.getPath());
+            if (file.exists()) {
+                String urlDecode = Uri.decode(Uri.fromFile(file).toString());
+                ImageLoader.getInstance().displayImage(urlDecode
+                        , holder
+                                .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new
+                                ImageLoadingListener() {
 
-            ImageLoader.getInstance().displayImage(Uri.fromFile(new File(photo.getPath())).toString(), holder
-                    .ivPhoto, DisplayImageOptionsWrap.getDisplayImageOptionsIsMemoryCache(true), new
-                    ImageLoadingListener() {
+                                    @Override
+                                    public void onLoadingStarted(String imageUri, View view) {
 
-                        @Override
-                        public void onLoadingStarted(String imageUri, View view) {
+                                    }
 
-                        }
+                                    @Override
+                                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                        holder.vSelected.setVisibility(View.GONE);
+                                        holder.ivPhoto.setOnClickListener(null);
+                                    }
 
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            holder.vSelected.setVisibility(View.GONE);
-                            holder.ivPhoto.setOnClickListener(null);
-                        }
+                                    @Override
+                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                        if (!isSingleOrMultiple) {
+                                            holder.vSelected.setVisibility(View.VISIBLE);
+                                        }
+                                    }
 
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            if (!isSingleOrMultiple) {
-                                holder.vSelected.setVisibility(View.VISIBLE);
-                            }
-                        }
+                                    @Override
+                                    public void onLoadingCancelled(String imageUri, View view) {
 
-                        @Override
-                        public void onLoadingCancelled(String imageUri, View view) {
-
-                        }
-                    });
+                                    }
+                                });
+            }
 
             if (isSingleOrMultiple) {
                 holder.vSelected.setVisibility(View.GONE);

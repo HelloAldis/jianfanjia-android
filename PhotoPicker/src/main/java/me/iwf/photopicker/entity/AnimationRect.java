@@ -6,8 +6,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import android.widget.ImageView;
-
 
 /**
  * User: qii
@@ -39,8 +39,8 @@ public class AnimationRect implements Parcelable {
         dest.writeFloat(clipByParentRectRight);
     }
 
-    public static final Creator<AnimationRect> CREATOR =
-            new Creator<AnimationRect>() {
+    public static final Parcelable.Creator<AnimationRect> CREATOR =
+            new Parcelable.Creator<AnimationRect>() {
                 public AnimationRect createFromParcel(Parcel in) {
                     AnimationRect rect = new AnimationRect();
                     rect.scaledBitmapRect = in.readParcelable(Rect.class.getClassLoader());
@@ -210,6 +210,11 @@ public class AnimationRect implements Parcelable {
                 break;
         }
 
+        Log.d("AnimationRect.clase", "scaledBitmapRect.top =" + scaledBitmapRect.top + "scaledBitmapRect.left ="
+                + scaledBitmapRect.left +
+                "scaledBitmapRect.right =" + scaledBitmapRect.right + "scaledBitmapRect.bottom =" + scaledBitmapRect
+                .bottom);
+
         rect.scaledBitmapRect = scaledBitmapRect;
 
         return rect;
@@ -288,6 +293,7 @@ public class AnimationRect implements Parcelable {
         }
 
         return (deltaTop) / (float) oriBitmapScaledHeight;
+
     }
 
     public static float getClipRight(AnimationRect animationRect, Rect finalBounds) {

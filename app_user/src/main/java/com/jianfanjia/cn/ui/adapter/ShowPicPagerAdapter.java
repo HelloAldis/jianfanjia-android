@@ -21,7 +21,6 @@ public class ShowPicPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private ImageShow imageShow;
     Context context;
-    View.OnLongClickListener onLongClickListener;
     ViewPagerClickListener mViewPagerClickListener;
     public ShowPicPagerAdapter(Context context, List<String> imageList) {
         this.context = context;
