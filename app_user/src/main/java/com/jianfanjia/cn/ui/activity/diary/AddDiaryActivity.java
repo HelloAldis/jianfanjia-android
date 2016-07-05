@@ -37,7 +37,7 @@ import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
-import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.ui.adapter.AddDiaryGridViewAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -45,6 +45,7 @@ import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.entity.AnimationRect;
 import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 /**
@@ -180,7 +181,18 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 if (data.equals(Constant.DEFALUT_ADD_DIARY_PIC)) {
                     pickPicture();
                 } else {
-                    showImageBig(position);
+                    ArrayList<AnimationRect> animationRectArrayList
+                            = new ArrayList<>();
+                    for (int i = 0; i < mAddDiaryGridViewAdapter.getCount() - 1; i++) {
+                        ImageView imageView = (ImageView) gvAddDiaryPic.getChildAt(i).findViewById(R.id.img);
+                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
+                        if (imageView.getVisibility() == View.VISIBLE) {
+                            AnimationRect rect = AnimationRect.buildFromImageView(imageView);
+                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
+                            animationRectArrayList.add(rect);
+                        }
+                    }
+                    showImageBig(position, animationRectArrayList);
                 }
             }
         });
@@ -207,18 +219,17 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         commonDialog.show();
     }
 
-    private void showImageBig(int position) {
+    private void showImageBig(int position, List<AnimationRect> animationRectList) {
         showImageUrlList.clear();
         for (String imageUrl : imageUrlList) {
             if (!imageUrl.equals(Constant.DEFALUT_ADD_DIARY_PIC)) {
                 showImageUrlList.add(imageUrl);
             }
         }
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList(Constant.IMAGE_LIST,
-                (ArrayList<String>) showImageUrlList);
-        bundle.putInt(Constant.CURRENT_POSITION, position);
-        startActivity(ShowPicActivity.class, bundle);
+        LogTool.d(this.getClass().getName(), "position:" + position);
+        CommonShowPicActivity.intentTo(this, (ArrayList<String>) showImageUrlList, (ArrayList<AnimationRect>)
+                animationRectList, position);
+        overridePendingTransition(0, 0);
     }
 
     private void pickPicture() {

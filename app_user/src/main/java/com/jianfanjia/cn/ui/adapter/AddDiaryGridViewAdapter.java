@@ -30,7 +30,7 @@ public class AddDiaryGridViewAdapter extends BaseListAdapter<String> {
     @Override
     public View initView(final int position, View convertView) {
         String imgUrl = list.get(position);
-        convertView = layoutInflater.inflate(R.layout.grid_item_add_diary_pic, null);
+        convertView = layoutInflater.inflate(R.layout.grid_item_showpic_with_delete, null);
         ViewHolder holder = new ViewHolder(convertView);
         LogTool.d(this.getClass().getName(), "imgUrl" + imgUrl + ",position =" + position);
         if (imgUrl.equals(Constant.DEFALUT_ADD_DIARY_PIC)) {

@@ -125,6 +125,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
                 showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                         (ArrayList<String>) imgs);
                 startActivity(ShowPicActivity.class, showPicBundle);
+                overridePendingTransition(0,0);
             }
 
             @Override

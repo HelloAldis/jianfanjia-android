@@ -1,6 +1,6 @@
 package com.jianfanjia.cn.ui.fragment;
 
-import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -13,13 +13,14 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.bean.AnimationRect;
+import me.iwf.photopicker.entity.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.utils.AnimationUtility;
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Description: com.jianfanjia.cn.ui.fragment
@@ -68,19 +69,24 @@ public class CommonShowPicFragment extends BaseFragment {
             return;
         }
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
         if (animationIn) {
             ObjectAnimator animator = ((CommonShowPicActivity) getActivity()).showBackgroundAnimate();
             animator.start();
         } else {
             ((CommonShowPicActivity) getActivity()).showBackgroundImmediately();
         }
+
+        mPhotoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+                getActivity().onBackPressed();
+            }
+
+            @Override
+            public void onOutsidePhotoTap() {
+
+            }
+        });
 
         if (animationIn) {
 
@@ -121,8 +127,25 @@ public class CommonShowPicFragment extends BaseFragment {
                                     .scaleY(1)
                                     .scaleX(1).setDuration(ANIMATION_DURATION)
                                     .setInterpolator(
-                                            new AccelerateDecelerateInterpolator())
-                                    .start();
+                                            new AccelerateDecelerateInterpolator());
+
+                            AnimatorSet animationSet = new AnimatorSet();
+                            animationSet.setDuration(ANIMATION_DURATION);
+                            animationSet
+                                    .setInterpolator(new AccelerateDecelerateInterpolator());
+
+                            animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                                    "clipBottom",
+                                    AnimationRect.getClipBottom(mAnimationRect, finalBounds), 0));
+                            animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                                    "clipRight",
+                                    AnimationRect.getClipRight(mAnimationRect, finalBounds), 0));
+                            animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                                    "clipTop", AnimationRect.getClipTop(mAnimationRect, finalBounds), 0));
+                            animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                                    "clipLeft", AnimationRect.getClipLeft(mAnimationRect, finalBounds), 0));
+
+                            animationSet.start();
 
 
                             mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
@@ -186,32 +209,26 @@ public class CommonShowPicFragment extends BaseFragment {
                 .scaleY(startScale)
                 .scaleX(startScale)
                 .setDuration(ANIMATION_DURATION)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
+                .setInterpolator(new AccelerateDecelerateInterpolator());
+        AnimatorSet animationSet = new AnimatorSet();
+        animationSet.setDuration(ANIMATION_DURATION);
+        animationSet
+                .setInterpolator(new AccelerateDecelerateInterpolator());
 
-                    }
+        animationSet.playTogether(backgroundAnimator);
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
+        animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                "clipBottom", 0,
+                AnimationRect.getClipBottom(mAnimationRect, finalBounds)));
+        animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                "clipRight", 0,
+                AnimationRect.getClipRight(mAnimationRect, finalBounds)));
+        animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                "clipTop", 0, AnimationRect.getClipTop(mAnimationRect, finalBounds)));
+        animationSet.playTogether(ObjectAnimator.ofFloat(mPhotoView,
+                "clipLeft", 0, AnimationRect.getClipLeft(mAnimationRect, finalBounds)));
 
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                })
-                .start();
-
-
-        backgroundAnimator.start();
+        animationSet.start();
 
 
     }

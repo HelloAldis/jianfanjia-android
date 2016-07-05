@@ -4,7 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,10 +22,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.bean.AnimationRect;
+import me.iwf.photopicker.entity.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.fragment.CommonShowPicFragment;
 import com.jianfanjia.cn.view.viewpager.transfrom.ScaleInOutTransfromer;
 
@@ -54,13 +54,13 @@ public class CommonShowPicActivity extends BaseActivity {
 
     private ColorDrawable backgroundColor;
 
-    public static Intent newIntent(ArrayList<String> imageList, ArrayList<AnimationRect> animationRectList,
-                                   int initPosition) {
-        Intent intent = new Intent(MyApplication.getInstance(), CommonShowPicActivity.class);
-        intent.putExtra(Constant.IMAGE_LIST, imageList);
-        intent.putParcelableArrayListExtra(Constant.ANIMATION_RECT_LIST, animationRectList);
-        intent.putExtra(Constant.CURRENT_POSITION, initPosition);
-        return intent;
+    public static void intentTo(Context context, ArrayList<String> imageList, ArrayList<AnimationRect>
+            animationRectList,int initPosition) {
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(Constant.IMAGE_LIST, imageList);
+        bundle.putParcelableArrayList(Constant.ANIMATION_RECT_LIST, animationRectList);
+        bundle.putInt(Constant.CURRENT_POSITION, initPosition);
+        IntentUtil.startActivity(context, CommonShowPicActivity.class, bundle);
     }
 
 
@@ -77,7 +77,7 @@ public class CommonShowPicActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                CommonShowPicActivity.this.tipView.setText(String.valueOf(position + 1));
+                setCurrentSizeOfTotal(String.valueOf(position + 1) + "/" + totalCount);
             }
 
             @Override
@@ -94,12 +94,17 @@ public class CommonShowPicActivity extends BaseActivity {
             }
         });
         viewPager.setCurrentItem(initPosition);
+        setCurrentSizeOfTotal(String.valueOf(initPosition + 1) + "/" + totalCount);
         viewPager.setOffscreenPageLimit(1);
         viewPager.setPageTransformer(true, new ScaleInOutTransfromer());
 
         if (savedInstanceState != null) {
             showBackgroundImmediately();
         }
+    }
+
+    private void setCurrentSizeOfTotal(String text) {
+        CommonShowPicActivity.this.tipView.setText(text);
     }
 
     private void getDataFromIntent() {

@@ -3,7 +3,6 @@ package com.jianfanjia.cn.ui.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.text.Spannable;
@@ -38,7 +37,6 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
-import com.jianfanjia.cn.bean.AnimationRect;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
@@ -51,6 +49,7 @@ import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.common.tool.ToastUtil;
+import me.iwf.photopicker.entity.AnimationRect;
 
 /**
  * Description: com.jianfanjia.cn.ui.adapter 日记动态
@@ -206,9 +205,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
         LogTool.d(this.getClass().getName(), "position:" + position);
-        Intent intent = CommonShowPicActivity.newIntent((ArrayList<String>) imgs, (ArrayList<AnimationRect>)
+        CommonShowPicActivity.intentTo(context,(ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
-        context.startActivity(intent);
         ((Activity) context).overridePendingTransition(0, 0);
     }
 
@@ -219,9 +217,9 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         final int count = imageCount > 9 ? 9 : imageCount;
 
         for (int i = 0; i < count; i++) {
-            final ImageView pic = (ImageView) gridLayout.getChildAt(i);
+            ImageView pic = (ImageView) gridLayout.getChildAt(i);
             pic.setVisibility(View.VISIBLE);
-            /*int viewWidth = TDevice.dip2px(context, 100);
+            int viewWidth = TDevice.dip2px(context, 100);
             int bitmapWidth = diaryImageDetailInfos.get(i).getWidth();
             int bitmapHeight = diaryImageDetailInfos.get(i).getHeight();
             int loadThumbnailWidth;
@@ -237,8 +235,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             LogTool.d(this.getClass().getName(), "loadThumbnailWidth =" + loadThumbnailWidth + ",loadThumbnailHeight " +
                     "=" + loadThumbnailHeight);
             imageShow.displayThumbnailImageByHeightAndWidth(diaryImageDetailInfos.get(i).getImageid(), pic,
-                    loadThumbnailWidth, loadThumbnailHeight);*/
-            imageShow.displayScreenWidthThumnailImage(context,diaryImageDetailInfos.get(i).getImageid(),pic);
+                    loadThumbnailWidth, loadThumbnailHeight);
+//            imageShow.displayScreenWidthThumnailImage(context,diaryImageDetailInfos.get(i).getImageid(),pic);
 
             final int finalI = i;
             pic.setOnClickListener(new View.OnClickListener() {
@@ -247,8 +245,11 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                     ArrayList<AnimationRect> animationRectArrayList
                             = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
-                        if (pic.getVisibility() == View.VISIBLE) {
-                            AnimationRect rect = AnimationRect.buildFromImageView(pic);
+                        ImageView imageView = (ImageView) gridLayout.getChildAt(i);
+                        LogTool.d(this.getClass().getName(),"view left position =" + imageView.getLeft());
+                        if (imageView.getVisibility() == View.VISIBLE) {
+                            AnimationRect rect = AnimationRect.buildFromImageView(imageView);
+                            LogTool.d(this.getClass().getName(),"left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }

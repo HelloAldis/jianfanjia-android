@@ -85,13 +85,13 @@
                     android:id="@+id/site_list_item_gridview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dip"
-                    android:horizontalSpacing="10dp"
+                    android:layout_margin="6dip"
+                    android:horizontalSpacing="6dp"
                     android:listSelector="@drawable/grid_item_selector"
                     android:numColumns="3"
                     android:scrollbars="none"
                     android:stretchMode="columnWidth"
-                    android:verticalSpacing="10dp"/>
+                    android:verticalSpacing="6dp"/>
             </LinearLayout>
 
             <TextView

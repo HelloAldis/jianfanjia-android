@@ -19,6 +19,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.animation.RotateAnimation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -163,6 +164,18 @@ public class UiHelper {
         viewGroup.setLayoutAnimation(lac);
     }
 
+    public static void imageAddShowDeleteAni(final View view, Animation.AnimationListener listener) {
+        RotateAnimation animation = new RotateAnimation(-5, 5, Animation.RELATIVE_TO_SELF,
+                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setRepeatMode(Animation.REVERSE);
+        animation.setRepeatCount(10);
+        animation.setDuration(40);
+        if (listener != null) {
+            animation.setAnimationListener(listener);
+        }
+        view.startAnimation(animation);
+    }
+
     /**
      * 对按钮进行做点击效果的
      *
@@ -179,9 +192,9 @@ public class UiHelper {
         Keyframe kf6 = Keyframe.ofFloat(0.85f, 1.12f);
         Keyframe kf7 = Keyframe.ofFloat(1.0f, 1.0f);
         PropertyValuesHolder propertyValuesHolderScaleXHolder = PropertyValuesHolder.ofKeyframe("scaleX", kf0, kf1,
-                kf2, kf3, kf4, kf5, kf6,kf7);
+                kf2, kf3, kf4, kf5, kf6, kf7);
         PropertyValuesHolder propertyValuesHolderScaleYHolder = PropertyValuesHolder.ofKeyframe("scaleY", kf0, kf1,
-                kf2, kf3, kf4, kf5, kf6,kf7);
+                kf2, kf3, kf4, kf5, kf6, kf7);
         ObjectAnimator rotaAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
                 propertyValuesHolderScaleXHolder, propertyValuesHolderScaleYHolder);
         rotaAnimator.setDuration(300);

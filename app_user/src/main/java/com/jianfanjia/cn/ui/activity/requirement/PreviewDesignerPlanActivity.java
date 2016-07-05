@@ -212,6 +212,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
                         showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
                                 (ArrayList<String>) imgList);
                         startActivity(ShowPicActivity.class, showPicBundle);
+                        overridePendingTransition(0,0);
                     }
                 });
         viewPager.setAdapter(adapter);

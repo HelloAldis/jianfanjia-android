@@ -266,11 +266,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Swipe.Back"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.ShowProcessPicActivity"
-            android:label="@string/title_activity_show_pic"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
-        <activity
             android:name="com.jianfanjia.cn.ui.activity.my.UserInfoActivity"
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait"

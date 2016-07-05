@@ -1,8 +1,8 @@
 package com.jianfanjia.cn.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
@@ -36,9 +36,8 @@ import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.Event.RefreshDiaryInfoEvent;
-import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.interf.AddFavoriteCallback;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -48,6 +47,7 @@ import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.common.tool.ToastUtil;
 import de.greenrobot.event.EventBus;
+import me.iwf.photopicker.entity.AnimationRect;
 
 /**
  * Name: DiaryDetailInfoAdapter 日记详情
@@ -204,7 +204,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
 
     }
 
-    private void buildPic(DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
+    private void buildPic(final DiaryDynamicAdapter.DiaryViewHolder diaryViewHolder, final DiaryInfo diaryInfo) {
         int imageCount;
         if (diaryInfo.getImages() == null || (imageCount = diaryInfo.getImages().size()) == 0) {
             diaryViewHolder.glMultiplePic.setVisibility(View.GONE);
@@ -216,7 +216,10 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 diaryViewHolder.ivSinglerPic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gotoShowBigPic(0, diaryInfo.getImages());
+                        ArrayList<AnimationRect> animationRectArrayList
+                                = new ArrayList<>();
+                        animationRectArrayList.add(AnimationRect.buildFromImageView(diaryViewHolder.ivSinglerPic));
+                        gotoShowBigPic(0, diaryInfo.getImages(), animationRectArrayList);
                     }
                 });
             } else {
@@ -343,18 +346,16 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         });
     }
 
-    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos) {
+    private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos, List<AnimationRect>
+            animationRectList) {
         List<String> imgs = new ArrayList<>();
         for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
-
         LogTool.d(this.getClass().getName(), "position:" + position);
-        Bundle showPicBundle = new Bundle();
-        showPicBundle.putInt(Constant.CURRENT_POSITION, position);
-        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                (ArrayList<String>) imgs);
-        IntentUtil.startActivity(context, ShowPicActivity.class, showPicBundle);
+        CommonShowPicActivity.intentTo(context, (ArrayList<String>) imgs, (ArrayList<AnimationRect>)
+                animationRectList, position);
+        ((Activity) context).overridePendingTransition(0, 0);
     }
 
     protected void buildMultiPic(int imageCount, final List<DiaryImageDetailInfo> diaryImageDetailInfos, final
@@ -371,7 +372,18 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gotoShowBigPic(finalI, diaryImageDetailInfos);
+                    ArrayList<AnimationRect> animationRectArrayList
+                            = new ArrayList<>();
+                    for (int i = 0; i < count; i++) {
+                        ImageView imageView = (ImageView) gridLayout.getChildAt(i);
+                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
+                        if (imageView.getVisibility() == View.VISIBLE) {
+                            AnimationRect rect = AnimationRect.buildFromImageView(imageView);
+                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
+                            animationRectArrayList.add(rect);
+                        }
+                    }
+                    gotoShowBigPic(finalI, diaryImageDetailInfos, animationRectArrayList);
                 }
             });
         }

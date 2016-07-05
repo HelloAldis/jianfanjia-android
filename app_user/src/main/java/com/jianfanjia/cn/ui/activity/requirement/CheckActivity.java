@@ -15,15 +15,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.bean.GridItem;
-import com.jianfanjia.cn.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.ui.Event.CheckEvent;
-import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.ui.adapter.CheckGridViewAdapter;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -34,9 +25,18 @@ import com.jianfanjia.api.model.ProcessSectionYsImage;
 import com.jianfanjia.api.request.user.ConfirmCheckRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.application.MyApplication;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.GridItem;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.ui.Event.CheckEvent;
+import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.cn.view.recycleview.itemdecoration.ItemSpaceDecoration;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -48,7 +48,7 @@ import de.greenrobot.event.EventBus;
  * @Description: 验收
  * @date 2015-8-28 下午2:25:36
  */
-public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCallBack {
+public class CheckActivity extends BaseActivity implements ItemClickCallBack {
     private static final String TAG = CheckActivity.class.getName();
     public static final String CHECK_INTENT_FLAG = "check_intent_flag";
     public static final int NOTICE_INTENT = 0;//通知进入的
@@ -325,6 +325,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
 
         }
         startActivity(ShowPicActivity.class, bundle);
+        overridePendingTransition(0,0);
     }
 
     @Override

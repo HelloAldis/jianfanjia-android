@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
+import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
@@ -36,19 +36,18 @@ import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.activity.common.CommentActivity;
 import com.jianfanjia.cn.ui.activity.my.NoticeActivity;
 import com.jianfanjia.cn.ui.adapter.SectionItemAdapter;
-import com.jianfanjia.cn.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.ProcessDetailHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
-import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -61,7 +60,7 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-public class MyProcessDetailActivity extends BaseSwipeBackActivity implements ItemClickCallBack {
+public class MyProcessDetailActivity extends BaseSwipeBackActivity{
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
@@ -198,6 +197,42 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         }
     }
 
+    public void deleteImage(int position) {
+        DeleteImageToProcessRequest deleteImageToProcessRequest = new DeleteImageToProcessRequest();
+        deleteImageToProcessRequest.set_id(processId);
+        deleteImageToProcessRequest.setSection(mProcessSection.getName());
+        deleteImageToProcessRequest.setItem(sectionItemAdapter.getCurrentItem());
+        deleteImageToProcessRequest.setIndex(position);
+
+        Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                showWaitDialog();
+            }
+
+            @Override
+            public void onHttpDone() {
+                hideWaitDialog();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess(false);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+
+    }
+
     private void initMainHead() {
         mainHeadView.setRightTitleVisable(View.GONE);
     }
@@ -262,8 +297,14 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     }
 
     private void initListView() {
-        sectionItemAdapter = new SectionItemAdapter(getApplication(),
-                currentList, mProcessSections, this);
+        sectionItemAdapter = new SectionItemAdapter(this,
+                currentList, mProcessSections);
+        sectionItemAdapter.setDeleteListener(new SectionItemAdapter.DeleteListener() {
+            @Override
+            public void delete(int position) {
+                deleteImage(position);
+            }
+        });
         detailNodeListView.setAdapter(sectionItemAdapter);
         UiHelper.setLayoutAnim(this, detailNodeListView.getRefreshableView());
         detailNodeListView.setFocusable(false);
@@ -278,53 +319,26 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         });
     }
 
-    @Override
-    public void click(int position, int itemType) {
-        LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
-        switch (itemType) {
-            case Constant.IMG_ITEM:
-                break;
-            case Constant.COMMENT_ITEM:
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentConstant.TOPIC_ID, processId);
-                bundle.putString(IntentConstant.TO, processInfo.getFinal_designerid());
-                bundle.putString(IntentConstant.SECTION, mProcessSection.getName());
-                bundle.putString(IntentConstant.ITEM, mProcessSection.getItems().get(position).getName());
-                bundle.putString(IntentConstant.TOPICTYPE, Global.TOPIC_NODE);
-                startActivityForResult(CommentActivity.class, bundle, Constant.REQUESTCODE_GOTO_COMMENT);
-                break;
-            default:
-                break;
-        }
+    public void intentToComent(int position){
+        Bundle bundle = new Bundle();
+        bundle.putString(IntentConstant.TOPIC_ID, processId);
+        bundle.putString(IntentConstant.TO, processInfo.getFinal_designerid());
+        bundle.putString(IntentConstant.SECTION, mProcessSection.getName());
+        bundle.putString(IntentConstant.ITEM, mProcessSection.getItems().get(position).getName());
+        bundle.putString(IntentConstant.TOPICTYPE, Global.TOPIC_NODE);
+        startActivityForResult(CommentActivity.class, bundle, Constant.REQUESTCODE_GOTO_COMMENT);
     }
 
-    @Override
-    public void click(int position, int itemType, List<String> imageUrlList) {
-        switch (itemType) {
-            case Constant.IMG_ITEM:
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList(Constant.IMAGE_LIST,
-                        (ArrayList<String>) imageUrlList);
-                bundle.putInt(Constant.CURRENT_POSITION, position);
-                bundle.putString(IntentConstant.PROCESS_ID, processId);
-                bundle.putString(IntentConstant.SECTION, mProcessSection.getName());
-                bundle.putString(IntentConstant.ITEM, sectionItemAdapter.getCurrentItem());
-                startActivityForResult(ShowProcessPicActivity.class, bundle, Constant.REQUESTCODE_SHOW_PROCESS_PIC);
-                break;
-            case Constant.ADD_ITEM:
-                PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
-                if (imageUrlList != null) {
-                    intent1.setPhotoCount(9 - imageUrlList.size());
-                } else {
-                    intent1.setPhotoCount(9);
-                }
-                intent1.setShowGif(false);
-                intent1.setShowCamera(true);
-                startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
-                break;
-            default:
-                break;
+    public void pickPicture(List<String> imageUrlList) {
+        PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
+        if (imageUrlList != null) {
+            intent1.setPhotoCount(9 - imageUrlList.size());
+        } else {
+            intent1.setPhotoCount(9);
         }
+        intent1.setShowGif(false);
+        intent1.setShowCamera(true);
+        startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
     }
 
     private void delayDialog() {
@@ -500,7 +514,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     }
                 }
                 break;
-            case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
             case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
                 loadCurrentProcess(false);

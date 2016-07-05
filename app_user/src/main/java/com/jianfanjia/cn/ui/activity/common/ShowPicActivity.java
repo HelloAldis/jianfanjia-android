@@ -12,7 +12,6 @@ import java.util.List;
 import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.bean.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.ui.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
@@ -32,7 +31,6 @@ public class ShowPicActivity extends BaseSwipeBackActivity implements
     private int currentPosition;// 当前第几张照片
     private int totalCount = 0;
     private String tipText = null;
-    private AnimationRect mAnimationRect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class ShowPicActivity extends BaseSwipeBackActivity implements
         if (bundle != null) {
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
-            mAnimationRect = bundle.getParcelable(Constant.ANIMATION_RECT);
             totalCount = imageList.size();
         }
     }
@@ -57,7 +54,14 @@ public class ShowPicActivity extends BaseSwipeBackActivity implements
     }
 
     public void initView() {
-        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList, this,mAnimationRect);
+        showPicPagerAdapter = new ShowPicPagerAdapter(this, imageList);
+        showPicPagerAdapter.setViewPagerClickListener(new ViewPagerClickListener() {
+            @Override
+            public void onClickItem(int pos) {
+                appManager.finishActivity(ShowPicActivity.class);
+                overridePendingTransition(0,0);
+            }
+        });
         viewPager.setAdapter(showPicPagerAdapter);
         viewPager.setCurrentItem(currentPosition);
         viewPager.setOnPageChangeListener(this);
