@@ -24,6 +24,7 @@ import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -803,6 +804,36 @@ public class ImageUtil {
         return inSampleSize;
     }
 
+    public static int getImageRatate(String srcPath) {
+        int rotate = 0;
+        try {
+            File file = new File(srcPath);
+            if (file.exists()) {
+                ExifInterface exifInterface = new ExifInterface(srcPath);
+                int result = exifInterface.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+                switch (result) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        rotate = 90;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        rotate = 180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        rotate = 270;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return rotate;
+        }
+        return rotate;
+    }
+
     /**
      * 按图片大小(先压缩尺寸 在压缩质量)压缩图片
      *
@@ -831,6 +862,18 @@ public class ImageUtil {
             be = 1;
         newOpts.inSampleSize = be;// 设置缩放比例
         Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+
+        int rotate = getImageRatate(srcPath);
+        if (rotate > 0) {
+            Matrix matrix = new Matrix();
+            matrix.setRotate(rotate);
+            Bitmap rotateBitmap = Bitmap.createBitmap(
+                    bitmap, 0, 0, newOpts.outWidth, newOpts.outHeight, matrix, true);
+            if (rotateBitmap != null) {
+                bitmap.recycle();
+                bitmap = rotateBitmap;
+            }
+        }
         if (bitmap != null) {
             LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
             LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
@@ -847,6 +890,7 @@ public class ImageUtil {
      * @param
      * @return
      */
+
     public static Bitmap getImageForConcurrent(String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true;
@@ -1041,8 +1085,8 @@ public class ImageUtil {
         int deltaX = source.getWidth() - targetWidth;
         int deltaY = source.getHeight() - targetHeight;
         if (!scaleUp && (deltaX < 0 || deltaY < 0)) {
-			/*
-			 * In this case the bitmap is smaller, at least in one dimension,
+            /*
+             * In this case the bitmap is smaller, at least in one dimension,
 			 * than the target. Transform it by placing as much of the image as
 			 * possible into the target and leaving the top/bottom or left/right
 			 * (or both) black.
@@ -1117,7 +1161,7 @@ public class ImageUtil {
     }
 
 	/*
-	 * 获取缩略图
+     * 获取缩略图
 	 */
 
     public static Bitmap createVideoThumbnail(ContentResolver cr, String dataPah) {
