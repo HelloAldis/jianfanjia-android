@@ -48,17 +48,25 @@
 
                 <RelativeLayout
                     android:id="@+id/toolbar_collect_layout"
-                    android:layout_width="@dimen/space_40"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:visibility="gone">
+                    android:layout_marginRight="@dimen/space_12">
 
                     <ImageView
                         android:id="@+id/toolbar_collect"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="@dimen/space_10"
-                        android:background="@mipmap/icon_share"/>
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/space_6"
+                        android:background="@mipmap/icon_collect1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/toolbar_collect"
+                        android:textSize="@dimen/middle_size"
+                        android:text="0"/>
                 </RelativeLayout>
 
                 <RelativeLayout

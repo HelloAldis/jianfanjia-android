@@ -88,6 +88,9 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     @Bind(R.id.toolbar_share)
     ImageView ivShare;
 
+    @Bind(R.id.toolbar_collect)
+    ImageView ivCollect;
+
     @Bind(R.id.head_back)
     ImageView ivBackView;
 
