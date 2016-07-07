@@ -16,6 +16,7 @@ import java.util.List;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
+import me.iwf.photopicker.utils.DisplayImageOptionsWrap;
 
 /**
  * Created by donglua on 15/6/21.
@@ -45,7 +46,8 @@ public class PhotoPagerAdapter extends PagerAdapter {
         File file = new File(path);
         if (file.exists()) {
             String urlDecode = Uri.decode(Uri.fromFile(file).toString());
-            ImageLoader.getInstance().displayImage(urlDecode, imageView);
+            ImageLoader.getInstance().displayImage(urlDecode, imageView, DisplayImageOptionsWrap
+                    .getDisplayImageOptionsIsMemoryCache(false));
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {

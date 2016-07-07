@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.jianfanjia.cn.activity"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 21
 
         versionCode Integer.parseInt(APP_USER_VERSION_CODE)
         versionName APP_USER_VERSION_NAME

@@ -3,11 +3,9 @@ package me.iwf.photopicker.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
-import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jianfanjia.common.tool.TDevice;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoGridAdapter;
@@ -29,6 +29,7 @@ import me.iwf.photopicker.entity.PhotoDirectory;
 import me.iwf.photopicker.event.OnPhotoClickListener;
 import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
+import me.iwf.photopicker.widget.SpacesItemDecoration;
 
 import static android.app.Activity.RESULT_OK;
 import static me.iwf.photopicker.PhotoPickerActivity.DEFAULT_COLUMN_NUMBER;
@@ -58,7 +59,8 @@ public class PhotoPickerFragment extends Fragment {
     private final static String EXTRA_COUNT = "count";
     private final static String EXTRA_GIF = "gif";
 
-    public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount,boolean isSingle) {
+    public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount,
+                                                  boolean isSingle) {
         Bundle args = new Bundle();
         args.putBoolean(EXTRA_CAMERA, showCamera);
         args.putBoolean(EXTRA_GIF, showGif);
@@ -114,11 +116,11 @@ public class PhotoPickerFragment extends Fragment {
         listAdapter = new PopupDirectoryListAdapter(getActivity().getApplicationContext(), directories);
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
-//        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), column);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(TDevice.dip2px
+                (getContext(), 2)));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(photoGridAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         final Button btSwitchDirectory = (Button) rootView.findViewById(R.id.button);
 
@@ -126,8 +128,9 @@ public class PhotoPickerFragment extends Fragment {
         listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
         listPopupWindow.setAnchorView(btSwitchDirectory);
         listPopupWindow.setAdapter(listAdapter);
-        listPopupWindow.setModal(true);
         listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
+        listPopupWindow.setModal(false);
+        listPopupWindow.setDropDownAlwaysVisible(false);
         listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
 
         listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -191,22 +194,27 @@ public class PhotoPickerFragment extends Fragment {
         });
 
 
-    /*recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-      @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-        // Log.d(">>> Picker >>>", "dy = " + dy);
-        if (Math.abs(dy) > SCROLL_THRESHOLD) {
-          Glide.with(getActivity().getApplicationContext()).pauseRequests();
-        } else {
-          Glide.with(getActivity().getApplicationContext()).resumeRequests();
-        }
-      }
-      @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-        if (newState == RecyclerView.SCROLL_STATE_IDLE && !getActivity().isFinishing()) {
-          Glide.with(getActivity().getApplicationContext()).resumeRequests();
-        }
-      }
-    });*/
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_IDLE:
+                        ImageLoader.getInstance().resume();
+                        break;
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                        ImageLoader.getInstance().pause();
+                        break;
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        ImageLoader.getInstance().pause();
+                        break;
+                }
+            }
+        });
 
 
         return rootView;
