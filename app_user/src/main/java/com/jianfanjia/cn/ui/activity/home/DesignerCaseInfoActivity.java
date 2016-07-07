@@ -32,13 +32,14 @@ import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.MessageEvent;
-import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.ui.adapter.DesignerCaseAdapter;
 import com.jianfanjia.cn.view.layout.SwipeBackLayout;
 import com.jianfanjia.common.tool.LogTool;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import de.greenrobot.event.EventBus;
+import me.iwf.photopicker.entity.AnimationRect;
 
 /**
  * Description:设计师作品案例详情
@@ -118,14 +119,13 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         adapter = new DesignerCaseAdapter(DesignerCaseInfoActivity.this);
         adapter.setOnItemClickListener(new DesignerCaseAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(int position,ImageView imageView) {
                 LogTool.d(TAG, "position:" + position);
-                Bundle showPicBundle = new Bundle();
-                showPicBundle.putInt(Constant.CURRENT_POSITION, position);
-                showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                        (ArrayList<String>) imgs);
-                startActivity(ShowPicActivity.class, showPicBundle);
-                overridePendingTransition(0,0);
+
+                AnimationRect animationRect = AnimationRect.buildFromImageView(imageView);
+                List<AnimationRect> animationRectList = new ArrayList<>();
+                animationRectList.add(animationRect);
+                gotoShowBigPic(position,animationRectList);
             }
 
             @Override
@@ -134,6 +134,14 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             }
         });
         designer_case_listview.setAdapter(adapter);
+    }
+
+    private void gotoShowBigPic(int position, List<AnimationRect>
+            animationRectList) {
+        LogTool.d(this.getClass().getName(), "position:" + position);
+        CommonShowPicActivity.intentTo(this,(ArrayList<String>) imgs, (ArrayList<AnimationRect>)
+                animationRectList, position);
+        overridePendingTransition(0, 0);
     }
 
     private void getDataFromIntent(Intent intent) {

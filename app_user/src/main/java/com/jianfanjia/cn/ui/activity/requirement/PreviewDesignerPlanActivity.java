@@ -11,18 +11,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
-import com.jianfanjia.cn.ui.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.ui.adapter.PreviewAdapter;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -31,11 +23,15 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ChooseDesignerPlanRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
+import com.jianfanjia.cn.ui.adapter.PreviewAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -98,6 +94,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     private Requirement requirementInfo = null;
     private String itemPosition;
     private int flagIntent = -1;
+    private List<String> imgList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +112,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         planDetailInfo = (Plan) planBundle.getSerializable(IntentConstant.PLAN_DETAIL);
+        imgList = planDetailInfo.getImages();
         planid = planDetailInfo.get_id();
         itemPosition = planDetailInfo.getName();
         requirementInfo = (Requirement) planBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
@@ -152,7 +150,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             price.setText(planDetailInfo.getTotal_price() + "元");
             designText.setText(planDetailInfo.getDescription());
             initChooseButton();
-            initViewPager(viewPager, indicatorGroup_lib, planDetailInfo.getImages());
+            initViewPager(viewPager, indicatorGroup_lib);
         }
     }
 
@@ -187,7 +185,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         mainHeadView.setRigthTitleEnable(false);
     }
 
-    private void initViewPager(ViewPager viewPager, LinearLayout indicatorGroup_lib, final List<String> imgList) {
+    private void initViewPager(ViewPager viewPager, LinearLayout indicatorGroup_lib) {
         final View[] indicators = new View[imgList.size()];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 new ViewGroup.LayoutParams(20, 20));
@@ -202,19 +200,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             indicators[i].setLayoutParams(params);
             indicatorGroup_lib.addView(indicators[i]);
         }
-        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new
-                ViewPagerClickListener() {
-                    @Override
-                    public void onClickItem(int pos) {
-                        LogTool.d(TAG, "pos:" + pos);
-                        Bundle showPicBundle = new Bundle();
-                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
-                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                                (ArrayList<String>) imgList);
-                        startActivity(ShowPicActivity.class, showPicBundle);
-                        overridePendingTransition(0,0);
-                    }
-                });
+        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

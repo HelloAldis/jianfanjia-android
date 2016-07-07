@@ -113,8 +113,10 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case TYPE_HEAD:
                 DesignerCaseInfoHeadHolder designerCaseInfoHeadHolder = (DesignerCaseInfoHeadHolder) viewHolder;
                 designerCaseInfoHeadHolder.cellNameText.setText(designerCaseInfo.getCell());
-                designerCaseInfoHeadHolder.stylelNameText.setText(ProductBusiness.getProductBaseShowLine1(designerCaseInfo));
-                designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(ProductBusiness.getProductBaseShowLine2(designerCaseInfo));
+                designerCaseInfoHeadHolder.stylelNameText.setText(ProductBusiness.getProductBaseShowLine1
+                        (designerCaseInfo));
+                designerCaseInfoHeadHolder.tvDecTypeAndTotalPrice.setText(ProductBusiness.getProductBaseShowLine2
+                        (designerCaseInfo));
                 imageShow.displayImageHeadWidthThumnailImage(context, designerCaseInfo.getDesigner().getImageid(),
                         designerCaseInfoHeadHolder.designerinfo_head_img);
                 if (designerCaseInfo.getDesigner().getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
@@ -149,7 +151,7 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     public void onClick(View v) {
                         if (mOnItemClickListener != null) {
                             mOnItemClickListener.onItemClick(lastPos + (mPlanImgLists != null ? mPlanImgLists.size()
-                                    : 0));
+                                    : 0), holder.itemwCaseView);
                         }
                     }
                 });
@@ -222,10 +224,11 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, ImageView imageView);
 
         void intentToDesignerInfo();
     }
+
 
     class PlanImageAdapter extends RecyclerView.Adapter {
 
@@ -256,14 +259,14 @@ public class DesignerCaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
             PlanImageItemViewHolder planImageItemViewHolder = (PlanImageItemViewHolder) holder;
             mImageShow.displayScreenWidthThumnailImage(mContext, mProductImageInfos.get(position).getImageid(),
                     planImageItemViewHolder.ivPlanImg);
             planImageItemViewHolder.ivPlanImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(position);
+                    mOnItemClickListener.onItemClick(position, ((PlanImageItemViewHolder) holder).ivPlanImg);
                 }
             });
         }

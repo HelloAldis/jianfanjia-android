@@ -23,11 +23,11 @@ import java.util.List;
 import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseActivity;
-import me.iwf.photopicker.entity.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.ui.fragment.CommonShowPicFragment;
 import com.jianfanjia.cn.view.viewpager.transfrom.ScaleInOutTransfromer;
+import me.iwf.photopicker.entity.AnimationRect;
 
 /**
  * Description: com.jianfanjia.cn.ui.activity.common
@@ -54,8 +54,10 @@ public class CommonShowPicActivity extends BaseActivity {
 
     private ColorDrawable backgroundColor;
 
+    private boolean isOnlyOneInAnimation;
+
     public static void intentTo(Context context, ArrayList<String> imageList, ArrayList<AnimationRect>
-            animationRectList,int initPosition) {
+            animationRectList, int initPosition) {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(Constant.IMAGE_LIST, imageList);
         bundle.putParcelableArrayList(Constant.ANIMATION_RECT_LIST, animationRectList);
@@ -113,6 +115,9 @@ public class CommonShowPicActivity extends BaseActivity {
             initPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
             mAnimationRect = bundle.getParcelableArrayList(Constant.ANIMATION_RECT_LIST);
+            if (imageList.size() > mAnimationRect.size() && mAnimationRect.size() == 1) {
+                isOnlyOneInAnimation = true;
+            }
             totalCount = imageList.size();
         }
     }
@@ -156,8 +161,18 @@ public class CommonShowPicActivity extends BaseActivity {
             if (fragment == null) {
 
                 boolean animateIn = (initPosition == position) && !alreadyAnimateIn;
-                fragment = CommonShowPicFragment
-                        .getInstance(imageList.get(position), mAnimationRect.get(position), animateIn);
+                if (isOnlyOneInAnimation) {
+                    if (initPosition == position) {
+                        fragment = CommonShowPicFragment
+                                .getInstance(imageList.get(position), mAnimationRect.get(0), animateIn);
+                    } else {
+                        fragment = CommonShowPicFragment
+                                .getInstance(imageList.get(position), null, animateIn);
+                    }
+                } else {
+                    fragment = CommonShowPicFragment
+                            .getInstance(imageList.get(position), mAnimationRect.get(position), animateIn);
+                }
                 alreadyAnimateIn = true;
                 fragmentMap.put(position, fragment);
             }

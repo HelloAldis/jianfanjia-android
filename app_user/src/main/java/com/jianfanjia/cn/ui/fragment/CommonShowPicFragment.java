@@ -13,11 +13,11 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import butterknife.Bind;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseFragment;
-import me.iwf.photopicker.entity.AnimationRect;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.common.tool.LogTool;
+import me.iwf.photopicker.entity.AnimationRect;
 import me.iwf.photopicker.utils.AnimationUtility;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -94,6 +94,11 @@ public class CommonShowPicFragment extends BaseFragment {
                     .addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                         @Override
                         public boolean onPreDraw() {
+
+                            if (mAnimationRect == null) {
+                                mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
+                                return true;
+                            }
 
                             final Rect startBounds = new Rect(mAnimationRect.scaledBitmapRect);
                             final Rect finalBounds = AnimationUtility
@@ -177,6 +182,7 @@ public class CommonShowPicFragment extends BaseFragment {
 
         if (mAnimationRect == null) {
             mPhotoView.animate().alpha(0);
+            backgroundAnimator.start();
             return;
         }
 
@@ -185,6 +191,7 @@ public class CommonShowPicFragment extends BaseFragment {
 
         if (finalBounds == null) {
             mPhotoView.animate().alpha(0);
+            backgroundAnimator.start();
             return;
         }
 
