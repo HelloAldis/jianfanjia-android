@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -37,6 +38,7 @@ import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.bean.DiarySetStageItem;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -45,6 +47,7 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
+import com.jianfanjia.cn.ui.adapter.DiarySetLeftMenuAdapter;
 import com.jianfanjia.cn.view.slidingmenu.SlidingMenu;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -76,6 +79,9 @@ public class DiarySetInfoActivity extends BaseActivity {
     @Bind(R.id.diary_recycleview)
     RecyclerView mRecyclerView;
 
+    @Bind(R.id.diary_recycleview_left)
+    RecyclerView mRecyclerViewLeft;
+
     @Bind(R.id.rl_writediary)
     LinearLayout rlWriteDiary;
 
@@ -103,6 +109,10 @@ public class DiarySetInfoActivity extends BaseActivity {
     ImageView ivMenuOpenOrClose;
 
     private ShareUtil mShareUtil;
+
+    List<DiarySetStageItem> diarySetStageItemList;
+    String[] diarySetStageList;
+    DiarySetLeftMenuAdapter mDiarySetLeftMenuAdapter;
 
     public static void intentToDiarySet(Context context, DiarySetInfo diarySetInfo) {
         Bundle bundle = new Bundle();
@@ -139,16 +149,32 @@ public class DiarySetInfoActivity extends BaseActivity {
         ivMenuOpenOrClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mSlidingMenu.isMenuShowing()){
+                if (mSlidingMenu.isMenuShowing()) {
                     mSlidingMenu.showContent();
-                }else {
+                } else {
                     mSlidingMenu.showMenu();
                 }
 
             }
         });
 
+        diarySetStageList = getResources().getStringArray(R.array.arr_diary_stage);
+        diarySetStageItemList = new ArrayList<>(diarySetStageList.length);
+        for (String stage : diarySetStageList){
+            DiarySetStageItem diarySetStageItem = new DiarySetStageItem();
+            diarySetStageItem.setItemName(stage);
+            diarySetStageItemList.add(diarySetStageItem);
+        }
+
         initRecyclerView();
+        initRecyclerViewLeft();
+    }
+
+    private void initRecyclerViewLeft() {
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerViewLeft.setLayoutManager(linearLayoutManager);
+        mDiarySetLeftMenuAdapter = new DiarySetLeftMenuAdapter(this, diarySetStageItemList);
+        mRecyclerViewLeft.setAdapter(mDiarySetLeftMenuAdapter);
     }
 
     private void initSlidingMenu() {
@@ -199,6 +225,8 @@ public class DiarySetInfoActivity extends BaseActivity {
                         .size());
                 mDiarySetInfo = diarySetInfo;
                 mDiaryAdapter.setDiarySetInfo(diarySetInfo);
+
+//                setLeftMenuData();
                 EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
             }
 
@@ -213,6 +241,16 @@ public class DiarySetInfoActivity extends BaseActivity {
             }
         });
     }
+
+    /*private void setLeftMenuData() {
+        for(DiaryInfo diaryInfo : mDiarySetInfo.getDiaries()){
+            if(diarySetStageList.)
+        }
+        for(int i = 0;i < diarySetStageItemList.size();i++ ){
+            DiarySetStageItem diarySetStageItem = new DiarySetStageItem();
+            diarySetStageItem.setItemName(mDiarySetInfo.get);
+        }
+    }*/
 
     private void initRecyclerView() {
         mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);

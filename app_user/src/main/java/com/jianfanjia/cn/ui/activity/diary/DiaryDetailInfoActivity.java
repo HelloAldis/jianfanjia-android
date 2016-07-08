@@ -86,11 +86,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
     public static void intentToDiaryDetailInfo(Context context, DiaryInfo diaryInfo, int
             intentFromFlag, User byUser) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
-        bundle.putSerializable(INTENT_FLAG, intentFromFlag);
-        bundle.putSerializable(BY_USER, byUser);
-        IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
+        intentToDiaryDetailInfoByComment(context, diaryInfo, intentFromFlag, byUser, null);
     }
 
     public static void intentToDiaryDetailInfoByComment(Context context, DiaryInfo diaryInfo, int

@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|bottom"
-        android:src="@mipmap/icon_comment_big"
+        android:src="@mipmap/icon_navigation"
         android:layout_marginBottom="@dimen/space_36"
         android:layout_marginLeft="@dimen/space_24"/>
 
