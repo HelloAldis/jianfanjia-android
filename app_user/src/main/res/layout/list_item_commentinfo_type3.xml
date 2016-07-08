@@ -4,7 +4,21 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+
     <include layout="@layout/include_comment_info_head"/>
+
+    <TextView
+        android:id="@+id/ltm_cominfo_content_bycomment"
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/space_1"
+        android:gravity="left"
+        android:background="@color/font_white"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_8"
+        android:paddingBottom="@dimen/space_8"
+        android:textColor="@color/grey_color"/>
 
     <RelativeLayout
         android:id="@+id/item_layout"

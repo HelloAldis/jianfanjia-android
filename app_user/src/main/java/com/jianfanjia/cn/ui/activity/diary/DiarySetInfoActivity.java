@@ -36,7 +36,7 @@ import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -45,6 +45,7 @@ import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
+import com.jianfanjia.cn.view.slidingmenu.SlidingMenu;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -65,9 +66,13 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * Email: jame.zhang@myjyz.com
  * Date:2016-06-14 11:01
  */
-public class DiarySetInfoActivity extends BaseSwipeBackActivity {
+public class DiarySetInfoActivity extends BaseActivity {
 
     private static final String TAG = DiarySetInfoActivity.class.getName();
+
+    @Bind(R.id.slidingmenulayout)
+    SlidingMenu mSlidingMenu;
+
     @Bind(R.id.diary_recycleview)
     RecyclerView mRecyclerView;
 
@@ -93,6 +98,9 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.head_back)
     ImageView ivBackView;
+
+    @Bind(R.id.iv_menu_open_or_close)
+    ImageView ivMenuOpenOrClose;
 
     private ShareUtil mShareUtil;
 
@@ -123,10 +131,43 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
     }
 
     private void initView() {
+        initSlidingMenu();
+
         rlHeadView.setBackgroundColor(getResources().getColor(R.color.transparent_background));
         rlWriteDiary.setVisibility(View.GONE);
 
+        ivMenuOpenOrClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mSlidingMenu.isMenuShowing()){
+                    mSlidingMenu.showContent();
+                }else {
+                    mSlidingMenu.showMenu();
+                }
+
+            }
+        });
+
         initRecyclerView();
+    }
+
+    private void initSlidingMenu() {
+        mSlidingMenu.setMode(SlidingMenu.LEFT);
+        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        mSlidingMenu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
+
+            @Override
+            public void onClosed() {
+
+            }
+        });
+        mSlidingMenu.setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
+
+            @Override
+            public void onOpened() {
+
+            }
+        });
     }
 
     @Override
@@ -217,9 +258,11 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
                 if (alpha <= 20) {
                     ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.WHITE));
                     ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.WHITE));
+                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.WHITE));
                 } else {
                     ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.GRAY));
                     ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.GRAY));
+                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.GRAY));
                 }
                 rlHeadView.setBackgroundColor(Color.argb(alpha, 240, 240, 240));
 
@@ -250,7 +293,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         });
     }
 
-    private void edieDiarySetInfo() {
+    private void editDiarySetInfo() {
         UpdateDiarySetRequest updateDiarySetRequest = new UpdateDiarySetRequest();
         updateDiarySetRequest.setDiary_set(mDiarySetInfo);
 
@@ -316,8 +359,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         Bitmap bitmapDiarySetCover = ImageUtil.drawableToBitmap(drawableDiarySetCover);
 
         mShareUtil.shareDiarySet(this, bitmapDiarySetCover, mDiarySetInfo.getTitle() + "（" + DiaryBusiness
-                .getDiarySetDes(mDiarySetInfo) +
-                "）", diarySetId, new SocializeListeners.SnsPostListener() {
+                .getDiarySetDes(mDiarySetInfo) + "）", diarySetId, new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
 
@@ -415,7 +457,7 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
         @Override
         public void onSuccess(ApiResponse<String> apiResponse) {
             mDiarySetInfo.setCover_imageid(apiResponse.getData());
-            edieDiarySetInfo();
+            editDiarySetInfo();
         }
 
         @Override
@@ -432,6 +474,6 @@ public class DiarySetInfoActivity extends BaseSwipeBackActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_diarysetinfo;
+        return R.layout.activity_main_slidingmenu;
     }
 }

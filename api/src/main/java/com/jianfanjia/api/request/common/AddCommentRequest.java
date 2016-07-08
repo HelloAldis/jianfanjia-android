@@ -16,6 +16,7 @@ public class AddCommentRequest extends BaseRequest {
     private String to_userid;
     private String section;
     private String item;
+    private String to_commentid;
 
     public String getTopicid() {
         return topicid;
@@ -71,5 +72,13 @@ public class AddCommentRequest extends BaseRequest {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public String getTo_commentid() {
+        return to_commentid;
+    }
+
+    public void setTo_commentid(String to_commentid) {
+        this.to_commentid = to_commentid;
     }
 }

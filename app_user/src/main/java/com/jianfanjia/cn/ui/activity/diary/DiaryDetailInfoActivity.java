@@ -53,7 +53,7 @@ import de.greenrobot.event.EventBus;
  */
 public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
-    public static final String IntentFlag = "intent_flag";
+    public static final String INTENT_FLAG = "intent_flag";
     public static final String BY_USER = "byUser";
     public static final int intentFromComment = 0;
     public static final int intentFromBaseinfo = 1;
@@ -81,15 +81,28 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private String content;//回复的类容
     private int intentFrom;
     private User byUser;//我被谁评论过
+    private String toCommentId;
+    private Comment byComment;
 
     public static void intentToDiaryDetailInfo(Context context, DiaryInfo diaryInfo, int
             intentFromFlag, User byUser) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
-        bundle.putSerializable(IntentFlag, intentFromFlag);
+        bundle.putSerializable(INTENT_FLAG, intentFromFlag);
         bundle.putSerializable(BY_USER, byUser);
         IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
     }
+
+    public static void intentToDiaryDetailInfoByComment(Context context, DiaryInfo diaryInfo, int
+            intentFromFlag, User byUser, Comment byComment) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
+        bundle.putSerializable(INTENT_FLAG, intentFromFlag);
+        bundle.putSerializable(BY_USER, byUser);
+        bundle.putSerializable(IntentConstant.COMMENT_INFO, byComment);
+        IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +114,9 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         Intent intent = getIntent();
         mDiaryInfo = (DiaryInfo) intent.getSerializableExtra(IntentConstant.DIARY_INFO);
-        intentFrom = intent.getIntExtra(IntentFlag, -1);
+        intentFrom = intent.getIntExtra(INTENT_FLAG, -1);
         byUser = (User) intent.getSerializableExtra(BY_USER);
+        byComment = (Comment) intent.getSerializableExtra(IntentConstant.COMMENT_INFO);
         if (mDiaryInfo != null) {
             diaryId = mDiaryInfo.get_id();
         }
@@ -131,7 +145,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                 }
             }
         });
-        mRecyclerView.addOnScrollListener(new PauseOnScrollListenter(ImageLoader.getInstance(),true,true));
+        mRecyclerView.addOnScrollListener(new PauseOnScrollListenter(ImageLoader.getInstance(), true, true));
     }
 
     @OnTextChanged(R.id.add_comment)
@@ -236,8 +250,8 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                         mDiaryInfo, mRecyclerView);
                 mDiaryDetailInfoAdapter.setAddCommentListener(new DiaryDetailInfoAdapter.AddCommentListener() {
                     @Override
-                    public void addCommentListener(User toUser) {
-                        prepareAddComment(toUser);
+                    public void addCommentListener(User toUser, Comment comment) {
+                        prepareAddComment(toUser, comment);
                     }
                 });
                 mRecyclerView.setAdapter(mDiaryDetailInfoAdapter);
@@ -263,36 +277,47 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         inputMethodManager.showSoftInput(commentEdit, InputMethodManager.SHOW_FORCED);
     }
 
-    public void hideSoftKeyBorad(){
+    public void hideSoftKeyBorad() {
         commentEdit.clearFocus();
         commentEdit.setText("");
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(commentEdit.getWindowToken(),0);
+        inputMethodManager.hideSoftInputFromWindow(commentEdit.getWindowToken(), 0);
     }
 
     private void initViewShowAndData() {
         if (intentFrom == intentFromComment) {
-            prepareAddComment(byUser);
+            if (byUser != null) {
+                to = byUser.get_id();
+                if (!TextUtils.isEmpty(byUser.getUsername())) {
+                    replayHint = "回复 " + byUser.getUsername() + " ：";
+                }
+                commentEdit.setHint(replayHint);
+            } else {
+                to = mDiaryInfo.getAuthorid();
+            }
+            if (byComment != null) {
+                toCommentId = byComment.get_id();
+            }
             showSoftKeyBoard();
         } else {
             to = mDiaryInfo.getAuthorid();//默认是回复作者的
         }
     }
 
-    private void prepareAddComment(User toUser) {
+
+    private void prepareAddComment(User toUser, Comment comment) {
         if (toUser != null && !toUser.get_id().equals
                 (dataManager.getUserId())) {
             to = toUser.get_id();
             if (!TextUtils.isEmpty(toUser.getUsername())) {
                 replayHint = "回复 " + toUser.getUsername() + " ：";
-            } else {
-                replayHint = "回复 业主 ：";
             }
             showSoftKeyBoard();
         } else {
             to = mDiaryInfo.getAuthor().get_id();
             replayHint = "";
         }
+        toCommentId = comment.get_id();
         commentEdit.setHint(replayHint);
         LogTool.d(this.getClass().getName(), " to = " + to);
     }
@@ -317,6 +342,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         request.setTopictype(Global.TOPIC_DIARY);
         request.setContent(content);
         request.setTo_userid(to);
+        request.setTo_commentid(toCommentId);
         Api.addComment(request, this.addCommentCallback);
     }
 

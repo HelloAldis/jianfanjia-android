@@ -9,6 +9,7 @@ public class Comment extends BaseModel {
     private String topictype;
     private String content;
     private String to;
+    private String to_commentid;
     private String by;
     private String usertype;
     private long date;
@@ -112,4 +113,13 @@ public class Comment extends BaseModel {
     public void setByUser(User byUser) {
         this.byUser = byUser;
     }
+
+    public String getTo_commentid() {
+        return to_commentid;
+    }
+
+    public void setTo_commentid(String to_commentid) {
+        this.to_commentid = to_commentid;
+    }
+
 }

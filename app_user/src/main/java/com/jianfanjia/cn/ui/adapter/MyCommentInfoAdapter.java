@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.jianfanjia.api.model.Comment;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DiaryImageDetailInfo;
 import com.jianfanjia.api.model.DiaryInfo;
@@ -116,6 +117,14 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
             String designerName = user.getUsername();
             holder.nameView.setText(TextUtils.isEmpty(designerName) ? context.getString(R.string.ower) :
                     designerName);
+        }
+
+        Comment comment = noticeInfo.getTo_comment();
+        if (comment != null) {
+            holder.tvDiaryContentByComment.setVisibility(View.VISIBLE);
+            holder.tvDiaryContentByComment.setText(comment.getContent());
+        } else {
+            holder.tvDiaryContentByComment.setVisibility(View.GONE);
         }
 
         //留言人的头像
@@ -420,6 +429,9 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         TextView tvDiaryBaseInfo;
         @Bind(R.id.ltm_diary_content)
         TextView tvDiaryContent;
+
+        @Bind(R.id.ltm_cominfo_content_bycomment)
+        public TextView tvDiaryContentByComment;
 
         @Bind(R.id.item_layout)
         RelativeLayout contentLayout;

@@ -480,7 +480,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             @Override
             public void onClick(View v) {
                 if (mAddCommentListener != null) {
-                    mAddCommentListener.addCommentListener(commentInfo.getByUser());
+                    mAddCommentListener.addCommentListener(commentInfo.getByUser(),commentInfo);
                 }
             }
         });
@@ -542,7 +542,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     }
 
     public interface AddCommentListener {
-        void addCommentListener(User toUser);
+        void addCommentListener(User toUser,Comment comment);
     }
 }
 
