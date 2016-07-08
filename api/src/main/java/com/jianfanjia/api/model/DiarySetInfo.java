@@ -21,6 +21,7 @@ public class DiarySetInfo extends BaseModel {
     private String work_type;
     private long create_at;
     private long lastupdate;
+    private int favorite_count;
     private int view_count;
     private String latest_section_label;
     private List<DiaryInfo> diaries;
@@ -144,5 +145,13 @@ public class DiarySetInfo extends BaseModel {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public int getFavorite_count() {
+        return favorite_count;
+    }
+
+    public void setFavorite_count(int favorite_count) {
+        this.favorite_count = favorite_count;
     }
 }

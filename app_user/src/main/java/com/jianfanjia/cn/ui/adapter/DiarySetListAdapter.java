@@ -87,6 +87,7 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
         }
 
         holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
+        holder.tvLikeCount.setText(diarySetInfo.getFavorite_count() + "");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,8 +152,8 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
         TextView tvDiarySetTitle;
         @Bind(R.id.tv_diaryset_dec)
         TextView tvDiarySetDec;
-        //        @Bind(R.id.tv_like_count)
-//        TextView tvLikeCount;
+        @Bind(R.id.tv_like_count)
+        TextView tvLikeCount;
         @Bind(R.id.tv_view_count)
         TextView tvViewCount;
 

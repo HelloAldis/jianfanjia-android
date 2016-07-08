@@ -58,7 +58,7 @@
                     android:drawableLeft="@mipmap/icon_comment_normal"
                     android:text="0"
                     android:textColor="@color/font_white"
-                    android:visibility="gone"/>
+                    />
 
             </RelativeLayout>
 
