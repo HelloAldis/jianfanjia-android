@@ -11,7 +11,6 @@ public class DiarySetStageItem {
     private String itemName;//阶段名称
     private int count;//日记数量
     private boolean isCheck;//当前是否被选中
-    private boolean isHasDiary;//是否有日记
 
     public String getItemName() {
         return itemName;
@@ -37,11 +36,4 @@ public class DiarySetStageItem {
         isCheck = check;
     }
 
-    public boolean isHasDiary() {
-        return isHasDiary;
-    }
-
-    public void setHasDiary(boolean hasDiary) {
-        isHasDiary = hasDiary;
-    }
 }

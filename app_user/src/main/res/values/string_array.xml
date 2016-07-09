@@ -16,6 +16,18 @@
         <item>软装</item>
         <item>入住</item>
     </string-array>
+    <string-array name="arr_diary_stage_navigation">
+        <item>入住</item>
+        <item>软装</item>
+        <item>竣工</item>
+        <item>安装</item>
+        <item>油漆</item>
+        <item>泥木</item>
+        <item>水电</item>
+        <item>拆改</item>
+        <item>开工</item>
+        <item>准备</item>
+    </string-array>
     <string-array name="site_procedure">
         <item>开工</item>
         <item>拆改</item>

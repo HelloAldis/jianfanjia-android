@@ -61,6 +61,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
     private static final int HEAD_TYPE = 0;
     private static final int CONTENT_TYPE = 1;
     private static final int WRITE_DIARY_TYPE = 2;
+    public static final int FOOTER_TYPE = 3;//底部视图;
 
     private int headViewCount;
 
@@ -68,6 +69,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
     private UploadDiarySetCoverPicListener mUploadDiarySetCoverPicListener;
 
     private boolean isCanEdit;
+    private int lastContentItemHeight;
 
     public DiarySetInfoAdapter(Context context, List<DiaryInfo> list) {
         super(context, list);
@@ -75,9 +77,9 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
 
     public void setDiarySetInfo(DiarySetInfo diarySetInfo) {
         mDiarySetInfo = diarySetInfo;
-        setList(mDiarySetInfo.getDiaries());
         initIsCanEdit();
     }
+
 
     private void initIsCanEdit() {
         if (mDiarySetInfo.getAuthorid().equals(DataManagerNew.getInstance().getUserId())) {
@@ -87,6 +89,14 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             isCanEdit = false;
             headViewCount = 1;
         }
+    }
+
+    public boolean isCanEdit() {
+        return isCanEdit;
+    }
+
+    public int getHeadViewCount(){
+        return headViewCount;
     }
 
     public void setUploadDiarySetCoverPicListener(UploadDiarySetCoverPicListener uploadDiarySetCoverPicListener) {
@@ -100,6 +110,14 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                 DiaryInfo dailyInfo = list.get(position - headViewCount);
                 DiarySetDiaryViewHolder holder = (DiarySetDiaryViewHolder) viewHolder;
                 bindContentView(position - headViewCount, dailyInfo, holder);
+                if (position - headViewCount == list.size() - 1) {
+                    ((DiarySetDiaryViewHolder) viewHolder).itemView.measure(0, 0);
+                    LogTool.d(this.getClass().getName(), "commentItemHeight height =" + ((DiarySetDiaryViewHolder)
+                            viewHolder).itemView
+                            .getMeasuredHeight());
+                    lastContentItemHeight = ((DiarySetDiaryViewHolder) viewHolder).itemView
+                            .getMeasuredHeight();
+                }
                 break;
             case HEAD_TYPE:
                 DiarySetInfoBaseInfoViewHolder diarySetInfoBaseInfoViewHolder = (DiarySetInfoBaseInfoViewHolder)
@@ -109,6 +127,9 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             case WRITE_DIARY_TYPE:
                 DiarySetInfoWriteDiaryViewHolder holderHead = (DiarySetInfoWriteDiaryViewHolder) viewHolder;
                 bindHeadView(holderHead);
+                break;
+            case FOOTER_TYPE:
+                bindFooter((DiaryDetailInfoAdapter.FooterViewHolder) viewHolder);
                 break;
         }
 
@@ -173,6 +194,30 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         diaryViewHolder.tvDiarysetGoingTime.setText(DiaryBusiness.getDiarySetDes(mDiarySetInfo));
     }
 
+    private void bindFooter(DiaryDetailInfoAdapter.FooterViewHolder viewHolder) {
+        if (list.size() == 0) {
+            viewHolder.tvFooterLoadNoMore.setText("当前还没有任何日记");
+        } else {
+            viewHolder.tvFooterLoadNoMore.setText("日记已加载完毕");
+        }
+        int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
+                (context, 48);
+        LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
+        int defaultFootHeight = TDevice.dip2px(context, 96);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewHolder.llFooterLoadNoMore
+                .getLayoutParams();
+        if (lastContentItemHeight - totalHeight >= 0) {
+            layoutParams.height = defaultFootHeight;
+            viewHolder.llFooterLoadNoMore.setLayoutParams(layoutParams);
+        } else if (lastContentItemHeight - totalHeight > -defaultFootHeight && lastContentItemHeight - totalHeight <
+                0) {
+            layoutParams.height = defaultFootHeight + lastContentItemHeight - totalHeight;
+        } else {
+            layoutParams.height = totalHeight - lastContentItemHeight;
+        }
+        viewHolder.llFooterLoadNoMore.setLayoutParams(layoutParams);
+    }
+
     private void bindHeadView(DiarySetInfoWriteDiaryViewHolder viewHolder) {
         viewHolder.rlWirteDiary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +235,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                 @Override
                 public void onClick(View v) {
 //                    deleteDiary(position);
-                    showTipDialog(context,position);
+                    showTipDialog(context, position);
                 }
             });
         } else {
@@ -258,7 +303,8 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                     public void onClick(View v) {
                         ArrayList<AnimationRect> animationRectArrayList
                                 = new ArrayList<>();
-                        animationRectArrayList.add(AnimationRect.buildFromImageView(diarySetDiaryViewHolder.ivSinglerPic));
+                        animationRectArrayList.add(AnimationRect.buildFromImageView(diarySetDiaryViewHolder
+                                .ivSinglerPic));
                         gotoShowBigPic(0, diaryInfo.getImages(), animationRectArrayList);
                     }
                 });
@@ -304,7 +350,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
         LogTool.d(this.getClass().getName(), "position:" + position);
-        CommonShowPicActivity.intentTo(context,(ArrayList<String>) imgs, (ArrayList<AnimationRect>)
+        CommonShowPicActivity.intentTo(context, (ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((Activity) context).overridePendingTransition(0, 0);
     }
@@ -327,10 +373,10 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                             = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
                         ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-                        LogTool.d(this.getClass().getName(),"view left position =" + imageView.getLeft());
+                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
                         if (imageView.getVisibility() == View.VISIBLE) {
                             AnimationRect rect = AnimationRect.buildFromImageView(imageView);
-                            LogTool.d(this.getClass().getName(),"left position =" + rect.imageViewEntireRect.left);
+                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }
@@ -499,22 +545,26 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                 return HEAD_TYPE;
             } else if (position == 1) {
                 return WRITE_DIARY_TYPE;
-            } else {
+            } else if (position >= 2 && position < 2 + list.size()) {
                 return CONTENT_TYPE;
+            } else if (position == list.size() + 2) {
+                return FOOTER_TYPE;
             }
         } else {
             if (position == 0) {
                 return HEAD_TYPE;
-            } else {
+            } else if (position >= 1 && position < 1 + list.size()) {
                 return CONTENT_TYPE;
+            } else if (position == list.size() + 1) {
+                return FOOTER_TYPE;
             }
-
         }
+        return -1;
     }
 
     @Override
     public int getItemCount() {
-        return null == list ? headViewCount : list.size() + headViewCount;
+        return null == list ? headViewCount : list.size() + headViewCount + 1;
     }
 
     @Override
@@ -537,6 +587,11 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
                         .LayoutParams.WRAP_CONTENT));
                 return new DiarySetInfoWriteDiaryViewHolder(view);
+            case FOOTER_TYPE:
+                view = layoutInflater.inflate(R.layout.list_item_diaryinfo_footer_space, null);
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                        .LayoutParams.WRAP_CONTENT));
+                return new DiaryDetailInfoAdapter.FooterViewHolder(view);
         }
         return null;
     }
@@ -621,6 +676,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             ButterKnife.bind(this, itemView);
         }
     }
+
 
     public interface UploadDiarySetCoverPicListener {
         void uploadDiarySetCoverPic();

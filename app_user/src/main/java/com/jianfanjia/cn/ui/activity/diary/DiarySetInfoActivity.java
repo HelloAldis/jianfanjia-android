@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +24,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -87,7 +90,8 @@ public class DiarySetInfoActivity extends BaseActivity {
 
     private DiarySetInfoAdapter mDiaryAdapter;
 
-    private List<DiaryInfo> mDiaryInfoList;
+    private List<DiaryInfo> mDiaryInfoList = new ArrayList<>();
+    private LinearLayoutManager diarySetLinearLayoutManager;
 
     private DiarySetInfo mDiarySetInfo;
 
@@ -154,13 +158,12 @@ public class DiarySetInfoActivity extends BaseActivity {
                 } else {
                     mSlidingMenu.showMenu();
                 }
-
             }
         });
 
-        diarySetStageList = getResources().getStringArray(R.array.arr_diary_stage);
+        diarySetStageList = getResources().getStringArray(R.array.arr_diary_stage_navigation);
         diarySetStageItemList = new ArrayList<>(diarySetStageList.length);
-        for (String stage : diarySetStageList){
+        for (String stage : diarySetStageList) {
             DiarySetStageItem diarySetStageItem = new DiarySetStageItem();
             diarySetStageItem.setItemName(stage);
             diarySetStageItemList.add(diarySetStageItem);
@@ -170,30 +173,158 @@ public class DiarySetInfoActivity extends BaseActivity {
         initRecyclerViewLeft();
     }
 
+    private void initRecyclerView() {
+        mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
+        diarySetLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(diarySetLinearLayoutManager);
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+
+            int space = TDevice.dip2px(DiarySetInfoActivity.this, 10);
+
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.left = 0;
+                outRect.right = 0;
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    outRect.top = 0;
+                    outRect.bottom = 0;
+                } else {
+                    outRect.top = 0;
+                    outRect.bottom = space;
+                }
+            }
+        });
+        mRecyclerView.setAdapter(mDiaryAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            int totalOffsetY;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalOffsetY += dy;
+
+                setWriteDiaryShowOrHidden(dy);
+                setHeadViewShowOrHidden();
+
+                LogTool.d(this.getClass().getName(), "dy =" + dy);
+                LogTool.d(this.getClass().getName(), "recyclerview getScrollY =" + recyclerView.getScrollY());
+            }
+
+            private void setHeadViewShowOrHidden() {
+                int alpha = (int) (((float) totalOffsetY / TDevice.dip2px(DiarySetInfoActivity.this, 152)) * 255);
+                alpha = alpha > 255 ? 255 : alpha;
+                if (alpha <= 20) {
+                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.WHITE));
+                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.WHITE));
+                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.WHITE));
+                } else {
+                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.GRAY));
+                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.GRAY));
+                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.GRAY));
+                }
+                rlHeadView.setBackgroundColor(Color.argb(alpha, 240, 240, 240));
+
+                LogTool.d(this.getClass().getName(), "recyclerview alpha =" + alpha);
+            }
+
+            private void setWriteDiaryShowOrHidden(int dy) {
+                if (!mDiarySetInfo.getAuthor().get_id().equals(dataManager.getUserId())) {
+                    return;
+                }
+                if (dy > 0 && totalOffsetY >= TDevice.dip2px(DiarySetInfoActivity.this, 152)) {
+                    rlWriteDiary.setVisibility(View.VISIBLE);
+                } else if (dy < 0 && totalOffsetY < TDevice.dip2px(DiarySetInfoActivity.this, 152)) {
+                    rlWriteDiary.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && move) {
+                    move = false;
+                    //获取要置顶的项在当前屏幕的位置，mIndex是记录的要置顶项在RecyclerView中的位置
+                    int n = navigatePos - diarySetLinearLayoutManager.findFirstVisibleItemPosition();
+                    if (0 <= n && n < mRecyclerView.getChildCount()) {
+                        //获取要置顶的项顶部离RecyclerView顶部的距离
+                        int top = mRecyclerView.getChildAt(n).getTop() - headHeightOffset;
+                        //最后的移动
+                        mRecyclerView.scrollBy(0, top);
+                    }
+                }
+            }
+        });
+        mDiaryAdapter.setUploadDiarySetCoverPicListener(new DiarySetInfoAdapter.UploadDiarySetCoverPicListener() {
+            @Override
+            public void uploadDiarySetCoverPic() {
+                pickPicture(Constant.REQUESTCODE_PICKER_HEAD_PIC, 1);
+            }
+        });
+    }
+
     private void initRecyclerViewLeft() {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerViewLeft.setLayoutManager(linearLayoutManager);
         mDiarySetLeftMenuAdapter = new DiarySetLeftMenuAdapter(this, diarySetStageItemList);
         mRecyclerViewLeft.setAdapter(mDiarySetLeftMenuAdapter);
+        mDiarySetLeftMenuAdapter.setOnNavigateListener(new DiarySetLeftMenuAdapter.OnNavigateListener() {
+            @Override
+            public void navigateTo(final String itemName) {
+                setCheckItem(itemName);
+                mSlidingMenu.showContent();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        moveToPosition(getOneStageFisrtPos(itemName) +
+                                mDiaryAdapter.getHeadViewCount());
+                    }
+                }, 300);
+            }
+        });
+    }
+
+    private boolean move;
+    private int navigatePos;
+    private int headHeightOffset;//recyclerview第一个可见item完全可见时的偏移量，bar.height + writediary.height
+
+    private void moveToPosition(int n) {
+        navigatePos = n;
+        //先从RecyclerView的LayoutManager中获取第一项和最后一项的Position
+        int firstItem = diarySetLinearLayoutManager.findFirstVisibleItemPosition();
+        int lastItem = diarySetLinearLayoutManager.findLastVisibleItemPosition();
+        //然后区分情况
+        if (n <= firstItem) {
+            //当要置顶的项在当前显示的第一个项的前面时
+            mRecyclerView.smoothScrollToPosition(n);
+            move = true;
+        } else if (n <= lastItem) {
+            //当要置顶的项已经在屏幕上显示时
+            int top = mRecyclerView.getChildAt(n - firstItem).getTop();
+            mRecyclerView.smoothScrollBy(0, top - headHeightOffset);
+        } else {
+            //当要置顶的项在当前显示的最后一项的后面时
+            mRecyclerView.smoothScrollToPosition(n);
+            move = true;
+            //这里这个变量是用在RecyclerView滚动监听里面的
+        }
+
+    }
+
+    private int getOneStageFisrtPos(String itemName) {
+        int i = 0;
+        for (DiaryInfo diaryInfo : mDiaryInfoList) {
+            if (diaryInfo.getSection_label().equals(itemName)) {
+                break;
+            }
+            i++;
+        }
+        return i;
     }
 
     private void initSlidingMenu() {
         mSlidingMenu.setMode(SlidingMenu.LEFT);
         mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        mSlidingMenu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
-
-            @Override
-            public void onClosed() {
-
-            }
-        });
-        mSlidingMenu.setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
-
-            @Override
-            public void onOpened() {
-
-            }
-        });
     }
 
     @Override
@@ -226,7 +357,7 @@ public class DiarySetInfoActivity extends BaseActivity {
                 mDiarySetInfo = diarySetInfo;
                 mDiaryAdapter.setDiarySetInfo(diarySetInfo);
 
-//                setLeftMenuData();
+                initData();
                 EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
             }
 
@@ -242,93 +373,59 @@ public class DiarySetInfoActivity extends BaseActivity {
         });
     }
 
-    /*private void setLeftMenuData() {
-        for(DiaryInfo diaryInfo : mDiarySetInfo.getDiaries()){
-            if(diarySetStageList.)
+    private void initData() {
+        //把所有数量都清零
+        for (DiarySetStageItem diarySetStageItem : diarySetStageItemList) {
+            diarySetStageItem.setCount(0);
         }
-        for(int i = 0;i < diarySetStageItemList.size();i++ ){
-            DiarySetStageItem diarySetStageItem = new DiarySetStageItem();
-            diarySetStageItem.setItemName(mDiarySetInfo.get);
+        Map<String, List<DiaryInfo>> listMap = new HashMap<>();
+        for (DiaryInfo diaryInfo : mDiarySetInfo.getDiaries()) {
+            String sectionLabel = diaryInfo.getSection_label();
+            for (DiarySetStageItem diarySetStageItem : diarySetStageItemList) {
+                if (sectionLabel.equals(diarySetStageItem.getItemName())) {
+                    if (listMap.containsKey(sectionLabel)) {
+                        listMap.get(sectionLabel).add(diaryInfo);
+                    } else {
+                        List<DiaryInfo> diaryInfoList = new ArrayList<>();
+                        diaryInfoList.add(diaryInfo);
+                        listMap.put(sectionLabel, diaryInfoList);
+                    }
+                    diarySetStageItem.setCount(diarySetStageItem.getCount() + 1);
+                    break;
+                }
+            }
         }
-    }*/
-
-    private void initRecyclerView() {
-        mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
-
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-
-            int space = TDevice.dip2px(DiarySetInfoActivity.this, 10);
-
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.left = 0;
-                outRect.right = 0;
-                if (parent.getChildAdapterPosition(view) == 0) {
-                    outRect.top = 0;
-                    outRect.bottom = 0;
-                } else {
-                    outRect.top = 0;
-                    outRect.bottom = space;
-                }
+        mDiaryInfoList.clear();
+        for (String stage : diarySetStageList) {
+            if (listMap.containsKey(stage)) {
+                mDiaryInfoList.addAll(listMap.get(stage));
             }
-        });
-        mRecyclerView.setAdapter(mDiaryAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        }
 
-            int totalOffsetY;
+        setCheckItem(mDiarySetInfo.getLatest_section_label());
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                totalOffsetY += dy;
-                setWriteDiaryShowOrHidden(dy);
-                setHeadViewShowOrHidden();
+        mDiarySetLeftMenuAdapter.notifyDataSetChanged();
 
-                LogTool.d(this.getClass().getName(), "dy =" + dy);
-                LogTool.d(this.getClass().getName(), "recyclerview getScrollY =" + totalOffsetY);
+        initHeadHeightOffset();
+    }
+
+    private void setCheckItem(String itemName) {
+        for (DiarySetStageItem diarySetStageItem : diarySetStageItemList) {
+            if (diarySetStageItem.getItemName().equals(itemName)) {
+                diarySetStageItem.setCheck(true);
+            } else {
+                diarySetStageItem.setCheck(false);
             }
+        }
+        mDiarySetLeftMenuAdapter.notifyDataSetChanged();
+    }
 
-            private void setHeadViewShowOrHidden() {
-                int alpha = (int) (((float) totalOffsetY / TDevice.dip2px(DiarySetInfoActivity.this, 152)) * 255);
-                alpha = alpha > 245 ? 245 : alpha;
-                if (alpha <= 20) {
-                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.WHITE));
-                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.WHITE));
-                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.WHITE));
-                } else {
-                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.GRAY));
-                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.GRAY));
-                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.GRAY));
-                }
-                rlHeadView.setBackgroundColor(Color.argb(alpha, 240, 240, 240));
-
-                LogTool.d(this.getClass().getName(), "recyclerview alpha =" + alpha);
-            }
-
-            private void setWriteDiaryShowOrHidden(int dy) {
-                if (!mDiarySetInfo.getAuthor().get_id().equals(dataManager.getUserId())) {
-                    return;
-                }
-                if (dy > 0 && totalOffsetY >= TDevice.dip2px(DiarySetInfoActivity.this, 152)) {
-                    rlWriteDiary.setVisibility(View.VISIBLE);
-                } else if (dy < 0 && totalOffsetY < TDevice.dip2px(DiarySetInfoActivity.this, 152)) {
-                    rlWriteDiary.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
-        mDiaryAdapter.setUploadDiarySetCoverPicListener(new DiarySetInfoAdapter.UploadDiarySetCoverPicListener() {
-            @Override
-            public void uploadDiarySetCoverPic() {
-                pickPicture(Constant.REQUESTCODE_PICKER_HEAD_PIC, 1);
-            }
-        });
+    private void initHeadHeightOffset() {
+        if (mDiaryAdapter.isCanEdit()) {
+            headHeightOffset = TDevice.dip2px(this, 96);
+        } else {
+            headHeightOffset = TDevice.dip2px(this, 48);
+        }
     }
 
     private void editDiarySetInfo() {
@@ -514,4 +611,6 @@ public class DiarySetInfoActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_main_slidingmenu;
     }
+
+
 }

@@ -525,7 +525,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
     }
 
-    class FooterViewHolder extends RecyclerViewHolderBase {
+    public static class FooterViewHolder extends RecyclerViewHolderBase {
 
         @Bind(R.id.tv_footer_load_no_more)
         TextView tvFooterLoadNoMore;
