@@ -5,20 +5,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.ui.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.ui.fragment.CollectDecorationImgFragment;
-import com.jianfanjia.cn.ui.fragment.CollectDesignerFragment;
-import com.jianfanjia.cn.ui.fragment.CollectProductFragment;
-import com.jianfanjia.cn.view.MainHeadView;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.SelectItem;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.bean.SelectItem;
+import com.jianfanjia.cn.ui.adapter.MyFragmentPagerAdapter;
+import com.jianfanjia.cn.ui.fragment.CollectDecorationImgFragment;
+import com.jianfanjia.cn.ui.fragment.CollectDesignerFragment;
+import com.jianfanjia.cn.ui.fragment.CollectProductFragment;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description:我的收藏
@@ -65,9 +64,12 @@ public class CollectActivity extends BaseSwipeBackActivity {
                 .string.str_case));
         SelectItem imgItem = new SelectItem(CollectDecorationImgFragment.newInstance(), getResources().getString(R
                 .string.imgText));
+        SelectItem diarySetItem = new SelectItem(CollectDecorationImgFragment.newInstance(), getResources().getString(R
+                .string.diaryset));
         listViews.add(designerItem);
         listViews.add(productItem);
         listViews.add(imgItem);
+        listViews.add(diarySetItem);
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(fragmentManager, listViews);
         viewPager.setAdapter(adapter);
     }

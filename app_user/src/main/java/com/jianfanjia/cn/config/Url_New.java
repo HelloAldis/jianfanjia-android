@@ -250,4 +250,9 @@ public class Url_New {
     public String GET_DIARY_INFO = HTTPROOT + "diary_info";
     //游客获取日记集详情
     public String GET_DIARY_SET_INFO = HTTPROOT + "diary_set_info";
+
+    //获取我收藏的装修日记本列表
+    public String GET_FAVORITE_DIARY_SET_LIST = HTTPROOT + "favorite/diarySet/list";
+    //获取推荐的日记本
+    public String GET_RECOMMEND_DIARY_SET = HTTPROOT + "top_diary_set";
 }
