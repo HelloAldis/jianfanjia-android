@@ -14,7 +14,7 @@ import com.jianfanjia.cn.application.MyApplication;
 public class Url_New {
     private static Url_New instance;
     public String SEVER_IP = "";
-//    public String SEVER_PORT = "";
+    //    public String SEVER_PORT = "";
     public String MOBILE_SERVER_URL = "";
 
     public static Url_New getInstance() {
@@ -53,7 +53,7 @@ public class Url_New {
     public static final String WEIBO_URL = "http://weibo.com/u/5691975473?topnav=1&wvr=6&topsug=1&is_all=1";
 
     //分享的链接
-    public String SHARE_IMAGE = SEVER_IP  + "/zt/mobile/sharemito.html?title=";
+    public String SHARE_IMAGE = SEVER_IP + "/zt/mobile/sharemito.html?title=";
     //分享的APP的logo图片链接
     public String SHARE_APP_LOGO = SEVER_IP + "/zt/mobile/logo.png";
 
@@ -61,10 +61,10 @@ public class Url_New {
     public String DECORATE_LIVE_URL = "/view/share/process.html?pid=";
 
     //365基础包详情页
-    public String PACKGET365_DETAIL_URL= "/view/zt/365package/index.html";
+    public String PACKGET365_DETAIL_URL = "/view/zt/365package/index.html";
 
     //日记本分享
-    public String DIARY_SET_SHARE_URL =MOBILE_SERVER_URL +  "/tpl/diary/book/";
+    public String DIARY_SET_SHARE_URL = MOBILE_SERVER_URL + "/tpl/diary/book/";
 
     public static String ID = "id";
 
@@ -177,7 +177,7 @@ public class Url_New {
     // 用户获取我的改期提醒
     public String GET_RESCHDULE_ALL = HTTPROOT
             + "process/reschedule/all";
-//     获取图片
+    //     获取图片
 //    public String GET_IMAGE = HTTPROOT + "image/";
     //获取缩略图
     public String GET_THUMBNAIL_IMAGE = HTTPROOT + "thumbnail/" + WIDTH + "/";
@@ -255,4 +255,8 @@ public class Url_New {
     public String GET_FAVORITE_DIARY_SET_LIST = HTTPROOT + "favorite/diarySet/list";
     //获取推荐的日记本
     public String GET_RECOMMEND_DIARY_SET = HTTPROOT + "top_diary_set";
+    //用户收藏日记本
+    public String ADD_DIARYSET_FAVORITE = HTTPROOT + "favorite/diarySet/add";
+    //用户取消收藏日记本
+    public String DELETE_DIARYSET_FAVORITE = HTTPROOT + "favorite/diarySet/delete";
 }

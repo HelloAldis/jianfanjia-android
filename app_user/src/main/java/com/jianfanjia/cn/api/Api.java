@@ -26,26 +26,28 @@ import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
-import com.jianfanjia.api.request.common.AddCollectionRequest;
 import com.jianfanjia.api.request.common.AddCommentRequest;
 import com.jianfanjia.api.request.common.AddDiaryFavoriteRequest;
 import com.jianfanjia.api.request.common.AddDiaryRequest;
+import com.jianfanjia.api.request.common.AddDiarySetFavoriteRequest;
 import com.jianfanjia.api.request.common.AddDiarySetRequest;
+import com.jianfanjia.api.request.common.AddProductFavoriteRequest;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
 import com.jianfanjia.api.request.common.CheckVersionRequest;
 import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
-import com.jianfanjia.api.request.common.DeleteCollectionRequest;
 import com.jianfanjia.api.request.common.DeleteDiaryRequest;
+import com.jianfanjia.api.request.common.DeleteDiarySetFavoriteRequest;
 import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
+import com.jianfanjia.api.request.common.DeleteProductFavoriteRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
-import com.jianfanjia.api.request.common.GetCollectionRequest;
 import com.jianfanjia.api.request.common.GetCommentsRequest;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
-import com.jianfanjia.api.request.common.GetFavoriteDiarySetListRequest;
+import com.jianfanjia.api.request.common.GetDiarySetFavoriteListRequest;
 import com.jianfanjia.api.request.common.GetMsgDetailRequest;
 import com.jianfanjia.api.request.common.GetMyDiarySetRequest;
 import com.jianfanjia.api.request.common.GetProcessInfoRequest;
+import com.jianfanjia.api.request.common.GetProductFavoriteListRequest;
 import com.jianfanjia.api.request.common.GetUnReadMsgRequest;
 import com.jianfanjia.api.request.common.RefreshSessionRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
@@ -315,11 +317,12 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().PRODUCT_HOME_PAGE, request, apiCallback);
     }
 
-    public static void addCollectionByUser(AddCollectionRequest request, ApiCallback<ApiResponse<Object>> apiCallback) {
+    public static void addProductFavorite(AddProductFavoriteRequest request, ApiCallback<ApiResponse<Object>>
+            apiCallback) {
         ApiClient.okPost(Url_New.getInstance().ADD_PRODUCT, request, apiCallback);
     }
 
-    public static void deleteCollectionByUser(DeleteCollectionRequest request, ApiCallback<ApiResponse<Object>>
+    public static void deleteProductFavorite(DeleteProductFavoriteRequest request, ApiCallback<ApiResponse<Object>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().DELETE_PRODUCT_BY_USER, request, apiCallback);
     }
@@ -350,7 +353,7 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback);
     }
 
-    public static void getCollectListByUser(GetCollectionRequest request, ApiCallback<ApiResponse<ProductList>>
+    public static void getCollectListByUser(GetProductFavoriteListRequest request, ApiCallback<ApiResponse<ProductList>>
             apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback);
     }
@@ -423,13 +426,23 @@ public class Api {
         ApiClient.okPost(Url_New.getInstance().FAVORITE_DIARY_ADD, request, apiCallback);
     }
 
-    public static void getFavoriteDiarySetList(GetFavoriteDiarySetListRequest request,
-                                               ApiCallback<ApiResponse<DiaryInfoList>> apiCallback) {
+    public static void getFavoriteDiarySetList(GetDiarySetFavoriteListRequest request,
+                                               ApiCallback<ApiResponse<DiarySetInfoList>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_FAVORITE_DIARY_SET_LIST, request, apiCallback);
     }
 
     public static void getRecommendDiarySetList(GetRecommendDiarySetRequest request,
                                                 ApiCallback<ApiResponse<List<DiarySetInfo>>> apiCallback) {
         ApiClient.okPost(Url_New.getInstance().GET_RECOMMEND_DIARY_SET, request, apiCallback);
+    }
+
+    public static void addDiarySetFavorite(AddDiarySetFavoriteRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET_FAVORITE, request, apiCallback);
+    }
+
+    public static void deleteDairySetFavorite(DeleteDiarySetFavoriteRequest request, ApiCallback<ApiResponse<String>>
+            apiCallback) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_DIARYSET_FAVORITE, request, apiCallback);
     }
 }

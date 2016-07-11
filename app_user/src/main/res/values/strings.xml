@@ -439,4 +439,5 @@
     <string name="add_favorite">点赞</string>
     <string name="tip_diary_delte">该日记已被删除</string>
     <string name="create_diaryset">新建日记本</string>
+    <string name="tip_move_see_recommend_diaryset">滑动更多精选日记本</string>
 </resources>

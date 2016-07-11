@@ -21,7 +21,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
-import com.jianfanjia.api.request.common.GetCollectionRequest;
+import com.jianfanjia.api.request.common.GetProductFavoriteListRequest;
 import com.jianfanjia.cn.ui.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
@@ -125,7 +125,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
     private void getProductList(int from, int limit, ApiCallback<ApiResponse<ProductList>> listener) {
-        GetCollectionRequest request = new GetCollectionRequest();
+        GetProductFavoriteListRequest request = new GetProductFavoriteListRequest();
         request.setFrom(from);
         request.setLimit(limit);
         Api.getCollectListByUser(request, listener);

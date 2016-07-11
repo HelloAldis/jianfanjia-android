@@ -23,6 +23,7 @@ public class DiarySetInfo extends BaseModel {
     private long lastupdate;
     private int favorite_count;
     private int view_count;
+    private boolean is_my_favorite;
     private String latest_section_label;
     private List<DiaryInfo> diaries;
     private User author;
@@ -153,5 +154,13 @@ public class DiarySetInfo extends BaseModel {
 
     public void setFavorite_count(int favorite_count) {
         this.favorite_count = favorite_count;
+    }
+
+    public boolean is_my_favorite() {
+        return is_my_favorite;
+    }
+
+    public void setIs_my_favorite(boolean is_my_favorite) {
+        this.is_my_favorite = is_my_favorite;
     }
 }

@@ -3,6 +3,8 @@ package com.jianfanjia.cn.ui.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Rect;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.text.Spannable;
@@ -10,6 +12,7 @@ import android.text.SpannableString;
 import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -35,10 +38,12 @@ import com.jianfanjia.api.request.common.AddDiaryFavoriteRequest;
 import com.jianfanjia.api.request.common.DeleteDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiaryDetailInfoActivity;
 import com.jianfanjia.cn.ui.activity.diary.DiarySetInfoActivity;
@@ -59,6 +64,7 @@ import me.iwf.photopicker.entity.AnimationRect;
  */
 public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
+    public static final int RECOMMEND_TYPE = 1;
 
     public DiaryDynamicAdapter(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
@@ -66,21 +72,48 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
     @Override
     public RecyclerView.ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.list_item_fragment_diary, null);
-        return new DiaryViewHolder(view);
+        View view;
+        switch (viewType) {
+            case TYPE_NORMAL_ITEM:
+                view = layoutInflater.inflate(R.layout.list_item_fragment_diary, null);
+                return new DiaryViewHolder(view);
+            case RECOMMEND_TYPE:
+                view = layoutInflater.inflate(R.layout.list_item_diaryset_recommend, null);
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup
+                        .LayoutParams.WRAP_CONTENT));
+                return new RecommendDiarySetViewHolder(view);
+        }
+        return null;
     }
 
     @Override
-    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        DiaryViewHolder diaryViewHolder = (DiaryViewHolder) holder;
-        final DiaryInfo diaryInfo = mDatas.get(position);
+    public void onBindNormalViewHolder(RecyclerView.ViewHolder holder, final int pos) {
+        int viewType = getItemViewType(pos);
+
+        if (viewType == RECOMMEND_TYPE) {
+            bindRecommendDiarySet((RecommendDiarySetViewHolder) holder, pos);
+        } else {
+            bindNormalDiarySet((DiaryViewHolder) holder, pos);
+        }
+    }
+
+    private void bindRecommendDiarySet(RecommendDiarySetViewHolder holder, int pos) {
+        DiaryInfo diaryInfo = mDatas.get(pos);
+
+        holder.bindAdapter(diaryInfo.getRecommendDiarySetList());
+    }
+
+    private void bindNormalDiarySet(DiaryViewHolder holder, final int pos) {
+        DiaryViewHolder diaryViewHolder = holder;
+        final DiaryInfo diaryInfo = mDatas.get(pos);
         LogTool.d(this.getClass().getName(), "diaryInfo =" + diaryInfo);
 
         final DiarySetInfo diarySetInfo = diaryInfo.getDiarySet();
         User author = diaryInfo.getAuthor();
         if (author != null) {
             if (!TextUtils.isEmpty(author.getImageid())) {
-                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder.ivDiaryHead);
+                imageShow.displayImageHeadWidthThumnailImage(context, author.getImageid(), diaryViewHolder
+                        .ivDiaryHead);
             } else {
                 diaryViewHolder.ivDiaryHead.setImageResource(R.mipmap.icon_default_head);
             }
@@ -89,8 +122,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 diaryViewHolder.tvDiaryDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        deleteDiary(position);
-                        showTipDialog(context, position);
+//                        deleteDiary(pos);
+                        showTipDialog(context, pos);
                     }
                 });
             } else {
@@ -113,7 +146,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 .is_my_favorite(), new AddFavoriteCallback() {
             @Override
             public void addFavoriteAction() {
-                addFavorite(position);
+                addFavorite(pos);
             }
         });
 
@@ -144,7 +177,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         DiaryDetailInfoActivity.intentToDiaryDetailInfo(context, diaryInfo, intentFlag, null);
     }
 
-    private void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
+    protected void gotoDiarySetInfo(DiarySetInfo diarySetInfo) {
         DiarySetInfoActivity.intentToDiarySet(context, diarySetInfo);
     }
 
@@ -205,7 +238,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
         LogTool.d(this.getClass().getName(), "position:" + position);
-        CommonShowPicActivity.intentTo(context,(ArrayList<String>) imgs, (ArrayList<AnimationRect>)
+        CommonShowPicActivity.intentTo(context, (ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((Activity) context).overridePendingTransition(0, 0);
     }
@@ -246,10 +279,10 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                             = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
                         ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-                        LogTool.d(this.getClass().getName(),"view left position =" + imageView.getLeft());
+                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
                         if (imageView.getVisibility() == View.VISIBLE) {
                             AnimationRect rect = AnimationRect.buildFromImageView(imageView);
-                            LogTool.d(this.getClass().getName(),"left position =" + rect.imageViewEntireRect.left);
+                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }
@@ -444,9 +477,6 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
     static class DiaryViewHolder extends RecyclerViewHolderBase {
 
-        @Bind(R.id.ll_rootview)
-        LinearLayout llRootView;
-
         @Bind(R.id.diary_head)
         ImageView ivDiaryHead;
 
@@ -498,6 +528,158 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         public DiaryViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (super.getItemViewType(position) == TYPE_NORMAL_ITEM) {
+            if (mDatas.get(position).getRecommendDiarySetList() != null &&
+                    mDatas.get(position).getRecommendDiarySetList().size() > 0) {
+                return RECOMMEND_TYPE;
+            } else {
+                return TYPE_NORMAL_ITEM;
+            }
+        }
+        return super.getItemViewType(position);
+    }
+
+    class RecommendDiarySetViewHolder extends RecyclerViewHolderBase {
+
+        @Bind(R.id.recycleview_recommend_diaryset)
+        RecyclerView mRecyclerView;
+
+        private RecommendDiarySetAdapter recommendDiarySetAdapter;
+
+        public RecommendDiarySetViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+            mRecyclerView.setLayoutManager(linearLayoutManager);
+            mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+
+                int divideSpace = TDevice.dip2px(MyApplication.getInstance(), 10);
+                int firstSpace = TDevice.dip2px(MyApplication.getInstance(), 16);
+
+                @Override
+                public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                    super.getItemOffsets(outRect, view, parent, state);
+
+                    outRect.top = 0;
+                    outRect.bottom = 0;
+                    outRect.left = 0;
+                    outRect.right = divideSpace;
+                    if (parent.getChildAdapterPosition(view) == 0) {
+                        outRect.left = firstSpace;
+                    }
+
+                    if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() - 1) {
+                        outRect.right = firstSpace;
+                    }
+                }
+            });
+        }
+
+        public void bindAdapter(List<DiarySetInfo> diarySetInfos) {
+            if (recommendDiarySetAdapter == null) {
+                recommendDiarySetAdapter = new RecommendDiarySetAdapter(context, diarySetInfos);
+                mRecyclerView.setAdapter(recommendDiarySetAdapter);
+            } else {
+                recommendDiarySetAdapter.setDiarySetInfoList(diarySetInfos);
+            }
+        }
+    }
+
+    class RecommendDiarySetAdapter extends RecyclerView.Adapter {
+        private List<DiarySetInfo> mDiarySetInfoList;
+        private LayoutInflater mLayoutInflater;
+        ImageShow mImageShow;
+        Context mContext;
+
+        public RecommendDiarySetAdapter(Context context, List<DiarySetInfo> list) {
+            this.mDiarySetInfoList = list;
+            LogTool.d(RecommendDiarySetAdapter.class.getName(), "list.size =" + list.size());
+            this.mContext = context;
+            mLayoutInflater = LayoutInflater.from(context);
+            mImageShow = ImageShow.getImageShow();
+        }
+
+        public void setDiarySetInfoList(List<DiarySetInfo> diarySetInfoList) {
+            mDiarySetInfoList = diarySetInfoList;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = mLayoutInflater.inflate(R.layout.list_item_diaryset_recommend_item, null);
+            int width;
+            if (mDiarySetInfoList.size() > 1) {
+                width = (int) TDevice.getScreenWidth() / 2 - TDevice.dip2px(mContext, 24);
+            } else {
+                width = (int) TDevice.getScreenWidth();
+            }
+            view.setLayoutParams(new ViewGroup.LayoutParams(width, ViewGroup
+                    .LayoutParams.WRAP_CONTENT));
+            return new RecommendDiarySetItemViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
+            RecommendDiarySetItemViewHolder holder = (RecommendDiarySetItemViewHolder) viewHolder;
+            final DiarySetInfo diarySetInfo = mDiarySetInfoList.get(position);
+
+            holder.tvDiarySetDec.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
+            holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
+
+            holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
+            holder.tvLikeCount.setText(diarySetInfo.getFavorite_count() + "");
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gotoDiarySetInfo(diarySetInfo);
+                }
+            });
+
+            if (!TextUtils.isEmpty(diarySetInfo.getCover_imageid())) {
+                imageShow.displayScreenWidthThumnailImage(context, diarySetInfo.getCover_imageid(), holder
+                        .ivDiarySetCoverPic);
+            } else {
+                holder.ivDiarySetCoverPic.setImageResource(R.mipmap.bg_diary_cover);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return mDiarySetInfoList == null ? 0 : mDiarySetInfoList.size();
+        }
+
+        class RecommendDiarySetItemViewHolder extends RecyclerView.ViewHolder {
+
+            @Bind(R.id.iv_diaryset_cover_pic)
+            ImageView ivDiarySetCoverPic;
+            @Bind(R.id.tv_diaryset_title)
+            TextView tvDiarySetTitle;
+            @Bind(R.id.tv_diaryset_dec)
+            TextView tvDiarySetDec;
+            @Bind(R.id.tv_like_count)
+            TextView tvLikeCount;
+            @Bind(R.id.tv_view_count)
+            TextView tvViewCount;
+
+            public RecommendDiarySetItemViewHolder(View itemView) {
+                super(itemView);
+                ButterKnife.bind(this, itemView);
+            }
 
         }
     }

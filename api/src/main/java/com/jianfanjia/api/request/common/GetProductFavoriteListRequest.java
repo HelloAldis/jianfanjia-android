@@ -3,15 +3,13 @@ package com.jianfanjia.api.request.common;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
- * Description: com.jianfanjia.api.request.common
- * Author: zhanghao
- * Email: jame.zhang@myjyz.com
- * Date:2016-07-09 17:40
+ * Name: GetProductFavoriteListRequest
+ * User: fengliang
+ * Date: 2016-03-28
+ * Time: 17:01
  */
-public class GetFavoriteDiarySetListRequest extends BaseRequest {
-
+public class GetProductFavoriteListRequest extends BaseRequest {
     private int from;
-
     private int limit;
 
     public int getFrom() {

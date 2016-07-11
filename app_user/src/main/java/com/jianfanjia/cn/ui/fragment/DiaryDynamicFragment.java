@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.jianfanjia.api.model.DiarySetInfoList;
 import com.jianfanjia.api.model.DiaryUpdateInfo;
 import com.jianfanjia.api.request.common.GetMyDiarySetRequest;
 import com.jianfanjia.api.request.guest.GetDiaryUpdateRequest;
+import com.jianfanjia.api.request.guest.GetRecommendDiarySetRequest;
 import com.jianfanjia.api.request.guest.SearchDiaryRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -53,6 +55,9 @@ import de.greenrobot.event.EventBus;
 public class DiaryDynamicFragment extends BaseFragment {
 
     private static final String TAG = DiaryDynamicFragment.class.getClass().getName();
+
+    private static final int RECOMMEND_POSITION = 3;
+
     @Bind(R.id.daily_pullfefresh)
     PullToRefreshRecycleView mPullToRefreshRecycleView;
 
@@ -63,8 +68,9 @@ public class DiaryDynamicFragment extends BaseFragment {
     RelativeLayout errorLayout;
 
     private DiaryDynamicAdapter mDiaryDynamicAdapter;
+    private List<DiarySetInfo> recommendDiarySet;
     private int total = 0;
-    private android.os.Handler mHandler = new android.os.Handler();
+    private Handler mHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 pullRefreshMoreData();
+                getRecommendDiarySet();
             }
         });
         mDiaryDynamicAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
@@ -108,6 +115,9 @@ public class DiaryDynamicFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         pullRefreshMoreData();
+        if (recommendDiarySet == null) {
+            getRecommendDiarySet();
+        }
     }
 
     @OnClick({R.id.imgbtn_add_diary, R.id.error_include})
@@ -174,6 +184,70 @@ public class DiaryDynamicFragment extends BaseFragment {
         });
     }
 
+    private void getRecommendDiarySet() {
+        GetRecommendDiarySetRequest getRecommendDiarySetRequest = new GetRecommendDiarySetRequest();
+        getRecommendDiarySetRequest.setLimit(10);
+
+        Api.getRecommendDiarySetList(getRecommendDiarySetRequest, new ApiCallback<ApiResponse<List<DiarySetInfo>>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<List<DiarySetInfo>> apiResponse) {
+                recommendDiarySet = apiResponse.getData();
+                setRecommendDiarySet();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<List<DiarySetInfo>> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        });
+    }
+
+    private void setRecommendDiarySet() {
+        if (recommendDiarySet == null) return;
+        if (mDiaryDynamicAdapter.getData().size() <= RECOMMEND_POSITION) return;
+
+        boolean isRecommendDiarySetExist = false;
+        int pos = 0;
+        for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
+            if (diaryInfo.getRecommendDiarySetList() != null) {
+                isRecommendDiarySetExist = true;
+                diaryInfo.setRecommendDiarySetList(recommendDiarySet);
+                break;
+            }
+            pos++;
+        }
+
+        if (!isRecommendDiarySetExist) {
+            DiaryInfo diaryInfo = new DiaryInfo();
+            diaryInfo.setRecommendDiarySetList(recommendDiarySet);
+            mDiaryDynamicAdapter.addItem(RECOMMEND_POSITION, diaryInfo);
+        } else {
+            if (pos != RECOMMEND_POSITION) {
+                DiaryInfo diaryInfo = mDiaryDynamicAdapter.getData().get(pos);
+                mDiaryDynamicAdapter.removeItem(pos);
+
+                mDiaryDynamicAdapter.addItem(RECOMMEND_POSITION, diaryInfo);
+            } else {
+                mDiaryDynamicAdapter.notifyItemChanged(RECOMMEND_POSITION);
+            }
+        }
+    }
+
     private void pullRefreshMoreData() {
         if (mDiaryDynamicAdapter.getData().size() == 0) {
             loadMoreData(System.currentTimeMillis(), firstLoadMoreData);
@@ -206,6 +280,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         DiaryInfo oldestDiaryIngo = mDiaryDynamicAdapter.getData().get(lastSize);
         loadMoreData(oldestDiaryIngo.getCreate_at(), normalLoadMoreData);
     }
+
 
     private void refreshNewData(long lastCreateAt) {
         SearchDiaryRequest searchDiaryRequest = new SearchDiaryRequest();
@@ -241,6 +316,8 @@ public class DiaryDynamicFragment extends BaseFragment {
                         setRefreshTime(diaryInfoList.getDiaries());
                         mDiaryDynamicAdapter.addData(0, diaryInfoList.getDiaries());
                         mPullToRefreshRecycleView.getRefreshableView().scrollToPosition(0);
+
+                        setRecommendDiarySet();
                     }
                 }
             }
@@ -297,7 +374,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         int i = 0;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
             for (DiaryUpdateInfo diaryUpdateInfo : data) {
-                if (diaryUpdateInfo != null && diaryInfo.get_id().equals(diaryUpdateInfo.get_id())) {
+                if (diaryUpdateInfo != null && diaryUpdateInfo.get_id().equals(diaryInfo.get_id())) {
                     diaryInfo.setFavorite_count(diaryUpdateInfo.getFavorite_count());
                     diaryInfo.setView_count(diaryUpdateInfo.getView_count());
                     diaryInfo.setComment_count(diaryUpdateInfo.getComment_count());
@@ -376,6 +453,8 @@ public class DiaryDynamicFragment extends BaseFragment {
             DiaryInfoList diaryInfoList = apiResponse.getData();
 
             loadMoreSuccess(diaryInfoList);
+
+            setRecommendDiarySet();
         }
 
         @Override
@@ -442,12 +521,23 @@ public class DiaryDynamicFragment extends BaseFragment {
     private void refreshOneDiarySetStatus(DiarySetInfo resultDiarySetInfo) {
         int pos = 0;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
-            if (diaryInfo.getDiarySet().get_id().equals(resultDiarySetInfo.get_id())) {
+            if (diaryInfo.get_id() != null && diaryInfo.getDiarySet().get_id().equals(resultDiarySetInfo.get_id())) {
                 LogTool.d(this.getClass().getName(), "diaryset get lastest id =" + resultDiarySetInfo.get_id());
                 diaryInfo.setDiarySet(resultDiarySetInfo);
                 mDiaryDynamicAdapter.notifyItemChanged(pos);
             }
             pos++;
+        }
+        if (recommendDiarySet != null) {
+            int diarySetPos = 0;
+            for (DiarySetInfo diarySetInfo : recommendDiarySet) {
+                if (diarySetInfo.get_id().equals(resultDiarySetInfo.get_id())) {
+                    recommendDiarySet.set(diarySetPos, resultDiarySetInfo);
+                    mDiaryDynamicAdapter.notifyItemChanged(RECOMMEND_POSITION);
+                    break;
+                }
+                diarySetPos++;
+            }
         }
     }
 
@@ -455,7 +545,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         int pos = 0;
         boolean isDelete = false;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
-            if (diaryInfo.get_id().equals(resultDiaryInfo.get_id())) {
+            if (diaryInfo.get_id() != null && diaryInfo.get_id().equals(resultDiaryInfo.get_id())) {
                 LogTool.d(this.getClass().getName(), "diary is delete" + diaryInfo.is_deleted());
                 if (resultDiaryInfo.is_deleted()) {
                     isDelete = true;

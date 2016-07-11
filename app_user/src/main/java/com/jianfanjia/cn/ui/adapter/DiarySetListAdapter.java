@@ -13,7 +13,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseRecyclerViewAdapter;
@@ -36,15 +35,25 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
     private static final int HEAD_TYPE = 0;
     private static final int CONTENT_TYPE = 1;
 
+    private int headViewCount;
+
     public DiarySetListAdapter(Context context, List<DiarySetInfo> list) {
         super(context, list);
+    }
+
+    public void setHasAddDiarySet(boolean hasAddDiarySet) {
+        if (hasAddDiarySet) {
+            headViewCount = 1;
+        } else {
+            headViewCount = 0;
+        }
     }
 
     @Override
     public void bindView(RecyclerViewHolderBase viewHolder, final int position, List<DiarySetInfo> list) {
         switch (getItemViewType(position)) {
             case CONTENT_TYPE:
-                DiarySetInfo diarySetInfo = list.get(position - 1);
+                DiarySetInfo diarySetInfo = list.get(position - headViewCount);
                 DesignerWorksViewHolder holder = (DesignerWorksViewHolder) viewHolder;
                 bindContentView(diarySetInfo, holder);
                 break;
@@ -75,7 +84,7 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
         DiarySetInfoActivity.intentToDiarySet(context, diarySetInfo);
     }
 
-    private void bindContentView( final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
+    private void bindContentView(final DiarySetInfo diarySetInfo, DesignerWorksViewHolder holder) {
 
         holder.tvDiarySetDec.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
         holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
@@ -109,12 +118,12 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
     public void remove(int position) {
         if (list == null) return;
         list.remove(position);
-        notifyItemRemoved(position + 1);
+        notifyItemRemoved(position + headViewCount);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (position == headViewCount - 1) {
             return HEAD_TYPE;
         } else {
             return CONTENT_TYPE;
@@ -123,7 +132,7 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
 
     @Override
     public int getItemCount() {
-        return null == list ? 1 : list.size() + 1;
+        return null == list ? headViewCount : list.size() + headViewCount;
     }
 
     @Override
@@ -175,4 +184,6 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
             ButterKnife.bind(this, itemView);
         }
     }
+
+
 }

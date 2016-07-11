@@ -31,6 +31,7 @@ public class DiaryInfo extends BaseModel {
     private long refreshTime;
     private transient SpannableString showContent;
     private transient int showHeight;
+    private transient List<DiarySetInfo> recommendDiarySetList;
 
     public String get_id() {
         return _id;
@@ -183,6 +184,14 @@ public class DiaryInfo extends BaseModel {
 
     public void setShowContent(SpannableString showContent) {
         this.showContent = showContent;
+    }
+
+    public List<DiarySetInfo> getRecommendDiarySetList() {
+        return recommendDiarySetList;
+    }
+
+    public void setRecommendDiarySetList(List<DiarySetInfo> recommendDiarySetList) {
+        this.recommendDiarySetList = recommendDiarySetList;
     }
 }
 

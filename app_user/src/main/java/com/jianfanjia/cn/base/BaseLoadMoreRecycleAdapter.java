@@ -29,17 +29,17 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int STATE_LOAD_MORE = 0x111;//正在加载状态
-    public static final int STATE_NO_MORE = 0x112;//没有更多数据加载
-    public static final int STATE_NO_DATA = 0x113;//没有任何数据，list为空
-    public static final int STATE_INIT = 0x114;//初始状态
-    public static final int STATE_NETWORK_ERROR = 0x115;//数据加载错误
+    public static final int STATE_LOAD_MORE = Integer.MAX_VALUE;//正在加载状态
+    public static final int STATE_NO_MORE = Integer.MAX_VALUE - 1;//没有更多数据加载
+    public static final int STATE_NO_DATA = Integer.MAX_VALUE - 2;//没有任何数据，list为空
+    public static final int STATE_INIT = Integer.MAX_VALUE - 3;//初始状态
+    public static final int STATE_NETWORK_ERROR = Integer.MAX_VALUE - 4;//数据加载错误
 
 
     //正常条目
-    protected static final int TYPE_NORMAL_ITEM = 0x116;//正常item
+    protected static final int TYPE_NORMAL_ITEM = Integer.MAX_VALUE - 5;//正常item
     //加载条目
-    protected static final int TYPE_LOADING_ITEM = 0x117;//加载item
+    protected static final int TYPE_LOADING_ITEM = Integer.MAX_VALUE - 6;//加载item
 
     protected ArrayList<T> mDatas = new ArrayList<>();
 
@@ -383,22 +383,22 @@ public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter
     private void setScrollListener(RecyclerView recyclerView) {
         recyclerView.addOnScrollListener(new PauseOnScrollListenter(ImageLoader.getInstance(), true, true, new
                 RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                if (!canScrollDown(recyclerView) && state == STATE_LOAD_MORE) {
-                    LogTool.d(this.getClass().getName(), "loading...");
-                    if (loadMoreListener != null) {
-                        loadMoreListener.loadMore();
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
                     }
-                }
-            }
-        }));
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+
+                        if (!canScrollDown(recyclerView) && state == STATE_LOAD_MORE) {
+                            LogTool.d(this.getClass().getName(), "loading...");
+                            if (loadMoreListener != null) {
+                                loadMoreListener.loadMore();
+                            }
+                        }
+                    }
+                }));
     }
 }

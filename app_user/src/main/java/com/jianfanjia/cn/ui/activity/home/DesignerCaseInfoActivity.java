@@ -22,8 +22,8 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductImageInfo;
-import com.jianfanjia.api.request.common.AddCollectionRequest;
-import com.jianfanjia.api.request.common.DeleteCollectionRequest;
+import com.jianfanjia.api.request.common.AddProductFavoriteRequest;
+import com.jianfanjia.api.request.common.DeleteProductFavoriteRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -276,15 +276,15 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     }
 
     private void addProductHomePageInfo(String productid) {
-        AddCollectionRequest request = new AddCollectionRequest();
+        AddProductFavoriteRequest request = new AddProductFavoriteRequest();
         request.set_id(productid);
-        Api.addCollectionByUser(request, this.addProductHomePageInfoCallback);
+        Api.addProductFavorite(request, this.addProductHomePageInfoCallback);
     }
 
     private void deleteProductDesigner(String productid) {
-        DeleteCollectionRequest request = new DeleteCollectionRequest();
+        DeleteProductFavoriteRequest request = new DeleteProductFavoriteRequest();
         request.set_id(productid);
-        Api.deleteCollectionByUser(request, this.deleteProductCallback);
+        Api.deleteProductFavorite(request, this.deleteProductCallback);
     }
 
     private ApiCallback<ApiResponse<Product>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<Product>>() {

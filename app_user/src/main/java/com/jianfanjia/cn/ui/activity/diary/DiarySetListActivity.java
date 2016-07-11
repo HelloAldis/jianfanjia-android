@@ -117,6 +117,7 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
         });
         mRecyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
         mDiarySetListAdapter = new DiarySetListAdapter(this, mDiaryInfoList);
+        mDiarySetListAdapter.setHasAddDiarySet(true);
         mRecyclerView.setAdapter(mDiarySetListAdapter);
     }
 

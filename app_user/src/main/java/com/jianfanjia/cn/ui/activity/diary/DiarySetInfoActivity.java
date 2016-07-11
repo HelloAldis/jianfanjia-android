@@ -35,6 +35,8 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DiaryInfo;
 import com.jianfanjia.api.model.DiarySetInfo;
+import com.jianfanjia.api.request.common.AddDiarySetFavoriteRequest;
+import com.jianfanjia.api.request.common.DeleteDiarySetFavoriteRequest;
 import com.jianfanjia.api.request.common.UpdateDiarySetRequest;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.guest.GetDiarySetInfoRequest;
@@ -48,6 +50,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.ShareUtil;
+import com.jianfanjia.cn.ui.Event.CollectDiarySetEvent;
 import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
 import com.jianfanjia.cn.ui.adapter.DiarySetLeftMenuAdapter;
@@ -153,11 +156,7 @@ public class DiarySetInfoActivity extends BaseActivity {
         ivMenuOpenOrClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mSlidingMenu.isMenuShowing()) {
-                    mSlidingMenu.showContent();
-                } else {
-                    mSlidingMenu.showMenu();
-                }
+
             }
         });
 
@@ -308,7 +307,6 @@ public class DiarySetInfoActivity extends BaseActivity {
             move = true;
             //这里这个变量是用在RecyclerView滚动监听里面的
         }
-
     }
 
     private int getOneStageFisrtPos(String itemName) {
@@ -404,7 +402,7 @@ public class DiarySetInfoActivity extends BaseActivity {
 
         setCheckItem(mDiarySetInfo.getLatest_section_label());
 
-        mDiarySetLeftMenuAdapter.notifyDataSetChanged();
+        mDiaryAdapter.notifyDataSetChanged();
 
         initHeadHeightOffset();
     }
@@ -460,7 +458,8 @@ public class DiarySetInfoActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.head_back_layout, R.id.rl_writediary, R.id.share_layout})
+    @OnClick({R.id.head_back_layout, R.id.rl_writediary, R.id.share_layout, R.id.iv_menu_open_or_close, R.id
+            .toolbar_collect_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.rl_writediary:
@@ -472,7 +471,87 @@ public class DiarySetInfoActivity extends BaseActivity {
             case R.id.share_layout:
                 shareDiarySet();
                 break;
+            case R.id.iv_menu_open_or_close:
+                if (mSlidingMenu.isMenuShowing()) {
+                    mSlidingMenu.showContent();
+                } else {
+                    mSlidingMenu.showMenu();
+                }
+                break;
+            case R.id.toolbar_collect_layout:
+                if (mDiarySetInfo.is_my_favorite()) {
+                    deleteDiarySetFavorite(diarySetId);
+                } else {
+                    addDiarySetFavorite(diarySetId);
+                }
+                break;
         }
+    }
+
+    private void addDiarySetFavorite(final String diarySetId) {
+        AddDiarySetFavoriteRequest addDiarySetFavoriteRequest = new AddDiarySetFavoriteRequest();
+        addDiarySetFavoriteRequest.setDiarySetid(diarySetId);
+
+        Api.addDiarySetFavorite(addDiarySetFavoriteRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.str_collect_success));
+
+                EventBus.getDefault().post(new CollectDiarySetEvent(diarySetId, true));
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+            }
+        });
+    }
+
+    private void deleteDiarySetFavorite(final String diarySetId) {
+        DeleteDiarySetFavoriteRequest deleteDiarySetFavoriteRequest = new DeleteDiarySetFavoriteRequest();
+        deleteDiarySetFavoriteRequest.setDiarySetid(diarySetId);
+
+        Api.deleteDairySetFavorite(deleteDiarySetFavoriteRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                makeTextShort(getString(R.string.str_cancel_collect_success));
+
+                EventBus.getDefault().post(new CollectDiarySetEvent(diarySetId, false));
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+            }
+        });
     }
 
     private void shareDiarySet() {
@@ -483,7 +562,6 @@ public class DiarySetInfoActivity extends BaseActivity {
                 ToastUtil.showShortTost("您还没有发布装修日记哦");
             }
         }
-
     }
 
     private void showPopwindow() {
@@ -611,6 +689,8 @@ public class DiarySetInfoActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_main_slidingmenu;
     }
+
+
 
 
 }

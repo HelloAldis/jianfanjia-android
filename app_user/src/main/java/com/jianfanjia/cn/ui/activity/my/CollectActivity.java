@@ -16,6 +16,7 @@ import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.ui.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.ui.fragment.CollectDecorationImgFragment;
 import com.jianfanjia.cn.ui.fragment.CollectDesignerFragment;
+import com.jianfanjia.cn.ui.fragment.CollectDiarySetFragment;
 import com.jianfanjia.cn.ui.fragment.CollectProductFragment;
 import com.jianfanjia.cn.view.MainHeadView;
 
@@ -64,7 +65,7 @@ public class CollectActivity extends BaseSwipeBackActivity {
                 .string.str_case));
         SelectItem imgItem = new SelectItem(CollectDecorationImgFragment.newInstance(), getResources().getString(R
                 .string.imgText));
-        SelectItem diarySetItem = new SelectItem(CollectDecorationImgFragment.newInstance(), getResources().getString(R
+        SelectItem diarySetItem = new SelectItem(CollectDiarySetFragment.newInstance(), getResources().getString(R
                 .string.diaryset));
         listViews.add(designerItem);
         listViews.add(productItem);

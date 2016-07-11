@@ -3,12 +3,12 @@ package com.jianfanjia.api.request.common;
 import com.jianfanjia.api.request.BaseRequest;
 
 /**
- * Name: DeleteCollectionRequest
+ * Name: DeleteProductFavoriteRequest
  * User: fengliang
  * Date: 2015-12-08
  * Time: 15:58
  */
-public class DeleteCollectionRequest extends BaseRequest {
+public class DeleteProductFavoriteRequest extends BaseRequest {
     private String _id;
 
     public String get_id() {
