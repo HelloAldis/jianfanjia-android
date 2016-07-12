@@ -195,11 +195,11 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
     }
 
     private void bindFooter(DiaryDetailInfoAdapter.FooterViewHolder viewHolder) {
-        if (list.size() == 0) {
+        /*if (list.size() == 0) {
             viewHolder.tvFooterLoadNoMore.setText("当前还没有任何日记");
         } else {
             viewHolder.tvFooterLoadNoMore.setText("日记已加载完毕");
-        }
+        }*/
         int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
                 (context, 48);
         LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
