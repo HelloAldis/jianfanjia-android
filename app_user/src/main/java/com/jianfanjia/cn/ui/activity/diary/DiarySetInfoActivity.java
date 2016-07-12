@@ -198,6 +198,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
                 totalOffsetY += dy;
 
                 setWriteDiaryShowOrHidden(dy);
@@ -418,7 +419,17 @@ public class DiarySetInfoActivity extends BaseActivity {
             }
         }
 
-        setCheckItem(mDiarySetInfo.getLatest_section_label());
+        String laseStage = null;
+        for (DiarySetStageItem diarySetStageItem : diarySetStageItemList) {
+            if (diarySetStageItem.getCount() > 0) {
+                laseStage = diarySetStageItem.getItemName();
+                break;
+            }
+        }
+
+        if (laseStage != null) {
+            setCheckItem(laseStage);
+        }
 
         mDiaryAdapter.notifyDataSetChanged();
 

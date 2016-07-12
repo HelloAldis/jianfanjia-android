@@ -80,7 +80,7 @@ public class DiarySetLeftMenuAdapter extends RecyclerView.Adapter {
             diarySetMenuViewHolder.tvDiarySetStage.setText(diarySetStageItem.getItemName() + "阶段" + "（" +
                     diarySetStageItem.getCount() + "）");
             diarySetMenuViewHolder.tvDiarySetStage.setAlpha(1f);
-            diarySetMenuViewHolder.tvDiarySetStage.setOnClickListener(new View.OnClickListener() {
+            diarySetMenuViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnNavigateListener != null) {
@@ -89,7 +89,7 @@ public class DiarySetLeftMenuAdapter extends RecyclerView.Adapter {
                 }
             });
         } else {
-            diarySetMenuViewHolder.tvDiarySetStage.setOnClickListener(null);
+            diarySetMenuViewHolder.itemView.setOnClickListener(null);
             diarySetMenuViewHolder.tvDiarySetStage.setText(diarySetStageItem.getItemName() + "阶段");
             diarySetMenuViewHolder.tvDiarySetStage.setAlpha(0.4f);
         }
