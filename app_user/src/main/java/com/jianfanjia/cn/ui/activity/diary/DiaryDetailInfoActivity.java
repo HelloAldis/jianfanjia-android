@@ -82,7 +82,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     private int intentFrom;
     private User byUser;//我被谁评论过
     private String toCommentId;
-    private Comment byComment;
 
     public static void intentToDiaryDetailInfo(Context context, DiaryInfo diaryInfo, int
             intentFromFlag, User byUser) {
@@ -90,12 +89,12 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     }
 
     public static void intentToDiaryDetailInfoByComment(Context context, DiaryInfo diaryInfo, int
-            intentFromFlag, User byUser, Comment byComment) {
+            intentFromFlag, User byUser, String toCommentId) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(IntentConstant.DIARY_INFO, diaryInfo);
         bundle.putSerializable(INTENT_FLAG, intentFromFlag);
         bundle.putSerializable(BY_USER, byUser);
-        bundle.putSerializable(IntentConstant.COMMENT_INFO, byComment);
+        bundle.putSerializable(IntentConstant.COMMENT_INFO, toCommentId);
         IntentUtil.startActivity(context, DiaryDetailInfoActivity.class, bundle);
     }
 
@@ -112,7 +111,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         mDiaryInfo = (DiaryInfo) intent.getSerializableExtra(IntentConstant.DIARY_INFO);
         intentFrom = intent.getIntExtra(INTENT_FLAG, -1);
         byUser = (User) intent.getSerializableExtra(BY_USER);
-        byComment = (Comment) intent.getSerializableExtra(IntentConstant.COMMENT_INFO);
+        toCommentId = intent.getStringExtra(IntentConstant.COMMENT_INFO);
         if (mDiaryInfo != null) {
             diaryId = mDiaryInfo.get_id();
         }
@@ -290,9 +289,6 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                 commentEdit.setHint(replayHint);
             } else {
                 to = mDiaryInfo.getAuthorid();
-            }
-            if (byComment != null) {
-                toCommentId = byComment.get_id();
             }
             showSoftKeyBoard();
         } else {

@@ -77,7 +77,7 @@
             android:maxLength="4"
             android:padding="@dimen/space_0"
             android:hint="@string/please_input_area"
-            android:numeric="integer"/>
+            />
 
         <TextView
             android:id="@+id/tv_add_diary_housetype_unit"
@@ -86,7 +86,7 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:text="㎡"
-            android:padding="@dimen/space_0"
+            android:layout_marginLeft="@dimen/space_4"
             />
 
     </RelativeLayout>

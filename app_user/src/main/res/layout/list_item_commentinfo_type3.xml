@@ -18,7 +18,8 @@
         android:paddingRight="@dimen/space_16"
         android:paddingTop="@dimen/space_8"
         android:paddingBottom="@dimen/space_8"
-        android:textColor="@color/grey_color"/>
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/light_black_color"/>
 
     <RelativeLayout
         android:id="@+id/item_layout"

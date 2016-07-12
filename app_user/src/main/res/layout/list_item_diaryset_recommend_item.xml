@@ -30,7 +30,7 @@
             android:gravity="left"
             android:singleLine="true"
             android:text="100平米"
-            android:textColor="@color/light_black_color"
+            android:textColor="@color/grey_color"
             android:textSize="@dimen/text_size_12"/>
 
     </RelativeLayout>

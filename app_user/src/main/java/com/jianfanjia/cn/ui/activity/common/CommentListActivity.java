@@ -115,7 +115,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                             case MyCommentInfoAdapter.DIARY_TYPE:
                                 DiaryDetailInfoActivity.intentToDiaryDetailInfoByComment
                                         (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
-                                                .intentFromComment, noticeInfo.getUser(),noticeInfo.getTo_comment());
+                                                .intentFromComment, noticeInfo.getUser(),noticeInfo.getCommentid());
                                 break;
                         }
                     }

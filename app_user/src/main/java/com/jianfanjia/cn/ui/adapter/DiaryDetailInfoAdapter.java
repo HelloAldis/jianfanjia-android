@@ -237,8 +237,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
 
         int viewWidth;
         int viewHeight;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivSinglerPic.getLayoutParams();
         if (bitmapWidth > bitmapHeight) {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) * 2 / 3;
             viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));

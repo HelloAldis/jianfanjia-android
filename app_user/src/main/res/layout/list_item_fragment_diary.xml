@@ -101,6 +101,7 @@
                 android:layout_marginTop="@dimen/space_16"
                 android:gravity="left"
                 android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/grey_color"
                 android:text="这个装修效果真的不错，我很喜欢"/>
         </FrameLayout>
 
@@ -110,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_8"
             android:scaleType="centerCrop"
             android:src="@mipmap/bg_home_banner1"
             android:visibility="gone"/>
@@ -119,7 +120,7 @@
             android:id="@+id/gl_diary_multiple_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_8"
             android:clickable="false"
             android:columnCount="3"
             android:orientation="horizontal"

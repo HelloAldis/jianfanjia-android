@@ -96,8 +96,8 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
     }
 
     private void initView() {
-        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
-        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
+        ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_diaryset_data));
+        ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_diaryset);
         pullToRefreshView.setMode(PullToRefreshBase.Mode.BOTH);
         pullToRefreshView.setLayoutManager(new LinearLayoutManager(getActivity()));
         pullToRefreshView.setHasFixedSize(true);
@@ -169,7 +169,9 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                     LogTool.d(TAG, "favoriteDiarySetList=" + favoriteDiarySetList);
                     if (favoriteDiarySetList != null) {
                         mDiarySetInfoList.clear();
-                        mDiarySetInfoList.addAll(favoriteDiarySetList.getDiarySets());
+                        if(favoriteDiarySetList.getDiarySets() != null){
+                            mDiarySetInfoList.addAll(favoriteDiarySetList.getDiarySets());
+                        }
                         if (null != mDiarySetInfoList && mDiarySetInfoList.size() > 0) {
                             mDiarySetListAdapter = new DiarySetListAdapter(getActivity(), mDiarySetInfoList);
                             mDiarySetListAdapter.setHasAddDiarySet(false);

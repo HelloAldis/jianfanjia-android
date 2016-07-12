@@ -84,7 +84,7 @@ public class CommonShowPicFragment extends BaseFragment {
 
             @Override
             public void onOutsidePhotoTap() {
-
+                getActivity().onBackPressed();
             }
         });
 

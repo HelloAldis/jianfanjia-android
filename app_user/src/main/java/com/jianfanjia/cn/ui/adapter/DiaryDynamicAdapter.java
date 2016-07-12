@@ -214,8 +214,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
         int viewWidth;
         int viewHeight;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivSinglerPic.getLayoutParams();
         if (bitmapWidth > bitmapHeight) {
             viewWidth = ((int) TDevice.getScreenWidth() - TDevice.dip2px(context, 16 + 2) * 2) * 2 / 3;
             viewHeight = (int) (viewWidth * ((float) bitmapHeight / bitmapWidth));
@@ -640,8 +639,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             holder.tvDiarySetDec.setText(DiaryBusiness.getDiarySetDes(diarySetInfo));
             holder.tvDiarySetTitle.setText(diarySetInfo.getTitle());
 
-            holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
-            holder.tvLikeCount.setText(diarySetInfo.getFavorite_count() + "");
+            holder.tvViewCount.setText(DiaryBusiness.covertIntCountToShow(diarySetInfo.getView_count()));
+            holder.tvLikeCount.setText(DiaryBusiness.covertIntCountToShow(diarySetInfo.getFavorite_count()));
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

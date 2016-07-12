@@ -95,8 +95,8 @@ public class DiarySetListAdapter extends BaseRecyclerViewAdapter<DiarySetInfo> {
             holder.tvDiarySetStage.setBackgroundResource(R.drawable.bg_diaryset_list_item_stage_blue);
         }
 
-        holder.tvViewCount.setText(diarySetInfo.getView_count() + "");
-        holder.tvLikeCount.setText(diarySetInfo.getFavorite_count() + "");
+        holder.tvViewCount.setText(DiaryBusiness.covertIntCountToShow(diarySetInfo.getView_count()));
+        holder.tvLikeCount.setText(DiaryBusiness.covertIntCountToShow(diarySetInfo.getFavorite_count()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

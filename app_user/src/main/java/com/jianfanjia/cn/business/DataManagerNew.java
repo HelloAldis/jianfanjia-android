@@ -137,7 +137,7 @@ public class DataManagerNew {
     }
 
     public String getUserId() {
-        return sharedPreferuser.getValue(Constant.USER_ID, null);
+        return sharedPreferuser.getValue(Constant.USER_ID, "");
     }
 
     public String getUserName() {

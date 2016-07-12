@@ -46,6 +46,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.bean.DiarySetStageItem;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
@@ -214,7 +215,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             }
 
             private void setWriteDiaryShowOrHidden(int dy) {
-                if (!mDiarySetInfo.getAuthor().get_id().equals(dataManager.getUserId())) {
+                if (!mDiarySetInfo.getAuthor().get_id().equals(DataManagerNew.getInstance().getUserId())) {
                     return;
                 }
                 if (dy > 0 && totalOffsetY >= TDevice.dip2px(DiarySetInfoActivity.this, 152)) {
@@ -370,7 +371,7 @@ public class DiarySetInfoActivity extends BaseActivity {
                 } else {
                     ivCollect.setBackgroundResource(R.mipmap.icon_collect_img1);
                 }
-                tvLikeCount.setText(diarySetInfo.getFavorite_count() + "");
+                tvLikeCount.setText(DiaryBusiness.covertIntCountToShow(diarySetInfo.getFavorite_count()));
 
                 mDiarySetInfo.setView_count(mDiarySetInfo.getView_count() + 1);
 

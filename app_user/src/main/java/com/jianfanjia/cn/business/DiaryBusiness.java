@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.application.MyApplication;
@@ -59,15 +61,19 @@ public class DiaryBusiness {
     }
 
     public static String getCommentCountShow(int count) {
-        if (count == 0) return MyApplication.getInstance().getString(R.string.commentText);
-        return count + "";
+        if (count == 0) {
+            return MyApplication.getInstance().getString(R.string.commentText);
+        } else {
+            return covertIntCountToShow(count);
+        }
     }
 
     public static String getFavoriteCountShow(int count) {
         if (count == 0) {
             return MyApplication.getInstance().getString(R.string.add_favorite);
+        } else {
+            return covertIntCountToShow(count);
         }
-        return count + "";
     }
 
     public static void setFavoriteAction(final ImageView imageView, ViewGroup canClickLayout, boolean isfavorite,
@@ -138,6 +144,16 @@ public class DiaryBusiness {
         } else {
             textView.setText(content);
         }
+    }
+
+    public static String covertIntCountToShow(int count) {
+        if (count > 10000) {
+            float floatCount = ((float) count) / 10000;
+            BigDecimal b = new BigDecimal(floatCount);
+            float showCount = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+            return showCount + "万";
+        }
+        return count + "";
     }
 
 }

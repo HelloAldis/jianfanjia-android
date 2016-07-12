@@ -11,7 +11,8 @@
         android:layout_marginLeft="@dimen/space_16"
         android:gravity="center"
         android:text="@string/tip_move_see_recommend_diaryset"
-        android:textSize="@dimen/middle_size"/>
+        android:textSize="@dimen/middle_size"
+        android:textColor="@color/light_black_color"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview_recommend_diaryset"
