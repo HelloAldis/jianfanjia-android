@@ -448,7 +448,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     private void bindComment(CommentViewHolder viewHolder, int position, List<Comment> list) {
         final Comment commentInfo = list.get(position);
         CommentViewHolder holder = viewHolder;
-        holder.itemContentView.setText(commentInfo.getContent());
+        DiaryBusiness.setCommentContentTextViewShow(holder.itemContentView, commentInfo.getContent());
         String userType = commentInfo.getUsertype();
         String imageid = Constant.DEFALUT_OWNER_PIC;
         String userName = "";
@@ -480,7 +480,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             @Override
             public void onClick(View v) {
                 if (mAddCommentListener != null) {
-                    mAddCommentListener.addCommentListener(commentInfo.getByUser(),commentInfo);
+                    mAddCommentListener.addCommentListener(commentInfo.getByUser(), commentInfo);
                 }
             }
         });
@@ -542,7 +542,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
     }
 
     public interface AddCommentListener {
-        void addCommentListener(User toUser,Comment comment);
+        void addCommentListener(User toUser, Comment comment);
     }
 }
 

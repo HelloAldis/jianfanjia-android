@@ -3,7 +3,10 @@ package com.jianfanjia.cn.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +29,10 @@ import com.jianfanjia.api.model.SuperVisor;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.base.RecyclerViewHolderBase;
+import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.business.ProcessBusiness;
 import com.jianfanjia.cn.config.Constant;
@@ -122,7 +127,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         Comment comment = noticeInfo.getTo_comment();
         if (comment != null) {
             holder.tvDiaryContentByComment.setVisibility(View.VISIBLE);
-            holder.tvDiaryContentByComment.setText(comment.getContent());
+            MyCommentInfoAdapter.setCommentSecondTextViewShow(holder.tvDiaryContentByComment, comment.getContent());
         } else {
             holder.tvDiaryContentByComment.setVisibility(View.GONE);
         }
@@ -138,7 +143,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         //评论时间
         holder.dateText.setText(DateFormatTool.longToStringHasMini(noticeInfo.getCreate_at()));
         //评论内容
-        holder.contentText.setText(noticeInfo.getContent());
+        DiaryBusiness.setCommentContentTextViewShow(holder.contentText, noticeInfo.getContent());
 
         DiaryInfo diaryInfo = noticeInfo.getDiary();
         final DiarySetInfo diarySetInfo = diaryInfo.getDiarySet();
@@ -446,6 +451,36 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         void onResponse(UserMessage noticeInfo, int viewType);
 
         void showDetail(UserMessage noticeInfo, int viewType);
+    }
+
+    public static void setCommentSecondTextViewShow(TextView textView, String content) {
+        if(TextUtils.isEmpty(content)) return;
+
+        int start = content.indexOf("回复");
+        if (start != -1) {
+            String finalContent = DataManagerNew.getInstance().getUserName() + " " + content;
+            int leftstart = 0;
+            int leftend = finalContent.indexOf("回复");
+
+            int rightStart = finalContent.indexOf("回复") + 2;
+            int rightend = finalContent.indexOf("：");
+
+            SpannableString spannableString = new SpannableString(finalContent);
+            spannableString.setSpan(new ForegroundColorSpan(MyApplication.getInstance().getResources().getColor(R
+                    .color.orange_color)), leftstart, leftend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(MyApplication.getInstance().getResources().getColor(R
+                    .color.orange_color)), rightStart, rightend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            textView.setText(spannableString);
+        } else {
+            String finalContent = DataManagerNew.getInstance().getUserName() + "：" + content;
+            int leftstart = 0;
+            int leftend = finalContent.indexOf("：");
+
+            SpannableString spannableString = new SpannableString(finalContent);
+            spannableString.setSpan(new ForegroundColorSpan(MyApplication.getInstance().getResources().getColor(R
+                    .color.orange_color)), leftstart, leftend, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            textView.setText(spannableString);
+        }
     }
 
 

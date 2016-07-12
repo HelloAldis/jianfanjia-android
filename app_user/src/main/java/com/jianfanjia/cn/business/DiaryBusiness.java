@@ -1,10 +1,14 @@
 package com.jianfanjia.cn.business;
 
 import android.animation.Animator;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jianfanjia.api.model.DiarySetInfo;
 import com.jianfanjia.cn.activity.R;
@@ -119,6 +123,21 @@ public class DiaryBusiness {
             choosePos = dectypes.length - 1;
         }
         return dectypes[choosePos];
+    }
+
+    public static void setCommentContentTextViewShow(TextView textView, String content) {
+        if (TextUtils.isEmpty(content)) return;
+        int start = content.indexOf("回复");
+        int end = content.indexOf("：");
+        if (start != -1) {
+            start = start + 2;
+            SpannableString spannableString = new SpannableString(content);
+            spannableString.setSpan(new ForegroundColorSpan(MyApplication.getInstance().getResources().getColor(R
+                    .color.orange_color)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            textView.setText(spannableString);
+        } else {
+            textView.setText(content);
+        }
     }
 
 }

@@ -519,12 +519,14 @@ public class DiaryDynamicFragment extends BaseFragment {
     }
 
     private void refreshOneDiarySetStatus(DiarySetInfo resultDiarySetInfo) {
+        LogTool.d(this.getClass().getName(), "diaryset get lastest id =" + resultDiarySetInfo.get_id());
         int pos = 0;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
             if (diaryInfo.get_id() != null && diaryInfo.getDiarySet().get_id().equals(resultDiarySetInfo.get_id())) {
-                LogTool.d(this.getClass().getName(), "diaryset get lastest id =" + resultDiarySetInfo.get_id());
+                LogTool.d(this.getClass().getName(), "diarylist diaryset refresh");
                 diaryInfo.setDiarySet(resultDiarySetInfo);
                 mDiaryDynamicAdapter.notifyItemChanged(pos);
+                break;
             }
             pos++;
         }
@@ -532,6 +534,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             int diarySetPos = 0;
             for (DiarySetInfo diarySetInfo : recommendDiarySet) {
                 if (diarySetInfo.get_id().equals(resultDiarySetInfo.get_id())) {
+                    LogTool.d(this.getClass().getName(), "recommend diaryset refresh");
                     recommendDiarySet.set(diarySetPos, resultDiarySetInfo);
                     mDiaryDynamicAdapter.notifyItemChanged(RECOMMEND_POSITION);
                     break;

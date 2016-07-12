@@ -71,14 +71,14 @@ public class DiarySetLeftMenuAdapter extends RecyclerView.Adapter {
         final DiarySetStageItem diarySetStageItem = leftMenuItems.get(position);
 
         boolean isCheck = diarySetStageItem.isCheck();
+        if (isCheck) {
+            diarySetMenuViewHolder.tvDiarySetStage.setTextColor(highLightColor);
+        } else {
+            diarySetMenuViewHolder.tvDiarySetStage.setTextColor(normalColor);
+        }
         if (diarySetStageItem.getCount() > 0) {
             diarySetMenuViewHolder.tvDiarySetStage.setText(diarySetStageItem.getItemName() + "阶段" + "（" +
                     diarySetStageItem.getCount() + "）");
-            if (isCheck) {
-                diarySetMenuViewHolder.tvDiarySetStage.setTextColor(highLightColor);
-            } else {
-                diarySetMenuViewHolder.tvDiarySetStage.setTextColor(normalColor);
-            }
             diarySetMenuViewHolder.tvDiarySetStage.setAlpha(1f);
             diarySetMenuViewHolder.tvDiarySetStage.setOnClickListener(new View.OnClickListener() {
                 @Override

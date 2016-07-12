@@ -58,24 +58,41 @@
             android:paddingRight="@dimen/space_12"
             android:paddingTop="@dimen/space_4">
 
+            <ImageView
+                android:id="@+id/iv_view"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_12"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_diary_view"/>
+
             <TextView
                 android:id="@+id/tv_view_count"
                 style="@style/listview_item_text_style_small"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
-                android:drawableLeft="@mipmap/icon_diary_view"
-                android:drawablePadding="@dimen/space_8"
+                android:layout_toRightOf="@+id/iv_view"
+                android:layout_marginLeft="@dimen/space_4"
                 android:text="0"
                 android:textColor="@color/font_white"/>
+
+            <ImageView
+                android:id="@+id/iv_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_view_count"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_collect_img1"/>
 
             <TextView
                 android:id="@+id/tv_like_count"
                 style="@style/listview_item_text_style_small"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/space_12"
-                android:layout_toRightOf="@+id/tv_view_count"
-                android:drawableLeft="@mipmap/icon_collect_img1"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_toRightOf="@+id/iv_collect"
                 android:text="0"
                 android:textColor="@color/font_white"
                 />

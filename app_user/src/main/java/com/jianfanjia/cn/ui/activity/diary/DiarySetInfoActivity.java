@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.ui.activity.diary;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -50,6 +52,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.ShareUtil;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.CollectDiarySetEvent;
 import com.jianfanjia.cn.ui.Event.RefreshDiarySetInfoEvent;
 import com.jianfanjia.cn.ui.adapter.DiarySetInfoAdapter;
@@ -112,14 +115,15 @@ public class DiarySetInfoActivity extends BaseActivity {
     @Bind(R.id.head_back)
     ImageView ivBackView;
 
-    @Bind(R.id.iv_menu_open_or_close)
-    ImageView ivMenuOpenOrClose;
+    @Bind(R.id.tv_like_count)
+    TextView tvLikeCount;
 
     private ShareUtil mShareUtil;
 
     List<DiarySetStageItem> diarySetStageItemList;
     String[] diarySetStageList;
     DiarySetLeftMenuAdapter mDiarySetLeftMenuAdapter;
+    private boolean isHeadTransparent;
 
     public static void intentToDiarySet(Context context, DiarySetInfo diarySetInfo) {
         Bundle bundle = new Bundle();
@@ -152,13 +156,6 @@ public class DiarySetInfoActivity extends BaseActivity {
 
         rlHeadView.setBackgroundColor(getResources().getColor(R.color.transparent_background));
         rlWriteDiary.setVisibility(View.GONE);
-
-        ivMenuOpenOrClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         diarySetStageList = getResources().getStringArray(R.array.arr_diary_stage_navigation);
         diarySetStageItemList = new ArrayList<>(diarySetStageList.length);
@@ -205,26 +202,14 @@ public class DiarySetInfoActivity extends BaseActivity {
 
                 setWriteDiaryShowOrHidden(dy);
                 setHeadViewShowOrHidden();
-
-                LogTool.d(this.getClass().getName(), "dy =" + dy);
-                LogTool.d(this.getClass().getName(), "recyclerview getScrollY =" + recyclerView.getScrollY());
             }
 
             private void setHeadViewShowOrHidden() {
                 int alpha = (int) (((float) totalOffsetY / TDevice.dip2px(DiarySetInfoActivity.this, 152)) * 255);
                 alpha = alpha > 255 ? 255 : alpha;
-                if (alpha <= 20) {
-                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.WHITE));
-                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.WHITE));
-                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.WHITE));
-                } else {
-                    ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.GRAY));
-                    ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.GRAY));
-                    ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.GRAY));
-                }
                 rlHeadView.setBackgroundColor(Color.argb(alpha, 240, 240, 240));
-
-                LogTool.d(this.getClass().getName(), "recyclerview alpha =" + alpha);
+                isHeadTransparent = alpha <= 20;
+                changeHeadUIShow();
             }
 
             private void setWriteDiaryShowOrHidden(int dy) {
@@ -260,6 +245,32 @@ public class DiarySetInfoActivity extends BaseActivity {
                 pickPicture(Constant.REQUESTCODE_PICKER_HEAD_PIC, 1);
             }
         });
+    }
+
+    private void changeHeadUIShow() {
+        if (isHeadTransparent) {
+            setHeadUITransparent();
+        } else {
+            setHeadUIUnTransparent();
+        }
+    }
+
+    private void setHeadUITransparent() {
+        ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.WHITE));
+        ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.WHITE));
+
+        tvLikeCount.setTextColor(Color.WHITE);
+
+        ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.WHITE));
+    }
+
+    private void setHeadUIUnTransparent() {
+        ViewCompat.setBackgroundTintList(ivShare, ColorStateList.valueOf(Color.GRAY));
+        ViewCompat.setBackgroundTintList(ivBackView, ColorStateList.valueOf(Color.GRAY));
+
+        tvLikeCount.setTextColor(Color.GRAY);
+
+        ViewCompat.setBackgroundTintList(ivCollect, ColorStateList.valueOf(Color.GRAY));
     }
 
     private void initRecyclerViewLeft() {
@@ -350,10 +361,17 @@ public class DiarySetInfoActivity extends BaseActivity {
             @Override
             public void onSuccess(ApiResponse<DiarySetInfo> apiResponse) {
                 DiarySetInfo diarySetInfo = apiResponse.getData();
-                LogTool.d(this.getClass().getName(), "diarysetinfo has diary.size(） = " + diarySetInfo.getDiaries()
-                        .size());
                 mDiarySetInfo = diarySetInfo;
                 mDiaryAdapter.setDiarySetInfo(diarySetInfo);
+
+                if (mDiarySetInfo.is_my_favorite()) {
+                    ivCollect.setBackgroundResource(R.mipmap.icon_collect_img2);
+                } else {
+                    ivCollect.setBackgroundResource(R.mipmap.icon_collect_img1);
+                }
+                tvLikeCount.setText(diarySetInfo.getFavorite_count() + "");
+
+                mDiarySetInfo.setView_count(mDiarySetInfo.getView_count() + 1);
 
                 initData();
                 EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
@@ -458,6 +476,7 @@ public class DiarySetInfoActivity extends BaseActivity {
         });
     }
 
+
     @OnClick({R.id.head_back_layout, R.id.rl_writediary, R.id.share_layout, R.id.iv_menu_open_or_close, R.id
             .toolbar_collect_layout})
     protected void click(View view) {
@@ -479,11 +498,33 @@ public class DiarySetInfoActivity extends BaseActivity {
                 }
                 break;
             case R.id.toolbar_collect_layout:
-                if (mDiarySetInfo.is_my_favorite()) {
-                    deleteDiarySetFavorite(diarySetId);
-                } else {
-                    addDiarySetFavorite(diarySetId);
-                }
+                UiHelper.imageAddFavoriteAnim(ivCollect, new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (mDiarySetInfo.is_my_favorite()) {
+                            deleteDiarySetFavorite(diarySetId);
+                            mDiarySetInfo.setIs_my_favorite(false);
+                        } else {
+                            addDiarySetFavorite(diarySetId);
+                            mDiarySetInfo.setIs_my_favorite(true);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
                 break;
         }
     }
@@ -507,16 +548,24 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onSuccess(ApiResponse<String> apiResponse) {
                 makeTextShort(getString(R.string.str_collect_success));
 
+                mDiarySetInfo.setIs_my_favorite(true);
+                ivCollect.setBackgroundResource(R.mipmap.icon_collect_img2);
+                mDiarySetInfo.setFavorite_count(mDiarySetInfo.getFavorite_count() + 1);
+                tvLikeCount.setText(mDiarySetInfo.getFavorite_count() + "");
+
                 EventBus.getDefault().post(new CollectDiarySetEvent(diarySetId, true));
+                EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
             }
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
+                mDiarySetInfo.setIs_my_favorite(false);
             }
 
             @Override
             public void onNetworkError(int code) {
+                mDiarySetInfo.setIs_my_favorite(false);
             }
         });
     }
@@ -539,17 +588,25 @@ public class DiarySetInfoActivity extends BaseActivity {
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 makeTextShort(getString(R.string.str_cancel_collect_success));
+                mDiarySetInfo.setIs_my_favorite(false);
+                ivCollect.setBackgroundResource(R.mipmap.icon_collect_img1);
+                mDiarySetInfo.setFavorite_count(mDiarySetInfo.getFavorite_count() - 1);
+                tvLikeCount.setText(mDiarySetInfo.getFavorite_count() + "");
+                changeHeadUIShow();
 
                 EventBus.getDefault().post(new CollectDiarySetEvent(diarySetId, false));
+                EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
             }
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
+                mDiarySetInfo.setIs_my_favorite(true);
             }
 
             @Override
             public void onNetworkError(int code) {
+                mDiarySetInfo.setIs_my_favorite(true);
             }
         });
     }
@@ -689,8 +746,6 @@ public class DiarySetInfoActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_main_slidingmenu;
     }
-
-
 
 
 }
