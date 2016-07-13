@@ -6,11 +6,11 @@
              android:fitsSystemWindows="true"
     >
 
-    <android.support.v7.widget.RecyclerView
+    <com.jianfanjia.cn.view.recycleview.itemdecoration.OverScrollRecyclerView
         android:id="@+id/diary_recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:overScrollMode="never"/>
 
     <LinearLayout
         android:layout_width="match_parent"

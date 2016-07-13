@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="180dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
     >
 
-    <ImageView
-        android:layout_width="180dp"
+    <!--<ImageView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_diaryset_left_menu"/>
+        android:background="@drawable/bg_diaryset_left_menu"/>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/diary_recycleview_left"

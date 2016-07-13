@@ -13,6 +13,7 @@
         sliding:behindOffset="@dimen/behind_offset"
         sliding:fadeDegree="0.35"
         sliding:shadowWidth="@dimen/shadow_width"
+        sliding:shadowDrawable="@drawable/bg_diaryset_left_menu"
         sliding:touchModeAbove="margin"
         sliding:touchModeBehind="margin"
         sliding:viewAbove="@layout/activity_diaryset_main"

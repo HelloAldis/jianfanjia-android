@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -170,6 +171,12 @@ public class DiarySetInfoActivity extends BaseActivity {
         initRecyclerViewLeft();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        LogTool.d(this.getClass().getName(),"activity event =" + event.getRawY());
+        return super.onTouchEvent(event);
+    }
+
     private void initRecyclerView() {
         mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
         diarySetLinearLayoutManager = new LinearLayoutManager(this);
@@ -199,6 +206,8 @@ public class DiarySetInfoActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                LogTool.d(this.getClass().getName(),"dy =" + dy);
 
                 totalOffsetY += dy;
 
