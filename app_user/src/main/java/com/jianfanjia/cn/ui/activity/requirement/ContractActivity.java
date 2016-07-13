@@ -12,12 +12,6 @@ import android.widget.Button;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.ui.Event.ChoosedContractEvent;
-import com.jianfanjia.cn.ui.activity.MainActivity;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -27,10 +21,16 @@ import com.jianfanjia.api.request.user.ConfirmContractRequest;
 import com.jianfanjia.api.request.user.GetContractInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.business.RequirementBusiness;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.ui.Event.ChoosedContractEvent;
+import com.jianfanjia.cn.ui.activity.MainActivity;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -79,20 +79,22 @@ public class ContractActivity extends BaseSwipeBackActivity implements
     public void initView() {
         initMainHeadView();
         initWebView();
-        if(requirement.getWork_type().equals(RequirementBusiness.WORK_TYPE_PURE_DESIGNER)){
+        if (RequirementBusiness.WORK_TYPE_PURE_DESIGNER.equals(requirement.getWork_type())) {
             checkBtn.setVisibility(View.GONE);
-        }else{
+        } else {
             checkBtn.setVisibility(View.VISIBLE);
-            if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS5) ||
-                    requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
+            if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS5)) {
                 checkBtn.setEnabled(false);
                 checkBtn.setText(getString(R.string.already_open_process));
+            } else if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS8)) {
+                checkBtn.setEnabled(false);
+                checkBtn.setText(getString(R.string.str_finish_process));
             } else if (requirement.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
                 checkBtn.setEnabled(false);
                 checkBtn.setText(getString(R.string.str_wait_setting_open_process_time));
             } else {
                 checkBtn.setEnabled(true);
-                checkBtn.setText(getString(R.string.str_check_contract));
+                checkBtn.setText(getString(R.string.str_confirm_open_process));
             }
         }
     }

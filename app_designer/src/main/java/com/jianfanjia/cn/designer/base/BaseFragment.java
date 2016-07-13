@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -108,11 +109,9 @@ public abstract class BaseFragment extends Fragment
     }
 
     protected void makeTextShort(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void makeTextLong(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        if (getContext() == null) return;
+        if (TextUtils.isEmpty(text)) return;
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     // 通过Class跳转界面
