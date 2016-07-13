@@ -215,7 +215,8 @@ public class DiarySetInfoActivity extends BaseActivity {
             }
 
             private void setWriteDiaryShowOrHidden(int dy) {
-                if (!mDiarySetInfo.getAuthor().get_id().equals(DataManagerNew.getInstance().getUserId())) {
+                if (mDiarySetInfo.getAuthor() != null && !mDiarySetInfo.getAuthor().get_id().equals(DataManagerNew
+                        .getInstance().getUserId())) {
                     return;
                 }
                 if (dy > 0 && totalOffsetY >= TDevice.dip2px(DiarySetInfoActivity.this, 152)) {
@@ -563,7 +564,7 @@ public class DiarySetInfoActivity extends BaseActivity {
                 mDiarySetInfo.setIs_my_favorite(true);
                 ivCollect.setBackgroundResource(R.mipmap.icon_collect_img2);
                 mDiarySetInfo.setFavorite_count(mDiarySetInfo.getFavorite_count() + 1);
-                tvLikeCount.setText(mDiarySetInfo.getFavorite_count() + "");
+                tvLikeCount.setText(DiaryBusiness.covertIntCountToShow(mDiarySetInfo.getFavorite_count()));
 
                 EventBus.getDefault().post(new CollectDiarySetEvent(diarySetId, true));
                 EventBus.getDefault().post(new RefreshDiarySetInfoEvent(mDiarySetInfo));
@@ -603,7 +604,7 @@ public class DiarySetInfoActivity extends BaseActivity {
                 mDiarySetInfo.setIs_my_favorite(false);
                 ivCollect.setBackgroundResource(R.mipmap.icon_collect_img1);
                 mDiarySetInfo.setFavorite_count(mDiarySetInfo.getFavorite_count() - 1);
-                tvLikeCount.setText(mDiarySetInfo.getFavorite_count() + "");
+                tvLikeCount.setText(DiaryBusiness.covertIntCountToShow(mDiarySetInfo.getFavorite_count()));
                 changeHeadUIShow();
 
                 EventBus.getDefault().post(new CollectDiarySetEvent(diarySetId, false));

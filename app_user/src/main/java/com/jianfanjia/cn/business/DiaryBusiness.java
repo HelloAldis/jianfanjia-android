@@ -147,11 +147,21 @@ public class DiaryBusiness {
     }
 
     public static String covertIntCountToShow(int count) {
-        if (count > 10000) {
+        if (count >= 10000) {
             float floatCount = ((float) count) / 10000;
             BigDecimal b = new BigDecimal(floatCount);
-            float showCount = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+            float showCount = b.setScale(1, BigDecimal.ROUND_HALF_EVEN).floatValue();
             return showCount + "万";
+        } else if (count >= 10000000) {
+            float floatCount = ((float) count) / 10000000;
+            BigDecimal b = new BigDecimal(floatCount);
+            float showCount = b.setScale(1, BigDecimal.ROUND_HALF_EVEN).floatValue();
+            return showCount + "千万";
+        } else if (count >= 100000000) {
+            float floatCount = ((float) count) / 100000000;
+            BigDecimal b = new BigDecimal(floatCount);
+            float showCount = b.setScale(1, BigDecimal.ROUND_HALF_EVEN).floatValue();
+            return showCount + "亿";
         }
         return count + "";
     }
