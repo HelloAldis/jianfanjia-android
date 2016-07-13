@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.ui.activity.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,9 +12,9 @@ import android.widget.ImageView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.tools.JavaScriptObject;
 import com.jianfanjia.cn.tools.ShareUtil;
@@ -72,9 +73,16 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         this.javaScriptObject.injectIntoWebView(this.progressWebView);
 
         progressWebView.setWebViewClient(new WebViewClient() {
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if (url.startsWith("tel:")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(url));
+                    startActivity(intent);
+                } else if (url.startsWith("http:") || url.startsWith("https:")) {
+                    view.loadUrl(url);
+                }
                 return true;
             }
 
