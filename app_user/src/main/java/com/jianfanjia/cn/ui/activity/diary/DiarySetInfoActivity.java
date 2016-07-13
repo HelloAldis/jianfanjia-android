@@ -179,7 +179,15 @@ public class DiarySetInfoActivity extends BaseActivity {
 
     private void initRecyclerView() {
         mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
-        diarySetLinearLayoutManager = new LinearLayoutManager(this);
+        diarySetLinearLayoutManager = new LinearLayoutManager(this){
+            @Override
+            public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+                LogTool.d(this.getClass().getName(),"dy =" + dy);
+
+
+                return super.scrollVerticallyBy(dy, recycler, state);
+            }
+        };
         mRecyclerView.setLayoutManager(diarySetLinearLayoutManager);
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
 
