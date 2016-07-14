@@ -371,7 +371,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         dialog.setTitle("图片删除提示");
-        dialog.setMessage("您确认删除该图片吗？");
+        dialog.setMessage("您确定删除该图片吗？");
         dialog.setPositiveButton(R.string.confirm,
                 new DialogInterface.OnClickListener() {
 
