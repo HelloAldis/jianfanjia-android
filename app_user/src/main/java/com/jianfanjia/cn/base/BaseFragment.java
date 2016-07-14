@@ -13,12 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
-import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
-import com.jianfanjia.cn.view.dialog.DialogControl;
-import com.jianfanjia.cn.view.dialog.WaitDialog;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -61,6 +58,14 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         LogTool.d(this.getClass().getName(), "onActivityCreated");
         initUserInfo();
+    }
+
+    protected Context getUiContext() {
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity instanceof BaseActivity) {
+            return ((BaseActivity) fragmentActivity).getUiContext();
+        }
+        return fragmentActivity;
     }
 
     private void init() {
@@ -151,38 +156,5 @@ public abstract class BaseFragment extends Fragment {
         startActivityForResult(cls, null, requestCode);
     }
 
-    protected void startActivityForResultByHost(Class<?> cls, Bundle bundle, int requestCode) {
-        IntentUtil.startActivityForResult(getActivity(), cls, bundle, requestCode);
-    }
 
-    protected void startActivityForResultByHost(Class<?> cls, int requestCode) {
-        startActivityForResultByHost(cls, null, requestCode);
-    }
-
-    protected void hideWaitDialog() {
-        FragmentActivity activity = getActivity();
-        if (activity instanceof DialogControl) {
-            ((DialogControl) activity).hideWaitDialog();
-        }
-    }
-
-    protected WaitDialog showWaitDialog(int resid) {
-        FragmentActivity activity = getActivity();
-        if (activity instanceof DialogControl) {
-            return ((DialogControl) activity).showWaitDialog(resid);
-        }
-        return null;
-    }
-
-    protected WaitDialog showWaitDialog() {
-        return showWaitDialog(R.string.loading);
-    }
-
-    protected WaitDialog showWaitDialog(String str) {
-        FragmentActivity activity = getActivity();
-        if (activity instanceof DialogControl) {
-            return ((DialogControl) activity).showWaitDialog(str);
-        }
-        return null;
-    }
 }

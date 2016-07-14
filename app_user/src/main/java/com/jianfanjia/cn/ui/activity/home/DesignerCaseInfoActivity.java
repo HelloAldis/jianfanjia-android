@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -290,12 +291,12 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     private ApiCallback<ApiResponse<Product>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<Product>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog(R.string.loading);
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override

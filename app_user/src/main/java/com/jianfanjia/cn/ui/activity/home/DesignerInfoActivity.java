@@ -26,6 +26,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.ui.Event.CollectDesignerEvent;
@@ -352,12 +353,12 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     private ApiCallback<ApiResponse<Designer>> designerHomePageCallback = new ApiCallback<ApiResponse<Designer>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override

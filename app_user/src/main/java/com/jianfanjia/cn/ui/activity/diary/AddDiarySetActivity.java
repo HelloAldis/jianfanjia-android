@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -273,12 +274,12 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
         Api.addDiarySetInfo(addDiarySetRequest, new ApiCallback<ApiResponse<DiarySetInfo>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -310,12 +311,12 @@ public class AddDiarySetActivity extends BaseSwipeBackActivity {
         Api.updateDiarySetInfo(updateDiarySetRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

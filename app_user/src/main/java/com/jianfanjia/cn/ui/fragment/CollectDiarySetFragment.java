@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -56,12 +57,9 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
     private DiarySetListAdapter mDiarySetListAdapter = null;
     private DiarySetInfoList favoriteDiarySetList = null;
     private List<DiarySetInfo> mDiarySetInfoList = new ArrayList<>();
-    private boolean isFirst = true;
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
-    private int FROM = 0;
-    private int currentPos = -1;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -109,7 +107,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
 
     @OnClick(R.id.error_include)
     public void onClick() {
-        getFavoriteDiarySetList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+        getFavoriteDiarySetList(0, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
         
     }
 
@@ -122,21 +120,20 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
     }
 
     private void load() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
-        getFavoriteDiarySetList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+        getFavoriteDiarySetList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        FROM = 0;
-        getFavoriteDiarySetList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+        getFavoriteDiarySetList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getFavoriteDiarySetList(FROM, Constant.HOME_PAGE_LIMIT, getUpMyFavoriteDesignerListener);
+        getFavoriteDiarySetList(mDiarySetInfoList.size(), Constant.HOME_PAGE_LIMIT, getUpMyFavoriteDesignerListener);
     }
 
     private void getFavoriteDiarySetList(int from, int limit, ApiCallback<ApiResponse<DiarySetInfoList>> listener) {
@@ -150,21 +147,21 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
             ApiCallback<ApiResponse<DiarySetInfoList>>() {
                 @Override
                 public void onPreLoad() {
-                    if (isFirst) {
-                        showWaitDialog();
+                    if (!mHasLoadedOnce) {
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
+                    Hud.dismiss();
                     pullToRefreshView.onRefreshComplete();
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<DiarySetInfoList> apiResponse) {
-
                     mHasLoadedOnce = true;
+
                     favoriteDiarySetList = apiResponse.getData();
                     LogTool.d(TAG, "favoriteDiarySetList=" + favoriteDiarySetList);
                     if (favoriteDiarySetList != null) {
@@ -179,14 +176,11 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                             pullToRefreshView.setVisibility(View.VISIBLE);
                             emptyLayout.setVisibility(View.GONE);
                             errorLayout.setVisibility(View.GONE);
-                            isFirst = false;
                         } else {
                             pullToRefreshView.setVisibility(View.GONE);
                             emptyLayout.setVisibility(View.VISIBLE);
                             errorLayout.setVisibility(View.GONE);
                         }
-                        FROM = mDiarySetInfoList.size();
-                        LogTool.d(TAG, "FROM:" + FROM);
                     }
                 }
 
@@ -224,8 +218,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                     if (favoriteDiarySetList != null) {
                         List<DiarySetInfo> diarySetInfoList = favoriteDiarySetList.getDiarySets();
                         if (null != diarySetInfoList && diarySetInfoList.size() > 0) {
-                            mDiarySetListAdapter.add(FROM, diarySetInfoList);
-                            FROM += Constant.HOME_PAGE_LIMIT;
+                            mDiarySetListAdapter.add(mDiarySetInfoList.size(), diarySetInfoList);
                         } else {
                             makeTextShort(getResources().getString(R.string.no_more_data));
                         }

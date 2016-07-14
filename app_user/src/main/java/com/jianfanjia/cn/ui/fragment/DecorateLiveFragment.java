@@ -18,24 +18,25 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.config.Url_New;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.activity.home.WebViewActivity;
-import com.jianfanjia.cn.ui.adapter.DecorateLiveAdapter;
-import com.jianfanjia.cn.ui.interf.OnItemClickListener;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.DecorateLiveList;
 import com.jianfanjia.api.request.common.GetDecorateLiveRequest;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.activity.home.WebViewActivity;
+import com.jianfanjia.cn.ui.adapter.DecorateLiveAdapter;
+import com.jianfanjia.cn.ui.interf.OnItemClickListener;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -169,13 +170,13 @@ public class DecorateLiveFragment extends BaseFragment {
                 @Override
                 public void onPreLoad() {
                     if (!mHasLoadedOnce) {
-                        showWaitDialog();
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
+                    Hud.dismiss();
                     recyclerView.onRefreshComplete();
                 }
 

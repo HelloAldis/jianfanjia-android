@@ -33,6 +33,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -126,6 +127,7 @@ public class DiarySetInfoActivity extends BaseActivity {
     String[] diarySetStageList;
     DiarySetLeftMenuAdapter mDiarySetLeftMenuAdapter;
     private boolean isHeadTransparent;
+    private boolean isHasLoadOnce;
 
     public static void intentToDiarySet(Context context, DiarySetInfo diarySetInfo) {
         Bundle bundle = new Bundle();
@@ -173,16 +175,16 @@ public class DiarySetInfoActivity extends BaseActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LogTool.d(this.getClass().getName(),"activity event =" + event.getRawY());
+        LogTool.d(this.getClass().getName(), "activity event =" + event.getRawY());
         return super.onTouchEvent(event);
     }
 
     private void initRecyclerView() {
         mDiaryAdapter = new DiarySetInfoAdapter(this, mDiaryInfoList);
-        diarySetLinearLayoutManager = new LinearLayoutManager(this){
+        diarySetLinearLayoutManager = new LinearLayoutManager(this) {
             @Override
             public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
-                LogTool.d(this.getClass().getName(),"dy =" + dy);
+                LogTool.d(this.getClass().getName(), "dy =" + dy);
 
 
                 return super.scrollVerticallyBy(dy, recycler, state);
@@ -215,7 +217,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                LogTool.d(this.getClass().getName(),"dy =" + dy);
+                LogTool.d(this.getClass().getName(), "dy =" + dy);
 
                 totalOffsetY += dy;
 
@@ -370,16 +372,20 @@ public class DiarySetInfoActivity extends BaseActivity {
         Api.getDiarySetInfo(getDiarySetInfoRequest, new ApiCallback<ApiResponse<DiarySetInfo>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                if (!isHasLoadOnce) {
+                    Hud.show(getUiContext());
+                }
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
             public void onSuccess(ApiResponse<DiarySetInfo> apiResponse) {
+                isHasLoadOnce = true;
+
                 DiarySetInfo diarySetInfo = apiResponse.getData();
                 mDiarySetInfo = diarySetInfo;
                 mDiaryAdapter.setDiarySetInfo(diarySetInfo);
@@ -746,12 +752,12 @@ public class DiarySetInfoActivity extends BaseActivity {
     private ApiCallback<ApiResponse<String>> uploadHeadImage = new ApiCallback<ApiResponse<String>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.ui.Event.BindingPhoneEvent;
 import com.jianfanjia.api.ApiCallback;
@@ -148,7 +149,7 @@ public class BindingAccountActivity extends BaseSwipeBackActivity {
             if (i == 200 && data != null) {
                 bindWinxin(data.get("openid").toString(), data.get("unionid").toString());
             } else {
-                hideWaitDialog();
+                Hud.dismiss();
                 makeTextShort(getString(R.string.authorize_fail));
             }
         }
@@ -162,12 +163,12 @@ public class BindingAccountActivity extends BaseSwipeBackActivity {
         Api.bindingWeixin(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

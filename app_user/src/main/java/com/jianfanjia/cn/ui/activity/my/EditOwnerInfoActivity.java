@@ -11,19 +11,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.view.MainHeadView;
+import butterknife.Bind;
+import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
-
-import butterknife.Bind;
-import butterknife.OnClick;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.view.MainHeadView;
 
 public class EditOwnerInfoActivity extends BaseSwipeBackActivity implements OnClickListener {
     private static final String TAG = EditOwnerInfoActivity.class.getName();
@@ -136,12 +136,12 @@ public class EditOwnerInfoActivity extends BaseSwipeBackActivity implements OnCl
         Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

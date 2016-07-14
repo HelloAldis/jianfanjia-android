@@ -12,14 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.ui.Event.ScrollEvent;
-import com.jianfanjia.cn.ui.activity.MainActivity;
-import com.jianfanjia.cn.ui.adapter.MyFragmentPagerAdapter;
-import com.jianfanjia.cn.ui.fragment.EditHomeRequirementFragment;
-import com.jianfanjia.cn.view.dialog.CommonDialog;
-import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -29,13 +22,21 @@ import com.jianfanjia.api.request.user.PublishRequirementRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.bean.SelectItem;
 import com.jianfanjia.cn.business.RequirementBusiness;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.ui.Event.ScrollEvent;
+import com.jianfanjia.cn.ui.activity.MainActivity;
+import com.jianfanjia.cn.ui.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.ui.fragment.EditBussinessRequirementFragment;
+import com.jianfanjia.cn.ui.fragment.EditHomeRequirementFragment;
 import com.jianfanjia.cn.ui.fragment.XuQiuFragment;
 import com.jianfanjia.cn.ui.interf.NotifyActivityStatusChange;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.CommonDialog;
+import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
@@ -84,12 +85,12 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         Api.getUserInfo(new UserByOwnerInfoRequest(), new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -175,12 +176,12 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         Api.publishRequirement(publishRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

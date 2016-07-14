@@ -24,7 +24,7 @@ import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.config.Global;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -32,15 +32,16 @@ import com.jianfanjia.api.model.User;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
 import com.jianfanjia.api.request.user.UserByOwnerInfoRequest;
-import com.jianfanjia.cn.ui.activity.welcome.NavigateActivity;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.ui.interf.PopWindowCallBack;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.AuthUtil;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.activity.welcome.NavigateActivity;
+import com.jianfanjia.cn.ui.interf.PopWindowCallBack;
 import com.jianfanjia.cn.view.AddPhotoDialog;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
@@ -348,12 +349,12 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
         Api.getUserInfo(request, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

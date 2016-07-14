@@ -14,6 +14,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.model.User;
@@ -228,12 +229,12 @@ public class EditCityActivity extends BaseSwipeBackActivity {
         Api.updateUserInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

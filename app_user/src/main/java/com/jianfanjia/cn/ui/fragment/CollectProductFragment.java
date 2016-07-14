@@ -16,24 +16,25 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.common.GetProductFavoriteListRequest;
-import com.jianfanjia.cn.ui.Event.MessageEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.ui.adapter.CollectProductAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
-import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.MessageEvent;
+import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.ui.adapter.CollectProductAdapter;
+import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -58,12 +59,10 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
     private CollectProductAdapter productAdapter = null;
     private List<Product> products = new ArrayList<>();
-    private boolean isFirst = true;
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int currentPos = -1;
-    private int FROM = 0;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -118,10 +117,10 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     }
 
     private void load() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
-        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getProductList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void getProductList(int from, int limit, ApiCallback<ApiResponse<ProductList>> listener) {
@@ -133,32 +132,31 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
     @OnClick(R.id.error_include)
     public void onClick() {
-        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getProductList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        FROM = 0;
-        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getProductList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getProductList(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getProductList(products.size(), Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
 
     private ApiCallback<ApiResponse<ProductList>> pullDownListener = new ApiCallback<ApiResponse<ProductList>>() {
         @Override
         public void onPreLoad() {
-            if (isFirst) {
-                showWaitDialog();
+            if (!mHasLoadedOnce) {
+                Hud.show(getUiContext());
             }
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
             prodtct_listview.onRefreshComplete();
         }
 
@@ -194,14 +192,11 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
                     prodtct_listview.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
-                    isFirst = false;
                 } else {
                     prodtct_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                     errorLayout.setVisibility(View.GONE);
                 }
-                FROM = products.size();
-                LogTool.d(TAG, "FROM:" + FROM);
             }
         }
 
@@ -239,8 +234,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
             if (ProductList != null) {
                 List<Product> productList = ProductList.getProducts();
                 if (null != productList && productList.size() > 0) {
-                    productAdapter.add(FROM, productList);
-                    FROM += Constant.HOME_PAGE_LIMIT;
+                    productAdapter.add(products.size(), productList);
                 } else {
                     makeTextShort(getResources().getString(R.string.no_more_data));
                 }

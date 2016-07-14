@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -184,13 +185,13 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onPreLoad() {
                     if (!mHasLoadOnce) {
-                        showWaitDialog();
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
+                    Hud.dismiss();
                     refreshRecycleView.onRefreshComplete();
                 }
 

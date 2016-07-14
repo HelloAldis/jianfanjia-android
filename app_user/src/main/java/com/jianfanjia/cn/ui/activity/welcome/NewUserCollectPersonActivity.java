@@ -8,23 +8,23 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.ui.activity.MainActivity;
-import com.jianfanjia.api.ApiCallback;
-import com.jianfanjia.api.ApiResponse;
-import com.jianfanjia.api.model.User;
-import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.adapter.CollectPersonViewPageAdapter;
-import com.jianfanjia.cn.api.Api;
-import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.OnItemClickListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
+import com.jianfanjia.api.ApiCallback;
+import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.model.User;
+import com.jianfanjia.api.request.user.UpdateOwnerInfoRequest;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.ui.activity.MainActivity;
+import com.jianfanjia.cn.ui.adapter.CollectPersonViewPageAdapter;
+import com.jianfanjia.cn.ui.interf.OnItemClickListener;
 
 /**
  * Description: com.jianfanjia.cn
@@ -160,12 +160,12 @@ public class NewUserCollectPersonActivity extends BaseActivity {
         Api.updateUserInfo(updateOwnerInfoRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

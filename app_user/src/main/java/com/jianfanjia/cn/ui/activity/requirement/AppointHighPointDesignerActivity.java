@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -28,14 +29,14 @@ import com.jianfanjia.api.request.user.GetCanOrderDesignerListRequest;
 import com.jianfanjia.api.request.user.OrderDesignerRequest;
 import com.jianfanjia.api.request.user.ReplaceOrderedDesignerRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
-import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.ui.adapter.AppointDesignerViewPageAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
+import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.ui.adapter.AppointDesignerViewPageAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.viewpager.transfrom.ScaleInOutTransfromer;
 import com.jianfanjia.common.tool.LogTool;
@@ -123,12 +124,12 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
 
                     @Override
                     public void onPreLoad() {
-                        showWaitDialog();
+                        Hud.show(getUiContext());
                     }
 
                     @Override
                     public void onHttpDone() {
-                        hideWaitDialog();
+                        Hud.dismiss();
                     }
 
                     @Override
@@ -267,12 +268,12 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
         Api.replaceOrderedDesigner(replaceOrderedDesignerRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

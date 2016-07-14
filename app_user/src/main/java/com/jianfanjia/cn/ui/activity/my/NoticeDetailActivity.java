@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.config.Global;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -24,19 +24,20 @@ import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.GetMsgDetailRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
-import com.jianfanjia.cn.ui.Event.CheckEvent;
-import com.jianfanjia.cn.ui.Event.ChoosedContractEvent;
-import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.requirement.CheckActivity;
-import com.jianfanjia.cn.ui.activity.requirement.ContractActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.business.ProcessBusiness;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.ui.Event.CheckEvent;
+import com.jianfanjia.cn.ui.Event.ChoosedContractEvent;
+import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
+import com.jianfanjia.cn.ui.activity.requirement.CheckActivity;
+import com.jianfanjia.cn.ui.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
@@ -203,12 +204,12 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
         Api.getNoticeDetail(request, new ApiCallback<ApiResponse<UserMessage>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

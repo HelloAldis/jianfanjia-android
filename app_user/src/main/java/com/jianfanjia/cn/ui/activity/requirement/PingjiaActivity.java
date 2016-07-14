@@ -14,13 +14,14 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.request.user.EvaluateDesignerRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.view.MainHeadView;
@@ -155,12 +156,12 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
         Api.evaluateDesigner(evaluateDesignerRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

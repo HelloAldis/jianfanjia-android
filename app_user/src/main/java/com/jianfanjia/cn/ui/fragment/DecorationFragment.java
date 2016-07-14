@@ -20,6 +20,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -228,13 +229,13 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 @Override
                 public void onPreLoad() {
                     if (isFirst) {
-                        showWaitDialog();
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
+                    Hud.dismiss();
                     decoration_listview.onRefreshComplete();
                 }
 

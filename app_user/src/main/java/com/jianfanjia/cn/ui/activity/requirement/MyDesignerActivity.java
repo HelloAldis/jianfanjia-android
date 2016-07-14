@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.cn.ui.interf.ClickCallBack;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -220,12 +221,12 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
         Api.confirmMeasureHouse(confirmMeasureHouseRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -257,13 +258,13 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
             @Override
             public void onPreLoad() {
                 if (!isLoadedOnce) {
-                    showWaitDialog();
+                    Hud.show(getUiContext());
                 }
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
                 refreshView.onRefreshComplete();
             }
 

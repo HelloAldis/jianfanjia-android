@@ -15,6 +15,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.ui.activity.MainActivity;
@@ -163,7 +164,7 @@ public class NavigateActivity extends BaseActivity {
                     }
                 });
             } else {
-                hideWaitDialog();
+                Hud.dismiss();
                 makeTextShort(getString(R.string.authorize_fail));
             }
         }

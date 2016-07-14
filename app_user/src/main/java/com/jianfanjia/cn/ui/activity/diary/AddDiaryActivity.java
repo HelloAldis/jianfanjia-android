@@ -22,6 +22,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -395,12 +396,12 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         Api.addDiaryInfo(addDiaryRequest, new ApiCallback<ApiResponse<DiaryInfo>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(AddDiaryActivity.this);
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -430,12 +431,12 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(AddDiaryActivity.this);
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

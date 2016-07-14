@@ -7,7 +7,7 @@ import android.view.View;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.config.Global;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -16,6 +16,7 @@ import com.jianfanjia.api.request.user.UpdateRequirementRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.ui.fragment.EditBussinessRequirementFragment;
 import com.jianfanjia.cn.ui.fragment.EditHomeRequirementFragment;
@@ -112,12 +113,11 @@ public class UpdateRequirementActivity extends BaseSwipeBackActivity implements 
         Api.updateRequirement(updateRequirementRequest, new ApiCallback<ApiResponse<Object>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
-            }
+                Hud.show(getUiContext());            }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

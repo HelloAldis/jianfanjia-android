@@ -16,34 +16,35 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.Event.ScrollEvent;
-import com.jianfanjia.cn.ui.activity.requirement.AppointDesignerActivity;
-import com.jianfanjia.cn.ui.activity.requirement.AppointHighPointDesignerActivity;
-import com.jianfanjia.cn.ui.activity.requirement.ContractActivity;
-import com.jianfanjia.cn.ui.activity.requirement.MyDesignerActivity;
-import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PreviewHomeRequirementActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
-import com.jianfanjia.cn.ui.activity.requirement.UpdateRequirementActivity;
-import com.jianfanjia.cn.ui.adapter.RequirementNewAdapter;
-import com.jianfanjia.cn.ui.interf.ClickCallBack;
-import com.jianfanjia.cn.view.MainHeadView;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.my.BindingPhoneActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.business.RequirementBusiness;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.ScrollEvent;
+import com.jianfanjia.cn.ui.activity.my.BindingPhoneActivity;
+import com.jianfanjia.cn.ui.activity.requirement.AppointDesignerActivity;
+import com.jianfanjia.cn.ui.activity.requirement.AppointHighPointDesignerActivity;
+import com.jianfanjia.cn.ui.activity.requirement.ContractActivity;
+import com.jianfanjia.cn.ui.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
+import com.jianfanjia.cn.ui.activity.requirement.PreviewBusinessRequirementActivity;
+import com.jianfanjia.cn.ui.activity.requirement.PreviewHomeRequirementActivity;
+import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.ui.activity.requirement.UpdateRequirementActivity;
+import com.jianfanjia.cn.ui.adapter.RequirementNewAdapter;
+import com.jianfanjia.cn.ui.interf.ClickCallBack;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -251,13 +252,13 @@ public class XuQiuFragment extends BaseFragment {
             @Override
             public void onPreLoad() {
                 if (isFirst) {
-                    showWaitDialog();
+                    Hud.show(getUiContext());
                 }
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
                 pullrefresh.onRefreshComplete();
             }
 

@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -169,12 +170,12 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
             Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
                 @Override
                 public void onPreLoad() {
-                    showWaitDialog();
+                    Hud.show(getUiContext());
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
+                    Hud.dismiss();
                     detailNodeListView.onRefreshComplete();
                 }
 
@@ -207,12 +208,12 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
         Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -302,7 +303,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
         sectionItemAdapter.setDeleteListener(new SectionItemAdapter.DeleteListener() {
             @Override
             public void delete(int position) {
-                deleteImage(position);
+                showDeletePicDialog(position);
             }
         });
         detailNodeListView.setAdapter(sectionItemAdapter);
@@ -364,6 +365,30 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                 });
         dateWheelDialog.setNegativeButton(R.string.no, null);
         dateWheelDialog.show();
+    }
+
+    private void showDeletePicDialog(final int position) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("图片删除提示");
+        dialog.setMessage("您确认删除该图片吗？");
+        dialog.setPositiveButton(R.string.confirm,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteImage(position);
+                    }
+                });
+        dialog.setNegativeButton(R.string.str_cancel, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void showDelayDialog() {

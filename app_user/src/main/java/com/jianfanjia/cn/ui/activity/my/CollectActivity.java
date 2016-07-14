@@ -46,7 +46,7 @@ public class CollectActivity extends BaseSwipeBackActivity {
 
     private void initView() {
         initMainHeadView();
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(1);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
     }

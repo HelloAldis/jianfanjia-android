@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.List;
 
 import butterknife.Bind;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -74,12 +75,12 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
         Api.getMyDiarySetList(getMyDiarySetRequest, new ApiCallback<ApiResponse<DiarySetInfoList>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
                 mRecyclerView.onRefreshComplete();
             }
 

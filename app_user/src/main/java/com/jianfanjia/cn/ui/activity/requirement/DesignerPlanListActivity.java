@@ -12,8 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.config.Global;
-import com.jianfanjia.cn.ui.adapter.DesignerPlanAdapter;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -21,16 +20,18 @@ import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetDesignerPlanListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.common.CommentActivity;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.ItemClickListener;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.activity.common.CommentActivity;
+import com.jianfanjia.cn.ui.adapter.DesignerPlanAdapter;
+import com.jianfanjia.cn.ui.interf.ItemClickListener;
+import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -129,12 +130,12 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
         Api.getDesignerPlanList(getDesignerPlanListRequest, new ApiCallback<ApiResponse<List<Plan>>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
                 designer_plan_listview.onRefreshComplete();
             }
 

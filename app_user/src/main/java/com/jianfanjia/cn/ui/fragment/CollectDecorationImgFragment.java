@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -60,13 +61,11 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
     private List<BeautifulImage> beautyImgList = new ArrayList<>();
     private DecorationAdapter decorationImgAdapter = null;
-    private boolean isFirst = true;
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
     private int total = 0;
     private int currentPos = -1;
-    private int FROM = 0;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -123,15 +122,15 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     }
 
     private void load() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
-        getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @OnClick(R.id.error_include)
     public void onClick() {
-        getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     private void getDecorationImgList(int from, int limit, ApiCallback<ApiResponse<BeautifulImageList>> listener) {
@@ -143,13 +142,12 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        FROM = 0;
-        getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullDownListener);
+        getDecorationImgList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getDecorationImgList(FROM, Constant.HOME_PAGE_LIMIT, pullUpListener);
+        getDecorationImgList(beautyImgList.size(), Constant.HOME_PAGE_LIMIT, pullUpListener);
     }
 
 
@@ -159,15 +157,15 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onPreLoad() {
-                    if (isFirst) {
-                        showWaitDialog();
+                    if (!mHasLoadedOnce) {
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
+                    Hud.dismiss();
                     decoration_img_listview.onRefreshComplete();
-                    hideWaitDialog();
                 }
 
                 @Override
@@ -210,13 +208,10 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                             }
                             decoration_img_listview.setVisibility(View.VISIBLE);
                             emptyLayout.setVisibility(View.GONE);
-                            isFirst = false;
                         } else {
                             decoration_img_listview.setVisibility(View.GONE);
                             emptyLayout.setVisibility(View.VISIBLE);
                         }
-                        FROM = beautyImgList.size();
-                        LogTool.d(TAG, "FROM:" + FROM);
                         errorLayout.setVisibility(View.GONE);
                     }
                 }
@@ -257,8 +252,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                     if (null != decorationItemInfo) {
                         List<BeautifulImage> beautyList = decorationItemInfo.getBeautiful_images();
                         if (null != beautyList && beautyList.size() > 0) {
-                            decorationImgAdapter.add(FROM, beautyList);
-                            FROM += Constant.HOME_PAGE_LIMIT;
+                            decorationImgAdapter.add(beautyImgList.size(), beautyList);
                         } else {
                             makeTextShort(getResources().getString(R.string.no_more_data));
                         }

@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -172,7 +173,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         Api.getDiaryInfo(getDiaryInfoRequest, new ApiCallback<ApiResponse<DiaryInfo>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
@@ -186,13 +187,13 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<DiaryInfo> apiResponse) {
-                hideWaitDialog();
+                Hud.dismiss();
                 makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-                hideWaitDialog();
+                Hud.dismiss();
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         });
@@ -232,7 +233,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override

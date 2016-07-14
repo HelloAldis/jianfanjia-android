@@ -16,6 +16,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -440,12 +441,12 @@ public class DiaryDynamicFragment extends BaseFragment {
     private ApiCallback<ApiResponse<DiaryInfoList>> firstLoadMoreData = new ApiCallback<ApiResponse<DiaryInfoList>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override

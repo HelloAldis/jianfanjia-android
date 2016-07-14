@@ -6,19 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.jianfanjia.cn.application.MyApplication;
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.request.guest.FeedBackRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.view.MainHeadView;
-
-import butterknife.Bind;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 public class FeedBackActivity extends BaseSwipeBackActivity {
     private static final String TAG = FeedBackActivity.class.getName();
@@ -82,12 +82,12 @@ public class FeedBackActivity extends BaseSwipeBackActivity {
         Api.feedBack(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

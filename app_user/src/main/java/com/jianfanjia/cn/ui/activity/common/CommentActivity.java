@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -145,12 +146,12 @@ public class CommentActivity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog(R.string.loading);
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override
@@ -191,12 +192,12 @@ public class CommentActivity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog(R.string.loading);
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override

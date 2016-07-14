@@ -13,6 +13,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -164,7 +165,7 @@ public class LoginFragment extends BaseFragment {
                     }
                 });
             } else {
-                hideWaitDialog();
+                Hud.dismiss();
                 makeTextShort(getString(R.string.authorize_fail));
             }
         }
@@ -209,12 +210,12 @@ public class LoginFragment extends BaseFragment {
         Api.login(loginRequest, new ApiCallback<ApiResponse<User>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

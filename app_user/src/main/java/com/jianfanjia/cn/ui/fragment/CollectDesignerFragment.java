@@ -16,11 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.Event.CollectDesignerEvent;
-import com.jianfanjia.cn.ui.adapter.FavoriteDesignerAdapter;
-import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -28,12 +24,17 @@ import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.model.DesignerList;
 import com.jianfanjia.api.request.user.FavoriteDesignerListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.CollectDesignerEvent;
+import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.ui.adapter.FavoriteDesignerAdapter;
+import com.jianfanjia.cn.ui.interf.RecyclerViewOnItemClickListener;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -60,11 +61,9 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     private FavoriteDesignerAdapter designAdapter = null;
     private DesignerList myFavoriteDesigner = null;
     private List<Designer> designers = new ArrayList<>();
-    private boolean isFirst = true;
     private boolean isVisible = false;
     private boolean isPrepared = false;
     private boolean mHasLoadedOnce = false;
-    private int FROM = 0;
     private int currentPos = -1;
 
     @Override
@@ -113,7 +112,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
     @OnClick(R.id.error_include)
     public void onClick() {
-        getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+        getMyFavoriteDesignerList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     private void onVisible() {
@@ -125,21 +124,20 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     }
 
     private void load() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
-        getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+        getMyFavoriteDesignerList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        FROM = 0;
-        getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
+        getMyFavoriteDesignerList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
     }
 
     @Override
     public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-        getMyFavoriteDesignerList(FROM, Constant.HOME_PAGE_LIMIT, getUpMyFavoriteDesignerListener);
+        getMyFavoriteDesignerList(designers.size(), Constant.HOME_PAGE_LIMIT, getUpMyFavoriteDesignerListener);
     }
 
     private void getMyFavoriteDesignerList(int from, int limit, ApiCallback<ApiResponse<DesignerList>> listener) {
@@ -153,14 +151,14 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
             ApiCallback<ApiResponse<DesignerList>>() {
                 @Override
                 public void onPreLoad() {
-                    if (isFirst) {
-                        showWaitDialog();
+                    if (!mHasLoadedOnce) {
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
+                    Hud.dismiss();
                     my_favorite_designer_listview.onRefreshComplete();
                 }
 
@@ -197,14 +195,11 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                             my_favorite_designer_listview.setVisibility(View.VISIBLE);
                             emptyLayout.setVisibility(View.GONE);
                             errorLayout.setVisibility(View.GONE);
-                            isFirst = false;
                         } else {
                             my_favorite_designer_listview.setVisibility(View.GONE);
                             emptyLayout.setVisibility(View.VISIBLE);
                             errorLayout.setVisibility(View.GONE);
                         }
-                        FROM = designers.size();
-                        LogTool.d(TAG, "FROM:" + FROM);
                     }
                 }
 
@@ -242,8 +237,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                     if (myFavoriteDesigner != null) {
                         List<Designer> designerList = myFavoriteDesigner.getDesigners();
                         if (null != designerList && designerList.size() > 0) {
-                            designAdapter.add(FROM, designerList);
-                            FROM += Constant.HOME_PAGE_LIMIT;
+                            designAdapter.add(designers.size(), designerList);
                         } else {
                             makeTextShort(getResources().getString(R.string.no_more_data));
                         }
