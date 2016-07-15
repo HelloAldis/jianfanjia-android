@@ -492,7 +492,11 @@ public class DiaryDynamicFragment extends BaseFragment {
                 }
                 mDiaryDynamicAdapter.hideErrorAndEmptyView();
             } else {
-                mDiaryDynamicAdapter.setEmptyViewShow();
+                if (mDiaryDynamicAdapter.getData().size() > 0) {
+                    mDiaryDynamicAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NO_MORE);
+                }else {
+                    mDiaryDynamicAdapter.setEmptyViewShow();
+                }
             }
         }
     }
