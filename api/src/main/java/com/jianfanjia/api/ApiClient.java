@@ -269,6 +269,7 @@ public class ApiClient {
             if (tag.equals(call.request().tag()))
             {
                 call.cancel();
+                LogTool.d("cancel queued call tag =" + tag);
             }
         }
         for (Call call : CLIENT.dispatcher().runningCalls())
@@ -276,6 +277,7 @@ public class ApiClient {
             if (tag.equals(call.request().tag()))
             {
                 call.cancel();
+                LogTool.d("cancel running call tag =" + tag);
             }
         }
     }

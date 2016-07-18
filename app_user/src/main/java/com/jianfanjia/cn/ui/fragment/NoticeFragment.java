@@ -117,25 +117,25 @@ public class NoticeFragment extends BaseFragment {
         all_notice_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getNoticeList(Constant.FROM_START,Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
+                getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
             }
         });
 
         noticeAdapter = new NoticeAdapter(getContext(), all_notice_listview.getRefreshableView(), new
                 RecyclerItemCallBack() {
-            @Override
-            public void onClick(int position, Object obj) {
-                UserMessage noticeInfo = (UserMessage) obj;
-                LogTool.d("position=" + position + " noticeInfo:" + noticeInfo.getContent());
-                Bundle detailBundle = new Bundle();
-                detailBundle.putString(IntentConstant.MSG_ID, noticeInfo.get_id());
-                startActivity(NoticeDetailActivity.class, detailBundle);
-            }
-        });
+                    @Override
+                    public void onClick(int position, Object obj) {
+                        UserMessage noticeInfo = (UserMessage) obj;
+                        LogTool.d("position=" + position + " noticeInfo:" + noticeInfo.getContent());
+                        Bundle detailBundle = new Bundle();
+                        detailBundle.putString(IntentConstant.MSG_ID, noticeInfo.get_id());
+                        startActivity(NoticeDetailActivity.class, detailBundle);
+                    }
+                });
         noticeAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-                getNoticeList(noticeAdapter.getData().size(),Constant.HOME_PAGE_LIMIT, typeArray, loadMoreListener);
+                getNoticeList(noticeAdapter.getData().size(), Constant.HOME_PAGE_LIMIT, typeArray, loadMoreListener);
             }
         });
         noticeAdapter.setEmptyView(emptyLayout);
@@ -156,26 +156,27 @@ public class NoticeFragment extends BaseFragment {
             return;
         }
 //        all_notice_listview.setRefreshing(true);
-        getNoticeList(Constant.FROM_START,Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
+        getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
     }
 
     @OnClick(R.id.error_include)
     public void onClick() {
-        getNoticeList(Constant.FROM_START,Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
+        getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(!isVisible) return;
-        if(noticeAdapter.getData().size() > 0){
+        if (!isVisible) return;
+        if (noticeAdapter.getData().size() > 0) {
             getNoticeList(Constant.FROM_START, noticeAdapter.getData().size(), typeArray, pullDownListener);
-        }else{
+        } else {
             getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
         }
     }
 
-    private void getNoticeList(int from, int limit ,String[] typeStr, ApiCallback<ApiResponse<UserMessageList>> listener) {
+    private void getNoticeList(int from, int limit, String[] typeStr, ApiCallback<ApiResponse<UserMessageList>>
+            listener) {
         SearchUserMsgRequest request = new SearchUserMsgRequest();
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
@@ -184,7 +185,7 @@ public class NoticeFragment extends BaseFragment {
         request.setQuery(conditionParam);
         request.setFrom(from);
         request.setLimit(limit);
-        Api.searchUserMsg(request, listener,this);
+        Api.searchUserMsg(request, listener, this);
     }
 
     private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new
@@ -206,7 +207,7 @@ public class NoticeFragment extends BaseFragment {
                 @Override
                 public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
                     UserMessageList noticeListInfo = apiResponse.getData();
-                    setLoadData(noticeListInfo,true);
+                    setLoadData(noticeListInfo, true);
                 }
 
                 @Override
@@ -251,34 +252,34 @@ public class NoticeFragment extends BaseFragment {
             ApiCallback<ApiResponse<UserMessageList>>() {
 
 
-        @Override
-        public void onPreLoad() {
+                @Override
+                public void onPreLoad() {
 
-        }
+                }
 
-        @Override
-        public void onHttpDone() {
-            all_notice_listview.onRefreshComplete();
-        }
+                @Override
+                public void onHttpDone() {
+                    all_notice_listview.onRefreshComplete();
+                }
 
-        @Override
-        public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
-            UserMessageList noticeListInfo = apiResponse.getData();
-            setLoadData(noticeListInfo,false);
-        }
+                @Override
+                public void onSuccess(ApiResponse<UserMessageList> apiResponse) {
+                    UserMessageList noticeListInfo = apiResponse.getData();
+                    setLoadData(noticeListInfo, false);
+                }
 
-        @Override
-        public void onFailed(ApiResponse<UserMessageList> apiResponse) {
-            makeTextShort(apiResponse.getErr_msg());
-        }
+                @Override
+                public void onFailed(ApiResponse<UserMessageList> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
+                }
 
-        @Override
-        public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-            noticeAdapter.setErrorViewShow();
-            noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
-        }
-    };
+                @Override
+                public void onNetworkError(int code) {
+                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    noticeAdapter.setErrorViewShow();
+                    noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
+                }
+            };
 
     @Override
     public int getLayoutId() {
