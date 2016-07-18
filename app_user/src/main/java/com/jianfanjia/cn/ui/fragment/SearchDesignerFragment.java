@@ -62,7 +62,7 @@ public class SearchDesignerFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         search = getArguments().getString(IntentConstant.SEARCH_TEXT);
-        LogTool.d(TAG, "search=" + search);
+        LogTool.d("search=" + search);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class SearchDesignerFragment extends BaseFragment {
                     @Override
                     public void OnViewClick(int position) {
                         String designerId = searchDesignerAdapter.getData().get(position).get_id();
-                        LogTool.d(TAG, "designerId:" + designerId);
+                        LogTool.d("designerId:" + designerId);
                         Bundle designerBundle = new Bundle();
                         designerBundle.putString(IntentConstant.DESIGNER_ID, designerId);
                         startActivity(DesignerInfoActivity.class, designerBundle);
@@ -138,8 +138,8 @@ public class SearchDesignerFragment extends BaseFragment {
             if (designer != null) {
                 int total = designer.getTotal();
                 if (total > 0) {
-                    LogTool.d(TAG, "total size =" + total);
-                    LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
+                    LogTool.d("total size =" + total);
+                    LogTool.d("searchDesignerAdapter.getData().size() =" +
                             searchDesignerAdapter.getData().size());
                     searchDesignerAdapter.addData(designer.getDesigners());
                     if (total > searchDesignerAdapter.getData().size()) {

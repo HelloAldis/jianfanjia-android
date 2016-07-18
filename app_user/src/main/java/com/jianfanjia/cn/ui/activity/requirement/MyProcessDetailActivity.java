@@ -151,7 +151,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
     private void initProcessInfo() {
         Intent intent = getIntent();
         processInfo = (Process) intent.getSerializableExtra(IntentConstant.PROCESS_INFO);
-        LogTool.d(TAG, "processInfo:" + processInfo);
+        LogTool.d("processInfo:" + processInfo);
         if (processInfo != null) {
             processId = processInfo.get_id();
             loadCurrentProcess(true);
@@ -160,7 +160,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
             processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
             initData(true);
         }
-        LogTool.d(TAG, "processId==" + processId);
+        LogTool.d("processId==" + processId);
     }
 
     private void loadCurrentProcess(final boolean isResetCheckHead) {
@@ -278,7 +278,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                     : processInfo.getBasic_address());// 设置标题头
             currentPro = MyApplication.getInstance().getPositionByItemName(
                     processInfo.getGoing_on());
-            LogTool.d(TAG, "currentPro=" + currentPro);
+            LogTool.d("currentPro=" + currentPro);
             if (currentList == -1 || lastPro != currentPro) {
                 currentList = currentPro;
                 lastPro = currentPro;
@@ -356,7 +356,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                         dialog.dismiss();
                         String dateStr = DateFormatTool.longToString(((DateWheelDialog) dialog)
                                 .getChooseCalendar().getTimeInMillis());
-                        LogTool.d(TAG, "dateStr:" + dateStr);
+                        LogTool.d("dateStr:" + dateStr);
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),
                                 processInfo.getFinal_designerid(),
@@ -419,7 +419,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
     // 提交改期
     private void postReschedule(String processId, String userId,
                                 String designerId, String section, String newDate) {
-        LogTool.d(TAG, "processId:" + processId + " userId:" + userId
+        LogTool.d("processId:" + processId + " userId:" + userId
                 + " designerId:" + designerId + " section:" + section
                 + " newDate:" + newDate);
         ApplyRescheduleRequest applyRescheduleRequest = new ApplyRescheduleRequest();
@@ -532,7 +532,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                     List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
                     for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
-                        LogTool.d(TAG, "imageBitmap: path :" + path);
+                        LogTool.d("imageBitmap: path :" + path);
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }

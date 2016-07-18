@@ -52,7 +52,7 @@ public class NoticeAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
     public int getItemViewType(int position) {
         if (super.getItemViewType(position) == TYPE_NORMAL_ITEM) {
             String msgType = mDatas.get(position).getMessage_type();
-            LogTool.d(TAG, "msgType:" + msgType);
+            LogTool.d("msgType:" + msgType);
             if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                 return ITEM_TYPE0;
             } else if (msgType.equals(Constant.TYPE_CAIGOU_MSG)) {

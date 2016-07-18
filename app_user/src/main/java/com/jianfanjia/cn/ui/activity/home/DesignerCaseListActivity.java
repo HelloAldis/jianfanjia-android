@@ -255,7 +255,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
             ProductList worksInfo = apiResponse.getData();
-            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            LogTool.d("worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 isFirst = false;
                 productList.clear();
@@ -269,7 +269,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                                     public void OnItemClick(View view, int position) {
                                         Product product = productList.get(position);
                                         String productid = product.get_id();
-                                        LogTool.d(TAG, "productid:" + productid);
+                                        LogTool.d("productid:" + productid);
                                         Bundle productBundle = new Bundle();
                                         productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                                         startActivity(DesignerCaseInfoActivity.class, productBundle);
@@ -279,7 +279,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                                     public void OnViewClick(int position) {
                                         Product product = productList.get(position);
                                         String designertid = product.getDesignerid();
-                                        LogTool.d(TAG, "designertid=" + designertid);
+                                        LogTool.d("designertid=" + designertid);
                                         Bundle designerBundle = new Bundle();
                                         designerBundle.putString(IntentConstant.DESIGNER_ID, designertid);
                                         startActivity(DesignerInfoActivity.class, designerBundle);
@@ -291,7 +291,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
                         productAdapter.notifyDataSetChanged();
                     }
                     FROM = productList.size();
-                    LogTool.d(TAG, "FROM:" + FROM);
+                    LogTool.d("FROM:" + FROM);
                     pullToRefreshRecyclerView.setVisibility(View.VISIBLE);
                     errorLayout.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
@@ -334,13 +334,13 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
             ProductList worksInfo = apiResponse.getData();
-            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            LogTool.d("worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 List<Product> products = worksInfo.getProducts();
                 if (null != products && products.size() > 0) {
                     productAdapter.add(FROM + 1, products);
                     FROM += Constant.HOME_PAGE_LIMIT;
-                    LogTool.d(TAG, "FROM=" + FROM);
+                    LogTool.d("FROM=" + FROM);
                 }
             }
         }
@@ -450,7 +450,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
             }
             FROM = 0;
             decArea = BusinessCovertUtil.convertDecAreaValueByText(title);
-            LogTool.d(TAG, "decArea=" + decArea);
+            LogTool.d("decArea=" + decArea);
             getDesignerProductList(FROM, DesignerCaseListActivity.this.pullDownCallback);
         }
 

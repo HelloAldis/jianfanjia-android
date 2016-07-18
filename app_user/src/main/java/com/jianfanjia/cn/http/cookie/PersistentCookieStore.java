@@ -56,7 +56,7 @@ public class PersistentCookieStore implements CookieStore {
                             if(!cookies.containsKey(entry.getKey()))
                                 cookies.put(entry.getKey(), new ConcurrentHashMap<String, HttpCookie>());
                             cookies.get(entry.getKey()).put(name, decodedCookie);
-                            LogTool.d(this.getClass().getName(), name + " --" + cookies.get(entry.getKey()).get(name));
+                            LogTool.d(name + " --" + cookies.get(entry.getKey()).get(name));
                         }
                     }
                 }
@@ -72,14 +72,14 @@ public class PersistentCookieStore implements CookieStore {
         if (!cookie.hasExpired()) {
             if(!cookies.containsKey(uri.getHost())) {
                 cookies.put(uri.getHost(), new ConcurrentHashMap<String, HttpCookie>());
-                LogTool.d(this.getClass().getName(), "cookies.put uri.getHost =" + uri.getHost());
+                LogTool.d("cookies.put uri.getHost =" + uri.getHost());
             }
-            LogTool.d(this.getClass().getName(), "not expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+            LogTool.d("not expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
             cookies.get(uri.getHost()).put(name, cookie);
         } else {
-            LogTool.d(this.getClass().getName(), "expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+            LogTool.d("expired : " + "uri =" + uri + "--name =" + name + "--value =" + cookie.getValue() + "--age=" + cookie.getMaxAge());
             if(cookies.containsKey(uri.getHost())){
-                LogTool.d(this.getClass().getName(),"cookies.containsKey =" + uri.getHost());
+                LogTool.d("cookies.containsKey =" + uri.getHost());
                 cookies.get(uri.getHost()).remove(name);
             }
         }
@@ -96,7 +96,7 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> get(URI uri) {
-        LogTool.d(this.getClass().getName(),"get(Uri uri) =" + uri.toString());
+        LogTool.d("get(Uri uri) =" + uri.toString());
         ArrayList<HttpCookie> ret = new ArrayList<>();
         if(cookies.containsKey(uri.getHost())){
             /*for(String keyName : cookies.get(uri.getHost()).keySet()){
@@ -145,7 +145,7 @@ public class PersistentCookieStore implements CookieStore {
 
     @Override
     public List<HttpCookie> getCookies() {
-        LogTool.d(this.getClass().getName(),"getCookies");
+        LogTool.d("getCookies");
         ArrayList<HttpCookie> ret = new ArrayList<>();
         for (String key : cookies.keySet()){
            /* for(String keyName : cookies.get(key).keySet()){

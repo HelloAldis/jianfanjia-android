@@ -84,7 +84,7 @@ public class AboutActivity extends BaseSwipeBackActivity implements OnClickListe
 
                     @Override
                     public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-                        LogTool.d("onComplete", "status =" + i);
+                        LogTool.d("status =" + i);
                     }
                 });
                 break;

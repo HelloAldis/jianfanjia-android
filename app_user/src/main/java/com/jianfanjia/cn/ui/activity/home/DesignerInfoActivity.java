@@ -176,7 +176,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
         Bundle designerBundle = intent.getExtras();
         if (designerBundle != null) {
             designerid = designerBundle.getString(IntentConstant.DESIGNER_ID);
-            LogTool.d(TAG, "designerid =" + designerid);
+            LogTool.d("designerid =" + designerid);
             getDesignerPageInfo(designerid);
         }
     }
@@ -206,7 +206,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int color = (Integer) animation.getAnimatedValue();
-                LogTool.d(this.getClass().getName(), "color =" + color);
+                LogTool.d("color =" + color);
                 setAllTextColor(color);
             }
         });
@@ -233,7 +233,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(TAG, "onNewIntent");
+        LogTool.d("onNewIntent");
         getDataFromIntent(intent);
         isNewIntent = true;
     }
@@ -380,7 +380,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
     private void updateUi(Designer designerInfo) {
         if (null != designerInfo) {
-            LogTool.d(TAG, "designerInfo:" + designerInfo);
+            LogTool.d("designerInfo:" + designerInfo);
             designer_name = designerInfo.getUsername();
             tv_title.setText(designer_name);
             designerName.setText(designer_name);
@@ -452,7 +452,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
     private void changeUiShow(Designer designerInfo) {
         isHighPoint = RequirementBusiness.isHighPointDesigner(designerInfo);
-        LogTool.d(this.getClass().getName(), "isHigh =" + isHighPoint);
+        LogTool.d("isHigh =" + isHighPoint);
         designerInfoHeadContentWrap.setVisibility(View.VISIBLE);
         if (isHighPoint) {
             designerInfoHeadContentWrap.post(new Runnable() {

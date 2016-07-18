@@ -71,7 +71,7 @@ public class LoginNewActivity extends BaseActivity {
         if(bundle != null){
             currentFragment = bundle.getInt(LOGIN_REGIISTER_TYPE,0);
         }
-        LogTool.d(TAG, "currentFragment=" + currentFragment);
+        LogTool.d("currentFragment=" + currentFragment);
         viewPagerIndicator.setTabItemTitles(Arrays.asList(tabTitles));
         fragmentList.add(new LoginFragment());
         fragmentList.add(new RegisterFragment());
@@ -96,7 +96,7 @@ public class LoginNewActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(this.getClass().getName(), "onActivityResult");
+        LogTool.d("onActivityResult");
         UMSsoHandler ssoHandler = AuthUtil.getInstance(this).getUmSocialService().getConfig().getSsoHandler(requestCode);
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);

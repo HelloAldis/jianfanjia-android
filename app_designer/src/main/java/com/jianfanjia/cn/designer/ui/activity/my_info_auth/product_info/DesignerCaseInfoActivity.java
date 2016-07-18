@@ -82,7 +82,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         adapter.setOnItemClickListener(new DesignerCaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                LogTool.d(TAG, "position:" + position);
+                LogTool.d("position:" + position);
                 Bundle showPicBundle = new Bundle();
                 showPicBundle.putInt(Constant.CURRENT_POSITION, position);
                 showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
@@ -105,14 +105,14 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         Bundle productBundle = intent.getExtras();
         if (productBundle != null) {
             productid = productBundle.getString(Global.PRODUCT_ID);
-            LogTool.d(TAG, "productid=" + productid);
+            LogTool.d("productid=" + productid);
         }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(TAG, "onNewIntent");
+        LogTool.d("onNewIntent");
         getDataFromIntent(intent);
         getProductHomePageInfo(productid);
     }
@@ -163,7 +163,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         @Override
         public void onSuccess(ApiResponse<Product> apiResponse) {
             mProduct = apiResponse.getData();
-            LogTool.d(TAG, "designerCaseInfo" + mProduct);
+            LogTool.d("designerCaseInfo" + mProduct);
             if (null != mProduct) {
                 mMainHeadView.setRightTitleVisable(View.VISIBLE);
                 setMainRightTitleShow(mProduct);

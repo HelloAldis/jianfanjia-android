@@ -108,7 +108,7 @@ public class MyNewFragment extends BaseFragment {
 
     protected void updateUserHeader() {
         String imgPath = dataManager.getUserImagePath();
-        LogTool.d(TAG, "imgPath=" + imgPath);
+        LogTool.d("imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
 //            imageShow.displayScreenWidthThumnailImage(getActivity(), imgPath, head_img);
             imageShow.displayImageHeadWidthThumnailImage(getActivity(), imgPath, user_head_img);
@@ -197,7 +197,7 @@ public class MyNewFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        },this);
+        }, this);
     }
 
     private void updateUserInfo() {
@@ -209,7 +209,7 @@ public class MyNewFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogTool.d(TAG, "isHidden =" + hidden);
+        LogTool.d("isHidden =" + hidden);
         if (!hidden) {
 //            getUnReadMessageCount(Constant.searchMsgCountType1, Constant.searchMsgCountType2);
 //            updateUserInfo();
@@ -256,7 +256,7 @@ public class MyNewFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        }, selectLists);
+        }, this, selectLists);
     }
 
     /**

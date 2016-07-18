@@ -77,7 +77,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
         Intent intent = this.getIntent();
         requestmentid = intent.getStringExtra(IntentConstant.REQUIREMENT_ID);
         designerid = intent.getStringExtra(IntentConstant.DESIGNER_ID);
-        LogTool.d(TAG, "requestmentid:" + requestmentid + " designerid:" + designerid);
+        LogTool.d("requestmentid:" + requestmentid + " designerid:" + designerid);
     }
 
     private void initView() {
@@ -165,7 +165,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
             @Override
             public void onSuccess(ApiResponse<DesignerCanOrderList> apiResponse) {
                 DesignerCanOrderList designerCanOrderListInfo = apiResponse.getData();
-                LogTool.d(TAG, "designerCanOrderListInfo:" + designerCanOrderListInfo);
+                LogTool.d("designerCanOrderListInfo:" + designerCanOrderListInfo);
                 if (null != designerCanOrderListInfo) {
                     rec_designer = designerCanOrderListInfo.getRec_designer();
                     favorite_designer = designerCanOrderListInfo.getFavorite_designer();
@@ -174,7 +174,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
                             .this, mylist, splitList, totalCount, new CheckListener() {
                         @Override
                         public void getItemData(int position, String designerid) {
-                            LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                            LogTool.d("position=" + position + " designerid=" + designerid);
                             currentPos = position;
                             Bundle designerBundle = new Bundle();
                             designerBundle.putString(IntentConstant.DESIGNER_ID, designerid);
@@ -184,7 +184,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
                         @Override
                         public void getCheckedData(List<String> designerids) {
                             int checkNum = designerids.size();
-                            LogTool.d(TAG, "checkNum:" + checkNum);
+                            LogTool.d("checkNum:" + checkNum);
                             if (null != designerids && designerids.size() > 0) {
                                 mainHeadView.setRigthTitleEnable(true);
                                 newDesignerid = designerids.get(0);

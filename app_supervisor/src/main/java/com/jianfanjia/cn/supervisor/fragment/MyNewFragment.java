@@ -92,7 +92,7 @@ public class MyNewFragment extends BaseFragment {
 
     private void initMyInfo() {
         String imgPath = dataManager.getUserImagePath();
-        LogTool.d(TAG, "imgPath=" + imgPath);
+        LogTool.d("imgPath=" + imgPath);
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
             imageShow.displayImageHeadWidthThumnailImage(getActivity(), imgPath, user_head_img);
         } else {

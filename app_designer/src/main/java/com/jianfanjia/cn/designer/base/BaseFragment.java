@@ -40,14 +40,14 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onCreate");
+        com.jianfanjia.common.tool.LogTool.d("onCreate");
         init();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onCreateView");
+        com.jianfanjia.common.tool.LogTool.d("onCreateView");
         this.inflater = inflater;
         if (getLayoutId() > 0) {
             view = inflateView(getLayoutId());
@@ -59,7 +59,7 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onActivityCreated");
+        com.jianfanjia.common.tool.LogTool.d("onActivityCreated");
     }
 
     private void init() {
@@ -72,7 +72,7 @@ public abstract class BaseFragment extends Fragment{
         mUserName = dataManager.getUserName();
         mAccount = dataManager.getAccount();
         mUserImageId = dataManager.getUserImagePath();
-        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
+        com.jianfanjia.common.tool.LogTool.d("mUserName:" + mUserName
                 + " mAccount:" + mAccount + " userImageId:" + mUserImageId);
     }
 
@@ -85,14 +85,14 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), "onResume");
+        com.jianfanjia.common.tool.LogTool.d("onResume");
         initUserInfo();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogTool.d(this.getClass().getName(), "onPause");
+        LogTool.d("onPause");
     }
 
     @Override
@@ -100,7 +100,7 @@ public abstract class BaseFragment extends Fragment{
         super.onDestroy();
         ButterKnife.unbind(this);
         ApiClient.cancelTag(this);
-        LogTool.d(this.getClass().getName(), "onDestroy");
+        LogTool.d("onDestroy");
     }
 
     protected void makeTextShort(String text) {

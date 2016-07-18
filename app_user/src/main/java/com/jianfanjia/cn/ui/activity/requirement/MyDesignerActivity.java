@@ -91,7 +91,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
             requirementid = requirementInfo.get_id();
             workType = requirementInfo.getWork_type();
         }
-        LogTool.d(TAG, "requirementid:" + requirementid + "  workType:" + workType);
+        LogTool.d("requirementid:" + requirementid + "  workType:" + workType);
         initPullRefresh();
     }
 
@@ -132,7 +132,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                         Requirement requirement = orderDesignerInfo.getRequirement();
                         requirement.setWork_type(requirementInfo.getWork_type());
                         contractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirement);
-                        LogTool.d(TAG,orderDesignerInfo.getRequirement() + "is null");
+                        LogTool.d(orderDesignerInfo.getRequirement() + "is null");
                         contractBundle.putInt(ContractActivity.CONSTRACT_INTENT_FLAG, ContractActivity
                                 .DESIGNER_LIST_INTENT);
                         startActivity(ContractActivity.class, contractBundle);

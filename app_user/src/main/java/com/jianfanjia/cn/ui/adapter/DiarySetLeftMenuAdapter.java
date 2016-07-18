@@ -46,7 +46,7 @@ public class DiarySetLeftMenuAdapter extends RecyclerView.Adapter {
         highLightColor = context.getResources().getColor(R.color.orange_color);
         normalColor = context.getResources().getColor(R.color.light_black_color);
 
-        LogTool.d(this.getClass().getName(), "totalItemHeight =" + totalItemHeight + ",lineHeight =" + lineHeight);
+        LogTool.d("totalItemHeight =" + totalItemHeight + ",lineHeight =" + lineHeight);
     }
 
     public void setOnNavigateListener(OnNavigateListener onNavigateListener) {

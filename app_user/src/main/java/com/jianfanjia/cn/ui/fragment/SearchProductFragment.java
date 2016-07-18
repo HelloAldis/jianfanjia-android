@@ -62,7 +62,7 @@ public class SearchProductFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         search = getArguments().getString(IntentConstant.SEARCH_TEXT);
-        LogTool.d(TAG, "search=" + search);
+        LogTool.d("search=" + search);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class SearchProductFragment extends BaseFragment {
             public void OnItemClick(View view, int position) {
                 Product product = productAdapter.getData().get(position);
                 String productid = product.get_id();
-                LogTool.d(TAG, "productid:" + productid);
+                LogTool.d("productid:" + productid);
                 Bundle productBundle = new Bundle();
                 productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                 startActivity(DesignerCaseInfoActivity.class, productBundle);
@@ -93,7 +93,7 @@ public class SearchProductFragment extends BaseFragment {
             public void OnViewClick(int position) {
                 Product product = productAdapter.getData().get(position);
                 String designertid = product.getDesignerid();
-                LogTool.d(TAG, "designertid=" + designertid);
+                LogTool.d("designertid=" + designertid);
                 Bundle designerBundle = new Bundle();
                 designerBundle.putString(IntentConstant.DESIGNER_ID, designertid);
                 startActivity(DesignerInfoActivity.class, designerBundle);
@@ -140,12 +140,12 @@ public class SearchProductFragment extends BaseFragment {
 
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
             ProductList worksInfo = apiResponse.getData();
-            LogTool.d(TAG, "worksInfo :" + worksInfo);
+            LogTool.d("worksInfo :" + worksInfo);
             if (null != worksInfo) {
                 int total = worksInfo.getTotal();
                 if (total > 0) {
-                    LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" + productAdapter
+                    LogTool.d("total size =" + total);
+                    LogTool.d("searchDesignerAdapter.getData().size() =" + productAdapter
                             .getData().size());
                     productAdapter.addData(worksInfo.getProducts());
                     if (total > productAdapter.getData().size()) {

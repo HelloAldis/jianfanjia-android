@@ -66,7 +66,7 @@ public class PingJiaInfoActivity extends BaseSwipeBackActivity {
         evaluation = (Evaluation) viewBundle.getSerializable(Global.EVALUATION);
         bar.setRating(totalAttidude);
         designerName.setText(designer_name);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation + " " +
+        LogTool.d("imageid:" + imageid + " designer_name:" + designer_name + " evaluation:" + evaluation + " " +
                 "totalAttitude =" + totalAttidude);
     }
 

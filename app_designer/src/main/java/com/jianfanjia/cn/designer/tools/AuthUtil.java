@@ -141,7 +141,7 @@ public class AuthUtil {
                 if (status != StatusCode.ST_CODE_SUCCESSED) {
                     showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
                 }
-                LogTool.d(this.getClass().getName(), showText);
+                LogTool.d(showText);
 //                Toast.makeText(activity, showText, Toast.LENGTH_SHORT).show();
             }
         });

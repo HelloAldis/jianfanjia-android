@@ -307,12 +307,12 @@ public class DiaryDynamicFragment extends BaseFragment {
             public void onSuccess(ApiResponse<DiaryInfoList> apiResponse) {
                 DiaryInfoList diaryInfoList = apiResponse.getData();
 
-                LogTool.d(TAG, "diaryInfoList:" + diaryInfoList);
+                LogTool.d("diaryInfoList:" + diaryInfoList);
                 if (null != diaryInfoList) {
                     total = diaryInfoList.getTotal();
                     if (total > 0) {
-                        LogTool.d(TAG, "total size =" + total);
-                        LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
+                        LogTool.d("total size =" + total);
+                        LogTool.d("searchDesignerAdapter.getData().size() =" +
                                 mDiaryDynamicAdapter.getData().size());
                         setRefreshTime(diaryInfoList.getDiaries());
                         mDiaryDynamicAdapter.addData(0, diaryInfoList.getDiaries());
@@ -387,7 +387,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             i++;
         }
         for (int pos : requireRefreshItemPos) {
-            LogTool.d(this.getClass().getName(), "refreshOldData pos =" + pos);
+            LogTool.d("refreshOldData pos =" + pos);
             mDiaryDynamicAdapter.notifyItemChanged(pos);
         }
     }
@@ -476,12 +476,12 @@ public class DiaryDynamicFragment extends BaseFragment {
     }
 
     private void loadMoreSuccess(DiaryInfoList diaryInfoList) {
-        LogTool.d(TAG, "diaryInfoList:" + diaryInfoList);
+        LogTool.d("diaryInfoList:" + diaryInfoList);
         if (null != diaryInfoList) {
             total = diaryInfoList.getTotal();
             if (total > 0) {
-                LogTool.d(TAG, "total size =" + total);
-                LogTool.d(TAG, "searchDesignerAdapter.getData().size() =" +
+                LogTool.d("total size =" + total);
+                LogTool.d("searchDesignerAdapter.getData().size() =" +
                         mDiaryDynamicAdapter.getData().size());
                 mDiaryDynamicAdapter.addData(diaryInfoList.getDiaries());
                 setRefreshTime(diaryInfoList.getDiaries());
@@ -504,7 +504,7 @@ public class DiaryDynamicFragment extends BaseFragment {
     public void onEventMainThread(RefreshDiaryInfoEvent refreshDiaryInfoEvent) {
         DiaryInfo resultDiaryInfo = refreshDiaryInfoEvent.getDiaryInfo();
         if (resultDiaryInfo != null) {
-            LogTool.d(this.getClass().getName(), "result diary id =" + resultDiaryInfo.get_id());
+            LogTool.d("result diary id =" + resultDiaryInfo.get_id());
         }
         refreshOneDiaryStatus(resultDiaryInfo);
     }
@@ -512,7 +512,7 @@ public class DiaryDynamicFragment extends BaseFragment {
     public void onEventMainThread(RefreshDiarySetInfoEvent refreshDiarySetInfoEvent) {
         DiarySetInfo resultDiarySetInfo = refreshDiarySetInfoEvent.getDiarySetInfo();
         if (resultDiarySetInfo != null) {
-            LogTool.d(this.getClass().getName(), "result diary id =" + resultDiarySetInfo.get_id());
+            LogTool.d("result diary id =" + resultDiarySetInfo.get_id());
         }
         refreshOneDiarySetStatus(resultDiarySetInfo);
     }
@@ -524,11 +524,11 @@ public class DiaryDynamicFragment extends BaseFragment {
     }
 
     private void refreshOneDiarySetStatus(DiarySetInfo resultDiarySetInfo) {
-        LogTool.d(this.getClass().getName(), "diaryset get lastest id =" + resultDiarySetInfo.get_id());
+        LogTool.d("diaryset get lastest id =" + resultDiarySetInfo.get_id());
         int pos = 0;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
             if (diaryInfo.get_id() != null && diaryInfo.getDiarySet().get_id().equals(resultDiarySetInfo.get_id())) {
-                LogTool.d(this.getClass().getName(), "diarylist diaryset refresh");
+                LogTool.d("diarylist diaryset refresh");
                 diaryInfo.setDiarySet(resultDiarySetInfo);
                 mDiaryDynamicAdapter.notifyItemChanged(pos);
                 break;
@@ -539,7 +539,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             int diarySetPos = 0;
             for (DiarySetInfo diarySetInfo : recommendDiarySet) {
                 if (diarySetInfo.get_id().equals(resultDiarySetInfo.get_id())) {
-                    LogTool.d(this.getClass().getName(), "recommend diaryset refresh");
+                    LogTool.d("recommend diaryset refresh");
                     recommendDiarySet.set(diarySetPos, resultDiarySetInfo);
                     mDiaryDynamicAdapter.notifyItemChanged(RECOMMEND_POSITION);
                     break;
@@ -554,7 +554,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         boolean isDelete = false;
         for (DiaryInfo diaryInfo : mDiaryDynamicAdapter.getData()) {
             if (diaryInfo.get_id() != null && diaryInfo.get_id().equals(resultDiaryInfo.get_id())) {
-                LogTool.d(this.getClass().getName(), "diary is delete" + diaryInfo.is_deleted());
+                LogTool.d("diary is delete" + diaryInfo.is_deleted());
                 if (resultDiaryInfo.is_deleted()) {
                     isDelete = true;
                     break;

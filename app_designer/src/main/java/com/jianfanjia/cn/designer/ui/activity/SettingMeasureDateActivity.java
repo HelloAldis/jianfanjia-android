@@ -64,7 +64,7 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
         if (bundle != null) {
             phone = bundle.getString(Global.PHONE);
             requirementid = bundle.getString(Global.REQUIREMENT_ID);
-            LogTool.d(TAG, "phone =" + phone + " requirementid = " + requirementid);
+            LogTool.d("phone =" + phone + " requirementid = " + requirementid);
         }
     }
 
@@ -76,7 +76,7 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
                                           int year, int month, int day, int hour, int minute) {
                 chooseDate.set(year, month, day, hour, minute, 0);
 
-                LogTool.d(TAG, "month =" + month + " day =" + day + " hour =" + hour + " minite" +
+                LogTool.d("month =" + month + " day =" + day + " hour =" + hour + " minite" +
                         " =" + minute);
 
                 /**
@@ -104,7 +104,7 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
                 break;
             case R.id.btn_confirm:
                 long houseCheckTime = chooseDate.getTimeInMillis();
-                LogTool.d(TAG, "houseCheckTime=" + DateFormatTool.longToStringHasMini(houseCheckTime));
+                LogTool.d("houseCheckTime=" + DateFormatTool.longToStringHasMini(houseCheckTime));
                 setHouseTime(requirementid, houseCheckTime);
                 break;
             case R.id.btn_phone_layout:

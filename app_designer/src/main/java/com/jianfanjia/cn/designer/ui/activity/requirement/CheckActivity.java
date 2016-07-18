@@ -107,7 +107,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             sectionName = bundle.getString(Constant.SECTION);
             processInfo = (Process) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
-            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
+            LogTool.d("sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId);
             processSection = BusinessCovertUtil.getSectionInfoByName(processInfo.getSections(), sectionName);
 
@@ -143,17 +143,17 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     }
 
     private void initData() {
-        LogTool.d(TAG, "processSection.get_id():" + processSection.get_id() + " processSection.getStatus():" +
+        LogTool.d("processSection.get_id():" + processSection.get_id() + " processSection.getStatus():" +
                 processSection.getStatus());
         mainHeadView.setMianTitle(processSection.getLabel() + getResources()
                 .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(processSection.getName());
-        LogTool.d(TAG, "checkGridList:" + checkGridList.size());
+        LogTool.d("checkGridList:" + checkGridList.size());
         imageids = processSection.getYs().getImages();
-        LogTool.d(TAG, "imageids=" + imageids);
+        LogTool.d("imageids=" + imageids);
         currentUploadCount = imageids.size();
-        LogTool.d(TAG, "currentUploadCount  " + currentUploadCount);
+        LogTool.d("currentUploadCount  " + currentUploadCount);
         initCheckGridList();
         adapter = new CheckGridViewAdapter(CheckActivity.this, checkGridList,
                 this, this);
@@ -165,7 +165,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     private void initCheckGridList() {
         for (ProcessSectionYsImage ysImage : imageids) {
             String key = ysImage.getKey();
-            LogTool.d(TAG, "key=" + key);
+            LogTool.d("key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                     ysImage.getImageid());
         }
@@ -217,7 +217,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
                     }
                 } else {
                     boolean isFinish = isSectionInfoFishish(processSection.getItems());
-                    LogTool.d(TAG, "isFinish=" + isFinish);
+                    LogTool.d("isFinish=" + isFinish);
                     if (isFinish) {
                         //图片上传完了，可以进行验收
                         btn_confirm.setText(this.getResources().getString(
@@ -261,10 +261,10 @@ public class CheckActivity extends BaseSwipeBackActivity implements
     private boolean isSectionInfoFishish(List<ProcessSectionItem> processSectionItems) {
         boolean flag = true;
         for (ProcessSectionItem processSectionItem : processSectionItems) {
-            LogTool.d(TAG, "sectionitem name =" + processSectionItem.getName());
-            LogTool.d(TAG, "sectionitem status =" + processSectionItem.getStatus());
+            LogTool.d("sectionitem name =" + processSectionItem.getName());
+            LogTool.d("sectionitem status =" + processSectionItem.getStatus());
             if (!processSectionItem.getStatus().equals(Constant.FINISHED)) {
-                LogTool.d(TAG, "sectionitem not finish");
+                LogTool.d("sectionitem not finish");
                 flag = false;
                 return flag;
             }
@@ -313,9 +313,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements
         if (processSection.getStatus().equals(Constant.NO_START)) {
             return;
         }
-        LogTool.d(TAG, "position:" + position);
+        LogTool.d("position:" + position);
         key = position;
-        LogTool.d(TAG, "key:" + key);
+        LogTool.d("key:" + key);
         showPopWindow();
     }
 
@@ -328,9 +328,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
     @Override
     public void delete(int position) {
-        LogTool.d(TAG, "position:" + position);
+        LogTool.d("position:" + position);
         key = position;
-        LogTool.d(TAG, "key:" + key);
+        LogTool.d("key:" + key);
         deleteCheckImage(key + "");
     }
 
@@ -353,7 +353,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 currentUploadCount--;
-                LogTool.d(TAG, "currentUploadCount=" + currentUploadCount);
+                LogTool.d("currentUploadCount=" + currentUploadCount);
                 updateList(Constant.HOME_ADD_PIC);
                 changeEditStatus();
             }
@@ -405,7 +405,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
                 mTmpFile = new File(dataManager.getPicPath());
                 if (mTmpFile != null) {
                     Bitmap imageBitmap = ImageUtil.getImage(mTmpFile.getPath());
-                    LogTool.d(TAG, "imageBitmap:" + imageBitmap);
+                    LogTool.d("imageBitmap:" + imageBitmap);
                     if (null != imageBitmap) {
                         uploadImage(imageBitmap);
                     }
@@ -414,7 +414,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             case Constant.REQUESTCODE_LOCATION:// 本地选取
                 if (data != null) {
                     Uri uri = data.getData();
-                    LogTool.d(TAG, "uri:" + uri);
+                    LogTool.d("uri:" + uri);
                     if (null != uri) {
                         Bitmap imageBitmap = ImageUtil.getImage(ImageUtil
                                 .getImagePath(uri, this));
@@ -481,7 +481,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 currentUploadCount++;
-                LogTool.d(TAG, "currentUploadCount:" + currentUploadCount);
+                LogTool.d("currentUploadCount:" + currentUploadCount);
                 updateList(imageid);
                 setConfimStatus();
             }
@@ -573,7 +573,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
                     MyApplication.getInstance().getPackageName());
             TypedArray ta = getResources().obtainTypedArray(arrId);
             for (int i = 0; i < ta.length(); i++) {
-                LogTool.d(TAG, "res id:" + ta.getResourceId(i, 0));
+                LogTool.d("res id:" + ta.getResourceId(i, 0));
                 GridItem item = new GridItem("drawable://" + ta.getResourceId(i, 0));
                 gridList.add(item);
             }
@@ -592,7 +592,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             bundle.putInt(Constant.CURRENT_POSITION, arg2 / 2);
         } else {
             String currentImageId = checkGridList.get(arg2).getImgId();
-            LogTool.d(TAG, "currentImageId:" + currentImageId);
+            LogTool.d("currentImageId:" + currentImageId);
             for (int i = 0; i < showProcessPic.size(); i++) {
                 if (currentImageId.equals(showProcessPic.get(i))) {
                     arg2 = i;
@@ -608,7 +608,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
     @Override
     public void click(int position, int itemType) {
-        LogTool.d(TAG, "position = " + position);
+        LogTool.d("position = " + position);
         startShowActivity(position);
     }
 

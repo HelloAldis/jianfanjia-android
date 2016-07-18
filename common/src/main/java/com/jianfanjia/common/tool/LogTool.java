@@ -2,15 +2,6 @@ package com.jianfanjia.common.tool;
 
 import android.util.Log;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.jianfanjia.common.base.application.BaseApplication;
-
 /**
  * Description:log工具类
  * Author：fengliang
@@ -19,59 +10,90 @@ import com.jianfanjia.common.base.application.BaseApplication;
  */
 public class LogTool {
 
-    private static final String LOG_FILE_DIR = "/MyLog";
-    private static final String LOG_PATH = FileUtil.getAppCache(BaseApplication.getInstance(), LOG_FILE_DIR);// log存放路径
-    private static final String LOG_FILE = LOG_PATH + "/log.txt";//log文件
+    protected static final String TAG = "DSBBM";
 
-    public static void d(String tag, String msg) {
-        Log.i(tag, msg);
-        final File file = new File(LOG_FILE);
-        if (!file.exists()) {
-            File parent = file.getParentFile();
-            if (!parent.exists())
-                parent.mkdirs();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        RandomAccessFile randomAccessFile = null;
-        try {
-            randomAccessFile = new RandomAccessFile(file, "rw");
-            try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                        "hh:mm:ss:SSS");
-                Date date = new Date(System.currentTimeMillis());
-                String time = simpleDateFormat.format(date);
-                long fileLength = randomAccessFile.length();
-                randomAccessFile.seek(fileLength);
-                randomAccessFile.writeBytes(time + "   " + tag + "     " + msg
-                        + "\r\n");
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            if (randomAccessFile != null) {
-                try {
-                    randomAccessFile.close();
-                    randomAccessFile = null;
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }
+    static String className;//类名
+    static String methodName;//方法名
+    static int lineNumber;//行数
+
+    private static boolean DEBUG = false;
+
+    private LogTool() {
+        /* Protect from instantiations */
     }
 
-    public static void delete() {
-        final File file = new File(LOG_FILE);
-        if (file.exists()) {
-            file.delete();
-        }
+    public static void setDEBUG(boolean DEBUG) {
+        LogTool.DEBUG = DEBUG;
     }
+
+    public static boolean isDebuggable() {
+        return DEBUG;
+    }
+
+    private static String createLog(String log) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(methodName);
+        buffer.append("(").append(className).append(":").append(lineNumber).append(")").append(" ");
+        buffer.append(log);
+        return buffer.toString();
+    }
+
+    private static void getMethodNames(StackTraceElement[] sElements) {
+        className = sElements[1].getFileName();
+        methodName = sElements[1].getMethodName();
+        lineNumber = sElements[1].getLineNumber();
+    }
+
+
+    public static void e(String message) {
+        if (!isDebuggable())
+            return;
+
+        // Throwable instance must be created before any methods
+        getMethodNames(new Throwable().getStackTrace());
+        Log.e(className, createLog(message));
+    }
+
+
+    public static void i(String message) {
+        if (!isDebuggable())
+            return;
+
+        getMethodNames(new Throwable().getStackTrace());
+        Log.i(className, createLog(message));
+    }
+
+    public static void d(String message) {
+        if (!isDebuggable())
+            return;
+
+        getMethodNames(new Throwable().getStackTrace());
+        Log.d(className, createLog(message));
+    }
+
+    public static void v(String message) {
+        if (!isDebuggable())
+            return;
+
+        getMethodNames(new Throwable().getStackTrace());
+        Log.v(className, createLog(message));
+    }
+
+    public static void w(String message) {
+        if (!isDebuggable())
+            return;
+
+        getMethodNames(new Throwable().getStackTrace());
+        Log.w(className, createLog(message));
+    }
+
+    public static void wtf(String message) {
+        if (!isDebuggable())
+            return;
+
+        getMethodNames(new Throwable().getStackTrace());
+        Log.wtf(className, createLog(message));
+    }
+
+
 }

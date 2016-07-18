@@ -151,7 +151,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             if (mDiarySetInfo != null) {
                 diarySetId = mDiarySetInfo.get_id();
             }
-            LogTool.d(TAG, "userid =" + dataManager.getUserId());
+            LogTool.d("userid =" + dataManager.getUserId());
         }
     }
 
@@ -175,7 +175,7 @@ public class DiarySetInfoActivity extends BaseActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LogTool.d(this.getClass().getName(), "activity event =" + event.getRawY());
+        LogTool.d("activity event =" + event.getRawY());
         return super.onTouchEvent(event);
     }
 
@@ -184,7 +184,7 @@ public class DiarySetInfoActivity extends BaseActivity {
         diarySetLinearLayoutManager = new LinearLayoutManager(this) {
             @Override
             public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
-                LogTool.d(this.getClass().getName(), "dy =" + dy);
+                LogTool.d("dy =" + dy);
 
 
                 return super.scrollVerticallyBy(dy, recycler, state);
@@ -217,7 +217,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                LogTool.d(this.getClass().getName(), "dy =" + dy);
+                LogTool.d("dy =" + dy);
 
                 totalOffsetY += dy;
 
@@ -726,7 +726,7 @@ public class DiarySetInfoActivity extends BaseActivity {
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Uri uri = UCrop.getOutput(result);
-            LogTool.d(TAG, "uri path: " + uri.toString() + uri.getEncodedPath());
+            LogTool.d("uri path: " + uri.toString() + uri.getEncodedPath());
             Bitmap bitmap = null;
             try {
                 InputStream is = this.getContentResolver().openInputStream(uri);

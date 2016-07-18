@@ -38,14 +38,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogTool.d(this.getClass().getName(), "onCreate");
+        LogTool.d("onCreate");
         init();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        LogTool.d(this.getClass().getName(), "onCreateView");
+        LogTool.d("onCreateView");
         this.inflater = inflater;
         if (getLayoutId() > 0) {
             view = inflateView(getLayoutId());
@@ -57,7 +57,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LogTool.d(this.getClass().getName(), "onActivityCreated");
+        LogTool.d("onActivityCreated");
         initUserInfo();
     }
 
@@ -79,7 +79,7 @@ public abstract class BaseFragment extends Fragment {
         mUserName = dataManager.getUserName();
         mAccount = dataManager.getAccount();
         mUserImageId = dataManager.getUserImagePath();
-        LogTool.d(this.getClass().getName(), "mUserName:" + mUserName
+        LogTool.d("mUserName:" + mUserName
                 + " mAccount:" + mAccount + " userImageId:" + mUserImageId);
     }
 
@@ -92,14 +92,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        LogTool.d(this.getClass().getName(), "onResume");
+        LogTool.d("onResume");
         initUserInfo();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LogTool.d(this.getClass().getName(), "onPause");
+        LogTool.d("onPause");
     }
 
     @Override
@@ -107,25 +107,25 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
         ButterKnife.unbind(this);
         ApiClient.cancelTag(this);
-        LogTool.d(this.getClass().getName(), "onDestroy");
+        LogTool.d("onDestroy");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        LogTool.d(this.getClass().getName(), "onDetach");
+        LogTool.d("onDetach");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogTool.d(this.getClass().getName(), "onAttach context");
+        LogTool.d("onAttach context");
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        LogTool.d(this.getClass().getName(), "onAttach activity");
+        LogTool.d("onAttach activity");
     }
 
     protected void makeTextShort(String text) {

@@ -48,7 +48,7 @@ public class ProcessDetailHeadStateView extends LinearLayout {
 
     public void resetCheckLayout(ProcessSection processSection) {
         String section_status = processSection.getStatus();
-        LogTool.d(TAG, "section_status=" + section_status);
+        LogTool.d("section_status=" + section_status);
         switch (section_status) {
             case Constant.FINISHED:
                 site_list_head_delay_layout.setVisibility(View.GONE);
@@ -75,7 +75,7 @@ public class ProcessDetailHeadStateView extends LinearLayout {
                 openDelay.setText(getResources().getText(R.string.site_example_node_delay));
                 break;
             case Constant.YANQI_BE_DOING:
-                LogTool.d(TAG, "this section is yanqi_doing");
+                LogTool.d("this section is yanqi_doing");
                 Reschedule reschedule = processSection.getReschedule();
                 if (null != reschedule) {
                     String role = reschedule.getRequest_role();
@@ -98,7 +98,7 @@ public class ProcessDetailHeadStateView extends LinearLayout {
     }
 
     private void showHead() {
-        LogTool.d(TAG, "show head");
+        LogTool.d("show head");
 //        openCheckLayout();
 //        if (site_list_head_check_layout.getVisibility() == GONE) {
 //            LogTool.d(TAG, "check height =" + site_list_head_check_layout.getHeight());

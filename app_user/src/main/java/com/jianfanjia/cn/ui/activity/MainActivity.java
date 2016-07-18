@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         //每次resume刷新一下消息条数
-        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, this,Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
@@ -281,7 +281,7 @@ public class MainActivity extends BaseActivity {
 
     public void onEventMainThread(MessageCountEvent messageCountEvent) {
         //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
-        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener,this, Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 

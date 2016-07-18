@@ -239,7 +239,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         @Override
         public void onSuccess(ApiResponse<CommentList> apiResponse) {
             CommentList commentList = apiResponse.getData();
-            LogTool.d(TAG, "commentList:" + commentList);
+            LogTool.d("commentList:" + commentList);
             if (null != commentList) {
                 mCommentList = commentList.getComments();
                 mDiaryDetailInfoAdapter = new DiaryDetailInfoAdapter(DiaryDetailInfoActivity.this, mCommentList,
@@ -312,7 +312,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         }
         toCommentId = comment.get_id();
         commentEdit.setHint(replayHint);
-        LogTool.d(this.getClass().getName(), " to = " + to);
+        LogTool.d(" to = " + to);
     }
 
     @OnClick({R.id.btn_send, R.id.head_back_layout})

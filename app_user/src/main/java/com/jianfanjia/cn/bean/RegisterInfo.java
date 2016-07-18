@@ -53,7 +53,7 @@ public class RegisterInfo implements Serializable {
         String regJson = "{\"phone\" : \"" + phone + "\"," + "\"pass\" : \""
                 + pass + "\"," + "\"code\" : \"" + code + "\","
                 + "\"type\" : \"" + type + "\"}";
-        LogTool.d(this.getClass().getName(), regJson);
+        LogTool.d(regJson);
         return regJson;
     }
 }

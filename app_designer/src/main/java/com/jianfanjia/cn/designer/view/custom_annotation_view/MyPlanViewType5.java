@@ -133,7 +133,7 @@ public class MyPlanViewType5 extends MyPlanViewTypeBase {
             }
         });
         if (requirementInfo.getStatus().equals(Global.REQUIREMENT_STATUS4)) {
-            LogTool.d(this.getClass().getName(), "work_type =" + requirementInfo.getWork_type());
+            LogTool.d("work_type =" + requirementInfo.getWork_type());
             if (requirementInfo.getWork_type().equals(Global.WORK_TYPE_DESIGNER)) {
                 settingStartAtLayout.setVisibility(View.GONE);
                 statusView.setText(getResources().getString(R.string

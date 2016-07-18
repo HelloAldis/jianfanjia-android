@@ -254,7 +254,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onSuccess(ApiResponse<DesignerList> apiResponse) {
             DesignerList designer = apiResponse.getData();
-            LogTool.d(TAG, "designer:" + designer);
+            LogTool.d("designer:" + designer);
             if (null != designer) {
                 designerList.clear();
                 designerList.addAll(designer.getDesigners());
@@ -270,7 +270,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                                     @Override
                                     public void OnViewClick(int position) {
                                         String designerId = designerList.get(position).get_id();
-                                        LogTool.d(TAG, "designerId:" + designerId);
+                                        LogTool.d("designerId:" + designerId);
                                         Intent designerIntent = new Intent(DesignerListActivity.this,
                                                 DesignerInfoActivity
                                                         .class);
@@ -286,7 +286,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
                         designerListAdapter.notifyDataSetChanged();
                     }
                     mFrom = designerList.size();
-                    LogTool.d(TAG, "mFrom:" + mFrom);
+                    LogTool.d("mFrom:" + mFrom);
                     isFirst = false;
                     designerListView.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -331,13 +331,13 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         public void onSuccess(ApiResponse<DesignerList> apiResponse) {
             designerListView.onRefreshComplete();
             DesignerList designer = apiResponse.getData();
-            LogTool.d(TAG, "designer:" + designer);
+            LogTool.d("designer:" + designer);
             if (null != designer) {
                 List<Designer> designers = designer.getDesigners();
                 if (null != designers && designers.size() > 0) {
                     designerListAdapter.add(mFrom, designers);
                     mFrom += Constant.HOME_PAGE_LIMIT;
-                    LogTool.d(TAG, "mFrom=" + mFrom);
+                    LogTool.d("mFrom=" + mFrom);
                 } else {
                     makeTextShort(getResources().getString(R.string.no_more_data));
                 }

@@ -65,7 +65,7 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "register afterTextChanged");
+                LogTool.d("register afterTextChanged");
                 String text = s.toString();
                 if (!TextUtils.isEmpty(text)) {
                     mBtnCommit.setEnabled(true);

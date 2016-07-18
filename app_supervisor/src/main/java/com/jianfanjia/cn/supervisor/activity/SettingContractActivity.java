@@ -88,7 +88,7 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
                 totalDuration = plan.getDuration();
                 totalBudget = plan.getTotal_price();
                 workType = requirementInfo.getWork_type();
-                LogTool.d(this.getClass().getName(), " requirementid = " + requirementid +
+                LogTool.d(" requirementid = " + requirementid +
                         " totalDuration =" + totalDuration + " totalBudget=" + totalBudget
                         + " workType=" + workType);
             }

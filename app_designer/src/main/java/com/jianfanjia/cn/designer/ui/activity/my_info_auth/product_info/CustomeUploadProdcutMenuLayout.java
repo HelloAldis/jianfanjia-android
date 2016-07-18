@@ -132,7 +132,7 @@ public class CustomeUploadProdcutMenuLayout extends FrameLayout {
     }
 
     private void initMoveDistance() {
-        LogTool.d(this.getClass().getName(), "drawable width =" + openOrCloseView.getDrawable().getIntrinsicWidth());
+        LogTool.d("drawable width =" + openOrCloseView.getDrawable().getIntrinsicWidth());
         clearTranslitionX = 2 * initRightMaigin;
         editTranslitionX = clearTranslitionX * 2;
         settingCoverTranslitionX = clearTranslitionX * 3;

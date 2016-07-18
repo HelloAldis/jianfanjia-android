@@ -57,7 +57,7 @@ public class CommentAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
         holder.itemNameView.setText(userName);
         holder.itemTimeView.setText(DateFormatTool.longToStringHasMini(commentInfo.getDate()));
-        LogTool.d(TAG, "imageid=" + imageid);
+        LogTool.d("imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {

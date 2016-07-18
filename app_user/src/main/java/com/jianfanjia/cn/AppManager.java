@@ -43,7 +43,7 @@ public class AppManager {
             activityStack = new Stack<>();
         }
         activityStack.add(activity);
-        LogTool.d(this.getClass().getName(), currentActivity().getClass().getName());
+        LogTool.d(currentActivity().getClass().getName());
     }
 
     /**
@@ -69,7 +69,7 @@ public class AppManager {
      * 结束指定的Activity
      */
     public void finishActivity(Activity activity) {
-        LogTool.d(this.getClass().getName(), activity.getClass().getName() + " finish()");
+        LogTool.d(activity.getClass().getName() + " finish()");
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
@@ -92,11 +92,11 @@ public class AppManager {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        LogTool.d(this.getClass().getName(), "activityStack.size() =" + activityStack.size());
+        LogTool.d("activityStack.size() =" + activityStack.size());
         Iterator<Activity> iterator = activityStack.iterator();
         while (iterator.hasNext()) {
             Activity activity = iterator.next();
-            LogTool.d(this.getClass().getName(), "activityStack.name() =" + activity.getClass().getName());
+            LogTool.d("activityStack.name() =" + activity.getClass().getName());
             activity.finish();
         }
         activityStack.clear();

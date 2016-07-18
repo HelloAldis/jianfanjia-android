@@ -134,25 +134,25 @@ public class SettingActivity extends BaseSwipeBackActivity {
     @Override
     public void onResume() {
         super.onResume();
-        LogTool.d(TAG, "---onResume()");
+        LogTool.d("---onResume()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogTool.d(TAG, "---onPause()");
+        LogTool.d("---onPause()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogTool.d(TAG, "---onStop()");
+        LogTool.d("---onStop()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogTool.d(TAG, "---onDestroy()");
+        LogTool.d("---onDestroy()");
     }
 
     @Override

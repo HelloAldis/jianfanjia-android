@@ -83,14 +83,14 @@ public class UpdateService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
-        LogTool.d(this.getClass().getName(), "onCreate()");
+        LogTool.d("onCreate()");
         downLoadManager = DownLoadManager.getInstance();
         nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogTool.d(this.getClass().getName(), "onStartCommand()");
+        LogTool.d("onStartCommand()");
         if (intent != null) {
             String download_url = intent.getStringExtra(Constant.DOWNLOAD_URL);
             if (download_url != null) {
@@ -107,11 +107,11 @@ public class UpdateService extends Service{
     private UIProgressListener uiProgressListener = new UIProgressListener() {
         @Override
         public void onUIProgress(final long bytesWritten, final long totalSize, boolean done) {
-            LogTool.d(this.getClass().getName(), "bytesWritten:"
+            LogTool.d("bytesWritten:"
                     + bytesWritten + "  totalSize:" + totalSize);
             String process = (int) ((bytesWritten * 1.0 / totalSize) * 100)
                     + "%";
-            LogTool.d(this.getClass().getName(), "process:" + process);
+            LogTool.d("process:" + process);
             builder.setProgress((int) totalSize, (int) bytesWritten, false);
             builder.setContentInfo((int) ((bytesWritten / (float) totalSize) * 100)
                     + "%");
@@ -121,13 +121,13 @@ public class UpdateService extends Service{
         @Override
         public void onUIStart(long currentBytes, long contentLength, boolean done) {
             super.onUIStart(currentBytes, contentLength, done);
-            LogTool.d("uiProgressListener", "onUiStart");
+            LogTool.d("onUiStart");
         }
 
         @Override
         public void onUIFinish(long currentBytes, long contentLength, boolean done) {
             super.onUIFinish(currentBytes, contentLength, done);
-            LogTool.d("uiProgressListener", "onUiFinish");
+            LogTool.d("onUiFinish");
         }
     };
 
@@ -146,6 +146,6 @@ public class UpdateService extends Service{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LogTool.d(this.getClass().getName(), "onDestroy()");
+        LogTool.d("onDestroy()");
     }
 }

@@ -93,7 +93,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            LogTool.d(this.getClass().getName(), "designer is not null");
+            LogTool.d("designer is not null");
             mDesigner = (Designer) bundle.getSerializable(Global.DESIGNER_INFO);
             intentFrom = bundle.getInt(INTENT_FROM_FLAG, FROM_MAIN_INTENT);
         }
@@ -312,7 +312,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Uri uri = UCrop.getOutput(result);
-            LogTool.d(TAG, "uri path: " + uri.toString() + uri.getEncodedPath());
+            LogTool.d("uri path: " + uri.toString() + uri.getEncodedPath());
             Bitmap bitmap = null;
             try {
                 InputStream is = this.getContentResolver().openInputStream(uri);
@@ -415,7 +415,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             String path = this.photos.get(0);
             this.photos.remove(0);
             Bitmap imageBitmap = ImageUtil.getImage(path);
-            LogTool.d(TAG, "imageBitmap: path :" + path);
+            LogTool.d("imageBitmap: path :" + path);
             if (null != imageBitmap) {
                 upload_image(imageBitmap, uploadAwardImage);
             }
@@ -431,7 +431,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             for (String path : photos) {
                 Bitmap imageBitmap = ImageUtil.getImage(path);
-                LogTool.d(TAG, "imageBitmap: path :" + path);
+                LogTool.d("imageBitmap: path :" + path);
                 if (null != imageBitmap) {
                     upload_image(imageBitmap, apiCallback);
                 }

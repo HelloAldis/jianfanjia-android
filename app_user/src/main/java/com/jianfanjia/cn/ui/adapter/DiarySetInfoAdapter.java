@@ -112,7 +112,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                 bindContentView(position - headViewCount, dailyInfo, holder);
                 if (position - headViewCount == list.size() - 1) {
                     ((DiarySetDiaryViewHolder) viewHolder).itemView.measure(0, 0);
-                    LogTool.d(this.getClass().getName(), "commentItemHeight height =" + ((DiarySetDiaryViewHolder)
+                    LogTool.d("commentItemHeight height =" + ((DiarySetDiaryViewHolder)
                             viewHolder).itemView
                             .getMeasuredHeight());
                     lastContentItemHeight = ((DiarySetDiaryViewHolder) viewHolder).itemView
@@ -202,7 +202,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         }*/
         int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
                 (context, 48);
-        LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
+        LogTool.d("totalHeight height =" + totalHeight);
         int defaultFootHeight = TDevice.dip2px(context, 96);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewHolder.llFooterLoadNoMore
                 .getLayoutParams();
@@ -242,7 +242,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
             diarySetDiaryViewHolder.tvDailtDelete.setVisibility(View.GONE);
         }
 
-        LogTool.d(this.getClass().getName(), diaryInfo.getContent());
+        LogTool.d(diaryInfo.getContent());
         diarySetDiaryViewHolder.tvDailyStage.setText(DiaryBusiness.getShowDiarySectionLabel(diaryInfo
                 .getSection_label()));
         diarySetDiaryViewHolder.tvDailyGoingTime.setText(DateFormatTool.covertLongToStringHasMiniAndChinese(diaryInfo
@@ -336,7 +336,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         }
         layoutParams.width = viewWidth;
         layoutParams.height = viewHeight;
-        LogTool.d(this.getClass().getName(), "ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
+        LogTool.d("ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
         ivSinglerPic.setLayoutParams(layoutParams);
 
         imageShow.displayScreenWidthThumnailImage(context, imageid, ivSinglerPic);
@@ -348,7 +348,7 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
         for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(context, (ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((Activity) context).overridePendingTransition(0, 0);
@@ -372,10 +372,10 @@ public class DiarySetInfoAdapter extends BaseRecyclerViewAdapter<DiaryInfo> {
                             = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
                         ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
+                        LogTool.d("view left position =" + imageView.getLeft());
                         if (imageView.getVisibility() == View.VISIBLE) {
                             AnimationRect rect = AnimationRect.buildFromImageView(imageView);
-                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
+                            LogTool.d("left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }

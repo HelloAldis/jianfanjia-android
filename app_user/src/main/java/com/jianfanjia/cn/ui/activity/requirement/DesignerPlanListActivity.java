@@ -70,7 +70,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
         requirementid = requirementInfo.get_id();
         designerid = designerBundle.getString(IntentConstant.DESIGNER_ID);
         designerName = designerBundle.getString(IntentConstant.DESIGNER_NAME);
-        LogTool.d(TAG, "requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" +
+        LogTool.d("requirementid:" + requirementid + "  designerid:" + designerid + "  designerName:" +
                 designerName);
     }
 
@@ -163,22 +163,22 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
 
     @Override
     public void onCallBack(int position, int pos) {
-        LogTool.d(TAG, "position=" + position + "  pos=" + pos);
+        LogTool.d("position=" + position + "  pos=" + pos);
         Plan planInfo = designerPlanList.get(position);
-        LogTool.d(TAG, "planInfo:" + planInfo);
+        LogTool.d("planInfo:" + planInfo);
         String planid = planInfo.get_id();
-        LogTool.d(TAG, "planid:" + planid);
+        LogTool.d("planid:" + planid);
         startToActivity(planInfo);
     }
 
     @Override
     public void onItemCallBack(int position, int itemType) {
-        LogTool.d(TAG, "position:" + position + "itemType:" + itemType);
+        LogTool.d("position:" + position + "itemType:" + itemType);
         Plan planInfo = designerPlanList.get(position);
-        LogTool.d(TAG, "planInfo:" + planInfo);
+        LogTool.d("planInfo:" + planInfo);
         String planid = planInfo.get_id();
         String designerid = planInfo.getDesignerid();
-        LogTool.d(TAG, "planid:" + planid + " designerid:" + designerid);
+        LogTool.d("planid:" + planid + " designerid:" + designerid);
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
                 Bundle commentBundle = new Bundle();

@@ -80,12 +80,12 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         designerid = bundle.getString(IntentConstant.DESIGNER_ID);
-        LogTool.d(TAG, "designerid:" + designerid);
+        LogTool.d("designerid:" + designerid);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "onCreateView()");
+        LogTool.d("onCreateView()");
         View view = super.onCreateView(inflater, container, savedInstanceState);
         initView();
         isPrepared = true;
@@ -156,7 +156,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                 public void onSuccess(ApiResponse<ProductList> apiResponse) {
                     mHasLoadedOnce = true;
                     ProductList worksInfo = apiResponse.getData();
-                    LogTool.d(TAG, "worksInfo :" + worksInfo);
+                    LogTool.d("worksInfo :" + worksInfo);
                     if (null != worksInfo) {
                         if (null == adapter) {
                             productList.addAll(worksInfo.getProducts());
@@ -166,7 +166,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                                 public void onItemClick(int position) {
                                     Product product = productList.get(position);
                                     String productid = product.get_id();
-                                    LogTool.d(TAG, "productid:" + productid);
+                                    LogTool.d("productid:" + productid);
                                     Bundle productBundle = new Bundle();
                                     productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                                     startActivity(DesignerCaseInfoActivity.class, productBundle);
@@ -174,13 +174,13 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                             });
                             designer_works_listview.setAdapter(adapter);
                             FROM = productList.size();
-                            LogTool.d(TAG, "FROM:" + FROM);
+                            LogTool.d("FROM:" + FROM);
                         } else {
                             List<Product> products = worksInfo.getProducts();
                             if (null != products && products.size() > 0) {
                                 adapter.add(FROM, products);
                                 FROM += Constant.HOME_PAGE_LIMIT;
-                                LogTool.d(TAG, "FROM=" + FROM);
+                                LogTool.d("FROM=" + FROM);
                             } else {
                                 makeTextShort(getResources().getString(R.string.no_more_data));
                             }

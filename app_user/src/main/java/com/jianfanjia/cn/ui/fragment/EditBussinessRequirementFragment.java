@@ -151,7 +151,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
         } else {
             isFinish = false;
         }
-        LogTool.d(TAG, "isFinish = " + isFinish);
+        LogTool.d("isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }
 
@@ -212,7 +212,7 @@ public class EditBussinessRequirementFragment extends BaseFragment {
     }
 
     private void initData() {
-        LogTool.d(TAG, "initData");
+        LogTool.d("initData");
         requirementInfo = (Requirement) getArguments().getSerializable(IntentConstant.REQUIREMENT_INFO);
         actionType = getArguments().getInt(IntentConstant.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {

@@ -108,7 +108,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                 bindComment((CommentViewHolder) viewHolder, position - 1, list);
 
                 ((CommentViewHolder) viewHolder).itemView.measure(0, 0);
-                LogTool.d(this.getClass().getName(), "commentItemHeight height =" + ((CommentViewHolder)
+                LogTool.d("commentItemHeight height =" + ((CommentViewHolder)
                         viewHolder).itemView
                         .getMeasuredHeight());
                 itemHeight.put(position - 1, ((CommentViewHolder) viewHolder).itemView.getMeasuredHeight());
@@ -128,12 +128,12 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         if (isFisrtBind) {
             int totalHeight = (int) TDevice.getScreenHeight() - TDevice.getStatusBarHeight(context) - TDevice.dip2px
                     (context, 48);
-            LogTool.d(this.getClass().getName(), "totalHeight height =" + totalHeight);
+            LogTool.d("totalHeight height =" + totalHeight);
             int commentItemHeight = 0;
             for (int i = 0; i < itemHeight.size(); i++) {
                 commentItemHeight += itemHeight.get(i);
             }
-            LogTool.d(this.getClass().getName(), "commentItemTotalHeight height =" + commentItemHeight);
+            LogTool.d("commentItemTotalHeight height =" + commentItemHeight);
             int defaultFootHeight = TDevice.dip2px(context, 96);
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewHolder.llFooterLoadNoMore
                     .getLayoutParams();
@@ -188,7 +188,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         diaryViewHolder.rlDiaryCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogTool.d(this.getClass().getName(), "showSoftKeyBoard");
+                LogTool.d("showSoftKeyBoard");
                 ((DiaryDetailInfoActivity) context).showSoftKeyBoard();
             }
         });
@@ -250,7 +250,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
         layoutParams.width = viewWidth;
         layoutParams.height = viewHeight;
-        LogTool.d(this.getClass().getName(), "ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
+        LogTool.d("ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
         ivSinglerPic.setLayoutParams(layoutParams);
 
         imageShow.displayScreenWidthThumnailImage(context, imageid, ivSinglerPic);
@@ -351,7 +351,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(context, (ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((Activity) context).overridePendingTransition(0, 0);
@@ -375,10 +375,10 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
                             = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
                         ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
+                        LogTool.d("view left position =" + imageView.getLeft());
                         if (imageView.getVisibility() == View.VISIBLE) {
                             AnimationRect rect = AnimationRect.buildFromImageView(imageView);
-                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
+                            LogTool.d("left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }
@@ -469,7 +469,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
         }
         holder.itemNameView.setText(userName);
         holder.itemTimeView.setText(DateFormatTool.getHumReadDateString(commentInfo.getDate()));
-        LogTool.d(TAG, "imageid=" + imageid);
+        LogTool.d("imageid=" + imageid);
         if (!TextUtils.isEmpty(imageid)) {
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {

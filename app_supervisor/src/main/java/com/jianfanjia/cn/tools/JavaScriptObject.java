@@ -54,13 +54,13 @@ public class JavaScriptObject {
 
     @JavascriptInterface
     public void description(String description) {
-        LogTool.d(TAG, "description = " + description);
+        LogTool.d("description = " + description);
         this.description = description;
     }
 
     @JavascriptInterface
     public void imageUrl(String imageUrl) {
-        LogTool.d(TAG, "image url = " + imageUrl);
+        LogTool.d("image url = " + imageUrl);
         this.imageUrl = imageUrl;
     }
 }

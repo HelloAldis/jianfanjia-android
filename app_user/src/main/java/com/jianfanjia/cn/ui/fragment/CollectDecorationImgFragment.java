@@ -172,7 +172,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     mHasLoadedOnce = true;
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
-                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    LogTool.d("decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         total = decorationItemInfo.getTotal();
                         beautyImgList.clear();
@@ -183,11 +183,11 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                         BaseRecyclerViewAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(int position) {
-                                                LogTool.d(TAG, "position:" + position);
+                                                LogTool.d("position:" + position);
                                                 currentPos = position;
-                                                LogTool.d(TAG, "currentPos====" + currentPos);
+                                                LogTool.d("currentPos====" + currentPos);
                                                 BeautifulImage beautyImgInfo = beautyImgList.get(currentPos);
-                                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                                LogTool.d("beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
                                                 decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID,
                                                         beautyImgInfo.get_id
@@ -248,7 +248,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
-                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    LogTool.d("decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         List<BeautifulImage> beautyList = decorationItemInfo.getBeautiful_images();
                         if (null != beautyList && beautyList.size() > 0) {
@@ -292,7 +292,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                     removePos = i;
                 }
             }
-            LogTool.d("notifyChangeItemState", removePos + "");
+            LogTool.d(removePos + "");
             if (removePos != -1) {
                 decorationImgAdapter.remove(removePos);
                 total = beautyImgList.size();

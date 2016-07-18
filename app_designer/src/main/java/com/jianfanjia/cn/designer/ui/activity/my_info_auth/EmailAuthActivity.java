@@ -156,7 +156,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
     }
 
     private void showAuthingFragment() {
-        LogTool.d(this.getClass().getName(), "updateEmail = " + email + " mEmailAuthingFragment =" +
+        LogTool.d("updateEmail = " + email + " mEmailAuthingFragment =" +
                 mEmailAuthingFragment);
         if (mEmailAuthingFragment == null  || mEmailAuthingFragment.getView() == null) {
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager()
@@ -179,7 +179,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
 
     @Override
     public void updateEmil() {
-        LogTool.d(this.getClass().getName(), "updateEmail");
+        LogTool.d("updateEmail");
         showSendEmailAuth();
     }
 

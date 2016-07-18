@@ -68,7 +68,7 @@ public class HomeScrollView extends ScrollView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         totaloffset = contentView.findViewById(R.id.head_layout).getMeasuredHeight();
-        LogTool.d(this.getClass().getName(), "totaloffset =" + totaloffset);
+        LogTool.d("totaloffset =" + totaloffset);
 
         setContentViewPagerLayoutParam();
     }
@@ -77,7 +77,7 @@ public class HomeScrollView extends ScrollView {
         mLayoutParams.width = getMeasuredWidth();
         mLayoutParams.height = getMeasuredHeight();
 
-        LogTool.d(TAG, "mLayoutParams.width = " + mLayoutParams.width + ",mLayoutParams.height =" + mLayoutParams
+        LogTool.d("mLayoutParams.width = " + mLayoutParams.width + ",mLayoutParams.height =" + mLayoutParams
                 .height);
         contentViewPager.setLayoutParams(mLayoutParams);
     }
@@ -85,7 +85,7 @@ public class HomeScrollView extends ScrollView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        LogTool.d(TAG, "h = " + h + ",oldh =" + oldh);
+        LogTool.d("h = " + h + ",oldh =" + oldh);
 
         if (h != oldh) {
 //            resetInitView();
@@ -138,7 +138,7 @@ public class HomeScrollView extends ScrollView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        LogTool.d(this.getClass().getName(), "onTouchEvent");
+        LogTool.d("onTouchEvent");
 
         if (contentView.getBottom() - contentView.getTop() < TDevice.getScreenHeight()) {
             //图片加载失败，禁止滑动事件
@@ -151,22 +151,22 @@ public class HomeScrollView extends ScrollView {
             case MotionEvent.ACTION_MOVE:
                 if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
                     if (scrollPullUpListener != null && !isIntent) {
-                        LogTool.d(this.getClass().getName(), "intentTo");
+                        LogTool.d("intentTo");
                         isIntent = true;
                         scrollPullUpListener.scrollPullUp();
                     }
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                LogTool.d(this.getClass().getName(), "ACTION_Up");
-                LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX) = " + (nowX
+                LogTool.d("ACTION_Up");
+                LogTool.d("(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX) = " + (nowX
                         - lastX));
                 if (getScrollY() > 0 && getScrollY() < totaloffset) {
                     if (contentFlag == ANCHOR_TOP) {
                         ainmatorToFooter();
                         break;
                     } else if (contentFlag == ANCHOR_BOTTOPM) {
-                        LogTool.d(this.getClass().getName(), "scrollBottom");
+                        LogTool.d("scrollBottom");
                         ainmatorToHead();
                         break;
                     }
@@ -174,7 +174,7 @@ public class HomeScrollView extends ScrollView {
                 isIntent = false;
                 break;
             case MotionEvent.ACTION_CANCEL:
-                LogTool.d(this.getClass().getName(), "ACTION_cancel");
+                LogTool.d("ACTION_cancel");
                 isIntent = false;
                 break;
             default:
@@ -264,7 +264,7 @@ public class HomeScrollView extends ScrollView {
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                LogTool.d(this.getClass().getName(), "ACTION_DOWN");
+                LogTool.d("ACTION_DOWN");
                 lastX = ev.getX();
                 lastY = ev.getY();
                 break;

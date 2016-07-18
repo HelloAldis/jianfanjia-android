@@ -42,7 +42,7 @@ public class DownloadClient {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (e != null) {
-                    LogTool.d(TAG, "Network e: " + e.toString());
+                    LogTool.d("Network e: " + e.toString());
                 }
 
                 httpDone(downloadRequest, apiCallback);
@@ -78,7 +78,7 @@ public class DownloadClient {
                         uiProgressListener.onProgress(total, response.body().contentLength(), true);
 
                         //如果下载文件成功，传递的数据为文件的绝对路径
-                        LogTool.d(TAG, destFile.getAbsolutePath());
+                        LogTool.d(destFile.getAbsolutePath());
                         ApiResponse<String> apiResponse = new ApiResponse<String>();
                         apiResponse.setData(destFile.getAbsolutePath());
 

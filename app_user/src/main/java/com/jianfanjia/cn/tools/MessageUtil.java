@@ -50,7 +50,7 @@ public class MessageUtil {
 
     private static void sendNotifycation(Context context, NotifyMessage message) {
         int notifyId = (int) System.currentTimeMillis();
-        LogTool.d(TAG, "notifyId =" + notifyId);
+        LogTool.d("notifyId =" + notifyId);
         NotificationManager nManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
@@ -59,7 +59,7 @@ public class MessageUtil {
         mRemoteViews.setImageViewResource(R.id.list_item_img, R.drawable.ic_launcher);
         builder.setSmallIcon(R.mipmap.icon_notify_small);
         String type = message.getType();
-        LogTool.d(TAG, "type =" + type);
+        LogTool.d("type =" + type);
         Intent mainIntent = new Intent(context, MainActivity.class);
         Intent targetIntent = null;
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

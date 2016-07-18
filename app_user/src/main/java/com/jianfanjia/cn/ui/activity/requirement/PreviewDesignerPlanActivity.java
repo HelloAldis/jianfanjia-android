@@ -119,7 +119,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         requirementInfo = (Requirement) planBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
         requirementid = requirementInfo.get_id();
         flagIntent = planBundle.getInt(PLAN_INTENT_FLAG, PLAN_LIST_INTENT);//默认是从方案列表过来的
-        LogTool.d(TAG, "planid=" + planid + " itemPosition=" + itemPosition);
+        LogTool.d("planid=" + planid + " itemPosition=" + itemPosition);
     }
 
     private void initData() {
@@ -129,7 +129,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             designTextLayout.setVisibility(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
             designerid = planDetailInfo.getDesignerid();
-            LogTool.d(TAG, "requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" +
+            LogTool.d("requirementid:" + requirementid + " designerid:" + designerid + " requirementInfo:" +
                     requirementInfo);
             if (!TextUtils.isEmpty(requirementInfo.getBasic_address())) {
                 cellName.setVisibility(View.VISIBLE);
@@ -276,7 +276,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
 
     //选定方案
     private void chooseDesignerPlan(String requirementid, String designerid, String planid) {
-        LogTool.d(TAG, "requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
+        LogTool.d("requirementid=" + requirementid + " designerid=" + designerid + " planid=" + planid);
         ChooseDesignerPlanRequest chooseDesignerPlanRequest = new ChooseDesignerPlanRequest();
         chooseDesignerPlanRequest.setRequirementid(requirementid);
         chooseDesignerPlanRequest.setDesignerid(designerid);

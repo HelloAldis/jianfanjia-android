@@ -203,7 +203,7 @@ public class CommonShowPicFragment extends BaseFragment {
         } else {
             startScale = (float) startBounds.width() / finalBounds.width();
         }
-        LogTool.d(this.getClass().getName(), "finalBounds.width() =" + finalBounds.width() + ",finalBounds.height() =" +
+        LogTool.d("finalBounds.width() =" + finalBounds.width() + ",finalBounds.height() =" +
                 " " + finalBounds.height());
 
         int deltaTop = startBounds.top - finalBounds.top;

@@ -72,7 +72,7 @@ public class SearchActivity extends BaseSwipeBackActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                LogTool.d(TAG, "checkId");
+                LogTool.d("checkId");
                 switch (checkedId) {
                     case R.id.tab_rb_1:
                         setTabSelection(DESIGNER);

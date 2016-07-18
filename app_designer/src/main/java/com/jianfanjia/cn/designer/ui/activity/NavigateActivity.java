@@ -84,7 +84,7 @@ public class NavigateActivity extends BaseActivity implements
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
         // TODO Auto-generated method stub
-        LogTool.d(this.getClass().getName(), "arg0 =" + arg0 + " arg1 =" + arg1 + " arg2 =" + arg2);
+        LogTool.d("arg0 =" + arg0 + " arg1 =" + arg1 + " arg2 =" + arg2);
         if (currentState == ViewPager.SCROLL_STATE_DRAGGING && arg0 == list.size() - 1 && arg1 == 0.0f) {
             if(!intentTo){
                 dataManager.setFisrt(false);

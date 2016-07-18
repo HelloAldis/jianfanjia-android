@@ -120,7 +120,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
         if (planBundle != null) {
             messageid = planBundle.getString(IntentConstant.MSG_ID);
             getNoticeDetailInfo(messageid);
-            LogTool.d(TAG, "messageid=" + messageid);
+            LogTool.d("messageid=" + messageid);
         }
         initMainHeadView();
         contentView.getSettings().setJavaScriptEnabled(true);
@@ -184,17 +184,17 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
     }
 
     public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent) {
-        LogTool.d(TAG, "ChoosedPlanEvent onEventMainThread");
+        LogTool.d("ChoosedPlanEvent onEventMainThread");
         planInfo.setStatus(Global.PLAN_STATUS5);
     }
 
     public void onEventMainThread(ChoosedContractEvent choosedContractEvent) {
-        LogTool.d(TAG, "ChoosedContractEvent onEventMainThread");
+        LogTool.d("ChoosedContractEvent onEventMainThread");
         requirement.setStatus(Global.REQUIREMENT_STATUS5);
     }
 
     public void onEventMainThread(CheckEvent checkEvent) {
-        LogTool.d(TAG, "CheckEvent onEventMainThread");
+        LogTool.d("CheckEvent onEventMainThread");
         sectionInfo.setStatus(Constant.FINISHED);
     }
 
@@ -215,17 +215,17 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             @Override
             public void onSuccess(ApiResponse<UserMessage> apiResponse) {
                 UserMessage noticeDetailInfo = apiResponse.getData();
-                LogTool.d(TAG, "noticeDetailInfo=" + noticeDetailInfo);
+                LogTool.d("noticeDetailInfo=" + noticeDetailInfo);
                 if (null != noticeDetailInfo) {
                     String msgType = noticeDetailInfo.getMessage_type();
                     ProcessSection processSection = ProcessBusiness.getSectionInfoByName(noticeDetailInfo
                                     .getProcess(),
                             noticeDetailInfo.getSection());
-                    LogTool.d(TAG, "msgType==================" + msgType);
+                    LogTool.d("msgType==================" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         processid = noticeDetailInfo.getProcessid();
-                        LogTool.d(TAG, "processid=" + processid);
+                        LogTool.d("processid=" + processid);
                         doubleBtnLayout.setVisibility(View.VISIBLE);
                         singleBtnLayout.setVisibility(View.GONE);
                         typeText.setText(getResources().getString(R.string.delay_str));
@@ -283,9 +283,9 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         btnCheck.setVisibility(View.VISIBLE);
                         sectionName = noticeDetailInfo.getSection();
                         processInfo = noticeDetailInfo.getProcess();
-                        LogTool.d(TAG, "sectionName=" + sectionName + "  processInfo=" + processInfo);
+                        LogTool.d("sectionName=" + sectionName + "  processInfo=" + processInfo);
                         sectionInfo = BusinessCovertUtil.getSectionInfoByName(processInfo.getSections(), sectionName);
-                        LogTool.d(TAG, "sectionInfo=" + sectionInfo);
+                        LogTool.d("sectionInfo=" + sectionInfo);
                         typeText.setText(getResources().getString(R.string.check_str));
                         cellText.setText(noticeDetailInfo.getProcess().getBasic_address());
                         sectionText.setVisibility(View.VISIBLE);
@@ -298,7 +298,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         planInfo = noticeDetailInfo.getPlan();
                         requirement = noticeDetailInfo.getRequirement();
-                        LogTool.d(TAG, "requirement==" + requirement + "   planInfo==" + planInfo);
+                        LogTool.d("requirement==" + requirement + "   planInfo==" + planInfo);
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
@@ -308,7 +308,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         requirement = noticeDetailInfo.getRequirement();
-                        LogTool.d(TAG, "requirement=" + requirement);
+                        LogTool.d("requirement=" + requirement);
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
@@ -320,7 +320,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         planInfo = noticeDetailInfo.getPlan();
                         requirementid = noticeDetailInfo.getRequirementid();
                         designerid = noticeDetailInfo.getDesignerid();
-                        LogTool.d(TAG, "planInfo:" + planInfo + " requirementid:" + requirementid + " designerid:" +
+                        LogTool.d("planInfo:" + planInfo + " requirementid:" + requirementid + " designerid:" +
                                 designerid);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);

@@ -113,7 +113,7 @@ public class CustomEditText extends FrameLayout {
                     textWatcher.afterTextChanged(s);
                     if (isShowCurrentInputSize) {
                         currentCanInputSize = totalCanInputSize - s.toString().length();
-                        LogTool.d(TAG, "leaveLength =" + currentCanInputSize);
+                        LogTool.d("leaveLength =" + currentCanInputSize);
                         lengthText.setText(String.valueOf(currentCanInputSize) + "/" + String.valueOf(totalCanInputSize));
                     }
                 }

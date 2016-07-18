@@ -254,12 +254,12 @@ public class UploadProduct1Fragment extends BaseFragment {
                     && !TextUtils.isEmpty(mProduct.getWork_type()) && mProduct.getTotal_price() > 0
                     ) {
 
-                LogTool.d(TAG, "isFisish =" + true);
+                LogTool.d("isFisish =" + true);
                 mMainHeadView.setRigthTitleEnable(true);
             }
 
         } else {
-            LogTool.d(TAG, "isFisish =" + false);
+            LogTool.d("isFisish =" + false);
             mMainHeadView.setRigthTitleEnable(false);
         }
 
@@ -270,29 +270,29 @@ public class UploadProduct1Fragment extends BaseFragment {
                 ) {
             if (mProduct.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
                 if (!TextUtils.isEmpty(mProduct.getBusiness_house_type())) {
-                    LogTool.d(TAG, "isFisish =" + true);
+                    LogTool.d("isFisish =" + true);
                     mMainHeadView.setRigthTitleEnable(true);
                 }else {
-                    LogTool.d(TAG, "isFisish =" + false);
+                    LogTool.d("isFisish =" + false);
                     mMainHeadView.setRigthTitleEnable(false);
                 }
             } else {
                 if (!TextUtils.isEmpty(mProduct.getHouse_type())) {
-                    LogTool.d(TAG, "isFisish =" + true);
+                    LogTool.d("isFisish =" + true);
                     mMainHeadView.setRigthTitleEnable(true);
                 }else {
-                    LogTool.d(TAG, "isFisish =" + false);
+                    LogTool.d("isFisish =" + false);
                     mMainHeadView.setRigthTitleEnable(false);
                 }
             }
         } else {
-            LogTool.d(TAG, "isFisish =" + false);
+            LogTool.d("isFisish =" + false);
             mMainHeadView.setRigthTitleEnable(false);
         }
     }
 
     private void initData() {
-        LogTool.d(this.getClass().getName(), "initData");
+        LogTool.d("initData");
         if (mProduct != null) {
             if (!TextUtils.isEmpty(mProduct.getProvince()) && !TextUtils.isEmpty(mProduct.getCity()
             ) && !TextUtils.isEmpty(mProduct.getDistrict())) {

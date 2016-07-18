@@ -49,7 +49,7 @@ public class DetailPriceActivity extends BaseSwipeBackActivity {
         Bundle priceBundle = intent.getExtras();
         detailInfo = (Plan) priceBundle.getSerializable(IntentConstant.PLAN_DETAIL);
         requirement = (Requirement) priceBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
-        LogTool.d(TAG, "detailInfo =" + detailInfo);
+        LogTool.d("detailInfo =" + detailInfo);
     }
 
     public void initView() {

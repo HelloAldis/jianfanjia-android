@@ -242,23 +242,23 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
-                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    LogTool.d("decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         total = decorationItemInfo.getTotal();
-                        LogTool.d(TAG, "total:" + total);
+                        LogTool.d("total:" + total);
                         beautyImgList.clear();
                         beautyImgList.addAll(decorationItemInfo.getBeautiful_images());
-                        LogTool.d(TAG, "beautyImgList=" + beautyImgList);
+                        LogTool.d("beautyImgList=" + beautyImgList);
                         if (null != beautyImgList && beautyImgList.size() > 0) {
                             if (null == decorationAdapter) {
-                                LogTool.d(TAG, "decorationAdapter is null");
+                                LogTool.d("decorationAdapter is null");
                                 decorationAdapter = new DecorationAdapter(getActivity(), beautyImgList, new
                                         BaseRecyclerViewAdapter.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(int position) {
-                                                LogTool.d(TAG, "position=" + position);
+                                                LogTool.d("position=" + position);
                                                 BeautifulImage beautyImgInfo = beautyImgList.get(position);
-                                                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                                                LogTool.d("beautyImgInfo:" + beautyImgInfo);
                                                 Bundle decorationBundle = new Bundle();
                                                 decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID,
                                                         beautyImgInfo.get_id
@@ -278,7 +278,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                                         });
                                 decoration_listview.setAdapter(decorationAdapter);
                             } else {
-                                LogTool.d(TAG, "decorationAdapter is not null");
+                                LogTool.d("decorationAdapter is not null");
                                 decoration_listview.scrollToPosition(0);
                                 decorationAdapter.notifyDataSetChanged();
                             }
@@ -293,7 +293,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                         }
                         errorLayout.setVisibility(View.GONE);
                         FROM = beautyImgList.size();
-                        LogTool.d(TAG, "FROM:" + FROM);
+                        LogTool.d("FROM:" + FROM);
                     }
                 }
 
@@ -329,14 +329,14 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
-                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    LogTool.d("decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         List<BeautifulImage> beautyImgs = decorationItemInfo.getBeautiful_images();
-                        LogTool.d(TAG, "beautyImgs=" + beautyImgs);
+                        LogTool.d("beautyImgs=" + beautyImgs);
                         if (null != beautyImgs && beautyImgs.size() > 0) {
                             decorationAdapter.add(FROM, beautyImgs);
                             FROM += Constant.HOME_PAGE_LIMIT;
-                            LogTool.d(TAG, "FROM=" + FROM);
+                            LogTool.d("FROM=" + FROM);
                         } else {
                             makeTextShort(getResources().getString(R.string.no_more_data));
                         }
@@ -438,7 +438,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
     private void notifyChangeItemState(String imageid, boolean isCollect) {
         for (BeautifulImage beautyImgInfo : decorationAdapter.getBeautyImgList()) {
             if (beautyImgInfo.get_id().equals(imageid)) {
-                LogTool.d("notifyChangeItemState", "isCollect = " + isCollect);
+                LogTool.d("isCollect = " + isCollect);
                 beautyImgInfo.setIs_my_favorite(isCollect);
             }
         }

@@ -8,12 +8,14 @@ import android.os.StrictMode;
 import java.net.CookieStore;
 
 import com.jianfanjia.api.ApiClient;
+import com.jianfanjia.cn.supervisor.BuildConfig;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.api.BaseApiCallbackImpl;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.cookie.PersistentCookieStore;
 import com.jianfanjia.common.base.application.BaseApplication;
 import com.jianfanjia.common.tool.DataCleanTool;
+import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -43,6 +45,8 @@ public class MyApplication extends BaseApplication {
 
         initImageLoader(this);
         initApiClient();
+
+        LogTool.setDEBUG(BuildConfig.DEBUG);//设置log开关
 
 //        refWatcher = LeakCanary.install(this);
     }

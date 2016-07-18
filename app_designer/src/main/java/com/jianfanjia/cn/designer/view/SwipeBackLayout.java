@@ -270,8 +270,8 @@ public class SwipeBackLayout extends ViewGroup {
                     break;
                 case LEFT:
                     handled = (startX < TDevice.dip2px(getContext(), 50));//只能从边缘拉动回退，防止误操作
-                    LogTool.d(this.getClass().getName(), "startX =" + startX);
-                    LogTool.d(this.getClass().getName(), "handled =" + handled);
+                    LogTool.d("startX =" + startX);
+                    LogTool.d("handled =" + handled);
                     break;
                 case RIGHT:
                     break;

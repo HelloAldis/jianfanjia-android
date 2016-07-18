@@ -608,7 +608,7 @@ public class ImageUtil {
         if (bitmap != null) {
             String savePath = FileUtil.createFile(FileUtil.getSDCardPublicDir(Environment
                     .DIRECTORY_PICTURES), FileUtil.createTimeStampFileName()).getPath();
-            LogTool.d(ImageUtil.class.getName(), savePath);
+            LogTool.d(savePath);
             isSuccess = saveImageToSD(context, savePath, bitmap, quality);
         }
         return isSuccess;
@@ -875,11 +875,11 @@ public class ImageUtil {
             }
         }
         if (bitmap != null) {
-            LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
-            LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
-            LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
-            LogTool.d("fjg", "after scaled newOpts height:" + newOpts.outHeight);
-            LogTool.d("fjg", "after scaled bitmap size:" + bitmap.getByteCount());
+            LogTool.d("after scaled bitmap width:" + bitmap.getWidth());
+            LogTool.d("after scaled bitmap height:" + bitmap.getHeight());
+            LogTool.d("after scaled newOpts width:" + newOpts.outWidth);
+            LogTool.d("after scaled newOpts height:" + newOpts.outHeight);
+            LogTool.d("after scaled bitmap size:" + bitmap.getByteCount());
         }
         return bitmap;// 压缩好比例大小后再进行质量压缩
     }
@@ -910,11 +910,11 @@ public class ImageUtil {
         newOpts.inSampleSize = be;// 设置缩放比例
         newOpts.inJustDecodeBounds = false;
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
-        LogTool.d("fjg", "newOpts inSampleSize:" + be);
-        LogTool.d("fjg", "after scaled bitmap width:" + bitmap.getWidth());
-        LogTool.d("fjg", "after scaled bitmap height:" + bitmap.getHeight());
-        LogTool.d("fjg", "after scaled newOpts width:" + newOpts.outWidth);
-        LogTool.d("fjg", "after scaled newOpts height:" + newOpts.outHeight);
+        LogTool.d("newOpts inSampleSize:" + be);
+        LogTool.d("after scaled bitmap width:" + bitmap.getWidth());
+        LogTool.d("after scaled bitmap height:" + bitmap.getHeight());
+        LogTool.d("after scaled newOpts width:" + newOpts.outWidth);
+        LogTool.d("after scaled newOpts height:" + newOpts.outHeight);
         return bitmap;// 压缩好比例大小后再进行质量压缩
     }
 
@@ -1173,7 +1173,7 @@ public class ImageUtil {
                 new String[]{MediaStore.Video.Media._ID},
                 MediaStore.Video.Media.DATA + "='" + dataPah + "'", null, null);
         if (cursor == null || cursor.getCount() == 0) {
-            LogTool.d("MM_VideoImageView", "数据库中cursor为空");
+            LogTool.d("数据库中cursor为空");
             if (cursor != null) {
                 cursor.close();
             }
@@ -1190,7 +1190,7 @@ public class ImageUtil {
             if (cursor != null) {
                 cursor.close();
             }
-            LogTool.d("MM_VideoImageView", "数据库中videoId为空");
+            LogTool.d("数据库中videoId为空");
             return null;
         }
         if (cursor != null) {
@@ -1198,7 +1198,7 @@ public class ImageUtil {
         }
 
         long videoIdLong = Long.parseLong(videoId);
-        LogTool.d("MM_VideoImageView", "数据库中videoIdLong=" + videoIdLong);
+        LogTool.d("数据库中videoIdLong=" + videoIdLong);
         bitmap = MediaStore.Video.Thumbnails.getThumbnail(cr, videoIdLong,
                 Images.Thumbnails.MINI_KIND, options);
         return bitmap;
@@ -1305,7 +1305,7 @@ public class ImageUtil {
         /**
          * 打印高斯模糊处理时间，如果时间大约16ms，用户就能感到到卡顿，时间越长卡顿越明显，如果对模糊完图片要求不高，可是将scaleFactor设置大一些。
          */
-        LogTool.d("ImageUtil.java", "blur time:" + (System.currentTimeMillis() - startMs));
+        LogTool.d("blur time:" + (System.currentTimeMillis() - startMs));
     }
 
 

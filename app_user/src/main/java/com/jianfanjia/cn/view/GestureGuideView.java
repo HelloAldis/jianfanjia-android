@@ -94,7 +94,7 @@ public class GestureGuideView extends View {
         this.cy = y + radius;
         this.radius = radius;
 
-        LogTool.d(this.getClass().getName(), "cx =" + cx + " cy" + cy);
+        LogTool.d("cx =" + cx + " cy" + cy);
     }
 
     @Override

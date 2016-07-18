@@ -167,7 +167,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                     mHasLoadedOnce = true;
                     myFavoriteDesigner = apiResponse.getData();
-                    LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
+                    LogTool.d("myFavoriteDesigner=" + myFavoriteDesigner);
                     if (myFavoriteDesigner != null) {
                         designers.clear();
                         designers.addAll(myFavoriteDesigner.getDesigners());
@@ -176,11 +176,11 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                                     RecyclerViewOnItemClickListener() {
                                         @Override
                                         public void OnItemClick(View view, int position) {
-                                            LogTool.d(TAG, "position=" + position);
+                                            LogTool.d("position=" + position);
                                             currentPos = position;
-                                            LogTool.d(TAG, "currentPos========" + currentPos);
+                                            LogTool.d("currentPos========" + currentPos);
                                             String designerId = designers.get(currentPos).get_id();
-                                            LogTool.d(TAG, "designerId:" + designerId);
+                                            LogTool.d("designerId:" + designerId);
                                             Bundle designerBundle = new Bundle();
                                             designerBundle.putString(IntentConstant.DESIGNER_ID, designerId);
                                             startActivity(DesignerInfoActivity.class, designerBundle);
@@ -233,7 +233,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 @Override
                 public void onSuccess(ApiResponse<DesignerList> apiResponse) {
                     myFavoriteDesigner = apiResponse.getData();
-                    LogTool.d(TAG, "myFavoriteDesigner=" + myFavoriteDesigner);
+                    LogTool.d("myFavoriteDesigner=" + myFavoriteDesigner);
                     if (myFavoriteDesigner != null) {
                         List<Designer> designerList = myFavoriteDesigner.getDesigners();
                         if (null != designerList && designerList.size() > 0) {

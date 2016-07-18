@@ -103,13 +103,13 @@ public class XuQiuFragment extends BaseFragment {
     }
 
     protected void setListVisiable() {
-        LogTool.d(getClass().getName(), "setVisiable()");
+        LogTool.d("setVisiable()");
         req_listview_wrap.setVisibility(View.VISIBLE);
         req_publish_wrap.setVisibility(View.GONE);
     }
 
     protected void setPublishVisiable() {
-        LogTool.d(getClass().getName(), "setPublishVisiable()");
+        LogTool.d("setPublishVisiable()");
         req_listview_wrap.setVisibility(View.GONE);
         req_publish_wrap.setVisibility(View.VISIBLE);
     }

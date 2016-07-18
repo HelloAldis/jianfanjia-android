@@ -84,7 +84,7 @@ public class ImageShow {
      */
     public void displayLocalImage(String imgPath, ImageView imageView) {
         if (!imgPath.contains(Constant.DEFALUT_PIC_HEAD)) {
-            LogTool.d(TAG, "this is not local iamge");
+            LogTool.d("this is not local iamge");
             return;
         }
         imageDisplay.displayImage(imgPath, imageView);

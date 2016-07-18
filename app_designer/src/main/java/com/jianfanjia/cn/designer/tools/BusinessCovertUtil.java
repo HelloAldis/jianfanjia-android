@@ -99,7 +99,7 @@ public class BusinessCovertUtil {
             InputStream is = context.getAssets()
                     .open("default_processinfo.txt");
             String jsonString = StringUtils.toConvertString(is);
-            LogTool.d("getDefault",
+            LogTool.d(
                     jsonString);
             processInfo = JsonParser.jsonToBean(jsonString, Process.class);
         } catch (IOException e) {

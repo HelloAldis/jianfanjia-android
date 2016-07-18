@@ -203,8 +203,8 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         if (total > 0) {
                             myCommentInfoAdapter.clear();
                             myCommentInfoAdapter.addData(noticeListInfo.getList());
-                            LogTool.d(this.getClass().getName(), "total size =" + total);
-                            LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                            LogTool.d("total size =" + total);
+                            LogTool.d("myCommentInfoAdapter.getData().size() =" +
                                     myCommentInfoAdapter.getData().size());
                             if (total > myCommentInfoAdapter.getData().size()) {
                                 myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);
@@ -251,8 +251,8 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         int total = noticeListInfo.getTotal();
                         if (total > 0) {
                             myCommentInfoAdapter.addData(noticeListInfo.getList());
-                            LogTool.d(this.getClass().getName(), "total size =" + total);
-                            LogTool.d(this.getClass().getName(), "myCommentInfoAdapter.getData().size() =" +
+                            LogTool.d("total size =" + total);
+                            LogTool.d("myCommentInfoAdapter.getData().size() =" +
                                     myCommentInfoAdapter
                                             .getData().size());
                             if (total > myCommentInfoAdapter.getData().size()) {
@@ -293,7 +293,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
     }
 
     public void onEventMainThread(ChoosedPlanEvent choosedPlanEvent) {
-        LogTool.d(this.getClass().getName(), "onEventMainThread");
+        LogTool.d("onEventMainThread");
         currentnNoticeInfo.getPlan().setStatus(Global.PLAN_STATUS5);
         myCommentInfoAdapter.updateItem(currentnNoticeInfo);
     }

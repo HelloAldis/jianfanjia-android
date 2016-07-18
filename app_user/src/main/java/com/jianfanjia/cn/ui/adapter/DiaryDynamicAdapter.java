@@ -106,7 +106,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
     private void bindNormalDiarySet(DiaryViewHolder holder, final int pos) {
         DiaryViewHolder diaryViewHolder = holder;
         final DiaryInfo diaryInfo = mDatas.get(pos);
-        LogTool.d(this.getClass().getName(), "diaryInfo =" + diaryInfo);
+        LogTool.d("diaryInfo =" + diaryInfo);
 
         final DiarySetInfo diarySetInfo = diaryInfo.getDiarySet();
         User author = diaryInfo.getAuthor();
@@ -224,7 +224,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         }
         layoutParams.width = viewWidth;
         layoutParams.height = viewHeight;
-        LogTool.d(this.getClass().getName(), "ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
+        LogTool.d("ivSinglePic viewWidth =" + viewWidth + ",viewHeight =" + viewHeight);
         ivSinglerPic.setLayoutParams(layoutParams);
 
         imageShow.displayThumbnailImageByHeightAndWidth(imageid, ivSinglerPic, viewWidth, viewHeight);
@@ -236,7 +236,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
         for (DiaryImageDetailInfo diaryImageDetailInfo : diaryImageDetailInfos) {
             imgs.add(diaryImageDetailInfo.getImageid());
         }
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(context, (ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((Activity) context).overridePendingTransition(0, 0);
@@ -263,8 +263,8 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 loadThumbnailHeight = viewWidth;
                 loadThumbnailWidth = (int) ((((float) bitmapWidth) / bitmapHeight) * viewWidth);
             }
-            LogTool.d(this.getClass().getName(), "bitmapWidth =" + bitmapWidth + ",bitmapHeight =" + bitmapHeight);
-            LogTool.d(this.getClass().getName(), "loadThumbnailWidth =" + loadThumbnailWidth + ",loadThumbnailHeight " +
+            LogTool.d("bitmapWidth =" + bitmapWidth + ",bitmapHeight =" + bitmapHeight);
+            LogTool.d("loadThumbnailWidth =" + loadThumbnailWidth + ",loadThumbnailHeight " +
                     "=" + loadThumbnailHeight);
             imageShow.displayThumbnailImageByHeightAndWidth(diaryImageDetailInfos.get(i).getImageid(), pic,
                     loadThumbnailWidth, loadThumbnailHeight);
@@ -278,10 +278,10 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                             = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
                         ImageView imageView = (ImageView) gridLayout.getChildAt(i);
-                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
+                        LogTool.d("view left position =" + imageView.getLeft());
                         if (imageView.getVisibility() == View.VISIBLE) {
                             AnimationRect rect = AnimationRect.buildFromImageView(imageView);
-                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
+                            LogTool.d("left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }
@@ -354,10 +354,10 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                     .Alignment.ALIGN_NORMAL, 1.5f, 0, false);
             if (staticLayout.getLineCount() > 5) {
                 int end = staticLayout.getLineEnd(5);
-                LogTool.d(this.getClass().getName(), "end =" + end);
+                LogTool.d("end =" + end);
                 String endElp = "...     全文";
                 CharSequence charSequence = content.subSequence(0, end - endElp.length());
-                LogTool.d(this.getClass().getName(), charSequence.toString() + ",");
+                LogTool.d(charSequence.toString() + ",");
 
                 String showContent = charSequence + endElp;
                 SpannableString spannableStringBuilder = new SpannableString(showContent);
@@ -376,7 +376,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
                 @Override
                 public void run() {
                     diaryInfo.setShowHeight(textView.getMeasuredHeight());
-                    LogTool.d(this.getClass().getName(), "textView.getMeasuredHeight() =" + textView
+                    LogTool.d("textView.getMeasuredHeight() =" + textView
                             .getMeasuredHeight());
                 }
             });
@@ -606,7 +606,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
         public RecommendDiarySetAdapter(Context context, List<DiarySetInfo> list) {
             this.mDiarySetInfoList = list;
-            LogTool.d(RecommendDiarySetAdapter.class.getName(), "list.size =" + list.size());
+            LogTool.d("list.size =" + list.size());
             this.mContext = context;
             mLayoutInflater = LayoutInflater.from(context);
             mImageShow = ImageShow.getImageShow();

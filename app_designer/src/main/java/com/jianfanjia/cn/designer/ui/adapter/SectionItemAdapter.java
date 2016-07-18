@@ -142,7 +142,7 @@ public class SectionItemAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         final ProcessSectionItem processSectionItem = list.get(position);
-        LogTool.d(TAG, processSectionItem.getName());
+        LogTool.d(processSectionItem.getName());
         viewHolder.closeNodeName.setText(processSectionItem.getLabel());
         viewHolder.openNodeName.setText(processSectionItem.getLabel());
         switch (processSectionItem.getStatus()) {

@@ -21,7 +21,7 @@ public class ProcessBusiness {
         ProcessSection processSection = getSectionInfoByName(process, section);
         for (ProcessSectionItem sectionItemInfo : processSection.getItems()) {
             if (sectionItemInfo.getName().equals(item)) {
-                LogTool.d("SectionItem", item);
+                LogTool.d(item);
                 return sectionItemInfo;
             }
         }
@@ -32,7 +32,7 @@ public class ProcessBusiness {
         if (null == sectionName) {
             return null;
         }
-        LogTool.d("SectionInfo", sectionName);
+        LogTool.d(sectionName);
         List<ProcessSection> sections = process.getSections();
         if (sections != null) {
             for (ProcessSection sectionInfo : sections) {
@@ -54,7 +54,7 @@ public class ProcessBusiness {
     private static void addImageToItem(ProcessSectionItem processSectionItem, String imageId) {
         List<String> images = processSectionItem.getImages();
         if (images != null) {
-            LogTool.d("addImage", imageId);
+            LogTool.d(imageId);
             images.add(imageId);
         }
     }
@@ -62,7 +62,7 @@ public class ProcessBusiness {
     public static void addImageToCheck(Process process, String section, String key, String imageId) {
         ProcessSection processSection = getSectionInfoByName(process, section);
         if (!section.equals("kai_gong") && !section.equals("chai_gai")) {
-            LogTool.d("SectionInfo", section + "--" + key + imageId);
+            LogTool.d(section + "--" + key + imageId);
             addImageToCheck(processSection.getYs(), key, imageId);
         }
     }

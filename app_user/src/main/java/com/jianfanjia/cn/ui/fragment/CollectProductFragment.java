@@ -164,7 +164,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
             mHasLoadedOnce = true;
             ProductList ProductList = apiResponse.getData();
-            LogTool.d(TAG, "ProductList=" + ProductList);
+            LogTool.d("ProductList=" + ProductList);
             if (ProductList != null) {
                 products.clear();
                 products.addAll(ProductList.getProducts());
@@ -173,11 +173,11 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
                             RecyclerViewOnItemClickListener() {
                                 @Override
                                 public void OnItemClick(View view, int position) {
-                                    LogTool.d(TAG, "position:" + position);
+                                    LogTool.d("position:" + position);
                                     currentPos = position;
-                                    LogTool.d(TAG, "currentPos-------" + currentPos);
+                                    LogTool.d("currentPos-------" + currentPos);
                                     String productid = products.get(currentPos).get_id();
-                                    LogTool.d(TAG, "productid:" + productid);
+                                    LogTool.d("productid:" + productid);
                                     Bundle productBundle = new Bundle();
                                     productBundle.putString(IntentConstant.PRODUCT_ID, productid);
                                     startActivity(DesignerCaseInfoActivity.class, productBundle);
@@ -230,7 +230,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         public void onSuccess(ApiResponse<ProductList> apiResponse) {
 
             ProductList ProductList = apiResponse.getData();
-            LogTool.d(TAG, "ProductList=" + ProductList);
+            LogTool.d("ProductList=" + ProductList);
             if (ProductList != null) {
                 List<Product> productList = ProductList.getProducts();
                 if (null != productList && productList.size() > 0) {

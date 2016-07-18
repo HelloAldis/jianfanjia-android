@@ -186,7 +186,7 @@ public class CityFormatTool {
                     city.setId(id);
                     JSONArray jsonArray = jsonObject.getJSONArray(id);
                     city.setName((String) jsonArray.get(0));
-                    LogTool.d(TAG, "id = " + id + " name =" + city.getName());
+                    LogTool.d("id = " + id + " name =" + city.getName());
                     cityList.add(city);
                 }
             }
@@ -209,7 +209,7 @@ public class CityFormatTool {
                     district.setId(id);
                     JSONArray jsonArray = jsonObject.getJSONArray(id);
                     district.setName((String) jsonArray.get(0));
-                    LogTool.d(TAG, "id = " + id + " name =" + district.getName());
+                    LogTool.d("id = " + id + " name =" + district.getName());
                     districtList.add(district);
                 }
             }

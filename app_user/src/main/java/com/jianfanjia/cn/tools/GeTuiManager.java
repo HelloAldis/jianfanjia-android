@@ -27,7 +27,7 @@ public class GeTuiManager {
      */
     public static void bindGeTui(Context context, String userid) {
 //        initGeTui(context);
-        LogTool.d(GeTuiManager.class.getClass().getName(), "userid =" + userid);
+        LogTool.d("userid =" + userid);
         if (userid != null) {
             PushManager.getInstance().bindAlias(context, userid);
         }

@@ -73,7 +73,7 @@ public class ApiClient {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (e != null) {
-                    LogTool.d(TAG, "Network e: " + e.toString());
+                    LogTool.d("Network e: " + e.toString());
                 }
 
                 httpDone(baseRequest, apiCallback);
@@ -195,11 +195,11 @@ public class ApiClient {
     }
 
     private static void logRequestBody(String string) {
-        LogTool.d(TAG, "request body: " + string);
+        LogTool.d("request body: " + string);
     }
 
     private static void logResponseBody(String string) {
-        LogTool.d(TAG, "response body: " + string);
+        LogTool.d("response body: " + string);
     }
 
 
@@ -249,7 +249,7 @@ public class ApiClient {
      * 清空Cookie
      */
     public static void clearCookie() {
-        LogTool.d(TAG, "clearCookie");
+        LogTool.d("clearCookie");
         ApiClient.COOKIE_STORE.removeAll();
     }
 

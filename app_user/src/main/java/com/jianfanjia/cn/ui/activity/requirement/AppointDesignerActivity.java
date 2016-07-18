@@ -77,9 +77,9 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
         Intent intent = this.getIntent();
         orderDesignerNum = intent.getIntExtra(IntentConstant.REQUIREMENT_DESIGNER_NUM, 0);
         requestmentid = intent.getStringExtra(IntentConstant.REQUIREMENT_ID);
-        LogTool.d(TAG, "requestmentid:" + requestmentid + " orderDesignerNum:" + orderDesignerNum);
+        LogTool.d("requestmentid:" + requestmentid + " orderDesignerNum:" + orderDesignerNum);
         total = totalCount - orderDesignerNum;
-        LogTool.d(TAG, " total :" + total);
+        LogTool.d(" total :" + total);
     }
 
     private void initView() {
@@ -203,7 +203,7 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
 
                                         @Override
                                         public void getItemData(int position, String designerid) {
-                                            LogTool.d(TAG, "position=" + position + " designerid=" + designerid);
+                                            LogTool.d("position=" + position + " designerid=" + designerid);
                                             Bundle designerBundle = new Bundle();
                                             designerBundle.putString(IntentConstant.DESIGNER_ID, designerid);
                                             startActivity(DesignerInfoActivity.class, designerBundle);
@@ -212,7 +212,7 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
                                         @Override
                                         public void getCheckedData(List<String> designerids) {
                                             int checkNum = designerids.size();
-                                            LogTool.d(TAG, "checkNum=" + checkNum);
+                                            LogTool.d("checkNum=" + checkNum);
                                             if (null != designerids && designerids.size() > 0) {
                                                 mainHeadView.setRigthTitleEnable(true);
                                                 designerIds = designerids;

@@ -128,12 +128,12 @@ public class RequirementBusiness {
      * @return
      */
     public static boolean isRequirementChange(Requirement src, Requirement target) {
-        LogTool.d("isRequirementChange", "isRequirementChange");
+        LogTool.d("isRequirementChange");
         try {
             Class clazz = src.getClass();
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
-                LogTool.d("isRequirementChange", field.getName());
+                LogTool.d(field.getName());
                 field.setAccessible(true);
                 Object srcValue = field.get(src);
                 Object targetValue = field.get(target);

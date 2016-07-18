@@ -253,7 +253,7 @@ public class UploadProduct2Fragment extends BaseFragment {
             String path = this.photos.get(0);
             this.photos.remove(0);
             Bitmap imageBitmap = ImageUtil.getImage(path);
-            LogTool.d(TAG, "imageBitmap: path :" + path);
+            LogTool.d("imageBitmap: path :" + path);
             if (null != imageBitmap) {
                 upload_image(imageBitmap);
             }
@@ -270,7 +270,7 @@ public class UploadProduct2Fragment extends BaseFragment {
             case Constant.REQUESTCODE_PICKER_PIC:
                 if (data != null) {
                     this.photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-                    LogTool.d(TAG, "all path :" + this.photos);
+                    LogTool.d("all path :" + this.photos);
                     this.uploadImageSync();
                 }
                 break;

@@ -91,24 +91,24 @@ public class DateWheelDialog extends CommonDialog implements
      * Updates day wheel. Sets max days according to selected month and year
      */
     void updateDays() {
-        LogTool.d(this.getClass().getName(), "updateDays");
+        LogTool.d("updateDays");
         int maxDays = chooseCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         if(chooseCalendar.get(Calendar.YEAR) == startCalendar.get(Calendar.YEAR)  && chooseCalendar.get(Calendar.MONTH) == startCalendar.get(Calendar.MONTH)){
             minDate = startCalendar.get(Calendar.DAY_OF_MONTH);
-            LogTool.d(this.getClass().getName(), "minDate =" + minDate);
+            LogTool.d("minDate =" + minDate);
         }else{
             minDate = 1;
         }
-        LogTool.d(this.getClass().getName(), "chooseCalendar.get(Calendar.YEAR) =" + chooseCalendar.get(Calendar.YEAR) + "," + "startCalendar.get(Calendar.YEAR) =" + startCalendar.get(Calendar.YEAR));
-        LogTool.d(this.getClass().getName(), "chooseCalendar.get(Calendar.MONTH) =" + chooseCalendar.get(Calendar.MONTH) + "," + "startCalendar.get(Calendar.MONTH) =" + startCalendar.get(Calendar.MONTH));
+        LogTool.d("chooseCalendar.get(Calendar.YEAR) =" + chooseCalendar.get(Calendar.YEAR) + "," + "startCalendar.get(Calendar.YEAR) =" + startCalendar.get(Calendar.YEAR));
+        LogTool.d("chooseCalendar.get(Calendar.MONTH) =" + chooseCalendar.get(Calendar.MONTH) + "," + "startCalendar.get(Calendar.MONTH) =" + startCalendar.get(Calendar.MONTH));
         wheelView3.setAdapter(new NumericWheelAdapter(minDate, maxDays));
         wheelView3.setCurrentItem(0, true);
     }
 
     void updateMonth() {
-        LogTool.d(this.getClass().getName(), "updateMonth");
+        LogTool.d("updateMonth");
         if (chooseCalendar.get(Calendar.YEAR) == startCalendar.get(Calendar.YEAR)) {
-            LogTool.d(this.getClass().getName(), "same month");
+            LogTool.d("same month");
             minMonth = startCalendar.get(Calendar.MONTH);
         } else {
             minMonth = 0;
@@ -121,21 +121,21 @@ public class DateWheelDialog extends CommonDialog implements
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
         // updateDays(wheelView1, wheelView2, wheelView3);
 //		wheel.setCurrentItem(newValue);
-        LogTool.d(this.getClass().getName(), "wheel.getCurrentItem() =" + wheel.getCurrentItem());
+        LogTool.d("wheel.getCurrentItem() =" + wheel.getCurrentItem());
         if (wheel == wheelView1) {
-            LogTool.d(this.getClass().getName(), "year change");
+            LogTool.d("year change");
             chooseCalendar.set(Calendar.YEAR, minYear + wheelView1.getCurrentItem());
-            LogTool.d(this.getClass().getName(), "Calendar.YEAR = " + chooseCalendar.get(Calendar.YEAR));
+            LogTool.d("Calendar.YEAR = " + chooseCalendar.get(Calendar.YEAR));
 //			updateDays(wheelView3);
             updateMonth();
         } else if (wheel == wheelView2) {
-            LogTool.d(this.getClass().getName(), "month change");
-            LogTool.d(this.getClass().getName(), "minmonth =" + minMonth);
+            LogTool.d("month change");
+            LogTool.d("minmonth =" + minMonth);
             chooseCalendar.set(Calendar.MONTH, minMonth + wheelView2.getCurrentItem() > 12 ? minMonth : (minMonth + wheelView2.getCurrentItem()));
-            LogTool.d(this.getClass().getName(), "Calendar.YEAR = " + chooseCalendar.get(Calendar.YEAR));
+            LogTool.d("Calendar.YEAR = " + chooseCalendar.get(Calendar.YEAR));
             updateDays();
         } else {
-            LogTool.d(this.getClass().getName(), "day change");
+            LogTool.d("day change");
             chooseCalendar.set(Calendar.DAY_OF_MONTH,
                     wheelView3.getCurrentItem() + minDate > chooseCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) ? minDate : wheelView3.getCurrentItem() + minDate);
             Log.i(this.getClass().getName(), chooseCalendar.get(Calendar.YEAR) + "-" + (chooseCalendar.get(Calendar.MONTH) + 1) + "-"

@@ -74,7 +74,7 @@ public class BusinessCovertUtil {
             InputStream is = context.getAssets()
                     .open("default_processinfo.txt");
             String jsonString = StringUtils.toConvertString(is);
-            LogTool.d("getDefault",
+            LogTool.d(
                     jsonString);
             processInfo = JsonParser.jsonToBean(jsonString, Process.class);
         } catch (IOException e) {
@@ -334,7 +334,7 @@ public class BusinessCovertUtil {
     public static String getHouseTypeStr(List<String> decHouseTypes) {
         StringBuilder builder = new StringBuilder();
         for (String str : decHouseTypes) {
-            LogTool.d("getHouseTypeStr()", "str:" + str);
+            LogTool.d("str:" + str);
             builder.append(BusinessCovertUtil.convertHouseTypeToShow(str) + "  ");
         }
         return builder.toString();
@@ -343,7 +343,7 @@ public class BusinessCovertUtil {
     public static String getDecTypeStr(List<String> decTypes) {
         StringBuilder builder = new StringBuilder();
         for (String str : decTypes) {
-            LogTool.d("getDecTypeStr()", "str:" + str);
+            LogTool.d("str:" + str);
             builder.append(BusinessCovertUtil.convertDectypeToShow(str) + "  ");
         }
         return builder.toString();
@@ -352,7 +352,7 @@ public class BusinessCovertUtil {
     public static String getDecStyleStr(List<String> decStyles) {
         StringBuilder builder = new StringBuilder();
         for (String str : decStyles) {
-            LogTool.d("getDecStyleStr()", "str:" + str);
+            LogTool.d("str:" + str);
             builder.append(BusinessCovertUtil.convertDecStyleToShow(str) + "  ");
         }
         return builder.toString();
@@ -361,7 +361,7 @@ public class BusinessCovertUtil {
     public static String getDecDistrictStr(List<String> dec_districts) {
         StringBuilder builder = new StringBuilder();
         for (String str : dec_districts) {
-            LogTool.d("getDecDistrictStr()", "str:" + str);
+            LogTool.d("str:" + str);
             builder.append(str + "  ");
         }
         return builder.toString();

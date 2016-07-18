@@ -123,7 +123,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "onCreateView()");
+        LogTool.d("onCreateView()");
         View view = super.onCreateView(inflater, container, savedInstanceState);
         isPrepared = true;
         load();
@@ -164,7 +164,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
             public void onSuccess(ApiResponse<Designer> apiResponse) {
                 mHasLoadedOnce = true;
                 Designer designerInfo = apiResponse.getData();
-                LogTool.d(TAG, "designerInfo:" + designerInfo);
+                LogTool.d("designerInfo:" + designerInfo);
                 if (null != designerInfo && DesignerInfoFragment.this.getView() != null) {
                     jiandanTypeLayout.setVisibility(View.VISIBLE);
                     jiandanHouseTypeLayout.setVisibility(View.VISIBLE);

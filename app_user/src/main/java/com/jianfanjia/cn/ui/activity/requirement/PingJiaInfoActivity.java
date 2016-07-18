@@ -63,7 +63,7 @@ public class PingJiaInfoActivity extends BaseSwipeBackActivity {
         respond_speed = viewBundle.getFloat(IntentConstant.RESPOND_SPEED);
         service_attitude = viewBundle.getFloat(IntentConstant.SERVICE_ATTITUDE);
         evaluation = (Evaluation) viewBundle.getSerializable(IntentConstant.EVALUATION);
-        LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " respond_speed:" + respond_speed +
+        LogTool.d("imageid:" + imageid + " designer_name:" + designer_name + " respond_speed:" + respond_speed +
                 " service_attitude:" + service_attitude + " evaluation:"
                 + evaluation);
     }

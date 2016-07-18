@@ -54,7 +54,7 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
             holder.itemHeadView.setImageResource(R.mipmap.icon_default_head);
         }
         holder.itemCellView.setText(process.getBasic_address());
-        LogTool.d(TAG, "process.getGoing_on()=" + process.getGoing_on());
+        LogTool.d("process.getGoing_on()=" + process.getGoing_on());
         String itemNode = null;
         if (process.getGoing_on().equals("done")) {
             holder.itemNodeView.setTextColor(context.getResources().getColor(R.color.green_color));
@@ -63,14 +63,14 @@ public class MySiteAdapter extends RecyclerViewAdapterBase<Process> {
         } else {
             holder.itemNodeView.setTextColor(context.getResources().getColor(R.color.orange_color));
             processIndex = MyApplication.getInstance().getPositionByItemName(process.getGoing_on());
-            LogTool.d(TAG, "processIndex =" + processIndex);
+            LogTool.d("processIndex =" + processIndex);
             itemNode = process.getSections().get(processIndex).getLabel();
             holder.itemNodeView.setText(itemNode + "阶段");
 
         }
         holder.itemPubTimeView.setText(DateFormatTool.longToString(process.getStart_at()));
         holder.itemUpdateTimeView.setText(DateFormatTool.longToString(process.getLastupdate()));
-        LogTool.d(TAG, "processIndex=" + processIndex);
+        LogTool.d("processIndex=" + processIndex);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.item_process_listview.setLayoutManager(linearLayoutManager);

@@ -62,7 +62,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
             currentPosition = bundle.getInt(Constant.CURRENT_POSITION, 0);
             imageList = bundle.getStringArrayList(Constant.IMAGE_LIST);
             for (String str : imageList) {
-                com.jianfanjia.common.tool.LogTool.d(this.getClass().getName(), " str:" + str);
+                com.jianfanjia.common.tool.LogTool.d(" str:" + str);
             }
             totalCount = imageList.size();
         }

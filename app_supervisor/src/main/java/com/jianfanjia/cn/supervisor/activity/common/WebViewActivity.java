@@ -67,7 +67,7 @@ public class WebViewActivity extends BaseSwipeBackActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-                LogTool.d("WebView", "onPageFinished ");
+                LogTool.d("onPageFinished ");
                 WebViewActivity.this.javaScriptObject.runGetDescriptionCode(view);
                 WebViewActivity.this.javaScriptObject.runGetImageCode(view);
                 super.onPageFinished(view, url);
@@ -108,7 +108,7 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     private String getUrlFromIntent() {
         Intent intent = this.getIntent();
         String url = intent.getStringExtra(Global.WEB_VIEW_URL);
-        LogTool.d(TAG, url);
+        LogTool.d(url);
         return url;
     }
 

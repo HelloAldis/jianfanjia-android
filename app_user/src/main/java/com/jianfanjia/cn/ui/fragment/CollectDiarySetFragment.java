@@ -163,7 +163,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                     mHasLoadedOnce = true;
 
                     favoriteDiarySetList = apiResponse.getData();
-                    LogTool.d(TAG, "favoriteDiarySetList=" + favoriteDiarySetList);
+                    LogTool.d("favoriteDiarySetList=" + favoriteDiarySetList);
                     if (favoriteDiarySetList != null) {
                         mDiarySetInfoList.clear();
                         if(favoriteDiarySetList.getDiarySets() != null){
@@ -214,7 +214,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                 @Override
                 public void onSuccess(ApiResponse<DiarySetInfoList> apiResponse) {
                     favoriteDiarySetList = apiResponse.getData();
-                    LogTool.d(TAG, "favoriteDiarySetList=" + favoriteDiarySetList);
+                    LogTool.d("favoriteDiarySetList=" + favoriteDiarySetList);
                     if (favoriteDiarySetList != null) {
                         List<DiarySetInfo> diarySetInfoList = favoriteDiarySetList.getDiarySets();
                         if (null != diarySetInfoList && diarySetInfoList.size() > 0) {
@@ -258,7 +258,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                     removePos = i;
                 }
             }
-            LogTool.d("notifyChangeItemState", removePos + "");
+            LogTool.d(removePos + "");
             if (removePos != -1) {
                 mDiarySetListAdapter.remove(removePos);
                 if (mDiarySetInfoList.size() == 0) {

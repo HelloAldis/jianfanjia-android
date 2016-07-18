@@ -179,7 +179,7 @@ public class UploadProductAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void bindEffectImg(final UploadEffectImgViewHolder holder, final int position) {
-        LogTool.d(this.getClass().getName(), "effect pos" + position);
+        LogTool.d("effect pos" + position);
         final ProductImageInfo productImageInfo = mEffectImgLists.get(position - 4 - mPlanImgLists.size());
 
         final String imageid = productImageInfo.getImageid();

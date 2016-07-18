@@ -66,13 +66,13 @@ public class MainScrollView extends ScrollView {
 
         totaloffset = contentView.findViewById(R.id.head_layout).getMeasuredHeight();
 
-        LogTool.d(this.getClass().getName(), "totaloffset =" + totaloffset);
+        LogTool.d("totaloffset =" + totaloffset);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        LogTool.d(TAG, "h = " + h + ",oldh =" + oldh);
+        LogTool.d("h = " + h + ",oldh =" + oldh);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class MainScrollView extends ScrollView {
         originalRect.set(contentView.getLeft(), contentView.getTop(), contentView
                 .getRight(), contentView.getBottom());
 
-        LogTool.d(this.getClass().getName(), "contentView.getLeft() =" + contentView.getLeft() + " ,contentView" +
+        LogTool.d("contentView.getLeft() =" + contentView.getLeft() + " ,contentView" +
                         ".getTop() =" + contentView.getTop()
                         + ",contentView.getRight() =" + contentView.getRight() + " ,contentView.getBottom() =" +
                         contentView.getBottom()
@@ -113,7 +113,7 @@ public class MainScrollView extends ScrollView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        LogTool.d(this.getClass().getName(), "onTouchEvent");
+        LogTool.d("onTouchEvent");
 
         if (contentView.getBottom() - contentView.getTop() < TDevice.getScreenHeight()) {
             //图片加载失败，禁止滑动事件
@@ -127,22 +127,22 @@ public class MainScrollView extends ScrollView {
                 if (nowY - lastY < 0
                         && contentFlag == ANCHOR_BOTTOPM) {
                     if (scrollPullUpListener != null && !isIntent) {
-                        LogTool.d(this.getClass().getName(), "intentTo");
+                        LogTool.d("intentTo");
                         isIntent = true;
                         scrollPullUpListener.scrollPullUp();
                     }
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                LogTool.d(this.getClass().getName(), "ACTION_Up");
-                LogTool.d(this.getClass().getName(), "(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX
+                LogTool.d("ACTION_Up");
+                LogTool.d("(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX)" + (nowX
                         - lastX));
                 if (getScrollY() > 0 && getScrollY() < totaloffset) {
                     if (contentFlag == ANCHOR_TOP) {
                         smoothScrollTo((int) totaloffset, onSmoothScrollFinishedListener);
                         break;
                     } else if (contentFlag == ANCHOR_BOTTOPM) {
-                        LogTool.d(this.getClass().getName(), "scrollBottom");
+                        LogTool.d("scrollBottom");
                         smoothScrollTo(0, onSmoothScrollFinishedListener);
                         break;
                     }
@@ -160,7 +160,7 @@ public class MainScrollView extends ScrollView {
                 isIntent = false;
                 break;
             case MotionEvent.ACTION_CANCEL:
-                LogTool.d(this.getClass().getName(), "ACTION_cancel");
+                LogTool.d("ACTION_cancel");
                 isIntent = false;
                 break;
             default:
@@ -180,7 +180,7 @@ public class MainScrollView extends ScrollView {
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                LogTool.d(this.getClass().getName(), "ACTION_DOWN");
+                LogTool.d("ACTION_DOWN");
                 lastX = ev.getX();
                 lastY = ev.getY();
                 break;
@@ -243,7 +243,7 @@ public class MainScrollView extends ScrollView {
     }
 
     public final void contentScroll(int currentY) {
-        LogTool.d(this.getClass().getName(), "contentScroll =" + currentY);
+        LogTool.d("contentScroll =" + currentY);
         smoothScrollTo(0, currentY);
     }
 

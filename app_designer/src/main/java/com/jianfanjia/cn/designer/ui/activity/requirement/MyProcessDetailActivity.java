@@ -137,7 +137,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
                     loadCurrentProcess(true);
                 } else {
-                    LogTool.d(TAG, "degfault process refresh finish");
+                    LogTool.d("degfault process refresh finish");
                     new android.os.Handler().post(new Runnable() {
                         @Override
                         public void run() {
@@ -152,7 +152,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     private void initProcessInfo() {
         Intent intent = getIntent();
         processId = intent.getStringExtra(Global.PROCESS_ID);
-        LogTool.d(TAG, "processId :" + processId);
+        LogTool.d("processId :" + processId);
         if (processId != null) {
             loadCurrentProcess(true);
         } else {
@@ -277,7 +277,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
     @Override
     public void click(int position, int itemType) {
-        LogTool.d(TAG, "position:" + position + "  itemType:" + itemType);
+        LogTool.d("position:" + position + "  itemType:" + itemType);
         switch (itemType) {
             case Constant.CONFIRM_ITEM:
                 confirmFinishDialog();
@@ -366,7 +366,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                         dialog.dismiss();
                         String dateStr = DateFormatTool.longToString(((DateWheelDialog) dialog)
                                 .getChooseCalendar().getTimeInMillis());
-                        LogTool.d(TAG, "dateStr:" + dateStr);
+                        LogTool.d("dateStr:" + dateStr);
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),
                                 processInfo.getFinal_designerid(),
@@ -506,7 +506,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     // 确认完工装修流程小节点
     private void confirmProcessItemDone(String siteId, String section,
                                         String item) {
-        LogTool.d(TAG, "siteId:" + siteId + " section:" + section + " item:" + item);
+        LogTool.d("siteId:" + siteId + " section:" + section + " item:" + item);
         FinishSectionItemRequest finishSectionItemRequest = new FinishSectionItemRequest();
         finishSectionItemRequest.set_id(siteId);
         finishSectionItemRequest.setSection(section);
@@ -551,7 +551,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
                     for (String path : photos) {
                         Bitmap imageBitmap = ImageUtil.getImage(path);
-                        LogTool.d(TAG, "imageBitmap: path :" + path);
+                        LogTool.d("imageBitmap: path :" + path);
                         if (null != imageBitmap) {
                             upload_image(imageBitmap);
                         }

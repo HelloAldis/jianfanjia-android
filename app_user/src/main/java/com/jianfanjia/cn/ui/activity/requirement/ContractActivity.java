@@ -72,7 +72,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
         if (contractBundle != null) {
             requirement = (Requirement) contractBundle.getSerializable(IntentConstant.REQUIREMENT_INFO);
             flagIntent = contractBundle.getInt(ContractActivity.CONSTRACT_INTENT_FLAG, DESIGNER_LIST_INTENT);//默认是设计师列表
-            LogTool.d(TAG, "requirement:" + requirement + "  flagIntent:" + flagIntent);
+            LogTool.d("requirement:" + requirement + "  flagIntent:" + flagIntent);
         }
     }
 
@@ -197,10 +197,10 @@ public class ContractActivity extends BaseSwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<Requirement> apiResponse) {
                 Requirement contractInfo = apiResponse.getData();
-                LogTool.d(TAG, "contractInfo:" + contractInfo);
+                LogTool.d("contractInfo:" + contractInfo);
                 if (null != contractInfo) {
                     final_planid = contractInfo.getFinal_planid();
-                    LogTool.d(TAG, "final_planid:" + final_planid);
+                    LogTool.d("final_planid:" + final_planid);
                 }
             }
 
@@ -219,7 +219,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
 
     //确认开启工地  确认合同
     private void postUserProcess(String requirementid, String final_planid) {
-        LogTool.d(TAG, "requirementid=" + requirementid + "  final_planid=" +
+        LogTool.d("requirementid=" + requirementid + "  final_planid=" +
                 final_planid);
         ConfirmContractRequest confirmContractRequest = new ConfirmContractRequest();
         confirmContractRequest.setRequirementid(requirementid);

@@ -111,7 +111,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
         Intent intent = this.getIntent();
         Bundle planBundle = intent.getExtras();
         messageid = planBundle.getString(Global.MSG_ID);
-        LogTool.d(TAG, "messageid=" + messageid);
+        LogTool.d("messageid=" + messageid);
         initMainHeadView();
         contentView.getSettings().setJavaScriptEnabled(true);
         contentView.setBackgroundColor(0); // 设置背景色
@@ -204,11 +204,11 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                     ProcessSection processSection = ProcessBusiness.getSectionInfoByName(noticeDetailInfo
                                     .getProcess(),
                             noticeDetailInfo.getSection());
-                    LogTool.d(TAG, "msgType:" + msgType);
+                    LogTool.d("msgType:" + msgType);
                     if (msgType.equals(Constant.TYPE_DELAY_MSG)) {
                         typeText.setBackgroundResource(R.drawable.site_detail_text_bg_border);
                         processid = noticeDetailInfo.getProcessid();
-                        LogTool.d(TAG, "processid=" + processid);
+                        LogTool.d("processid=" + processid);
                         doubleBtnLayout.setVisibility(View.VISIBLE);
                         singleBtnLayout.setVisibility(View.GONE);
                         typeText.setText(getResources().getString(R.string.delay_str));
@@ -263,7 +263,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         requirement = noticeDetailInfo.getRequirement();
                         phone = noticeDetailInfo.getUser().getPhone();
-                        LogTool.d(TAG, "requirement==" + requirement + " phone=" + phone);
+                        LogTool.d("requirement==" + requirement + " phone=" + phone);
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
@@ -292,7 +292,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         plan = noticeDetailInfo.getPlan();
                         requirement = noticeDetailInfo.getRequirement();
-                        LogTool.d(TAG, "requirement==" + requirement + "   plan==" + plan);
+                        LogTool.d("requirement==" + requirement + "   plan==" + plan);
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
@@ -455,7 +455,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
     }
 
     public void onEventMainThread(UpdateEvent event) {
-        LogTool.d(TAG, "UpdateEvent event");
+        LogTool.d("UpdateEvent event");
         getNoticeDetailInfo(messageid);
     }
 

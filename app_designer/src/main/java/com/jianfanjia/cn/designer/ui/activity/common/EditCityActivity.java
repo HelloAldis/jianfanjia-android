@@ -103,11 +103,11 @@ public class EditCityActivity extends BaseSwipeBackActivity {
         spinner_pro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                LogTool.d(TAG, " position " + position);
+                LogTool.d(" position " + position);
                 currentPro = position;
                 provice = provinces.get(position);
                 citys = cityMap.get(provice);
-                LogTool.d(TAG, city + citys.size());
+                LogTool.d(city + citys.size());
 
                 city = citys.get(currentCity);
                 spinnerCityAdapter = new ArrayAdapter(EditCityActivity.this, R.layout.spinner_city_item, citys);
@@ -201,7 +201,7 @@ public class EditCityActivity extends BaseSwipeBackActivity {
         }
 
 
-        LogTool.d(TAG, provice + "= " + city + "= " + district);
+        LogTool.d(provice + "= " + city + "= " + district);
 
     }
 
@@ -209,7 +209,7 @@ public class EditCityActivity extends BaseSwipeBackActivity {
         intent.putExtra(Constant.EDIT_PROVICE, provice);
         intent.putExtra(Constant.EDIT_CITY, city);
         intent.putExtra(Constant.EDIT_DISTRICT, district);
-        LogTool.d(TAG, provice + city + district);
+        LogTool.d(provice + city + district);
         setResult(RESULT_OK, intent);
         appManager.finishActivity(EditCityActivity.this);
     }

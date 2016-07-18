@@ -117,7 +117,7 @@ public class NavigateActivity extends BaseActivity {
         @Override
         public void onComplete(int i, Map<String, Object> data) {
             if (i == 200 && data != null) {
-                LogTool.d(this.getClass().getName(), data.toString());
+                LogTool.d(data.toString());
                 WeiXinRegisterRequest weiXinRegisterRequest = new WeiXinRegisterRequest();
                 weiXinRegisterRequest.setUsername(data.get("nickname").toString());
                 weiXinRegisterRequest.setImage_url((String) data.get("headimgurl").toString());
@@ -173,7 +173,7 @@ public class NavigateActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogTool.d(this.getClass().getName(), "onActivityResult");
+        LogTool.d("onActivityResult");
         UMSsoHandler ssoHandler = authUtil.getUmSocialService().getConfig().getSsoHandler(requestCode);
         if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);

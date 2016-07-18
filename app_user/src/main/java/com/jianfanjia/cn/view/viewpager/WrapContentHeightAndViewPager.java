@@ -58,7 +58,7 @@ public class WrapContentHeightAndViewPager extends ViewPager {
                 maxHeight = height;
             }
         }
-        LogTool.d(this.getClass().getName(),"height =" + height);
+        LogTool.d("height =" + height);
         setMeasuredDimension(getMeasuredWidth(), height);
     }
 

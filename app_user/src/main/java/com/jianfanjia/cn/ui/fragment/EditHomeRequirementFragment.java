@@ -264,7 +264,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
         String totalText = RequirementBusiness.covertPriceToShow(total);
         String individuationText = RequirementBusiness.covertPriceToShow(total - basicPrice);
 
-        LogTool.d(TAG, "tatoal =" + totalText + "  basicPrice =" + basicPrice);
+        LogTool.d("tatoal =" + totalText + "  basicPrice =" + basicPrice);
         if (total >= basicPrice) {
             budget365AlertView.setVisibility(View.GONE);
             isTotalBudegetCorrect = true;
@@ -339,7 +339,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
             isFinish = false;
         }
         requirementInfo.setPackage_type(currentReqType);
-        LogTool.d(TAG, "isFinish = " + isFinish);
+        LogTool.d("isFinish = " + isFinish);
         hostActivity.notifyStatusChange();
     }
 
@@ -405,7 +405,7 @@ public class EditHomeRequirementFragment extends BaseFragment {
     }
 
     private void initData() {
-        LogTool.d(this.getClass().getName(), "initData");
+        LogTool.d("initData");
         requirementInfo = (Requirement) getArguments().getSerializable(IntentConstant.REQUIREMENT_INFO);
         actionType = getArguments().getInt(IntentConstant.REQUIREMENG_ACTION_TYPE, 0);
         switch (actionType) {

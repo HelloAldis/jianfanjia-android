@@ -92,7 +92,7 @@ public class PullZoomScrollView extends ScrollView {
             initWidth = headerView.getMeasuredWidth();
             initHeight = headerView.getMeasuredHeight();
 
-            LogTool.d(this.getClass().getName(), "initWidth =" + initWidth + ",initHeight =" + initHeight);
+            LogTool.d("initWidth =" + initWidth + ",initHeight =" + initHeight);
             isFirstLayout = false;
         }
     }
@@ -155,7 +155,7 @@ public class PullZoomScrollView extends ScrollView {
                     //计算偏移量
                     int offset = (int) (deltaY / MOVE_FACTOR);
 
-                    LogTool.d(this.getClass().getName(), "offset =" + offset);
+                    LogTool.d("offset =" + offset);
 
                     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) headerView.getLayoutParams();
                     layoutParams.height = initHeight + offset;

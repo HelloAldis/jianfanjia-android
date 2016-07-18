@@ -725,7 +725,7 @@ public class DesignerEditTeamActivity extends BaseSwipeBackActivity {
         List<String> photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
         for (String path : photos) {
             Bitmap imageBitmap = ImageUtil.getImage(path);
-            LogTool.d(TAG, "imageBitmap: path :" + path);
+            LogTool.d("imageBitmap: path :" + path);
             if (null != imageBitmap) {
                 upload_image(imageBitmap, apiCallback);
             }

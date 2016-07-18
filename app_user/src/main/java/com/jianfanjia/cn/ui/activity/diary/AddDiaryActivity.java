@@ -186,10 +186,10 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                             = new ArrayList<>();
                     for (int i = 0; i < mAddDiaryGridViewAdapter.getCount() - 1; i++) {
                         ImageView imageView = (ImageView) gvAddDiaryPic.getChildAt(i).findViewById(R.id.img);
-                        LogTool.d(this.getClass().getName(), "view left position =" + imageView.getLeft());
+                        LogTool.d("view left position =" + imageView.getLeft());
                         if (imageView.getVisibility() == View.VISIBLE) {
                             AnimationRect rect = AnimationRect.buildFromImageView(imageView);
-                            LogTool.d(this.getClass().getName(), "left position =" + rect.imageViewEntireRect.left);
+                            LogTool.d("left position =" + rect.imageViewEntireRect.left);
                             animationRectArrayList.add(rect);
                         }
                     }
@@ -227,7 +227,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 showImageUrlList.add(imageUrl);
             }
         }
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(this, (ArrayList<String>) showImageUrlList, (ArrayList<AnimationRect>)
                 animationRectList, position);
         overridePendingTransition(0, 0);
@@ -284,7 +284,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
     }
 
     private void setDecStage() {
-        LogTool.d(TAG, "section_label =" + mDiaryInfo.getSection_label());
+        LogTool.d("section_label =" + mDiaryInfo.getSection_label());
         tvAddDiaryDecStageContent.setText(DiaryBusiness.getShowDiarySectionLabel(mDiaryInfo.getSection_label()));
         setMianHeadRightTitleEnable();
     }
@@ -302,7 +302,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 isAddDiaryByChooseMultipleDiarySet = false;
                 currentDiarySetTitle = currentDiarySet.getTitle();
             }
-            LogTool.d(TAG, "currentDiarySetTitle =" + currentDiarySetTitle);
+            LogTool.d("currentDiarySetTitle =" + currentDiarySetTitle);
 
             mDiaryInfo = new DiaryInfo();
             setDiarySetInfo();
@@ -371,7 +371,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             case Constant.REQUESTCODE_PICKER_PIC:
                 if (data != null) {
                     this.photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
-                    LogTool.d(TAG, "all path :" + this.photos);
+                    LogTool.d("all path :" + this.photos);
                     this.uploadImageSync();
                 }
                 break;
@@ -497,7 +497,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             String path = this.photos.get(0);
             this.photos.remove(0);
             Bitmap imageBitmap = ImageUtil.getImage(path);
-            LogTool.d(TAG, "imageBitmap: path :" + path);
+            LogTool.d("imageBitmap: path :" + path);
             if (null != imageBitmap) {
                 upload_image(imageBitmap);
             }

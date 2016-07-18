@@ -30,7 +30,7 @@ public class SerializableHttpCookie implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        LogTool.d(this.getClass().getName(), "write : name ="+ cookie.getName() + "  value=" + cookie.getValue() + "--age=" + cookie.getMaxAge());
+        LogTool.d("write : name ="+ cookie.getName() + "  value=" + cookie.getValue() + "--age=" + cookie.getMaxAge());
 
         out.writeObject(cookie.getName());
         out.writeObject(cookie.getValue());
@@ -48,7 +48,7 @@ public class SerializableHttpCookie implements Serializable {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         String name = (String) in.readObject();
         String value = (String) in.readObject();
-        LogTool.d(this.getClass().getName(), "readObject : name ="+ name + "  value=" + value);
+        LogTool.d("readObject : name ="+ name + "  value=" + value);
         clientCookie = new HttpCookie(name, value);
         clientCookie.setComment((String) in.readObject());
         clientCookie.setCommentURL((String) in.readObject());

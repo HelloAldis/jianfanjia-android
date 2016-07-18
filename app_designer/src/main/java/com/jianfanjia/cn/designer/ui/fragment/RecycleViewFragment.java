@@ -101,7 +101,7 @@ public class RecycleViewFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogTool.d(this.getClass().getName(), "onAttach");
+        LogTool.d("onAttach");
         _context = context.getApplicationContext();
     }
 
@@ -109,12 +109,12 @@ public class RecycleViewFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNum = getArguments() != null ? getArguments().getInt("num") : 1;
-        LogTool.d(this.getClass().getName(), "num =" + mNum);
+        LogTool.d("num =" + mNum);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "onCreateView()");
+        LogTool.d("onCreateView()");
         if (view == null) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
@@ -208,7 +208,7 @@ public class RecycleViewFragment extends BaseFragment {
         });
         pullrefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
         pullrefresh.setAdapter(myHandledRequirementAdapter);
-        LogTool.d(this.getClass().getName(), "initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
+        LogTool.d("initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
     }
 
     public void disposeData(RequirementList requirementList) {

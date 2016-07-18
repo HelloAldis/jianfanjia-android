@@ -140,22 +140,22 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent(Intent intent) {
         Bundle decorationBundle = intent.getExtras();
         viewType = decorationBundle.getInt(IntentConstant.VIEW_TYPE, 0);
-        LogTool.d(TAG, "viewType==" + viewType);
+        LogTool.d("viewType==" + viewType);
         search = decorationBundle.getString(IntentConstant.SEARCH_TEXT);
-        LogTool.d(TAG, "search==" + search);
+        LogTool.d("search==" + search);
         beautyImageId = decorationBundle.getString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID);
         currentPosition = decorationBundle.getInt(IntentConstant.POSITION, 0);
         totalCount = decorationBundle.getInt(IntentConstant.TOTAL_COUNT, 0);
         beautiful_images = (List<BeautifulImage>) decorationBundle.getSerializable(IntentConstant.IMG_LIST);
         from = beautiful_images.size();
-        LogTool.d(TAG, "beautyImageId=" + beautyImageId + " currentPosition=" + currentPosition + "  totalCount=" +
+        LogTool.d("beautyImageId=" + beautyImageId + " currentPosition=" + currentPosition + "  totalCount=" +
                 totalCount + "  beautiful_images.size()=" + beautiful_images.size());
-        LogTool.d(TAG, "FROM:" + from);
+        LogTool.d("FROM:" + from);
 
         section = decorationBundle.getString(IntentConstant.HOUSE_SECTION);
         houseStyle = decorationBundle.getString(IntentConstant.HOUSE_STYLE);
         decStyle = decorationBundle.getString(IntentConstant.DEC_STYLE);
-        LogTool.d(TAG, "section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
+        LogTool.d("section:" + section + " houseStyle:" + houseStyle + " decStyle:" + decStyle);
     }
 
     private void initData() {
@@ -185,7 +185,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                LogTool.d(this.getClass().getName(), "position =" + position + " positionOffset =" + positionOffset);
+                LogTool.d("position =" + position + " positionOffset =" + positionOffset);
                 if (!isLoading && currentState == ViewPager.SCROLL_STATE_DRAGGING && from >= 20 && currentPosition >
                         from - 5 && positionOffsetPixels > 0) {
                     isLoading = true;
@@ -196,7 +196,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
             @Override
             public void onPageSelected(int position) {
                 currentPosition = position;
-                LogTool.d(TAG, "currentPosition=" + currentPosition);
+                LogTool.d("currentPosition=" + currentPosition);
                 setPreviewImgInfoView(currentPosition);
             }
 
@@ -291,10 +291,10 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
                     BeautifulImageList decorationItemInfo = apiResponse.getData();
-                    LogTool.d(TAG, "decorationItemInfo:" + decorationItemInfo);
+                    LogTool.d("decorationItemInfo:" + decorationItemInfo);
                     if (null != decorationItemInfo) {
                         List<BeautifulImage> beautyImages = decorationItemInfo.getBeautiful_images();
-                        LogTool.d(TAG, "beautyImages:" + beautyImages.size());
+                        LogTool.d("beautyImages:" + beautyImages.size());
                         if (null != beautyImages && beautyImages.size() > 0) {
                             showPicPagerAdapter.addItem(beautyImages);
                             from += Constant.HOME_PAGE_LIMIT;
@@ -384,18 +384,18 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
     private void notifyChangeState(boolean isSelect) {
         BeautifulImage BeautifulImage = showPicPagerAdapter.getBeautyImagesList().get(currentPosition);
-        LogTool.d(TAG, "BeautifulImage=" + BeautifulImage);
+        LogTool.d("BeautifulImage=" + BeautifulImage);
         BeautifulImage.setIs_my_favorite(isSelect);
         showPicPagerAdapter.notifyDataSetChanged();
     }
 
     private void setPreviewImgInfoView(int position) {
-        LogTool.d(TAG, "position===" + position);
+        LogTool.d("position===" + position);
         picTip.setText((position + 1) + "/" + totalCount);
         BeautifulImage beautifulImage = beautiful_images.get(position);
 
         currentImgId = beautifulImage.getImages().get(0).getImageid();
-        LogTool.d(TAG, "  currentImgId=" + currentImgId);
+        LogTool.d("  currentImgId=" + currentImgId);
         picTitle = beautifulImage.getTitle();
         currentStyle = beautifulImage.getDec_style();
         currentTag = beautifulImage.getSection();
@@ -406,7 +406,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
             desView.setText(keyDes);
         }
 
-        LogTool.d(TAG, "picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
+        LogTool.d("picTitle:" + picTitle + " currentStyle:" + currentStyle + " currentTag:" + currentTag);
         beautyImageId = beautifulImage.get_id();
         if (beautifulImage.is_my_favorite()) {
             toolbarCollect.setSelected(true);
@@ -425,7 +425,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, SocializeEntity socializeEntity) {
-                LogTool.d(TAG, "status =" + i);
+                LogTool.d("status =" + i);
             }
         });
     }

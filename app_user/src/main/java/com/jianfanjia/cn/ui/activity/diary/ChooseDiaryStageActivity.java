@@ -42,7 +42,7 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
     private void getDataFromIntent() {
         currentChooseValue = getIntent().getStringExtra(CURRENT_CHOOSE_VALUE);
         if (currentChooseValue != null) {
-            LogTool.d(this.getClass().getName(), "initChooseVulue =" + currentChooseValue);
+            LogTool.d("initChooseVulue =" + currentChooseValue);
             setInitSelectedValue();
         }
     }
@@ -54,7 +54,7 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
                 View view = linearLayout.getChildAt(j);
                 if (view instanceof TextView) {
                     if (((TextView) view).getText().equals(currentChooseValue)) {
-                        LogTool.d(this.getClass().getName(),"chooseTextView");
+                        LogTool.d("chooseTextView");
                         view.setSelected(true);
                     }
                 }
@@ -67,7 +67,7 @@ public class ChooseDiaryStageActivity extends BaseSwipeBackActivity {
             .tv_anzhuang, R.id.tv_jungong, R.id.tv_ruanzhuang, R.id.tv_ruzhu})
     protected void click(View view) {
         String chooseValue = ((TextView) view).getText().toString();
-        LogTool.d(this.getClass().getName(), "chooseVulue =" + chooseValue);
+        LogTool.d("chooseVulue =" + chooseValue);
         Intent intent = getIntent();
         intent.putExtra(IntentConstant.RESPONSE_DATA, chooseValue);
         setResult(RESULT_OK, intent);

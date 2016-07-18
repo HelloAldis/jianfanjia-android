@@ -87,12 +87,12 @@ public class NoticeFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         typeArray = getArguments().getStringArray("TypeArray");
-        LogTool.d(TAG, "typeArray=" + typeArray);
+        LogTool.d("typeArray=" + typeArray);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogTool.d(TAG, "=====onCreateView");
+        LogTool.d("=====onCreateView");
         if (null == view) {
             view = super.onCreateView(inflater, container, savedInstanceState);
             initView();
@@ -126,7 +126,7 @@ public class NoticeFragment extends BaseFragment {
             @Override
             public void onClick(int position, Object obj) {
                 UserMessage noticeInfo = (UserMessage) obj;
-                LogTool.d(TAG, "position=" + position + " noticeInfo:" + noticeInfo.getContent());
+                LogTool.d("position=" + position + " noticeInfo:" + noticeInfo.getContent());
                 Bundle detailBundle = new Bundle();
                 detailBundle.putString(IntentConstant.MSG_ID, noticeInfo.get_id());
                 startActivity(NoticeDetailActivity.class, detailBundle);
@@ -223,7 +223,7 @@ public class NoticeFragment extends BaseFragment {
             };
 
     private void setLoadData(UserMessageList noticeListInfo, boolean isClearOldData) {
-        LogTool.d(TAG, "noticeListInfo:" + noticeListInfo);
+        LogTool.d("noticeListInfo:" + noticeListInfo);
         if (null != noticeListInfo) {
             int total = noticeListInfo.getTotal();
             if (total > 0) {
@@ -231,8 +231,8 @@ public class NoticeFragment extends BaseFragment {
                     noticeAdapter.clear();
                 }
                 noticeAdapter.addData(noticeListInfo.getList());
-                LogTool.d(TAG, "total size =" + total);
-                LogTool.d(TAG, "myCommentInfoAdapter.getData().size() =" +
+                LogTool.d("total size =" + total);
+                LogTool.d("myCommentInfoAdapter.getData().size() =" +
                         noticeAdapter.getData().size());
                 if (total > noticeAdapter.getData().size()) {
                     noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_LOAD_MORE);

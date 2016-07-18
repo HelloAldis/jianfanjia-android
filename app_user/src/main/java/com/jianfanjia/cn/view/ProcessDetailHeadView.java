@@ -76,7 +76,7 @@ public class ProcessDetailHeadView extends FrameLayout {
         rowBtnUpLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogTool.d(TAG, "rowBtnUp animate");
+                LogTool.d("rowBtnUp animate");
                 if (isOpen) {
                     closeAnim();
                 } else {
@@ -192,7 +192,7 @@ public class ProcessDetailHeadView extends FrameLayout {
                 hideCheckHead();
                 isCheckShow = false;
             }
-            LogTool.d(TAG, "dismiss head");
+            LogTool.d("dismiss head");
         } else {
             indicatorImage.setVisibility(VISIBLE);
             if (isResetCheckHead) {
@@ -260,7 +260,7 @@ public class ProcessDetailHeadView extends FrameLayout {
     public void openCheckHead() {
         site_list_head_content_layout.measure(0, 0);
         final int aniHeight = site_list_head_content_layout.getHeight();
-        LogTool.d(TAG, "open aniHeight =" + aniHeight);
+        LogTool.d("open aniHeight =" + aniHeight);
         final int initHeight = this.getHeight();
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setIntValues(0, aniHeight);
@@ -281,7 +281,7 @@ public class ProcessDetailHeadView extends FrameLayout {
     public void closeCheckHead() {
         site_list_head_content_layout.measure(0, 0);
         final int aniHeight = site_list_head_content_layout.getHeight();
-        LogTool.d(TAG, "close aniHeight =" + aniHeight);
+        LogTool.d("close aniHeight =" + aniHeight);
         final int initHeight = this.getHeight();
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setIntValues(0, aniHeight);
@@ -307,7 +307,7 @@ public class ProcessDetailHeadView extends FrameLayout {
         } else {
             aniHeight = mProcessDetailHeadStateView.getHeight() - site_list_head_content_layout.getHeight();
         }
-        LogTool.d(TAG, "hide aniHeight =" + aniHeight);
+        LogTool.d("hide aniHeight =" + aniHeight);
         final int initHeight = this.getHeight();
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setIntValues(0, aniHeight);
@@ -333,7 +333,7 @@ public class ProcessDetailHeadView extends FrameLayout {
         } else {
             aniHeight = mProcessDetailHeadStateView.getHeight() - site_list_head_content_layout.getHeight();
         }
-        LogTool.d(TAG, "hide aniHeight =" + aniHeight);
+        LogTool.d("hide aniHeight =" + aniHeight);
         final int initHeight = this.getHeight();
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setIntValues(0, aniHeight);

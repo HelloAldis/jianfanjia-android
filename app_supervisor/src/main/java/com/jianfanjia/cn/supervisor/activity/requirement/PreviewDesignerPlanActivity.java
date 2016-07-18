@@ -94,7 +94,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         plan = (Plan) planBundle.getSerializable(Global.PLAN_DETAIL);
         requirement = (Requirement) planBundle.getSerializable(Global.REQUIREMENT_INFO);
         itemPosition = plan.getName() == null ? "null" : plan.getName();
-        LogTool.d(TAG, "plan=" + plan + " requirement=" + requirement + " itemPosition=" + itemPosition);
+        LogTool.d("plan=" + plan + " requirement=" + requirement + " itemPosition=" + itemPosition);
     }
 
     public void initData() {
@@ -104,7 +104,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             designTextLayout.setVisibility(View.VISIBLE);
             mainHeadView.setRigthTitleEnable(true);
             String dec_type = requirement.getDec_type();
-            LogTool.d(TAG, "dec_type=" + dec_type + "    requirement.getHouse_type()=" + requirement.getHouse_type());
+            LogTool.d("dec_type=" + dec_type + "    requirement.getHouse_type()=" + requirement.getHouse_type());
             if (!TextUtils.isEmpty(requirement.getBasic_address())) {
                 cellName.setVisibility(View.VISIBLE);
                 cellName.setText(requirement.getBasic_address());
@@ -155,7 +155,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
                 ViewPagerClickListener() {
                     @Override
                     public void onClickItem(int pos) {
-                        LogTool.d(TAG, "pos:" + pos);
+                        LogTool.d("pos:" + pos);
                         Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
                         Bundle showPicBundle = new Bundle();
                         showPicBundle.putInt(Constant.CURRENT_POSITION, pos);

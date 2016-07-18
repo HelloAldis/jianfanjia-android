@@ -121,7 +121,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         adapter.setOnItemClickListener(new DesignerCaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position,ImageView imageView) {
-                LogTool.d(TAG, "position:" + position);
+                LogTool.d("position:" + position);
 
                 AnimationRect animationRect = AnimationRect.buildFromImageView(imageView);
                 List<AnimationRect> animationRectList = new ArrayList<>();
@@ -139,7 +139,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
     private void gotoShowBigPic(int position, List<AnimationRect>
             animationRectList) {
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(this,(ArrayList<String>) imgs, (ArrayList<AnimationRect>)
                 animationRectList, position);
         overridePendingTransition(0, 0);
@@ -153,7 +153,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
             if (isIntentFromHome) {
                 initSwipeBack();
             }
-            LogTool.d(TAG, "productid=" + productid);
+            LogTool.d("productid=" + productid);
             getProductHomePageInfo(productid);
         }
     }
@@ -161,7 +161,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        LogTool.d(TAG, "onNewIntent");
+        LogTool.d("onNewIntent");
         mScrollY = 0;
         getDataFromIntent(intent);
     }
@@ -302,7 +302,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
         @Override
         public void onSuccess(ApiResponse<Product> apiResponse) {
             mProduct = apiResponse.getData();
-            LogTool.d(TAG, "designerCaseInfo" + mProduct);
+            LogTool.d("designerCaseInfo" + mProduct);
             if (null != mProduct) {
                 toolbar_collect_layout.setVisibility(View.VISIBLE);
                 if (mProduct.is_my_favorite()) {

@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogTool.d(this.getClass().getName(), "onCreate()");
+        LogTool.d("onCreate()");
         setContentView(getLayoutId());
         init(savedInstanceState);
         ButterKnife.bind(this);
@@ -62,27 +62,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        LogTool.d(this.getClass().getName(), "onStart()");
+        LogTool.d("onStart()");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogTool.d(this.getClass().getName(), "onResume()");
+        LogTool.d("onResume()");
         MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogTool.d(this.getClass().getName(), "onPause()");
+        LogTool.d("onPause()");
         MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogTool.d(this.getClass().getName(), "onStop()");
+        LogTool.d("onStop()");
     }
 
     @Override
@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ApiClient.cancelTag(this);
-        LogTool.d(this.getClass().getName(), "onDestroy()");
+        LogTool.d("onDestroy()");
     }
 
     protected void makeTextShort(String text) {

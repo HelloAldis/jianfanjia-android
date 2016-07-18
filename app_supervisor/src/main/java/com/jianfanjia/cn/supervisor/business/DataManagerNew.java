@@ -141,8 +141,8 @@ public class DataManagerNew {
         boolean isExipre = !(currentDate.get(Calendar.YEAR) == lastLoginDate.get(Calendar.YEAR)
                 && currentDate.get(Calendar.MONTH) == lastLoginDate.get(Calendar.MONTH)
                 && currentDate.get(Calendar.DAY_OF_MONTH) == lastLoginDate.get(Calendar.DAY_OF_MONTH));
-        LogTool.d(TAG, "currentDate =" + currentDate.get(Calendar.DAY_OF_MONTH));
-        LogTool.d(TAG, "isloginExipre =" + isExipre);
+        LogTool.d("currentDate =" + currentDate.get(Calendar.DAY_OF_MONTH));
+        LogTool.d("isloginExipre =" + isExipre);
         return isExipre;
     }
 

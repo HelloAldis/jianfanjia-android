@@ -360,7 +360,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
                 user = apiResponse.getData();
-                LogTool.d(TAG, "user: " + user);
+                LogTool.d("user: " + user);
                 setData();
                 error_Layout.setVisibility(View.GONE);
             }
@@ -412,7 +412,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Uri uri = UCrop.getOutput(result);
-            LogTool.d(TAG, "uri path: " + uri.toString() + uri.getEncodedPath());
+            LogTool.d("uri path: " + uri.toString() + uri.getEncodedPath());
             Bitmap bitmap = null;
             try {
                 InputStream is = this.getContentResolver().openInputStream(uri);
@@ -446,7 +446,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
                 String imageid = apiResponse.getData();
-                LogTool.d(TAG, "imageid:" + imageid);
+                LogTool.d("imageid:" + imageid);
                 if (!TextUtils.isEmpty(imageid)) {
                     getImageId(imageid);
                 }
@@ -507,7 +507,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
                 mTmpFile = new File(dataManager.getPicPath());
                 if (mTmpFile != null) {
                     Uri uri = Uri.fromFile(mTmpFile);
-                    LogTool.d(TAG, "uri:" + uri);
+                    LogTool.d("uri:" + uri);
                     if (null != uri) {
                         beginCrop(uri);
                     }
@@ -516,7 +516,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
             case Constant.REQUESTCODE_LOCATION:// 本地选取
                 if (data != null) {
                     Uri uri = data.getData();
-                    LogTool.d(TAG, "uri:" + uri);
+                    LogTool.d("uri:" + uri);
                     if (null != uri) {
                         beginCrop(uri);
                     }
@@ -531,7 +531,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
     }
 
     public void getImageId(String imageid) {
-        LogTool.d(TAG, "imageid=" + imageid);
+        LogTool.d("imageid=" + imageid);
         imageId = imageid;
 //        dataManager.setUserImagePath(imageId);
         if (TextUtils.isEmpty(imageId)) {

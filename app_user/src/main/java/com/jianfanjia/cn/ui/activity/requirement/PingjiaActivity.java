@@ -83,7 +83,7 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
             designerid = commentBundle.getString(IntentConstant.DESIGNER_ID);
             speed = commentBundle.getFloat(IntentConstant.SPEED);
             attitude = commentBundle.getFloat(IntentConstant.ATTITUDE);
-            LogTool.d(TAG, "imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" +
+            LogTool.d("imageid:" + imageid + " designer_name:" + designer_name + " requirementid:" +
                     requirementid +
                     " designerid:" + designerid + " speed:" + speed + " attitude:" + attitude);
 
@@ -131,7 +131,7 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
             respond_speed = (int) rating;
-            LogTool.d(TAG, "respond_speed:" + respond_speed);
+            LogTool.d("respond_speed:" + respond_speed);
         }
     };
 
@@ -139,7 +139,7 @@ public class PingjiaActivity extends BaseSwipeBackActivity {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
             service_attitude = (int) rating;
-            LogTool.d(TAG, "service_attitude:" + service_attitude);
+            LogTool.d("service_attitude:" + service_attitude);
         }
     };
 

@@ -80,7 +80,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
     }
 
     private void initData() {
-        LogTool.d(this.getClass().getName(), "initData");
+        LogTool.d("initData");
         if (mDesigner != null) {
             setDecStyle();
             setCommunicationStyle();
@@ -329,7 +329,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                 List<ReqItemFinderImp.ItemMap> decTypeItemMaps = data.getParcelableArrayListExtra(Global.RESPONSE_DATA);
                 mDesigner.getDec_types().clear();
                 for (ReqItemFinderImp.ItemMap itemMap : decTypeItemMaps) {
-                    LogTool.d(this.getClass().getName(), "itemMap.key =" + itemMap.key);
+                    LogTool.d("itemMap.key =" + itemMap.key);
                     mDesigner.getDec_types().add(itemMap.key);
                 }
                 setDecType();
@@ -339,7 +339,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                         .RESPONSE_DATA);
                 mDesigner.getWork_types().clear();
                 for (ReqItemFinderImp.ItemMap itemMap : workTypeItemMaps) {
-                    LogTool.d(this.getClass().getName(), "itemMap.key =" + itemMap.key);
+                    LogTool.d("itemMap.key =" + itemMap.key);
                     mDesigner.getWork_types().add(itemMap.key);
                 }
                 setWorkType();
@@ -349,7 +349,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                         .RESPONSE_DATA);
                 mDesigner.getDec_districts().clear();
                 for (ReqItemFinderImp.ItemMap itemMap : decDistrictItemMaps) {
-                    LogTool.d(this.getClass().getName(), "itemMap.key =" + itemMap.key);
+                    LogTool.d("itemMap.key =" + itemMap.key);
                     mDesigner.getDec_districts().add(itemMap.value);
                 }
                 setReceiveDistrict();
@@ -359,7 +359,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                         .RESPONSE_DATA);
                 mDesigner.getDec_house_types().clear();
                 for (ReqItemFinderImp.ItemMap itemMap : houseTypeItemMaps) {
-                    LogTool.d(this.getClass().getName(), "itemMap.key =" + itemMap.key);
+                    LogTool.d("itemMap.key =" + itemMap.key);
                     mDesigner.getDec_house_types().add(itemMap.key);
                 }
                 setHouseType();
@@ -383,7 +383,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
                         .RESPONSE_DATA);
                 mDesigner.getDec_styles().clear();
                 for (ReqItemFinderImp.ItemMap itemMap : loveStyleItemMaps) {
-                    LogTool.d(this.getClass().getName(), "itemMap.key =" + itemMap.key);
+                    LogTool.d("itemMap.key =" + itemMap.key);
                     mDesigner.getDec_styles().add(itemMap.key);
                 }
                 setDecStyle();

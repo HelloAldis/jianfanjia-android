@@ -65,7 +65,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         search = getArguments().getString(IntentConstant.SEARCH_TEXT);
-        LogTool.d(TAG, "search=" + search);
+        LogTool.d("search=" + search);
     }
 
     @Override
@@ -83,9 +83,9 @@ public class SearchDecorationImgFragment extends BaseFragment {
         decorationAdapter = new SearchDecorationImgAdapter(getContext(), recyclerView, new OnItemClickListener() {
             @Override
             public void OnItemClick(int position) {
-                LogTool.d(TAG, "position=" + position);
+                LogTool.d("position=" + position);
                 BeautifulImage beautyImgInfo = decorationAdapter.getData().get(position);
-                LogTool.d(TAG, "beautyImgInfo:" + beautyImgInfo);
+                LogTool.d("beautyImgInfo:" + beautyImgInfo);
                 Bundle decorationBundle = new Bundle();
                 decorationBundle.putString(IntentConstant.DECORATION_BEAUTY_IAMGE_ID, beautyImgInfo.get_id());
                 decorationBundle.putInt(IntentConstant.POSITION, position);
@@ -146,12 +146,12 @@ public class SearchDecorationImgFragment extends BaseFragment {
         public void onSuccess(ApiResponse<BeautifulImageList> apiResponse) {
             BeautifulImageList BeautifulImageList = apiResponse.getData();
 
-            LogTool.d(TAG, "BeautifulImageList:" + BeautifulImageList);
+            LogTool.d("BeautifulImageList:" + BeautifulImageList);
             if (null != BeautifulImageList) {
                 total = BeautifulImageList.getTotal();
                 if (total > 0) {
-                    LogTool.d(this.getClass().getName(), "total size =" + total);
-                    LogTool.d(this.getClass().getName(), "searchDesignerAdapter.getData().size() =" +
+                    LogTool.d("total size =" + total);
+                    LogTool.d("searchDesignerAdapter.getData().size() =" +
                             decorationAdapter.getData().size());
                     decorationAdapter.addData(BeautifulImageList.getBeautiful_images());
                     if (total > decorationAdapter.getData().size()) {

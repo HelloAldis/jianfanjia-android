@@ -117,7 +117,7 @@ public class ForgetPswActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "forgetPsw afterTextChanged");
+                LogTool.d("forgetPsw afterTextChanged");
                 String text = s.toString();
                 if(!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswPassword.getText().toString())){
                     mBtnNext.setEnabled(true);
@@ -139,7 +139,7 @@ public class ForgetPswActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogTool.d(TAG, "forgetPsw afterTextChanged");
+                LogTool.d("forgetPsw afterTextChanged");
                 String text = s.toString();
                 if (!TextUtils.isEmpty(text) && !TextUtils.isEmpty(mEtForgetPswUserName.getText().toString())) {
                     mBtnNext.setEnabled(true);

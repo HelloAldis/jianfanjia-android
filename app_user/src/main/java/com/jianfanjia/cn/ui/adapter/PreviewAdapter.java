@@ -82,7 +82,7 @@ public class PreviewAdapter extends PagerAdapter {
 
     private void gotoShowBigPic(int position, List<AnimationRect>
             animationRectList) {
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(context, (ArrayList<String>) mList, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((Activity) context).overridePendingTransition(0, 0);

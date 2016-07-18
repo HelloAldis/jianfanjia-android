@@ -257,7 +257,7 @@ public class SectionItemAdapter extends BaseAdapter {
     }
 
     private void showImageBig(int position, List<AnimationRect> animationRectList) {
-        LogTool.d(this.getClass().getName(), "position:" + position);
+        LogTool.d("position:" + position);
         CommonShowPicActivity.intentTo(context, (ArrayList<String>) imageUrlList, (ArrayList<AnimationRect>)
                 animationRectList, position);
         ((MyProcessDetailActivity) context).overridePendingTransition(0, 0);

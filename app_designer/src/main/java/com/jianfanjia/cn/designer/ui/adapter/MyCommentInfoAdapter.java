@@ -108,7 +108,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
 
         //设计师的头像
         if (!TextUtils.isEmpty(imageid)) {
-            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
+            LogTool.d("imageid=" + imageid);
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);
@@ -190,7 +190,7 @@ public class MyCommentInfoAdapter extends BaseLoadMoreRecycleAdapter<UserMessage
         }
 
         if (!TextUtils.isEmpty(imageid)) {
-            LogTool.d(this.getClass().getName(), "imageid=" + imageid);
+            LogTool.d("imageid=" + imageid);
             imageShow.displayImageHeadWidthThumnailImage(context, imageid, holder.itemHeadView);
         } else {
             imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, holder.itemHeadView);

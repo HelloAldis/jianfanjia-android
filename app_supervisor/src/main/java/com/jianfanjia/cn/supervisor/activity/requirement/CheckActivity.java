@@ -90,24 +90,24 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
             processInfo = (Process) bundle.getSerializable(Constant.PROCESS_INFO);
             processInfoId = processInfo.get_id();
             flagIntent = bundle.getInt(CheckActivity.CHECK_INTENT_FLAG);
-            LogTool.d(TAG, "sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
+            LogTool.d("sectionName:" + sectionName + " processInfo:" + processInfo + " processInfoId:" +
                     processInfoId + " flagIntent:" + flagIntent);
             sectionInfo = (ProcessSection) bundle.getSerializable(Constant.SECTION_INFO);
         }
     }
 
     private void initData() {
-        LogTool.d(TAG, "sectionInfo:" + sectionInfo.get_id());
+        LogTool.d("sectionInfo:" + sectionInfo.get_id());
         mainHeadView.setMianTitle(sectionInfo.getLabel() + getResources()
                 .getString(R.string.stage_check_text));
         checkGridList.clear();
         checkGridList = getCheckedImageById(sectionInfo.getName());
         imageids = sectionInfo.getYs().getImages();
         currentUploadCount = imageids.size();
-        LogTool.d(TAG, "currentUploadCount=" + currentUploadCount);
+        LogTool.d("currentUploadCount=" + currentUploadCount);
         for (ProcessSectionYsImage ysImage : imageids) {
             String key = ysImage.getKey();
-            LogTool.d(TAG, "key=" + key);
+            LogTool.d("key=" + key);
             checkGridList.get(Integer.parseInt(key) * 2 + 1).setImgId(
                     ysImage.getImageid());
         }
@@ -158,9 +158,9 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
             int arrId = getResources().getIdentifier(sectionName, "array",
                     MyApplication.getInstance().getPackageName());
             TypedArray ta = getResources().obtainTypedArray(arrId);
-            LogTool.d(TAG, "res length:" + ta.length());
+            LogTool.d("res length:" + ta.length());
             for (int i = 0; i < ta.length(); i++) {
-                LogTool.d(TAG, "res id:" + ta.getResourceId(i, 0));
+                LogTool.d("res id:" + ta.getResourceId(i, 0));
                 GridItem item = new GridItem();
                 item.setImgId(Constant.DEFALUT_PIC_HEAD + ta.getResourceId(i, 0));
                 gridList.add(item);
@@ -174,7 +174,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
     }
 
     private void startShowActivity(int arg2) {
-        LogTool.d(TAG, "arg2=" + arg2);
+        LogTool.d("arg2=" + arg2);
         Bundle bundle = new Bundle();
         if (arg2 % 2 == 0) {
             bundle.putStringArrayList(Constant.IMAGE_LIST,
@@ -197,7 +197,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements ItemClickCal
 
     @Override
     public void click(int position, int itemType) {
-        LogTool.d(TAG, "position = " + position);
+        LogTool.d("position = " + position);
         startShowActivity(position);
     }
 

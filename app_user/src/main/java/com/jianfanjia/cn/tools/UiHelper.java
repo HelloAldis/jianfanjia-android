@@ -275,9 +275,7 @@ public class UiHelper {
                             }
                         }
 
-                        LogTool.d(UiHelper.class.
-
-                                        getName(),
+                        LogTool.d(
 
                                 "root.getRootView().getHeight() =" + root.getRootView().
 
@@ -346,9 +344,9 @@ public class UiHelper {
         Camera mCamera = null;
         try {
             mCamera = Camera.open();
-            LogTool.d("camera", "can open");
+            LogTool.d("can open");
         } catch (Exception e) {
-            LogTool.d("camera", "can't open");
+            LogTool.d("can't open");
             canUse = false;
         }
         if (canUse) {

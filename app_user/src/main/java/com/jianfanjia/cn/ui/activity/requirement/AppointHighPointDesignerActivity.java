@@ -303,7 +303,7 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
         if (productNews.size() > 0) {
             Product product = productNews.get(0);
             String productid = product.get_id();
-            LogTool.d(TAG, "productid:" + productid);
+            LogTool.d("productid:" + productid);
             Bundle productBundle = new Bundle();
             productBundle.putString(IntentConstant.PRODUCT_ID, productid);
             startActivity(DesignerCaseInfoActivity.class, productBundle);

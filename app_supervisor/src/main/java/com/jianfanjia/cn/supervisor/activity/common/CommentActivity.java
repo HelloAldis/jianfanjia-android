@@ -85,7 +85,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         section = commentBundle.getString(Global.SECTION);
         item = commentBundle.getString(Global.ITEM);
         topictype = commentBundle.getString(Global.TOPICTYPE);
-        LogTool.d(TAG, "topicid=" + topicid  + " toUserid " + toUserid + " toDesignerid " + toDesignerid +  " section = " + section + " item" + item);
+        LogTool.d("topicid=" + topicid  + " toUserid " + toUserid + " toDesignerid " + toDesignerid +  " section = " + section + " item" + item);
     }
 
     public void initView() {
@@ -111,7 +111,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
     }
 
     private void initData() {
-        LogTool.d(TAG, "topicid=" + topicid  + " toUserid " + toUserid + " toDesignerid " + toDesignerid +  " section = " + section + " item" + item);
+        LogTool.d("topicid=" + topicid  + " toUserid " + toUserid + " toDesignerid " + toDesignerid +  " section = " + section + " item" + item);
         getCommentList(topicid, 0, 10000, section, item);
     }
 
@@ -165,10 +165,10 @@ public class CommentActivity extends BaseSwipeBackActivity {
         @Override
         public void onSuccess(ApiResponse<CommentList> apiResponse) {
             CommentList commentList = apiResponse.getData();
-            LogTool.d(TAG, "commentList:" + commentList);
+            LogTool.d("commentList:" + commentList);
             if (null != commentList) {
                 comments = commentList.getComments();
-                LogTool.d(TAG, "comments=" + comments);
+                LogTool.d("comments=" + comments);
                 commentAdapter = new CommentAdapter(CommentActivity.this, comments);
                 commentListView.setAdapter(commentAdapter);
             }

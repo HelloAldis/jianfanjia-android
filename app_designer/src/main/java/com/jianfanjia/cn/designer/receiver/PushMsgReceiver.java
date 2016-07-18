@@ -29,7 +29,7 @@ public class PushMsgReceiver extends BroadcastReceiver {
         if (bundle == null) {
             return;
         }
-        LogTool.d(TAG, "onReceive() action=" + bundle.getInt("action"));
+        LogTool.d("onReceive() action=" + bundle.getInt("action"));
         switch (bundle.getInt(PushConsts.CMD_ACTION)) {
             case PushConsts.GET_MSG_DATA:
                 // 获取透传数据
@@ -40,10 +40,10 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 // smartPush第三方回执调用接口，actionid范围为90000-90999，可根据业务场景执行
                 boolean result = PushManager.getInstance().sendFeedbackMessage(
                         context, taskid, messageid, 90001);
-                LogTool.d(TAG, "第三方回执接口调用" + (result ? "成功" : "失败"));
+                LogTool.d("第三方回执接口调用" + (result ? "成功" : "失败"));
                 if (payload != null) {
                     String data = new String(payload);
-                    LogTool.d(TAG, "receiver payload : " + data);
+                    LogTool.d("receiver payload : " + data);
                     MessageUtil.parseMessage(context, data);
                 }
                 break;
@@ -51,9 +51,9 @@ public class PushMsgReceiver extends BroadcastReceiver {
                 // 获取ClientID(CID)
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
                 String cid = bundle.getString("clientid");
-                LogTool.d(TAG, "cid:" + cid);
+                LogTool.d("cid:" + cid);
                 boolean isLogin = dataManager.isLogin();
-                LogTool.d(TAG, "isLogin:" + isLogin);
+                LogTool.d("isLogin:" + isLogin);
                 if (isLogin) {
                     PushManager.getInstance().bindAlias(context.getApplicationContext(), dataManager.getUserId());
                 }

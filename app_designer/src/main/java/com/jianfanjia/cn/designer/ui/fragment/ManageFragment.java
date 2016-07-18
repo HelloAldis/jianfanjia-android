@@ -116,7 +116,7 @@ public class ManageFragment extends BaseFragment {
                     public void click(int position, int itemType) {
                         Process process = processList.get(position);
                         processId = process.get_id();
-                        LogTool.d(TAG, "processId:" + processId + "  itemPosition:" + itemPosition);
+                        LogTool.d("processId:" + processId + "  itemPosition:" + itemPosition);
                         switch (itemType) {
                             case ITEM_PRIVIEW:
                                 Intent gotoPriviewRequirement = null;
@@ -217,7 +217,7 @@ public class ManageFragment extends BaseFragment {
             public void onSuccess(ApiResponse<List<Process>> apiResponse) {
                 processList = apiResponse.getData();
                 mHasLoadOnce = true;
-                LogTool.d(TAG, "processList:" + processList);
+                LogTool.d("processList:" + processList);
                 if (null != processList && processList.size() > 0) {
                     manage_pullfefresh.setVisibility(View.VISIBLE);
                     adapter.addItem(processList);

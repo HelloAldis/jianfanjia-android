@@ -104,7 +104,7 @@ public class HomeNewFragment extends BaseFragment {
         initBannerView(scrollViewPager, dotLinearLayout, new ViewPagerClickListener() {
             @Override
             public void onClickItem(int pos) {
-                LogTool.d(this.getClass().getName(), "position =" + pos);
+                LogTool.d("position =" + pos);
                 if (pos == 2) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
@@ -174,7 +174,7 @@ public class HomeNewFragment extends BaseFragment {
         if (productNews != null) {
             Product product = productNews.get(contentViewPager.getCurrentItem());
             String productid = product.get_id();
-            LogTool.d(TAG, "productid:" + productid);
+            LogTool.d("productid:" + productid);
             Bundle productBundle = new Bundle();
             productBundle.putString(IntentConstant.PRODUCT_ID, productid);
             productBundle.putBoolean(DesignerCaseInfoActivity.INTENT_FROM_HOME, true);

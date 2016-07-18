@@ -259,7 +259,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     public void hideErrorAndEmptyView() {
         if (errorView != null) {
-            LogTool.d(this.getClass().getName(), "set_error_view =");
+            LogTool.d("set_error_view =");
             errorView.setVisibility(View.GONE);
             emptyView.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
@@ -269,7 +269,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
     public void setErrorViewShow() {
         if (mDatas.size() == 0) {
             if (errorView != null) {
-                LogTool.d(this.getClass().getName(), "set_error_view =");
+                LogTool.d("set_error_view =");
                 errorView.setVisibility(View.VISIBLE);
                 emptyView.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
@@ -280,7 +280,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
     public void setEmptyViewShow() {
         if (mDatas.size() == 0) {
             if (emptyView != null) {
-                LogTool.d(this.getClass().getName(), "set_empty_view =");
+                LogTool.d("set_empty_view =");
                 emptyView.setVisibility(View.VISIBLE);
                 errorView.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
@@ -290,7 +290,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
 
     private void onBindLoadMoreViewHolder(RecyclerView.ViewHolder holder, int position) {
         mLoadingViewHolder = (LoadingViewHolder) holder;
-        LogTool.d(this.getClass().getName(), "isHasLoadMore =" + state);
+        LogTool.d("isHasLoadMore =" + state);
         switch (state) {
             case STATE_NETWORK_ERROR:
                 mLoadingViewHolder.llyLoading.setVisibility(View.VISIBLE);
@@ -375,7 +375,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<Recycle
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (!canScrollDown(recyclerView) && state == STATE_LOAD_MORE) {
-                    LogTool.d(this.getClass().getName(), "loading...");
+                    LogTool.d("loading...");
                     if (loadMoreListener != null) {
                         loadMoreListener.loadMore();
                     }

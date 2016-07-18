@@ -94,7 +94,7 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
                 totalDuration = plan.getDuration();
                 totalBudget = plan.getTotal_price();
                 workType = requirementInfo.getWork_type();
-                LogTool.d(this.getClass().getName(), " requirementid = " + requirementid +
+                LogTool.d(" requirementid = " + requirementid +
                         " totalDuration =" + totalDuration + " totalBudget=" + totalBudget
                         + " workType=" + workType);
             }
@@ -167,7 +167,7 @@ public class SettingContractActivity extends BaseSwipeBackActivity {
 
     private void navegationToNext() {
         long startTime = chooseCalendar.getTimeInMillis();
-        LogTool.d(this.getClass().getName(), DateFormatTool.longToStringHasMini(startTime));
+        LogTool.d(DateFormatTool.longToStringHasMini(startTime));
         ConfigContractInfo configContractInfo = new ConfigContractInfo();
         configContractInfo.setRequirementid(requirementid);
         configContractInfo.setStartAt(startTime);

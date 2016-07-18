@@ -130,7 +130,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        LogTool.d(TAG, "setupViewPager");
+        LogTool.d("setupViewPager");
         List<SelectItem> listViews = new ArrayList<>();
         editBussinessRequirementFragment_ = new EditBussinessRequirementFragment();
         editBussinessRequirementFragment_.setArguments(getBundleByType(Global.DEC_TYPE_BUSINESS));
@@ -149,10 +149,10 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         switch (status) {
             case Global.DEC_TYPE_HOME:
                 if (editHomeRequirementFragment_ != null) {
-                    LogTool.d(TAG, "editHomeRequirementFragment_ is not null");
+                    LogTool.d("editHomeRequirementFragment_ is not null");
                     mainHeadView.setRigthTitleEnable(editHomeRequirementFragment_.isFinish());
                 } else {
-                    LogTool.d(TAG, "editHomeRequirementFragment_ is null");
+                    LogTool.d("editHomeRequirementFragment_ is null");
                 }
                 break;
             case Global.DEC_TYPE_BUSINESS:
@@ -242,17 +242,17 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
         Bundle bundle = new Bundle();
         Requirement requirementInfo = getSourceRequirement(type);
         bundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
-        LogTool.d(TAG, "requirmentInfo =" + JsonParser.beanToJson(requirementInfo));
+        LogTool.d("requirmentInfo =" + JsonParser.beanToJson(requirementInfo));
         bundle.putInt(IntentConstant.REQUIREMENG_ACTION_TYPE, XuQiuFragment.REQUESTCODE_PUBLISH_REQUIREMENT);
         return bundle;
     }
 
     protected void back() {
         if (isHomeTypeChange() || isBusinessTypeChange()) {
-            LogTool.d(TAG, "有改变");
+            LogTool.d("有改变");
             showTipDialog();
         } else {
-            LogTool.d(TAG, "没有改变");
+            LogTool.d("没有改变");
             appManager.finishActivity(this);
 
         }

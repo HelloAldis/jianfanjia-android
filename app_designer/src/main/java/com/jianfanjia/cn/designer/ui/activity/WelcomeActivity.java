@@ -49,7 +49,7 @@ public class WelcomeActivity extends BaseActivity{
         initView();
         logGeTuiAPPKey();
         first = dataManager.isFirst();
-        LogTool.d(TAG, "first=" + first);
+        LogTool.d("first=" + first);
         checkVersion();
     }
 
@@ -70,7 +70,7 @@ public class WelcomeActivity extends BaseActivity{
                 if (var7 != null) {
                     var7 = var7.trim();
                 }
-                LogTool.d(TAG, "PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
+                LogTool.d("PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,7 +171,7 @@ public class WelcomeActivity extends BaseActivity{
     }
 
     public void initView() {
-        LogTool.d(TAG, "initView");
+        LogTool.d("initView");
         dialog = DialogHelper
                 .getPinterestDialog(this);
         GeTuiManager.initGeTui(getApplicationContext());
@@ -183,19 +183,19 @@ public class WelcomeActivity extends BaseActivity{
 //            if (!first) {
                 isLogin = dataManager.isLogin();
                 isLoginExpire = dataManager.isLoginExpire();
-                LogTool.d(TAG, "not first");
+                LogTool.d("not first");
                 if (!isLogin) {
-                    LogTool.d(TAG, "not login");
+                    LogTool.d("not login");
                     startActivity(LoginNewActivity.class);
                     appManager.finishActivity(WelcomeActivity.this);
                 } else {
                     if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
-                        LogTool.d(TAG, "not expire");
+                        LogTool.d("not expire");
                         GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
                         startActivity(MainActivity.class);
                         appManager.finishActivity(WelcomeActivity.this);
                     } else {
-                        LogTool.d(TAG, "expire");
+                        LogTool.d("expire");
 //                        ApiClient.clearCookie();
                         refreshSession();
                     }

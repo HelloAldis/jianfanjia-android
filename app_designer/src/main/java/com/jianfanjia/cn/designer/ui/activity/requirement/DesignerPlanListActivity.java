@@ -68,7 +68,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
         if (requirementInfo != null) {
             requirementid = requirementInfo.get_id();
         }
-        LogTool.d(TAG, "requirementid:" + requirementid);
+        LogTool.d("requirementid:" + requirementid);
     }
 
     public void initView() {
@@ -139,7 +139,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
             @Override
             public void onSuccess(ApiResponse<List<Plan>> apiResponse) {
                 designerPlanList = apiResponse.getData();
-                LogTool.d(TAG, "designerPlanList:" + designerPlanList);
+                LogTool.d("designerPlanList:" + designerPlanList);
                 if (null != designerPlanList && designerPlanList.size() > 0) {
                     DesignerPlanAdapter adapter = new DesignerPlanAdapter(DesignerPlanListActivity.this,
                             designerPlanList,
@@ -163,22 +163,22 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
 
     @Override
     public void onCallBack(int position, int pos) {
-        LogTool.d(TAG, "position:" + position + "  pos:" + pos);
+        LogTool.d("position:" + position + "  pos:" + pos);
         Plan plan = designerPlanList.get(position);
-        LogTool.d(TAG, "plan:" + plan);
+        LogTool.d("plan:" + plan);
         String planid = plan.get_id();
-        LogTool.d(TAG, "planid:" + planid);
+        LogTool.d("planid:" + planid);
         startToActivity(plan, requirementInfo);
     }
 
     @Override
     public void onItemCallBack(int position, int itemType) {
-        LogTool.d(TAG, "itemType:" + itemType);
+        LogTool.d("itemType:" + itemType);
         Plan plan = designerPlanList.get(position);
-        LogTool.d(TAG, "plan:" + plan);
+        LogTool.d("plan:" + plan);
         String planid = plan.get_id();
         String designerid = plan.getDesignerid();
-        LogTool.d(TAG, "planid:" + planid + " designerid:" + designerid);
+        LogTool.d("planid:" + planid + " designerid:" + designerid);
         switch (itemType) {
             case Constant.PLAN_COMMENT_ITEM:
                 Intent commentIntent = new Intent(DesignerPlanListActivity.this, CommentActivity.class);
