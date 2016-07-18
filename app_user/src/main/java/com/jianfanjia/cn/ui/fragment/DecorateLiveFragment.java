@@ -273,7 +273,7 @@ public class DecorateLiveFragment extends BaseFragment {
         request.setQuery(params);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchShare(request, listener);
+        Api.searchShare(request, listener,this);
     }
 
     @Override

@@ -169,7 +169,7 @@ public class MyNewFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        });
+        }, this);
     }
 
     private void setListener() {
@@ -296,7 +296,7 @@ public class MyNewFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        }, selectLists);
+        }, this, selectLists);
     }
 
 

@@ -182,7 +182,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void getRecommendDiarySet() {
@@ -215,7 +215,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void setRecommendDiarySet() {
@@ -332,7 +332,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void refreshNowDataStatus(final List<String> diaryIdList) {
@@ -366,7 +366,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void refreshOldDataSuccess(List<DiaryUpdateInfo> data) {
@@ -408,7 +408,7 @@ public class DiaryDynamicFragment extends BaseFragment {
         searchDiaryRequest.setFrom(0);
         searchDiaryRequest.setLimit(Constant.HOME_PAGE_LIMIT);
 
-        Api.searchDiary(searchDiaryRequest, apiCallback);
+        Api.searchDiary(searchDiaryRequest, apiCallback,this);
     }
 
     private ApiCallback<ApiResponse<DiaryInfoList>> normalLoadMoreData = new ApiCallback<ApiResponse<DiaryInfoList>>() {

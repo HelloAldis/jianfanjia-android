@@ -146,7 +146,7 @@ public class SettingMeasureDateActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override

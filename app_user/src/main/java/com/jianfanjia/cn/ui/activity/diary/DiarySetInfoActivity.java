@@ -412,7 +412,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void initData() {
@@ -509,7 +509,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
 
@@ -603,7 +603,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 mDiarySetInfo.setIs_my_favorite(false);
             }
-        });
+        },this);
     }
 
     private void deleteDiarySetFavorite(final String diarySetId) {
@@ -644,7 +644,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 mDiarySetInfo.setIs_my_favorite(true);
             }
-        });
+        },this);
     }
 
     private void shareDiarySet() {
@@ -746,7 +746,7 @@ public class DiarySetInfoActivity extends BaseActivity {
     private void upload_image(final Bitmap bitmap, ApiCallback<ApiResponse<String>> apiCallback) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
-        Api.uploadImage(uploadPicRequest, apiCallback);
+        Api.uploadImage(uploadPicRequest, apiCallback,this);
     }
 
     private ApiCallback<ApiResponse<String>> uploadHeadImage = new ApiCallback<ApiResponse<String>>() {

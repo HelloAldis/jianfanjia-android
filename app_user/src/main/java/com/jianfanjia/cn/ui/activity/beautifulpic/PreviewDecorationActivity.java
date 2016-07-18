@@ -255,26 +255,26 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
         request.setSearch_word(search);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDecorationImg(request, this.getDecorationImgInfoCallback);
+        Api.searchDecorationImg(request, this.getDecorationImgInfoCallback,this);
     }
 
     private void getCollectedDecorationImgInfo(int from, int limit) {
         GetBeautyImgListRequest request = new GetBeautyImgListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getBeautyImgListByUser(request, this.getDecorationImgInfoCallback);
+        Api.getBeautyImgListByUser(request, this.getDecorationImgInfoCallback,this);
     }
 
     private void addDecorationImgInfo(String decorationId) {
         AddBeautyImgRequest request = new AddBeautyImgRequest();
         request.set_id(decorationId);
-        Api.addBeautyImgByUser(request, this.addDecorationImgInfoCallback);
+        Api.addBeautyImgByUser(request, this.addDecorationImgInfoCallback,this);
     }
 
     private void deleteDecorationImg(String decorationId) {
         DeleteBeautyImgRequest request = new DeleteBeautyImgRequest();
         request.set_id(decorationId);
-        Api.deleteBeautyImgByUser(request, this.deleteDecorationImgCallback);
+        Api.deleteBeautyImgByUser(request, this.deleteDecorationImgCallback,this);
     }
 
     private ApiCallback<ApiResponse<BeautifulImageList>> getDecorationImgInfoCallback = new

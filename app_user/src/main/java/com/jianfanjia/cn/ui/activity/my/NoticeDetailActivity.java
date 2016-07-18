@@ -358,7 +358,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     //同意改期
@@ -392,7 +392,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
 
     }
 
@@ -427,7 +427,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     //确认量房
@@ -461,7 +461,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
 
     }
 

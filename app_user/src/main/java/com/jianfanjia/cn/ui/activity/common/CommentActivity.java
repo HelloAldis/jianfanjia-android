@@ -140,7 +140,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         request.setLimit(limit);
         request.setSection(section);
         request.setItem(item);
-        Api.getCommentList(request, getCommentCallback);
+        Api.getCommentList(request, getCommentCallback,this);
     }
 
     private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
@@ -186,7 +186,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         request.setItem(item);
         request.setContent(content);
         request.setTo_designerid(to);
-        Api.addComment(request, this.addCommentCallback);
+        Api.addComment(request, this.addCommentCallback,this);
     }
 
     private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
@@ -212,7 +212,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override

@@ -74,7 +74,7 @@ public class UiHelper {
      * @param callback
      * @param selectLists
      */
-    public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback,
+    public static void getUnReadMessageCount(ApiCallback<ApiResponse<List<Integer>>> callback, Object tag,
                                              String[]... selectLists) {
         GetUnReadMsgRequest getUnReadMsgRequest = new GetUnReadMsgRequest();
         List<String[]> contain = new ArrayList<>();
@@ -82,7 +82,7 @@ public class UiHelper {
             contain.add(temp);
         }
         getUnReadMsgRequest.setQuery_array(contain);
-        Api.getUnReadMsg(getUnReadMsgRequest, callback);
+        Api.getUnReadMsg(getUnReadMsgRequest, callback, tag);
     }
 
     public static void callPhoneIntent(Context context, String phone) {

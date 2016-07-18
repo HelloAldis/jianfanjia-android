@@ -123,7 +123,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
         request.setSearch_word(searchText);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDecorationImg(request, listener);
+        Api.searchDecorationImg(request, listener,this);
     }
 
     @OnClick(R.id.error_include)

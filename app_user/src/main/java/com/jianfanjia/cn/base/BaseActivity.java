@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
@@ -93,15 +94,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ApiClient.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy()");
     }
 
     protected void makeTextShort(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void makeTextLong(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 
     // 通过Class跳转界面

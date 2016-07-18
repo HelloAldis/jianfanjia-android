@@ -1,9 +1,6 @@
 package com.jianfanjia.cn.designer.config;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-
-import com.jianfanjia.cn.designer.application.MyApplication;
+import com.jianfanjia.cn.designer.BuildConfig;
 
 /**
  * Description:服务器地址及相关接口配置类
@@ -13,9 +10,9 @@ import com.jianfanjia.cn.designer.application.MyApplication;
  */
 public class Url_New {
     private static Url_New instance;
-    public String SEVER_IP = "";
-//    public String SEVER_PORT = "";
-    public String MOBILE_SERVER_URL;
+    public String SEVER_IP = BuildConfig.SERVER_URL;
+    //    public String SEVER_PORT = "";
+    public String MOBILE_SERVER_URL = BuildConfig.MOBILE_SERVER_URL;
 
     public static Url_New getInstance() {
         if (instance == null) {
@@ -27,7 +24,7 @@ public class Url_New {
     private Url_New() {
     }
 
-    {
+    /*{
         try {
             ApplicationInfo appInfo = MyApplication.getInstance().getPackageManager()
                     .getApplicationInfo(MyApplication.getInstance().getPackageName(),
@@ -38,7 +35,7 @@ public class Url_New {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public String HTTPROOT = SEVER_IP + "/api/v2/app/";
 

@@ -183,7 +183,7 @@ public class NewUserCollectPersonActivity extends BaseActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     @Override

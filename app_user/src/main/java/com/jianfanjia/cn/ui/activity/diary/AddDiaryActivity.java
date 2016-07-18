@@ -421,7 +421,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void upload_image(final Bitmap bitmap) {
@@ -459,7 +459,7 @@ public class AddDiaryActivity extends BaseSwipeBackActivity {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 AddDiaryActivity.this.uploadImageSync();
             }
-        });
+        },this);
     }
 
     private void deleteImageToDiaryData(String imageid) {

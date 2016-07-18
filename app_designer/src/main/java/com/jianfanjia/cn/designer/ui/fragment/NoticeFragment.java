@@ -180,7 +180,7 @@ public class NoticeFragment extends BaseFragment {
         request.setQuery(conditionParam);
         request.setFrom(from);
         request.setLimit(limit);
-        Api.searchUserMsg(request, listener);
+        Api.searchUserMsg(request, listener,this);
     }
 
     private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new

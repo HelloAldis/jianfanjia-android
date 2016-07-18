@@ -207,7 +207,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 public void onNetworkError(int code) {
                     makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
-            });
+            },this);
         }
     }
 
@@ -522,7 +522,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
-            makeTextLong(getString(R.string.tip_not_sdcard));
+            makeTextShort(getString(R.string.tip_not_sdcard));
         }
     }
 
@@ -622,7 +622,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     //同意改期
@@ -654,7 +654,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     // 拒绝改期
@@ -686,7 +686,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override
@@ -770,7 +770,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     public void onNetworkError(int code) {
                         makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
-                });
+                },MyProcessDetailActivity.this);
             }
 
             @Override
@@ -782,7 +782,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override

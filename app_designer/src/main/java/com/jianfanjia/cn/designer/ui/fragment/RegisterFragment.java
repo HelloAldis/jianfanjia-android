@@ -136,7 +136,7 @@ public class RegisterFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     /**
@@ -179,7 +179,7 @@ public class RegisterFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
 

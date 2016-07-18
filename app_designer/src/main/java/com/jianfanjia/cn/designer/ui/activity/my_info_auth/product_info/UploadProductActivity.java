@@ -111,7 +111,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
             @Override
             public void onNetworkError(int code) {
             }
-        });
+        },this);
     }
 
     private void showAuthTipDialog(final Product product){
@@ -158,7 +158,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     @Override

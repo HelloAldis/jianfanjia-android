@@ -141,7 +141,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
 
     }
 

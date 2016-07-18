@@ -235,7 +235,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         request.setQuery(query);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDesignerProduct(request, apiCallback);
+        Api.searchDesignerProduct(request, apiCallback,this);
     }
 
     private ApiCallback<ApiResponse<ProductList>> pullDownCallback = new ApiCallback<ApiResponse<ProductList>>() {

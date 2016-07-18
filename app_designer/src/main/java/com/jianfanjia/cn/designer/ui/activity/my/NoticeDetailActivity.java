@@ -337,7 +337,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     //同意改期
@@ -371,7 +371,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     // 拒绝改期
@@ -405,7 +405,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void showRefuseDialog(final String requirementid) {
@@ -451,7 +451,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     public void onEventMainThread(UpdateEvent event) {

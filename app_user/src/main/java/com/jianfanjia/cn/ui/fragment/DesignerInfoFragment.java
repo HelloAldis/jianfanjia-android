@@ -195,7 +195,7 @@ public class DesignerInfoFragment extends BaseFragment implements ScrollableHelp
             @Override
             public void onNetworkError(int code) {
             }
-        });
+        },this);
 
     }
 

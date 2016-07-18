@@ -31,24 +31,33 @@ android {
         debug {
             debuggable true
             minifyEnabled true
+
+            buildConfigField("String", "SERVER_URL", DEV_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", DEV_MOBILE_SERVER_URL)
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-            manifestPlaceholders = [SERVER_URL      : DEV_SERVER_URL, MOBILE_SERVER_URL: DEV_MOBILE_SERVER_URL]
         }
 
         release {
             minifyEnabled true
+
+            buildConfigField("String", "SERVER_URL", RELEASE_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", RELEASE_MOBILE_SERVER_URL)
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
-            manifestPlaceholders = [SERVER_URL      : RELEASE_SERVER_URL, MOBILE_SERVER_URL: RELEASE_MOBILE_SERVER_URL]
         }
         andtest {
             minifyEnabled true
+
+            buildConfigField("String", "SERVER_URL", TEST_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", TEST_MOBILE_SERVER_URL)
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.relealse
 
-            manifestPlaceholders = [SERVER_URL      : TEST_SERVER_URL, MOBILE_SERVER_URL: TEST_MOBILE_SERVER_URL]
         }
     }
     productFlavors {

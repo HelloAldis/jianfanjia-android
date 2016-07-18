@@ -418,7 +418,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             public void onNetworkError(int code) {
 
             }
-        });
+        },context);
     }
 
     protected void showTipDialog(Context context, final int position) {
@@ -471,7 +471,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
             public void onNetworkError(int code) {
                 ToastUtil.showShortTost(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },context);
     }
 
     static class DiaryViewHolder extends RecyclerViewHolderBase {

@@ -223,7 +223,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
 
-        Api.searchDesigner(request, apiCallback);
+        Api.searchDesigner(request, apiCallback,this);
     }
 
     @Override

@@ -140,7 +140,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
         GetDiarySetFavoriteListRequest request = new GetDiarySetFavoriteListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getFavoriteDiarySetList(request,listener);
+        Api.getFavoriteDiarySetList(request,listener,this);
     }
 
     private ApiCallback<ApiResponse<DiarySetInfoList>> getDownMyFavoriteDesignerListener = new

@@ -145,7 +145,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     private void getProductHomePageInfo(String productid) {
         GetProductHomePageRequest request = new GetProductHomePageRequest();
         request.set_id(productid);
-        Api.getProductHomePage(request, this.getProductHomePageInfoCallback);
+        Api.getProductHomePage(request, this.getProductHomePageInfoCallback,this);
     }
 
     private ApiCallback<ApiResponse<Product>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<Product>>() {

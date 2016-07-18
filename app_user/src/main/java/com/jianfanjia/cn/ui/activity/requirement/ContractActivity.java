@@ -213,7 +213,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
 
@@ -251,7 +251,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void postProcessSuccess() {

@@ -261,7 +261,7 @@ public class CheckActivity extends BaseActivity implements ItemClickCallBack {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void checkSuccess() {

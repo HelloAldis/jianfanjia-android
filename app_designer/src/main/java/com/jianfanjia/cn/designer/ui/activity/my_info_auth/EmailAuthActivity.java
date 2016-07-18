@@ -117,7 +117,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void sendEmailVerify(final boolean isShowAuting) {
@@ -152,7 +152,7 @@ public class EmailAuthActivity extends BaseSwipeBackActivity implements EmailAut
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void showAuthingFragment() {

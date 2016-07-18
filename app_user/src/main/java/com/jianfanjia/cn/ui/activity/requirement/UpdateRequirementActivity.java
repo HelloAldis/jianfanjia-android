@@ -134,7 +134,7 @@ public class UpdateRequirementActivity extends BaseSwipeBackActivity implements 
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
 
     }
 

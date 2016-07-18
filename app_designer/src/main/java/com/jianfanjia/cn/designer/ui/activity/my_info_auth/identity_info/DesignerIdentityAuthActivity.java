@@ -443,8 +443,9 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         startActivityForResult(houseTypeIntent, Constant.REQUIRECODE_BANK);
     }
 
-    private void showAuthTipDialog(){
-        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
+    private void showAuthTipDialog() {
+        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this, new View
+                .OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDesignerIdentityInfo(mDesigner);
@@ -482,7 +483,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void pickPicture(int requestCode) {
@@ -618,7 +619,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
     private void upload_image(final Bitmap bitmap, ApiCallback<ApiResponse<String>> apiCallback) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
-        Api.uploadImage(uploadPicRequest, apiCallback);
+        Api.uploadImage(uploadPicRequest, apiCallback, this);
     }
 
 

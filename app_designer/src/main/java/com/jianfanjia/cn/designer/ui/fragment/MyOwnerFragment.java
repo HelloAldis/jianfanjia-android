@@ -148,7 +148,7 @@ public class MyOwnerFragment extends BaseFragment {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 notifyAllFragmentNetError();
             }
-        });
+        },this);
     }
 
     public void setRequirementList(RequirementList requirementList) {

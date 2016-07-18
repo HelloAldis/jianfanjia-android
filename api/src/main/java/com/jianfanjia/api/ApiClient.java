@@ -210,24 +210,24 @@ public class ApiClient {
      * @param baseRequest request对象
      * @param apiCallback
      */
-    public static void okGet(String url, BaseRequest baseRequest, ApiCallback apiCallback) {
-        Request request = new Request.Builder().url(url).header("User-Agent", ApiClient.USER_AGENT).build();
+    public static void okGet(String url, BaseRequest baseRequest, ApiCallback apiCallback, Object tag) {
+        Request request = new Request.Builder().url(url).tag(tag).header("User-Agent", ApiClient.USER_AGENT).build();
         api(request, baseRequest, apiCallback);
     }
 
 
     /**
      * POST 方法请求通用
-     *
-     * @param url         api url
+     *  @param url         api url
      * @param baseRequest request对象
      * @param apiCallback 回调
+     * @param tag
      */
-    public static void okPost(String url, BaseRequest baseRequest, ApiCallback apiCallback) {
+    public static void okPost(String url, BaseRequest baseRequest, ApiCallback apiCallback, Object tag) {
         String json = JsonParser.beanToJson(baseRequest);
         logRequestBody(json);
         RequestBody body = RequestBody.create(JSON_MEDIA_TYPE, json);
-        Request request = new Request.Builder().url(url).header("User-Agent", ApiClient.USER_AGENT).post(body).build();
+        Request request = new Request.Builder().url(url).tag(tag).header("User-Agent", ApiClient.USER_AGENT).post(body).build();
         api(request, baseRequest, apiCallback);
     }
 
@@ -239,9 +239,9 @@ public class ApiClient {
      * @param bytes       数据的byte数组
      * @param apiCallback 回调
      */
-    public static void okUpload(String url, BaseRequest baseRequest, byte[] bytes, ApiCallback apiCallback) {
+    public static void okUpload(String url, BaseRequest baseRequest, byte[] bytes, ApiCallback apiCallback, Object tag) {
         RequestBody body = RequestBody.create(IMAGE_MEDIA_TYPE, bytes);
-        Request request = new Request.Builder().url(url).header("User-Agent", ApiClient.USER_AGENT).post(body).build();
+        Request request = new Request.Builder().url(url).tag(tag).header("User-Agent", ApiClient.USER_AGENT).post(body).build();
         api(request, baseRequest, apiCallback);
     }
 
@@ -261,4 +261,23 @@ public class ApiClient {
                 .cookieJar(new JavaNetCookieJar(new CookieManager(ApiClient.COOKIE_STORE, CookiePolicy.ACCEPT_ALL)))
                 .addInterceptor(new LoggingInterceptor()).build();
     }
+
+    public static void cancelTag(Object tag)
+    {
+        for (Call call : CLIENT.dispatcher().queuedCalls())
+        {
+            if (tag.equals(call.request().tag()))
+            {
+                call.cancel();
+            }
+        }
+        for (Call call : CLIENT.dispatcher().runningCalls())
+        {
+            if (tag.equals(call.request().tag()))
+            {
+                call.cancel();
+            }
+        }
+    }
+
 }

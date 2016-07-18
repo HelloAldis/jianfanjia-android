@@ -288,7 +288,7 @@ public class XuQiuFragment extends BaseFragment {
                     error_Layout.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        },this);
     }
 
     public void onEventMainThread(ScrollEvent event) {

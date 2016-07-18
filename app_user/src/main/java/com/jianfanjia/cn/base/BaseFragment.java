@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
@@ -105,6 +106,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        ApiClient.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy");
     }
 
@@ -130,12 +132,6 @@ public abstract class BaseFragment extends Fragment {
         if (getContext() == null) return;
         if (TextUtils.isEmpty(text)) return;
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void makeTextLong(String text) {
-        if (getContext() == null) return;
-        if (TextUtils.isEmpty(text)) return;
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
     }
 
     // 通过Class跳转界面

@@ -156,14 +156,14 @@ public class LoginFragment extends BaseFragment {
 
                     @Override
                     public void onFailed(ApiResponse<User> apiResponse) {
-                        makeTextLong(apiResponse.getErr_msg());
+                        makeTextShort(apiResponse.getErr_msg());
                     }
 
                     @Override
                     public void onNetworkError(int code) {
                         makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
-                });
+                },LoginFragment.this);
             } else {
                 Hud.dismiss();
                 makeTextShort(getString(R.string.authorize_fail));
@@ -236,7 +236,7 @@ public class LoginFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override

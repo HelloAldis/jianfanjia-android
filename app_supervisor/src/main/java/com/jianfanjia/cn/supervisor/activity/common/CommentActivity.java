@@ -147,7 +147,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         request.setLimit(limit);
         request.setSection(section);
         request.setItem(item);
-        Api.getCommentList(request, getCommentCallback);
+        Api.getCommentList(request, getCommentCallback,this);
     }
 
     private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
@@ -195,7 +195,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
         request.setContent(content);
         request.setTo_designerid(toDesignerid);
         request.setTo_userid(toUserid);
-        Api.addComment(request, this.addCommentCallback);
+        Api.addComment(request, this.addCommentCallback,this);
     }
 
     private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {

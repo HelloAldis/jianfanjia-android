@@ -111,7 +111,7 @@ public class DesignerAgreementActivity extends BaseActivity implements View.OnKe
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void navigateNext() {

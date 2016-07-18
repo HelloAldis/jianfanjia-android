@@ -168,7 +168,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
 
@@ -207,7 +207,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void initMainView() {

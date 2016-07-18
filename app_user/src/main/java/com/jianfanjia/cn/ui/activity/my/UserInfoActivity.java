@@ -305,7 +305,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     // 修改设计师头像
@@ -341,7 +341,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void initData() {
@@ -376,7 +376,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
                 scrollView.setVisibility(View.GONE);
                 error_Layout.setVisibility(View.VISIBLE);
             }
-        });
+        },this);
     }
 
     @Override
@@ -461,7 +461,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override

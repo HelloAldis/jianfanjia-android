@@ -245,7 +245,7 @@ public class UploadProduct2Fragment extends BaseFragment {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 UploadProduct2Fragment.this.uploadImageSync();
             }
-        });
+        },this);
     }
 
     public void uploadImageSync() {

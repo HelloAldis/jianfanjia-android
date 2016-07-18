@@ -137,7 +137,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         GetBeautyImgListRequest request = new GetBeautyImgListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getBeautyImgListByUser(request, listener);
+        Api.getBeautyImgListByUser(request, listener,this);
     }
 
     @Override

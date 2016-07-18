@@ -10,4 +10,6 @@ package com.jianfanjia.api.request;
  */
 public class BaseRequest {
 
+
+
 }

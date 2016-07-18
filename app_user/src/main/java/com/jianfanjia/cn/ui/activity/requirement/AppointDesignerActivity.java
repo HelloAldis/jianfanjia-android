@@ -239,7 +239,7 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
                     public void onNetworkError(int code) {
                         makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
-                });
+                },this);
     }
 
     //业主预约设计师
@@ -272,7 +272,7 @@ public class AppointDesignerActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override

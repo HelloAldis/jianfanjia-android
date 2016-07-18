@@ -367,7 +367,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
 
     }
 
@@ -382,7 +382,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 //                makeTextShort(getString(R.string.tip_open_camera));
             }
         } else {
-            makeTextLong("没有sd卡，无法打开相机");
+            makeTextShort("没有sd卡，无法打开相机");
         }
     }
 
@@ -458,7 +458,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void addImageToCheck(final String imageid) {
@@ -495,7 +495,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void updateList(String imgid) {
@@ -557,7 +557,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     /**

@@ -197,7 +197,7 @@ public class MyNewFragment extends BaseFragment {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void updateUserInfo() {

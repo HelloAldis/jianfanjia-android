@@ -209,7 +209,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     //替换设计师
@@ -243,7 +243,7 @@ public class ReplaceDesignerActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     public void onEventMainThread(CollectDesignerEvent collectDesignerEvent) {

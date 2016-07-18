@@ -157,7 +157,7 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
 
     }
 
@@ -190,7 +190,7 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
 

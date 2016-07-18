@@ -184,7 +184,7 @@ public class DesignerInfoAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void intentTo(int position) {

@@ -138,7 +138,7 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     /**
@@ -182,7 +182,7 @@ public class BindingPhoneActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
 
     }
 

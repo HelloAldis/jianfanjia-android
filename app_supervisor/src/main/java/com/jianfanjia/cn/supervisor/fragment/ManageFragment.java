@@ -249,7 +249,7 @@ public class ManageFragment extends BaseFragment {
                     errorLayout.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        },this);
     }
 
     @Override

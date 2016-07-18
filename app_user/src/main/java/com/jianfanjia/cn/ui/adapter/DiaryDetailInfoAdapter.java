@@ -288,7 +288,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             public void onNetworkError(int code) {
 
             }
-        });
+        },context);
     }
 
     protected void showTipDialog(Context context) {
@@ -342,7 +342,7 @@ public class DiaryDetailInfoAdapter extends BaseRecyclerViewAdapter<Comment> {
             public void onNetworkError(int code) {
                 ToastUtil.showShortTost(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },context);
     }
 
     private void gotoShowBigPic(int position, List<DiaryImageDetailInfo> diaryImageDetailInfos, List<AnimationRect>

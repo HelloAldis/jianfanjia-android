@@ -209,7 +209,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
         request.setQuery(param);
         request.setFrom(FROM);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDecorationImg(request, listener);
+        Api.searchDecorationImg(request, listener,this);
     }
 
     @Override

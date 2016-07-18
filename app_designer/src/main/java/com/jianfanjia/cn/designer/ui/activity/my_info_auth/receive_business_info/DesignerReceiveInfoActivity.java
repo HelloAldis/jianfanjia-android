@@ -315,7 +315,7 @@ public class DesignerReceiveInfoActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     @Override

@@ -299,7 +299,7 @@ public class RecycleViewFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void refuseRequirement(String requirementid, String msg) {
@@ -331,7 +331,7 @@ public class RecycleViewFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override

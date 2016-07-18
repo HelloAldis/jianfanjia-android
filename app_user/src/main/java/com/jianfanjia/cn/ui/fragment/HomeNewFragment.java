@@ -262,7 +262,7 @@ public class HomeNewFragment extends BaseFragment {
                 contentNext.setVisibility(View.GONE);
                 contentIntent.setVisibility(View.GONE);
             }
-        });
+        },this);
     }
 
     @OnClick({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id

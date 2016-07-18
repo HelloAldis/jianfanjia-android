@@ -156,7 +156,7 @@ public class RegisterNewActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void updatePassword(RegisterInfo registerInfo) {
@@ -190,7 +190,7 @@ public class RegisterNewActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void bindPhone(final RegisterInfo registerInfo) {
@@ -229,7 +229,7 @@ public class RegisterNewActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private boolean checkInput(String verification) {

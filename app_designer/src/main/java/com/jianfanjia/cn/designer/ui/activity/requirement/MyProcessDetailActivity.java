@@ -198,7 +198,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 public void onNetworkError(int code) {
                     makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                 }
-            });
+            },this);
         }
     }
 
@@ -436,7 +436,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     //同意改期
@@ -468,7 +468,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     // 拒绝改期
@@ -500,7 +500,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     // 确认完工装修流程小节点
@@ -536,7 +536,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @Override
@@ -622,7 +622,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     public void onNetworkError(int code) {
                         makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
-                });
+                },MyProcessDetailActivity.this);
             }
 
             @Override
@@ -634,7 +634,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },MyProcessDetailActivity.this);
     }
 
     @Override

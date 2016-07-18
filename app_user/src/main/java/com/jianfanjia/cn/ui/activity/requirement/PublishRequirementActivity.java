@@ -108,7 +108,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     private void initViewPager() {
@@ -200,7 +200,7 @@ public class PublishRequirementActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     protected Requirement getConfirmRequirement() {

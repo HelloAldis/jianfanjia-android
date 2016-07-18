@@ -11,14 +11,15 @@ import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.AppManager;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.view.AddPhotoDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogControl;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
 import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
-import com.jianfanjia.cn.designer.view.AddPhotoDialog;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.analytics.MobclickAgent;
 
@@ -29,7 +30,7 @@ import com.umeng.analytics.MobclickAgent;
  * Date:15-10-11 14:30
  */
 public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl{
+        DialogControl {
     protected DownloadManager downloadManager = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
@@ -63,7 +64,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     public abstract int getLayoutId();
-
 
 
     @Override
@@ -101,15 +101,12 @@ public abstract class BaseActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ApiClient.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy()");
     }
 
     protected void makeTextShort(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void makeTextLong(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
     // 通过Class跳转界面

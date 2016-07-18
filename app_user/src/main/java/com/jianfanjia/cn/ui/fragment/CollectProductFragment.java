@@ -127,7 +127,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         GetProductFavoriteListRequest request = new GetProductFavoriteListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getCollectListByUser(request, listener);
+        Api.getCollectListByUser(request, listener,this);
     }
 
     @OnClick(R.id.error_include)

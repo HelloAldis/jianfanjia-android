@@ -335,19 +335,19 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     private void getDesignerPageInfo(String designerid) {
         DesignerHomePageRequest request = new DesignerHomePageRequest();
         request.set_id(designerid);
-        Api.getDesignerHomePage(request, designerHomePageCallback);
+        Api.getDesignerHomePage(request, designerHomePageCallback,this);
     }
 
     private void addFavoriteDesignerToList(String designerid) {
         AddFavoriteDesignerRequest request = new AddFavoriteDesignerRequest();
         request.set_id(designerid);
-        Api.addFavoriteDesigner(request, addFavoriteDesignerCallback);
+        Api.addFavoriteDesigner(request, addFavoriteDesignerCallback,this);
     }
 
     private void deleteFavoriteDesigner(String designerid) {
         DeleteFavoriteDesignerRequest request = new DeleteFavoriteDesignerRequest();
         request.set_id(designerid);
-        Api.deleteFavoriteDesigner(request, this.deleteMyFavoriteDesignerCallback);
+        Api.deleteFavoriteDesigner(request, this.deleteMyFavoriteDesignerCallback,this);
     }
 
     private ApiCallback<ApiResponse<Designer>> designerHomePageCallback = new ApiCallback<ApiResponse<Designer>>() {
@@ -369,7 +369,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
         @Override
         public void onFailed(ApiResponse<Designer> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
@@ -498,7 +498,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
@@ -535,7 +535,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override

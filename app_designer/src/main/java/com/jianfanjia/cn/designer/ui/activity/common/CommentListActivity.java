@@ -145,7 +145,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         SearchUserCommentRequest request = new SearchUserCommentRequest();
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchUserComment(request, apiCallback);
+        Api.searchUserComment(request, apiCallback,this);
     }
 
     private ApiCallback<ApiResponse<UserMessageList>> pullDownCallback = new

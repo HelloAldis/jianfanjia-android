@@ -162,7 +162,7 @@ public class NavigateActivity extends BaseActivity {
                     public void onNetworkError(int code) {
                         makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
-                });
+                },this);
             } else {
                 Hud.dismiss();
                 makeTextShort(getString(R.string.authorize_fail));

@@ -44,12 +44,6 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Default"/>
-        <meta-data
-            android:name="SERVER_URL"
-            android:value="${SERVER_URL}"/>
-        <meta-data
-            android:name="MOBILE_SERVER_URL"
-            android:value="${MOBILE_SERVER_URL}"/>
 
         <activity
             android:name=".activity.MainActivity"

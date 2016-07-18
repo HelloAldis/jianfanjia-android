@@ -112,7 +112,7 @@ public class SearchDesignerFragment extends BaseFragment {
         request.setSearch_word(searchText);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDesigner(request, listener);
+        Api.searchDesigner(request, listener,this);
     }
 
     @OnClick(R.id.error_include)

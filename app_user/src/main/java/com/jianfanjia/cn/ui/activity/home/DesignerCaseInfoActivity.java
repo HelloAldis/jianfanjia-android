@@ -273,19 +273,19 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
     private void getProductHomePageInfo(String productid) {
         GetProductHomePageRequest request = new GetProductHomePageRequest();
         request.set_id(productid);
-        Api.getProductHomePage(request, this.getProductHomePageInfoCallback);
+        Api.getProductHomePage(request, this.getProductHomePageInfoCallback,this);
     }
 
     private void addProductHomePageInfo(String productid) {
         AddProductFavoriteRequest request = new AddProductFavoriteRequest();
         request.set_id(productid);
-        Api.addProductFavorite(request, this.addProductHomePageInfoCallback);
+        Api.addProductFavorite(request, this.addProductHomePageInfoCallback,this);
     }
 
     private void deleteProductDesigner(String productid) {
         DeleteProductFavoriteRequest request = new DeleteProductFavoriteRequest();
         request.set_id(productid);
-        Api.deleteProductFavorite(request, this.deleteProductCallback);
+        Api.deleteProductFavorite(request, this.deleteProductCallback,this);
     }
 
     private ApiCallback<ApiResponse<Product>> getProductHomePageInfoCallback = new ApiCallback<ApiResponse<Product>>() {
@@ -365,7 +365,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
@@ -394,7 +394,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-            makeTextLong(apiResponse.getErr_msg());
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override

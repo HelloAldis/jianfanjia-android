@@ -116,7 +116,7 @@ public class WelcomeActivity extends BaseActivity{
             public void onNetworkError(int code) {
                 handler.postDelayed(runnable, 1500);
             }
-        });
+        },this);
 
     }
 
@@ -239,7 +239,7 @@ public class WelcomeActivity extends BaseActivity{
                 startActivity(LoginNewActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
             }
-        });
+        },this);
     }
 
     @Override

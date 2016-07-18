@@ -212,7 +212,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             @Override
             public void showAwardBigImage(int position) {
                 List<String> showImages = new ArrayList<>();
-                for(DesignerAwardInfo designerAwardInfo : mDesigner.getAward_details()){
+                for (DesignerAwardInfo designerAwardInfo : mDesigner.getAward_details()) {
                     showImages.add(designerAwardInfo.getAward_imageid());
                 }
                 Bundle showPicBundle = new Bundle();
@@ -249,8 +249,9 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         }
     }
 
-    private void showAuthTipDialog(){
-        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this,new View.OnClickListener(){
+    private void showAuthTipDialog() {
+        DesignerAuthCommitDialog designerAuthCommitDialog = new DesignerAuthCommitDialog(this, new View
+                .OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDesignerBaseInfo(mDesigner);
@@ -406,7 +407,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     public void uploadImageSync() {
@@ -564,7 +565,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     private void upload_image(final Bitmap bitmap, ApiCallback<ApiResponse<String>> apiCallback) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
-        Api.uploadImage(uploadPicRequest, apiCallback);
+        Api.uploadImage(uploadPicRequest, apiCallback, this);
     }
 
     @Override

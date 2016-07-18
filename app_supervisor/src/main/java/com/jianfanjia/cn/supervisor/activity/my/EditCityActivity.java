@@ -240,7 +240,7 @@ public class EditCityActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        });
+        },this);
     }
 
     protected void setResultTo() {

@@ -109,340 +109,340 @@ import com.jianfanjia.cn.config.Url_New;
 public class Api {
 
     public static void searchDesigner(SearchDesignerRequest request, ApiCallback<ApiResponse<DesignerList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_DESIGNER, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DESIGNER, request, apiCallback, tag);
     }
 
-    public static void uploadImage(UploadPicRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okUpload(Url_New.getInstance().UPLOAD_IMAGE, request, request.getBytes(), apiCallback);
+    public static void uploadImage(UploadPicRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okUpload(Url_New.getInstance().UPLOAD_IMAGE, request, request.getBytes(), apiCallback,tag);
     }
 
-    public static void login(LoginRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().LOGIN_URL, request, apiCallback);
+    public static void login(LoginRequest request, ApiCallback<ApiResponse<User>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().LOGIN_URL, request, apiCallback, tag);
     }
 
-    public static void register(RegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().REGISTER_URL, request, apiCallback);
+    public static void register(RegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().REGISTER_URL, request, apiCallback, tag);
     }
 
-    public static void weiXinRegister(WeiXinRegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().WEIXIN_LOGIN_URL, request, apiCallback);
+    public static void weiXinRegister(WeiXinRegisterRequest request, ApiCallback<ApiResponse<User>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().WEIXIN_LOGIN_URL, request, apiCallback, tag);
     }
 
-    public static void refreshSession(RefreshSessionRequest request, ApiCallback<ApiResponse<User>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().REFRESH_SESSION, request, apiCallback);
+    public static void refreshSession(RefreshSessionRequest request, ApiCallback<ApiResponse<User>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().REFRESH_SESSION, request, apiCallback, tag);
     }
 
-    public static void updatePassword(UpdatePasswordRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().UPDATE_PASS_URL, request, apiCallback);
+    public static void updatePassword(UpdatePasswordRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_PASS_URL, request, apiCallback, tag);
     }
 
-    public static void checkVesion(CheckVersionRequest request, ApiCallback<ApiResponse<UpdateVersion>> apiCallback) {
-        ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback);
+    public static void checkVesion(CheckVersionRequest request, ApiCallback<ApiResponse<UpdateVersion>> apiCallback,Object tag) {
+        ApiClient.okGet(Url_New.getInstance().UPDATE_VERSION_URL, request, apiCallback, tag);
     }
 
     //游客反馈
-    public static void feedBack(FeedBackRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().FEEDBACK_URL, request, apiCallback);
+    public static void feedBack(FeedBackRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().FEEDBACK_URL, request, apiCallback, tag);
     }
 
     //游客验证手机是否注册
-    public static void verifyPhone(VerifyPhoneRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().VERIFY_PHONE, request, apiCallback);
+    public static void verifyPhone(VerifyPhoneRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().VERIFY_PHONE, request, apiCallback, tag);
     }
 
-    public static void bindPhone(BindPhoneRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().BIND_PHONE, request, apiCallback);
+    public static void bindPhone(BindPhoneRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().BIND_PHONE, request, apiCallback, tag);
     }
 
     public static void sendVerification(SendVerificationRequest
-                                                request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_CODE_URL, request, apiCallback);
+                                                request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_CODE_URL, request, apiCallback, tag);
     }
 
 
     public static void getCanOrderDesigner(GetCanOrderDesignerListRequest request,
-                                           ApiCallback<ApiResponse<DesignerCanOrderList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().REQUIREMENT_ORDER_DESIGNER_LIST, request, apiCallback);
+                                           ApiCallback<ApiResponse<DesignerCanOrderList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().REQUIREMENT_ORDER_DESIGNER_LIST, request, apiCallback, tag);
     }
 
     public static void getOrderedDesignerList(GetOrderedDesignerListRequest request,
-                                              ApiCallback<ApiResponse<List<Designer>>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().USER_ORDERD_DESIGNERS, request, apiCallback);
+                                              ApiCallback<ApiResponse<List<Designer>>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().USER_ORDERD_DESIGNERS, request, apiCallback, tag);
     }
 
-    public static void orderDesigner(OrderDesignerRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().USER_ORDER_DESIGNER, request, apiCallback);
+    public static void orderDesigner(OrderDesignerRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().USER_ORDER_DESIGNER, request, apiCallback, tag);
     }
 
-    public static void confirmSectionCheck(ConfirmCheckRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().CONFIRM_CHECK_DONE_BY_OWNER, request, apiCallback);
+    public static void confirmSectionCheck(ConfirmCheckRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().CONFIRM_CHECK_DONE_BY_OWNER, request, apiCallback,tag);
     }
 
     public static void getContractInfo(GetContractInfoRequest request, ApiCallback<ApiResponse<Requirement>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ONE_CONTRACT, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ONE_CONTRACT, request, apiCallback, tag);
     }
 
-    public static void confirmContract(ConfirmContractRequest request, ApiCallback<ApiResponse<Process>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().PROCESS, request, apiCallback);
+    public static void confirmContract(ConfirmContractRequest request, ApiCallback<ApiResponse<Process>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().PROCESS, request, apiCallback, tag);
     }
 
     public static void getDesignerPlanList(GetDesignerPlanListRequest request,
-                                           ApiCallback<ApiResponse<List<Plan>>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().USER_REQUIREMENT_PLANS, request, apiCallback);
+                                           ApiCallback<ApiResponse<List<Plan>>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().USER_REQUIREMENT_PLANS, request, apiCallback, tag);
     }
 
     public static void confirmMeasureHouse(ConfirmMeasureHouseRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOUSE_CHECKED, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOUSE_CHECKED, request, apiCallback, tag);
     }
 
     public static void getProcessInfoDetail(GetProcessInfoRequest request, ApiCallback<ApiResponse<Process>>
-            apiCallback) {
+            apiCallback,Object tag) {
         String getProcessUrl = Url_New.getInstance().GET_PROCESSINFO_BYID.replace(Url_New.ID,
                 request.getProcessId());
-        ApiClient.okGet(getProcessUrl, request, apiCallback);
+        ApiClient.okGet(getProcessUrl, request, apiCallback, tag);
     }
 
-    public static void applyReschedule(ApplyRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().POST_RESCHDULE, request, apiCallback);
+    public static void applyReschedule(ApplyRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().POST_RESCHDULE, request, apiCallback, tag);
     }
 
-    public static void agreeReschedule(AgreeRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().AGREE_RESCHDULE, request, apiCallback);
+    public static void agreeReschedule(AgreeRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().AGREE_RESCHDULE, request, apiCallback, tag);
     }
 
-    public static void refuseReschedule(RefuseRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().REFUSE_RESCHDULE, request, apiCallback);
+    public static void refuseReschedule(RefuseRescheduleRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().REFUSE_RESCHDULE, request, apiCallback, tag);
     }
 
-    public static void evaluateDesigner(EvaluateDesignerRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().EVALUATE_DESIGNER_BY_USER, request, apiCallback);
+    public static void evaluateDesigner(EvaluateDesignerRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().EVALUATE_DESIGNER_BY_USER, request, apiCallback, tag);
     }
 
     public static void chooseDesignerPlan(ChooseDesignerPlanRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().USER_CHOOSE_PLAN, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().USER_CHOOSE_PLAN, request, apiCallback, tag);
     }
 
     public static void replaceOrderedDesigner(ReplaceOrderedDesignerRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().USER_CHANGE_ORDERD_DESIGNER, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().USER_CHANGE_ORDERD_DESIGNER, request, apiCallback, tag);
     }
 
     public static void updateRequirement(UpdateRequirementRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().REQUIREMENT_UPDATE, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().REQUIREMENT_UPDATE, request, apiCallback, tag);
     }
 
     public static void publishRequirement(PublishRequirementRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().POST_REQUIREMENT, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().POST_REQUIREMENT, request, apiCallback, tag);
     }
 
     public static void submitImageToProcess(SubmitImageToProcessRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().POST_PROCESS_IMAGE, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().POST_PROCESS_IMAGE, request, apiCallback, tag);
     }
 
     public static void deleteImageToProcess(DeleteImageToProcessRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DELETE_PROCESS_PIC, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_PROCESS_PIC, request, apiCallback, tag);
     }
 
     //业主绑定微信
-    public static void bindingWeixin(BindingWeiXinRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().BIND_WEIXIN, request, apiCallback);
+    public static void bindingWeixin(BindingWeiXinRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().BIND_WEIXIN, request, apiCallback, tag);
     }
 
     //业主通知详情
     public static void getNoticeDetail(GetMsgDetailRequest request, ApiCallback<ApiResponse<UserMessage>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_USER_MSG_DETAIL, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_USER_MSG_DETAIL, request, apiCallback, tag);
     }
 
     //业主获取个人信息
     public static void getUserInfo(UserByOwnerInfoRequest request, ApiCallback<ApiResponse<User>>
-            apiCallback) {
-        ApiClient.okGet(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okGet(Url_New.getInstance().GET_OWER_INFO, request, apiCallback, tag);
     }
 
     //业主修改个人资料
-    public static void updateUserInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_OWER_INFO, request, apiCallback);
+    public static void updateUserInfo(UpdateOwnerInfoRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_OWER_INFO, request, apiCallback, tag);
     }
 
     //业主获取我的装修需求列表
     public static void getRequirementList(GetRequirementListRequest request,
-                                          ApiCallback<ApiResponse<List<Requirement>>> apiCallback) {
-        ApiClient.okGet(Url_New.getInstance().REQUIREMENT_LIST, request, apiCallback);
+                                          ApiCallback<ApiResponse<List<Requirement>>> apiCallback,Object tag) {
+        ApiClient.okGet(Url_New.getInstance().REQUIREMENT_LIST, request, apiCallback, tag);
     }
 
     public static void searchDecorationImg(SearchDecorationImgRequest request,
-                                           ApiCallback<ApiResponse<BeautifulImageList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_DECORATION_IMG, request, apiCallback);
+                                           ApiCallback<ApiResponse<BeautifulImageList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DECORATION_IMG, request, apiCallback, tag);
     }
 
     public static void getBeautyImgListByUser(GetBeautyImgListRequest request,
-                                              ApiCallback<ApiResponse<BeautifulImageList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_BEAUTY_IMG_LIST_BY_USER, request, apiCallback);
+                                              ApiCallback<ApiResponse<BeautifulImageList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_BEAUTY_IMG_LIST_BY_USER, request, apiCallback, tag);
     }
 
-    public static void addBeautyImgByUser(AddBeautyImgRequest request, ApiCallback<ApiResponse<Object>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_BEAUTY_IMG, request, apiCallback);
+    public static void addBeautyImgByUser(AddBeautyImgRequest request, ApiCallback<ApiResponse<Object>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_BEAUTY_IMG, request, apiCallback, tag);
     }
 
     public static void deleteBeautyImgByUser(DeleteBeautyImgRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DELETE_BEAUTY_IMG_BY_USER, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_BEAUTY_IMG_BY_USER, request, apiCallback, tag);
     }
 
 
-    public static void getCommentList(GetCommentsRequest request, ApiCallback<ApiResponse<CommentList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_COMMENT, request, apiCallback);
+    public static void getCommentList(GetCommentsRequest request, ApiCallback<ApiResponse<CommentList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_COMMENT, request, apiCallback, tag);
     }
 
-    public static void addComment(AddCommentRequest request, ApiCallback<ApiResponse<Object>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_COMMENT, request, apiCallback);
+    public static void addComment(AddCommentRequest request, ApiCallback<ApiResponse<Object>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_COMMENT, request, apiCallback, tag);
     }
 
     public static void searchUserComment(SearchUserCommentRequest request, ApiCallback<ApiResponse<UserMessageList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_COMMENT, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_COMMENT, request, apiCallback, tag);
     }
 
     public static void getProductHomePage(GetProductHomePageRequest request,
-                                          ApiCallback<ApiResponse<Product>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().PRODUCT_HOME_PAGE, request, apiCallback);
+                                          ApiCallback<ApiResponse<Product>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().PRODUCT_HOME_PAGE, request, apiCallback, tag);
     }
 
     public static void addProductFavorite(AddProductFavoriteRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_PRODUCT, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_PRODUCT, request, apiCallback, tag);
     }
 
     public static void deleteProductFavorite(DeleteProductFavoriteRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DELETE_PRODUCT_BY_USER, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_PRODUCT_BY_USER, request, apiCallback, tag);
     }
 
     public static void searchDesignerProduct(SearchDesignerProductRequest request,
-                                             ApiCallback<ApiResponse<ProductList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_DESIGNER_PRODUCT, request, apiCallback);
+                                             ApiCallback<ApiResponse<ProductList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DESIGNER_PRODUCT, request, apiCallback, tag);
     }
 
     public static void getDesignerHomePage(DesignerHomePageRequest request, ApiCallback<ApiResponse<Designer>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOME_PAGE, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DESIGNER_HOME_PAGE, request, apiCallback, tag);
     }
 
     public static void addFavoriteDesigner(AddFavoriteDesignerRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_FAVORITE_DESIGNER, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_FAVORITE_DESIGNER, request, apiCallback, tag);
     }
 
     public static void deleteFavoriteDesigner(DeleteFavoriteDesignerRequest request, ApiCallback<ApiResponse<Object>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DELETE_FAVORITE_DESIGNER, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_FAVORITE_DESIGNER, request, apiCallback, tag);
     }
 
     public static void get_MyFavoriteDesignerList(FavoriteDesignerListRequest request,
                                                   ApiCallback<ApiResponse<DesignerList>>
-                                                          apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback);
+                                                          apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().FAVORITE_DESIGNER_LIST, request, apiCallback, tag);
     }
 
     public static void getCollectListByUser(GetProductFavoriteListRequest request, ApiCallback<ApiResponse<ProductList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_PRODUCT_LIST_BY_COLLECTED, request, apiCallback, tag);
     }
 
     public static void searchShare(GetDecorateLiveRequest request, ApiCallback<ApiResponse<DecorateLiveList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_SHARE, request, apiCallback, tag);
     }
 
     public static void getTopProducts(GetHomeProductRequest request, ApiCallback<ApiResponse<List<Product>>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_TOP_PRODUCTS, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_TOP_PRODUCTS, request, apiCallback, tag);
     }
 
     public static void searchUserMsg(SearchUserMsgRequest request, ApiCallback<ApiResponse<UserMessageList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_USER_MSG, request, apiCallback, tag);
     }
 
     public static void getUnReadMsg(GetUnReadMsgRequest request, ApiCallback<ApiResponse<List<Integer>>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_UNREAD_MSG_COUNT, request, apiCallback, tag);
     }
 
     public static void searchDiarySet(SearchDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfoList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_DIARY_SET, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DIARY_SET, request, apiCallback, tag);
     }
 
-    public static void searchDiary(SearchDiaryRequest request, ApiCallback<ApiResponse<DiaryInfoList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().SEARCH_DIARY, request, apiCallback);
+    public static void searchDiary(SearchDiaryRequest request, ApiCallback<ApiResponse<DiaryInfoList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().SEARCH_DIARY, request, apiCallback, tag);
     }
 
     public static void getDiaryChanges(GetDiaryUpdateRequest request, ApiCallback<ApiResponse<List<DiaryUpdateInfo>>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_DIARY_CHANGES, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_DIARY_CHANGES, request, apiCallback,tag);
     }
 
-    public static void getDiaryInfo(GetDiaryInfoRequest request, ApiCallback<ApiResponse<DiaryInfo>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_DIARY_INFO, request, apiCallback);
+    public static void getDiaryInfo(GetDiaryInfoRequest request, ApiCallback<ApiResponse<DiaryInfo>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_DIARY_INFO, request, apiCallback, tag);
     }
 
     public static void getDiarySetInfo(GetDiarySetInfoRequest request, ApiCallback<ApiResponse<DiarySetInfo>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_DIARY_SET_INFO, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_DIARY_SET_INFO, request, apiCallback, tag);
     }
 
-    public static void addDiaryInfo(AddDiaryRequest request, ApiCallback<ApiResponse<DiaryInfo>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_DIARY, request, apiCallback);
+    public static void addDiaryInfo(AddDiaryRequest request, ApiCallback<ApiResponse<DiaryInfo>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_DIARY, request, apiCallback, tag);
     }
 
-    public static void addDiarySetInfo(AddDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfo>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET, request, apiCallback);
+    public static void addDiarySetInfo(AddDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfo>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET, request, apiCallback, tag);
     }
 
-    public static void updateDiarySetInfo(UpdateDiarySetRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().UPDATE_DIARYSET, request, apiCallback);
+    public static void updateDiarySetInfo(UpdateDiarySetRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().UPDATE_DIARYSET, request, apiCallback, tag);
     }
 
-    public static void deleteDiaryInfo(DeleteDiaryRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DELETE_DIARY, request, apiCallback);
+    public static void deleteDiaryInfo(DeleteDiaryRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_DIARY, request, apiCallback, tag);
     }
 
     public static void getMyDiarySetList(GetMyDiarySetRequest request, ApiCallback<ApiResponse<DiarySetInfoList>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_MY_DIARYSET, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_MY_DIARYSET, request, apiCallback, tag);
     }
 
-    public static void addDiaryFavorite(AddDiaryFavoriteRequest request, ApiCallback<ApiResponse<String>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().FAVORITE_DIARY_ADD, request, apiCallback);
+    public static void addDiaryFavorite(AddDiaryFavoriteRequest request, ApiCallback<ApiResponse<String>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().FAVORITE_DIARY_ADD, request, apiCallback, tag);
     }
 
     public static void getFavoriteDiarySetList(GetDiarySetFavoriteListRequest request,
-                                               ApiCallback<ApiResponse<DiarySetInfoList>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_FAVORITE_DIARY_SET_LIST, request, apiCallback);
+                                               ApiCallback<ApiResponse<DiarySetInfoList>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_FAVORITE_DIARY_SET_LIST, request, apiCallback, tag);
     }
 
     public static void getRecommendDiarySetList(GetRecommendDiarySetRequest request,
-                                                ApiCallback<ApiResponse<List<DiarySetInfo>>> apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().GET_RECOMMEND_DIARY_SET, request, apiCallback);
+                                                ApiCallback<ApiResponse<List<DiarySetInfo>>> apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().GET_RECOMMEND_DIARY_SET, request, apiCallback, tag);
     }
 
     public static void addDiarySetFavorite(AddDiarySetFavoriteRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET_FAVORITE, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().ADD_DIARYSET_FAVORITE, request, apiCallback, tag);
     }
 
     public static void deleteDairySetFavorite(DeleteDiarySetFavoriteRequest request, ApiCallback<ApiResponse<String>>
-            apiCallback) {
-        ApiClient.okPost(Url_New.getInstance().DELETE_DIARYSET_FAVORITE, request, apiCallback);
+            apiCallback,Object tag) {
+        ApiClient.okPost(Url_New.getInstance().DELETE_DIARYSET_FAVORITE, request, apiCallback, tag);
     }
 }

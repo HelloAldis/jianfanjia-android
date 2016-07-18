@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.supervisor.business.DataManagerNew;
 import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.common.tool.LogTool;
@@ -22,8 +22,7 @@ import com.jianfanjia.common.tool.LogTool;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 15:42
  */
-public abstract class BaseFragment extends Fragment
-        implements OnClickListener {
+public abstract class BaseFragment extends Fragment{
     protected FragmentManager fragmentManager = null;
     protected DataManagerNew dataManager = null;
     protected LayoutInflater inflater = null;
@@ -95,20 +94,12 @@ public abstract class BaseFragment extends Fragment
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        ApiClient.cancelTag(this);
         LogTool.d(this.getClass().getName(), "onDestroy");
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     protected void makeTextShort(String text) {
         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void makeTextLong(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
     }
 
     // 通过Class跳转界面

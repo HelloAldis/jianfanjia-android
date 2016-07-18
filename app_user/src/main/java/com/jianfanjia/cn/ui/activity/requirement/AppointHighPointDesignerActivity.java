@@ -150,7 +150,7 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
                     public void onNetworkError(int code) {
                         makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
                     }
-                });
+                },this);
     }
 
     //业主预约设计师
@@ -183,7 +183,7 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
 
@@ -290,7 +290,7 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     private void intentToDesignerInfo(Designer designerInfo) {

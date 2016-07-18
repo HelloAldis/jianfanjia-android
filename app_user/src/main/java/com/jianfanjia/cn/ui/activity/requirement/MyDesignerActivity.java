@@ -243,7 +243,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        });
+        },this);
     }
 
     @OnClick(R.id.head_back_layout)
@@ -292,7 +292,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                     }
                 }
             }
-        });
+        },this);
     }
 
     @Override

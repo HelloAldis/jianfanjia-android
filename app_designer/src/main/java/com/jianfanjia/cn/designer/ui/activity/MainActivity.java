@@ -176,14 +176,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onEventMainThread(MessageCountEvent messageCountEvent) {
         //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
-        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, this,Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        UiHelper.getUnReadMessageCount(getMessageCountListener, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, this,Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
