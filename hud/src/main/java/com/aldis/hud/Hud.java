@@ -21,7 +21,7 @@ public class Hud {
         public static int cornerRadius = 10;
 
         // can cancel by back or not, default is can not
-        public static boolean cancelable = true;
+        public static boolean cancelable = false;
     }
 
     private static HudDialog hudDialog = null;

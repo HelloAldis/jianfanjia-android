@@ -204,7 +204,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         int total = noticeListInfo.getTotal();
                         if (total > 0) {
                             myCommentInfoAdapter.clear();
-                            myCommentInfoAdapter.addData(noticeListInfo.getList());
+                            myCommentInfoAdapter.addData(0, noticeListInfo.getList());
                             LogTool.d("total size =" + total);
                             LogTool.d("myCommentInfoAdapter.getData().size() =" +
                                     myCommentInfoAdapter.getData().size());
