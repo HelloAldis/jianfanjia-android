@@ -72,7 +72,7 @@ public abstract class BaseFragment extends Fragment{
         mUserName = dataManager.getUserName();
         mAccount = dataManager.getAccount();
         mUserImageId = dataManager.getUserImagePath();
-        com.jianfanjia.common.tool.LogTool.d("mUserName:" + mUserName
+        LogTool.d("mUserName:" + mUserName
                 + " mAccount:" + mAccount + " userImageId:" + mUserImageId);
     }
 
@@ -85,7 +85,7 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        com.jianfanjia.common.tool.LogTool.d("onResume");
+        LogTool.d("onResume");
         initUserInfo();
     }
 

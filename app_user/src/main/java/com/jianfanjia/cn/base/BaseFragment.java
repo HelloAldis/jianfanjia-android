@@ -106,8 +106,14 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        ApiClient.cancelTag(this);
         LogTool.d("onDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ApiClient.cancelTag(this);
+        LogTool.d("onDestroyView()");
     }
 
     @Override

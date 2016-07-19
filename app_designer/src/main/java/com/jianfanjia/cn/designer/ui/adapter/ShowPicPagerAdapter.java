@@ -7,13 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.designer.tools.ImageShow;
-
 import java.util.List;
 
+import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.tools.ImageShow;
+import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -80,6 +79,13 @@ public class ShowPicPagerAdapter extends PagerAdapter {
         imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
+                if (viewPagerClickListener != null) {
+                    viewPagerClickListener.onClickItem(position);
+                }
+            }
+
+            @Override
+            public void onOutsidePhotoTap() {
                 if (viewPagerClickListener != null) {
                     viewPagerClickListener.onClickItem(position);
                 }
