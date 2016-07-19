@@ -45,7 +45,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
     private static final String TAG = DesignerProductFragment.class.getName();
 
     @Bind(R.id.designer_works_listview)
-    PullToRefreshRecycleView designer_works_listview;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     private boolean isVisible = false;
     private boolean isPrepared = false;
@@ -94,14 +94,14 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
     }
 
     private void initView() {
-        designer_works_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
-        designer_works_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        designer_works_listview.setItemAnimator(new DefaultItemAnimator());
-        designer_works_listview.setHasFixedSize(true);
-        designer_works_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
-        designer_works_listview.setFocusable(false);
-        designer_works_listview.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.setFocusable(false);
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     private void onVisible() {
@@ -136,7 +136,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
         request.setQuery(param);
         request.setFrom(FROM);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDesignerProduct(request, listener,this);
+        Api.searchDesignerProduct(request, listener, this);
     }
 
     private ApiCallback<ApiResponse<ProductList>> pullUpListener = new
@@ -149,7 +149,9 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onHttpDone() {
-                    designer_works_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -162,17 +164,17 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
                             productList.addAll(worksInfo.getProducts());
                             adapter = new DesignerWorksAdapter(getActivity(), productList, new
                                     BaseRecyclerViewAdapter.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(int position) {
-                                    Product product = productList.get(position);
-                                    String productid = product.get_id();
-                                    LogTool.d("productid:" + productid);
-                                    Bundle productBundle = new Bundle();
-                                    productBundle.putString(IntentConstant.PRODUCT_ID, productid);
-                                    startActivity(DesignerCaseInfoActivity.class, productBundle);
-                                }
-                            });
-                            designer_works_listview.setAdapter(adapter);
+                                        @Override
+                                        public void onItemClick(int position) {
+                                            Product product = productList.get(position);
+                                            String productid = product.get_id();
+                                            LogTool.d("productid:" + productid);
+                                            Bundle productBundle = new Bundle();
+                                            productBundle.putString(IntentConstant.PRODUCT_ID, productid);
+                                            startActivity(DesignerCaseInfoActivity.class, productBundle);
+                                        }
+                                    });
+                            mPullToRefreshRecycleView.setAdapter(adapter);
                             FROM = productList.size();
                             LogTool.d("FROM:" + FROM);
                         } else {
@@ -201,7 +203,7 @@ public class DesignerProductFragment extends BaseFragment implements PullToRefre
 
     @Override
     public View getScrollableView() {
-        return designer_works_listview.getRefreshableView();
+        return mPullToRefreshRecycleView.getRefreshableView();
     }
 
 

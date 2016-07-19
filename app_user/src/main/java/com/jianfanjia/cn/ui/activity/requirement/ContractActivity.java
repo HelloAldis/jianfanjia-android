@@ -211,7 +211,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -249,7 +249,7 @@ public class ContractActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

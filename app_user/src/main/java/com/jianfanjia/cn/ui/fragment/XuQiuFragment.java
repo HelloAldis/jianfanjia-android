@@ -89,7 +89,7 @@ public class XuQiuFragment extends BaseFragment {
     protected FrameLayout req_listview_wrap;
 
     @Bind(R.id.req_pullfefresh)
-    protected PullToRefreshRecycleView pullrefresh;
+    protected PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.error_include)
     RelativeLayout error_Layout;
@@ -170,8 +170,8 @@ public class XuQiuFragment extends BaseFragment {
                 }
             }
         });
-        pullrefresh.setAdapter(requirementAdapter);
-        pullrefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
+        mPullToRefreshRecycleView.setAdapter(requirementAdapter);
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
     }
 
     protected void gotoOrderDesigner() {
@@ -236,9 +236,9 @@ public class XuQiuFragment extends BaseFragment {
     }
 
     private void initPullRefresh() {
-        pullrefresh.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        pullrefresh.setLayoutManager(new LinearLayoutManager(getActivity()));
-        pullrefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 initData();
@@ -259,7 +259,9 @@ public class XuQiuFragment extends BaseFragment {
             @Override
             public void onHttpDone() {
                 Hud.dismiss();
-                pullrefresh.onRefreshComplete();
+                if(mPullToRefreshRecycleView != null){
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -282,7 +284,7 @@ public class XuQiuFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
                 setListVisiable();
                 if (isFirst) {
                     error_Layout.setVisibility(View.VISIBLE);
@@ -292,7 +294,7 @@ public class XuQiuFragment extends BaseFragment {
     }
 
     public void onEventMainThread(ScrollEvent event) {
-        pullrefresh.scrollToPosition(0);
+        mPullToRefreshRecycleView.scrollToPosition(0);
     }
 
     @Override

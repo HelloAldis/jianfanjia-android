@@ -76,7 +76,7 @@ public class HomeNewFragment extends BaseFragment {
     protected ViewPager contentViewPager;
 
     @Bind(R.id.pullrefresh_scrollview)
-    protected PullToRefreshScrollViewNew pullToRefreshScrollView;
+    protected PullToRefreshScrollViewNew mPullToRefreshScrollViewNew;
 
     @Bind(R.id.content_intent_to)
     protected ImageButton contentIntent;
@@ -125,20 +125,20 @@ public class HomeNewFragment extends BaseFragment {
             }
         });
 
-        pullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+        mPullToRefreshScrollViewNew.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 getProduct(TOTAL_COUNT);
             }
         });
-        pullToRefreshScrollView.setScrollPullUpListener(new HomeScrollView.ScrollPullUpListener() {
+        mPullToRefreshScrollViewNew.setScrollPullUpListener(new HomeScrollView.ScrollPullUpListener() {
             @Override
             public void scrollPullUp() {
                 intentToProduct();
             }
         });
 
-        pullToRefreshScrollView.setShowGuideListener(new HomeScrollView.ShowGuideListener() {
+        mPullToRefreshScrollViewNew.setShowGuideListener(new HomeScrollView.ShowGuideListener() {
             @Override
             public void showGuideView() {
                 if (dataManager.isShowGuide()) {
@@ -232,7 +232,9 @@ public class HomeNewFragment extends BaseFragment {
 
             @Override
             public void onHttpDone() {
-                pullToRefreshScrollView.onRefreshComplete();
+                if (mPullToRefreshScrollViewNew != null) {
+                    mPullToRefreshScrollViewNew.onRefreshComplete();
+                }
             }
 
             @Override
@@ -258,11 +260,11 @@ public class HomeNewFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
                 contentNext.setVisibility(View.GONE);
                 contentIntent.setVisibility(View.GONE);
             }
-        },this);
+        }, this);
     }
 
     @OnClick({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id

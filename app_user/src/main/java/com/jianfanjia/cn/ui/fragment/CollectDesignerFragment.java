@@ -50,7 +50,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     private static final String TAG = CollectDesignerFragment.class.getName();
 
     @Bind(R.id.my_favorite_designer_listview)
-    PullToRefreshRecycleView my_favorite_designer_listview;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout;
@@ -101,13 +101,13 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
     private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_designer_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
-        my_favorite_designer_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        my_favorite_designer_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        my_favorite_designer_listview.setHasFixedSize(true);
-        my_favorite_designer_listview.setItemAnimator(new DefaultItemAnimator());
-        my_favorite_designer_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
-        my_favorite_designer_listview.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     @OnClick(R.id.error_include)
@@ -144,7 +144,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
         FavoriteDesignerListRequest request = new FavoriteDesignerListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.get_MyFavoriteDesignerList(request, listener,this);
+        Api.get_MyFavoriteDesignerList(request, listener, this);
     }
 
     private ApiCallback<ApiResponse<DesignerList>> getDownMyFavoriteDesignerListener = new
@@ -159,7 +159,9 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    my_favorite_designer_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -191,12 +193,12 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                                         }
                                     });
-                            my_favorite_designer_listview.setAdapter(designAdapter);
-                            my_favorite_designer_listview.setVisibility(View.VISIBLE);
+                            mPullToRefreshRecycleView.setAdapter(designAdapter);
+                            mPullToRefreshRecycleView.setVisibility(View.VISIBLE);
                             emptyLayout.setVisibility(View.GONE);
                             errorLayout.setVisibility(View.GONE);
                         } else {
-                            my_favorite_designer_listview.setVisibility(View.GONE);
+                            mPullToRefreshRecycleView.setVisibility(View.GONE);
                             emptyLayout.setVisibility(View.VISIBLE);
                             errorLayout.setVisibility(View.GONE);
                         }
@@ -210,8 +212,8 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-                    my_favorite_designer_listview.setVisibility(View.GONE);
+                    makeTextShort(HttpCode.getMsg(code));
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
                 }
@@ -227,7 +229,9 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onHttpDone() {
-                    my_favorite_designer_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -246,12 +250,12 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onFailed(ApiResponse<DesignerList> apiResponse) {
-
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.getMsg(code));
                 }
 
             };
@@ -277,7 +281,7 @@ public class CollectDesignerFragment extends BaseFragment implements PullToRefre
             if (removeSize != -1) {
                 designAdapter.remove(removeSize);
                 if (designers.size() == 0) {
-                    my_favorite_designer_listview.setVisibility(View.GONE);
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
             }

@@ -304,7 +304,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

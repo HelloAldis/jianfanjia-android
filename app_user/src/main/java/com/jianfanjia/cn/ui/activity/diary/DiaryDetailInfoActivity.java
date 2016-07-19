@@ -194,7 +194,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
             @Override
             public void onNetworkError(int code) {
                 Hud.dismiss();
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -262,7 +262,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -363,7 +363,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 

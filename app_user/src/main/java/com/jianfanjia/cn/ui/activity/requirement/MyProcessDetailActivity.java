@@ -61,12 +61,12 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-public class MyProcessDetailActivity extends BaseSwipeBackActivity{
+public class MyProcessDetailActivity extends BaseSwipeBackActivity {
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
-    @Bind(R.id.process__listview)
-    PullToRefreshListView detailNodeListView;
+    @Bind(R.id.process_listview)
+    PullToRefreshListView mPullToRefreshListView;
 
     @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
@@ -116,7 +116,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                         Log.i(TAG, "processSection=" + mProcessSection.getName());
                         mProcessDetailHeadView.changeProcessStateShow(mProcessSection, true);
                         sectionItemAdapter.setPosition(currentList);
-                        detailNodeListView.getRefreshableView().startLayoutAnimation();
+                        mPullToRefreshListView.getRefreshableView().startLayoutAnimation();
                     }
                 }
             }
@@ -130,8 +130,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
 
     private void initPullRefresh() {
-        detailNodeListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+        mPullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
@@ -140,7 +140,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                     new android.os.Handler().post(new Runnable() {
                         @Override
                         public void run() {
-                            detailNodeListView.onRefreshComplete();
+                            mPullToRefreshListView.onRefreshComplete();
                         }
                     });
                 }
@@ -176,7 +176,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    detailNodeListView.onRefreshComplete();
+                    if (mPullToRefreshListView != null) {
+                        mPullToRefreshListView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -192,9 +194,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                 }
-            },this);
+            }, this);
         }
     }
 
@@ -228,9 +230,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
 
     }
 
@@ -306,10 +308,10 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                 showDeletePicDialog(position);
             }
         });
-        detailNodeListView.setAdapter(sectionItemAdapter);
-        UiHelper.setLayoutAnim(this, detailNodeListView.getRefreshableView());
-        detailNodeListView.setFocusable(false);
-        detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
+        mPullToRefreshListView.setAdapter(sectionItemAdapter);
+        UiHelper.setLayoutAnim(this, mPullToRefreshListView.getRefreshableView());
+        mPullToRefreshListView.setFocusable(false);
+        mPullToRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -320,7 +322,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
         });
     }
 
-    public void intentToComent(int position){
+    public void intentToComent(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(IntentConstant.TOPIC_ID, processId);
         bundle.putString(IntentConstant.TO, processInfo.getFinal_designerid());
@@ -451,9 +453,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-            }
-        },this);
+                makeTextShort(HttpCode.getMsg(code));            }
+        }, this);
     }
 
     //同意改期
@@ -483,9 +484,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     // 拒绝改期
@@ -515,9 +516,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     @Override
@@ -598,9 +599,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
                     @Override
                     public void onNetworkError(int code) {
-                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                        makeTextShort(HttpCode.getMsg(code));
                     }
-                },MyProcessDetailActivity.this);
+                }, MyProcessDetailActivity.this);
             }
 
             @Override
@@ -610,9 +611,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     @Override

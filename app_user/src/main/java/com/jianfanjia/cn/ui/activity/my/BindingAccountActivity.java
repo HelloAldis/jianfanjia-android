@@ -13,15 +13,16 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.aldis.hud.Hud;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.ui.Event.BindingPhoneEvent;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.request.user.BindingWeiXinRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.tools.AuthUtil;
+import com.jianfanjia.cn.ui.Event.BindingPhoneEvent;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -180,12 +181,12 @@ public class BindingAccountActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

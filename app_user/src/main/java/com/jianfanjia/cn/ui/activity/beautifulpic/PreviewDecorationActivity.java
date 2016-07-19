@@ -20,13 +20,9 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.tools.ShareUtil;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.Event.CollectBeautyImageEvent;
-import com.jianfanjia.cn.view.viewpager.MyViewPager;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.BeautifulImage;
 import com.jianfanjia.api.model.BeautifulImageList;
 import com.jianfanjia.api.request.common.AddBeautyImgRequest;
@@ -34,13 +30,18 @@ import com.jianfanjia.api.request.common.DeleteBeautyImgRequest;
 import com.jianfanjia.api.request.common.GetBeautyImgListRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.adapter.PreImgPagerAdapter;
 import com.jianfanjia.cn.api.Api;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.cn.tools.ShareUtil;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.CollectBeautyImageEvent;
+import com.jianfanjia.cn.ui.adapter.PreImgPagerAdapter;
+import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.view.viewpager.MyViewPager;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -336,12 +337,12 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<Object> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -371,7 +372,7 @@ public class PreviewDecorationActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 

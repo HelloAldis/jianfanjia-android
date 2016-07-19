@@ -49,7 +49,7 @@ public class NoticeFragment extends BaseFragment {
     private View view = null;
 
     @Bind(R.id.all_notice_listview)
-    PullToRefreshRecycleView all_notice_listview;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout;
@@ -108,20 +108,20 @@ public class NoticeFragment extends BaseFragment {
     private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_notice_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_notice);
-        all_notice_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        all_notice_listview.setHasFixedSize(true);
-        all_notice_listview.setItemAnimator(new DefaultItemAnimator());
-        all_notice_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
-        all_notice_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
             }
         });
 
-        noticeAdapter = new NoticeAdapter(getContext(), all_notice_listview.getRefreshableView(), new
+        noticeAdapter = new NoticeAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView(), new
                 RecyclerItemCallBack() {
                     @Override
                     public void onClick(int position, Object obj) {
@@ -140,7 +140,7 @@ public class NoticeFragment extends BaseFragment {
         });
         noticeAdapter.setEmptyView(emptyLayout);
         noticeAdapter.setErrorView(errorLayout);
-        all_notice_listview.setAdapter(noticeAdapter);
+        mPullToRefreshRecycleView.setAdapter(noticeAdapter);
     }
 
     private void onVisible() {
@@ -155,7 +155,7 @@ public class NoticeFragment extends BaseFragment {
         if (!isPrepared || !isVisible) {
             return;
         }
-//        all_notice_listview.setRefreshing(true);
+//        mPullToRefreshRecycleView.setRefreshing(true);
         getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
     }
 
@@ -201,7 +201,9 @@ public class NoticeFragment extends BaseFragment {
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    all_notice_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -217,7 +219,7 @@ public class NoticeFragment extends BaseFragment {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     noticeAdapter.setErrorViewShow();
                     noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
@@ -259,7 +261,9 @@ public class NoticeFragment extends BaseFragment {
 
                 @Override
                 public void onHttpDone() {
-                    all_notice_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -275,7 +279,7 @@ public class NoticeFragment extends BaseFragment {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     noticeAdapter.setErrorViewShow();
                     noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }

@@ -15,7 +15,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.aldis.hud.Hud;
-import com.jianfanjia.cn.ui.interf.ClickCallBack;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -24,8 +23,6 @@ import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.ConfirmMeasureHouseRequest;
 import com.jianfanjia.api.request.user.GetOrderedDesignerListRequest;
 import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
-import com.jianfanjia.cn.ui.adapter.mydesigner.MyDesignerAdapter;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.business.RequirementBusiness;
@@ -33,6 +30,9 @@ import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
+import com.jianfanjia.cn.ui.adapter.mydesigner.MyDesignerAdapter;
+import com.jianfanjia.cn.ui.interf.ClickCallBack;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
@@ -59,7 +59,7 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
     protected MainHeadView mainHeadView;
 
     @Bind(R.id.act_my_designer_pull_refresh)
-    protected PullToRefreshRecycleView refreshView;
+    protected PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.error_include)
     protected RelativeLayout error_Layout;
@@ -102,9 +102,9 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
     }
 
     private void initPullRefresh() {
-        refreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        refreshView.setLayoutManager(new LinearLayoutManager(this));
-        refreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 initdata();
@@ -172,8 +172,8 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
                 }
             }
         });
-        refreshView.setAdapter(myDesignerAdapter);
-        refreshView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+        mPullToRefreshRecycleView.setAdapter(myDesignerAdapter);
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
     }
 
     private void gotoComment() {
@@ -241,9 +241,9 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     @OnClick(R.id.head_back_layout)
@@ -265,7 +265,9 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
             @Override
             public void onHttpDone() {
                 Hud.dismiss();
-                refreshView.onRefreshComplete();
+                if (mPullToRefreshRecycleView != null) {
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -285,14 +287,14 @@ public class MyDesignerActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
                 if (orderDesignerInfos == null || orderDesignerInfos.size() == 0) {
                     if (!isLoadedOnce) {
                         error_Layout.setVisibility(View.VISIBLE);
                     }
                 }
             }
-        },this);
+        }, this);
     }
 
     @Override

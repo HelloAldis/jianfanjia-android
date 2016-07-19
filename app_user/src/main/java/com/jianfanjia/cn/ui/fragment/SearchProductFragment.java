@@ -167,7 +167,7 @@ public class SearchProductFragment extends BaseFragment {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
             productAdapter.setErrorViewShow();
             productAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }

@@ -160,7 +160,7 @@ public class NavigateActivity extends BaseActivity {
 
                     @Override
                     public void onNetworkError(int code) {
-                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                        makeTextShort(HttpCode.getMsg(code));
                     }
                 },this);
             } else {

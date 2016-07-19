@@ -341,7 +341,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -370,7 +370,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -399,7 +399,7 @@ public class DesignerCaseInfoActivity extends BaseSwipeBackActivity implements O
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 

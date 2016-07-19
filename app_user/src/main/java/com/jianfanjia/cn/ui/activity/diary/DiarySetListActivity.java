@@ -69,7 +69,7 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
         getAllDiarySet();
     }
 
-    private void getAllDiarySet(){
+    private void getAllDiarySet() {
         GetMyDiarySetRequest getMyDiarySetRequest = new GetMyDiarySetRequest();
 
         Api.getMyDiarySetList(getMyDiarySetRequest, new ApiCallback<ApiResponse<DiarySetInfoList>>() {
@@ -81,13 +81,15 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
             @Override
             public void onHttpDone() {
                 Hud.dismiss();
-                mRecyclerView.onRefreshComplete();
+                if (mRecyclerView != null) {
+                    mRecyclerView.onRefreshComplete();
+                }
             }
 
             @Override
             public void onSuccess(ApiResponse<DiarySetInfoList> apiResponse) {
                 DiarySetInfoList diarySetInfoList = apiResponse.getData();
-                if(diarySetInfoList != null){
+                if (diarySetInfoList != null) {
                     mDiaryInfoList = diarySetInfoList.getDiarySets();
                     mDiarySetListAdapter.setList(mDiaryInfoList);
                 }
@@ -100,9 +102,9 @@ public class DiarySetListActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void initRecycleView() {

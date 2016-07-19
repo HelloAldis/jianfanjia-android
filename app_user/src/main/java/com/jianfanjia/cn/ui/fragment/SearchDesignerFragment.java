@@ -162,7 +162,7 @@ public class SearchDesignerFragment extends BaseFragment {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
             searchDesignerAdapter.setErrorViewShow();
             searchDesignerAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }

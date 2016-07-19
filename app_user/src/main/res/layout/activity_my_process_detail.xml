@@ -53,7 +53,7 @@
             android:background="@color/line_color"/>
 
         <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/process__listview"
+            android:id="@+id/process_listview"
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

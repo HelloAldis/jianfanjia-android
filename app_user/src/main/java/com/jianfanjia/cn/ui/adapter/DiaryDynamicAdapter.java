@@ -411,12 +411,12 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                ToastUtil.showShortTost(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                ToastUtil.showShortTost(HttpCode.getMsg(code));
             }
         },context);
     }
@@ -469,7 +469,7 @@ public class DiaryDynamicAdapter extends BaseLoadMoreRecycleAdapter<DiaryInfo> {
 
             @Override
             public void onNetworkError(int code) {
-                ToastUtil.showShortTost(HttpCode.NO_NETWORK_ERROR_MSG);
+                ToastUtil.showShortTost(HttpCode.getMsg(code));
             }
         },context);
     }

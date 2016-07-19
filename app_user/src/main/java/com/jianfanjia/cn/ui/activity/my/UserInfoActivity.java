@@ -298,12 +298,12 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -339,7 +339,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -372,7 +372,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
                 scrollView.setVisibility(View.GONE);
                 error_Layout.setVisibility(View.VISIBLE);
             }
@@ -459,7 +459,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

@@ -410,7 +410,7 @@ public class DiarySetInfoActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -507,7 +507,7 @@ public class DiarySetInfoActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -601,7 +601,7 @@ public class DiarySetInfoActivity extends BaseActivity {
 
             @Override
             public void onNetworkError(int code) {
-                mDiarySetInfo.setIs_my_favorite(false);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -643,6 +643,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             @Override
             public void onNetworkError(int code) {
                 mDiarySetInfo.setIs_my_favorite(true);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -773,7 +774,7 @@ public class DiarySetInfoActivity extends BaseActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 

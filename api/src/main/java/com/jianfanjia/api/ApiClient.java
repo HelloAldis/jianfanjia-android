@@ -87,9 +87,6 @@ public class ApiClient {
 
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                if(call.isCanceled()){
-                    return;
-                }
                 httpDone(baseRequest, apiCallback);
 
                 if (response.isSuccessful()) {

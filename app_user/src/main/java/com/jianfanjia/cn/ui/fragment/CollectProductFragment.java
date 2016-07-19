@@ -49,7 +49,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     private static final String TAG = CollectProductFragment.class.getName();
 
     @Bind(R.id.prodtct_listview)
-    PullToRefreshRecycleView prodtct_listview = null;
+    PullToRefreshRecycleView mPullToRefreshRecycleView = null;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout = null;
@@ -99,13 +99,13 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
     private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_product_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_product);
-        prodtct_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        prodtct_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        prodtct_listview.setHasFixedSize(true);
-        prodtct_listview.setItemAnimator(new DefaultItemAnimator());
-        prodtct_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext
                 ()));
-        prodtct_listview.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     private void onVisible() {
@@ -127,7 +127,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         GetProductFavoriteListRequest request = new GetProductFavoriteListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getCollectListByUser(request, listener,this);
+        Api.getCollectListByUser(request, listener, this);
     }
 
     @OnClick(R.id.error_include)
@@ -157,7 +157,9 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         @Override
         public void onHttpDone() {
             Hud.dismiss();
-            prodtct_listview.onRefreshComplete();
+            if (mPullToRefreshRecycleView != null) {
+                mPullToRefreshRecycleView.onRefreshComplete();
+            }
         }
 
         @Override
@@ -188,12 +190,12 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
                                 }
                             });
-                    prodtct_listview.setAdapter(productAdapter);
-                    prodtct_listview.setVisibility(View.VISIBLE);
+                    mPullToRefreshRecycleView.setAdapter(productAdapter);
+                    mPullToRefreshRecycleView.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.GONE);
                 } else {
-                    prodtct_listview.setVisibility(View.GONE);
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                     errorLayout.setVisibility(View.GONE);
                 }
@@ -207,8 +209,8 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-            prodtct_listview.setVisibility(View.GONE);
+            makeTextShort(HttpCode.getMsg(code));
+            mPullToRefreshRecycleView.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
         }
@@ -223,7 +225,9 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
         @Override
         public void onHttpDone() {
-            prodtct_listview.onRefreshComplete();
+            if (mPullToRefreshRecycleView != null) {
+                mPullToRefreshRecycleView.onRefreshComplete();
+            }
         }
 
         @Override
@@ -243,11 +247,12 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
         @Override
         public void onFailed(ApiResponse<ProductList> apiResponse) {
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
 
     };
@@ -257,7 +262,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
             case Constant.UPDATE_PRODUCT_FRAGMENT:
                 productAdapter.remove(currentPos);
                 if (products.size() == 0) {
-                    prodtct_listview.setVisibility(View.GONE);
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
                 break;

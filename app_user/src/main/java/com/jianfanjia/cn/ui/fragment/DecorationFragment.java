@@ -209,7 +209,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
         request.setQuery(param);
         request.setFrom(FROM);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDecorationImg(request, listener,this);
+        Api.searchDecorationImg(request, listener, this);
     }
 
     @Override
@@ -236,7 +236,9 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    decoration_listview.onRefreshComplete();
+                    if (decoration_listview != null) {
+                        decoration_listview.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -304,7 +306,7 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     decoration_listview.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
@@ -323,7 +325,9 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
                 @Override
                 public void onHttpDone() {
-                    decoration_listview.onRefreshComplete();
+                    if (decoration_listview != null) {
+                        decoration_listview.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -345,11 +349,12 @@ public class DecorationFragment extends BaseFragment implements PullToRefreshBas
 
                 @Override
                 public void onFailed(ApiResponse<BeautifulImageList> apiResponse) {
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.getMsg(code));
                 }
             };
 

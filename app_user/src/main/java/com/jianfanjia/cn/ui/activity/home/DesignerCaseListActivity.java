@@ -235,7 +235,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         request.setQuery(query);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchDesignerProduct(request, apiCallback,this);
+        Api.searchDesignerProduct(request, apiCallback, this);
     }
 
     private ApiCallback<ApiResponse<ProductList>> pullDownCallback = new ApiCallback<ApiResponse<ProductList>>() {
@@ -249,7 +249,9 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
         @Override
         public void onHttpDone() {
             Hud.dismiss();
-            pullToRefreshRecyclerView.onRefreshComplete();
+            if (pullToRefreshRecyclerView != null) {
+                pullToRefreshRecyclerView.onRefreshComplete();
+            }
         }
 
         @Override
@@ -310,7 +312,7 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
             if (isFirst) {
                 pullToRefreshRecyclerView.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
@@ -328,7 +330,9 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
 
         @Override
         public void onHttpDone() {
-            pullToRefreshRecyclerView.onRefreshComplete();
+            if (pullToRefreshRecyclerView != null) {
+                pullToRefreshRecyclerView.onRefreshComplete();
+            }
         }
 
         @Override
@@ -352,23 +356,23 @@ public class DesignerCaseListActivity extends BaseSwipeBackActivity implements V
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
     private void showWindow(int resId, int type) {
         switch (type) {
             case DEC_TYPE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getDecTypeCallback,decTypePos);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDecTypeCallback, decTypePos);
                 break;
             case DESIGN_STYLE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getDesignStyleCallback,decStylePos);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getDesignStyleCallback, decStylePos);
                 break;
             case HOUSE_TYPE:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getHouseTypeCallback,decHouseTypePos);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getHouseTypeCallback, decHouseTypePos);
                 break;
             case DEC_AREA:
-                mSelectPopupWindowUtil.showAsDropDown(topLayout,resId, getHouseAreaCallback,decAreaPos);
+                mSelectPopupWindowUtil.showAsDropDown(topLayout, resId, getHouseAreaCallback, decAreaPos);
                 break;
             default:
                 break;

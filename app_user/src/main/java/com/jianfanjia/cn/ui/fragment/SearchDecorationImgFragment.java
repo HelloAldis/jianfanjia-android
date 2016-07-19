@@ -173,7 +173,7 @@ public class SearchDecorationImgFragment extends BaseFragment {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
             decorationAdapter.setErrorViewShow();
             decorationAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
         }

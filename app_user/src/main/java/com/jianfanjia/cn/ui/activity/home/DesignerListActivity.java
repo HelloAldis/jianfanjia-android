@@ -223,7 +223,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
 
-        Api.searchDesigner(request, apiCallback,this);
+        Api.searchDesigner(request, apiCallback, this);
     }
 
     @Override
@@ -248,7 +248,9 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
         @Override
         public void onHttpDone() {
             Hud.dismiss();
-            designerListView.onRefreshComplete();
+            if (designerListView != null) {
+                designerListView.onRefreshComplete();
+            }
         }
 
         @Override
@@ -307,7 +309,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
             if (isFirst) {
                 designerListView.setVisibility(View.GONE);
                 emptyLayout.setVisibility(View.GONE);
@@ -324,7 +326,9 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
         @Override
         public void onHttpDone() {
-            designerListView.onRefreshComplete();
+            if (designerListView != null) {
+                designerListView.onRefreshComplete();
+            }
         }
 
         @Override
@@ -351,7 +355,7 @@ public class DesignerListActivity extends BaseSwipeBackActivity implements View.
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 

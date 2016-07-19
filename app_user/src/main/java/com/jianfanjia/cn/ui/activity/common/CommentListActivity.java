@@ -116,7 +116,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                             case MyCommentInfoAdapter.DIARY_TYPE:
                                 DiaryDetailInfoActivity.intentToDiaryDetailInfoByComment
                                         (CommentListActivity.this, noticeInfo.getDiary(), DiaryDetailInfoActivity
-                                                .intentFromComment, noticeInfo.getUser(),noticeInfo.getCommentid());
+                                                .intentFromComment, noticeInfo.getUser(), noticeInfo.getCommentid());
                                 break;
                         }
                     }
@@ -177,7 +177,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         SearchUserCommentRequest request = new SearchUserCommentRequest();
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchUserComment(request, apiCallback,this);
+        Api.searchUserComment(request, apiCallback, this);
     }
 
     private ApiCallback<ApiResponse<UserMessageList>> pullDownCallback = new
@@ -192,7 +192,9 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    refreshRecycleView.onRefreshComplete();
+                    if (refreshRecycleView != null) {
+                        refreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -226,7 +228,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
@@ -274,7 +276,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }

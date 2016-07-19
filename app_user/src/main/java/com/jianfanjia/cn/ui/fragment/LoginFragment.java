@@ -161,7 +161,7 @@ public class LoginFragment extends BaseFragment {
 
                     @Override
                     public void onNetworkError(int code) {
-                        makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                        makeTextShort(HttpCode.getMsg(code));
                     }
                 },LoginFragment.this);
             } else {
@@ -234,7 +234,7 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

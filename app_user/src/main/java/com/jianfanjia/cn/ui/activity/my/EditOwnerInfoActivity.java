@@ -158,7 +158,7 @@ public class EditOwnerInfoActivity extends BaseSwipeBackActivity implements OnCl
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

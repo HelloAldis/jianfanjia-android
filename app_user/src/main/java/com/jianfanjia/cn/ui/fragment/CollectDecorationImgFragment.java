@@ -51,7 +51,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     private static final String TAG = CollectDecorationImgFragment.class.getName();
 
     @Bind(R.id.decoration_img_listview)
-    PullToRefreshRecycleView decoration_img_listview;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout;
@@ -102,15 +102,15 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
     private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_img_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_img);
-        decoration_img_listview.setMode(PullToRefreshBase.Mode.BOTH);
-        decoration_img_listview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshRecycleView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager
                 .VERTICAL));
-        decoration_img_listview.setHasFixedSize(true);
-        decoration_img_listview.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
         SpacesItemDecoration decoration = new SpacesItemDecoration(TDevice.dip2px(getContext()
                 .getApplicationContext(), 5));
-        decoration_img_listview.addItemDecoration(decoration);
-        decoration_img_listview.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.addItemDecoration(decoration);
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     private void onVisible() {
@@ -137,7 +137,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
         GetBeautyImgListRequest request = new GetBeautyImgListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getBeautyImgListByUser(request, listener,this);
+        Api.getBeautyImgListByUser(request, listener, this);
     }
 
     @Override
@@ -165,7 +165,9 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    decoration_img_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -202,14 +204,14 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                                                 startActivity(PreviewDecorationActivity.class, decorationBundle);
                                             }
                                         });
-                                decoration_img_listview.setAdapter(decorationImgAdapter);
+                                mPullToRefreshRecycleView.setAdapter(decorationImgAdapter);
                             } else {
                                 decorationImgAdapter.notifyDataSetChanged();
                             }
-                            decoration_img_listview.setVisibility(View.VISIBLE);
+                            mPullToRefreshRecycleView.setVisibility(View.VISIBLE);
                             emptyLayout.setVisibility(View.GONE);
                         } else {
-                            decoration_img_listview.setVisibility(View.GONE);
+                            mPullToRefreshRecycleView.setVisibility(View.GONE);
                             emptyLayout.setVisibility(View.VISIBLE);
                         }
                         errorLayout.setVisibility(View.GONE);
@@ -223,8 +225,8 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-                    decoration_img_listview.setVisibility(View.GONE);
+                    makeTextShort(HttpCode.getMsg(code));
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
                 }
@@ -242,7 +244,9 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onHttpDone() {
-                    decoration_img_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -266,7 +270,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                 }
 
             };
@@ -297,7 +301,7 @@ public class CollectDecorationImgFragment extends BaseFragment implements PullTo
                 decorationImgAdapter.remove(removePos);
                 total = beautyImgList.size();
                 if (total == 0) {
-                    decoration_img_listview.setVisibility(View.GONE);
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
             }

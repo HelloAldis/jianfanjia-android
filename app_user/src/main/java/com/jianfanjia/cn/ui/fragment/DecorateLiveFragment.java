@@ -51,7 +51,7 @@ public class DecorateLiveFragment extends BaseFragment {
     private View view;
 
     @Bind(R.id.pullrefresh_recycleview)
-    PullToRefreshRecycleView recyclerView;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout;
@@ -104,17 +104,17 @@ public class DecorateLiveFragment extends BaseFragment {
     private void initRecycleView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_process));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_designer);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(_context));
-        recyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(_context));
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 searchShare(Constant.FROM_START, mNum, pullDownUpdateListener);
             }
         });
-        decorateLiveAdapter = new DecorateLiveAdapter(_context, recyclerView.getRefreshableView(), new
+        decorateLiveAdapter = new DecorateLiveAdapter(_context, mPullToRefreshRecycleView.getRefreshableView(), new
                 OnItemClickListener() {
                     @Override
                     public void OnItemClick(int position) {
@@ -133,7 +133,7 @@ public class DecorateLiveFragment extends BaseFragment {
         });
         decorateLiveAdapter.setErrorView(errorLayout);
         decorateLiveAdapter.setEmptyView(emptyLayout);
-        recyclerView.setAdapter(decorateLiveAdapter);
+        mPullToRefreshRecycleView.setAdapter(decorateLiveAdapter);
     }
 
     @Override
@@ -177,7 +177,9 @@ public class DecorateLiveFragment extends BaseFragment {
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    recyclerView.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -211,7 +213,7 @@ public class DecorateLiveFragment extends BaseFragment {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     decorateLiveAdapter.setErrorViewShow();
                     decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
@@ -260,7 +262,7 @@ public class DecorateLiveFragment extends BaseFragment {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     decorateLiveAdapter.setErrorViewShow();
                     decorateLiveAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
@@ -273,7 +275,7 @@ public class DecorateLiveFragment extends BaseFragment {
         request.setQuery(params);
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchShare(request, listener,this);
+        Api.searchShare(request, listener, this);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
     protected MainHeadView mainHeadView;
 
     @Bind(R.id.designer_plan_listview)
-    protected PullToRefreshRecycleView designer_plan_listview;
+    protected PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     private List<Plan> designerPlanList = new ArrayList<>();
     private String requirementid = null;
@@ -80,12 +80,12 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
     }
 
     private void initRecycleView() {
-        designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
-        designer_plan_listview.setHasFixedSize(true);
-        designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
-        designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
-        designer_plan_listview.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     @Override
@@ -136,7 +136,9 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
             @Override
             public void onHttpDone() {
                 Hud.dismiss();
-                designer_plan_listview.onRefreshComplete();
+                if (mPullToRefreshRecycleView != null) {
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -145,7 +147,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
                 if (null != designerPlanList && designerPlanList.size() > 0) {
                     DesignerPlanAdapter adapter = new DesignerPlanAdapter(DesignerPlanListActivity.this,
                             designerPlanList, DesignerPlanListActivity.this);
-                    designer_plan_listview.setAdapter(adapter);
+                    mPullToRefreshRecycleView.setAdapter(adapter);
                 }
             }
 
@@ -156,9 +158,9 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements I
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
     private static final String TAG = CollectDesignerFragment.class.getName();
 
     @Bind(R.id.my_favorite_designer_listview)
-    PullToRefreshRecycleView pullToRefreshView;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout;
@@ -96,19 +96,19 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
     private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.emtpy_view_no_diaryset_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_diaryset);
-        pullToRefreshView.setMode(PullToRefreshBase.Mode.BOTH);
-        pullToRefreshView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        pullToRefreshView.setHasFixedSize(true);
-        pullToRefreshView.setItemAnimator(new DefaultItemAnimator());
-        pullToRefreshView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
-        pullToRefreshView.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     @OnClick(R.id.error_include)
     public void onClick() {
         getFavoriteDiarySetList(0, Constant.HOME_PAGE_LIMIT, getDownMyFavoriteDesignerListener);
-        
+
     }
 
     private void onVisible() {
@@ -140,7 +140,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
         GetDiarySetFavoriteListRequest request = new GetDiarySetFavoriteListRequest();
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getFavoriteDiarySetList(request,listener,this);
+        Api.getFavoriteDiarySetList(request, listener, this);
     }
 
     private ApiCallback<ApiResponse<DiarySetInfoList>> getDownMyFavoriteDesignerListener = new
@@ -155,7 +155,9 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    pullToRefreshView.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -166,18 +168,18 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
                     LogTool.d("favoriteDiarySetList=" + favoriteDiarySetList);
                     if (favoriteDiarySetList != null) {
                         mDiarySetInfoList.clear();
-                        if(favoriteDiarySetList.getDiarySets() != null){
+                        if (favoriteDiarySetList.getDiarySets() != null) {
                             mDiarySetInfoList.addAll(favoriteDiarySetList.getDiarySets());
                         }
                         if (null != mDiarySetInfoList && mDiarySetInfoList.size() > 0) {
                             mDiarySetListAdapter = new DiarySetListAdapter(getActivity(), mDiarySetInfoList);
                             mDiarySetListAdapter.setHasAddDiarySet(false);
-                            pullToRefreshView.setAdapter(mDiarySetListAdapter);
-                            pullToRefreshView.setVisibility(View.VISIBLE);
+                            mPullToRefreshRecycleView.setAdapter(mDiarySetListAdapter);
+                            mPullToRefreshRecycleView.setVisibility(View.VISIBLE);
                             emptyLayout.setVisibility(View.GONE);
                             errorLayout.setVisibility(View.GONE);
                         } else {
-                            pullToRefreshView.setVisibility(View.GONE);
+                            mPullToRefreshRecycleView.setVisibility(View.GONE);
                             emptyLayout.setVisibility(View.VISIBLE);
                             errorLayout.setVisibility(View.GONE);
                         }
@@ -191,8 +193,8 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
-                    pullToRefreshView.setVisibility(View.GONE);
+                    makeTextShort(HttpCode.getMsg(code));
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.GONE);
                     errorLayout.setVisibility(View.VISIBLE);
                 }
@@ -208,7 +210,9 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onHttpDone() {
-                    pullToRefreshView.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -227,12 +231,12 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
 
                 @Override
                 public void onFailed(ApiResponse<DiarySetInfoList> apiResponse) {
-
+                    makeTextShort(apiResponse.getErr_msg());
                 }
 
                 @Override
                 public void onNetworkError(int code) {
-
+                    makeTextShort(HttpCode.getMsg(code));
                 }
 
             };
@@ -262,7 +266,7 @@ public class CollectDiarySetFragment extends BaseFragment implements PullToRefre
             if (removePos != -1) {
                 mDiarySetListAdapter.remove(removePos);
                 if (mDiarySetInfoList.size() == 0) {
-                    pullToRefreshView.setVisibility(View.GONE);
+                    mPullToRefreshRecycleView.setVisibility(View.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
             }
