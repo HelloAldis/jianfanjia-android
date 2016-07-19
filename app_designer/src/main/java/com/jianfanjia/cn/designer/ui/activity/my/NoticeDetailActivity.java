@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -22,19 +23,19 @@ import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.GetMsgDetailRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
-import com.jianfanjia.cn.designer.ui.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.SettingMeasureDateActivity;
-import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewBusinessRequirementActivity;
-import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;
-import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewHomeRequirementActivity;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.business.ProcessBusiness;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.ui.interf.RefuseRequirementCallback;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.Event.UpdateEvent;
+import com.jianfanjia.cn.designer.ui.activity.SettingMeasureDateActivity;
+import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewBusinessRequirementActivity;
+import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;
+import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewHomeRequirementActivity;
+import com.jianfanjia.cn.designer.ui.interf.RefuseRequirementCallback;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
@@ -188,12 +189,12 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
         Api.getUserMsgDetail(request, new ApiCallback<ApiResponse<UserMessage>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -335,7 +336,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -369,7 +370,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -403,7 +404,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -449,7 +450,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

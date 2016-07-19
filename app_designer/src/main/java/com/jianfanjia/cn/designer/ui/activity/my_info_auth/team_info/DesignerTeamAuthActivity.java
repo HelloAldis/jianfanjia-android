@@ -10,8 +10,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Team;
 import com.jianfanjia.api.request.designer.DeleteOneTeamRequest;
 import com.jianfanjia.api.request.designer.GetAllTeamRequest;
@@ -37,7 +39,7 @@ import com.jianfanjia.common.tool.TDevice;
 public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.pullrefresh_recycleview)
-    PullToRefreshRecycleView gridView;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.designer_team_head_layout)
     MainHeadView mMainHeadView;
@@ -82,11 +84,11 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
                 return position == 0 ? gridLayoutManager.getSpanCount() : 1;
             }
         });
-        gridView.setLayoutManager(gridLayoutManager);
-        gridView.setHasFixedSize(true);
-        gridView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.setLayoutManager(gridLayoutManager);
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
         ItemSpaceDecoration decoration = new ItemSpaceDecoration(TDevice.dip2px(getApplicationContext(), 5));
-        gridView.addItemDecoration(decoration);
+        mPullToRefreshRecycleView.addItemDecoration(decoration);
         mDesignerTeamAuthAdapter = new DesignerTeamAuthAdapter(this, mTeamList, new BaseRecyclerViewAdapter
                 .OnItemEditListener() {
             @Override
@@ -107,13 +109,13 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
                 deleteOneTeam(team.get_id(), position);
             }
         });
-        gridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 getAllTeam();
             }
         });
-        gridView.setAdapter(mDesignerTeamAuthAdapter);
+        mPullToRefreshRecycleView.setAdapter(mDesignerTeamAuthAdapter);
     }
 
     private void intentToTeamDetail(Team team) {
@@ -131,13 +133,15 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
         Api.getAllTeam(getAllTeamRequest, new ApiCallback<ApiResponse<List<Team>>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
-                gridView.onRefreshComplete();
+                Hud.dismiss();
+                if (mPullToRefreshRecycleView != null) {
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -157,7 +161,7 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        },this);
+        }, this);
 
     }
 
@@ -168,12 +172,12 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
         Api.deleteOneTeam(deleteOneTeamRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -183,14 +187,14 @@ public class DesignerTeamAuthActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
 

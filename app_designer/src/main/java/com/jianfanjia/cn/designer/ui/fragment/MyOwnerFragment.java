@@ -12,17 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementListRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.bean.RequirementList;
 import com.jianfanjia.cn.designer.bean.SelectItem;
+import com.jianfanjia.cn.designer.ui.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 
 /**
@@ -120,13 +121,13 @@ public class MyOwnerFragment extends BaseFragment {
             @Override
             public void onPreLoad() {
                 if(!mHasLoadOnce){
-                    showWaitDialog();
+                    Hud.show(getUiContext());
                 }
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
                 notifyAllFragmentHttpDone();
             }
 
@@ -145,7 +146,7 @@ public class MyOwnerFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
                 notifyAllFragmentNetError();
             }
         },this);

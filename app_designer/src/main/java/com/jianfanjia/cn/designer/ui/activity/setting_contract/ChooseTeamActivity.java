@@ -11,6 +11,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -46,7 +47,7 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
     public static final String CONFIG_CONTRACT_INFO = "config_contract_info";
 
     @Bind(R.id.pullrefresh_recycleview)
-    PullToRefreshRecycleView gridView;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.designer_team_head_layout)
     MainHeadView mMainHeadView;
@@ -97,11 +98,11 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
                 return position == 0 ? gridLayoutManager.getSpanCount() : 1;
             }
         });
-        gridView.setLayoutManager(gridLayoutManager);
-        gridView.setHasFixedSize(true);
-        gridView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.setLayoutManager(gridLayoutManager);
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
         ItemSpaceDecoration decoration = new ItemSpaceDecoration(TDevice.dip2px(getApplicationContext(), 5));
-        gridView.addItemDecoration(decoration);
+        mPullToRefreshRecycleView.addItemDecoration(decoration);
         mChooseTeamAdapter = new ChooseTeamAdapter(this, mTeamList, new BaseRecyclerViewAdapter
                 .OnItemEditListener() {
             @Override
@@ -126,19 +127,19 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
             public void chooseItem(int position) {
                 if (mChooseTeamAdapter.getCurrentChoosePos() != position) {
                     mChooseTeamAdapter.setCurrentChoosePos(position);
-                }else{
+                } else {
                     mChooseTeamAdapter.setCurrentChoosePos(-1);
                 }
                 setMianHeadRightTitleEnable();
             }
         });
-        gridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 getAllTeam();
             }
         });
-        gridView.setAdapter(mChooseTeamAdapter);
+        mPullToRefreshRecycleView.setAdapter(mChooseTeamAdapter);
     }
 
     private void setMianHeadRightTitleEnable() {
@@ -165,13 +166,15 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
         Api.getAllTeam(getAllTeamRequest, new ApiCallback<ApiResponse<List<Team>>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
-                gridView.onRefreshComplete();
+                Hud.dismiss();
+                if (mPullToRefreshRecycleView != null) {
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -188,9 +191,9 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
 
     }
 
@@ -203,12 +206,12 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
         Api.configContract(configContractRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -225,9 +228,9 @@ public class ChooseTeamActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void initMainView() {

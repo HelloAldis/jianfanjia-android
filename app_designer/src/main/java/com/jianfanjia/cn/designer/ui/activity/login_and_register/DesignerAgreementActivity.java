@@ -10,8 +10,10 @@ import android.webkit.WebViewClient;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.request.designer.DesignerAgreeRequest;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.api.Api;
@@ -88,12 +90,12 @@ public class DesignerAgreementActivity extends BaseActivity implements View.OnKe
         Api.designerAgree(designerAgreeRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -109,7 +111,7 @@ public class DesignerAgreementActivity extends BaseActivity implements View.OnKe
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

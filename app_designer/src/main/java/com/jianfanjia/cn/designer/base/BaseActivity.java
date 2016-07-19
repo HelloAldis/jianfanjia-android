@@ -13,13 +13,9 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.cn.designer.AppManager;
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
 import com.jianfanjia.cn.designer.view.AddPhotoDialog;
-import com.jianfanjia.cn.designer.view.dialog.DialogControl;
-import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
-import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
 import com.jianfanjia.common.tool.LogTool;
 import com.umeng.analytics.MobclickAgent;
 
@@ -29,15 +25,12 @@ import com.umeng.analytics.MobclickAgent;
  * Email：leo.feng@myjyz.com
  * Date:15-10-11 14:30
  */
-public abstract class BaseActivity extends AppCompatActivity implements
-        DialogControl {
+public abstract class BaseActivity extends AppCompatActivity{
     protected DownloadManager downloadManager = null;
     protected LayoutInflater inflater = null;
     protected FragmentManager fragmentManager = null;
     protected NotificationManager nManager = null;
     protected AddPhotoDialog popupWindow = null;
-    private boolean _isVisible;
-    private WaitDialog _waitDialog = null;
     protected DataManagerNew dataManager = null;
     protected ImageShow imageShow = null;
     protected AppManager appManager = null;
@@ -60,11 +53,17 @@ public abstract class BaseActivity extends AppCompatActivity implements
         dataManager = DataManagerNew.getInstance();
         fragmentManager = this.getSupportFragmentManager();
         imageShow = ImageShow.getImageShow();
-        _isVisible = true;
     }
 
     public abstract int getLayoutId();
 
+
+    protected Context getUiContext() {
+        if (this != null) {
+            return this;
+        }
+        return getApplicationContext();
+    }
 
     @Override
     protected void onStart() {
@@ -139,41 +138,5 @@ public abstract class BaseActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
-    @Override
-    public WaitDialog showWaitDialog() {
-        return showWaitDialog(R.string.loading);
-    }
-
-    @Override
-    public WaitDialog showWaitDialog(int resid) {
-        return showWaitDialog(getString(resid));
-    }
-
-    @Override
-    public WaitDialog showWaitDialog(String message) {
-        if (_isVisible) {
-            if (_waitDialog == null) {
-                _waitDialog = DialogHelper.getWaitDialog(this, message);
-            }
-            if (_waitDialog != null) {
-                _waitDialog.setMessage(message);
-                _waitDialog.show();
-            }
-            return _waitDialog;
-        }
-        return null;
-    }
-
-    @Override
-    public void hideWaitDialog() {
-        if (_isVisible && _waitDialog != null) {
-            try {
-                _waitDialog.dismiss();
-                _waitDialog = null;
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 
 }

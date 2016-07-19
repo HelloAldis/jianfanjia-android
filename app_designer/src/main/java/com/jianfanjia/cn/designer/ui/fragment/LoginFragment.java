@@ -11,6 +11,7 @@ import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -133,7 +134,7 @@ public class LoginFragment extends BaseFragment {
         Api.login(loginRequest, new ApiCallback<ApiResponse<Designer>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
@@ -147,14 +148,14 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onFailed(ApiResponse<Designer> apiResponse) {
-                hideWaitDialog();
+                Hud.dismiss();
                 makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-                hideWaitDialog();
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                Hud.dismiss();
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -170,7 +171,7 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -199,7 +200,7 @@ public class LoginFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

@@ -18,8 +18,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Designer;
 import com.jianfanjia.api.request.common.UploadPicRequest;
 import com.jianfanjia.api.request.designer.UpdateDesignerIdentityInfoRequest;
@@ -461,12 +463,12 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
         Api.updateDesignerIdentityInfo(updateDesignerIdentityInfoRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -481,7 +483,7 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -540,12 +542,12 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -568,12 +570,12 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -596,12 +598,12 @@ public class DesignerIdentityAuthActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onFailed(ApiResponse<String> apiResponse) {
-
+            makeTextShort(apiResponse.getErr_msg());
         }
 
         @Override
         public void onNetworkError(int code) {
-
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 

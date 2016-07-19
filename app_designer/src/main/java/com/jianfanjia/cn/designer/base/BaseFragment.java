@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.designer.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,8 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import com.jianfanjia.api.ApiClient;
-import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.business.DataManagerNew;
 import com.jianfanjia.cn.designer.tools.ImageShow;
-import com.jianfanjia.cn.designer.view.dialog.DialogControl;
-import com.jianfanjia.cn.designer.view.dialog.WaitDialog;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -40,14 +38,14 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.jianfanjia.common.tool.LogTool.d("onCreate");
+        LogTool.d("onCreate");
         init();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        com.jianfanjia.common.tool.LogTool.d("onCreateView");
+        LogTool.d("onCreateView");
         this.inflater = inflater;
         if (getLayoutId() > 0) {
             view = inflateView(getLayoutId());
@@ -59,7 +57,7 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        com.jianfanjia.common.tool.LogTool.d("onActivityCreated");
+        LogTool.d("onActivityCreated");
     }
 
     private void init() {
@@ -82,6 +80,14 @@ public abstract class BaseFragment extends Fragment{
         return this.inflater.inflate(resId, null);
     }
 
+    protected Context getUiContext() {
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity instanceof BaseActivity) {
+            return ((BaseActivity) fragmentActivity).getUiContext();
+        }
+        return fragmentActivity;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -99,8 +105,14 @@ public abstract class BaseFragment extends Fragment{
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        ApiClient.cancelTag(this);
         LogTool.d("onDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ApiClient.cancelTag(this);
+        LogTool.d("onDestroyView()");
     }
 
     protected void makeTextShort(String text) {
@@ -158,31 +170,4 @@ public abstract class BaseFragment extends Fragment{
         fragment.startActivityForResult(intent, requestCode);
     }
 
-
-    protected void hideWaitDialog() {
-        FragmentActivity activity = getActivity();
-        if (activity instanceof DialogControl) {
-            ((DialogControl) activity).hideWaitDialog();
-        }
-    }
-
-    protected WaitDialog showWaitDialog(int resid) {
-        FragmentActivity activity = getActivity();
-        if (activity instanceof DialogControl) {
-            return ((DialogControl) activity).showWaitDialog(resid);
-        }
-        return null;
-    }
-
-    protected WaitDialog showWaitDialog() {
-        return showWaitDialog(R.string.loading);
-    }
-
-    protected WaitDialog showWaitDialog(String str) {
-        FragmentActivity activity = getActivity();
-        if (activity instanceof DialogControl) {
-            return ((DialogControl) activity).showWaitDialog(str);
-        }
-        return null;
-    }
 }

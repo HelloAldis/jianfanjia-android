@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.request.designer.AddOneProductRequest;
 import com.jianfanjia.api.request.designer.UpdateOneProductRequest;
@@ -89,12 +91,12 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
         Api.updateOneProduct(updateOneProductRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -110,6 +112,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -135,12 +138,12 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
         Api.addOneProduct(addOneProductRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -156,7 +159,7 @@ public class UploadProductActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

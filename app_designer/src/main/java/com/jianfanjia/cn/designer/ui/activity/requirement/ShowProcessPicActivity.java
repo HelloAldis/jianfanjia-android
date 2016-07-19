@@ -11,15 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.ui.adapter.ShowPicPagerAdapter;
 import com.jianfanjia.cn.designer.ui.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.designer.view.DeletePicDialog;
 
@@ -108,12 +109,12 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override

@@ -12,6 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -19,14 +20,14 @@ import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.GetRequirementPlanListRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.common.CommentActivity;
-import com.jianfanjia.cn.designer.ui.adapter.DesignerPlanAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.ui.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.activity.common.CommentActivity;
+import com.jianfanjia.cn.designer.ui.adapter.DesignerPlanAdapter;
+import com.jianfanjia.cn.designer.ui.interf.ItemClickListener;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
@@ -46,7 +47,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
     protected MainHeadView mainHeadView;
 
     @Bind(R.id.designer_plan_listview)
-    protected PullToRefreshRecycleView designer_plan_listview;
+    protected PullToRefreshRecycleView mPullToRefreshRecycleView;
 
 
     private List<Plan> designerPlanList = new ArrayList<Plan>();
@@ -77,11 +78,11 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
     }
 
     private void initRecycleView() {
-        designer_plan_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        designer_plan_listview.setLayoutManager(new LinearLayoutManager(this));
-        designer_plan_listview.setItemAnimator(new DefaultItemAnimator());
-        designer_plan_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
-        designer_plan_listview.setOnRefreshListener(this);
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(this));
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(this));
+        mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
     @Override
@@ -127,13 +128,15 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
         Api.getRequirementPlanList(getRequirementPlanListRequest, new ApiCallback<ApiResponse<List<Plan>>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                designer_plan_listview.onRefreshComplete();
-                hideWaitDialog();
+                Hud.dismiss();
+                if (mPullToRefreshRecycleView != null) {
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -144,7 +147,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
                     DesignerPlanAdapter adapter = new DesignerPlanAdapter(DesignerPlanListActivity.this,
                             designerPlanList,
                             DesignerPlanListActivity.this);
-                    designer_plan_listview.setAdapter(adapter);
+                    mPullToRefreshRecycleView.setAdapter(adapter);
                 }
             }
 
@@ -155,9 +158,9 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
 
     }
 

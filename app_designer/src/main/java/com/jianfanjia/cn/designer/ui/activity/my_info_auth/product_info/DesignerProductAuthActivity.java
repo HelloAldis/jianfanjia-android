@@ -11,8 +11,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
 import com.jianfanjia.api.request.designer.DeleteOneProductRequest;
@@ -39,7 +41,7 @@ import com.jianfanjia.common.tool.TDevice;
 public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.pullrefresh_recycleview)
-    PullToRefreshRecycleView mRecyclerView;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.designer_product_head_layout)
     MainHeadView mMainHeadView;
@@ -71,14 +73,14 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
     private void initRecycleView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setLayoutManager(linearLayoutManager);
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 getAllProduct();
             }
         });
-        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        mPullToRefreshRecycleView.addItemDecoration(new RecyclerView.ItemDecoration() {
 
             int space = TDevice.dip2px(getApplicationContext(), 10);
 
@@ -113,7 +115,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
                 showTipDialog(position);
             }
         });
-        mRecyclerView.setAdapter(mDesignerProductAdapter);
+        mPullToRefreshRecycleView.setAdapter(mDesignerProductAdapter);
     }
 
     //显示放弃提交提醒
@@ -146,12 +148,12 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
         Api.deleteOneProduct(deleteOneProductRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -161,14 +163,14 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
-
+                makeTextShort(apiResponse.getErr_msg());
             }
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
 
@@ -179,13 +181,15 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
         Api.getAllProduct(getAllProductRequest, new ApiCallback<ApiResponse<ProductList>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
-                mRecyclerView.onRefreshComplete();
+                Hud.dismiss();
+                if (mPullToRefreshRecycleView != null) {
+                    mPullToRefreshRecycleView.onRefreshComplete();
+                }
             }
 
             @Override
@@ -207,7 +211,7 @@ public class DesignerProductAuthActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
 
             }
-        },this);
+        }, this);
     }
 
     private void initMainView() {

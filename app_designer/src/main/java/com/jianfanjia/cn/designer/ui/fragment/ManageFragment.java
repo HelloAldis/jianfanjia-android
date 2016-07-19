@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -201,16 +202,20 @@ public class ManageFragment extends BaseFragment {
         Api.getProcessList(getProcessListRequest, new ApiCallback<ApiResponse<List<Process>>>() {
             @Override
             public void onPreLoad() {
-                if(!mHasLoadOnce){
-                    showWaitDialog();
+                if (!mHasLoadOnce) {
+                    Hud.show(getUiContext());
                 }
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
-                manage_pullfefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
+                Hud.dismiss();
+                if (manage_pullfefresh != null) {
+                    manage_pullfefresh.onRefreshComplete();
+                }
+                if (emptyPullRefresh != null) {
+                    emptyPullRefresh.onRefreshComplete();
+                }
             }
 
             @Override
@@ -240,7 +245,7 @@ public class ManageFragment extends BaseFragment {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
                 if (adapter.getItemCount() > 0) {
                     manage_pullfefresh.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
@@ -251,7 +256,7 @@ public class ManageFragment extends BaseFragment {
                     errorLayout.setVisibility(View.VISIBLE);
                 }
             }
-        },this);
+        }, this);
     }
 
     @Override

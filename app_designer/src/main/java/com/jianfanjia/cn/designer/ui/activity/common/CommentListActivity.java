@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -42,7 +43,7 @@ import com.jianfanjia.common.tool.LogTool;
 public class CommentListActivity extends BaseSwipeBackActivity {
 
     @Bind(R.id.pullrefresh_recycleview)
-    protected PullToRefreshRecycleView refreshRecycleView;
+    protected PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.common_head)
     protected MainHeadView mainHeadView;
@@ -73,10 +74,10 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         mainHeadView.setMianTitle(getString(R.string.my_comment));
         ((TextView) emptyView.findViewById(R.id.empty_text)).setText(getString(R.string.search_no_commnet));
         ((ImageView) emptyView.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_no_comment);
-        refreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        refreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
-        refreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        myCommentInfoAdapter = new MyCommentInfoAdapter(this, refreshRecycleView.getRefreshableView(), new
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getApplicationContext()));
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        myCommentInfoAdapter = new MyCommentInfoAdapter(this, mPullToRefreshRecycleView.getRefreshableView(), new
                 MyCommentInfoAdapter.OnItemCallback() {
                     @Override
                     public void onResponse(UserMessage userMessage, int viewType) {
@@ -88,7 +89,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                                 bundle.putString(Global.TO, userMessage.getPlan().getUserid());
                                 break;
                             case MyCommentInfoAdapter.NODE_TYPE:
-                                bundle.putString(Global.TO,userMessage.getProcess().getUserid());
+                                bundle.putString(Global.TO, userMessage.getProcess().getUserid());
                                 bundle.putString(Global.SECTION, userMessage.getSection());
                                 bundle.putString(Global.ITEM, userMessage.getItem());
                                 break;
@@ -114,13 +115,13 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 getMyCommentInfo(myCommentInfoAdapter.getData().size(), loadMoreCallback);
             }
         });
-        refreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 getMyCommentInfo(Constant.FROM_START, pullDownCallback);
             }
         });
-        refreshRecycleView.setAdapter(myCommentInfoAdapter);
+        mPullToRefreshRecycleView.setAdapter(myCommentInfoAdapter);
 
         myCommentInfoAdapter.setEmptyView(emptyView);
         myCommentInfoAdapter.setErrorView(errorView);
@@ -145,7 +146,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         SearchUserCommentRequest request = new SearchUserCommentRequest();
         request.setFrom(from);
         request.setLimit(Constant.HOME_PAGE_LIMIT);
-        Api.searchUserComment(request, apiCallback,this);
+        Api.searchUserComment(request, apiCallback, this);
     }
 
     private ApiCallback<ApiResponse<UserMessageList>> pullDownCallback = new
@@ -153,14 +154,16 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 @Override
                 public void onPreLoad() {
                     if (!mHasLoadOnce) {
-                        showWaitDialog();
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
-                    refreshRecycleView.onRefreshComplete();
+                    Hud.dismiss();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -170,7 +173,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                         int total = noticeListInfo.getTotal();
                         if (total > 0) {
                             myCommentInfoAdapter.clear();
-                            myCommentInfoAdapter.addData(noticeListInfo.getList());
+                            myCommentInfoAdapter.addData(0, noticeListInfo.getList());
                             LogTool.d("total size =" + total);
                             LogTool.d("myCommentInfoAdapter.getData().size() =" +
                                     myCommentInfoAdapter.getData().size());
@@ -194,7 +197,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }
@@ -209,7 +212,9 @@ public class CommentListActivity extends BaseSwipeBackActivity {
 
                 @Override
                 public void onHttpDone() {
-                    refreshRecycleView.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -242,7 +247,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     myCommentInfoAdapter.setErrorViewShow();
                     myCommentInfoAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }

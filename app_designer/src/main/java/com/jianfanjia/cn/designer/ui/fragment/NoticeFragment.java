@@ -16,6 +16,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -23,15 +24,15 @@ import com.jianfanjia.api.model.UserMessage;
 import com.jianfanjia.api.model.UserMessageList;
 import com.jianfanjia.api.request.common.SearchUserMsgRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.my.NoticeDetailActivity;
-import com.jianfanjia.cn.designer.ui.adapter.NoticeAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.base.BaseFragment;
 import com.jianfanjia.cn.designer.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.designer.config.Constant;
 import com.jianfanjia.cn.designer.config.Global;
-import com.jianfanjia.cn.designer.ui.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.activity.my.NoticeDetailActivity;
+import com.jianfanjia.cn.designer.ui.adapter.NoticeAdapter;
+import com.jianfanjia.cn.designer.ui.interf.RecyclerItemCallBack;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.common.tool.LogTool;
@@ -47,7 +48,7 @@ public class NoticeFragment extends BaseFragment {
     private View view = null;
 
     @Bind(R.id.all_notice_listview)
-    PullToRefreshRecycleView all_notice_listview;
+    PullToRefreshRecycleView mPullToRefreshRecycleView;
 
     @Bind(R.id.empty_include)
     RelativeLayout emptyLayout;
@@ -106,20 +107,20 @@ public class NoticeFragment extends BaseFragment {
     private void initView() {
         ((TextView) emptyLayout.findViewById(R.id.empty_text)).setText(getString(R.string.empty_view_no_notice_data));
         ((ImageView) emptyLayout.findViewById(R.id.empty_img)).setImageResource(R.mipmap.icon_no_notice);
-        all_notice_listview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        all_notice_listview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        all_notice_listview.setHasFixedSize(true);
-        all_notice_listview.setItemAnimator(new DefaultItemAnimator());
-        all_notice_listview.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+        mPullToRefreshRecycleView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPullToRefreshRecycleView.setHasFixedSize(true);
+        mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
                 .getApplicationContext()));
-        all_notice_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
+        mPullToRefreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT,typeArray, pullDownListener);
+                getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
             }
         });
 
-        noticeAdapter = new NoticeAdapter(getContext(), all_notice_listview.getRefreshableView(), new
+        noticeAdapter = new NoticeAdapter(getContext(), mPullToRefreshRecycleView.getRefreshableView(), new
                 RecyclerItemCallBack() {
                     @Override
                     public void onClick(int position, Object obj) {
@@ -133,12 +134,12 @@ public class NoticeFragment extends BaseFragment {
         noticeAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-                getNoticeList(noticeAdapter.getData().size(), Constant.HOME_PAGE_LIMIT ,typeArray, loadMoreListener);
+                getNoticeList(noticeAdapter.getData().size(), Constant.HOME_PAGE_LIMIT, typeArray, loadMoreListener);
             }
         });
         noticeAdapter.setEmptyView(emptyLayout);
         noticeAdapter.setErrorView(errorLayout);
-        all_notice_listview.setAdapter(noticeAdapter);
+        mPullToRefreshRecycleView.setAdapter(noticeAdapter);
     }
 
     private void onVisible() {
@@ -164,14 +165,15 @@ public class NoticeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(noticeAdapter.getData().size() > 0){
+        if (noticeAdapter.getData().size() > 0) {
             getNoticeList(Constant.FROM_START, noticeAdapter.getData().size(), typeArray, pullDownListener);
-        }else{
+        } else {
             getNoticeList(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, typeArray, pullDownListener);
         }
     }
 
-    private void getNoticeList(int from,int limit, String[] typeStr, ApiCallback<ApiResponse<UserMessageList>> listener) {
+    private void getNoticeList(int from, int limit, String[] typeStr, ApiCallback<ApiResponse<UserMessageList>>
+            listener) {
         SearchUserMsgRequest request = new SearchUserMsgRequest();
         Map<String, Object> params = new HashMap<>();
         params.put("$in", typeStr);
@@ -180,7 +182,7 @@ public class NoticeFragment extends BaseFragment {
         request.setQuery(conditionParam);
         request.setFrom(from);
         request.setLimit(limit);
-        Api.searchUserMsg(request, listener,this);
+        Api.searchUserMsg(request, listener, this);
     }
 
     private ApiCallback<ApiResponse<UserMessageList>> pullDownListener = new
@@ -189,14 +191,16 @@ public class NoticeFragment extends BaseFragment {
                 @Override
                 public void onPreLoad() {
                     if (!mHasLoadedOnce) {
-                        showWaitDialog();
+                        Hud.show(getUiContext());
                     }
                 }
 
                 @Override
                 public void onHttpDone() {
-                    hideWaitDialog();
-                    all_notice_listview.onRefreshComplete();
+                    Hud.dismiss();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -212,7 +216,7 @@ public class NoticeFragment extends BaseFragment {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     if (!mHasLoadedOnce) {
                         noticeAdapter.setErrorViewShow();
                         noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
@@ -256,7 +260,9 @@ public class NoticeFragment extends BaseFragment {
 
                 @Override
                 public void onHttpDone() {
-                    all_notice_listview.onRefreshComplete();
+                    if (mPullToRefreshRecycleView != null) {
+                        mPullToRefreshRecycleView.onRefreshComplete();
+                    }
                 }
 
                 @Override
@@ -272,7 +278,7 @@ public class NoticeFragment extends BaseFragment {
 
                 @Override
                 public void onNetworkError(int code) {
-                    makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                    makeTextShort(HttpCode.getMsg(code));
                     noticeAdapter.setErrorViewShow();
                     noticeAdapter.setState(BaseLoadMoreRecycleAdapter.STATE_NETWORK_ERROR);
                 }

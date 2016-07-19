@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -33,23 +34,23 @@ import com.jianfanjia.api.request.designer.AddImageToCheckRequest;
 import com.jianfanjia.api.request.designer.DeleteCheckImgRequest;
 import com.jianfanjia.api.request.designer.NotifyOwnerCheckRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
-import com.jianfanjia.cn.designer.ui.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.api.Api;
 import com.jianfanjia.cn.designer.application.MyApplication;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.bean.GridItem;
 import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
+import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.ui.activity.common.ShowPicActivity;
+import com.jianfanjia.cn.designer.ui.adapter.CheckGridViewAdapter;
 import com.jianfanjia.cn.designer.ui.interf.ItemClickCallBack;
 import com.jianfanjia.cn.designer.ui.interf.PopWindowCallBack;
 import com.jianfanjia.cn.designer.ui.interf.UploadListener;
-import com.jianfanjia.cn.designer.tools.BusinessCovertUtil;
-import com.jianfanjia.cn.designer.tools.UiHelper;
+import com.jianfanjia.cn.designer.view.AddPhotoDialog;
 import com.jianfanjia.cn.designer.view.MainHeadView;
 import com.jianfanjia.cn.designer.view.baseview.ItemSpaceDecoration;
 import com.jianfanjia.cn.designer.view.dialog.CommonDialog;
 import com.jianfanjia.cn.designer.view.dialog.DialogHelper;
-import com.jianfanjia.cn.designer.view.AddPhotoDialog;
 import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
@@ -342,12 +343,12 @@ public class CheckActivity extends BaseSwipeBackActivity implements
         Api.deleteCheckImg(deleteCheckImgRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -365,7 +366,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
 
@@ -436,12 +437,12 @@ public class CheckActivity extends BaseSwipeBackActivity implements
         Api.uploadImage(uploadPicRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -456,7 +457,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -493,7 +494,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -555,7 +556,7 @@ public class CheckActivity extends BaseSwipeBackActivity implements
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }

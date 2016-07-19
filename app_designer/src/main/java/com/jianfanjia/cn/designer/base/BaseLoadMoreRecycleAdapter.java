@@ -143,6 +143,11 @@ public abstract class BaseLoadMoreRecycleAdapter<T> extends RecyclerView.Adapter
         }
     }
 
+    public void addData(int pos, List<T> data) {
+        mDatas.addAll(pos, data);
+        notifyItemRangeInserted(pos, data.size());
+    }
+
     public void addItem(T obj) {
         if (mDatas != null) {
             mDatas.add(obj);

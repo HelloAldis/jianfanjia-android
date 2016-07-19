@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import com.aldis.hud.Hud;
 import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseActivity;
 import com.jianfanjia.common.tool.LogTool;
@@ -61,7 +62,7 @@ public class AuthUtil {
         mController.doOauthVerify(activity, platform, new SocializeListeners.UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-                activity.showWaitDialog();
+                Hud.show(activity);
             }
 
             @Override
@@ -70,20 +71,20 @@ public class AuthUtil {
                 if (!TextUtils.isEmpty(uid)) {
                     getPlatformInfo(activity, platform, umDataListener);
                 } else {
-                    activity.hideWaitDialog();
+                    Hud.dismiss();
                     Toast.makeText(activity, activity.getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA share_media) {
-                activity.hideWaitDialog();
+                Hud.dismiss();
                 Toast.makeText(activity, activity.getString(R.string.authorize_fail), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
-                activity.hideWaitDialog();
+                Hud.dismiss();
                 Toast.makeText(activity, activity.getString(R.string.authorize_cancel), Toast.LENGTH_SHORT).show();
             }
         });

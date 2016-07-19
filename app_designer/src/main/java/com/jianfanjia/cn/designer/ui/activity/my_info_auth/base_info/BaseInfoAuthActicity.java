@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
@@ -385,12 +386,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
         Api.updateDesignerInfo(updateDesignerInfoRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                showWaitDialog();
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                hideWaitDialog();
+                Hud.dismiss();
             }
 
             @Override
@@ -405,7 +406,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-
+                makeTextShort(HttpCode.getMsg(code));
             }
         },this);
     }
@@ -442,12 +443,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<String>> uploadHeadImage = new ApiCallback<ApiResponse<String>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override
@@ -463,19 +464,19 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
     private ApiCallback<ApiResponse<String>> uploadDiplomaImage = new ApiCallback<ApiResponse<String>>() {
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override
@@ -491,7 +492,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
@@ -499,12 +500,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override
@@ -526,7 +527,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
 
             BaseInfoAuthActicity.this.uploadImageSync();
         }
@@ -536,12 +537,12 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onPreLoad() {
-            showWaitDialog();
+            Hud.show(getUiContext());
         }
 
         @Override
         public void onHttpDone() {
-            hideWaitDialog();
+            Hud.dismiss();
         }
 
         @Override
@@ -558,7 +559,7 @@ public class BaseInfoAuthActicity extends BaseSwipeBackActivity {
 
         @Override
         public void onNetworkError(int code) {
-            makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
+            makeTextShort(HttpCode.getMsg(code));
         }
     };
 
