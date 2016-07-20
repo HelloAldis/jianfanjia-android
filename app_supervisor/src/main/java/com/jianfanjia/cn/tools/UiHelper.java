@@ -19,6 +19,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -245,6 +246,18 @@ public class UiHelper {
             rotaAnimator.addListener(listener);
         }
         rotaAnimator.start();
+    }
+
+    public static void imageAddShowDeleteAni(final View view, Animation.AnimationListener listener) {
+        RotateAnimation animation = new RotateAnimation(-5, 5, Animation.RELATIVE_TO_SELF,
+                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setRepeatMode(Animation.REVERSE);
+        animation.setRepeatCount(10);
+        animation.setDuration(40);
+        if (listener != null) {
+            animation.setAnimationListener(listener);
+        }
+        view.startAnimation(animation);
     }
 
     /**

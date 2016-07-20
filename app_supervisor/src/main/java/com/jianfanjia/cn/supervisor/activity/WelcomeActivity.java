@@ -2,6 +2,7 @@ package com.jianfanjia.cn.supervisor.activity;
 
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -50,7 +51,7 @@ public class WelcomeActivity extends BaseActivity {
 
     private void logGeTuiAPPKey() {
         try {
-            ApplicationInfo var4 = getPackageManager().getApplicationInfo(getPackageName(), 128);
+            ApplicationInfo var4 = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             if (var4 != null && var4.metaData != null) {
                 String var5 = var4.metaData.getString("PUSH_APPID");
                 String var6 = var4.metaData.getString("PUSH_APPSECRET");

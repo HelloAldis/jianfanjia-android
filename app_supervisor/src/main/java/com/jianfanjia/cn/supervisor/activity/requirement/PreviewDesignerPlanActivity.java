@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -18,12 +17,9 @@ import butterknife.OnClick;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.supervisor.R;
-import com.jianfanjia.cn.supervisor.activity.common.ShowPicActivity;
 import com.jianfanjia.cn.supervisor.adapter.PreviewAdapter;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
-import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
@@ -151,20 +147,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
             indicators[i].setLayoutParams(params);
             indicatorGroup_lib.addView(indicators[i]);
         }
-        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList, new
-                ViewPagerClickListener() {
-                    @Override
-                    public void onClickItem(int pos) {
-                        LogTool.d("pos:" + pos);
-                        Intent showPicIntent = new Intent(PreviewDesignerPlanActivity.this, ShowPicActivity.class);
-                        Bundle showPicBundle = new Bundle();
-                        showPicBundle.putInt(Constant.CURRENT_POSITION, pos);
-                        showPicBundle.putStringArrayList(Constant.IMAGE_LIST,
-                                (ArrayList<String>) imgList);
-                        showPicIntent.putExtras(showPicBundle);
-                        startActivity(showPicIntent);
-                    }
-                });
+        PreviewAdapter adapter = new PreviewAdapter(PreviewDesignerPlanActivity.this, imgList);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

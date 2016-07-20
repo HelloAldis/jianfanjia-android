@@ -182,6 +182,8 @@ public class Constant {
     public static final String CURRENT_ITEM = "current_item";// 当前节点
     public static final String CURRENT_POSITION = "current_position";// 当前位置
     public static final String IMAGE_LIST = "image_list";
+    public static final String ANIMATION_RECT = "animation_rect";
+    public static final String ANIMATION_RECT_LIST = "animation_rect_list";
     public static final String PROCESS_NAME = "process_name";
     public static final String PROCESS_STATUS = "process_status";
 

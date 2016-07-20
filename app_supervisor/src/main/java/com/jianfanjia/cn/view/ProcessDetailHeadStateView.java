@@ -11,8 +11,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.Reschedule;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.supervisor.R;
+import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -42,6 +42,8 @@ public class ProcessDetailHeadStateView extends LinearLayout {
         ButterKnife.bind(this);
 
         setOrientation(VERTICAL);
+
+
     }
 
     public void resetCheckLayout(ProcessSection processSection) {
@@ -93,6 +95,10 @@ public class ProcessDetailHeadStateView extends LinearLayout {
             default:
                 break;
         }
+        openDelay.setEnabled(false);
+        openDelay.setTextColor(getResources().getColor(R.color.grey_color));
+//        site_list_head_delay_layout.setVisibility(View.GONE);
+//        site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
     }
 
     private void showHead() {
@@ -126,7 +132,6 @@ public class ProcessDetailHeadStateView extends LinearLayout {
 
 //        }
     }
-
 
 
     public void changeCheckLayoutState(ProcessSection processSection, boolean isReset) {

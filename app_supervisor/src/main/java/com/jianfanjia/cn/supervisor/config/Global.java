@@ -44,6 +44,7 @@ public class Global {
     public static final String TO_USER = "to_user";
     public static final String TO_DESIGNER = "to_designer";
     public static final String SECTION = "section";
+    public static final String TO = "to";
     public static final String ITEM = "item";
     public static final String TOPICTYPE = "topictype";
     public static final String SPEED = "speed";

@@ -29,7 +29,6 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
-import com.jianfanjia.cn.ui.interf.ItemClickCallBack;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
@@ -38,7 +37,6 @@ import me.iwf.photopicker.entity.AnimationRect;
 public class SectionItemAdapter extends BaseAdapter {
     private static final String TAG = SectionItemAdapter.class.getName();
     private static final int IMG_COUNT = 9;
-    private ItemClickCallBack callBack = null;
     private DeleteListener mDeleteListener;
     private int lastClickItem = -1;// 记录上次点击的位置
     private int currentClickItem = -1;// 记录当前点击位置

@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.supervisor.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -7,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jianfanjia.cn.supervisor.R;
-import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.supervisor.activity.common.CommonShowPicActivity;
 import com.jianfanjia.cn.tools.ImageShow;
+import com.jianfanjia.common.tool.LogTool;
+import me.iwf.photopicker.entity.AnimationRect;
 
 /**
  * Name: PreviewAdapter
@@ -21,15 +25,13 @@ import com.jianfanjia.cn.tools.ImageShow;
  */
 public class PreviewAdapter extends PagerAdapter {
     private static final String TAG = "PreviewAdapter";
-    private ViewPagerClickListener listener;
     private Context context;
     private List<String> mList;
     private ImageShow imageShow;
 
-    public PreviewAdapter(Context context, List<String> mList, ViewPagerClickListener listener) {
+    public PreviewAdapter(Context context, List<String> mList) {
         this.context = context;
         this.mList = mList;
-        this.listener = listener;
         imageShow = ImageShow.getImageShow();
     }
 
@@ -62,19 +64,28 @@ public class PreviewAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(context).inflate(
                 R.layout.list_item_preview_view_item, container, false);
-        ImageView imageView = (ImageView) view
+        final ImageView imageView = (ImageView) view
                 .findViewById(R.id.list_item_plan_img);
         imageShow.displayScreenWidthThumnailImage(context, mList.get(position), imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != listener) {
-                    listener.onClickItem(position);
-                }
+                AnimationRect animationRect = AnimationRect.buildFromImageView(imageView);
+                List<AnimationRect> animationRectList = new ArrayList<>();
+                animationRectList.add(animationRect);
+                gotoShowBigPic(position, animationRectList);
             }
         });
         container.addView(view, 0);
         return view;
+    }
+
+    private void gotoShowBigPic(int position, List<AnimationRect>
+            animationRectList) {
+        LogTool.d("position:" + position);
+        CommonShowPicActivity.intentTo(context, (ArrayList<String>) mList, (ArrayList<AnimationRect>)
+                animationRectList, position);
+        ((Activity) context).overridePendingTransition(0, 0);
     }
 
     @Override

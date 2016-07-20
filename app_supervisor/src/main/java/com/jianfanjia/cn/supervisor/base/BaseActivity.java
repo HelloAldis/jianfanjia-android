@@ -55,6 +55,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract int getLayoutId();
 
+    protected Context getUiContext() {
+        if (this != null) {
+            return this;
+        }
+        return getApplicationContext();
+    }
+
+
 
     @Override
     protected void onStart() {

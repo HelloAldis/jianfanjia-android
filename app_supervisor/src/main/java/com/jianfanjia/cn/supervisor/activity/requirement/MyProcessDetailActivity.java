@@ -4,17 +4,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,16 +18,15 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnPageChange;
 import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Process;
 import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.api.model.Reschedule;
 import com.jianfanjia.api.request.common.AgreeRescheduleRequest;
 import com.jianfanjia.api.request.common.ApplyRescheduleRequest;
+import com.jianfanjia.api.request.common.DeleteImageToProcessRequest;
 import com.jianfanjia.api.request.common.GetProcessInfoRequest;
 import com.jianfanjia.api.request.common.RefuseRescheduleRequest;
 import com.jianfanjia.api.request.common.SubmitImageToProcessRequest;
@@ -49,18 +43,15 @@ import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.supervisor.bean.ViewPagerItem;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
-import com.jianfanjia.cn.supervisor.interf.ItemClickCallBack;
-import com.jianfanjia.cn.supervisor.interf.PopWindowCallBack;
-import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.ProcessDetailHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DateWheelDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
-import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -72,53 +63,24 @@ import me.iwf.photopicker.utils.PhotoPickerIntent;
  * @Description:工地管理
  * @date 2015-8-26 上午11:14:00
  */
-public class MyProcessDetailActivity extends BaseSwipeBackActivity implements ItemClickCallBack, PopWindowCallBack {
+public class MyProcessDetailActivity extends BaseSwipeBackActivity{
     private static final String TAG = MyProcessDetailActivity.class.getName();
     private static final int TOTAL_PROCESS = 7;// 7道工序
 
+    @Bind(R.id.process_listview)
+    PullToRefreshListView mPullToRefreshListView;
+
     @Bind(R.id.process_head_view_layout)
-    RelativeLayout process_head_view_layout;
-
-    @Bind(R.id.checkLayout)
-    LinearLayout checkLayout;
-
-    @Bind(R.id.site_list_head_checkbutton_layout)
-    LinearLayout site_list_head_checkbutton_layout;
-
-    @Bind(R.id.site_list_head_delay_layout)
-    LinearLayout site_list_head_delay_layout;
-
-    @Bind(R.id.site_list_head_delay)
-    TextView openDelay;
-
-    @Bind(R.id.site_list_head_check)
-    TextView openCheck;
-
-    @Bind(R.id.site_list_head_delay_text)
-    TextView site_list_head_delay_text;
-
-    @Bind(R.id.rowBtnUp)
-    ImageView rowBtnUp;
-
-    @Bind(R.id.rowBtnDown)
-    ImageView rowBtnDown;
-
-    @Bind(R.id.process_viewpager)
-    ViewPager processViewPager;
-
-    @Bind(R.id.process__listview)
-    PullToRefreshListView detailNodeListView;
+    ProcessDetailHeadView mProcessDetailHeadView;
 
     @Bind(R.id.process_head_layout)
     MainHeadView mainHeadView;
 
-    private String[] proTitle = null;
-
     private SectionItemAdapter sectionItemAdapter = null;
     private SectionViewPageAdapter sectionViewPageAdapter = null;
     private List<ViewPagerItem> processList = new ArrayList<>();
-    private List<ProcessSection> sectionInfos;
-    private ProcessSection sectionInfo = null;
+    private List<ProcessSection> mProcessSections;
+    private ProcessSection mProcessSection = null;
     private Process processInfo = null;
     private String processId = null;// 默认的工地id
 
@@ -135,27 +97,23 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     }
 
     private void initView() {
-        initStringArray();
         initPullRefresh();
         initMainHead();
-        initScrollLayout();
+        initProcessHead();
         initListView();
         initProcessInfo();
     }
 
-    private void initStringArray() {
-        proTitle = getResources().getStringArray(R.array.site_procedure);
-    }
 
     private void initPullRefresh() {
-        detailNodeListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        detailNodeListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+        mPullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mPullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
-                    loadCurrentProcess();
+                    loadCurrentProcess(true);
                 } else {
-                    detailNodeListView.onRefreshComplete();
+                    mPullToRefreshListView.onRefreshComplete();
                 }
             }
         });
@@ -167,35 +125,65 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         LogTool.d("processInfo:" + processInfo);
         if (processInfo != null) {
             processId = processInfo.get_id();
-            loadCurrentProcess();
+            loadCurrentProcess(true);
         } else {
             processId = Constant.DEFAULT_PROCESSINFO_ID;
             processInfo = BusinessCovertUtil.getDefaultProcessInfo(this);
-            initData();
+            initData(true);
         }
         LogTool.d("processId==" + processId);
     }
 
-    private void loadCurrentProcess() {
+    private void initProcessHead() {
+        mProcessDetailHeadView.setOnPageScrollListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (mProcessSections != null) {
+                    if (position < TOTAL_PROCESS) {
+                        currentList = position;
+                        mProcessSection = mProcessSections.get(currentList);
+                        Log.i(TAG, "processSection=" + mProcessSection.getName());
+                        mProcessDetailHeadView.changeProcessStateShow(mProcessSection, true);
+                        sectionItemAdapter.setPosition(currentList);
+                        mPullToRefreshListView.getRefreshableView().startLayoutAnimation();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void loadCurrentProcess(final boolean isResetCheckHead) {
         if (processId != null) {
             GetProcessInfoRequest getProcessInfoRequest = new GetProcessInfoRequest();
             getProcessInfoRequest.setProcessId(processId);
             Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
                 @Override
                 public void onPreLoad() {
-                    Hud.show(MyProcessDetailActivity.this);
+                    Hud.show(getUiContext());
                 }
 
                 @Override
                 public void onHttpDone() {
                     Hud.dismiss();
-                    detailNodeListView.onRefreshComplete();
+                    if (mPullToRefreshListView != null) {
+                        mPullToRefreshListView.onRefreshComplete();
+                    }
                 }
 
                 @Override
                 public void onSuccess(ApiResponse<Process> apiResponse) {
                     processInfo = apiResponse.getData();
-                    initData();
+                    initData(isResetCheckHead);
                 }
 
                 @Override
@@ -216,7 +204,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     }
 
     @OnClick({R.id.head_back_layout, R.id.site_list_head_delay, R.id
-            .site_list_head_check, R.id.site_list_head_delay_text, R.id.rowBtnUp, R.id.rowBtnDown})
+            .site_list_head_check, R.id.site_list_head_delay_text})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -227,9 +215,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 break;
             case R.id.site_list_head_check:
                 Bundle checkBundle = new Bundle();
-                checkBundle.putString(Constant.SECTION, sectionInfo.getName());
+                checkBundle.putString(Constant.SECTION, mProcessSection.getName());
                 checkBundle.putSerializable(Constant.PROCESS_INFO, processInfo);
-                checkBundle.putSerializable(Constant.SECTION_INFO, sectionInfo);
+                checkBundle.putSerializable(Constant.SECTION_INFO, mProcessSection);
                 checkBundle.putInt(CheckActivity.CHECK_INTENT_FLAG, CheckActivity
                         .PROCESS_LIST_INTENT);
                 IntentUtil.startActivityForResult(this, CheckActivity.class, checkBundle, Constant
@@ -238,37 +226,14 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
             case R.id.site_list_head_delay_text:
                 showDelayDialog();
                 break;
-            case R.id.rowBtnUp:
-                rowBtnUp.setVisibility(View.GONE);
-                rowBtnDown.setVisibility(View.VISIBLE);
-                site_list_head_checkbutton_layout.setVisibility(View.GONE);
-                break;
-            case R.id.rowBtnDown:
-                rowBtnUp.setVisibility(View.VISIBLE);
-                rowBtnDown.setVisibility(View.GONE);
-                site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                break;
             default:
                 break;
         }
     }
 
-    @OnPageChange(R.id.process_viewpager)
-    public void onPageSelected(int position) {
-        if (sectionInfos != null) {
-            if (position < TOTAL_PROCESS) {
-                currentList = position;
-                sectionInfo = sectionInfos.get(currentList);
-                Log.i(TAG, "sectionInfo=" + sectionInfo.getName());
-                setCheckLayoutState();
-                sectionItemAdapter.setPosition(currentList);
-                detailNodeListView.getRefreshableView().startLayoutAnimation();
-            }
-        }
-    }
 
     // 初始化数据
-    private void initData() {
+    private void initData(boolean isResetCheckHead) {
         if (processInfo != null) {
             mainHeadView.setMianTitle(processInfo.getBasic_address() == null ? getString(R.string.process_example)
                     : processInfo.getBasic_address());// 设置标题头
@@ -279,176 +244,28 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 currentList = currentPro;
                 lastPro = currentPro;
             }
-            sectionInfos = processInfo.getSections();
-            sectionInfo = sectionInfos.get(currentList);
-            setScrollHeadTime();
-            setCheckLayoutState();
-            sectionItemAdapter.setSectionInfoList(sectionInfos, currentList);
-            processViewPager.setVisibility(View.VISIBLE);
-            processViewPager.setCurrentItem(currentList);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    private void initScrollLayout() {
-        for (int i = 0; i < proTitle.length; i++) {
-            ViewPagerItem viewPagerItem = new ViewPagerItem();
-            viewPagerItem.setResId(getApplication().getResources()
-                    .getIdentifier("icon_home_normal" + (i + 1), "drawable",
-                            getApplication().getPackageName()));
-            viewPagerItem.setTitle(proTitle[i]);
-            viewPagerItem.setDate("");
-            processList.add(viewPagerItem);
-        }
-        for (int i = 0; i < 3; i++) {
-            ViewPagerItem viewPagerItem = new ViewPagerItem();
-            viewPagerItem.setResId(R.mipmap.icon_process_no);
-            viewPagerItem.setTitle("");
-            viewPagerItem.setDate("");
-            processList.add(viewPagerItem);
-        }
-        sectionViewPageAdapter = new SectionViewPageAdapter(this, processList,
-                new ViewPagerClickListener() {
-
-                    @Override
-                    public void onClickItem(int potition) {
-                        Log.i(TAG, "potition=" + potition);
-                        if (sectionInfos != null) {
-                            if (potition < TOTAL_PROCESS) {
-                                currentList = potition;
-                                processViewPager.setCurrentItem(currentList);
-                                sectionViewPageAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-
-                });
-        processViewPager.setAdapter(sectionViewPageAdapter);
-        processViewPager.setVisibility(View.GONE);
-    }
-
-    private void setCheckLayoutState() {
-        if (!sectionInfo.getName().equals("kai_gong")
-                && !sectionInfo.getName().equals("chai_gai")) {
-            String section_status = sectionInfo.getStatus();
-            Log.i(TAG, "section_status=" + section_status);
-            switch (section_status) {
-                case Constant.FINISHED:
-                    checkLayout.setVisibility(View.VISIBLE);
-                    rowBtnUp.setVisibility(View.VISIBLE);
-                    rowBtnDown.setVisibility(View.GONE);
-                    site_list_head_delay_layout.setVisibility(View.GONE);
-                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                    openDelay.setEnabled(false);
-                    openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-                    openDelay.setText(getResources().getText(R.string
-                            .site_example_node_delay_no));
-                    break;
-                case Constant.NO_START:
-                    checkLayout.setVisibility(View.VISIBLE);
-                    rowBtnUp.setVisibility(View.VISIBLE);
-                    rowBtnDown.setVisibility(View.GONE);
-                    site_list_head_delay_layout.setVisibility(View.GONE);
-                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                    openDelay.setEnabled(false);
-                    openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-                    openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    break;
-                case Constant.YANQI_AGREE:
-                case Constant.YANQI_REFUSE:
-                case Constant.DOING:
-                    checkLayout.setVisibility(View.VISIBLE);
-                    rowBtnUp.setVisibility(View.VISIBLE);
-                    rowBtnDown.setVisibility(View.GONE);
-                    site_list_head_delay_layout.setVisibility(View.GONE);
-                    site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                    openDelay.setEnabled(true);
-                    openDelay.setTextColor(getResources().getColor(R.color.orange_color));
-                    openDelay.setText(getResources().getText(R.string.site_example_node_delay));
-                    break;
-                case Constant.YANQI_BE_DOING:
-                    Reschedule rescheduleInfo = sectionInfo.getReschedule();
-                    if (null != rescheduleInfo) {
-                        String role = rescheduleInfo.getRequest_role();
-                        if (role.equals(Constant.IDENTITY_OWNER)) {
-                            checkLayout.setVisibility(View.VISIBLE);
-                            rowBtnUp.setVisibility(View.VISIBLE);
-                            rowBtnDown.setVisibility(View.GONE);
-                            site_list_head_delay_layout.setVisibility(View.GONE);
-                            site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-                            openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-                            openDelay.setText(getResources().getText(R.string
-                                    .site_example_node_delay_doing));
-                            openDelay.setEnabled(false);
-                        } else {
-                            checkLayout.setVisibility(View.VISIBLE);
-                            rowBtnUp.setVisibility(View.VISIBLE);
-                            rowBtnDown.setVisibility(View.GONE);
-                            site_list_head_delay_layout.setVisibility(View.VISIBLE);
-                            site_list_head_checkbutton_layout.setVisibility(View.GONE);
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-            //此处监理没有权限
-            openDelay.setEnabled(false);
-            openDelay.setTextColor(getResources().getColor(R.color.grey_color));
-            site_list_head_delay_layout.setVisibility(View.GONE);
-            site_list_head_checkbutton_layout.setVisibility(View.VISIBLE);
-        } else {
-            checkLayout.setVisibility(View.GONE);
-        }
-    }
-
-    private void setScrollHeadTime() {
-        if (sectionInfos != null) {
-            for (int i = 0; i < proTitle.length; i++) {
-                ViewPagerItem viewPagerItem = sectionViewPageAdapter.getList()
-                        .get(i);
-                if (sectionInfos.get(i).getStart_at() > 0) {
-                    viewPagerItem.setDate(DateFormatTool.covertLongToString(
-                            sectionInfos.get(i).getStart_at(), "M.dd")
-                            + "-"
-                            + DateFormatTool.covertLongToString(sectionInfos
-                            .get(i).getEnd_at(), "M.dd"));
-                }
-                if (sectionInfos.get(i).getStatus().equals(Constant.NO_START)) {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_normal" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
-                } else if (sectionInfos.get(i).getStatus().equals(Constant.FINISHED)) {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_checked" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
-                } else {
-                    int drawableId = getApplication().getResources()
-                            .getIdentifier("icon_home_normal_" + (i + 1),
-                                    "mipmap",
-                                    getApplication().getPackageName());
-                    viewPagerItem.setResId(drawableId);
-                }
-            }
-            sectionViewPageAdapter.notifyDataSetChanged();
+            mProcessSections = processInfo.getSections();
+            mProcessSection = mProcessSections.get(currentList);
+            sectionItemAdapter.setSectionInfoList(mProcessSections, currentList);
+            mProcessDetailHeadView.setScrollHeadTime(mProcessSections);
+            mProcessDetailHeadView.setCurrentItem(currentList);
+            mProcessDetailHeadView.changeProcessStateShow(mProcessSection, isResetCheckHead);
         }
     }
 
     private void initListView() {
-        sectionItemAdapter = new SectionItemAdapter(getApplication(),
-                currentList, sectionInfos, this);
-        detailNodeListView.setAdapter(sectionItemAdapter);
-        UiHelper.setLayoutAnim(this, detailNodeListView.getRefreshableView());
-        detailNodeListView.setFocusable(false);
-        detailNodeListView.setOnItemClickListener(new OnItemClickListener() {
+        sectionItemAdapter = new SectionItemAdapter(this,
+                currentList, mProcessSections);
+        sectionItemAdapter.setDeleteListener(new SectionItemAdapter.DeleteListener() {
+            @Override
+            public void delete(int position) {
+                showDeletePicDialog(position);
+            }
+        });
+        mPullToRefreshListView.setAdapter(sectionItemAdapter);
+        UiHelper.setLayoutAnim(this, mPullToRefreshListView.getRefreshableView());
+        mPullToRefreshListView.setFocusable(false);
+        mPullToRefreshListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -459,84 +276,94 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         });
     }
 
-    @Override
-    public void click(int position, int itemType) {
-        LogTool.d("position:" + position + "  itemType:" + itemType);
-        switch (itemType) {
-            case Constant.IMG_ITEM:
-                break;
-            case Constant.COMMENT_ITEM:
-                Bundle bundle = new Bundle();
-                bundle.putString(Global.TOPIC_ID, processId);
-                bundle.putString(Global.TO_DESIGNER, processInfo.getFinal_designerid());
-                bundle.putString(Global.TO_USER, processInfo.getUserid());
-                bundle.putString(Global.SECTION, sectionInfo.getName());
-                bundle.putString(Global.ITEM, sectionInfo.getItems().get(position).getName());
-                bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
-                IntentUtil.startActivityForResult(this, CommentActivity.class, bundle, Constant
-                        .REQUESTCODE_GOTO_COMMENT);
-                break;
-            default:
-                break;
-        }
-    }
+    private void showDeletePicDialog(final int position) {
+        CommonDialog dialog = DialogHelper
+                .getPinterestDialogCancelable(MyProcessDetailActivity.this);
+        dialog.setTitle("图片删除提示");
+        dialog.setMessage("您确定删除该图片吗？");
+        dialog.setPositiveButton(R.string.confirm,
+                new DialogInterface.OnClickListener() {
 
-    @Override
-    public void click(int position, int itemType, List<String> imageUrlList) {
-        switch (itemType) {
-            case Constant.IMG_ITEM:
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList(Constant.IMAGE_LIST,
-                        (ArrayList<String>) imageUrlList);
-                bundle.putInt(Constant.CURRENT_POSITION, position);
-                bundle.putString(Global.PROCESS_ID, processId);
-                bundle.putString(Global.SECTION, sectionInfo.getName());
-                bundle.putString(Global.ITEM, sectionItemAdapter.getCurrentItem());
-                IntentUtil.startActivityForResult(this, ShowProcessPicActivity.class, bundle, Constant
-                        .REQUESTCODE_SHOW_PROCESS_PIC);
-                break;
-            case Constant.ADD_ITEM:
-                PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
-                if (imageUrlList != null) {
-                    intent1.setPhotoCount(9 - imageUrlList.size());
-                } else {
-                    intent1.setPhotoCount(9);
-                }
-                intent1.setShowGif(false);
-                intent1.setShowCamera(true);
-                startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
-                break;
-            default:
-                break;
-        }
-    }
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteImage(position);
+                    }
+                });
+        dialog.setNegativeButton(R.string.str_cancel, new DialogInterface.OnClickListener() {
 
-    @Override
-    public void firstItemClick() {
-        mTmpFile = FileUtil.createTimeStampTmpFile();
-        if (mTmpFile != null) {
-            Intent cameraIntent = UiHelper.createShotIntent(mTmpFile);
-            if (cameraIntent != null) {
-                startActivityForResult(cameraIntent, Constant.REQUESTCODE_CAMERA);
-            } else {
-//                makeTextShort(getString(R.string.tip_open_camera));
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
-        } else {
-            makeTextShort(getString(R.string.tip_not_sdcard));
-        }
+        });
+        dialog.show();
     }
 
-    @Override
-    public void secondItemClick() {
-        Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-        albumIntent.setDataAndType(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(albumIntent, Constant.REQUESTCODE_LOCATION);
+    public void intentToComent(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.TOPIC_ID, processId);
+        bundle.putString(Global.TO_DESIGNER, processInfo.getFinal_designerid());
+        bundle.putString(Global.TO_USER, processInfo.getUserid());
+        bundle.putString(Global.SECTION, mProcessSection.getName());
+        bundle.putString(Global.ITEM, mProcessSection.getItems().get(position).getName());
+        bundle.putString(Global.TOPICTYPE, Global.TOPIC_NODE);
+        IntentUtil.startActivityForResult(this, CommentActivity.class, bundle, Constant
+                .REQUESTCODE_GOTO_COMMENT);
+    }
+
+    public void deleteImage(int position) {
+        DeleteImageToProcessRequest deleteImageToProcessRequest = new DeleteImageToProcessRequest();
+        deleteImageToProcessRequest.set_id(processId);
+        deleteImageToProcessRequest.setSection(mProcessSection.getName());
+        deleteImageToProcessRequest.setItem(sectionItemAdapter.getCurrentItem());
+        deleteImageToProcessRequest.setIndex(position);
+
+        Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+                Hud.show(getUiContext());
+            }
+
+            @Override
+            public void onHttpDone() {
+                Hud.dismiss();
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                loadCurrentProcess(false);
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.getMsg(code));
+            }
+        }, this);
+
+    }
+
+
+    public void pickPicture(List<String> imageUrlList) {
+        PhotoPickerIntent intent1 = new PhotoPickerIntent(MyProcessDetailActivity.this);
+        if (imageUrlList != null) {
+            intent1.setPhotoCount(9 - imageUrlList.size());
+        } else {
+            intent1.setPhotoCount(9);
+        }
+        intent1.setShowGif(false);
+        intent1.setShowCamera(true);
+        startActivityForResult(intent1, Constant.REQUESTCODE_PICKER_PIC);
     }
 
     private void delayDialog() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(sectionInfo.getStart_at() + Constant.DELAY_TIME);
+        calendar.setTimeInMillis(mProcessSection.getStart_at() + Constant.DELAY_TIME);
         DateWheelDialog dateWheelDialog = new DateWheelDialog(this,
                 calendar);
         dateWheelDialog.setTitle("选择时间");
@@ -552,7 +379,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                         postReschedule(processInfo.get_id(),
                                 processInfo.getUserid(),
                                 processInfo.getFinal_designerid(),
-                                sectionInfo.getName(), dateStr);
+                                mProcessSection.getName(), dateStr);
                     }
                 });
         dateWheelDialog.setNegativeButton(R.string.no, null);
@@ -563,7 +390,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
         CommonDialog dialog = DialogHelper
                 .getPinterestDialogCancelable(MyProcessDetailActivity.this);
         dialog.setTitle("改期提醒");
-        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(sectionInfo.getReschedule().getNew_date()));
+        dialog.setMessage("对方申请改期至   " + DateFormatTool.longToString(mProcessSection.getReschedule().getNew_date()));
         dialog.setPositiveButton(R.string.agree,
                 new DialogInterface.OnClickListener() {
 
@@ -610,7 +437,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -642,7 +469,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -674,7 +501,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
             @Override
             public void onSuccess(ApiResponse<String> apiResponse) {
-                loadCurrentProcess();
+                loadCurrentProcess(false);
             }
 
             @Override
@@ -708,10 +535,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     }
                 }
                 break;
-            case Constant.REQUESTCODE_SHOW_PROCESS_PIC:
             case Constant.REQUESTCODE_CHECK:
             case Constant.REQUESTCODE_GOTO_COMMENT:
-                loadCurrentProcess();
+                loadCurrentProcess(false);
                 break;
             default:
                 break;
@@ -737,7 +563,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 String itemName = sectionItemAdapter.getCurrentItem();
                 SubmitImageToProcessRequest submitImageToProcessRequest = new SubmitImageToProcessRequest();
                 submitImageToProcessRequest.set_id(processId);
-                submitImageToProcessRequest.setSection(sectionInfo.getName());
+                submitImageToProcessRequest.setSection(mProcessSection.getName());
                 submitImageToProcessRequest.setItem(itemName);
                 submitImageToProcessRequest.setImageid(apiResponse.getData());
                 Api.submitImageToProcess(submitImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
@@ -753,7 +579,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
 
                     @Override
                     public void onSuccess(ApiResponse<String> apiResponse) {
-                        loadCurrentProcess();
+                        loadCurrentProcess(false);
                         if (mTmpFile != null
                                 && mTmpFile
                                 .exists()) {
@@ -783,11 +609,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
         },this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override

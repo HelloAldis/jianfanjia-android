@@ -138,6 +138,11 @@
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name="com.jianfanjia.cn.supervisor.activity.common.CommonShowPicActivity"
+            android:label="@string/title_activity_show_pic"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Swipe.Back"/>
 
         <service android:name=".service.UpdateService"/>
 

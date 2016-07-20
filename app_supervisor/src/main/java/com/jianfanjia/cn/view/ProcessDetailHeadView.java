@@ -20,12 +20,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.jianfanjia.cn.ui.adapter.SectionViewPageAdapter;
 import com.jianfanjia.api.model.ProcessSection;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.bean.ViewPagerItem;
-import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
+import com.jianfanjia.cn.supervisor.R;
+import com.jianfanjia.cn.supervisor.adapter.SectionViewPageAdapter;
+import com.jianfanjia.cn.supervisor.bean.ViewPagerItem;
+import com.jianfanjia.cn.supervisor.config.Constant;
+import com.jianfanjia.cn.supervisor.interf.ViewPagerClickListener;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 
@@ -203,7 +203,6 @@ public class ProcessDetailHeadView extends FrameLayout {
                 showCheckHead();
                 isCheckShow = true;
             }
-
         }
     }
 

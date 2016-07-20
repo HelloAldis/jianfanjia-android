@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -22,9 +23,17 @@ import butterknife.ButterKnife;
 import com.jianfanjia.api.model.ProcessSection;
 import com.jianfanjia.api.model.ProcessSectionItem;
 import com.jianfanjia.cn.supervisor.R;
+import com.jianfanjia.cn.supervisor.activity.common.CommonShowPicActivity;
+import com.jianfanjia.cn.supervisor.activity.requirement.MyProcessDetailActivity;
+import com.jianfanjia.cn.supervisor.base.BaseListAdapter;
 import com.jianfanjia.cn.supervisor.config.Constant;
+import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.supervisor.interf.ItemClickCallBack;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.common.tool.DateFormatTool;
+import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
+import me.iwf.photopicker.entity.AnimationRect;
 
 
 public class SectionItemAdapter extends BaseAdapter {
@@ -33,7 +42,7 @@ public class SectionItemAdapter extends BaseAdapter {
     private ItemClickCallBack callBack = null;
     private int lastClickItem = -1;// 记录上次点击的位置
     private int currentClickItem = -1;// 记录当前点击位置
-    private SectionItemGridViewAdapter sectionItemGridViewAdapter;
+    private DeleteListener mDeleteListener;
     private String section_status;// 节点的状态
     private ProcessSection sectionInfo;
     private Context context;
@@ -44,10 +53,9 @@ public class SectionItemAdapter extends BaseAdapter {
     private List<ProcessSection> showSectionInfoList = new ArrayList<>();
 
     public SectionItemAdapter(Context context, int position,
-                              List<ProcessSection> showSectionInfoList, ItemClickCallBack callBack) {
+                              List<ProcessSection> showSectionInfoList) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-        this.callBack = callBack;
         setSectionInfoList(showSectionInfoList, position);
     }
 
@@ -63,6 +71,10 @@ public class SectionItemAdapter extends BaseAdapter {
         sectionInfo = showSectionInfoList.get(position);
         section_status = sectionInfo.getStatus();
         initList();
+    }
+
+    public void setDeleteListener(DeleteListener deleteListener) {
+        mDeleteListener = deleteListener;
     }
 
     private void initList() {
@@ -242,7 +254,21 @@ public class SectionItemAdapter extends BaseAdapter {
             }
         });
 
+        viewHolder.openComment.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MyProcessDetailActivity) context).intentToComent(position);
+            }
+        });
+
         return convertView;
+    }
+
+    private void showImageBig(int position, List<AnimationRect> animationRectList) {
+        LogTool.d("position:" + position);
+        CommonShowPicActivity.intentTo(context, (ArrayList<String>) imageUrlList, (ArrayList<AnimationRect>)
+                animationRectList, position);
+        ((MyProcessDetailActivity) context).overridePendingTransition(0, 0);
     }
 
     /**
@@ -250,8 +276,9 @@ public class SectionItemAdapter extends BaseAdapter {
      * @param gridView
      * @des 设置item里gridview的照片
      */
-    private void setImageData(GridView gridView) {
-        sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context, showImageUrlList);
+    private void setImageData(final GridView gridView) {
+        final SectionItemGridViewAdapter sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context,
+                showImageUrlList);
         gridView.setAdapter(sectionItemGridViewAdapter);
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -262,12 +289,57 @@ public class SectionItemAdapter extends BaseAdapter {
                 Log.i(this.getClass().getName(), "data:" + data);
                 Log.i(this.getClass().getName(), "imageUrlList size=" + imageUrlList.size());
                 if (data.equals(Constant.HOME_ADD_PIC)) {
-                    callBack.click(position, Constant.ADD_ITEM, imageUrlList);
+                    ((MyProcessDetailActivity) context).pickPicture(imageUrlList);
                 } else {
-                    callBack.click(position, Constant.IMG_ITEM, imageUrlList);
+                    int totalCount = showImageUrlList.contains(Constant.HOME_ADD_PIC) ? gridView.getCount() - 1 :
+                            gridView.getCount();
+                    List<AnimationRect> animationRectList = new ArrayList<>();
+                    for (int i = 0; i < totalCount; i++) {
+                        ImageView childView = (ImageView) gridView.getChildAt(i).findViewById(R.id.img);
+                        animationRectList.add(AnimationRect.buildFromImageView(childView));
+                    }
+                    showImageBig(position, animationRectList);
                 }
             }
+        });
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (sectionItemGridViewAdapter.isCanEdit()) {
+                    return false;
+                }
 
+                String data = showImageUrlList.get(position);
+                Log.i(this.getClass().getName(), "data:" + data);
+                Log.i(this.getClass().getName(), "imageUrlList size=" + imageUrlList.size());
+                if (data.equals(Constant.HOME_ADD_PIC)) {
+                    return false;
+                } else {
+                    int totalCount = showImageUrlList.contains(Constant.HOME_ADD_PIC) ? gridView.getCount() - 1 :
+                            gridView.getCount();
+                    for (int i = 0; i < totalCount; i++) {
+                        View childView = gridView.getChildAt(i).findViewById(R.id.img);
+                        UiHelper.imageAddShowDeleteAni(childView, new Animation.AnimationListener() {
+
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                sectionItemGridViewAdapter.setCanEdit(true);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                    }
+                }
+                return true;
+            }
         });
     }
 
@@ -313,6 +385,81 @@ public class SectionItemAdapter extends BaseAdapter {
     public long getItemId(int position) {
         // TODO Auto-generated method stub
         return position;
+    }
+
+    public class SectionItemGridViewAdapter extends BaseListAdapter<String> {
+
+        private boolean isCanEdit = false;//是否可编辑
+
+        public SectionItemGridViewAdapter(Context context, List<String> list) {
+            super(context, list);
+        }
+
+        public boolean isCanEdit() {
+            return isCanEdit;
+        }
+
+        public void setCanEdit(boolean canEdit) {
+            isCanEdit = canEdit;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public View initView(final int position, View convertView) {
+            String imgUrl = list.get(position);
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = layoutInflater.inflate(R.layout.grid_item_show_process_pic, null);
+                holder = new ViewHolder(convertView);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
+                holder.img.setImageResource(R.mipmap.btn_icon_home_add);
+            } else {
+                imageShow.displayThumbnailImage(imgUrl, holder.img, TDevice.dip2px(context, Global.PIC_WIDTH_NODE));
+            }
+
+            if (isCanEdit) {
+                if (imgUrl.equals(Constant.HOME_ADD_PIC)) {
+                    holder.tvDiaryDelete.setVisibility(View.GONE);
+                } else {
+                    holder.tvDiaryDelete.setVisibility(View.VISIBLE);
+                }
+            } else {
+                holder.tvDiaryDelete.setVisibility(View.GONE);
+            }
+
+            holder.tvDiaryDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mDeleteListener != null) {
+                        mDeleteListener.delete(position);
+                        setCanEdit(false);
+                    }
+                }
+            });
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            @Bind(R.id.img)
+            ImageView img;
+
+            @Bind(R.id.ltm_diary_delte)
+            ImageView tvDiaryDelete;
+
+            public ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
+    }
+
+    public interface DeleteListener {
+        void delete(int position);
     }
 
 }

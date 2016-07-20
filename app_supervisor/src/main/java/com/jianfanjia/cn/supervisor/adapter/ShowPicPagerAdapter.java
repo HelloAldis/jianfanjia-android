@@ -83,6 +83,13 @@ public class ShowPicPagerAdapter extends PagerAdapter {
                     viewPagerClickListener.onClickItem(position);
                 }
             }
+
+            @Override
+            public void onOutsidePhotoTap() {
+                if (viewPagerClickListener != null) {
+                    viewPagerClickListener.onClickItem(position);
+                }
+            }
         });
         //监理暂没有删除照片功能，所以先屏蔽掉
         if (onLongClickListener != null) {

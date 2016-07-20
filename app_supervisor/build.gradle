@@ -82,7 +82,7 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile project(':hud')
     compile project(':api')
-    compile 'com.commit451:PhotoView:1.2.4'
+    compile project(':anim_photoview')
     compile 'com.yalantis:ucrop:1.2.1'
     compile project(':photopicker')
     compile 'com.android.support:appcompat-v7:23.2.0'

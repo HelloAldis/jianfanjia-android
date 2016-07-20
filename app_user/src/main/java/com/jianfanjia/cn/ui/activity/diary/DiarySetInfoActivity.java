@@ -685,10 +685,6 @@ public class DiarySetInfoActivity extends BaseActivity {
         if (resultCode != RESULT_OK) {
             return;
         }
-        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
-        if (ssoHandler != null) {
-            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
         switch (requestCode) {
             case Constant.REQUESTCODE_PICKER_HEAD_PIC:
                 if (data != null) {
@@ -703,6 +699,12 @@ public class DiarySetInfoActivity extends BaseActivity {
                 break;
             case UCrop.REQUEST_CROP:
                 handleCrop(resultCode, data);
+                break;
+            default:
+                UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+                if (ssoHandler != null) {
+                    ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+                }
                 break;
         }
     }

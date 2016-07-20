@@ -6,15 +6,23 @@
               android:fitsSystemWindows="true"
               android:orientation="vertical">
 
-    <com.jianfanjia.cn.view.MainHeadView
-        android:id="@+id/process_head_layout"
+    <FrameLayout
+        android:id="@+id/process_head_wrap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg"/>
+        android:layout_height="wrap_content">
 
-    <include
+        <com.jianfanjia.cn.view.MainHeadView
+            android:id="@+id/process_head_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/head_layout_bg"/>
+
+    </FrameLayout>
+
+    <com.jianfanjia.cn.view.ProcessDetailHeadView
         android:id="@+id/process_head_view_layout"
-        layout="@layout/list_item_process_item_head"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -28,7 +36,7 @@
             android:background="@color/line_color"/>
 
         <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/process__listview"
+            android:id="@+id/process_listview"
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -294,11 +294,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     private void initListView() {
         sectionItemAdapter = new SectionItemAdapter(this,
                 currentList, mProcessSections);
