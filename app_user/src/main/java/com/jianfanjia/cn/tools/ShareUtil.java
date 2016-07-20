@@ -156,7 +156,7 @@ public class ShareUtil {
                 Url_New.getInstance().DIARY_SET_SHARE_URL + diarysetid);
         mController.registerListener(listener);
         mController.openShare(activity, false);
-        if (bitmap.isRecycled()) {
+        if (!bitmap.isRecycled()) {
             bitmap.recycle();
         }
     }
