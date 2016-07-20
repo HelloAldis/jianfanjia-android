@@ -32,6 +32,7 @@ import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
+import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.activity.home.DecorateLiveActivity;
 import com.jianfanjia.cn.ui.activity.home.DesignerCaseInfoActivity;
 import com.jianfanjia.cn.ui.activity.home.DesignerCaseListActivity;
@@ -60,8 +61,7 @@ import com.jianfanjia.common.tool.TDevice;
 public class HomeNewFragment extends BaseFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
-    private int BANNER_ICON[] = {R.mipmap.bg_home_banner4, R.mipmap.bg_home_banner3, R.mipmap.bg_home_banner1,
-            R.mipmap.bg_home_banner2};
+    private int BANNER_ICON[] = {R.mipmap.banner_home_loans, R.mipmap.bg_home_banner1};
 
     @Bind(R.id.viewPager_lib)
     protected AutoScrollViewPager scrollViewPager;
@@ -105,25 +105,18 @@ public class HomeNewFragment extends BaseFragment {
             @Override
             public void onClickItem(int pos) {
                 LogTool.d("position =" + pos);
-                if (pos == 2) {
+                if (pos == 1) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
                     startActivity(WebViewActivity.class, bundle);
-                } else if (pos == 3) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
-                    startActivity(WebViewActivity.class, bundle);
-                } else if (pos == 1) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
-                    startActivity(WebViewPackage365Activity.class, bundle);
                 } else if (pos == 0) {
                     Bundle bundle = new Bundle();
-                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_YIJIA);
+                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
                     startActivity(WebViewActivity.class, bundle);
                 }
             }
         });
+
 
         mPullToRefreshScrollViewNew.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
@@ -268,16 +261,15 @@ public class HomeNewFragment extends BaseFragment {
     }
 
     @OnClick({R.id.ltm_home_layout0, R.id.ltm_home_layout1, R.id.ltm_home_layout2, R.id.ltm_home_layout3, R.id
-            .home_search, R.id.list_item_more_layout, R.id.content_intent_to})
+            .home_search, R.id.list_item_more_layout, R.id.content_intent_to, R.id.riv_jianjia, R.id.riv_365packget,
+            R.id.home_phone})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.ltm_home_layout0:
                 publish_requirement();
                 break;
             case R.id.ltm_home_layout1:
-                Bundle bundle = new Bundle();
-                bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_DEC_STRATEGY);
-                startActivity(WebViewActivity.class, bundle);
+                intentToDecStrategy();
                 break;
             case R.id.ltm_home_layout2:
                 startActivity(DecorateLiveActivity.class);
@@ -294,9 +286,36 @@ public class HomeNewFragment extends BaseFragment {
             case R.id.content_intent_to:
                 intentToProduct();
                 break;
+            case R.id.riv_365packget:
+                intentTo365pACKGET();
+                break;
+            case R.id.riv_jianjia:
+                intentToJianJia();
+                break;
+            case R.id.home_phone:
+                UiHelper.callPhoneIntent(getUiContext(), getString(R.string.app_phone));
+                break;
             default:
                 break;
         }
+    }
+
+    private void intentToDecStrategy() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_DEC_STRATEGY);
+        startActivity(WebViewActivity.class, bundle);
+    }
+
+    private void intentTo365pACKGET() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().PACKGET365_DETAIL_URL);
+        startActivity(WebViewPackage365Activity.class, bundle);
+    }
+
+    private void intentToJianJia() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_YIJIA);
+        startActivity(WebViewActivity.class, bundle);
     }
 
     protected void publish_requirement() {

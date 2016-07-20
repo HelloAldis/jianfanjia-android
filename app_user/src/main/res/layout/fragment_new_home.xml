@@ -11,6 +11,15 @@
         android:layout_height="@dimen/space_48"
         android:background="@color/head_layout_bg">
 
+        <ImageButton
+            android:id="@+id/home_phone"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_head_back_bg_selector"
+            android:src="@mipmap/icon_home_phone" />
+
         <TextView
             style="@style/head_title_text_style"
             android:layout_width="wrap_content"

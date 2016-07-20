@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.jianfanjia.cn.activity.R;
@@ -41,7 +42,13 @@ public class HomeScrollView extends ScrollView {
 
     private ViewPager contentViewPager;
 
+    ImageView iv365Packget;
+
+    ImageView ivJianJia;
+
     private int contentFlag = ANCHOR_TOP;
+
+    private boolean isjianJiaAndPackgetMeasure;
 
     private ScrollPullUpListener scrollPullUpListener;
 
@@ -61,6 +68,8 @@ public class HomeScrollView extends ScrollView {
         setOverScrollMode(OVER_SCROLL_NEVER);
 
         contentViewPager = (ViewPager) contentView.findViewById(R.id.content_viewpager);
+        iv365Packget = (ImageView) contentView.findViewById(R.id.riv_365packget);
+        ivJianJia = (ImageView) contentView.findViewById(R.id.riv_jianjia);
     }
 
     @Override
@@ -70,15 +79,37 @@ public class HomeScrollView extends ScrollView {
         totaloffset = contentView.findViewById(R.id.head_layout).getMeasuredHeight();
         LogTool.d("totaloffset =" + totaloffset);
 
+        setJianJiaAnd365PackgetHeight();
+
         setContentViewPagerLayoutParam();
+    }
+
+    private void setJianJiaAnd365PackgetHeight() {
+        if (!isjianJiaAndPackgetMeasure) {
+            int measureWidth = ivJianJia.getMeasuredWidth();
+            int bitmapWidth = getResources().getDrawable(R.mipmap.img_home_jianjia).getIntrinsicWidth();
+            int bitmapHeight = getResources().getDrawable(R.mipmap.img_home_jianjia).getIntrinsicHeight();
+
+            int measureHeight = (int) (measureWidth * ((float) bitmapHeight / bitmapWidth));
+            ViewGroup.LayoutParams jianJiaLp = ivJianJia.getLayoutParams();
+            jianJiaLp.height = measureHeight;
+            ivJianJia.setLayoutParams(jianJiaLp);
+
+            ViewGroup.LayoutParams packget365Lp = iv365Packget.getLayoutParams();
+            packget365Lp.height = measureHeight;
+            iv365Packget.setLayoutParams(packget365Lp);
+
+            LogTool.d("bitmap width =" + bitmapWidth + ",bitmap height =" + bitmapHeight + ",measureWidht =" +
+                    measureWidth + ",measureHeight =" + bitmapHeight);
+            isjianJiaAndPackgetMeasure = true;
+        }
     }
 
     private void setContentViewPagerLayoutParam() {
         mLayoutParams.width = getMeasuredWidth();
         mLayoutParams.height = getMeasuredHeight();
 
-        LogTool.d("mLayoutParams.width = " + mLayoutParams.width + ",mLayoutParams.height =" + mLayoutParams
-                .height);
+        LogTool.d("mLayoutParams.width = " + mLayoutParams.width + ",mLayoutParams.height =" + mLayoutParams.height);
         contentViewPager.setLayoutParams(mLayoutParams);
     }
 
