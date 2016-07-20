@@ -164,7 +164,7 @@ public class LoginNewActivity extends BaseActivity{
         Api.login(loginRequest, new ApiCallback<ApiResponse<SuperVisor>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(LoginNewActivity.this);
+                Hud.show(getUiContext());
             }
 
             @Override

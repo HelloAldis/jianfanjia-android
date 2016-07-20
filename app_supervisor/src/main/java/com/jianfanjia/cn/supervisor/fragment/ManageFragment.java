@@ -207,8 +207,12 @@ public class ManageFragment extends BaseFragment {
             @Override
             public void onHttpDone() {
                 Hud.dismiss();
-                manage_pullfefresh.onRefreshComplete();
-                emptyPullRefresh.onRefreshComplete();
+                if (manage_pullfefresh != null) {
+                    manage_pullfefresh.onRefreshComplete();
+                }
+                if (emptyPullRefresh != null) {
+                    emptyPullRefresh.onRefreshComplete();
+                }
             }
 
             @Override
@@ -249,7 +253,7 @@ public class ManageFragment extends BaseFragment {
                     errorLayout.setVisibility(View.VISIBLE);
                 }
             }
-        },this);
+        }, this);
     }
 
     @Override

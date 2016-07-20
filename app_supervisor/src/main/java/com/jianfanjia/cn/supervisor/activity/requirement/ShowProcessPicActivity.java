@@ -110,7 +110,7 @@ public class ShowProcessPicActivity extends BaseSwipeBackActivity implements
         Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(ShowProcessPicActivity.this);
+                Hud.show(getUiContext());
             }
 
             @Override

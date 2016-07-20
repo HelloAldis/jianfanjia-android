@@ -169,12 +169,10 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
             Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
                 @Override
                 public void onPreLoad() {
-                    Hud.show(getUiContext());
                 }
 
                 @Override
                 public void onHttpDone() {
-                    Hud.dismiss();
                     if (mPullToRefreshListView != null) {
                         mPullToRefreshListView.onRefreshComplete();
                     }

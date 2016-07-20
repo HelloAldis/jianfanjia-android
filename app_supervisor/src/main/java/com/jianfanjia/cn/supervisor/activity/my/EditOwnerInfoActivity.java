@@ -138,7 +138,7 @@ public class EditOwnerInfoActivity extends BaseSwipeBackActivity implements OnCl
         Api.updateSuperVisorInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(EditOwnerInfoActivity.this);
+                Hud.show(getUiContext());
             }
 
             @Override

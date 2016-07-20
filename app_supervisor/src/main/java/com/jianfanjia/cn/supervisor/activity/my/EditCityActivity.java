@@ -218,7 +218,7 @@ public class EditCityActivity extends BaseSwipeBackActivity {
         Api.updateSuperVisorInfo(request, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(EditCityActivity.this);
+                Hud.show(getUiContext());
             }
 
             @Override

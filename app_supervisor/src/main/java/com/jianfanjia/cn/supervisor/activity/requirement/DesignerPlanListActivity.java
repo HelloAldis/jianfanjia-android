@@ -128,12 +128,14 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
         Api.getRequirementPlanList(getRequirementPlanListRequest, new ApiCallback<ApiResponse<List<Plan>>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(DesignerPlanListActivity.this);
+                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                designer_plan_listview.onRefreshComplete();
+                if (designer_plan_listview != null) {
+                    designer_plan_listview.onRefreshComplete();
+                }
                 Hud.dismiss();
             }
 
@@ -158,7 +160,7 @@ public class DesignerPlanListActivity extends BaseSwipeBackActivity implements
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.NO_NETWORK_ERROR_MSG);
             }
-        },this);
+        }, this);
 
     }
 

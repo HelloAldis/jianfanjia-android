@@ -154,7 +154,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
 
         @Override
         public void onPreLoad() {
-            Hud.show(CommentActivity.this);
+            Hud.show(getUiContext());
         }
 
         @Override
@@ -201,7 +201,7 @@ public class CommentActivity extends BaseSwipeBackActivity {
     private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
         @Override
         public void onPreLoad() {
-            Hud.show(CommentActivity.this);
+            Hud.show(getUiContext());
         }
 
         @Override

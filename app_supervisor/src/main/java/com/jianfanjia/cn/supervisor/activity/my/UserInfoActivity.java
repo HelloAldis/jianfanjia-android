@@ -344,7 +344,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements
         Api.getSuperVisorInfoDetail(request, new ApiCallback<ApiResponse<SuperVisor>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(UserInfoActivity.this);
+                Hud.show(getUiContext());
             }
 
             @Override
