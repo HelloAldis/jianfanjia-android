@@ -13,17 +13,16 @@ import android.widget.RemoteViews;
 
 import com.jianfanjia.api.model.NotifyMessage;
 import com.jianfanjia.cn.designer.AppManager;
-import com.jianfanjia.cn.designer.ui.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.designer.config.Constant;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.ui.Event.MessageCountEvent;
 import com.jianfanjia.cn.designer.ui.activity.MainActivity;
 import com.jianfanjia.cn.designer.ui.activity.common.CommentListActivity;
 import com.jianfanjia.cn.designer.ui.activity.my.NoticeDetailActivity;
-import com.jianfanjia.cn.designer.config.Constant;
-import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.JsonParser;
 import com.jianfanjia.common.tool.LogTool;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -82,9 +81,11 @@ public class MessageUtil {
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }
         builder.setTicker(context.getResources().getText(R.string.app_name));
-        mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
-        mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.getHumReadDateString(message.getTime()));
-        mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        mRemoteViews.setCharSequence(R.id.list_item_title, "setText", context.getResources().getText(R.string
+                .app_name));
+        mRemoteViews.setCharSequence(R.id.list_item_date, "setText", DateFormatTool.getHumReadDateString(message
+                .getTime()));
+        mRemoteViews.setCharSequence(R.id.list_item_content, "setText", message.getContent());
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(true);

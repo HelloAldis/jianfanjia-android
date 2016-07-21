@@ -83,9 +83,11 @@ public class MessageUtil {
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }
         builder.setTicker(context.getResources().getText(R.string.app_name));
-        mRemoteViews.setTextViewText(R.id.list_item_title, context.getResources().getText(R.string.app_name));
-        mRemoteViews.setTextViewText(R.id.list_item_date, DateFormatTool.getHumReadDateString(message.getTime()));
-        mRemoteViews.setTextViewText(R.id.list_item_content, message.getContent());
+        mRemoteViews.setCharSequence(R.id.list_item_title, "setText", context.getResources().getText(R.string
+                .app_name));
+        mRemoteViews.setCharSequence(R.id.list_item_date, "setText", DateFormatTool.getHumReadDateString(message
+                .getTime()));
+        mRemoteViews.setCharSequence(R.id.list_item_content, "setText", message.getContent());
         builder.setContent(mRemoteViews);
         builder.setWhen(System.currentTimeMillis());
         builder.setAutoCancel(true);

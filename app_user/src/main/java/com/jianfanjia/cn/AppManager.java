@@ -15,7 +15,7 @@ import com.jianfanjia.common.tool.LogTool;
  */
 public class AppManager {
 
-    private static Stack<Activity> activityStack = new Stack<>();
+    private Stack<Activity> activityStack = new Stack<>();
     private static AppManager instance;
 
     private AppManager() {
@@ -107,7 +107,7 @@ public class AppManager {
      *
      * @author kymjs
      */
-    public static Activity getActivity(Class<?> cls) {
+    public Activity getActivity(Class<?> cls) {
         if (activityStack != null)
             for (Activity activity : activityStack) {
                 if (activity.getClass().equals(cls)) {
