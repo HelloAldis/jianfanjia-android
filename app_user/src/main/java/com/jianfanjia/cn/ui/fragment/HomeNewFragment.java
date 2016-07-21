@@ -61,7 +61,7 @@ import com.jianfanjia.common.tool.TDevice;
 public class HomeNewFragment extends BaseFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
-    private int BANNER_ICON[] = {R.mipmap.banner_home_loans, R.mipmap.bg_home_banner1};
+    private int BANNER_ICON[] = {R.mipmap.banner_home_loans, R.mipmap.bg_home_banner1,R.mipmap.bg_home_banner2};
 
     @Bind(R.id.viewPager_lib)
     protected AutoScrollViewPager scrollViewPager;
@@ -110,6 +110,10 @@ public class HomeNewFragment extends BaseFragment {
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
                     startActivity(WebViewActivity.class, bundle);
                 } else if (pos == 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
+                    startActivity(WebViewActivity.class, bundle);
+                }else if(pos == 2){
                     Bundle bundle = new Bundle();
                     bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
                     startActivity(WebViewActivity.class, bundle);

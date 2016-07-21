@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -168,6 +169,14 @@ public class HomeScrollView extends ScrollView {
     private boolean isIntent = false;
 
     @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (showGuideListener != null && !ViewCompat.canScrollVertically(this, 1)) {
+            showGuideListener.showGuideView();
+        }
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         LogTool.d("onTouchEvent");
 
@@ -180,7 +189,7 @@ public class HomeScrollView extends ScrollView {
         float nowX = ev.getX();
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                if (nowY - lastY < 0 && contentFlag == ANCHOR_BOTTOPM) {
+                if (nowY - lastY < 0 && !ViewCompat.canScrollVertically(this, 1)) {
                     if (scrollPullUpListener != null && !isIntent) {
                         LogTool.d("intentTo");
                         isIntent = true;
@@ -192,16 +201,16 @@ public class HomeScrollView extends ScrollView {
                 LogTool.d("ACTION_Up");
                 LogTool.d("(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX) = " + (nowX
                         - lastX));
-                if (getScrollY() > 0 && getScrollY() < totaloffset) {
-                    if (contentFlag == ANCHOR_TOP) {
-                        ainmatorToFooter();
-                        break;
-                    } else if (contentFlag == ANCHOR_BOTTOPM) {
-                        LogTool.d("scrollBottom");
-                        ainmatorToHead();
-                        break;
-                    }
-                }
+//                if (getScrollY() > 0 && getScrollY() < totaloffset) {
+//                    if (contentFlag == ANCHOR_TOP) {
+//                        ainmatorToFooter();
+//                        break;
+//                    } else if (contentFlag == ANCHOR_BOTTOPM) {
+//                        LogTool.d("scrollBottom");
+//                        ainmatorToHead();
+//                        break;
+//                    }
+//                }
                 isIntent = false;
                 break;
             case MotionEvent.ACTION_CANCEL:

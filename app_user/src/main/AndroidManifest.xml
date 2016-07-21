@@ -249,7 +249,9 @@
         <activity
             android:name="com.jianfanjia.cn.ui.activity.welcome.NavigateActivity"
             android:label="@string/title_activity_navigate"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name="com.jianfanjia.cn.ui.activity.common.ShowPicActivity"
             android:label="@string/title_activity_show_pic"
@@ -272,12 +274,28 @@
         <activity
             android:name="com.jianfanjia.cn.ui.activity.welcome.WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <intent-filter>
+                <data
+                    android:host="www.jianfanjia.com"
+                    android:pathPrefix="/jianfanjiaapp/"
+                    android:scheme="jianfanjia">
+                </data>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.VIEW" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name="com.jianfanjia.cn.ui.activity.requirement.AppointHighPointDesignerActivity"
