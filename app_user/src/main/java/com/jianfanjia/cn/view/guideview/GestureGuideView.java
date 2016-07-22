@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.view;
+package com.jianfanjia.cn.view.guideview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,7 +30,8 @@ public class GestureGuideView extends View {
 
     private GestureDetector gestureDetector;
 
-    private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
+    private GestureDetector.SimpleOnGestureListener simpleOnGestureListener =
+            new GestureDetector.SimpleOnGestureListener() {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
@@ -94,7 +95,7 @@ public class GestureGuideView extends View {
         this.cy = y + radius;
         this.radius = radius;
 
-        LogTool.d("cx =" + cx + " cy" + cy);
+        LogTool.d("cx =" + cx + " ,cy" + cy + ",radius =" + radius);
     }
 
     @Override
@@ -106,7 +107,8 @@ public class GestureGuideView extends View {
         canvas.drawRect(0, 0, TDevice.getScreenWidth(), TDevice.getScreenHeight(), paint);
         paint.setAlpha(255);
         Bitmap bitmap = loadBitmap();
-        canvas.drawBitmap(bitmap, (TDevice.getScreenWidth() - bitmap.getWidth()) / 2, (TDevice.getScreenHeight() - bitmap.getHeight()) / 2, paint);
+        canvas.drawBitmap(bitmap, (TDevice.getScreenWidth() - bitmap.getWidth()) / 2, (TDevice.getScreenHeight() -
+                bitmap.getHeight()) / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         paint.setColor(getResources().getColor(R.color.transparent_bg));
         canvas.drawCircle(cx, cy, radius, paint);

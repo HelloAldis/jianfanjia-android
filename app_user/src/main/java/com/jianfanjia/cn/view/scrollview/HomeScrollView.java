@@ -1,7 +1,5 @@
 package com.jianfanjia.cn.view.scrollview;
 
-import android.animation.Animator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,10 +11,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.business.DataManagerNew;
+import com.jianfanjia.cn.view.guideview.GuideViewManager;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 
@@ -32,20 +35,24 @@ public class HomeScrollView extends ScrollView {
 
     private static final int ANCHOR_TOP = 0;//显示在顶部
 
-    private static final int ANCHOR_BOTTOPM = 1;//显示在底部
-
     private float totaloffset;//滚动偏移量
-
-    public static final int SMOOTH_SCROLL_DURATION_MS = 200;
 
     //ScrollView的子View， 也是ScrollView的唯一一个子View
     private View contentView;
 
-    private ViewPager contentViewPager;
+    @Bind(R.id.content_viewpager)
+    ViewPager contentViewPager;
 
+    @Bind(R.id.riv_365packget)
     ImageView iv365Packget;
 
+    @Bind(R.id.riv_jianjia)
     ImageView ivJianJia;
+
+    @Bind(R.id.content_intent_to)
+    protected ImageButton contentIntent;
+
+    private GuideViewManager mGuideViewManager;
 
     private int contentFlag = ANCHOR_TOP;
 
@@ -53,10 +60,9 @@ public class HomeScrollView extends ScrollView {
 
     private ScrollPullUpListener scrollPullUpListener;
 
-    private ShowGuideListener showGuideListener;
-
-    private FrameLayout.LayoutParams mLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams
-            .WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private FrameLayout.LayoutParams mLayoutParams =
+            new FrameLayout.LayoutParams(ViewGroup.LayoutParams
+                    .WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     public HomeScrollView(Context context) {
         this(context, null);
@@ -68,9 +74,8 @@ public class HomeScrollView extends ScrollView {
         addView(contentView);
         setOverScrollMode(OVER_SCROLL_NEVER);
 
-        contentViewPager = (ViewPager) contentView.findViewById(R.id.content_viewpager);
-        iv365Packget = (ImageView) contentView.findViewById(R.id.riv_365packget);
-        ivJianJia = (ImageView) contentView.findViewById(R.id.riv_jianjia);
+        ButterKnife.bind(this);
+
     }
 
     @Override
@@ -153,16 +158,9 @@ public class HomeScrollView extends ScrollView {
         void scrollPullUp();
     }
 
-    public interface ShowGuideListener {
-        void showGuideView();
-    }
 
     public void setScrollPullUpListener(ScrollPullUpListener scrollPullUpListener) {
         this.scrollPullUpListener = scrollPullUpListener;
-    }
-
-    public void setShowGuideListener(ShowGuideListener showGuideListener) {
-        this.showGuideListener = showGuideListener;
     }
 
     private float lastX, lastY;
@@ -171,8 +169,21 @@ public class HomeScrollView extends ScrollView {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if (showGuideListener != null && !ViewCompat.canScrollVertically(this, 1)) {
-            showGuideListener.showGuideView();
+        if (DataManagerNew.getInstance().isShowGuide() && !ViewCompat.canScrollVertically(this, 1) &&
+                mGuideViewManager == null) {
+            int[] location = new int[2];
+            contentIntent.getLocationInWindow(location);
+            mGuideViewManager = new GuideViewManager(getContext(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DataManagerNew.getInstance().setShowGuide(false);
+                    mGuideViewManager.hideGuideView();
+                    if (scrollPullUpListener != null) {
+                        scrollPullUpListener.scrollPullUp();
+                    }
+                }
+            });
+            mGuideViewManager.showGuideView(location[0], location[1], contentIntent.getWidth() / 2);
         }
     }
 
@@ -190,7 +201,7 @@ public class HomeScrollView extends ScrollView {
         switch (action) {
             case MotionEvent.ACTION_MOVE:
                 if (nowY - lastY < 0 && !ViewCompat.canScrollVertically(this, 1)) {
-                    if (scrollPullUpListener != null && !isIntent) {
+                    if (scrollPullUpListener != null && !isIntent && !DataManagerNew.getInstance().isShowGuide()) {
                         LogTool.d("intentTo");
                         isIntent = true;
                         scrollPullUpListener.scrollPullUp();
@@ -199,8 +210,7 @@ public class HomeScrollView extends ScrollView {
                 break;
             case MotionEvent.ACTION_UP:
                 LogTool.d("ACTION_Up");
-                LogTool.d("(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX) = " + (nowX
-                        - lastX));
+                LogTool.d("(nowY - lastY) =" + (nowY - lastY) + " (nowX - lastX) = " + (nowX- lastX));
 //                if (getScrollY() > 0 && getScrollY() < totaloffset) {
 //                    if (contentFlag == ANCHOR_TOP) {
 //                        ainmatorToFooter();
@@ -221,76 +231,6 @@ public class HomeScrollView extends ScrollView {
                 break;
         }
         return super.onTouchEvent(ev);
-    }
-
-    private void ainmatorToHead() {
-        ValueAnimator animator = ValueAnimator.ofInt(getScrollY(), 0);
-        animator.setDuration(SMOOTH_SCROLL_DURATION_MS);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                smoothScrollTo(0, (Integer) animation.getAnimatedValue());
-            }
-        });
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (onSmoothScrollFinishedListener != null) {
-                    onSmoothScrollFinishedListener.onSmoothScrollFinished();
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        animator.start();
-    }
-
-    private void ainmatorToFooter() {
-        ValueAnimator animator = ValueAnimator.ofInt(getScrollY(), (int) totaloffset);
-        animator.setDuration(SMOOTH_SCROLL_DURATION_MS);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                smoothScrollTo(0, (Integer) animation.getAnimatedValue());
-            }
-        });
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (onSmoothScrollFinishedListener != null) {
-                    onSmoothScrollFinishedListener.onSmoothScrollFinished();
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        animator.start();
     }
 
     /**
@@ -318,23 +258,6 @@ public class HomeScrollView extends ScrollView {
         return super.dispatchTouchEvent(ev);
     }
 
-    private OnSmoothScrollFinishedListener onSmoothScrollFinishedListener = new OnSmoothScrollFinishedListener() {
-        @Override
-        public void onSmoothScrollFinished() {
-            if (contentFlag == ANCHOR_BOTTOPM) {
-                contentFlag = ANCHOR_TOP;
-            } else {
-                contentFlag = ANCHOR_BOTTOPM;
-                if (showGuideListener != null) {
-                    showGuideListener.showGuideView();
-                }
-            }
-        }
-    };
-
-    public interface OnSmoothScrollFinishedListener {
-        void onSmoothScrollFinished();
-    }
 
     static class SavedState extends BaseSavedState {
         int currentFlag;

@@ -1,10 +1,7 @@
 package com.jianfanjia.cn.ui.fragment;
 
-import android.content.Context;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +42,8 @@ import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.ui.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.view.GestureGuideView;
-import com.jianfanjia.cn.view.pullrefresh.PullToRefreshScrollViewNew;
+import com.jianfanjia.cn.view.guideview.GestureGuideView;
+import com.jianfanjia.cn.view.pullrefresh.PullToRefreshHomeScrollView;
 import com.jianfanjia.cn.view.scrollview.HomeScrollView;
 import com.jianfanjia.cn.view.viewpager.auto_view_pager.AutoScrollViewPager;
 import com.jianfanjia.common.tool.LogTool;
@@ -76,7 +73,7 @@ public class HomeNewFragment extends BaseFragment {
     protected ViewPager contentViewPager;
 
     @Bind(R.id.pullrefresh_scrollview)
-    protected PullToRefreshScrollViewNew mPullToRefreshScrollViewNew;
+    protected PullToRefreshHomeScrollView mPullToRefreshHomeScrollView;
 
     @Bind(R.id.content_intent_to)
     protected ImageButton contentIntent;
@@ -122,20 +119,20 @@ public class HomeNewFragment extends BaseFragment {
         });
 
 
-        mPullToRefreshScrollViewNew.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+        mPullToRefreshHomeScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 getProduct(TOTAL_COUNT);
             }
         });
-        mPullToRefreshScrollViewNew.setScrollPullUpListener(new HomeScrollView.ScrollPullUpListener() {
+        mPullToRefreshHomeScrollView.setScrollPullUpListener(new HomeScrollView.ScrollPullUpListener() {
             @Override
             public void scrollPullUp() {
                 intentToProduct();
             }
         });
 
-        mPullToRefreshScrollViewNew.setShowGuideListener(new HomeScrollView.ShowGuideListener() {
+        /*mPullToRefreshScrollViewNew.setShowGuideListener(new HomeScrollView.ShowGuideListener() {
             @Override
             public void showGuideView() {
                 if (dataManager.isShowGuide()) {
@@ -144,7 +141,7 @@ public class HomeNewFragment extends BaseFragment {
                     showGuide(location[0], location[1], contentIntent.getWidth() / 2);
                 }
             }
-        });
+        });*/
         contentViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -180,44 +177,6 @@ public class HomeNewFragment extends BaseFragment {
         }
     }
 
-    public void showGuide(float x, float y, float radius) {
-        // 动态初始化图层
-        img = new GestureGuideView(getActivity());
-        img.setCicrePosition(x, y, radius);
-        img.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dataManager.setShowGuide(false);
-                removeGuide();
-                intentToProduct();
-            }
-        });
-        // 设置LayoutParams参数
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        // 设置显示的类型，TYPE_PHONE指的是来电话的时候会被覆盖，其他时候会在最前端，显示位置在stateBar下面，其他更多的值请查阅文档
-        params.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
-        // 设置显示格式
-        params.format = PixelFormat.RGBA_8888;
-        // 设置对齐方式
-        params.gravity = Gravity.LEFT | Gravity.TOP;
-        // 设置宽高
-        params.width = (int) TDevice.getScreenWidth();
-        params.height = (int) TDevice.getScreenHeight();
-
-        // 添加到当前的窗口上
-        windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.addView(img, params);
-    }
-
-    public void removeGuide() {
-        if (windowManager != null) {
-            windowManager.removeViewImmediate(img);
-        }
-    }
-
     private void getProduct(int limit) {
         GetHomeProductRequest request = new GetHomeProductRequest();
         request.setLimit(limit);
@@ -229,8 +188,8 @@ public class HomeNewFragment extends BaseFragment {
 
             @Override
             public void onHttpDone() {
-                if (mPullToRefreshScrollViewNew != null) {
-                    mPullToRefreshScrollViewNew.onRefreshComplete();
+                if (mPullToRefreshHomeScrollView != null) {
+                    mPullToRefreshHomeScrollView.onRefreshComplete();
                 }
             }
 
