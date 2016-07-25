@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.config;
 
+import android.text.TextUtils;
+
 import com.jianfanjia.cn.activity.BuildConfig;
 
 /**
@@ -41,6 +43,15 @@ public class Url_New {
         }
     }
 */
+
+    public static String buildUrl(String url) {
+        if (!TextUtils.isEmpty(url) && url.contains(BuildConfig.MOBILE_SERVER_URL)) {
+            return url;
+        } else {
+            return BuildConfig.MOBILE_SERVER_URL + url;
+        }
+    }
+
     public String HTTPROOT = SEVER_IP + "/api/v2/app/";
 
 

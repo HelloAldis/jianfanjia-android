@@ -1,5 +1,6 @@
 package com.jianfanjia.cn.ui.activity.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
+import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.JavaScriptObject;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -48,6 +50,12 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     @Bind(R.id.toolbar_share)
     protected ImageView toolbar_share = null;
 
+    public static void intentToWebView(Context context, String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, url);
+        IntentUtil.startActivity(context, WebViewActivity.class, bundle);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +76,7 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + this.getUrlFromIntent());
+        progressWebView.loadUrl(Url_New.buildUrl(this.getUrlFromIntent()));
         this.javaScriptObject = new JavaScriptObject();
         this.javaScriptObject.injectIntoWebView(this.progressWebView);
 

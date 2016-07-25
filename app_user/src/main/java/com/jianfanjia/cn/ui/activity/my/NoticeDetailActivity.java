@@ -1,10 +1,12 @@
 package com.jianfanjia.cn.ui.activity.my;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import com.jianfanjia.cn.tools.BusinessCovertUtil;
 import com.jianfanjia.cn.ui.Event.CheckEvent;
 import com.jianfanjia.cn.ui.Event.ChoosedContractEvent;
 import com.jianfanjia.cn.ui.Event.ChoosedPlanEvent;
+import com.jianfanjia.cn.ui.activity.home.WebViewActivity;
 import com.jianfanjia.cn.ui.activity.requirement.CheckActivity;
 import com.jianfanjia.cn.ui.activity.requirement.ContractActivity;
 import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
@@ -346,6 +349,21 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                     }
                     dateText.setText(DateFormatTool.getHumReadDateString(noticeDetailInfo.getCreate_at()));
                     contentView.loadDataWithBaseURL(null, noticeDetailInfo.getHtml(), "text/html", "utf-8", null);
+                    contentView.setWebViewClient(new WebViewClient() {
+
+                        @Override
+                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                            if (url.startsWith("tel:")) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse(url));
+                                startActivity(intent);
+                            } else if (url.startsWith("http:") || url.startsWith("https:")) {
+                                WebViewActivity.intentToWebView(NoticeDetailActivity.this, url);
+                            }
+                            return true;
+                        }
+
+                    });
                 }
             }
 
@@ -358,7 +376,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     //同意改期
@@ -392,7 +410,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
 
     }
 
@@ -427,7 +445,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     //确认量房
@@ -461,7 +479,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
 
     }
 

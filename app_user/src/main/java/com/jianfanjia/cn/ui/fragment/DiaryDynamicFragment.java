@@ -309,6 +309,7 @@ public class DiaryDynamicFragment extends BaseFragment {
             public void onSuccess(ApiResponse<DiaryInfoList> apiResponse) {
                 DiaryInfoList diaryInfoList = apiResponse.getData();
 
+
                 LogTool.d("diaryInfoList:" + diaryInfoList);
                 if (null != diaryInfoList) {
                     total = diaryInfoList.getTotal();
