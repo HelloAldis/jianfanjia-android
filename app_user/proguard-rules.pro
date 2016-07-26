@@ -25,8 +25,13 @@
 -keep class com.jianfanjia.cn.api.** {* ;}
 -keep class me.iwf.photopicker.** {*;}
 
-#个推混淆
+#deeplink
+-keep class com.airbnb.deeplinkdispatch.** { *; }
+-keepclasseswithmembers class * {
+     @com.airbnb.deeplinkdispatch.DeepLink <methods>;
+}
 
+#个推混淆
 -dontwarn com.igexin.**
 -dontwarn android.support.**
 -keep class com.igexin.**{*;}

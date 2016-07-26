@@ -285,7 +285,7 @@
 
             <intent-filter>
                 <data
-                    android:host="www.jianfanjia.com"
+                    android:host="m.jianfanjia.com"
                     android:pathPrefix="/jianfanjiaapp/"
                     android:scheme="jianfanjia">
                 </data>

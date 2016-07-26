@@ -1,7 +1,8 @@
 package com.jianfanjia.cn.ui.activity.welcome;
 
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -18,13 +19,13 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Global;
+import com.jianfanjia.cn.tools.DeepLinkDelegate;
 import com.jianfanjia.cn.tools.GeTuiManager;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.activity.MainActivity;
 import com.jianfanjia.cn.ui.activity.loginandreg.LoginNewActivity;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
-import com.jianfanjia.common.tool.FileUtil;
 import com.jianfanjia.common.tool.LogTool;
 
 /**
@@ -40,6 +41,7 @@ public class WelcomeActivity extends BaseActivity {
     private boolean isLoginExpire;// 是否登录过期
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
+    private Uri deepUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,42 +49,16 @@ public class WelcomeActivity extends BaseActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initView();
-        logGeTuiAPPKey();
         first = dataManager.isFirst();
         LogTool.d("first=" + first);
         checkVersion();
-        LogTool.d("sd root =" + FileUtil.getSDRoot());
-        LogTool.d("sd ex root =" + FileUtil.getExternalSDRoot());
-    }
 
-    private void logGeTuiAPPKey() {
-        try {
-            ApplicationInfo var4 = getPackageManager().getApplicationInfo(getPackageName(), 128);
-            if (var4 != null && var4.metaData != null)
-
-            {
-                String var5 = var4.metaData.getString("PUSH_APPID");
-                String var6 = var4.metaData.getString("PUSH_APPSECRET");
-                String var7 = var4.metaData.get("PUSH_APPKEY") != null ? var4.metaData.get("PUSH_APPKEY").toString()
-                        : null;
-                if (var5 != null) {
-                    var5 = var5.trim();
-                }
-
-                if (var6 != null) {
-                    var6 = var6.trim();
-                }
-
-                if (var7 != null) {
-                    var7 = var7.trim();
-                }
-
-                LogTool.d("PUSH_APPID :" + var5 + "--" + "PUSH_APPSECRET :" + var6 + "--" + "PUSH_APPKEY:" + var7);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Intent intent = getIntent();
+        if (intent.getData() != null) {
+            deepUri = intent.getData();
         }
     }
+
 
     // 检查版本
     private void checkVersion() {
@@ -123,7 +99,7 @@ public class WelcomeActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 handler.postDelayed(runnable, 1500);
             }
-        },this);
+        }, this);
     }
 
     /**
@@ -198,8 +174,12 @@ public class WelcomeActivity extends BaseActivity {
                 if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
                     LogTool.d("not expire");
                     GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                    startActivity(MainActivity.class);
-                    appManager.finishActivity(WelcomeActivity.this);
+                    if (deepUri != null) {
+                        DeepLinkDelegate.deepLinkRoute(getUiContext(), deepUri.toString());
+                    } else {
+                        startActivity(MainActivity.class);
+                        appManager.finishActivity(WelcomeActivity.this);
+                    }
                 } else {
                     LogTool.d("expire");
                     refreshSession();
@@ -225,8 +205,12 @@ public class WelcomeActivity extends BaseActivity {
 
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
-                startActivity(MainActivity.class);
-                appManager.finishActivity(WelcomeActivity.this);
+                if (deepUri != null) {
+                    DeepLinkDelegate.deepLinkRoute(getUiContext(), deepUri.toString());
+                } else {
+                    startActivity(MainActivity.class);
+                    appManager.finishActivity(WelcomeActivity.this);
+                }
             }
 
             @Override
@@ -240,7 +224,7 @@ public class WelcomeActivity extends BaseActivity {
                 startActivity(LoginNewActivity.class);
                 appManager.finishActivity(WelcomeActivity.this);
             }
-        },this);
+        }, this);
     }
 
     @Override
