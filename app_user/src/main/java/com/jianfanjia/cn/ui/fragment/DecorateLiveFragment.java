@@ -29,7 +29,6 @@ import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
 import com.jianfanjia.cn.base.BaseLoadMoreRecycleAdapter;
 import com.jianfanjia.cn.config.Constant;
-import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
@@ -120,9 +119,7 @@ public class DecorateLiveFragment extends BaseFragment {
                     public void OnItemClick(int position) {
                         //跳到装修直播详情页面
                         String pid = decorateLiveAdapter.getData().get(position).get_id();
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Global.WEB_VIEW_URL, Url_New.getInstance().DECORATE_LIVE_URL + pid);
-                        startActivity(WebViewActivity.class, bundle);
+                        WebViewActivity.intentToWebView(_context,Url_New.getInstance().DECORATE_LIVE_URL + pid);
                     }
                 });
         decorateLiveAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {

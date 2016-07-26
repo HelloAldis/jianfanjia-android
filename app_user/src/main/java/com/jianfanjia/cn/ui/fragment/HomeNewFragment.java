@@ -103,17 +103,11 @@ public class HomeNewFragment extends BaseFragment {
             public void onClickItem(int pos) {
                 LogTool.d("position =" + pos);
                 if (pos == 1) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SUPERVISION);
-                    startActivity(WebViewActivity.class, bundle);
+                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SUPERVISION);
                 } else if (pos == 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
-                    startActivity(WebViewActivity.class, bundle);
+                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SAFEGUARD);
                 }else if(pos == 2){
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Global.WEB_VIEW_URL, Global.WEB_VIEW_URL_SAFEGUARD);
-                    startActivity(WebViewActivity.class, bundle);
+                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SAFEGUARD);
                 }
             }
         });
