@@ -20,8 +20,6 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 
 /**
@@ -32,7 +30,7 @@ import com.squareup.leakcanary.RefWatcher;
  */
 public class MyApplication extends BaseApplication {
 
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -50,18 +48,13 @@ public class MyApplication extends BaseApplication {
 
         LogTool.setDEBUG(BuildConfig.DEBUG);//设置log开关
 
-        refWatcher = LeakCanary.install(this);
+//        refWatcher = LeakCanary.install(this);
     }
 
     private void initApiClient() {
         CookieStore store = new PersistentCookieStore(BaseApplication.getInstance().getApplicationContext());
         ApiClient.init(store, new BaseApiCallbackImpl(), "jua"+this.getVersionName());
     }
-
-//    public static RefWatcher getRefWatcher(Context context) {
-//        MyApplication application = (MyApplication) context.getApplicationContext();
-//        return application.refWatcher;
-//    }
 
     public static void initImageLoader(Context context) {
         // This configuration tuning is custom. You can tune every option, you

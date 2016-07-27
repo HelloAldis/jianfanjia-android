@@ -8,13 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,6 +53,7 @@ import com.jianfanjia.cn.business.DiaryBusiness;
 import com.jianfanjia.cn.config.Constant;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.tools.ImageShow;
 import com.jianfanjia.cn.tools.IntentUtil;
 import com.jianfanjia.cn.tools.ShareUtil;
 import com.jianfanjia.cn.tools.UiHelper;
@@ -65,6 +66,8 @@ import com.jianfanjia.common.tool.ImageUtil;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import com.jianfanjia.common.tool.ToastUtil;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -413,7 +416,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void initData() {
@@ -510,7 +513,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
 
@@ -604,7 +607,7 @@ public class DiarySetInfoActivity extends BaseActivity {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void deleteDiarySetFavorite(final String diarySetId) {
@@ -646,26 +649,51 @@ public class DiarySetInfoActivity extends BaseActivity {
                 mDiarySetInfo.setIs_my_favorite(true);
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void shareDiarySet() {
         if (mDiaryAdapter != null && mDiaryAdapter.getItemCount() > 0) {
             if (mDiarySetInfo.getDiaries() != null && mDiarySetInfo.getDiaries().size() > 0) {
-                showPopwindow();
+                loadCoverImage();
             } else {
                 ToastUtil.showShortTost("您还没有发布装修日记哦");
             }
         }
     }
 
-    private void showPopwindow() {
+    private void loadCoverImage() {
+        if (!TextUtils.isEmpty(mDiarySetInfo.getCover_imageid())) {
+            ImageShow.getImageShow().loadImage(mDiarySetInfo.getCover_imageid(), new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+                    Hud.show(getUiContext());
+                }
 
-        DiarySetInfoAdapter.DiarySetInfoBaseInfoViewHolder viewHolder = (DiarySetInfoAdapter
-                .DiarySetInfoBaseInfoViewHolder) mRecyclerView.findViewHolderForAdapterPosition(0);
-        Drawable drawableDiarySetCover = viewHolder.ivDiarysetCover.getDrawable();
-        Bitmap bitmapDiarySetCover = ImageUtil.drawableToBitmap(drawableDiarySetCover);
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    Hud.dismiss();
+                    showPopwindow(ImageUtil.drawableResToBitmap(DiarySetInfoActivity.this, R.mipmap.bg_diary_cover));
+                }
 
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    Hud.dismiss();
+                    showPopwindow(loadedImage);
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+                    Hud.dismiss();
+                    showPopwindow(ImageUtil.drawableResToBitmap(DiarySetInfoActivity.this, R.mipmap.bg_diary_cover));
+                }
+            });
+        } else {
+            showPopwindow(ImageUtil.drawableResToBitmap(this, R.mipmap.bg_diary_cover));
+        }
+    }
+
+    private void showPopwindow(Bitmap bitmapDiarySetCover) {
         mShareUtil.shareDiarySet(this, bitmapDiarySetCover, mDiarySetInfo.getTitle() + "（" + DiaryBusiness
                 .getDiarySetDes(mDiarySetInfo) + "）", diarySetId, new SocializeListeners.SnsPostListener() {
             @Override
@@ -750,7 +778,7 @@ public class DiarySetInfoActivity extends BaseActivity {
     private void upload_image(final Bitmap bitmap, ApiCallback<ApiResponse<String>> apiCallback) {
         UploadPicRequest uploadPicRequest = new UploadPicRequest();
         uploadPicRequest.setBytes(com.jianfanjia.common.tool.ImageUtil.transformBitmapToBytes(bitmap));
-        Api.uploadImage(uploadPicRequest, apiCallback,this);
+        Api.uploadImage(uploadPicRequest, apiCallback, this);
     }
 
     private ApiCallback<ApiResponse<String>> uploadHeadImage = new ApiCallback<ApiResponse<String>>() {
