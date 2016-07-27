@@ -27,29 +27,37 @@ public class DeepLinkDelegate {
     public static final String DEEPLINK_WEBVIEW = "webview";
     public static final String DEEPLINK_DIARYSET = "diaryset";
 
-    public static void deepLinkRoute(Context context, String uri) {
+    public static boolean deepLinkRoute(Context context, String uri) {
         LogTool.d(uri);
         DeepLinkUri deepLinkUri = DeepLinkUri.parse(uri);
         List<String> pathSegments = deepLinkUri.pathSegments();
         if (pathSegments.contains(DEEPLINK_DIARYSET)) {
-            intentToDiarySet(context, deepLinkUri);
+            return intentToDiarySet(context, deepLinkUri);
         } else if (pathSegments.contains(DEEPLINK_WEBVIEW)) {
-            intentToWebView(context, deepLinkUri);
+            return intentToWebView(context, deepLinkUri);
+        }else {
+            LogTool.d("not find link target,only start app");
+            return false;
         }
-        AppManager.getAppManager().finishActivity((Activity) context);
     }
 
-    public static void intentToWebView(Context context, DeepLinkUri deepLinkUri) {
-        Intent mainIntent = new Intent(context, MainActivity.class);
-        Intent webViewIntent = new Intent(context, WebViewActivity.class);
-        Intent[] intents = new Intent[]{mainIntent, webViewIntent};
+    public static boolean intentToWebView(Context context, DeepLinkUri deepLinkUri) {
         String httpUrl = Uri.decode(deepLinkUri.queryParameter("url"));
-        LogTool.d(httpUrl);
-        webViewIntent.putExtra(Global.WEB_VIEW_URL, httpUrl);
-        context.startActivities(intents);
+        if (!TextUtils.isEmpty(httpUrl)) {
+            Intent mainIntent = new Intent(context, MainActivity.class);
+            Intent webViewIntent = new Intent(context, WebViewActivity.class);
+            Intent[] intents = new Intent[]{mainIntent, webViewIntent};
+            LogTool.d(httpUrl);
+            webViewIntent.putExtra(Global.WEB_VIEW_URL, httpUrl);
+            context.startActivities(intents);
+            AppManager.getAppManager().finishActivity((Activity) context);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public static void intentToDiarySet(Context context, DeepLinkUri deepLinkUri) {
+    public static boolean intentToDiarySet(Context context, DeepLinkUri deepLinkUri) {
         String diarysetid = deepLinkUri.queryParameter("diarySetid");
 
         if (!TextUtils.isEmpty(diarysetid)) {
@@ -61,7 +69,10 @@ public class DeepLinkDelegate {
 
             Intent[] intents = new Intent[]{mainIntent, diarySetIntent};
             context.startActivities(intents);
-
+            AppManager.getAppManager().finishActivity((Activity) context);
+            return true;
+        } else {
+            return false;
         }
 
 

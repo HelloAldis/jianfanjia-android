@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.supervisor.activity.common;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -55,14 +56,20 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + this.getUrlFromIntent());
+        progressWebView.loadUrl(Url_New.buildUrl(this.getUrlFromIntent()));
         this.javaScriptObject = new JavaScriptObject();
         this.javaScriptObject.injectIntoWebView(this.progressWebView);
 
         progressWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if (url.startsWith("tel:")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(url));
+                    startActivity(intent);
+                } else if (url.startsWith("http:") || url.startsWith("https:")) {
+                    view.loadUrl(url);
+                }
                 return true;
             }
 

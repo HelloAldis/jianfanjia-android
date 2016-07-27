@@ -5,7 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,7 +41,6 @@ import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.ui.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
-import com.jianfanjia.cn.view.guideview.GestureGuideView;
 import com.jianfanjia.cn.view.pullrefresh.PullToRefreshHomeScrollView;
 import com.jianfanjia.cn.view.scrollview.HomeScrollView;
 import com.jianfanjia.cn.view.viewpager.auto_view_pager.AutoScrollViewPager;
@@ -87,9 +85,6 @@ public class HomeNewFragment extends BaseFragment {
     private HomeProductPagerAdapter mPagerAdapter;
     private List<Product> productNews;
 
-    private GestureGuideView img;
-    private WindowManager windowManager;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
@@ -105,7 +100,7 @@ public class HomeNewFragment extends BaseFragment {
                 if (pos == 1) {
                     WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SUPERVISION);
                 } else if (pos == 0) {
-                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SAFEGUARD);
+                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_CHENGDAITONG);
                 }else if(pos == 2){
                     WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SAFEGUARD);
                 }

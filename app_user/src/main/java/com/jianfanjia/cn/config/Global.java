@@ -13,6 +13,7 @@ public class Global {
     public static final String WEB_VIEW_URL_SAFEGUARD = "/view/zt/safeguard/";
     public static final String WEB_VIEW_URL_SUPERVISION = "/view/zt/supervision/";
     public static final String WEB_VIEW_URL_YIJIA= "/weixin/jian/index.html";
+    public static final String WEB_VIEW_URL_CHENGDAITONG = "/view/zt/loan/index.html";
 
     public static final String TOPIC_PLAN = "0";//方案评论
     public static final String TOPIC_NODE = "1";//节点评论

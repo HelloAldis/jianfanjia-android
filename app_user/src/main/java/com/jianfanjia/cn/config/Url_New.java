@@ -30,20 +30,6 @@ public class Url_New {
     private Url_New() {
     }
 
- /*   {
-        try {
-            ApplicationInfo appInfo = MyApplication.getInstance().getPackageManager()
-                    .getApplicationInfo(MyApplication.getInstance().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            SEVER_IP = appInfo.metaData.getString("SERVER_URL");
-//            SEVER_PORT = String.valueOf(appInfo.metaData.getString("SERVER_PORT"));
-            MOBILE_SERVER_URL = appInfo.metaData.getString("MOBILE_SERVER_URL");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-*/
-
     public static String buildUrl(String url) {
         if (!TextUtils.isEmpty(url) && url.contains(BuildConfig.MOBILE_SERVER_URL)) {
             return url;

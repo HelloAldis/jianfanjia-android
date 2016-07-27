@@ -166,9 +166,7 @@ public class WelcomeActivity extends BaseActivity {
                 if (!isLoginExpire) {// 登录未过期，添加cookies到httpclient记录身份
                     LogTool.d("not expire");
                     GeTuiManager.bindGeTui(getApplicationContext(), dataManager.getUserId());
-                    if (deepUri != null) {
-                        DeepLinkDelegate.deepLinkRoute(getUiContext(), deepUri.toString());
-                    } else {
+                    if (deepUri == null || !DeepLinkDelegate.deepLinkRoute(getUiContext(), deepUri.toString())) {
                         startActivity(MainActivity.class);
                         appManager.finishActivity(WelcomeActivity.this);
                     }
@@ -197,9 +195,7 @@ public class WelcomeActivity extends BaseActivity {
 
             @Override
             public void onSuccess(ApiResponse<User> apiResponse) {
-                if (deepUri != null) {
-                    DeepLinkDelegate.deepLinkRoute(getUiContext(), deepUri.toString());
-                } else {
+                if (deepUri == null || !DeepLinkDelegate.deepLinkRoute(getUiContext(), deepUri.toString())) {
                     startActivity(MainActivity.class);
                     appManager.finishActivity(WelcomeActivity.this);
                 }
