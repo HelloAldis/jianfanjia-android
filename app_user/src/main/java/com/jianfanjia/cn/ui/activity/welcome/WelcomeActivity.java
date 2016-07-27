@@ -37,7 +37,6 @@ import com.jianfanjia.common.tool.LogTool;
 public class WelcomeActivity extends BaseActivity {
     private static final String TAG = WelcomeActivity.class.getName();
     private Handler handler = new Handler();
-    private boolean first;// 用于判断导航界面是否显示
     private boolean isLoginExpire;// 是否登录过期
     private boolean isLogin;// 是否登录过
     private UpdateVersion updateVersion;
@@ -48,9 +47,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        initView();
-        first = dataManager.isFirst();
-        LogTool.d("first=" + first);
+        GeTuiManager.initGeTui(getApplicationContext());
         checkVersion();
 
         Intent intent = getIntent();
@@ -152,11 +149,6 @@ public class WelcomeActivity extends BaseActivity {
             }
         });
         dialog.show();
-    }
-
-    private void initView() {
-        LogTool.d("initView");
-        GeTuiManager.initGeTui(getApplicationContext());
     }
 
     private Runnable runnable = new Runnable() {

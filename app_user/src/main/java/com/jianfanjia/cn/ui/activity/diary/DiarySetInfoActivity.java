@@ -148,6 +148,7 @@ public class DiarySetInfoActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             mDiarySetInfo = (DiarySetInfo) bundle.getSerializable(IntentConstant.DIARYSET_INFO);
+            diarySetId = bundle.getString(IntentConstant.DIARYSET_ID);
             if (mDiarySetInfo != null) {
                 diarySetId = mDiarySetInfo.get_id();
             }

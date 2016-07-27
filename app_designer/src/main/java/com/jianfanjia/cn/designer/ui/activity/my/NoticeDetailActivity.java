@@ -1,10 +1,12 @@
 package com.jianfanjia.cn.designer.ui.activity.my;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.Event.UpdateEvent;
 import com.jianfanjia.cn.designer.ui.activity.SettingMeasureDateActivity;
+import com.jianfanjia.cn.designer.ui.activity.common.WebViewActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewHomeRequirementActivity;
@@ -326,6 +329,21 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity implements View.
                     }
                     dateText.setText(DateFormatTool.getHumReadDateString(noticeDetailInfo.getCreate_at()));
                     contentView.loadDataWithBaseURL(null, noticeDetailInfo.getHtml(), "text/html", "utf-8", null);
+                    contentView.setWebViewClient(new WebViewClient() {
+
+                        @Override
+                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                            if (url.startsWith("tel:")) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse(url));
+                                startActivity(intent);
+                            } else if (url.startsWith("http:") || url.startsWith("https:")) {
+                                WebViewActivity.intentToWebView(NoticeDetailActivity.this, url);
+                            }
+                            return true;
+                        }
+
+                    });
                 }
             }
 

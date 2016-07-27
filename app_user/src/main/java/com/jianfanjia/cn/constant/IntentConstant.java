@@ -68,6 +68,8 @@ public class IntentConstant {
     public static final String DIARY_INFO = "diary_info";
     public static final String COMMENT_INFO = "comment_info";
 
+    public static final String DIARYSET_ID = "diaryset_id";
     public static final String DIARYSET_INFO = "diaryset_info";
     public static final String DIARYSET_INFO_LIST = "diaryset_info_list";
+
 }

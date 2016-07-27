@@ -1,6 +1,8 @@
 package com.jianfanjia.cn.designer.ui.activity.common;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.jianfanjia.cn.designer.R;
 import com.jianfanjia.cn.designer.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.config.Url_New;
+import com.jianfanjia.cn.designer.tools.IntentUtil;
 import com.jianfanjia.cn.designer.tools.JavaScriptObject;
 import com.jianfanjia.cn.designer.tools.ShareUtil;
 import com.jianfanjia.cn.designer.tools.UiHelper;
@@ -53,6 +56,13 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         this.initView();
     }
 
+    public static void intentToWebView(Context context, String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Global.WEB_VIEW_URL, url);
+        IntentUtil.startActivity(context, WebViewActivity.class, bundle);
+    }
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_web_view;
@@ -67,14 +77,20 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.getInstance().MOBILE_SERVER_URL + this.getUrlFromIntent());
+        progressWebView.loadUrl(Url_New.buildUrl(this.getUrlFromIntent()));
         this.javaScriptObject = new JavaScriptObject();
         this.javaScriptObject.injectIntoWebView(this.progressWebView);
 
         progressWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if (url.startsWith("tel:")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(url));
+                    startActivity(intent);
+                } else if (url.startsWith("http:") || url.startsWith("https:")) {
+                    view.loadUrl(url);
+                }
                 return true;
             }
 
@@ -132,7 +148,8 @@ public class WebViewActivity extends BaseSwipeBackActivity {
     }
 
     private void showPopwindow() {
-        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject.getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
+        shareUtil.shareUrl(this, this.javaScriptObject.getImageUrl(), this.getWebTitle(), this.javaScriptObject
+                .getDescription(), this.progressWebView.getUrl(), new SocializeListeners.SnsPostListener() {
             @Override
             public void onStart() {
 

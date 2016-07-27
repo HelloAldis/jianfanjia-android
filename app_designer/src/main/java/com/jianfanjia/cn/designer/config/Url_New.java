@@ -1,5 +1,7 @@
 package com.jianfanjia.cn.designer.config;
 
+import android.text.TextUtils;
+
 import com.jianfanjia.cn.designer.BuildConfig;
 
 /**
@@ -24,21 +26,15 @@ public class Url_New {
     private Url_New() {
     }
 
-    /*{
-        try {
-            ApplicationInfo appInfo = MyApplication.getInstance().getPackageManager()
-                    .getApplicationInfo(MyApplication.getInstance().getPackageName(),
-                            PackageManager.GET_META_DATA);
-            SEVER_IP = appInfo.metaData.getString("SERVER_URL");
-
-            MOBILE_SERVER_URL = appInfo.metaData.getString("MOBILE_SERVER_URL");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+    public static String buildUrl(String url) {
+        if (!TextUtils.isEmpty(url) && url.contains(BuildConfig.MOBILE_SERVER_URL)) {
+            return url;
+        } else {
+            return BuildConfig.MOBILE_SERVER_URL + url;
         }
-    }*/
+    }
 
     public String HTTPROOT = SEVER_IP + "/api/v2/app/";
-
     //365基础包详情页
     public String PACKGET365_DETAIL_URL= "/view/zt/365package/index.html";
 
