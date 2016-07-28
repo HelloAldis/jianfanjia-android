@@ -11,8 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -36,11 +34,9 @@ import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshListView;
 import com.jianfanjia.cn.supervisor.R;
 import com.jianfanjia.cn.supervisor.activity.common.CommentActivity;
 import com.jianfanjia.cn.supervisor.adapter.SectionItemAdapter;
-import com.jianfanjia.cn.supervisor.adapter.SectionViewPageAdapter;
 import com.jianfanjia.cn.supervisor.api.Api;
 import com.jianfanjia.cn.supervisor.application.MyApplication;
 import com.jianfanjia.cn.supervisor.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.supervisor.bean.ViewPagerItem;
 import com.jianfanjia.cn.supervisor.config.Constant;
 import com.jianfanjia.cn.supervisor.config.Global;
 import com.jianfanjia.cn.tools.BusinessCovertUtil;
@@ -77,8 +73,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
     MainHeadView mainHeadView;
 
     private SectionItemAdapter sectionItemAdapter = null;
-    private SectionViewPageAdapter sectionViewPageAdapter = null;
-    private List<ViewPagerItem> processList = new ArrayList<>();
     private List<ProcessSection> mProcessSections;
     private ProcessSection mProcessSection = null;
     private Process processInfo = null;
@@ -87,8 +81,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
     private int currentPro = -1;// 当前进行工序
     private int currentList = -1;// 当前展开第一道工序
     private int lastPro = -1;// 上次进行的工序
-
-    private File mTmpFile = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -578,11 +570,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity{
                     @Override
                     public void onSuccess(ApiResponse<String> apiResponse) {
                         loadCurrentProcess(false);
-                        if (mTmpFile != null
-                                && mTmpFile
-                                .exists()) {
-                            mTmpFile.delete();
-                        }
                     }
 
                     @Override

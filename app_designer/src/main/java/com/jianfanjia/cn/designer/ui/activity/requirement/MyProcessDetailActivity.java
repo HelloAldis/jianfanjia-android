@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -86,7 +85,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
     private int currentList = -1;// 当前展开第一道工序
     private int lastPro = -1;// 上次进行的工序
 
-    private File mTmpFile = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -609,11 +607,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     @Override
                     public void onSuccess(ApiResponse<String> apiResponse) {
                         loadCurrentProcess(false);
-                        if (mTmpFile != null
-                                && mTmpFile
-                                .exists()) {
-                            mTmpFile.delete();
-                        }
                     }
 
                     @Override
