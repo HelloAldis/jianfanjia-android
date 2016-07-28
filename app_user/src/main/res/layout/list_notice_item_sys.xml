@@ -22,6 +22,7 @@
             android:gravity="left"
             android:singleLine="true"
             android:text="系统公告"
+            android:layout_marginRight="@dimen/space_8"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14"/>
 

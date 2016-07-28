@@ -1,6 +1,7 @@
 package com.jianfanjia.cn.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,6 +142,7 @@ public class SectionItemAdapter extends BaseAdapter {
     }
 
     public View initView(final int position, View convertView) {
+        long startTime = System.currentTimeMillis();
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_process_item, null);
@@ -217,13 +219,13 @@ public class SectionItemAdapter extends BaseAdapter {
         if (commentCount > 0) {
             viewHolder.openComment.setText(commentCount + "");
             viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
-                    context.getResources().getDrawable(
+                    ContextCompat.getDrawable(context,
                             R.mipmap.icon_comment_pressed), null,
                     null, null);
         } else {
             viewHolder.openComment.setText(R.string.commentText);
             viewHolder.openComment.setCompoundDrawablesWithIntrinsicBounds(
-                    context.getResources().getDrawable(
+                    ContextCompat.getDrawable(context,
                             R.mipmap.icon_comment_normal), null,
                     null, null);
         }
@@ -233,25 +235,39 @@ public class SectionItemAdapter extends BaseAdapter {
             if (sectionItemInfo.isOpen()) {
                 viewHolder.bigOpenLayout.setVisibility(View.VISIBLE);
                 viewHolder.smallcloseLayout.setVisibility(View.GONE);
+                setImageData(viewHolder.gridView);
             } else {
                 viewHolder.bigOpenLayout.setVisibility(View.GONE);
+                stopDeleteAni(viewHolder.gridView);
                 viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
             }
+
         } else {
             viewHolder.bigOpenLayout.setVisibility(View.GONE);
             viewHolder.smallcloseLayout.setVisibility(View.VISIBLE);
 
         }
         // 设置上传照片
-        setImageData(viewHolder.gridView);
+
         viewHolder.openComment.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MyProcessDetailActivity) context).intentToComent(position);
             }
         });
+        long endTime = System.currentTimeMillis();
+        LogTool.d("bindTime =" + (endTime - startTime));
 
         return convertView;
+    }
+
+    private void stopDeleteAni(GridView gridView) {
+        if (gridView.getAdapter() != null) {
+            SectionItemGridViewAdapter sectionItemGridViewAdapter = (SectionItemGridViewAdapter) gridView.getAdapter();
+            if (sectionItemGridViewAdapter.isCanEdit()) {
+                sectionItemGridViewAdapter.setCanEdit(false);
+            }
+        }
     }
 
     private void showImageBig(int position, List<AnimationRect> animationRectList) {
@@ -268,9 +284,17 @@ public class SectionItemAdapter extends BaseAdapter {
      * @des 设置item里gridview的照片
      */
     private void setImageData(final GridView gridView) {
-        final SectionItemGridViewAdapter sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context,
-                showImageUrlList);
-        gridView.setAdapter(sectionItemGridViewAdapter);
+        LogTool.d("reset gridview");
+        SectionItemGridViewAdapter sectionItemGridViewAdapter;
+        if (gridView.getAdapter() == null) {
+            sectionItemGridViewAdapter = new SectionItemGridViewAdapter(context,
+                    showImageUrlList);
+            gridView.setAdapter(sectionItemGridViewAdapter);
+        } else {
+            sectionItemGridViewAdapter = (SectionItemGridViewAdapter) gridView.getAdapter();
+            sectionItemGridViewAdapter.setList(showImageUrlList);
+            sectionItemGridViewAdapter.notifyDataSetChanged();
+        }
         gridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -296,7 +320,9 @@ public class SectionItemAdapter extends BaseAdapter {
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                if (sectionItemGridViewAdapter.isCanEdit()) {
+                final SectionItemGridViewAdapter sectionItemGridViewAdapter = (SectionItemGridViewAdapter) parent
+                        .getAdapter();
+                if (sectionItemGridViewAdapter != null && sectionItemGridViewAdapter.isCanEdit()) {
                     return false;
                 }
 
@@ -309,17 +335,17 @@ public class SectionItemAdapter extends BaseAdapter {
                     int totalCount = showImageUrlList.contains(Constant.HOME_ADD_PIC) ? gridView.getCount() - 1 :
                             gridView.getCount();
                     for (int i = 0; i < totalCount; i++) {
-                        View childView = gridView.getChildAt(i).findViewById(R.id.img);
+                        View childView = gridView.getChildAt(i);
                         UiHelper.imageAddShowDeleteAni(childView, new Animation.AnimationListener() {
 
                             @Override
                             public void onAnimationStart(Animation animation) {
-
+                                sectionItemGridViewAdapter.setCanEdit(true);
                             }
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
-                                sectionItemGridViewAdapter.setCanEdit(true);
+
                             }
 
                             @Override
@@ -332,6 +358,7 @@ public class SectionItemAdapter extends BaseAdapter {
                 return true;
             }
         });
+
     }
 
     static class ViewHolder {
@@ -398,7 +425,7 @@ public class SectionItemAdapter extends BaseAdapter {
         @Override
         public View initView(final int position, View convertView) {
             String imgUrl = list.get(position);
-            ViewHolder holder = null;
+            ViewHolder holder;
             if (convertView == null) {
                 convertView = layoutInflater.inflate(R.layout.grid_item_show_process_pic, null);
                 holder = new ViewHolder(convertView);
@@ -420,6 +447,7 @@ public class SectionItemAdapter extends BaseAdapter {
                     holder.tvDiaryDelete.setVisibility(View.VISIBLE);
                 }
             } else {
+                convertView.clearAnimation();
                 holder.tvDiaryDelete.setVisibility(View.GONE);
             }
 

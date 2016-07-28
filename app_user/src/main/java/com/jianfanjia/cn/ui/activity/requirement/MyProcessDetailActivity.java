@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
@@ -83,8 +83,23 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
     private int currentPro = -1;// 当前进行工序
     private int currentList = -1;// 当前展开第一道工序
     private int lastPro = -1;// 上次进行的工序
+    private boolean isLoadSuccessOnce;
+    private Handler mHandler = new Handler();
+    private Runnable refreshData;
 
-    private File mTmpFile = null;
+    private class RefreshData implements Runnable {
+
+        private boolean isResetCheckHead;
+
+        public RefreshData(boolean isResetCheckHead) {
+            this.isResetCheckHead = isResetCheckHead;
+        }
+
+        @Override
+        public void run() {
+            initData(isResetCheckHead);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,7 +152,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
                 if (processId != Constant.DEFAULT_PROCESSINFO_ID) {
                     loadCurrentProcess(true);
                 } else {
-                    new android.os.Handler().post(new Runnable() {
+                    mHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             mPullToRefreshListView.onRefreshComplete();
@@ -170,7 +185,9 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
             Api.getProcessInfoDetail(getProcessInfoRequest, new ApiCallback<ApiResponse<Process>>() {
                 @Override
                 public void onPreLoad() {
-                    Hud.show(getUiContext());
+                    if (!isLoadSuccessOnce) {
+                        Hud.show(getUiContext());
+                    }
                 }
 
                 @Override
@@ -183,8 +200,16 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
 
                 @Override
                 public void onSuccess(ApiResponse<Process> apiResponse) {
+                    isLoadSuccessOnce = true;
                     processInfo = apiResponse.getData();
-                    initData(isResetCheckHead);
+
+                    if (refreshData != null) {
+                        mHandler.removeCallbacks(refreshData);
+                        refreshData = null;
+                    }
+                    refreshData = new RefreshData(isResetCheckHead);
+                    mHandler.postDelayed(refreshData, 200);
+
                 }
 
                 @Override
@@ -210,12 +235,10 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
         Api.deleteImageToProcess(deleteImageToProcessRequest, new ApiCallback<ApiResponse<String>>() {
             @Override
             public void onPreLoad() {
-                Hud.show(getUiContext());
             }
 
             @Override
             public void onHttpDone() {
-                Hud.dismiss();
             }
 
             @Override
@@ -448,7 +471,8 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
 
             @Override
             public void onNetworkError(int code) {
-                makeTextShort(HttpCode.getMsg(code));            }
+                makeTextShort(HttpCode.getMsg(code));
+            }
         }, this);
     }
 
@@ -580,11 +604,6 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
                     @Override
                     public void onSuccess(ApiResponse<String> apiResponse) {
                         loadCurrentProcess(false);
-                        if (mTmpFile != null
-                                && mTmpFile
-                                .exists()) {
-                            mTmpFile.delete();
-                        }
                     }
 
                     @Override
@@ -614,6 +633,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mHandler.removeCallbacks(refreshData);
     }
 
     @Override

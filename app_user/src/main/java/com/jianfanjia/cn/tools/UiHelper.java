@@ -165,11 +165,11 @@ public class UiHelper {
     }
 
     public static void imageAddShowDeleteAni(final View view, Animation.AnimationListener listener) {
-        RotateAnimation animation = new RotateAnimation(-5, 5, Animation.RELATIVE_TO_SELF,
+        RotateAnimation animation = new RotateAnimation(-3, 3, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setRepeatMode(Animation.REVERSE);
-        animation.setRepeatCount(10);
-        animation.setDuration(40);
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setDuration(250);
         if (listener != null) {
             animation.setAnimationListener(listener);
         }
