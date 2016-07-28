@@ -105,7 +105,7 @@ public class DesignerTeamAuthAdapter extends BaseRecyclerViewAdapter<Team> {
     public void remove(int position) {
         if (list == null) return;
         list.remove(position);
-        notifyItemRemoved(position + 1);
+        notifyDataSetChanged();
     }
 
     @Override

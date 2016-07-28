@@ -11,18 +11,18 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import com.jianfanjia.cn.AppManager;
-import com.jianfanjia.cn.base.BaseActivity;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.ui.Event.MessageCountEvent;
-import com.jianfanjia.cn.ui.fragment.DiaryDynamicFragment;
-import com.jianfanjia.cn.ui.fragment.MyNewFragment;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
+import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseActivity;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.tools.UiHelper;
+import com.jianfanjia.cn.ui.Event.MessageCountEvent;
 import com.jianfanjia.cn.ui.fragment.DecorationFragment;
+import com.jianfanjia.cn.ui.fragment.DiaryDynamicFragment;
 import com.jianfanjia.cn.ui.fragment.HomeNewFragment;
+import com.jianfanjia.cn.ui.fragment.MyNewFragment;
 import com.jianfanjia.cn.ui.fragment.XuQiuFragment;
 import de.greenrobot.event.EventBus;
 
@@ -60,11 +60,13 @@ public class MainActivity extends BaseActivity {
     private DiaryDynamicFragment mDiaryDynamicFragment = null;
     private long mExitTime = 0L;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         initView();
+
     }
 
     private void initView() {
@@ -82,7 +84,7 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         //每次resume刷新一下消息条数
-        UiHelper.getUnReadMessageCount(getMessageCountListener, this,Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, this, Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
@@ -137,7 +139,7 @@ public class MainActivity extends BaseActivity {
                 }
             };
 
-    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout,R.id.diary_layout})
+    @OnClick({R.id.home_layout, R.id.img_layout, R.id.req_layout, R.id.my_layout, R.id.diary_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_layout:
@@ -264,7 +266,7 @@ public class MainActivity extends BaseActivity {
         if (myFragment != null) {
             ft.hide(myFragment);
         }
-        if(mDiaryDynamicFragment != null){
+        if (mDiaryDynamicFragment != null) {
             ft.hide(mDiaryDynamicFragment);
         }
     }
@@ -281,7 +283,7 @@ public class MainActivity extends BaseActivity {
 
     public void onEventMainThread(MessageCountEvent messageCountEvent) {
         //为了让在当前屏能及时响应，所以每次收到提醒时刷新一下view
-        UiHelper.getUnReadMessageCount(getMessageCountListener,this, Constant.searchMsgCountType1, Constant
+        UiHelper.getUnReadMessageCount(getMessageCountListener, this, Constant.searchMsgCountType1, Constant
                 .searchMsgCountType2);
     }
 
