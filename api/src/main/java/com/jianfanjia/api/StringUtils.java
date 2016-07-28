@@ -15,7 +15,7 @@ public class StringUtils {
     public static String unEscapeHtmp(String src) {
         if (TextUtils.isEmpty(src)) return null;
         if (src.contains("&quot;")) {
-            src = src.replace("&quot;", "\"");
+            src = src.replace("&quot;", "\\\"");
         }
         if (src.contains("&amp;")) {
             src = src.replace("&amp;", "&");

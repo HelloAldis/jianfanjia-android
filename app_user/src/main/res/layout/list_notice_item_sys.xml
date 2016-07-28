@@ -16,6 +16,11 @@
         <TextView
             android:id="@+id/list_item_sys_tip_title"
             style="@style/listview_item_text_style_small"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/list_item_sys_tip_date"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
             android:text="系统公告"
             android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14"/>
@@ -36,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/list_item_sys_tip_title"
             android:layout_marginRight="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="@dimen/space_10"
             android:text="感谢您使用我们产品，简繁家带您开启全新的app之旅。"
             android:textColor="@color/main_color_grey"
             android:textSize="@dimen/text_size_12"/>
