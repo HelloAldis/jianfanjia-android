@@ -184,6 +184,7 @@ public class MyProcessDetailActivity extends BaseSwipeBackActivity implements It
                     }
                 }
 
+
                 @Override
                 public void onSuccess(ApiResponse<Process> apiResponse) {
                     processInfo = apiResponse.getData();

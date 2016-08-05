@@ -119,7 +119,7 @@ public class DecorateLiveFragment extends BaseFragment {
                     public void OnItemClick(int position) {
                         //跳到装修直播详情页面
                         String pid = decorateLiveAdapter.getData().get(position).get_id();
-                        WebViewActivity.intentToWebView(_context,Url_New.getInstance().DECORATE_LIVE_URL + pid);
+                        WebViewActivity.intentToWebView(getActivity(),Url_New.getInstance().DECORATE_LIVE_URL + pid);
                     }
                 });
         decorateLiveAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
