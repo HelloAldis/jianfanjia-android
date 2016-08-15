@@ -2,8 +2,6 @@ package com.jianfanjia.api;
 
 import android.text.TextUtils;
 
-import com.jianfanjia.common.tool.LogTool;
-
 /**
  * Description: com.jianfanjia.api
  * Author: zhanghao
@@ -29,7 +27,7 @@ public class StringUtils {
         if (src.contains("&nbsp;")) {
             src = src.replace("&nbsp;", " ");
         }
-        LogTool.d(src);
+//        LogTool.d(src);
         return src.toString();
     }
 }

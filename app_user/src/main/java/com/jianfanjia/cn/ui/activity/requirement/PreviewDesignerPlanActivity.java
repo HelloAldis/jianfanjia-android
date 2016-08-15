@@ -314,7 +314,6 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
         btn_choose.setText(getString(R.string.str_has_choosed_plan));
         switch (flagIntent) {
             case PLAN_LIST_INTENT:
-                startActivity(MyDesignerActivity.class);
                 appManager.finishActivity(PreviewDesignerPlanActivity.this);
                 break;
             case COMMENT_INTENT:

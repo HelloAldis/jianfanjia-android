@@ -7,9 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,32 +21,29 @@ import com.aldis.hud.Hud;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
-import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.tools.UiHelper;
 import com.jianfanjia.cn.ui.Event.ScrollEvent;
-import com.jianfanjia.cn.ui.activity.my.BindingPhoneActivity;
-import com.jianfanjia.cn.ui.activity.requirement.AppointDesignerActivity;
-import com.jianfanjia.cn.ui.activity.requirement.AppointHighPointDesignerActivity;
-import com.jianfanjia.cn.ui.activity.requirement.ContractActivity;
-import com.jianfanjia.cn.ui.activity.requirement.MyDesignerActivity;
+import com.jianfanjia.cn.ui.activity.home.DesignerInfoActivity;
 import com.jianfanjia.cn.ui.activity.requirement.MyProcessDetailActivity;
 import com.jianfanjia.cn.ui.activity.requirement.PreviewBusinessRequirementActivity;
+import com.jianfanjia.cn.ui.activity.requirement.PreviewDesignerPlanActivity;
 import com.jianfanjia.cn.ui.activity.requirement.PreviewHomeRequirementActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.ui.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.ui.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.ui.interf.ClickCallBack;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.common.tool.LogTool;
+import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -64,26 +62,17 @@ public class XuQiuFragment extends BaseFragment {
 
     public static final int ITEM_GOTOMYDESI = 0x04;//去我的设计师
     public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
-    public static final int ITEM_GOTOCONTRACT = 0x07;//查看合同
+    public static final int ITEM_GOTOPLAN = 0x07;//查看合同
 
     protected RequirementNewAdapter requirementAdapter;
     private List<Requirement> requirementInfos = new ArrayList<>();
     private boolean isFirst = true;//第一次加载成功之前都只显示等待对话框
 
-    @Bind(R.id.frag_req_rootview)
-    protected LinearLayout rootView;
-
     @Bind(R.id.req_head)
     protected MainHeadView mainHeadView = null;
 
-    @Bind(R.id.req_tip)
-    protected TextView req_tip;
-
-    @Bind(R.id.req_publish)
-    protected TextView req_publish;
-
     @Bind(R.id.req_publish_wrap)
-    protected LinearLayout req_publish_wrap;
+    protected ScrollView req_publish_wrap;
 
     @Bind(R.id.req_listview_wrap)
     protected FrameLayout req_listview_wrap;
@@ -93,6 +82,9 @@ public class XuQiuFragment extends BaseFragment {
 
     @Bind(R.id.error_include)
     RelativeLayout error_Layout;
+
+    @Bind(R.id.edit_requirement_bg)
+    ImageView ivEditRequirementBg;
 
     private Requirement requirementInfo;
 
@@ -150,20 +142,15 @@ public class XuQiuFragment extends BaseFragment {
                         gotoMyProcessBundle.putSerializable(IntentConstant.PROCESS_INFO, requirementInfo.getProcess());
                         startActivity(MyProcessDetailActivity.class, gotoMyProcessBundle);
                         break;
-                    case ITEM_GOTOMYDESI:
-                        Bundle gotoMyDesignerBundle = new Bundle();
-                        gotoMyDesignerBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
-                                (position));
-                        startActivity(MyDesignerActivity.class, gotoMyDesignerBundle);
-                        break;
                     case ITEM_GOTOODERDESI:
                         gotoOrderDesigner();
                         break;
-                    case ITEM_GOTOCONTRACT:
-                        Bundle gotoContractBundle = new Bundle();
+                    case ITEM_GOTOPLAN:
+                        startToActivity(requirementInfo.getPlan());
+                       /* Bundle gotoContractBundle = new Bundle();
                         gotoContractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
                                 (position));
-                        startActivity(ContractActivity.class, gotoContractBundle);
+                        startActivity(ContractActivity.class, gotoContractBundle);*/
                         break;
                     default:
                         break;
@@ -174,9 +161,22 @@ public class XuQiuFragment extends BaseFragment {
         mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
     }
 
+    private void startToActivity(Plan planInfo) {
+        Bundle planBundle = new Bundle();
+        planBundle.putSerializable(IntentConstant.PLAN_DETAIL, planInfo);
+        planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
+//        planBundle.putString(Global.POSITION, planInfo.getName());
+        startActivity(PreviewDesignerPlanActivity.class, planBundle);
+    }
+
+
+
     protected void gotoOrderDesigner() {
         Bundle gotoOrderDesignerBundle = new Bundle();
-        if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_HIGH_POINT)) {//匠心定制的需求预约高端设计师
+        gotoOrderDesignerBundle.putString(IntentConstant.DESIGNER_ID,requirementInfo.getFinal_designerid());
+        startActivity(DesignerInfoActivity.class,gotoOrderDesignerBundle);
+
+        /*if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_HIGH_POINT)) {//匠心定制的需求预约高端设计师
             gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
             startActivity(AppointHighPointDesignerActivity.class, gotoOrderDesignerBundle);
         } else {
@@ -188,19 +188,7 @@ public class XuQiuFragment extends BaseFragment {
             }
             gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
             startActivity(AppointDesignerActivity.class, gotoOrderDesignerBundle);
-        }
-    }
-
-    @OnClick({R.id.req_publish_layout, R.id.head_right_title})
-    protected void publish_requirement() {
-        if (dataManager.getAccount() != null) {
-            startActivity(PublishRequirementActivity.class);
-        } else {
-            Bundle bundle = new Bundle();
-            bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
-            startActivity(BindingPhoneActivity.class, bundle);
-            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-        }
+        }*/
     }
 
     @OnClick(R.id.error_include)
@@ -208,16 +196,41 @@ public class XuQiuFragment extends BaseFragment {
         initData();
     }
 
+    @OnClick({R.id.head_right_title,R.id.btn_apply})
+    protected void onClick(View view){
+        switch (view.getId()){
+            case R.id.head_right_title:
+                UiHelper.callPhoneIntent(getUiContext(),getString(R.string.app_phone));
+                break;
+            case R.id.btn_apply:
+                break;
+        }
+    }
+
     protected void initView() {
-        mainHeadView.setMianTitle(getResources().getString(R.string.create_my_requirement));
-        mainHeadView.setRightTitle(getResources().getString(R.string.str_create));
-        mainHeadView.setBackgroundTransparent();
-        mainHeadView.setRightTitleVisable(View.VISIBLE);
-        mainHeadView.setBackLayoutVisable(View.GONE);
+        initEditBackGround();
+        initMainView();
         setListVisiable();
         initPullRefresh();
         initListView();
-//        initData();
+    }
+
+    private void initEditBackGround() {
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)ivEditRequirementBg.getLayoutParams();
+
+        lp.width = (int)TDevice.getScreenWidth();
+        lp.height = (int)( ((float)lp.width / 1242) * 850);
+
+        LogTool.d("width =" + lp.width + ",height =" + lp.height);
+        ivEditRequirementBg.setLayoutParams(lp);
+    }
+
+    private void initMainView() {
+        mainHeadView.setMianTitle(getResources().getString(R.string.create_my_requirement));
+        mainHeadView.setRightTitle(getResources().getString(R.string.phone_kefu));
+        mainHeadView.setBackgroundTransparent();
+        mainHeadView.setRightTitleVisable(View.VISIBLE);
+        mainHeadView.setBackLayoutVisable(View.GONE);
     }
 
     @Override

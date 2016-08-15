@@ -42,7 +42,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/head_img"
             android:text="@string/str_title"
-            android:textColor="@color/home_page_text_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14" />
     </RelativeLayout>
 

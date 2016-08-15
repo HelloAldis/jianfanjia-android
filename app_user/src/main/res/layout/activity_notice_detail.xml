@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_selector_bg_1"
                 android:text="拒绝"
-                android:textColor="@color/home_page_text_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_14" />
         </LinearLayout>
 
@@ -165,7 +165,7 @@
                     style="@style/listview_item_text_style_middle"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/space_10"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/text_size_16" />
 
                 <TextView
@@ -185,7 +185,7 @@
                 android:layout_marginBottom="@dimen/space_10"
                 android:layout_marginLeft="@dimen/space_20"
                 android:layout_marginTop="@dimen/space_10"
-                android:textColor="@color/home_page_text_color" />
+                android:textColor="@color/light_black_color" />
 
             <View
                 android:id="@+id/top_line"

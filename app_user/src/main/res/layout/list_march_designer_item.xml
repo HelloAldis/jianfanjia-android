@@ -37,7 +37,7 @@
             android:layout_below="@id/imageLayout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dip"
-            android:textColor="@color/home_page_text_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14" />
 
         <RatingBar

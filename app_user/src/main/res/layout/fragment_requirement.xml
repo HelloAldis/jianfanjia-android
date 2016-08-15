@@ -35,8 +35,12 @@
             android:visibility="gone" />
     </FrameLayout>
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/req_publish_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/font_white"
@@ -46,36 +50,113 @@
             android:id="@+id/edit_requirement_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@mipmap/bg_requirement" />
 
-        <LinearLayout
-            android:id="@+id/req_publish_layout"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/middle_size"
+            android:text="@string/free_appoint"/>
+
+        <FrameLayout
+            android:id="@+id/fl_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="vertical">
+            android:layout_marginLeft="@dimen/space_48"
+            android:layout_marginRight="@dimen/space_48"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@drawable/bg_grey_corner_rectangle">
 
-            <TextView
-                android:id="@+id/req_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/str_req_tip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint="@string/input_name"
+                android:inputType="phone"
+                android:maxLength="15"
+                android:nextFocusDown="@+id/act_login_input_password"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingRight="@dimen/space_16"
+                android:singleLine="true"
                 android:textColor="@color/light_black_color"
-                android:textSize="@dimen/small_size"
-                android:textStyle="bold" />
+                android:textSize="@dimen/middle_size" />
 
-            <TextView
-                android:id="@+id/req_publish"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:text="@string/str_req_pubReq"
-                android:textColor="@color/orange_color"
+                android:layout_gravity="left|center_vertical"
+                android:padding="@dimen/space_16"
+                android:background="@drawable/bg_left_corner_rectangle"
+                android:src="@mipmap/icon_input_phone" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_48"
+            android:layout_marginRight="@dimen/space_48"
+            android:layout_marginTop="@dimen/space_16"
+            android:background="@drawable/bg_grey_corner_rectangle">
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:hint="@string/hint_username"
+                android:inputType="textPassword"
+                android:maxLength="30"
+
+
+                android:paddingLeft="@dimen/space_32"
+                android:paddingRight="@dimen/space_32"
+                android:singleLine="true"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/middle_size" />
-        </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:padding="@dimen/space_16"
+                android:background="@drawable/bg_left_corner_rectangle"
+                android:src="@mipmap/icon_input_psw" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_apply"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_48"
+            android:layout_marginLeft="@dimen/space_48"
+            android:layout_marginRight="@dimen/space_48"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@drawable/btn_selector_bg"
+            android:text="@string/immediately_apply"
+            android:textColor="@color/font_white"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            style="@style/listview_item_text_style_middle"
+            android:textColor="@color/grey_color"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_48"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/tip_apply"/>
+
     </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

@@ -24,7 +24,7 @@
             android:layout_below="@id/list_item_product_img"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/space_10"
-            android:textColor="@color/home_page_text_color"
+            android:textColor="@color/light_black_color"
             android:textSize="@dimen/text_size_14"
             android:textStyle="bold" />
 

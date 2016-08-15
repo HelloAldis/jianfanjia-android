@@ -60,7 +60,7 @@
                 android:layout_marginLeft="20dip"
                 android:layout_marginRight="20dip"
                 android:layout_marginTop="10dip"
-                android:textColor="@color/home_page_text_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="16sp"
                 android:visibility="gone" />
 
@@ -78,14 +78,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="装修户型："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
                     android:id="@+id/houseType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
 
@@ -103,14 +103,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="装修面积："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
                     android:id="@+id/houseArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
 
@@ -128,14 +128,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="装修类型："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
                     android:id="@+id/decorateType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
 
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="总工期："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="项目报价："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
@@ -213,14 +213,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设计说明："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14" />
 
                 <TextView
                     android:id="@+id/designText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/home_page_text_color"
+                    android:textColor="@color/light_black_color"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
         </LinearLayout>

@@ -241,12 +241,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name="com.jianfanjia.cn.ui.activity.requirement.MyDesignerActivity"
-            android:label="@string/title_activity_my_designer"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Swipe.Back"/>
-        <activity
             android:name="com.jianfanjia.cn.ui.activity.welcome.NavigateActivity"
             android:label="@string/title_activity_navigate"
             android:screenOrientation="portrait">

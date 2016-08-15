@@ -43,7 +43,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:text="@string/decoratebudget_365_basic"
-                            android:textColor="@color/designer_info_text_color_bg"
+                            android:textColor="@color/grey_color"
                             android:textSize="@dimen/text_size_14"/>
 
                         <TextView
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:text="@string/decoratebudget_365_individuation"
-                            android:textColor="@color/designer_info_text_color_bg"
+                            android:textColor="@color/grey_color"
                             android:textSize="@dimen/text_size_14"/>
 
                         <TextView
@@ -109,7 +109,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:text="工程总造价"
-                            android:textColor="@color/designer_info_text_color_bg"
+                            android:textColor="@color/grey_color"
                             android:textSize="@dimen/text_size_14"/>
 
                         <TextView
@@ -150,7 +150,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_40"
                     android:text="工程折后价"
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14"/>
 
                 <TextView
@@ -180,7 +180,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_40"
                     android:text="设计费"
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14"/>
 
                 <TextView
@@ -211,7 +211,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_40"
                     android:text="折后总价："
-                    android:textColor="@color/designer_info_text_color_bg"
+                    android:textColor="@color/grey_color"
                     android:textSize="@dimen/text_size_14"/>
 
                 <TextView

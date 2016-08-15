@@ -32,7 +32,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dip"
                 android:text="QQ"
-                android:textColor="@color/home_page_text_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
@@ -57,7 +57,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dip"
                 android:text="微博"
-                android:textColor="@color/home_page_text_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
@@ -82,7 +82,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dip"
                 android:text="微信"
-                android:textColor="@color/home_page_text_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dip"
                 android:text="朋友圈"
-                android:textColor="@color/home_page_text_color"
+                android:textColor="@color/light_black_color"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
     </LinearLayout>

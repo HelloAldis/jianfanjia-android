@@ -9,7 +9,7 @@
         style="@style/listview_item_text_style_big"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dip"
-        android:textColor="@color/home_page_text_color" />
+        android:textColor="@color/light_black_color" />
 
     <TextView
         android:id="@+id/stylelName"
@@ -18,7 +18,7 @@
         android:layout_below="@id/cell_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dip"
-        android:textColor="@color/home_page_text_color" />
+        android:textColor="@color/light_black_color" />
 
     <TextView
         android:id="@+id/tv_worktype_and_totalprice"
@@ -27,7 +27,7 @@
         android:layout_below="@+id/stylelName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dip"
-        android:textColor="@color/home_page_text_color"/>
+        android:textColor="@color/light_black_color"/>
 
     <FrameLayout
         android:id="@+id/imageLayout"
@@ -62,7 +62,7 @@
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
         android:layout_marginTop="30dip"
-        android:textColor="@color/home_page_text_color"
+        android:textColor="@color/light_black_color"
         android:textSize="@dimen/text_size_16" />
 
     <TextView

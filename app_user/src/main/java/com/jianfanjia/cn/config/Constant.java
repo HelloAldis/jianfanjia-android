@@ -116,6 +116,7 @@ public class Constant {
     public static final String TYPE_DESIGNER_REJECT_DELAY_MSG = "11";//设计师拒绝改期
     public static final String TYPE_DESIGNER_AGREE_DELAY_MSG = "12";//设计师同意改期
     public static final String TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG = "13";//设计师提醒业主量房
+
     public static final String TYPE_DIARY_COMMENT_MSG = "14";//日记评论
 
     // 业主消息提醒状态

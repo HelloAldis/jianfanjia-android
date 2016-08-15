@@ -126,11 +126,11 @@ public class NoticeAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
             case ITEM_TYPE12:
                 SiteViewHolder siteViewHolder = (SiteViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
-                    siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    siteViewHolder.itemCell.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    siteViewHolder.itemDate.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    siteViewHolder.itemSection.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    siteViewHolder.itemContent.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    siteViewHolder.itemCell.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    siteViewHolder.itemDate.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    siteViewHolder.itemSection.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    siteViewHolder.itemContent.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                 } else {
                     siteViewHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
                     siteViewHolder.itemCell.setTextColor(context.getResources().getColor(R.color.grey_color));
@@ -157,9 +157,9 @@ public class NoticeAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
             case ITEM_TYPE4:
                 SysViewHolder sysHolder = (SysViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
-                    sysHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    sysHolder.itemDate.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    sysHolder.itemContent.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    sysHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    sysHolder.itemDate.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    sysHolder.itemContent.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                 } else {
                     sysHolder.itemTitle.setTextColor(context.getResources().getColor(R.color.light_black_color));
                     sysHolder.itemDate.setTextColor(context.getResources().getColor(R.color.grey_color));
@@ -186,10 +186,10 @@ public class NoticeAdapter extends BaseLoadMoreRecycleAdapter<UserMessage> {
             case ITEM_TYPE13:
                 ReqViewHolder reqViewHolder = (ReqViewHolder) viewHolder;
                 if (info.getStatus().equals(Constant.READ)) {
-                    reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    reqViewHolder.itemContentView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    reqViewHolder.itemCellView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
-                    reqViewHolder.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.color_grey_bg));
+                    reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    reqViewHolder.itemContentView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    reqViewHolder.itemCellView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
+                    reqViewHolder.itemPubTimeView.setTextColor(context.getResources().getColor(R.color.middle_grey_color));
                 } else {
                     reqViewHolder.itemTitleView.setTextColor(context.getResources().getColor(R.color
                             .light_black_color));
