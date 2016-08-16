@@ -359,7 +359,7 @@ public class AppointHighPointDesignerActivity extends BaseSwipeBackActivity {
         @Bind(R.id.appointCountText)
         protected TextView appointCountText = null;
 
-        @Bind(R.id.btn_apponit)
+        @Bind(R.id.btn_appoint)
         protected TextView appointView = null;
 
         public ViewHolder(View itemView) {

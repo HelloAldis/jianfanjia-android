@@ -1,9 +1,11 @@
 package com.jianfanjia.cn.business;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jianfanjia.api.model.Designer;
+import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.PlanPriceDetail;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.cn.activity.R;
@@ -41,6 +43,9 @@ public class RequirementBusiness {
     public static final String WORK_TYPE_HALF_PACKGET = "0";//半包
     public static final String WORK_TYPE_ALL_PACKGET = "1";//全包
     public static final String WORK_TYPE_PURE_DESIGNER = "2";//纯设计
+
+    public static final String REQUIREMENT_DISTRICT_APPOINT = "androidApp预约设计师";
+    public static final String REQUIREMENT_DISTRICT_ADD = "androidApp提交需求";
 
     //装修面积是否属于365基础包
     public static boolean isAreaBelong365(int houseArea) {
@@ -156,5 +161,27 @@ public class RequirementBusiness {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static Plan getLastUpdateDesignerPlan(Requirement requirement) {
+        List<Designer> orderDesigner = requirement.getOrder_designers();
+        List<Plan> planList = new ArrayList<>();
+        for (int i = 0; orderDesigner != null && i < orderDesigner.size(); i++) {
+            Designer designer = orderDesigner.get(i);
+            if(designer.getPlan() != null){
+                planList.add(designer.getPlan());
+            }
+        }
+
+        long lastUpdateTime = 0l;
+        Plan lastUpdatePlan = null;
+        for (int j = 0; j < planList.size() ;j++){
+            Plan plan = planList.get(j);
+            if(lastUpdateTime < plan.getLast_status_update_time()){
+                lastUpdateTime = plan.getLast_status_update_time();
+                lastUpdatePlan = plan;
+            }
+        }
+        return lastUpdatePlan;
     }
 }

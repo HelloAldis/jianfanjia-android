@@ -27,12 +27,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.aldis.hud.Hud;
+import com.jianfanjia.api.request.guest.PostUserRequirementRequest;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.tools.ScrollableHelper;
 import com.jianfanjia.cn.ui.Event.CollectDesignerEvent;
 import com.jianfanjia.cn.ui.adapter.MyFragmentPagerAdapter;
 import com.jianfanjia.cn.ui.fragment.DesignerInfoFragment;
 import com.jianfanjia.cn.ui.fragment.DesignerProductFragment;
+import com.jianfanjia.cn.view.dialog.DesignerAppointSuccessDialog;
 import com.jianfanjia.cn.view.layout.ScrollableLayout;
 import com.jianfanjia.api.ApiCallback;
 import com.jianfanjia.api.ApiResponse;
@@ -107,9 +109,6 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
 
     @Bind(R.id.btn_add)
     protected Button addBtn = null;
-
-    @Bind(R.id.btn_add_icon)
-    ImageView addBtnIconView;
 
     @Bind(R.id.designer_info_head_content)
     protected LinearLayout headContentLayout;
@@ -285,7 +284,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     }
 
     @OnClick({R.id.head_back_layout, R.id.btn_add, R.id.merger_button1_layout, R.id
-            .merger_button2_layout})
+            .merger_button2_layout,R.id.btn_appoint})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
@@ -310,9 +309,55 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
                 sl_root.setIsEnableScroll(true);
                 viewPager.setCurrentItem(1);
                 break;
+            case R.id.btn_appoint:
+                addAppointRequirement();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void addAppointRequirement() {
+        PostUserRequirementRequest postUserRequirement = new PostUserRequirementRequest();
+        postUserRequirement.setDesignerid(designerid);
+        postUserRequirement.setPhone(dataManager.getAccount());
+        postUserRequirement.setName(dataManager.getUserName());
+        postUserRequirement.setDistrict(RequirementBusiness.REQUIREMENT_DISTRICT_APPOINT);
+
+        Api.postUserRequirement(postUserRequirement, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                showAppointSuccessDialog();
+            }
+
+
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.getMsg(code));
+            }
+        },this);
+    }
+
+    private void showAppointSuccessDialog() {
+        DesignerAppointSuccessDialog designerAppointSuccessDialog = new DesignerAppointSuccessDialog(getUiContext());
+        designerAppointSuccessDialog.show();
     }
 
     @Override
@@ -392,7 +437,7 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
             } else {
                 imageShow.displayLocalImage(Constant.DEFALUT_OWNER_PIC, designerinfo_head_img);
             }
-            if (designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
+            if (designerInfo.getAuth_type() != null && designerInfo.getAuth_type().equals(Constant.DESIGNER_FINISH_AUTH_TYPE)) {
                 designerinfo_auth.setVisibility(View.VISIBLE);
             } else {
                 designerinfo_auth.setVisibility(View.GONE);
@@ -441,13 +486,11 @@ public class DesignerInfoActivity extends BaseSwipeBackActivity implements OnCli
     private void showAddFavorite(){
         addBtn.setTextColor(getResources().getColor(R.color.font_white));
         addBtn.setText(R.string.strl_add_yixiang);
-        addBtnIconView.setVisibility(View.VISIBLE);
     }
 
     private void showCancelFavorite(){
         addBtn.setTextColor(getResources().getColor(R.color.orange_color));
         addBtn.setText(R.string.strl_delete_yixiang);
-        addBtnIconView.setVisibility(View.GONE);
     }
 
     private void changeUiShow(Designer designerInfo) {

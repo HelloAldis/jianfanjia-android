@@ -3,9 +3,11 @@ package com.jianfanjia.cn.ui.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,10 +25,12 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Plan;
 import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.api.request.guest.PostUserRequirementRequest;
 import com.jianfanjia.api.request.user.GetRequirementListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
 import com.jianfanjia.cn.base.BaseFragment;
+import com.jianfanjia.cn.business.RequirementBusiness;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.constant.IntentConstant;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
@@ -42,6 +46,7 @@ import com.jianfanjia.cn.ui.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.ui.adapter.RequirementNewAdapter;
 import com.jianfanjia.cn.ui.interf.ClickCallBack;
 import com.jianfanjia.cn.view.MainHeadView;
+import com.jianfanjia.cn.view.dialog.DesignerAppointSuccessDialog;
 import com.jianfanjia.common.tool.LogTool;
 import com.jianfanjia.common.tool.TDevice;
 import de.greenrobot.event.EventBus;
@@ -60,8 +65,8 @@ public class XuQiuFragment extends BaseFragment {
     public static final int ITEM_EDIT = 0x00;
     public static final int ITEM_GOTOPRO = 0x01;
 
-    public static final int ITEM_GOTOMYDESI = 0x04;//去我的设计师
-    public static final int ITEM_GOTOODERDESI = 0x05;//去预约设计师
+    public static final int ITEM_GOTODESIGNER = 0x05;//
+    // 去预约设计师
     public static final int ITEM_GOTOPLAN = 0x07;//查看合同
 
     protected RequirementNewAdapter requirementAdapter;
@@ -85,6 +90,12 @@ public class XuQiuFragment extends BaseFragment {
 
     @Bind(R.id.edit_requirement_bg)
     ImageView ivEditRequirementBg;
+
+    @Bind(R.id.et_name)
+    EditText etUserName;
+
+    @Bind(R.id.et_phone)
+    EditText etPhone;
 
     private Requirement requirementInfo;
 
@@ -142,15 +153,11 @@ public class XuQiuFragment extends BaseFragment {
                         gotoMyProcessBundle.putSerializable(IntentConstant.PROCESS_INFO, requirementInfo.getProcess());
                         startActivity(MyProcessDetailActivity.class, gotoMyProcessBundle);
                         break;
-                    case ITEM_GOTOODERDESI:
+                    case ITEM_GOTODESIGNER:
                         gotoOrderDesigner();
                         break;
                     case ITEM_GOTOPLAN:
-                        startToActivity(requirementInfo.getPlan());
-                       /* Bundle gotoContractBundle = new Bundle();
-                        gotoContractBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfos.get
-                                (position));
-                        startActivity(ContractActivity.class, gotoContractBundle);*/
+                        gotoPreviewPlanActivity(RequirementBusiness.getLastUpdateDesignerPlan(requirementInfo));
                         break;
                     default:
                         break;
@@ -161,11 +168,10 @@ public class XuQiuFragment extends BaseFragment {
         mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
     }
 
-    private void startToActivity(Plan planInfo) {
+    private void gotoPreviewPlanActivity(Plan planInfo) {
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(IntentConstant.PLAN_DETAIL, planInfo);
         planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
-//        planBundle.putString(Global.POSITION, planInfo.getName());
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
@@ -176,19 +182,6 @@ public class XuQiuFragment extends BaseFragment {
         gotoOrderDesignerBundle.putString(IntentConstant.DESIGNER_ID,requirementInfo.getFinal_designerid());
         startActivity(DesignerInfoActivity.class,gotoOrderDesignerBundle);
 
-        /*if (requirementInfo.getPackage_type().equals(RequirementBusiness.PACKGET_HIGH_POINT)) {//匠心定制的需求预约高端设计师
-            gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
-            startActivity(AppointHighPointDesignerActivity.class, gotoOrderDesignerBundle);
-        } else {
-            if (requirementInfo.getOrder_designers() != null && requirementInfo.getOrder_designers().size() > 0) {
-                gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, requirementInfo
-                        .getOrder_designers().size());
-            } else {
-                gotoOrderDesignerBundle.putInt(IntentConstant.REQUIREMENT_DESIGNER_NUM, 0);
-            }
-            gotoOrderDesignerBundle.putString(IntentConstant.REQUIREMENT_ID, requirementInfo.get_id());
-            startActivity(AppointDesignerActivity.class, gotoOrderDesignerBundle);
-        }*/
     }
 
     @OnClick(R.id.error_include)
@@ -203,8 +196,77 @@ public class XuQiuFragment extends BaseFragment {
                 UiHelper.callPhoneIntent(getUiContext(),getString(R.string.app_phone));
                 break;
             case R.id.btn_apply:
+                String username = etUserName.getEditableText().toString().trim();
+                String phone = etPhone.getEditableText().toString().trim();
+                if(checkLoginInput(phone,username)){
+                    addAppointRequirement(username,phone);
+                }
                 break;
         }
+    }
+
+    private boolean checkLoginInput(String phone, String username) {
+        if (TextUtils.isEmpty(username)) {
+            makeTextShort(getResources().getString(
+                    R.string.input_username));
+            etUserName.requestFocus();
+            return false;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            makeTextShort(getResources().getString(
+                    R.string.hint_username));
+            etPhone.requestFocus();
+            return false;
+        }
+        if (!phone.matches(Global.PHONE_MATCH)) {
+            makeTextShort(getString(R.string.tip_input_corrent_phone));
+            etPhone.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private void addAppointRequirement(String userName,String phone) {
+        PostUserRequirementRequest postUserRequirement = new PostUserRequirementRequest();
+        postUserRequirement.setPhone(phone);
+        postUserRequirement.setName(userName);
+        postUserRequirement.setDistrict(RequirementBusiness.REQUIREMENT_DISTRICT_ADD);
+
+        Api.postUserRequirement(postUserRequirement, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+                etPhone.setText("");
+                etUserName.setText("");
+                showAppointSuccessDialog();
+            }
+
+
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+                makeTextShort(apiResponse.getErr_msg());
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+                makeTextShort(HttpCode.getMsg(code));
+            }
+        },this);
+    }
+
+    private void showAppointSuccessDialog() {
+        DesignerAppointSuccessDialog designerAppointSuccessDialog = new DesignerAppointSuccessDialog(getUiContext());
+        designerAppointSuccessDialog.show();
     }
 
     protected void initView() {

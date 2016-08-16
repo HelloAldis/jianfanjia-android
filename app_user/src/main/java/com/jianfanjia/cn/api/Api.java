@@ -65,6 +65,7 @@ import com.jianfanjia.api.request.guest.GetHomeProductRequest;
 import com.jianfanjia.api.request.guest.GetProductHomePageRequest;
 import com.jianfanjia.api.request.guest.GetRecommendDiarySetRequest;
 import com.jianfanjia.api.request.guest.LoginRequest;
+import com.jianfanjia.api.request.guest.PostUserRequirementRequest;
 import com.jianfanjia.api.request.guest.RegisterRequest;
 import com.jianfanjia.api.request.guest.SearchDecorationImgRequest;
 import com.jianfanjia.api.request.guest.SearchDesignerProductRequest;
@@ -444,5 +445,9 @@ public class Api {
     public static void deleteDairySetFavorite(DeleteDiarySetFavoriteRequest request, ApiCallback<ApiResponse<String>>
             apiCallback,Object tag) {
         ApiClient.okPost(Url_New.getInstance().DELETE_DIARYSET_FAVORITE, request, apiCallback, tag);
+    }
+
+    public static void postUserRequirement(PostUserRequirementRequest request, ApiCallback<ApiResponse<String>> apiCallback, Object tag){
+        ApiClient.okPost(Url_New.getInstance().ADD_ANGEL_USER, request, apiCallback, tag);
     }
 }

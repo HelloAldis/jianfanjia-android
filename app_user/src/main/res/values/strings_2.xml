@@ -27,8 +27,8 @@
     <string name="str_decoratebudget">装修预算</string>
     <string name="str_persons">计划常住人口</string>
     <string name="str_lovestyle">风格喜好</string>
-    <string name="strl_add_yixiang">添加意向</string>
-    <string name="strl_delete_yixiang">取消意向</string>
+    <string name="strl_add_yixiang">关注</string>
+    <string name="strl_delete_yixiang">取消关注</string>
     <string name="str_choose_plan">选定方案</string>
     <string name="str_not_choose_plan">方案未中标</string>
     <string name="str_has_choosed_plan">方案已中标</string>

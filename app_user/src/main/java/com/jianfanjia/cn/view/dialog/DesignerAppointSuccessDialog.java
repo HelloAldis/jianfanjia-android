@@ -1,4 +1,4 @@
-package com.jianfanjia.cn.designer.view;
+package com.jianfanjia.cn.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,20 +9,20 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.jianfanjia.cn.designer.R;
+import com.jianfanjia.cn.activity.R;
 
 /**
- * Description: com.jianfanjia.cn.designer.view
+ * Description: com.jianfanjia.cn.view.dialog
  * Author: zhanghao
  * Email: jame.zhang@myjyz.com
- * Date:2016-06-03 16:30
+ * Date:2016-08-16 14:00
  */
-public class DesignerAuthCommitDialog extends Dialog {
+public class DesignerAppointSuccessDialog extends Dialog {
 
-    public DesignerAuthCommitDialog(Context context, View.OnClickListener listener) {
+    public DesignerAppointSuccessDialog(Context context) {
         super(context);
         initWindow();
-        setListener(listener);
+        setListener();
     }
 
     private void initWindow() {
@@ -39,23 +39,16 @@ public class DesignerAuthCommitDialog extends Dialog {
     }
 
 
-    private void setListener(final View.OnClickListener listener) {
+    private void setListener() {
         Button btnConfirm = (Button) findViewById(R.id.btn_confirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(v);
-                DesignerAuthCommitDialog.this.dismiss();
+                DesignerAppointSuccessDialog.this.dismiss();
             }
         });
 
-        Button btnCancel = (Button) findViewById(R.id.btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DesignerAuthCommitDialog.this.dismiss();
-            }
-        });
     }
 
 }
+

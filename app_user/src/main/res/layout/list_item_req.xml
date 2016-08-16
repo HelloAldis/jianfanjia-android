@@ -107,11 +107,11 @@
         android:paddingLeft="@dimen/space_32"
         android:paddingRight="@dimen/space_32"
         android:paddingTop="@dimen/space_16"
-        android:weightSum="3">
+        >
 
         <RelativeLayout
             android:id="@+id/ltm_req_designer_layout0"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             >
@@ -177,7 +177,7 @@
 
         <RelativeLayout
             android:id="@+id/ltm_req_designer_layout1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             >
@@ -242,9 +242,10 @@
 
         <RelativeLayout
             android:id="@+id/ltm_req_designer_layout2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            >
 
             <FrameLayout
                 android:id="@+id/imagewrapLayout2"

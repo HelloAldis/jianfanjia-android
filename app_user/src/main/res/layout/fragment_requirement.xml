@@ -78,8 +78,8 @@
                 android:background="@null"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:hint="@string/input_name"
-                android:inputType="phone"
+                android:hint="@string/input_username"
+                android:inputType="text"
                 android:maxLength="15"
                 android:nextFocusDown="@+id/act_login_input_password"
                 android:paddingLeft="@dimen/space_16"
@@ -89,12 +89,12 @@
                 android:textSize="@dimen/middle_size" />
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/space_48"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
                 android:padding="@dimen/space_16"
                 android:background="@drawable/bg_left_corner_rectangle"
-                android:src="@mipmap/icon_input_phone" />
+                android:src="@mipmap/icon_user" />
 
         </FrameLayout>
 
@@ -115,10 +115,8 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:hint="@string/hint_username"
-                android:inputType="textPassword"
+                android:inputType="phone"
                 android:maxLength="30"
-
-
                 android:paddingLeft="@dimen/space_32"
                 android:paddingRight="@dimen/space_32"
                 android:singleLine="true"
@@ -126,12 +124,12 @@
                 android:textSize="@dimen/middle_size" />
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/space_48"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
                 android:padding="@dimen/space_16"
                 android:background="@drawable/bg_left_corner_rectangle"
-                android:src="@mipmap/icon_input_psw" />
+                android:src="@mipmap/icon_contact_phone" />
 
         </FrameLayout>
 
@@ -152,7 +150,7 @@
             style="@style/listview_item_text_style_middle"
             android:textColor="@color/grey_color"
             android:layout_marginTop="@dimen/space_12"
-            android:layout_marginBottom="@dimen/space_48"
+            android:layout_marginBottom="@dimen/space_96"
             android:layout_gravity="center_horizontal"
             android:text="@string/tip_apply"/>
 

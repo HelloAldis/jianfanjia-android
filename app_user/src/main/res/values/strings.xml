@@ -269,6 +269,7 @@
     <!-- edit activity -->
     <string name="input_name">请输入昵称</string>
     <string name="input_home">请输入详细地址</string>
+    <string name="input_username">请输入您的称呼</string>
     <!-- edit activity -->
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -445,4 +446,7 @@
     <string name="free_appoint">——　　    立即免费获取三套方案    ——</string>
     <string name="phone_kefu">联系客服</string>
     <string name="tip_apply">注：目前只支持武汉地区</string>
+    <string name="appoint_success">预约成功</string>
+    <string name="appoint_tip">我们的工作人员将在24小时内与您联系，\b请保持电话畅通</string>
+    <string name="str_add_attention">关注</string>
 </resources>

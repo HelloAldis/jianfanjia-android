@@ -253,4 +253,6 @@ public class Url_New {
     public String ADD_DIARYSET_FAVORITE = HTTPROOT + "favorite/diarySet/add";
     //用户取消收藏日记本
     public String DELETE_DIARYSET_FAVORITE = HTTPROOT + "favorite/diarySet/delete";
+    //游客提交基本需求
+    public String ADD_ANGEL_USER = HTTPROOT + "add_angel_user";
 }
