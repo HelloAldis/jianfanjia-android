@@ -163,7 +163,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         request.setTopicid(topicid);
         request.setFrom(from);
         request.setLimit(limit);
-        Api.getCommentList(request, getCommentCallback,this);
+        Api.getCommentList(request, getCommentCallback, this);
     }
 
     private void getDiaryInfo(String diaryid) {
@@ -196,7 +196,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
                 Hud.dismiss();
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void setInitData(DiaryInfo diaryInfo) {
@@ -219,9 +219,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
 
     public void deleteDiarySuccess() {
         mDiaryInfo.setIs_deleted(true);
-        if (!mDiaryInfo.getAuthor().get_id().equals(dataManager.getUserId())) {
-            makeTextShort(getString(R.string.tip_diary_delte));
-        }
+        makeTextShort(getString(R.string.tip_diary_delte));
         EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
         appManager.finishActivity(this);
     }
@@ -336,7 +334,7 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         request.setContent(content);
         request.setTo_userid(to);
         request.setTo_commentid(toCommentId);
-        Api.addComment(request, this.addCommentCallback,this);
+        Api.addComment(request, this.addCommentCallback, this);
     }
 
     private ApiCallback<ApiResponse<Object>> addCommentCallback = new ApiCallback<ApiResponse<Object>>() {
