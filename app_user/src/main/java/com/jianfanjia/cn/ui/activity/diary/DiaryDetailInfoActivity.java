@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -220,9 +221,21 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
     public void deleteDiarySuccess() {
         mDiaryInfo.setIs_deleted(true);
         makeTextShort(getString(R.string.tip_diary_delte));
+
+        Hud.dismiss();
         EventBus.getDefault().post(new RefreshDiaryInfoEvent(mDiaryInfo));
-        appManager.finishActivity(this);
+        mHandler.postDelayed(hasDeletedRunnable, 300);
+
     }
+
+    private Handler mHandler = new Handler();
+
+    private Runnable hasDeletedRunnable = new Runnable() {
+        @Override
+        public void run() {
+            appManager.finishActivity(DiaryDetailInfoActivity.this);
+        }
+    };
 
     private ApiCallback<ApiResponse<CommentList>> getCommentCallback = new ApiCallback<ApiResponse<CommentList>>() {
         @Override
@@ -393,6 +406,11 @@ public class DiaryDetailInfoActivity extends BaseSwipeBackActivity {
         return commentInfo;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(hasDeletedRunnable);
+    }
 
     @Override
     public int getLayoutId() {

@@ -76,7 +76,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        getMyCommentInfo(Constant.FROM_START, pullDownCallback);
+        pullDownData();
     }
 
     @Override
@@ -142,13 +142,13 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         myCommentInfoAdapter.setLoadMoreListener(new BaseLoadMoreRecycleAdapter.LoadMoreListener() {
             @Override
             public void loadMore() {
-                getMyCommentInfo(myCommentInfoAdapter.getData().size(), loadMoreCallback);
+                getMyCommentInfo(myCommentInfoAdapter.getData().size(), Constant.HOME_PAGE_LIMIT, loadMoreCallback);
             }
         });
         refreshRecycleView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<RecyclerView>() {
             @Override
             public void onRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                getMyCommentInfo(Constant.FROM_START, pullDownCallback);
+                getMyCommentInfo(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownCallback);
             }
         });
         refreshRecycleView.setAdapter(myCommentInfoAdapter);
@@ -156,7 +156,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         myCommentInfoAdapter.setEmptyView(emptyView);
         myCommentInfoAdapter.setErrorView(errorView);
 
-        getMyCommentInfo(Constant.FROM_START, pullDownCallback);
+        getMyCommentInfo(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownCallback);
     }
 
     private void startPlanInfoActivity(Plan planInfo, Requirement requirementInfo) {
@@ -173,10 +173,10 @@ public class CommentListActivity extends BaseSwipeBackActivity {
         startActivity(MyProcessDetailActivity.class, processBundle);
     }
 
-    private void getMyCommentInfo(int from, ApiCallback<ApiResponse<UserMessageList>> apiCallback) {
+    private void getMyCommentInfo(int from, int limit, ApiCallback<ApiResponse<UserMessageList>> apiCallback) {
         SearchUserCommentRequest request = new SearchUserCommentRequest();
         request.setFrom(from);
-        request.setLimit(Constant.HOME_PAGE_LIMIT);
+        request.setLimit(limit);
         Api.searchUserComment(request, apiCallback, this);
     }
 
@@ -289,7 +289,7 @@ public class CommentListActivity extends BaseSwipeBackActivity {
                 appManager.finishActivity(this);
                 break;
             case R.id.img_error:
-                getMyCommentInfo(Constant.FROM_START, pullDownCallback);
+                getMyCommentInfo(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownCallback);
                 break;
         }
     }
@@ -301,7 +301,15 @@ public class CommentListActivity extends BaseSwipeBackActivity {
     }
 
     public void onEventMainThread(RefreshDiaryInfoEvent refreshDiaryInfoEvent) {
-        getMyCommentInfo(Constant.FROM_START, pullDownCallback);
+        pullDownData();
+    }
+
+    private void pullDownData(){
+        if(myCommentInfoAdapter.getData().size() > 0){
+            getMyCommentInfo(Constant.FROM_START, myCommentInfoAdapter.getData().size(), pullDownCallback);
+        }else {
+            getMyCommentInfo(Constant.FROM_START, Constant.HOME_PAGE_LIMIT, pullDownCallback);
+        }
     }
 
     @Override
