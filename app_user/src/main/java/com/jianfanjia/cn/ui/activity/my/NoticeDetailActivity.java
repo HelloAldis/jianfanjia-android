@@ -297,6 +297,9 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                     } else if (msgType.equals(Constant.TYPE_SYSTEM_MSG)) {
                         typeText.setBackgroundResource(R.drawable.sys_detail_text_bg_border);
                         typeText.setText(getResources().getString(R.string.sys_str));
+                        doubleBtnLayout.setVisibility(View.GONE);
+                        singleBtnLayout.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_UPLOAD_PLAN_MSG)) {
                         typeText.setBackgroundResource(R.drawable.req_detail_text_bg_border);
                         planInfo = noticeDetailInfo.getPlan();
