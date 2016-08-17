@@ -110,8 +110,14 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
         protected TextView ltm_req_updatetime_cont;
         @Bind(R.id.ltm_req_owner_head)
         protected ImageView ltm_req_owner_head;
+
         @Bind(R.id.ltm_req_gotopro)
         protected TextView ltm_req_gotopro;
+        @Bind(R.id.ltm_req_viewplan)
+        protected TextView ltm_req_viewplan;
+        @Bind(R.id.ltm_req_vertical_line)
+        protected View ltm_req_vertical_line;
+
         @Bind(R.id.ltm_req_gotopro_layout)
         protected LinearLayout ltm_req_gotopro_layout;
 
@@ -157,29 +163,19 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             String requirementStatus = requirementInfo.getStatus();
             String workType = requirementInfo.getWork_type();
 
-            if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
-                ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_EDIT);
-                    }
-                });
-
-            } else {
-                ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
-                    }
-                });
-            }
+            ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
+                }
+            });
 
             ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
 
             setNewActionText(context, requirementStatus, clickCallBack,
                     position);
 
-            setDesignerItemLayout(context, requirementInfo,  requirementStatus, workType);
+            setDesignerItemLayout(context, requirementInfo, requirementStatus, workType);
         }
 
         private void setNewActionText(Context context, String requirementStatus,
@@ -188,6 +184,19 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             switch (requirementStatus) {
                 case Global.REQUIREMENT_STATUS5:
                 case Global.REQUIREMENT_STATUS8:
+                    ltm_req_viewplan.setVisibility(View.VISIBLE);
+                    ltm_req_vertical_line.setVisibility(View.VISIBLE);
+                    ltm_req_gotopro.setVisibility(View.VISIBLE);
+
+                    ltm_req_viewplan.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_viewplan.setText(context.getResources().getString(R.string.str_view_plan));
+                    ltm_req_viewplan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPLAN);
+                        }
+                    });
+
                     ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
                     ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_pro));
                     ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
@@ -199,9 +208,13 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     break;
                 case Global.REQUIREMENT_STATUS7:
                 case Global.REQUIREMENT_STATUS4:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_view_plan));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                    ltm_req_viewplan.setVisibility(View.VISIBLE);
+                    ltm_req_vertical_line.setVisibility(View.GONE);
+                    ltm_req_gotopro.setVisibility(View.GONE);
+
+                    ltm_req_viewplan.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_viewplan.setText(context.getResources().getString(R.string.str_view_plan));
+                    ltm_req_viewplan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPLAN);
@@ -209,6 +222,10 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     });
                     break;
                 default:
+                    ltm_req_viewplan.setVisibility(View.GONE);
+                    ltm_req_vertical_line.setVisibility(View.GONE);
+                    ltm_req_gotopro.setVisibility(View.VISIBLE);
+
                     if (mRequirement.getWork_type().equals(RequirementBusiness.WORK_TYPE_PURE_DESIGNER)) {
                         ltm_req_gotopro_layout.setVisibility(View.GONE);
                     } else {
@@ -222,12 +239,12 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                         });
                     }
                     break;
-
             }
         }
 
 
-        private void setDesignerItemLayout(Context context, Requirement requirementInfo, String requirementStatus, String workType) {
+        private void setDesignerItemLayout(Context context, Requirement requirementInfo, String requirementStatus,
+                                           String workType) {
             final List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();
@@ -382,8 +399,14 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
         protected TextView ltm_req_updatetime_cont;
         @Bind(R.id.ltm_req_owner_head)
         protected ImageView ltm_req_owner_head;
+
         @Bind(R.id.ltm_req_gotopro)
         protected TextView ltm_req_gotopro;
+        @Bind(R.id.ltm_req_viewplan)
+        protected TextView ltm_req_viewplan;
+        @Bind(R.id.ltm_req_vertical_line)
+        protected View ltm_req_vertical_line;
+
         @Bind(R.id.ltm_req_gotopro_layout)
         protected LinearLayout ltm_req_gotopro_layout;
 
@@ -409,36 +432,39 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             String requirementStatus = requirementInfo.getStatus();
             String workType = requirementInfo.getWork_type();
 
-            if (requirementStatus.equals(Global.REQUIREMENT_STATUS0)) {
-                ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_EDIT);
-                    }
-                });
+            ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
+                }
+            });
 
-            } else {
-                ltm_req_baseinfo_layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clickCallBack.click(position, XuQiuFragment.ITEM_PRIVIEW);
-                    }
-                });
-            }
-
-            ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
-            setNewActionText(context, requirementInfo.getOrder_designers(), requirementStatus, clickCallBack,
+            setNewActionText(context, requirementStatus, clickCallBack,
                     position);
 
+            ltm_req_gotopro_layout.setVisibility(View.VISIBLE);
             setDesignerItemLayout(context, requirementInfo, requirementStatus, workType);
         }
 
-        private void setNewActionText(Context context, List<Designer> orderDesignerInfos, String requirementStatus,
+        private void setNewActionText(Context context, String requirementStatus,
                                       final ClickCallBack
                                               clickCallBack, final int position) {
             switch (requirementStatus) {
                 case Global.REQUIREMENT_STATUS5:
                 case Global.REQUIREMENT_STATUS8:
+                    ltm_req_viewplan.setVisibility(View.VISIBLE);
+                    ltm_req_vertical_line.setVisibility(View.VISIBLE);
+                    ltm_req_gotopro.setVisibility(View.VISIBLE);
+
+                    ltm_req_viewplan.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_viewplan.setText(context.getResources().getString(R.string.str_view_plan));
+                    ltm_req_viewplan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPLAN);
+                        }
+                    });
+
                     ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
                     ltm_req_gotopro.setText(context.getResources().getString(R.string.str_goto_pro));
                     ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
@@ -450,9 +476,13 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     break;
                 case Global.REQUIREMENT_STATUS7:
                 case Global.REQUIREMENT_STATUS4:
-                    ltm_req_gotopro.setTextColor(context.getResources().getColor(R.color.orange_color));
-                    ltm_req_gotopro.setText(context.getResources().getString(R.string.str_view_plan));
-                    ltm_req_gotopro.setOnClickListener(new View.OnClickListener() {
+                    ltm_req_viewplan.setVisibility(View.VISIBLE);
+                    ltm_req_vertical_line.setVisibility(View.GONE);
+                    ltm_req_gotopro.setVisibility(View.GONE);
+
+                    ltm_req_viewplan.setTextColor(context.getResources().getColor(R.color.orange_color));
+                    ltm_req_viewplan.setText(context.getResources().getString(R.string.str_view_plan));
+                    ltm_req_viewplan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             clickCallBack.click(position, XuQiuFragment.ITEM_GOTOPLAN);
@@ -460,6 +490,10 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                     });
                     break;
                 default:
+                    ltm_req_viewplan.setVisibility(View.GONE);
+                    ltm_req_vertical_line.setVisibility(View.GONE);
+                    ltm_req_gotopro.setVisibility(View.VISIBLE);
+
                     if (mRequirement.getWork_type().equals(RequirementBusiness.WORK_TYPE_PURE_DESIGNER)) {
                         ltm_req_gotopro_layout.setVisibility(View.GONE);
                     } else {
@@ -476,7 +510,8 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
             }
         }
 
-        private void setDesignerItemLayout(Context context, Requirement requirementInfo, String requirementStatus, String workType) {
+        private void setDesignerItemLayout(Context context, Requirement requirementInfo, String requirementStatus,
+                                           String workType) {
             final List<Designer> orderDesignerInfos = requirementInfo.getOrder_designers();
             if (orderDesignerInfos != null) {
                 int size = orderDesignerInfos.size();

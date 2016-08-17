@@ -197,6 +197,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
+        <activity
+            android:name="com.jianfanjia.cn.ui.activity.requirement.GetFreePlanActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
         <activity
             android:name="com.jianfanjia.cn.ui.activity.loginandreg.LoginNewActivity"
             android:label="@string/title_activity_login"

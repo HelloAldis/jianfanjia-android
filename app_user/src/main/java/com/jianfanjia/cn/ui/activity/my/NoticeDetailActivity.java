@@ -305,7 +305,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
-                        btnPlan.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_CONFIG_CONTRACT_MSG)) {
@@ -315,7 +315,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                         typeText.setText(getResources().getString(R.string.req_str));
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
-                        btnContract.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         cellText.setText(requirement.getBasic_address());
                         sectionText.setVisibility(View.GONE);
                     } else if (msgType.equals(Constant.TYPE_DESIGNER_REMIND_USER_HOUSE_CHECK_MSG)) {
@@ -327,7 +327,7 @@ public class NoticeDetailActivity extends BaseSwipeBackActivity {
                                 designerid);
                         doubleBtnLayout.setVisibility(View.GONE);
                         singleBtnLayout.setVisibility(View.VISIBLE);
-                        btnCheckHouse.setVisibility(View.VISIBLE);
+                        btnConfirm.setVisibility(View.VISIBLE);
                         typeText.setText(getResources().getString(R.string.req_str));
                         cellText.setText(noticeDetailInfo.getRequirement().getBasic_address());
                         sectionText.setVisibility(View.GONE);

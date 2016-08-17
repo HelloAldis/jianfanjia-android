@@ -36,8 +36,7 @@ import com.jianfanjia.cn.ui.activity.home.DesignerListActivity;
 import com.jianfanjia.cn.ui.activity.home.SearchActivity;
 import com.jianfanjia.cn.ui.activity.home.WebViewActivity;
 import com.jianfanjia.cn.ui.activity.home.WebViewPackage365Activity;
-import com.jianfanjia.cn.ui.activity.my.BindingPhoneActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
+import com.jianfanjia.cn.ui.activity.requirement.GetFreePlanActivity;
 import com.jianfanjia.cn.ui.adapter.HomeProductPagerAdapter;
 import com.jianfanjia.cn.ui.adapter.ViewPageAdapter;
 import com.jianfanjia.cn.ui.interf.ViewPagerClickListener;
@@ -272,12 +271,12 @@ public class HomeNewFragment extends BaseFragment {
 
     protected void publish_requirement() {
         if (dataManager.getAccount() != null) {
-            startActivity(PublishRequirementActivity.class);
-        } else {
-            Bundle bundle = new Bundle();
+//            startActivity(PublishRequirementActivity.class);
+            startActivity(GetFreePlanActivity.class);
+           /* Bundle bundle = new Bundle();
             bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
             startActivity(BindingPhoneActivity.class, bundle);
-            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);*/
         }
     }
 

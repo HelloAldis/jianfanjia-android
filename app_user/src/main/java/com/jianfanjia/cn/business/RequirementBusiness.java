@@ -173,15 +173,12 @@ public class RequirementBusiness {
             }
         }
 
-        long lastUpdateTime = 0l;
-        Plan lastUpdatePlan = null;
         for (int j = 0; j < planList.size() ;j++){
             Plan plan = planList.get(j);
-            if(lastUpdateTime < plan.getLast_status_update_time()){
-                lastUpdateTime = plan.getLast_status_update_time();
-                lastUpdatePlan = plan;
+            if(requirement.getFinal_planid() != null && requirement.getFinal_planid().equals(plan.get_id())){
+                return plan;
             }
         }
-        return lastUpdatePlan;
+        return null;
     }
 }

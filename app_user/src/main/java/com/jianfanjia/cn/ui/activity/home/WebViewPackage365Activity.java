@@ -5,6 +5,7 @@ import android.os.Bundle;
 import butterknife.OnClick;
 import com.jianfanjia.cn.AppManager;
 import com.jianfanjia.cn.tools.IntentUtil;
+import com.jianfanjia.cn.ui.activity.requirement.GetFreePlanActivity;
 import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
 import com.jianfanjia.cn.ui.activity.requirement.UpdateRequirementActivity;
 import com.jianfanjia.cn.activity.R;
@@ -36,7 +37,7 @@ public class WebViewPackage365Activity extends WebViewActivity {
     @OnClick(R.id.btn_create_process)
     protected void createRequirement() {
         if (!isPublishOrUpdateRequirementInTop) {
-            IntentUtil.startActivity(this, PublishRequirementActivity.class);
+            IntentUtil.startActivity(this, GetFreePlanActivity.class);
         }
         appManager.finishActivity(this);
     }

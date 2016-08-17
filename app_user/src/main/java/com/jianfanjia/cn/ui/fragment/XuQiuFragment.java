@@ -154,10 +154,11 @@ public class XuQiuFragment extends BaseFragment {
                         startActivity(MyProcessDetailActivity.class, gotoMyProcessBundle);
                         break;
                     case ITEM_GOTODESIGNER:
-                        gotoOrderDesigner();
+                        gotoOrderDesigner(requirementInfo);
                         break;
                     case ITEM_GOTOPLAN:
-                        gotoPreviewPlanActivity(RequirementBusiness.getLastUpdateDesignerPlan(requirementInfo));
+                        Plan plan = RequirementBusiness.getLastUpdateDesignerPlan(requirementInfo);
+                        gotoPreviewPlanActivity(plan,requirementInfo);
                         break;
                     default:
                         break;
@@ -165,22 +166,22 @@ public class XuQiuFragment extends BaseFragment {
             }
         });
         mPullToRefreshRecycleView.setAdapter(requirementAdapter);
-        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext()));
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+                .getApplicationContext()));
     }
 
-    private void gotoPreviewPlanActivity(Plan planInfo) {
+    private void gotoPreviewPlanActivity(Plan planInfo,Requirement requirement) {
         Bundle planBundle = new Bundle();
         planBundle.putSerializable(IntentConstant.PLAN_DETAIL, planInfo);
-        planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirementInfo);
+        planBundle.putSerializable(IntentConstant.REQUIREMENT_INFO, requirement);
         startActivity(PreviewDesignerPlanActivity.class, planBundle);
     }
 
 
-
-    protected void gotoOrderDesigner() {
+    protected void gotoOrderDesigner(Requirement requirement) {
         Bundle gotoOrderDesignerBundle = new Bundle();
-        gotoOrderDesignerBundle.putString(IntentConstant.DESIGNER_ID,requirementInfo.getFinal_designerid());
-        startActivity(DesignerInfoActivity.class,gotoOrderDesignerBundle);
+        gotoOrderDesignerBundle.putString(IntentConstant.DESIGNER_ID, requirement.getFinal_designerid());
+        startActivity(DesignerInfoActivity.class, gotoOrderDesignerBundle);
 
     }
 
@@ -189,17 +190,17 @@ public class XuQiuFragment extends BaseFragment {
         initData();
     }
 
-    @OnClick({R.id.head_right_title,R.id.btn_apply})
-    protected void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.head_right_title, R.id.btn_apply})
+    protected void onClick(View view) {
+        switch (view.getId()) {
             case R.id.head_right_title:
-                UiHelper.callPhoneIntent(getUiContext(),getString(R.string.app_phone));
+                UiHelper.callPhoneIntent(getUiContext(), getString(R.string.app_phone));
                 break;
             case R.id.btn_apply:
                 String username = etUserName.getEditableText().toString().trim();
                 String phone = etPhone.getEditableText().toString().trim();
-                if(checkLoginInput(phone,username)){
-                    addAppointRequirement(username,phone);
+                if (checkLoginInput(phone, username)) {
+                    addAppointRequirement(username, phone);
                 }
                 break;
         }
@@ -226,7 +227,7 @@ public class XuQiuFragment extends BaseFragment {
         return true;
     }
 
-    private void addAppointRequirement(String userName,String phone) {
+    private void addAppointRequirement(String userName, String phone) {
         PostUserRequirementRequest postUserRequirement = new PostUserRequirementRequest();
         postUserRequirement.setPhone(phone);
         postUserRequirement.setName(userName);
@@ -251,7 +252,6 @@ public class XuQiuFragment extends BaseFragment {
             }
 
 
-
             @Override
             public void onFailed(ApiResponse<String> apiResponse) {
                 makeTextShort(apiResponse.getErr_msg());
@@ -261,7 +261,7 @@ public class XuQiuFragment extends BaseFragment {
             public void onNetworkError(int code) {
                 makeTextShort(HttpCode.getMsg(code));
             }
-        },this);
+        }, this);
     }
 
     private void showAppointSuccessDialog() {
@@ -278,10 +278,10 @@ public class XuQiuFragment extends BaseFragment {
     }
 
     private void initEditBackGround() {
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)ivEditRequirementBg.getLayoutParams();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) ivEditRequirementBg.getLayoutParams();
 
-        lp.width = (int)TDevice.getScreenWidth();
-        lp.height = (int)( ((float)lp.width / 1242) * 850);
+        lp.width = (int) TDevice.getScreenWidth();
+        lp.height = (int) (((float) lp.width / 1242) * 850);
 
         LogTool.d("width =" + lp.width + ",height =" + lp.height);
         ivEditRequirementBg.setLayoutParams(lp);
@@ -334,7 +334,7 @@ public class XuQiuFragment extends BaseFragment {
             @Override
             public void onHttpDone() {
                 Hud.dismiss();
-                if(mPullToRefreshRecycleView != null){
+                if (mPullToRefreshRecycleView != null) {
                     mPullToRefreshRecycleView.onRefreshComplete();
                 }
             }
@@ -365,7 +365,7 @@ public class XuQiuFragment extends BaseFragment {
                     error_Layout.setVisibility(View.VISIBLE);
                 }
             }
-        },this);
+        }, this);
     }
 
     public void onEventMainThread(ScrollEvent event) {

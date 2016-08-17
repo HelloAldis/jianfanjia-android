@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
-
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.ui.activity.my.BindingPhoneActivity;
-import com.jianfanjia.cn.ui.activity.requirement.PublishRequirementActivity;
-import com.jianfanjia.cn.ui.adapter.DecorateLiveFragmentPagerAdapter;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.view.MainHeadView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.ui.adapter.DecorateLiveFragmentPagerAdapter;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description: com.jianfanjia.cn.home
@@ -31,8 +26,6 @@ public class DecorateLiveActivity extends BaseSwipeBackActivity {
     protected TabLayout tabLayout = null;
     @Bind(R.id.viewpager)
     protected ViewPager viewPager = null;
-    @Bind(R.id.btn_create_process)
-    protected TextView createProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +45,11 @@ public class DecorateLiveActivity extends BaseSwipeBackActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @OnClick({R.id.head_back_layout, R.id.btn_create_process})
+    @OnClick({R.id.head_back_layout})
     protected void click(View view) {
         switch (view.getId()) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
-                break;
-            case R.id.btn_create_process:
-                if (dataManager.getAccount() != null) {
-                    startActivity(PublishRequirementActivity.class);
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
-                    startActivity(BindingPhoneActivity.class, bundle);
-                    overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
-                }
                 break;
         }
     }

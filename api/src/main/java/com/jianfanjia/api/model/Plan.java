@@ -32,6 +32,7 @@ public class Plan extends BaseModel {
     private User user;
     private Requirement requirement;
     private String reject_respond_msg;
+    private long start_at;
 
     public String get_id() {
         return _id;
@@ -215,5 +216,13 @@ public class Plan extends BaseModel {
 
     public void setReject_respond_msg(String reject_respond_msg) {
         this.reject_respond_msg = reject_respond_msg;
+    }
+
+    public long getStart_at() {
+        return start_at;
+    }
+
+    public void setStart_at(long start_at) {
+        this.start_at = start_at;
     }
 }

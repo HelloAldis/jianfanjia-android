@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/font_white">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/font_white">
 
     <com.jianfanjia.cn.view.MainHeadView
         android:id="@+id/my_prieview_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/head_layout_bg" />
+        android:background="@color/head_layout_bg"/>
 
     <Button
         android:id="@+id/btn_choose"
@@ -18,7 +18,8 @@
         android:background="@drawable/btn_rectangle_orange_selector_bg"
         android:text="@string/str_choose_plan"
         android:textColor="@color/font_white"
-        android:textSize="@dimen/text_size_17" />
+        android:textSize="@dimen/text_size_17"
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                 <com.jianfanjia.cn.view.viewpager.MyViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"/>
 
                 <LinearLayout
                     android:id="@+id/indicatorGroup_lib"
@@ -49,7 +50,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="10.0dip"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal"/>
             </RelativeLayout>
 
 
@@ -62,7 +63,7 @@
                 android:layout_marginTop="10dip"
                 android:textColor="@color/light_black_color"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/houseTypeLayout"
@@ -79,14 +80,14 @@
                     android:layout_height="wrap_content"
                     android:text="装修户型："
                     android:textColor="@color/grey_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/houseType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <LinearLayout
@@ -104,14 +105,14 @@
                     android:layout_height="wrap_content"
                     android:text="装修面积："
                     android:textColor="@color/grey_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/houseArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <LinearLayout
@@ -129,14 +130,39 @@
                     android:layout_height="wrap_content"
                     android:text="装修类型："
                     android:textColor="@color/grey_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/decorateType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/startAtLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:layout_marginTop="20dip"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开工日期："
+                    android:textColor="@color/grey_color"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/startAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <LinearLayout
@@ -154,14 +180,14 @@
                     android:layout_height="wrap_content"
                     android:text="总工期："
                     android:textColor="@color/grey_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/totalDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/orange_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <LinearLayout
@@ -179,13 +205,13 @@
                     android:layout_height="wrap_content"
                     android:text="项目报价："
                     android:textColor="@color/grey_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/orange_color" />
+                    android:textColor="@color/orange_color"/>
 
                 <Button
                     android:id="@+id/btnDetail"
@@ -195,7 +221,7 @@
                     android:background="@drawable/btn_orange_white_bg"
                     android:text="@string/detailPrice"
                     android:textColor="@color/orange_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <LinearLayout
@@ -214,14 +240,14 @@
                     android:layout_height="wrap_content"
                     android:text="设计说明："
                     android:textColor="@color/grey_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/designText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_black_color"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

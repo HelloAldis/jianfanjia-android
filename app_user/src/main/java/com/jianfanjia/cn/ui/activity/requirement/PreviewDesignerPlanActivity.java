@@ -33,6 +33,7 @@ import com.jianfanjia.cn.ui.adapter.PreviewAdapter;
 import com.jianfanjia.cn.view.MainHeadView;
 import com.jianfanjia.cn.view.dialog.CommonDialog;
 import com.jianfanjia.cn.view.dialog.DialogHelper;
+import com.jianfanjia.common.tool.DateFormatTool;
 import com.jianfanjia.common.tool.LogTool;
 import de.greenrobot.event.EventBus;
 
@@ -87,6 +88,12 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
     protected Button btnDetail;
     @Bind(R.id.btn_choose)
     protected Button btn_choose;
+
+    @Bind(R.id.startAt)
+    protected TextView tvStartAt;
+
+    @Bind(R.id.startAtLayout)
+    protected LinearLayout llStartAt;
 
     protected Plan planDetailInfo = null;
     private String designerid = null;
@@ -147,10 +154,16 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
                 decorateTypeLayout.setVisibility(View.VISIBLE);
                 decorateType.setText(BusinessCovertUtil.convertWorkTypeToShow(requirementInfo.getWork_type()));
             }
+            LogTool.d("时间 ：" + requirementInfo.getStart_at());
+            if(requirementInfo.getStart_at() != 0L){
+
+                llStartAt.setVisibility(View.VISIBLE);
+                tvStartAt.setText(DateFormatTool.covertLongToStringHasChinese(requirementInfo.getStart_at()));
+            }
             totalDate.setText(planDetailInfo.getDuration() + "天");
             price.setText(planDetailInfo.getTotal_price() + "元");
             designText.setText(planDetailInfo.getDescription());
-            initChooseButton();
+//            initChooseButton();
             initViewPager(viewPager, indicatorGroup_lib);
         }
     }
@@ -242,7 +255,7 @@ public class PreviewDesignerPlanActivity extends BaseSwipeBackActivity {
                 startToActivity(planDetailInfo);
                 break;
             case R.id.btn_choose:
-                choosePlanDialog();
+//                choosePlanDialog();
                 break;
             default:
                 break;
