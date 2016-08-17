@@ -32,6 +32,7 @@ public class Product extends BaseModel {
     private String cover_imageid;
     private Designer designer;
     private boolean is_my_favorite;
+    private boolean is_deleted;
 
     public String get_id() {
         return _id;
@@ -231,5 +232,13 @@ public class Product extends BaseModel {
 
     public void setBusiness_house_type(String business_house_type) {
         this.business_house_type = business_house_type;
+    }
+
+    public boolean is_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }

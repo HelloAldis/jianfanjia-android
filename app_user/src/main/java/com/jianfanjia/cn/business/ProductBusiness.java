@@ -18,7 +18,7 @@ public class ProductBusiness {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(product.getHouse_area() + "㎡，");
         stringBuilder.append(BusinessCovertUtil.convertDectypeToShow(product.getDec_type()) + "，");
-        if (product.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
+        if (product.getDec_style() != null && product.getDec_type().equals(Global.DEC_TYPE_BUSINESS)) {
             if (!TextUtils.isEmpty(product.getBusiness_house_type())) {
                 stringBuilder.append(BusinessCovertUtil.convertBusinessHouseTypeToShow(product.getBusiness_house_type
                         ()) + "，");

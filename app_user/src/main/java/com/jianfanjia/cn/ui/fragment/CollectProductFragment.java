@@ -22,6 +22,7 @@ import com.jianfanjia.api.ApiResponse;
 import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Product;
 import com.jianfanjia.api.model.ProductList;
+import com.jianfanjia.api.request.common.DeleteProductFavoriteRequest;
 import com.jianfanjia.api.request.common.GetProductFavoriteListRequest;
 import com.jianfanjia.cn.activity.R;
 import com.jianfanjia.cn.api.Api;
@@ -103,8 +104,9 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         mPullToRefreshRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mPullToRefreshRecycleView.setHasFixedSize(true);
         mPullToRefreshRecycleView.setItemAnimator(new DefaultItemAnimator());
-        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity().getApplicationContext
-                ()));
+        mPullToRefreshRecycleView.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getActivity()
+                .getApplicationContext
+                        ()));
         mPullToRefreshRecycleView.setOnRefreshListener(this);
     }
 
@@ -187,7 +189,7 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
 
                                 @Override
                                 public void OnViewClick(int position) {
-
+                                    cancelCollectProduct(position);
                                 }
                             });
                     mPullToRefreshRecycleView.setAdapter(productAdapter);
@@ -216,6 +218,42 @@ public class CollectProductFragment extends BaseFragment implements PullToRefres
         }
 
     };
+
+    private void cancelCollectProduct(int position) {
+        final Product product = products.get(position);
+
+        DeleteProductFavoriteRequest deleteProductFavoriteRequest = new DeleteProductFavoriteRequest();
+        deleteProductFavoriteRequest.set_id(product.get_id());
+
+        Api.deleteProductFavorite(deleteProductFavoriteRequest, new ApiCallback<ApiResponse<Object>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<Object> apiResponse) {
+                products.remove(product);
+                productAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailed(ApiResponse<Object> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        }, this);
+
+    }
 
     private ApiCallback<ApiResponse<ProductList>> pullUpListener = new ApiCallback<ApiResponse<ProductList>>() {
         @Override
