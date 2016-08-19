@@ -10,6 +10,9 @@ import java.util.List;
  * Date:15-10-20 21:47
  */
 public class Designer extends BaseModel {
+
+    private static final long serialVersionUID =2578921053687674568L;
+
     private String _id;
     private String phone;
     private String philosophy;
@@ -542,6 +545,8 @@ public class Designer extends BaseModel {
     public String getEmail_auth_type() {
         return email_auth_type;
     }
+
+
 
     public void setEmail_auth_type(String email_auth_type) {
         this.email_auth_type = email_auth_type;

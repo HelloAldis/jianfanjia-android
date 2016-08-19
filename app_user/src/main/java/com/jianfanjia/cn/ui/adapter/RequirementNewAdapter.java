@@ -542,7 +542,7 @@ public class RequirementNewAdapter extends RecyclerViewAdapterBase<Requirement> 
                             imageShow.displayImageHeadWidthThumnailImage(context, orderDesignerInfos.get(i)
                                     .getImageid(), headView);
                         } else {
-                            imageShow.displayLocalImage(Constant.DEFALUT_ADD_PIC, headView);
+                            headView.setImageResource(R.mipmap.icon_default_head);
                         }
                         String status = orderDesignerInfos.get(i).getPlan().getStatus();
                         switch (status) {

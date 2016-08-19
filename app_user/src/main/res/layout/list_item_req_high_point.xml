@@ -128,7 +128,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_horizontal|bottom"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/icon_add_high_point"
+                    android:src="@mipmap/icon_default_head"
                     />
 
                 <ImageView

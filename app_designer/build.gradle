@@ -65,6 +65,7 @@ android {
         }
         andtest {
             minifyEnabled true
+            debuggable true
 
             buildConfigField("String", "SERVER_URL", TEST_SERVER_URL)
             buildConfigField("String", "MOBILE_SERVER_URL", TEST_MOBILE_SERVER_URL)

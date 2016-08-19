@@ -16,7 +16,7 @@ public class Requirement extends BaseModel {
     private int house_area;
     private String house_type;
     private String dec_style;
-    private String dec_type;
+    private String dec_type = "0";
     private String work_type;
     private String communication_type;
     private String package_type;

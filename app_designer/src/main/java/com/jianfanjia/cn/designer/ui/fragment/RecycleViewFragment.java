@@ -22,21 +22,22 @@ import com.jianfanjia.api.HttpCode;
 import com.jianfanjia.api.model.Requirement;
 import com.jianfanjia.api.request.designer.NotifyOwnerMeasureHouseRequest;
 import com.jianfanjia.api.request.designer.RefuseRequirementRequest;
+import com.jianfanjia.api.request.designer.ResponseRequirementRequest;
 import com.jianfanjia.cn.designer.R;
-import com.jianfanjia.cn.designer.ui.activity.setting_contract.SettingContractActivity;
+import com.jianfanjia.cn.designer.api.Api;
+import com.jianfanjia.cn.designer.base.BaseFragment;
+import com.jianfanjia.cn.designer.bean.RequirementList;
+import com.jianfanjia.cn.designer.config.Global;
+import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.designer.ui.activity.SettingMeasureDateActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.DesignerPlanListActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PingJiaInfoActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewBusinessRequirementActivity;
 import com.jianfanjia.cn.designer.ui.activity.requirement.PreviewHomeRequirementActivity;
+import com.jianfanjia.cn.designer.ui.activity.setting_contract.SettingContractActivity;
 import com.jianfanjia.cn.designer.ui.adapter.MyHandledRequirementAdapter;
-import com.jianfanjia.cn.designer.api.Api;
-import com.jianfanjia.cn.designer.base.BaseFragment;
-import com.jianfanjia.cn.designer.bean.RequirementList;
-import com.jianfanjia.cn.designer.config.Global;
 import com.jianfanjia.cn.designer.ui.interf.ClickCallBack;
 import com.jianfanjia.cn.designer.ui.interf.RefuseRequirementCallback;
-import com.jianfanjia.cn.designer.tools.UiHelper;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshBase;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshRecycleView;
 import com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView;
@@ -153,13 +154,9 @@ public class RecycleViewFragment extends BaseFragment {
                         showRefuseDialog(requirementInfo.get_id());
                         break;
                     case RESPONDE_TYPE:
-                        Intent settingHouseTimeIntent = new Intent(_context, SettingMeasureDateActivity.class);
-                        Bundle settingHouseTimeBundle = new Bundle();
-                        settingHouseTimeBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
-                        settingHouseTimeBundle.putString(Global.PHONE, requirementInfo.getUser().getPhone());
-                        settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
-                        startActivity(settingHouseTimeIntent);
-                        getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+                        responseReq(requirementInfo.get_id());
+
+                        gotoSettingMeasureDate(requirementInfo);
                         break;
                     case PRIVIEW_REQUIREMENT_TYPE:
                         Intent gotoPriviewRequirement = null;
@@ -209,6 +206,48 @@ public class RecycleViewFragment extends BaseFragment {
         pullrefresh.addItemDecoration(UiHelper.buildDefaultHeightDecoration(getContext()));
         pullrefresh.setAdapter(myHandledRequirementAdapter);
         LogTool.d("initRecycle item count =" + myHandledRequirementAdapter.getItemCount());
+    }
+
+    private void gotoSettingMeasureDate(Requirement requirementInfo) {
+        Intent settingHouseTimeIntent = new Intent(_context, SettingMeasureDateActivity.class);
+        Bundle settingHouseTimeBundle = new Bundle();
+        settingHouseTimeBundle.putString(Global.REQUIREMENT_ID, requirementInfo.get_id());
+        settingHouseTimeBundle.putString(Global.PHONE, requirementInfo.getUser().getPhone());
+        settingHouseTimeIntent.putExtras(settingHouseTimeBundle);
+        startActivity(settingHouseTimeIntent);
+        getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);
+    }
+
+    private void responseReq(String requirementid){
+        ResponseRequirementRequest responseRequirementRequest = new ResponseRequirementRequest();
+        responseRequirementRequest.setRequirementid(requirementid);
+
+        Api.responseRequirement(responseRequirementRequest, new ApiCallback<ApiResponse<String>>() {
+            @Override
+            public void onPreLoad() {
+
+            }
+
+            @Override
+            public void onHttpDone() {
+
+            }
+
+            @Override
+            public void onSuccess(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onFailed(ApiResponse<String> apiResponse) {
+
+            }
+
+            @Override
+            public void onNetworkError(int code) {
+
+            }
+        },this);
     }
 
     public void disposeData(RequirementList requirementList) {
