@@ -2,16 +2,21 @@ package com.jianfanjia.cn.business;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.webkit.CookieManager;
 
+import java.net.HttpCookie;
 import java.util.Calendar;
+import java.util.List;
 
-import com.jianfanjia.cn.application.MyApplication;
-import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.api.ApiClient;
 import com.jianfanjia.api.model.User;
+import com.jianfanjia.cn.activity.BuildConfig;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.config.Constant;
+import com.jianfanjia.cn.http.cookie.PersistentCookieStore;
 import com.jianfanjia.cn.tools.GeTuiManager;
+import com.jianfanjia.cn.tools.SharedPrefer;
 import com.jianfanjia.common.tool.LogTool;
 
 public class DataManagerNew {
@@ -174,6 +179,22 @@ public class DataManagerNew {
                 .getTimeInMillis());
         getInstance().saveLoginUserBean(user);
         GeTuiManager.bindGeTui(MyApplication.getInstance(), user.get_id());
+
+        setCookieToWebView();
+    }
+
+    private static void setCookieToWebView() {
+        PersistentCookieStore persistentCookieStore = new PersistentCookieStore(MyApplication.getInstance());
+
+        List<HttpCookie> cookies = persistentCookieStore.getCookies();
+        CookieManager cookieManager = CookieManager.getInstance();
+        CookieManager.getInstance().setAcceptCookie(true);
+        for (int i = 0; i < cookies.size(); i++) {
+            HttpCookie cookie = cookies.get(i);
+            String cookieString = cookie.getName() + "=" + cookie.getValue();
+            LogTool.d(cookieString);
+            cookieManager.setCookie(BuildConfig.MOBILE_SERVER_URL, cookieString);
+        }
     }
 
     /**

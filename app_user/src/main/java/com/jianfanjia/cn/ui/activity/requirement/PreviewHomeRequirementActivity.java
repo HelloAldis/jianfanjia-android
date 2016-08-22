@@ -4,19 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.jianfanjia.api.model.Requirement;
-import com.jianfanjia.cn.activity.R;
-import com.jianfanjia.cn.base.BaseSwipeBackActivity;
-import com.jianfanjia.cn.business.RequirementBusiness;
-import com.jianfanjia.cn.constant.IntentConstant;
-import com.jianfanjia.cn.tools.UiHelper;
-import com.jianfanjia.cn.view.MainHeadView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.jianfanjia.api.model.Requirement;
+import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.base.BaseSwipeBackActivity;
+import com.jianfanjia.cn.constant.IntentConstant;
+import com.jianfanjia.cn.view.MainHeadView;
 
 /**
  * Description: com.jianfanjia.cn
@@ -51,20 +47,6 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     @Bind(R.id.act_edit_req_dong_content)
     protected TextView act_edit_req_dong_content;//期
 
-    @Bind(R.id.act_edit_req_decoratebudget_365)
-    protected LinearLayout budget365Layout;
-
-    @Bind(R.id.act_edit_req_decoratebudget_high_point)
-    protected LinearLayout budgetHighPointLayout;
-
-    @Bind(R.id.decoratebudget_365_basic_price)
-    protected TextView budget365BasicPriceView;
-
-    @Bind(R.id.decoratebudget_365_individuation_price)
-    protected TextView budget365IndividuationPriceView;
-
-    @Bind(R.id.decoratebudget_365_total_price)
-    protected TextView budget365TotalPriceView;
 
     protected String[] arr_lovestyle;
     protected String[] arr_housetype;
@@ -74,15 +56,12 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
 
     private Requirement requirementInfo;
 
-    @OnClick({R.id.head_back_layout,R.id.act_edit_req_decoratebudget_365_detail})
+    @OnClick({R.id.head_back_layout})
     protected void back(View clickView) {
         int viewId = clickView.getId();
         switch (viewId) {
             case R.id.head_back_layout:
                 appManager.finishActivity(this);
-                break;
-            case R.id.act_edit_req_decoratebudget_365_detail:
-                UiHelper.intentToPackget365Detail(this);
                 break;
             default:
                 break;
@@ -99,7 +78,6 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
     public void initView() {
         mainHeadView.setMianTitle(getResources().getString(R.string.str_priview_home_req));
         mainHeadView.setRightTitleVisable(View.GONE);
-        budget365Layout.setVisibility(View.GONE);
 
         initStringArray();
     }
@@ -135,42 +113,7 @@ public class PreviewHomeRequirementActivity extends BaseSwipeBackActivity {
             act_edit_req_work_type_content.setText(TextUtils.isEmpty(requirementInfo.getWork_type()) ? "" :
                     arr_worktype[Integer.parseInt(requirementInfo.getWork_type())]);
 
-            initBudget365Layout();
         }
-    }
-
-    private void initBudget365Layout() {
-        String pageType = requirementInfo.getPackage_type();
-
-        switch (pageType){
-            case RequirementBusiness.PACKGET_DEFAULT:
-                budget365Layout.setVisibility(View.GONE);
-                budgetHighPointLayout.setVisibility(View.GONE);
-                break;
-            case RequirementBusiness.PACKGET_365:
-                budget365Layout.setVisibility(View.VISIBLE);
-                budgetHighPointLayout.setVisibility(View.GONE);
-                update365Layout();
-                break;
-            case RequirementBusiness.PACKGET_HIGH_POINT:
-                budget365Layout.setVisibility(View.GONE);
-                budgetHighPointLayout.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
-
-    private void update365Layout(){
-
-        int houseArea = requirementInfo.getHouse_area();
-        int totalPrice = requirementInfo.getTotal_price();
-        float basicPrice = (float) houseArea * RequirementBusiness.PRICE_EVERY_UNIT_365 / RequirementBusiness
-                .TEN_THOUSAND;
-
-        float individuationPrice = totalPrice - basicPrice;
-
-        budget365BasicPriceView.setText(RequirementBusiness.covertPriceToShow(basicPrice));
-        budget365TotalPriceView.setText(RequirementBusiness.covertPriceToShow(totalPrice));
-        budget365IndividuationPriceView.setText(RequirementBusiness.covertPriceToShow(individuationPrice));
     }
 
     @Override

@@ -44,8 +44,8 @@ public class RequirementBusiness {
     public static final String WORK_TYPE_ALL_PACKGET = "1";//全包
     public static final String WORK_TYPE_PURE_DESIGNER = "2";//纯设计
 
-    public static final String REQUIREMENT_DISTRICT_APPOINT = "androidApp预约设计师";
-    public static final String REQUIREMENT_DISTRICT_ADD = "androidApp提交需求";
+    public static final String REQUIREMENT_DISTRICT_APPOINT = "预约设计师";
+    public static final String REQUIREMENT_DISTRICT_ADD = "提交需求";
 
     //装修面积是否属于365基础包
     public static boolean isAreaBelong365(int houseArea) {

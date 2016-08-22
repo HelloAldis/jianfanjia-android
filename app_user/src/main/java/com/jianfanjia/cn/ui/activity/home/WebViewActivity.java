@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.jianfanjia.cn.activity.R;
+import com.jianfanjia.cn.application.MyApplication;
 import com.jianfanjia.cn.base.BaseSwipeBackActivity;
 import com.jianfanjia.cn.config.Global;
 import com.jianfanjia.cn.config.Url_New;
@@ -76,7 +77,10 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         progressWebView.getSettings().setUseWideViewPort(true);
         progressWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         progressWebView.getSettings().setLoadWithOverviewMode(true);
-        progressWebView.loadUrl(Url_New.buildUrl(this.getUrlFromIntent()));
+        progressWebView.getSettings().setUserAgentString("jua" + MyApplication.getInstance().getVersionName());
+
+        String finalUrl = Url_New.buildUrl(this.getUrlFromIntent());
+        progressWebView.loadUrl(finalUrl);
         this.javaScriptObject = new JavaScriptObject();
         this.javaScriptObject.injectIntoWebView(this.progressWebView);
 
@@ -91,6 +95,7 @@ public class WebViewActivity extends BaseSwipeBackActivity {
                 } else if (url.startsWith("http:") || url.startsWith("https:")) {
                     view.loadUrl(url);
                 }
+
                 return true;
             }
 
@@ -107,6 +112,7 @@ public class WebViewActivity extends BaseSwipeBackActivity {
         this.shareUtil = new ShareUtil(this);
 
     }
+
 
     private void initMainHeadView() {
         mainHeadView.setMianTitle(this.getWebTitle());
