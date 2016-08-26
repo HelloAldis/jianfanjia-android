@@ -270,12 +270,7 @@ public class HomeNewFragment extends BaseFragment {
     }
 
     protected void publish_requirement() {
-//            startActivity(PublishRequirementActivity.class);
         startActivity(GetFreePlanActivity.class);
-           /* Bundle bundle = new Bundle();
-            bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
-            startActivity(BindingPhoneActivity.class, bundle);
-            getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);*/
     }
 
     private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib, final
