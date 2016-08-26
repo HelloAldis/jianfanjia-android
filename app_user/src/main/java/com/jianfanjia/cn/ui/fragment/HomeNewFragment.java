@@ -55,7 +55,7 @@ import com.jianfanjia.common.tool.TDevice;
 public class HomeNewFragment extends BaseFragment {
     private static final String TAG = HomeNewFragment.class.getName();
     public static final int TOTAL_COUNT = 20;
-    private int BANNER_ICON[] = {R.mipmap.banner_home_loans, R.mipmap.bg_home_banner1,R.mipmap.bg_home_banner2};
+    private int BANNER_ICON[] = {R.mipmap.banner_home_loans, R.mipmap.bg_home_banner1, R.mipmap.bg_home_banner2};
 
     @Bind(R.id.viewPager_lib)
     protected AutoScrollViewPager scrollViewPager;
@@ -97,11 +97,11 @@ public class HomeNewFragment extends BaseFragment {
             public void onClickItem(int pos) {
                 LogTool.d("position =" + pos);
                 if (pos == 1) {
-                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SUPERVISION);
+                    WebViewActivity.intentToWebView(getUiContext(), Global.WEB_VIEW_URL_SUPERVISION);
                 } else if (pos == 0) {
-                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_CHENGDAITONG);
-                }else if(pos == 2){
-                    WebViewActivity.intentToWebView(getUiContext(),Global.WEB_VIEW_URL_SAFEGUARD);
+                    WebViewActivity.intentToWebView(getUiContext(), Global.WEB_VIEW_URL_CHENGDAITONG);
+                } else if (pos == 2) {
+                    WebViewActivity.intentToWebView(getUiContext(), Global.WEB_VIEW_URL_SAFEGUARD);
                 }
             }
         });
@@ -270,14 +270,12 @@ public class HomeNewFragment extends BaseFragment {
     }
 
     protected void publish_requirement() {
-        if (dataManager.getAccount() != null) {
 //            startActivity(PublishRequirementActivity.class);
-            startActivity(GetFreePlanActivity.class);
+        startActivity(GetFreePlanActivity.class);
            /* Bundle bundle = new Bundle();
             bundle.putInt(IntentConstant.BINDING_PHONE_INTENT, IntentConstant.BINDING_PHONE_REQUIREMENT);
             startActivity(BindingPhoneActivity.class, bundle);
             getActivity().overridePendingTransition(R.anim.slide_and_fade_in_from_bottom, R.anim.fade_out);*/
-        }
     }
 
     private void initBannerView(AutoScrollViewPager viewPager, LinearLayout indicatorGroup_lib, final
