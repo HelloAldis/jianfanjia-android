@@ -1,0 +1,328 @@
+{
+  "_id": "1",
+  "create_at": 1443196012312,
+  "house_type": "0",
+  "dec_style": "0",
+  "work_type": "0",
+  "start_at": 1444059998947,
+  "duration": 60,
+  "__v": 0,
+  "sections": [
+    {
+      "label": "开工",
+      "name": "kai_gong",
+      "_id": "56056c6cac79557e212a8098",
+      "ys": {
+        "images": []
+      },
+      "items": [
+        {
+          "label": "现场交底",
+          "name": "xcjd",
+          "_id": "56056c6cac79557e212a809e",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "石膏线测量",
+          "name": "sgxcl",
+          "_id": "56056c6cac79557e212a809d",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "木地板测量",
+          "name": "mdbcl",
+          "_id": "56056c6cac79557e212a809c",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "橱柜第一次测量",
+          "name": "cgdyccl",
+          "_id": "56056c6cac79557e212a809b",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "墙地砖面积测量",
+          "name": "qdzmjcl",
+          "_id": "56056c6cac79557e212a809a",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "开关面板数量测量",
+          "name": "kgmbslcl",
+          "_id": "56056c6cac79557e212a8099",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        }
+      ],
+      "status": "0"
+    },
+    {
+      "label": "拆改",
+      "name": "chai_gai",
+      "_id": "56056c6cac79557e212a8094",
+      "ys": {
+        "images": []
+      },
+      "items": [
+        {
+          "label": "成品保护",
+          "name": "cpbh",
+          "_id": "56056c6cac79557e212a8097",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "主体拆改",
+          "name": "ztcg",
+          "_id": "56056c6cac79557e212a8096",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "墙皮铲除",
+          "name": "qpcc",
+          "_id": "56056c6cac79557e212a8095",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        }
+      ],
+      "status": "0"
+    },
+    {
+      "label": "水电",
+      "name": "shui_dian",
+      "_id": "56056c6cac79557e212a8091",
+      "ys": {
+        "images": []
+      },
+      "items": [
+        {
+          "label": "水电施工",
+          "name": "sdsg",
+          "_id": "56056c6cac79557e212a8093",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "暖通施工",
+          "name": "ntsg",
+          "_id": "56056c6cac79557e212a8092",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        }
+      ],
+      "status": "0"
+    },
+    {
+      "label": "泥木",
+      "name": "ni_mu",
+      "_id": "56056c6cac79557e212a8089",
+      "ys": {
+        "images": []
+      },
+      "items": [
+        {
+          "label": "地面找平",
+          "name": "dmzp",
+          "_id": "56056c6cac79557e212a8090",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "吊顶施工",
+          "name": "ddsg",
+          "_id": "56056c6cac79557e212a808f",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "柜体施工",
+          "name": "gtsg",
+          "_id": "56056c6cac79557e212a808e",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "石膏线安装",
+          "name": "sgxaz",
+          "_id": "56056c6cac79557e212a808d",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "厨卫全防水施工",
+          "name": "cwqfssg",
+          "_id": "56056c6cac79557e212a808c",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "厨卫墙地砖施工",
+          "name": "cwqdzsg",
+          "_id": "56056c6cac79557e212a808b",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "客厅阳台砖施工",
+          "name": "ktytzsg",
+          "_id": "56056c6cac79557e212a808a",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        }
+      ],
+      "status": "0"
+    },
+    {
+      "label": "油漆",
+      "name": "you_qi",
+      "_id": "56056c6cac79557e212a8086",
+      "ys": {
+        "images": []
+      },
+      "items": [
+        {
+          "label": "木器漆施工",
+          "name": "mqqsg",
+          "_id": "56056c6cac79557e212a8088",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "墙面乳胶漆",
+          "name": "qmrjq",
+          "_id": "56056c6cac79557e212a8087",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        }
+      ],
+      "status": "0"
+    },
+    {
+      "label": "安装",
+      "name": "an_zhuang",
+      "_id": "56056c6cac79557e212a807b",
+      "ys": {
+        "images": []
+      },
+      "items": [
+        {
+          "label": "木地板、木门安装",
+          "name": "mdbmmaz",
+          "_id": "56056c6cac79557e212a8085",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "橱柜、水槽安装开关",
+          "name": "cgscaz",
+          "_id": "56056c6cac79557e212a8084",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "面板灯具安装",
+          "name": "mbdjaz",
+          "_id": "56056c6cac79557e212a8083",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "烟机灶具安装",
+          "name": "yjzjaz",
+          "_id": "56056c6cac79557e212a8082",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "石材安装",
+          "name": "scaz",
+          "_id": "56056c6cac79557e212a8081",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "厨卫吊顶安装",
+          "name": "cwddaz",
+          "_id": "56056c6cac79557e212a8080",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "墙面铺贴",
+          "name": "qzpt",
+          "_id": "56056c6cac79557e212a807f",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "室内整理",
+          "name": "snzl",
+          "_id": "56056c6cac79557e212a807e",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "洁具安装",
+          "name": "jjaz",
+          "_id": "56056c6cac79557e212a807d",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        },
+        {
+          "label": "五金安装",
+          "name": "wjaz",
+          "_id": "56056c6cac79557e212a807c",
+          "comments": [],
+          "images": [],
+          "status": "0"
+        }
+      ],
+      "status": "0"
+    },
+    {
+      "label": "竣工",
+      "name": "jun_gong",
+      "_id": "56056c6cac79557e212a807a",
+      "ys": {
+        "images": []
+      },
+      "items": [],
+      "status": "0"
+    }
+  ]
+}

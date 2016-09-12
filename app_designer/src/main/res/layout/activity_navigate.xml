@@ -1,0 +1,69 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font_white"
+    android:orientation="vertical">
+
+    <com.jianfanjia.cn.designer.view.MyViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <LinearLayout
+        android:id="@+id/dot_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/space_36"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/welcome_dot0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_dot_selector" />
+
+        <ImageView
+            android:layout_width="@dimen/space_4"
+            android:layout_height="@dimen/space_4"
+            android:background="@color/transparent" />
+
+        <ImageView
+            android:id="@+id/welcome_dot1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_dot_normal" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/space_120"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/dialog_button_1"
+            android:layout_width="@dimen/space_140"
+            android:text="@string/login" />
+
+        <ImageView
+            android:layout_width="@dimen/space_14"
+            android:layout_height="@dimen/space_4"
+            android:background="@color/transparent" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            style="@style/dialog_button_2"
+            android:layout_width="@dimen/space_140"
+            android:text="@string/new_user" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/act_edit_req_decoratebudget_high_point"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/light_orange_color"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/space_32"
+              android:paddingTop="@dimen/space_32"
+              android:visibility="gone">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon_req_high_point"
+        />
+
+    <TextView
+        android:id="@+id/act_edit_req_decoratebudget_high_point_title"
+        style="@style/listview_item_text_style_middle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_16"
+        android:text="@string/decoratebudget_high_point_title"
+        android:textColor="@color/font_white"/>
+
+</LinearLayout>

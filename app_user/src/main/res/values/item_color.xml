@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#edf0f1</color>
+    <color name="black">#01ada1</color>
+    <color name="back">#2c343a</color>
+    <color name="backColor">#edf0f1</color>
+    <color name="MenuTxtColor">#ff9600</color>
+    <color name="MenuTxtColor_1">#ffffff</color>
+    <color name="TxtColor">#01ada1</color>
+    <color name="TxtColor_1">#005650</color>
+    <color name="transparent_background">#00000000</color>
+    <color name="transparent_bg">#50000000</color>
+    <color name="selectColor">#F0F4D7</color>
+    <color name="activity_transparent_bg">#9000</color>
+    <color name="login_btn_bg_1">#d5a001</color>
+    <color name="login_btn_bg_2">#f2a001</color>
+
+    <!-- 营业厅详情里面的颜色设置 -->
+    <color name="office_totalpeople">#8D8D8D</color>
+    <color name="office_now">#4aabe8</color>
+    <color name="office_notdo">#f2a63e</color>
+    <color name="enterprise_total">#8a6565</color>
+    <color name="enterprise_now">#63b99e</color>
+    <color name="enterprise_notdo">#c28ac5</color>
+    <!-- 手势设置边框 -->
+    <color name="gestureborder">#C4D3D1</color>
+    <color name="gesturefont">#f2a001</color>
+    <color name="gesturelsitcolor">#ffffff</color>
+    <!-- 客户拥有产品颜色设置 -->
+    <color name="productdeposit">#CACEEA</color>
+
+    <!-- 营业员组织的底色 -->
+    <color name="assistantconstructure_bg">#0FBFB3</color>
+</resources>

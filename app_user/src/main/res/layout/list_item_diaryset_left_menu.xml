@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_diaryset_stage"
+        style="@style/listview_item_text_style_middle"
+        android:layout_height="@dimen/space_18"
+        android:drawableLeft="@mipmap/icon_circle"
+        android:drawablePadding="@dimen/space_16"
+        android:text="准备阶段"/>
+
+    <ImageView
+        android:id="@+id/iv_item_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_7"
+        android:src="@mipmap/icon_line"/>
+
+</LinearLayout>

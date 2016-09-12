@@ -1,0 +1,204 @@
+import java.util.regex.Pattern
+
+def propertyFilePath = "${project.rootProject.getRootDir().getAbsolutePath()}/gradle.properties";
+
+/**
+ * bump app version relate function and task
+ */
+
+def String bumpVersionName(String name, String type) {
+    def patternVersionNumber = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)");
+    def matcherVersionNumber = patternVersionNumber.matcher(name);
+    matcherVersionNumber.find();
+    def majorVersion = Integer.parseInt(matcherVersionNumber.group(1));
+    def minorVersion = Integer.parseInt(matcherVersionNumber.group(2));
+    def pointVersion = Integer.parseInt(matcherVersionNumber.group(3));
+    if (type.equals('a')) {
+        majorVersion = majorVersion + 1;
+        minorVersion = 0;
+        pointVersion = 0;
+    } else if (type.equals('b')) {
+        minorVersion = minorVersion + 1;
+        pointVersion = 0;
+    } else {
+        pointVersion = pointVersion + 1;
+    }
+
+    def versionName = majorVersion + '.' + minorVersion + '.' + pointVersion;
+
+    println versionName;
+    return versionName;
+}
+
+def String bumpVersionCode(String code) {
+    def newCode = Integer.parseInt(code) + 1;
+    return newCode + '';
+}
+
+def replaceValue(String text, String key, String value) {
+    def newStr = text.replaceFirst(key + '[^\\n]*\\n', key + ' = ' + value + '\n');
+
+    return newStr;
+}
+
+def String readFile(String filename) {
+    def f = file(filename);
+    return f.getText();
+}
+
+def write2File(String filename, String content) {
+    def f = file(filename);
+    f.write(content);
+}
+
+def Set getAllAssembleTask(String projectName) {
+    def p = project.findProject(projectName);
+    p.tasks.findAll {
+        task -> task.name.startsWith('archiveApk')
+    }
+}
+
+def String getPropertiesFile() {
+    return "${project.rootProject.getRootDir().getAbsolutePath()}/gradle.properties";
+}
+
+/**
+ * git relate function and task
+ */
+
+def gitTag(String appName, version) {
+    cmd("git commit -am \"update $appName build to version  $version\"");
+    cmd('git push');
+    cmd("git tag \"$appName-$version\"");
+    cmd("git push origin \"$appName-$version\"");
+}
+
+def cmd(String cmd) {
+    println "execute cmd $cmd";
+    def msg = cmd.execute().text.trim();
+    println msg;
+}
+
+/**
+ * Packer related function and task
+ */
+def String getApkNameFormat(String appName, String forceUpdate, String versionCode, String versionName) {
+    def buildType =  getCurrentBuildType();
+    if (buildType == 'release') {
+        def date = new Date().format('yyyyMMdd');
+        return "${appName}-\${flavorName}_${date}_${forceUpdate}_${versionCode}_${versionName}"
+    } else {
+        return 'pgyapp';
+    }
+}
+
+def String getApkDir(String appName, String versionName) {
+    def buildType =  getCurrentBuildType();
+    return "${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/${buildType}/${versionName}"
+}
+
+def String getLatestPgyapp(String appName){
+    def buildType =  getCurrentBuildType();
+    if(buildType.equals("release")){
+        return getLastReleasePgyapp(appName)
+    }
+    if(buildType.equals("andtest")){
+        return getLatestAndtestPgyapp(appName)
+    }
+
+}
+
+def String getLatestAndtestPgyapp(String appName) {
+    def f = new File("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest");
+    def files = f.listFiles();
+    if (files == null || files.length == 0) {
+        return null;
+    } else {
+        def array = Arrays.asList(files);
+        array.sort(new Comparator<File>() {
+            public int compare(File file1, File file2) {
+                return (int)(file1.lastModified()-file2.lastModified());
+            }
+        });
+        def latest = array.last();
+        def app = "${latest.getAbsolutePath()}/pgyapp.apk";
+        println "the lastes app is ${app}";
+        return app;
+    }
+}
+
+def String getLastReleasePgyapp(String appName){
+    def f = new File("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release");
+    def files = f.listFiles();
+    if (files == null || files.length == 0) {
+        return null;
+    } else {
+        def array = Arrays.asList(files);
+        array.sort(new Comparator<File>() {
+            public int compare(File file1, File file2) {
+                return (int)(file1.lastModified()-file2.lastModified());
+            }
+        });
+        def latestFile = array.last();
+        def lastestApkFiles = latestFile.listFiles();
+        if (lastestApkFiles == null || lastestApkFiles.length == 0) {
+            return null;
+        }else{
+            for(File lasrApk : lastestApkFiles){
+                if(lasrApk.getName().contains("Default")){
+                    def app = lasrApk.getAbsolutePath();
+                    println "the lastes app is ${app}";
+                    return app;
+                }
+            }
+        }
+    }
+}
+
+def String getCurrentBuildType() {
+    Gradle gradle = getGradle()
+    String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+
+    if (tskReqStr.toLowerCase().contains('release')) {
+        return 'release'
+    } else if (tskReqStr.toLowerCase().contains('andtest')) {
+        return 'andtest'
+    } else {
+        return 'debug'
+    }
+}
+
+/**
+ * ext function
+ */
+ext {
+    bumpVersionName = this.&bumpVersionName
+    bumpVersionCode = this.&bumpVersionCode
+    readFile = this.&readFile
+    write2File = this.&write2File
+    getAllAssembleTask = this.&getAllAssembleTask
+    replaceValue = this.&replaceValue
+    getPropertiesFile = this.&getPropertiesFile
+
+    getApkNameFormat = this.&getApkNameFormat
+    getApkDir = this.&getApkDir
+
+    gitTag = this.&gitTag;
+    getLatestPgyapp = this.&getLatestPgyapp
+}
+
+/**
+ * 业主 app 的测试和Release 命令
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_user:bumpVersion :app_user:tag :app_user:archiveApkAndTest :app_user:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_user:bumpVersion :app_user:tag :app_user:archiveApkRelease :app_user:uploadPgyer
+ *
+ *
+ * 设计师 app测试和Release 命令
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_designer:bumpVersion :app_designer:tag :app_designer:archiveApkAndTest :app_designer:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_designer:bumpVersion :app_designer:tag :app_designer:archiveApkRelease :app_designer:uploadPgyer
+ *
+ *
+ * 监理 app测试和和Release 命令
+ * Test     ./gradlew -Prtype=c -Pmarket=markets_test.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:archiveApkAndTest :app_supervisor:uploadPgyer
+ * Release  ./gradlew -Prtype=c -Pmarket=markets.txt :app_supervisor:bumpVersion :app_supervisor:tag :app_supervisor:archiveApkRelease :app_supervisor:uploadPgyer
+ */

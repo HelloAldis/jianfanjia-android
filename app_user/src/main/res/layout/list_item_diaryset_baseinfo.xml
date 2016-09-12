@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_diaryset_cover_pic"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_diary_cover"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_diaryset_head"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/tv_diaryset_update_cover"
+        style="@style/listview_item_text_style_middle"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_update_diaryset_cover"
+        android:paddingBottom="@dimen/space_4"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_4"
+        android:text="@string/str_update_cover"
+        android:textColor="@color/font_white"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:padding="@dimen/space_16"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.jianfanjia.cn.view.layout.CircleImageView
+                android:id="@+id/iv_diary_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_head"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/space_6"
+                android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6">
+
+                <TextView
+                    android:id="@+id/tv_diaryset_title"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_width="match_parent"
+                    android:layout_toLeftOf="@+id/iv_diaryset_edit"
+                    android:gravity="left"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="@string/str_cell"
+                    android:textColor="@color/font_white"
+                    android:textSize="@dimen/space_15"
+                    android:textStyle="bold"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_diaryset_edit"
+                    android:layout_width="@dimen/space_48"
+                    android:layout_height="@dimen/space_48"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="center"
+                    android:src="@mipmap/icon_edit_diary"
+                    android:tint="@color/font_white"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_diaryset_goingtime"
+                    style="@style/listview_item_text_style_middle"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/font_white"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

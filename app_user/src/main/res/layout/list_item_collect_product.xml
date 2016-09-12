@@ -1,0 +1,110 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    tools:cardBackgroundColor="@color/font_white"
+                                    tools:cardCornerRadius="0dp"
+                                    tools:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/imgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_10">
+
+        <FrameLayout
+            android:id="@+id/fl_product_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/list_item_product_img"
+                android:layout_width="match_parent"
+                android:layout_height="250dip"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_pic"/>
+
+            <LinearLayout
+                android:id="@+id/ll_delete_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/space_36"
+                    android:layout_height="@dimen/space_36"
+                    android:src="@mipmap/icon_diary_delete"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:text="@string/click_cancel_collect"
+                    android:textColor="@color/light_black_color"
+                    android:textSize="@dimen/middle_size"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_product_baseinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_product_img"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/list_item_xiaoqu_text"
+                style="@style/listview_item_text_style_middle"
+                android:layout_below="@id/list_item_product_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_10"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/list_item_produce_text"
+                style="@style/listview_item_text_style_small"
+                android:layout_below="@id/list_item_xiaoqu_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_5"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12"/>
+
+            <TextView
+                android:id="@+id/tv_worktype_and_totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/list_item_produce_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_5"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_delete_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_product_img"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/list_item_delete_tip"
+                style="@style/listview_item_text_style_middle"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/space_24"
+                android:layout_marginTop="@dimen/space_24"
+                android:text="@string/product_has_deleted"
+                android:textColor="@color/light_black_color"
+                android:textSize="@dimen/text_size_14"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

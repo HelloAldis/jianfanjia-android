@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/mainhv_diary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/space_10"
+        android:background="@color/font_white">
+
+        <LinearLayout
+            android:id="@+id/ll_choose_stage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_36"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_zhunbei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_zhunbei_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/zhun_bei"/>
+
+                <Space
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_kaigong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_kaigong_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/kai_gong"/>
+
+                <Space
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_chaigai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_chaigai_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/chai_gai"/>
+
+                <Space
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_shuidian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_shuidian_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/shui_dian"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_nimu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_nimu_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ni_mu"/>
+
+                <Space
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_youqi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_youqi_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/you_qi"/>
+
+                <Space
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_anzhuang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_anzhuang_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/an_zhuang"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_jungong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_jungong_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/jun_gong"/>
+
+                <Space
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_ruanzhuang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_ruanzhuang_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ruan_zhuang"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_24"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_ruzhu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_8"
+                    android:drawableTop="@drawable/bg_add_diary_stage_ruzhu_selector"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ru_zhu"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

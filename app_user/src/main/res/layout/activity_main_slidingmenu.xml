@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.jianfanjia.cn.view.slidingmenu.SlidingMenu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sliding="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slidingmenulayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/main_layout_bg"
+        sliding:behindOffset="@dimen/behind_offset"
+        sliding:fadeDegree="0.35"
+        sliding:shadowWidth="@dimen/shadow_width"
+        sliding:shadowDrawable="@drawable/bg_diaryset_left_menu"
+        sliding:touchModeAbove="margin"
+        sliding:touchModeBehind="margin"
+        sliding:viewAbove="@layout/activity_diaryset_main"
+        sliding:viewBehind="@layout/activity_diaryset_left" >
+    </com.jianfanjia.cn.view.slidingmenu.SlidingMenu>
+
+</RelativeLayout>

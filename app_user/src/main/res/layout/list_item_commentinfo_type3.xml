@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <include layout="@layout/include_comment_info_head"/>
+
+    <TextView
+        android:id="@+id/ltm_cominfo_content_bycomment"
+        style="@style/listview_item_text_style_middle"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/space_1"
+        android:gravity="left"
+        android:background="@color/font_white"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        android:paddingTop="@dimen/space_8"
+        android:paddingBottom="@dimen/space_8"
+        android:lineSpacingMultiplier="1.2"
+        android:textColor="@color/light_black_color"/>
+
+    <RelativeLayout
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/head_layout_bg"
+        android:padding="@dimen/space_16">
+
+        <ImageView
+            android:id="@+id/iv_diary_first_pic"
+            android:layout_width="@dimen/space_96"
+            android:layout_height="@dimen/space_96"
+            android:layout_marginRight="@dimen/space_12"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_req_di_zhonghai"/>
+
+        <TextView
+            android:id="@+id/ltm_diaryset_title"
+            style="@style/listview_item_text_style_middle"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@+id/iv_diary_first_pic"
+            android:textColor="@color/light_black_color"/>
+
+        <TextView
+            android:id="@+id/ltm_diary_baseinfo"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignLeft="@+id/ltm_diaryset_title"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_below="@+id/ltm_diaryset_title"
+            android:textColor="@color/grey_color"/>
+
+        <TextView
+            android:id="@+id/ltm_diary_content"
+            style="@style/listview_item_text_style_middle"
+            android:layout_alignLeft="@+id/ltm_diaryset_title"
+            android:layout_below="@+id/ltm_diary_baseinfo"
+            android:layout_marginTop="@dimen/space_8"
+            android:lineSpacingMultiplier="1.4"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:textColor="@color/grey_color"/>
+    </RelativeLayout>
+
+</LinearLayout>

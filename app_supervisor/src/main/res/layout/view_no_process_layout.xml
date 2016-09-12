@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/emptyPullRefreshScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/empty_contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_layout_bg">
+
+                <ImageView
+                    android:id="@+id/layout_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/process_layout_bg"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/layout_bg"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/listview_item_text_style_middle"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dip"
+                        android:text="@string/process_tip"
+                        android:textColor="@color/designer_info_text_color"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/process_tip_text"
+                        style="@style/listview_item_text_style_big"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="20dip"
+                        android:text="@string/process_tip_text"
+                        android:textColor="@color/orange_color"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.jianfanjia.cn.pulltorefresh.library.PullToRefreshScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="160dp"
+             android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="159dp"
+        android:background="@drawable/bg_diaryset_recommend_baseinfo"
+        android:padding="@dimen/space_8">
+
+        <TextView
+            android:id="@+id/tv_diaryset_title"
+            style="@style/listview_item_text_style_middle"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:text="小区名称"
+            android:textColor="@color/light_black_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_diaryset_dec"
+            style="@style/listview_item_text_style_middle"
+            android:layout_below="@+id/tv_diaryset_title"
+            android:layout_marginTop="@dimen/space_5"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:text="100平米"
+            android:textColor="@color/grey_color"
+            android:textSize="@dimen/text_size_12"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <com.jianfanjia.cn.view.layout.SquareImageView
+            android:id="@+id/iv_diaryset_cover_pic"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_diary_cover"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/space_16"
+            android:background="@drawable/bg_diaryset_list_item_like_and_view"
+            android:paddingBottom="@dimen/space_4"
+            android:paddingLeft="@dimen/space_12"
+            android:paddingRight="@dimen/space_12"
+            android:paddingTop="@dimen/space_4">
+
+            <ImageView
+                android:id="@+id/iv_view"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_12"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_diary_view"/>
+
+            <TextView
+                android:id="@+id/tv_view_count"
+                style="@style/listview_item_text_style_small"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_view"
+                android:layout_marginLeft="@dimen/space_4"
+                android:text="0"
+                android:textColor="@color/font_white"/>
+
+            <ImageView
+                android:id="@+id/iv_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_12"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_view_count"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_collect_img1"/>
+
+            <TextView
+                android:id="@+id/tv_like_count"
+                style="@style/listview_item_text_style_small"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_toRightOf="@+id/iv_collect"
+                android:text="0"
+                android:textColor="@color/font_white"
+                />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_writediary"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48"
+        android:background="@color/font_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@mipmap/icon_auth_add"
+            android:drawablePadding="@dimen/space_16"
+            android:text="@string/write_diary"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="@dimen/middle_size"
+            android:textColor="@color/orange_color"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

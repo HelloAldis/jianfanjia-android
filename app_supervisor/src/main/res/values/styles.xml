@@ -1,0 +1,146 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="Theme.Swipe.Back" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="common_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@drawable/notify_dialog_bg</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+    </style>
+
+    <!-- login activity -->
+    <style name="button_login_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/space_48</item>
+        <item name="android:background">@drawable/btn_selector_bg</item>
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:textSize">@dimen/big_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="dialog_button_ok">
+        <item name="android:textColor">@color/font_white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/btn_orange_bg</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/big_size</item>
+    </style>
+
+    <style name="dialog_button_cancel">
+        <item name="android:textColor">@color/light_black_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/btn_orange_white_bg</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textSize">@dimen/big_size</item>
+    </style>
+
+    <!-- horizontal line_style -->
+    <style name="divier_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/light_white_color</item>
+    </style>
+
+    <!-- vertical line_style -->
+    <style name="vertical_divier_line">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/light_white_color</item>
+    </style>
+
+    <style name="tab_rb_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/tab_text_color_selector</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="my_item_layout_image_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@mipmap/icon_next</item>
+    </style>
+
+    <!-- my_item_layout_text_style -->
+    <style name="my_item_layout_text_style_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- site_listview_item_text_style -->
+    <style name="listview_item_text_style_small" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/small_size</item>
+    </style>
+
+    <style name="listview_item_text_style_middle" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/middle_size</item>
+    </style>
+
+    <style name="listview_item_text_style_big" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/big_size</item>
+    </style>
+
+    <style name="listview_item_text_style_title" parent="my_item_layout_text_style_base">
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">@dimen/big_size</item>
+    </style>
+
+    <style name="listview_item_text_style_more_big" parent="my_item_layout_text_style_base">
+        <item name="android:textSize">@dimen/more_big_size</item>
+    </style>
+
+    <!-- my_item_layout_style -->
+    <style name="my_list_item_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_item_layout_height</item>
+        <item name="android:background">@drawable/my_item_layout_bg_selector</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/space_22</item>
+        <item name="android:paddingRight">@dimen/space_28</item>
+    </style>
+
+    <!-- popub_windows -->
+    <style name="popub_anim" mce_bogus="1" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/popub_slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/popub_slide_out_to_bottom</item>
+    </style>
+
+    <style name="Theme_Light_Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+</resources>

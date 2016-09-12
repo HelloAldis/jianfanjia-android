@@ -40,3 +40,6 @@ captures/
 
 #Mac file
 .DS_Store
+
+#the apks file path
+apks

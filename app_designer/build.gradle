@@ -1,0 +1,185 @@
+apply plugin: 'com.android.application'
+apply plugin: 'packer'
+apply plugin: 'org.quanqi.pgyer'
+apply from: "$rootDir/util.gradle"
+
+def appName = 'designer';
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.jianfanjia.cn.designer"
+        minSdkVersion 15
+        targetSdkVersion 23
+
+        versionCode Integer.parseInt(APP_DESIGNER_VERSION_CODE)
+        versionName APP_DESIGNER_VERSION_NAME
+
+        // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+//        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
+    }
+    //签名
+    signingConfigs {
+        relealse {
+            storeFile file("jianfanjia.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "jianfanjia"
+            keyPassword KEY_PASSWORD
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file("lint.xml")
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            minifyEnabled true
+
+            buildConfigField("String", "SERVER_URL", DEV_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", DEV_MOBILE_SERVER_URL)
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID: "Ec5Iv1QTPz9pBk2ZYFebd", GETUI_PUSH_APPKEY: "1zvknC2OFL6mUlWch6tcb3",
+                                    GETUI_PUSH_APPSECRET: "cvNcATrYoo717R8milqyn7"
+            ]
+        }
+
+        release {
+            minifyEnabled true
+
+            buildConfigField("String", "SERVER_URL", RELEASE_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", RELEASE_MOBILE_SERVER_URL)
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+            manifestPlaceholders = [GETUI_PUSH_APPID: "tE9LwxEKvxACImev1VLiCA", GETUI_PUSH_APPKEY: "5pOVHYbLcS6GrWsp0CTwK3",
+                                    GETUI_PUSH_APPSECRET: "qX6mtXErCJ7I5ADTLW8P85"]
+        }
+        andtest {
+            minifyEnabled true
+            debuggable true
+
+            buildConfigField("String", "SERVER_URL", TEST_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", TEST_MOBILE_SERVER_URL)
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID: "s7Et91ZLPu8KRwBEtY4AZ8", GETUI_PUSH_APPKEY: "8BTWfBSMYM95oFpDOwGYu5",
+                                    GETUI_PUSH_APPSECRET: "QbclEVLgAIA6iWblkTjyD4"]
+        }
+    }
+    sourceSets {
+        /*main {
+            jniLibs.srcDirs = ['libs']
+        }*/
+    }
+}
+
+dependencies {
+    // compile 'com.mcxiaoke.gradle:packer-helper:1.0.4'
+
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile project(':hud')
+    compile project(':api')
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:support-v4:23.2.0'
+    compile 'com.android.support:cardview-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.baoyz.swipemenulistview:library:1.3.0'
+//    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile files('libs/httpmime-4.1.3.jar')
+    compile 'de.greenrobot:eventbus:2.4.0'
+    //    compile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    compile files('libs/SocialSDK_WeiXin_1.jar')
+    compile files('libs/SocialSDK_WeiXin_2.jar')
+    compile files('libs/umeng_social_sdk.jar')
+    compile files('libs/SocialSDK_QQZone_1.jar')
+    compile files('libs/SocialSDK_QQZone_2.jar')
+    compile files('libs/SocialSDK_QQZone_3.jar')
+    compile files('libs/SocialSDK_Sina.jar')
+    compile files('libs/httpmime-4.1.3.jar')
+    compile files('libs/SocialSDK_AtFriends.jar')
+    compile project(':photopicker')
+    compile project(':imageshow')
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile files('libs/GetuiSDK2.8.1.0.jar')
+    compile project(':pulltorefresh')
+    compile 'com.yalantis:ucrop:1.2.1'
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile project(':anim_photoview')
+}
+
+packer {
+    manifestMatcher = ['UMENG_CHANNEL']
+    archiveNameFormat = getApkNameFormat(appName, APP_DESIGNER_FORCE_UPDATE, APP_DESIGNER_VERSION_CODE, APP_DESIGNER_VERSION_NAME)
+    archiveOutput = file(getApkDir(appName, APP_DESIGNER_VERSION_NAME));
+}
+
+task bumpVersion {
+    doLast {
+        println 'start to update designer user version'
+        def newVersionName = bumpVersionName(APP_DESIGNER_VERSION_NAME, rtype);
+        def newVersionCode = bumpVersionCode(APP_DESIGNER_VERSION_CODE);
+        def fileContent = readFile(getPropertiesFile());
+        def newContent = replaceValue(fileContent, 'APP_DESIGNER_VERSION_NAME', newVersionName);
+        newContent = replaceValue(newContent, 'APP_DESIGNER_VERSION_CODE', newVersionCode);
+        write2File(getPropertiesFile(), newContent);
+        println 'start to update designer user version'
+    }
+}
+bumpVersion.shouldRunAfter {
+    getAllAssembleTask(':app_designer');
+}
+
+task tag() {
+    doLast {
+        gitTag(appName, APP_DESIGNER_VERSION_NAME);
+    }
+}
+tag.shouldRunAfter(bumpVersion);
+
+
+pgyer {
+    _api_key = PGY_API_KEY
+    uKey = PGY_UKEY
+}
+task configPgy() {
+    doLast {
+        apks {
+            andtest {
+                def app = getLatestPgyapp(appName);
+                if (app != null) {
+                    sourceFile = file(app);
+                }
+            }
+        }
+    }
+}
+/*task configReleasePgy() {
+    doLast {
+        apks {
+            release {
+//                def app = getLastReleasePgyapp(appName);
+//                if (app != null) {
+                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release/2.8.10/designer-Default_20160607_0_100_2.8.10.apk")
+//                }
+            }
+        }
+    }
+}*/
+tasks.uploadPgyer.dependsOn(configPgy);
+tasks.uploadPgyer.shouldRunAfter(tag);

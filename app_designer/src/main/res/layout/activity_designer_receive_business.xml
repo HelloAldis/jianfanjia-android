@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:orientation="vertical">
+
+    <com.jianfanjia.cn.designer.view.MainHeadView
+        android:id="@+id/receive_business_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/space_100"
+        android:paddingTop="@dimen/space_10">
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_dectype"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_dectype_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_decoratetype"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_dectype_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_dectype_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_choose"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_work_type"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_work_type_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_work_type"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_work_type_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_work_type_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:hint="@string/please_choose"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_lovestyle"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_lovestyle_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_dec_goodatstyle"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_lovestyle_title_tip"
+                style="@style/style_edit_req_title"
+                android:layout_toRightOf="@+id/act_edit_req_lovestyle_title"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_alignBottom="@+id/act_edit_req_lovestyle_title"
+                android:text="@string/all_more_three"
+                android:textSize="@dimen/small_size"
+                android:textColor="@color/middle_grey_color"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_lovestyle_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_lovestyle_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/act_edit_req_lovestyle_title_tip"
+                android:hint="@string/please_choose"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_10"
+            />
+
+        <RelativeLayout
+            android:id="@+id/act_edit_req_district"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/act_edit_req_district_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_receive_district"/>
+
+
+            <ImageView
+                android:id="@+id/act_edit_req_district_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/act_edit_req_district_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/act_edit_req_district_title"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:layout_marginLeft="@dimen/space_8"
+                android:hint="@string/please_choose"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/receive_business_housetype_layout"
+            style="@style/my_list_item_layout_style"
+          >
+
+            <TextView
+                android:id="@+id/receive_business_housetype_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_receive_business_housetype"/>
+
+
+            <ImageView
+                android:id="@+id/receive_business_housetype_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/receive_business_housetype_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/receive_business_housetype_title"
+                android:hint="@string/please_choose"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/receive_business_design_fee_layout"
+            style="@style/my_list_item_layout_style"
+           >
+
+            <TextView
+                android:id="@+id/receive_business_design_fee_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_receive_business_design_fee"/>
+
+            <ImageView
+                android:id="@+id/receive_business_design_fee_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/receive_business_design_fee_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:hint="@string/please_choose"
+                android:singleLine="true"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/receive_business_work_fee_layout"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/receive_business_work_fee_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/str_receive_business_work_fee"/>
+
+            <ImageView
+                android:id="@+id/receive_business_work_fee_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/receive_business_work_fee_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:hint="@string/please_choose"
+                android:singleLine="true"/>
+
+        </RelativeLayout>
+
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+        <RelativeLayout
+            android:id="@+id/receive_business_communication_style_layout"
+            style="@style/my_list_item_layout_style"
+            >
+
+            <TextView
+                android:id="@+id/receive_business_communication_title"
+                style="@style/style_edit_req_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/receive_business_communication"/>
+
+            <ImageView
+                android:id="@+id/receive_business_communication_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_next"/>
+
+            <TextView
+                android:id="@+id/receive_business_communication_content"
+                style="@style/style_edit_req_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:ellipsize="end"
+                android:hint="@string/please_choose"
+                android:singleLine="true"/>
+
+        </RelativeLayout>
+
+        <View
+            style="@style/divier_line"
+            android:background="@color/horzontal_line_color"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

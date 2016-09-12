@@ -1,0 +1,194 @@
+apply plugin: 'com.android.application'
+apply plugin: 'packer'
+apply plugin: 'org.quanqi.pgyer'
+apply from: "$rootDir/util.gradle"
+
+def appName = 'jianfanjia';
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.jianfanjia.cn.activity"
+        minSdkVersion 15
+        targetSdkVersion 21
+
+        versionCode Integer.parseInt(APP_USER_VERSION_CODE)
+        versionName APP_USER_VERSION_NAME
+
+        // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+//        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
+    }
+    //签名
+    signingConfigs {
+        relealse {
+            storeFile file("jianfanjia.keystore")
+            storePassword KEYSTORE_PASSWORD
+            keyAlias "jianfanjia"
+            keyPassword KEY_PASSWORD
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file("lint.xml")
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'//// butterknife
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            minifyEnabled true
+            buildConfigField("String", "SERVER_URL", DEV_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", DEV_MOBILE_SERVER_URL)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID    : "t9nLEYqbWI7HUX2QkE79v2", GETUI_PUSH_APPKEY: "m2fZOPk3fy5pgq6szkabb7",
+                                    GETUI_PUSH_APPSECRET: "cO8DCexdK69ug14SeeIbg7"]
+        }
+
+        release {
+            buildConfigField("String", "SERVER_URL", RELEASE_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", RELEASE_MOBILE_SERVER_URL)
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+            manifestPlaceholders = [GETUI_PUSH_APPID    : "YZV748rCe89l8CfZ7dtIF9", GETUI_PUSH_APPKEY: "8GJ1XgPOL9ArriE8xOJDK8",
+                                    GETUI_PUSH_APPSECRET: "sJtpmFxS0a5sA30Au3iI36"]
+        }
+
+        andtest {
+            buildConfigField("String", "SERVER_URL", TEST_SERVER_URL)
+            buildConfigField("String", "MOBILE_SERVER_URL", TEST_MOBILE_SERVER_URL)
+            debuggable true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.relealse
+
+            manifestPlaceholders = [GETUI_PUSH_APPID    : "SLKdGK8YIr9wns6NPEL8v8", GETUI_PUSH_APPKEY: "O3oCpGEAVp7NjP67JbMPt5",
+                                    GETUI_PUSH_APPSECRET: "MM8Ybygbsz7EUvMoNpkHd5"]
+        }
+    }
+
+    sourceSets {
+        /*main {
+            jniLibs.srcDirs = ['libs']
+        }*/
+    }
+}
+
+dependencies {
+    //  compile 'com.mcxiaoke.gradle:packer-helper:1.0.4'
+    compile project(':hud')
+    compile project(':api')
+    compile project(':photopicker')
+    compile project(':anim_photoview')
+    compile project(':pulltorefresh')
+    compile project(':imageshow')
+    compile project(':viewpager_indicator')
+
+    compile files('libs/SocialSDK_WeiXin_1.jar')
+    compile files('libs/SocialSDK_WeiXin_2.jar')
+    compile files('libs/umeng_social_sdk.jar')
+    compile files('libs/SocialSDK_QQZone_1.jar')
+    compile files('libs/SocialSDK_QQZone_2.jar')
+    compile files('libs/SocialSDK_QQZone_3.jar')
+    compile files('libs/SocialSDK_Sina.jar')
+    compile files('libs/httpmime-4.1.3.jar')
+    compile files('libs/SocialSDK_AtFriends.jar')
+    compile 'com.nineoldandroids:library:2.4.0'
+    //debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.yalantis:ucrop:1.2.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile files('libs/GetuiSDK2.8.1.0.jar')
+    compile 'com.makeramen:roundedimageview:2.2.1'
+
+}
+
+packer {
+    manifestMatcher = ['UMENG_CHANNEL']
+    archiveNameFormat = getApkNameFormat(appName, APP_USER_FORCE_UPDATE, APP_USER_VERSION_CODE, APP_USER_VERSION_NAME)
+    archiveOutput = file(getApkDir(appName, APP_USER_VERSION_NAME));
+}
+
+task test1 {
+    doLast {
+//        println getApkDir(appName, APP_USER_VERSION_NAME);
+//        println getApkName(appName, APP_USER_FORCE_UPDATE, APP_USER_VERSION_CODE, APP_USER_VERSION_NAME)
+//        println variant.name.capitalize();
+        println getLatestPgyapp(appName);
+    }
+}
+
+task bumpVersion {
+    doLast {
+        println 'start to update app user version'
+        def newVersionName = bumpVersionName(APP_USER_VERSION_NAME, rtype);
+        def newVersionCode = bumpVersionCode(APP_USER_VERSION_CODE);
+        def fileContent = readFile(getPropertiesFile());
+        def newContent = replaceValue(fileContent, 'APP_USER_VERSION_NAME', newVersionName);
+        newContent = replaceValue(newContent, 'APP_USER_VERSION_CODE', newVersionCode);
+        write2File(getPropertiesFile(), newContent);
+        println 'end update app user version'
+    }
+}
+bumpVersion.shouldRunAfter {
+    getAllAssembleTask(':app_user');
+}
+
+task tag() {
+    doLast {
+        gitTag(appName, APP_USER_VERSION_NAME);
+    }
+}
+tag.shouldRunAfter(bumpVersion);
+
+pgyer {
+    _api_key = PGY_API_KEY
+    uKey = PGY_UKEY
+}
+
+task configPgy() {
+    doLast {
+        apks {
+            andtest {
+                def app = getLatestPgyapp(appName);
+                if (app != null) {
+                    sourceFile = file(app);
+//                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/andtest/2.9.0/pgyapp.apk")
+                }
+            }
+        }
+    }
+}
+
+/*task configReleasePgy() {
+    doLast {
+        apks {
+            andtest {
+//                def app = getLastReleasePgyapp(appName);
+//                if (app != null) {
+                    sourceFile = file("${project.rootProject.getRootDir().getAbsolutePath()}/apks/${appName}/release/2.8.5/jianfanjia-Default_20160607_0_94_2.8.5.apk")
+//                }
+            }
+        }
+    }
+}*/
+tasks.uploadPgyer.dependsOn(configPgy);
+tasks.uploadPgyer.shouldRunAfter(tag);

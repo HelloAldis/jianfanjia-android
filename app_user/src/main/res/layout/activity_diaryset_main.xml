@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/main_layout_bg"
+             android:fitsSystemWindows="true"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/diary_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_head_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_48">
+
+            <RelativeLayout
+                android:id="@+id/head_back_layout"
+                android:layout_width="@dimen/space_60"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                >
+
+                <ImageView
+                    android:id="@+id/head_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:background="@mipmap/icon_register_back"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/toolbar_collect_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/space_12">
+
+                    <ImageView
+                        android:id="@+id/toolbar_collect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/space_6"
+                        android:background="@drawable/icon_collect_bg"/>
+
+                    <TextView
+                        android:id="@+id/tv_like_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/toolbar_collect"
+                        android:text="0"
+                        android:textColor="@color/font_white"
+                        android:textSize="@dimen/middle_size"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/share_layout"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/space_10">
+
+                    <ImageView
+                        android:id="@+id/toolbar_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/space_10"
+                        android:background="@mipmap/icon_share2"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_writediary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:background="@color/font_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@mipmap/icon_auth_add"
+                    android:drawablePadding="@dimen/space_16"
+                    android:gravity="center_vertical"
+                    android:text="@string/write_diary"
+                    android:textColor="@color/orange_color"
+                    android:textSize="@dimen/middle_size"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+            <View style="@style/divier_line"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_menu_open_or_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="@dimen/space_36"
+        android:layout_marginLeft="@dimen/space_24"
+        android:src="@mipmap/icon_navigation"/>
+
+</FrameLayout>

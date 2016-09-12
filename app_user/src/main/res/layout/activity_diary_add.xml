@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/main_layout_bg"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <com.jianfanjia.cn.view.MainHeadView
+        android:id="@+id/mainhv_diary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10"
+        android:background="@color/font_white"
+        android:orientation="vertical"
+        android:padding="@dimen/space_16">
+
+        <EditText
+            android:id="@+id/et_add_diary_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top|left"
+            android:hint="@string/tip_input_diary"
+            android:lineSpacingMultiplier="1.2"
+            android:lines="6"
+            android:maxLines="6"
+            android:textColor="@color/light_black_color"
+            android:textSize="@dimen/middle_size"/>
+
+        <com.jianfanjia.cn.view.gridview.MyGridView
+            android:id="@+id/gv_add_diary_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@drawable/grid_item_selector"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_10"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_add_diary_dec_stage"
+        style="@style/my_list_item_layout_style"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/tv_add_diary_dec_stage_title"
+            style="@style/style_edit_req_title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/str_decorate_stage"/>
+
+        <ImageView
+            android:id="@+id/act_edit_req_lovestyle_goto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_next"/>
+
+        <TextView
+            android:id="@+id/tv_add_diary_dec_stage_content"
+            style="@style/style_edit_req_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:hint="@string/please_choose"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/divier_line"
+        android:background="@color/horzontal_line_color"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_add_diary_now_diaryset"
+        style="@style/my_list_item_layout_style"
+        >
+
+        <TextView
+            android:id="@+id/tv_add_diary_now_diaryset_title"
+            style="@style/style_edit_req_title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/str_now_diaryset"/>
+
+
+        <ImageView
+            android:id="@+id/iv_add_diary_now_diaryset_goto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_next"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_add_diary_now_diaryset_content"
+            style="@style/style_edit_req_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_toRightOf="@+id/tv_add_diary_now_diaryset_title"
+            android:ellipsize="end"
+            android:hint="@string/please_choose"
+            android:singleLine="true"
+            android:textColor="@color/orange_color"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

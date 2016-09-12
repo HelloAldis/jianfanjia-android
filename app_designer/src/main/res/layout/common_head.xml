@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/head_layout_bg"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/main_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_48">
+
+        <RelativeLayout
+            android:id="@+id/head_back_layout"
+            android:layout_width="@dimen/space_60"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_head_back_bg_selector">
+
+            <ImageView
+                android:id="@+id/head_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_20"
+                android:src="@mipmap/icon_register_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/head_center_title"
+            style="@style/listview_item_text_style_big"
+            android:layout_centerInParent="true"
+            android:maxEms="10"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/light_black_color" />
+
+        <TextView
+            android:id="@+id/head_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_head_back_bg_selector"
+            android:gravity="center"
+            android:paddingLeft="@dimen/space_18"
+            android:paddingRight="@dimen/space_18"
+            android:textColor="@color/orange_color"
+            android:textSize="@dimen/middle_size" />
+
+        <View
+            android:id="@+id/head_divier"
+            style="@style/divier_line"
+            android:layout_alignParentBottom="true"
+            android:background="@color/horzontal_line_color" />
+    </RelativeLayout>
+
+</FrameLayout>

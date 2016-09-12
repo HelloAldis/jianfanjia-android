@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/font_white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_diary_detail_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/space_16"
+        android:paddingLeft="@dimen/space_16"
+        android:paddingRight="@dimen/space_16"
+        >
+
+        <RelativeLayout
+            android:id="@+id/ll_diaryset_baseinfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_48"
+            >
+
+            <TextView
+                android:id="@+id/ltm_diary_stage"
+                style="@style/listview_item_text_style_middle"
+                android:text="@string/kai_gong"
+                android:textColor="@color/light_black_color"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/space_16"/>
+
+            <TextView
+                android:id="@+id/ltm_diary_goingtime"
+                style="@style/listview_item_text_style_middle"
+                android:layout_alignBaseline="@+id/ltm_diary_stage"
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_toRightOf="@+id/ltm_diary_stage"
+                android:text="3分钟前"
+                android:textColor="@color/light_black_color"/>
+
+            <TextView
+                android:id="@+id/ltm_diary_delte"
+                style="@style/listview_item_text_style_middle"
+                android:layout_alignParentRight="true"
+                android:text="@string/str_delete"
+                android:layout_height="@dimen/space_60"
+                android:layout_width="match_parent"
+                android:gravity="top|right"
+                android:paddingTop="@dimen/space_16"
+                android:textColor="@color/blue_color"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/ltm_diary_content"
+            style="@style/listview_item_text_style_middle"
+            android:layout_width="match_parent"
+            android:gravity="left"
+            android:lineSpacingMultiplier="1.5"
+            android:text="这个装修效果真的不错，我很喜欢"/>
+
+        <ImageView
+            android:id="@+id/iv_diary_single_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/space_16"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_home_banner1"
+            android:visibility="gone"/>
+
+        <GridLayout
+            android:id="@+id/gl_diary_multiple_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:clickable="false"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3"
+            android:useDefaultMargins="false"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+            <ImageView
+                style="@style/listViewMultiImageView"
+                android:src="@mipmap/bg_home_banner1"/>
+
+        </GridLayout>
+    </LinearLayout>
+
+    <include layout="@layout/include_favorite_and_comment"/>
+
+</LinearLayout>
